@@ -1,0 +1,71 @@
+#!/bin/bash
+ . $include_modpatch
+ echo "-- Applying 'caller id reverse lookup' patch ..."
+
+for DIR in ${OEMLIST}; do
+ if [ -d "${1}/usr/www/${DIR}" ]; then
+  if [ "$DIR" = "avme" ] ; then
+   html="$avm_Lang/html"
+  else
+   html="html"
+  fi
+  DIRI="${1}/usr/www/${DIR}/$html/$avm_Lang/home" 
+  FILE="foncalls.js"
+  if ! [ -f "$DIRI/$FILE" ]; then
+   DIRI="${1}/usr/www/${DIR}/$html/$avm_Lang/fon"
+  fi
+  if  [ -f "$DIRI/$FILE" ]; then
+   if ! `cat $DIRI/$FILE | grep -q "www.dasoertliche.de"` ; then
+    echo2 "-- Patching file:"
+    echo2 "      /usr/www/${DIR}/$html/avm_Lang/fon/$FILE"
+    # this section just changes the formating of the foncallpage, only needed on old versions
+    if [ ${AVM_V_MINOR} -lt 44 ]; then
+	sed -i -e "s/#tClient {height: 12px; font-size: 12px; width: 518px;/#tClient {height: 12px; font-size: 11px; width: 522px;/" "$DIRI/$FILE"
+	sed -i -e "s/#tClient .c1 {text-align: left; width:20px;}/#tClient .c1 {text-align: left; width:14px;}/" "$DIRI/$FILE"
+	sed -i -e "s/#tClient .c3 {text-align: left; width:<? if lte \$var:AbCount 1 \`110px\` \`80px\` ?>;}/#tClient .c3 {text-align: left; width:<? if lte \$var:AbCount 1 \`102px\` \`72px\` ?>;}/" "$DIRI/$FILE"
+	sed -i -e "s/#tClient .c5 {text-align: left; width:75px;/#tClient .c5 {text-align: center; width:68px;/" "$DIRI/$FILE"
+	sed -i -e "s/#tClient .c6 {text-align: right; width:35px;}/#tClient .c6 {text-align: center; width:33px;}/" "$DIRI/$FILE"
+	sed -i -e "s/#tClient .c7 {text-align: left; width:<? if lte \$var:AbCount 1 \`136px\` \`127px\` ?>;}/#tClient .c7 {text-align: left; width:<? if lte \$var:AbCount 1 \`110px\` \`103px\` ?>;}/" "$DIRI/$FILE"
+	sed -i -e "s/#tClient .c8 {text-align: left; width:<? if lte \$var:AbCount 1 \`151px\` \`115px\` ?>;}/#tClient .c8 {text-align: left; width:<? if lte \$var:AbCount 1 \`180px\` \`165px\` ?>;}/" "$DIRI/$FILE"
+	sed -i -e "s/#tClient .c9 {text-align: center; width: 34px;}/#tClient .c9 {text-align: center; width: 32px;}/" "$DIRI/$FILE"
+    fi
+    if [ ${AVM_V_MINOR} -lt 26 ]; then
+ 	sed -i -e "s/#tClient .c1 {text-align: left; width:20px;}/#tClient .c1 {text-align: left; width:18px;}/" "$DIRI/$FILE"
+	sed -i -e "s/#tClient .c3 {text-align: left; width:<? if lte \$var:AbCount 1 \`110px\` \`80px\` ?>;}/#tClient .c3 {text-align: left; width:<? if lte \$var:AbCount 1 \`110px\` \`78px\` ?>;}/" "$DIRI/$FILE"
+	sed -i -e "s/#tClient .c5 {text-align: left; width:75px; <? if lte \$var:AbCount 1 \`display:none;\` ?>}/#tClient .c5 {text-align: left; width:73px; <? if lte \$var:AbCount 1 \`display:none;\` ?>}/" "$DIRI/$FILE"
+	sed -i -e "s/#tClient .c6 {text-align: right; width:35px;}/#tClient .c6 {text-align: right; width:34px;}/" "$DIRI/$FILE"
+	sed -i -e "s/#tClient .c7 {text-align: left; width:<? if lte \$var:AbCount 1 \`120px\` \`111px\` ?>;}/#tClient .c7 {text-align: left; width:<? if lte \$var:AbCount 1 \`120px\` \`102px\` ?>;}/" "$DIRI/$FILE"
+	sed -i -e "s/#tClient .c8 {text-align: left; width:<? if lte \$var:AbCount 1 \`161px\` \`125px\` ?>;}/#tClient .c8 {text-align: left; width:<? if lte \$var:AbCount 1 \`161px\` \`142px\` ?>;}/" "$DIRI/$FILE"
+   fi
+    #all versions 
+    sed -i -e 's|Callno.gif\\"|Callno.gif\\" style=\\"vertical-align:text-top\\"|' "$DIRI/$FILE"
+    #creating actual call
+    sed -i -e 's|function uiNummerDisplay|function uiRufnummerInfo (nr) {\
+    return "<a href=\\"http://www.dasoertliche.de/Controller?form_name=search_inv\&ph=$(urlencode "+nr+")\\" target=\\"_blank\\" title=\\"Rückwärtssuche bei dasoertliche.de nach "+nr+"\\"><img src=\\"../html/<? echo $var:lang ?>/images/bearbeiten.gif\\" style=\\"vertical-align:text-top\\"></a>";\n}\
+function uiNummerDisplay|' "$DIRI/$FILE"
+
+
+    # function uiNummerDisplay 
+    # line nr 5
+    sed -i -e 's|return g_txtUnbekannt|return g_sym0 + g_txtUnbekannt|' "$DIRI/$FILE"
+    # line nr 7
+    sed -i -e 's|return span(buchname)|return g_sym0 + span(buchname)|' "$DIRI/$FILE"
+    # line nr 7 neu version
+    sed -i -e 's|return span(buchtryinfo)|return g_sym0 + span(buchtryinfo)|' "$DIRI/$FILE"
+    # line nr 3
+    sed -i -e 's|if (buchname == "") return "<nobr><a href|if (buchname == "") return "<nobr>" + "<a href|' "$DIRI/$FILE"
+    # line nr 10
+    sed -i -e 's|"<a href=\\"javascript:Dial(|uiRufnummerInfo(nr) + "<a href=\\"javascript:Dial(|' "$DIRI/$FILE" 
+    # line nr 12  
+    sed -i -e 's|return "<nobr><a href|return "<nobr>" +  g_sym0 + "<a href|' "$DIRI/$FILE"
+    # line nr 14
+    sed -i -e 's|return span(buchname==""|return (buchname=="" ? uiRufnummerInfo(nr):g_sym0) + span(buchname==""|' "$DIRI/$FILE"
+
+   fi
+    #convert to ut-8 if AVM Firmware is ut-8
+    `cat ${1}/usr/www/${DIR}/$html/index.html | grep -q 'charset=utf-8' ` && sed -i -e 's|Rückwärtssuche|RÃ¼ckwÃ¤rtssuche|' "$DIRI/$FILE"
+  fi
+ fi
+done
+
+exit 0

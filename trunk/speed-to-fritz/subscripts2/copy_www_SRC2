@@ -1,0 +1,26 @@
+#!/bin/bash
+ . $include_modpatch
+# copy www directory of second source
+for DIR in $3; do
+ if [ "$DIR" = "avme" ] ; then
+  html="$avm_Lang/html"
+ else
+  html="html"
+ fi
+# copy missing files if not existent
+echo "   ------------------WEBGUI from source 3 is in use!--------------------"
+
+ #second sorce for webgeui is used
+ if [ -d "${2}/usr/www/${DIR}" ]; then
+ echo2 "-- Copy /FBDIR2/usr/www/${DIR} -> /FBDIR/usr/www/${DIR}"
+     ln -sf /var/tmp/nohup.out "${1}"/nohup.out
+     rm -fdr "${1}"/usr/www/*
+     cp -dpr "${2}"/usr/www    --target-directory="${1}"/usr
+     cp -fpr  "${2}"/etc/htmltext*  --target-directory="${1}"/etc
+#     cp -fdrp "${2}"/usr/bin/ctlmgr --target-directory="${1}"/usr/bin
+#     cp -fdrp "${2}"/usr/share/ctlmgr --target-directory="${1}"/usr/share
+
+ fi
+done
+
+exit 0

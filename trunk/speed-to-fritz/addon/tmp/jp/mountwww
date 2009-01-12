@@ -1,0 +1,21 @@
+#!/bin/sh
+modprobe ext2
+mkdir -p /var/media/ftp/MD
+chmod 777 /var/media/ftp/MD
+mount -t ext2 /dev/sda1 /var/media/ftp/MD -rw
+mount -o bind /var/media/ftp/MD/www /usr/www
+
+#echo "Mount www Directory on  USB Stick mit Linux Partition as www Directory. Press 'ENTER' ..."
+#while !(read -s);do
+#	sleep 1
+#done
+
+exit 0
+ftp uebers menu ausschalten
+mountwww
+umountftp
+startftp
+mountwww (fehlermeldung normal)
+ftp uebersmenue einschalten
+
+damit ftpzugiff funktionirt weis noch nicht warum, muss erst suchen woran es liegt

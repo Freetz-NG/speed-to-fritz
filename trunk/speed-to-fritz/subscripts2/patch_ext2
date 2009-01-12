@@ -1,0 +1,80 @@
+#!/bin/bash
+ . $include_modpatch
+# ls "${SRC}"/lib/modules
+if [ $FBMOD = "7270"  ]; then
+KVersion="2.6.19.2"
+
+[ -d "${SRC}"/lib/modules/$KVersion/kernel/fs/ext2 ] || mkdir "${SRC}"/lib/modules/$KVersion/kernel/fs/ext2
+[ -f "${SRC}"/lib/modules/$KVersion/kernel/fs/ext2/ext2.ko ] || cp -fdrp "${DST}"/lib/modules/$KVersion/kernel/fs/ext2/ext2.ko --target-directory="${SRC}"/lib/modules/$KVersion/kernel/fs/ext2
+[ -f "${SRC}"/lib/modules/$KVersion/kernel/fs/mbcache.ko ] || cp -fdrp "${DST}"/lib/modules/$KVersion/kernel/fs/mbcache.ko --target-directory="${SRC}"/lib/modules/$KVersion/kernel/fs
+fi
+
+if [ ! -e "${1}"/etc/hotplug/storage ]; then
+    exit 0
+fi
+echo "/lib/modules/$KVersion/kernel/fs/ext2/ext2.ko: /lib/modules/$KVersion/kernel/fs/mbcache.ko" >>"${SRC}"/lib/modules/$KVersion/modules.dep
+
+echo2 "-- patch etx2 settings"
+echo2 "      /etc/hotplug/storage"
+
+
+sed -i -e 's|modprobe vfat|modprobe vfat\
+echo "mount ext2 ------------------------"\
+modprobe etx2\
+modprobe etx3\
+|' "${1}"/etc/hotplug/storage
+
+sed -i -e 's|rmmod vfat|rmmod vfat\
+rmmod etx3\
+rmmod etx2\
+|' "${1}"/etc/hotplug/storage
+
+#sed -i -e 's|wait4exist /proc/scsi/usb-storage 5|wait4exist /proc/scsi/usb-storage 10|' "${1}"/etc/hotplug/storage
+
+
+if [ ! -e "${1}"/etc/hotplug/run_mount ]; then
+    exit 0
+fi
+
+
+echo2 "      /etc/hotplug/run_mount"
+
+#sed -i -e 's/echo "$NAME-$2$PARTHEX"/echo "uStor$2$3"/' "${1}"/etc/hotplug/run_mount
+
+sed -i -e "s/if mount -t vfat.*$/if mount_fs; then/" "${1}"/etc/hotplug/run_mount
+
+sed -i -e '/test -f .etc.hotplug.rc.usbsema/a\
+modprobe etx2\
+mount_fs () {\
+if [ -e /usr/bin/fstyp ]; then\
+FSTYPE=`/usr/bin/fstyp $DEVNODE`\
+else\
+FSTYPE="vfat"\
+fi\
+case $FSTYPE in\
+vfat)\
+mount -t vfat -o $READMODE,shortname=winnt,uid=$FTPUID,gid=$FTPGID,fmask=0000,dmask=0000 $DEVNODE $MNTPATH\
+;;\
+ext2)\
+mount -t ext2 $DEVNODE $MNTPATH -o noatime,nodiratime,rw,async\
+;;\
+ext3)\
+mount -t ext3 $DEVNODE $MNTPATH -o noatime,nodiratime,rw,async\
+;;\
+ntfs)\
+if [ -e /usr/bin/ntfs-3g ]; then\
+/usr/bin/ntfs-3g $DEVNODE $MNTPATH -o force\
+else\
+echo "ntfs-3g not installed"\
+fi\
+;;\
+*) # fs type unknown\
+;;\
+esac\
+}' "${1}"/etc/hotplug/run_mount
+
+exit 0
+
+#chmod 755 $FTPDIR
+
+#if mount -t vfat -o $READMODE,shortname=winnt,uid=$FTPUID,gid=$FTPGID $DEVNODE $MNTPATH; then 

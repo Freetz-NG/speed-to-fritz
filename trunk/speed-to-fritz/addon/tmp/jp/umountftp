@@ -1,0 +1,6 @@
+#!/bin/sh
+umount  /var/media/ftp/MD
+
+
+
+exit 0

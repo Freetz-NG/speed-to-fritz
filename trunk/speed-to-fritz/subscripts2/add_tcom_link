@@ -1,0 +1,24 @@
+#!/bin/bash
+ . $include_modpatch
+	
+echo "-- Make link's..."
+
+#[ -d "${1}/usr/www/tcom" ] && rm -rf "${1}/usr/www/tcom"
+
+#[ ! -L "${1}/usr/www/tcom" ] && ln -s /usr/www/$lnk "${1}/usr/www/tcom"
+[ ! -L "${1}/etc/default.${CONFIG_PRODUKT}/tcom" ] && ln -s /etc/default.${CONFIG_PRODUKT}/${OEMLINK} "${1}/etc/default.${CONFIG_PRODUKT}/tcom"
+
+
+DIRI="$1/etc/default.${CONFIG_PRODUKT}" 
+if [ -d ${DIRI} ]; then
+    for DIR in $OEMLINKS; do
+	if [ -d "${DIRI}/${DIR}" ]; then
+		echo2 "     /usr/www/${DIR}"
+		[ -d "${1}/usr/www/${DIR}" ] && rm -rf "${1}/usr/www/${DIR}"
+		[ ! -L "${1}/usr/www/${DIR}" ] && ln -s /usr/www/${OEMLINK} "${1}/usr/www/${DIR}"
+	fi	    
+    done
+fi
+
+exit 0
+ 

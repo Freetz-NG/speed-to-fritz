@@ -1,0 +1,1096 @@
+mainmenu " Configuration"
+
+comment "General settings for Speed-to-fritz --------------------------------"
+
+### If alternative download link is a pointer, then the first filename is needed with .zip extension.
+### There may be up to two in one definition, 2nd name can be link to local location, 
+### 3rd definition can be an alternative mirror download link.  
+### If the mirror link is used a "mirror" as 2nd dummy name or the lokal filename after extraction.   
+### If alternative download link is a pointer the first filename is needed with .zip extension.
+###------------------------------------------------------------------------------------------------------------
+###------------------------------------------------------------------------------------------------------------
+###------------------------------------------------------------------------------------------------------------
+### If new firmware must be setted up, keep in mind that new SYMBOLS are in use further down in 
+### this configfile and might be added as well on later sections  
+### TCOM Firmware
+config TCOM_SINUS_27 
+    string 
+    default "http://hilfe.telekom.de/dlp/eki/downloads/Sinus%20W%20500%20V/fw_SinusW500V_27_04_27.zip ./Firmware.orig/Sinus_W_500V.27.04.27.image"
+config TCOM_W501_38 
+   string 
+#   default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport_W501V/fw_Speedport_W501V_v_28.04.38.image"
+   default "ftp://software.t-online.de/pub/service/WinT-DSL/firmware/fw_Speedport_W501V_v_28.04.38.image"
+config TCOM_W503_65 
+    string 
+    default "http://hilfe.telekom.de/dlp/eki/downloads/503_66.04.65.image"    
+config TCOM_W701_57 
+    string 
+    default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20701%20V/fw_Speedport_W701V_v33.04.57.image"
+#    default "ftp://software.t-online.de/pub/service/WinT-DSL/firmware/fw_Speedport_W701V_v33.04.56.image"
+config TCOM_W900_57 
+    string 
+#    default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20900V/fw_Speedport_W900V_v34.04.57.image"
+    default "ftp://software.t-online.de/pub/service/WinT-DSL/firmware/Speedport_W_900V.AnnexB.34.04.57.image"
+config TCOM_W721_60 
+    string 
+    default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W721V/fw_Speedport_W_721V_v64.04.60.image"
+config TCOM_W920_58 
+    string 
+    default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.58.zip mirror http://www.upload.crunkbass.de/?a=show&file=5370656564706f72745f575f393230562e416e6e6578422e36352e30342e35382e696d6167652e7a6970&big=1"
+config TCOM_W920_63
+    string 
+    default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.63.zip mirror http://www.upload.crunkbass.de/?a=show&file=5370656564706f72745f575f393230562e416e6e6578422e36352e30342e36332e7a6970&big=1"
+config TCOM_W920_13048
+    string 
+    default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.63-13048.zip mirror http://www.upload.crunkbass.de/?a=show&file=5370656564706f72745f575f393230562e416e6e6578422e36352e30342e36332d31333034382e7a6970&big=1"
+###------------------------------------------------------------------------------------------------------------
+###------------------------------------------------------------------------------------------------------------
+
+### AVM firmware
+
+config AVM_43 
+    string 
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/deutsch_a-ch/fritz.box_fon_wlan_7140.annexa.39.04.43.zip mirror http://www.upload.crunkbass.de/?a=show&file=667269747a2e626f785f666f6e5f776c616e5f373134302e616e6e6578612e33392e30342e34332e696d6167652e7a6970&big=1"
+config AVM_56 
+    string 
+    default "ftp://ftp.avm.de/fritz.box/fritzfon.7150/firmware/FRITZ.Fon_7150.AnnexB.38.04.56.image"
+config AVM_32 
+    string 
+    default "./Firmware.orig/fritz.fon_7150.annexb.38.04.32.zip mirror http://www.upload.crunkbass.de/?a=show&file=667269747a2e666f6e5f373135302e616e6e6578622e33382e30342e33322e7a6970&big=1"
+config AVM_50
+    string 
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.50.image"
+config AVM_57en
+    string
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.57.image" 
+config AVM_57
+    string 
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-13038.zip ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7170.29.04.57.image" 
+config AVM_59
+    string 
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-13038.zip ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7170.29.04.59.image" 
+config AVM_61
+    string 
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch/FRITZ.Box_Fon_WLAN_7113.60.04.61.image"
+config AVM_67
+    string
+    default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.67.image"
+config AVM_BETA_13038 
+    string 
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-13038.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.63-13038.image"
+config AVM_DSL_12526 
+    string 
+default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_dsl/fritz_box-labor-12526.image"
+config AVM_MINI_67 
+    string 
+    default "http://clickonce.avm.de/7170_Mini_Firmware/deutsch/fritz_box_29_04_67.image"
+config AVM_ALL_13038
+    string
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-13038.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.63-13038.image" 
+##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+####7270
+config AVM7270_DSL_13225
+    string
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-13225.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.99-13225.image"
+#config AVM7270_ALL_12298
+#    string
+#default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_neues_aus_der_entwicklung/fritz_box-labor-12298.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.63-12298.image"
+config AVM7270_PHONE_13286
+    string 
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-13286.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.97-13286.image"    
+#    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-13253.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.97-13253.image"
+#config AVM7270_VPN_13265
+#    string 
+#    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vpn/fritz_box-labor-13265.zip"
+config AVM7270_UMTS_13265
+    string
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_umts/fritz_box-labor-13265.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.95-13265.image"
+config AVM7270_MINI_67 
+    string 
+    default "http://clickonce.avm.de/7270_Mini_Firmware/deutsch/fritz_box_54_04_67.image"
+#config AVM7270_57 
+#    string 
+#    default "http://download.avm.de/fritz.box/fritzbox.fon_WLAN_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.57.image"
+config AVM7270_58 
+    string 
+    default "http://download.avm.de/fritz.box/fritzbox.fon_WLAN_7270/firmware/deutsch/Release_FRITZ.Box_Fon_WLAN_7270.54.04.58.zip mirror http://www.upload.crunkbass.de/?a=show&file=52656c656173655f465249545a2e426f785f466f6e5f574c414e5f373237302e35342e30342e35382e7a6970&big=1"
+config AVM7270_59 
+    string 
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.59.image"
+#config AVM7270_A59
+#    string
+#default ""
+config AVM7270_67
+    string
+default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-13225.ZIP ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
+
+
+###------------------------------------------------------------------------------------------------------------
+###------------------------------------------------------------------------------------------------------------
+###------------------------------------------------------------------------------------------------------------
+###------------------------------------------------------------------------------------------------------------
+### ATTENTION! Most variables set up here are in use by various skripts later, so don't change, 
+### except numbers within variable names corresponding to the above firmware names.
+### If a firmware version or subversion changes replace all the partial numbers accuring within this configfile.
+### Example:  _11779 to _XXXXX.  Or _58 to _XX 
+###------------------------------------------------------------------------------------------------------------
+
+choice
+	prompt "Hardware type"
+		default TYPE_SPEEDPORT_W701V
+		help
+			Select your box type here.
+
+	config TYPE_SINUS_W500V
+		bool "Sinus W500V"
+		select TYPE_LANG_DE
+
+	config TYPE_SPEEDPORT_W501V
+		bool "Speedport W501V"
+		select TYPE_LANG_DE
+		select FORCE_TCOM_FON
+		select FORCE_TCOM_DSL
+		select FORCE_TCOM_PIGLET
+		
+	config TYPE_SPEEDPORT_W503V
+		bool "Speedport W503V"
+
+	config TYPE_SPEEDPORT_W701V
+		bool "Speedport W701V"
+
+	config TYPE_SPEEDPORT_W721V
+		bool "Speedport W721V"
+
+	config TYPE_SPEEDPORT_W900V
+		bool "Speedport W900V"
+
+	config TYPE_SPEEDPORT_W920V
+		bool "Speedport W920V"
+#		select SET_FREETZ_REVISION
+
+	config TYPE_TCOM_LOCAL
+		bool "Custom model"
+endchoice
+if TYPE_TCOM_LOCAL
+    config SPMOD
+        string "Custom TCOM Type"
+	default "701"	
+	help 
+	    Enter your model type 500, 501, 503, 701, 721, 900 or 920 only for this models patches are installed, 
+	    if you use this patches on other future models it is not sure what the results will be like.
+endif
+if ! TYPE_TCOM_LOCAL
+config SPMOD
+	string
+	default "501"	if TYPE_SPEEDPORT_W501V
+	default "503"	if TYPE_SPEEDPORT_W503V
+	default "701"	if TYPE_SPEEDPORT_W701V
+	default "721"	if TYPE_SPEEDPORT_W721V
+	default "900"	if TYPE_SPEEDPORT_W900V
+	default "920"	if TYPE_SPEEDPORT_W920V
+	default "500"	if TYPE_SINUS_W500V
+endif
+config TCOM_LOCAL
+    depends on TYPE_TCOM_LOCAL
+    string "Enter your custom type TCOM like Firmware"
+    default "./Firmware.orig/..."
+    help 
+	Enter your custom type TCOM like firmware, in the same manner with path/filename as usually.
+
+###------------------------------------------------------------------------------------------------------------
+config TYPE_TCOMBETA
+	bool "Select a special T-com Firmware --->"
+	depends on TYPE_SPEEDPORT_W920V && ! TYPE_58
+	default n
+	help
+		Enable this to compile the mod based on an special AVM firmware.
+choice
+	prompt "T-com alternative firmware"
+		depends on TYPE_TCOMBETA
+		default TYPE_TCOM_BETA_63
+	config TYPE_TCOM_BETA_63
+		bool "TCOM_BETA_63"
+	config TYPE_TCOM_BETA_13048
+		bool "TCOM_BETA_13048"
+endchoice
+###------------------------------------------------------------------------------------------------------------
+choice
+	prompt "Firmware language"
+		default TYPE_LANG_DE
+	config TYPE_LANG_DE
+		bool "de - deutsch"
+#	config TYPE_LANG_A_CH
+#		bool "a-ch - deutsch"
+#	depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
+#		depends on ! TYPE_LABOR 
+	config TYPE_LANG_EN
+		bool "en - international"
+	depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
+endchoice
+###------------------------------------------------------------------------------------------------------------
+
+config TYPE_LABOR
+	bool "Select a special Firmware --->"
+	depends on TYPE_LANG_DE && ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL || TYPE_SPEEDPORT_W920V ) 
+	default n
+	help
+		Enable this to compile the mod based on an special AVM firmware.
+
+#config COMMENT
+#	depends on TYPE_LABOR
+#	string "If you change between W920V and back read this help!"
+#	default "ATTENTION!"
+#	help
+#		-------------------------------------------------------------------------
+#		ATTENTION! AVM uses the same Filenames for 7170 and 7270 Labor-Firmwares!
+#		So if you change your settings from W920V (in combination with a 
+#		Labor firmware 11500) back to any other or the other way round then, 
+#		the previously loaded laborfirmware located in /Firmware.org is removed.  
+#		-------------------------------------------------------------------------
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#### If types are added here the skript file /subscripts/settings has to be edited as well to represent the new labor versions too. 
+
+choice
+	prompt "Labor or final version"
+		depends on TYPE_LABOR
+		default TYPE_DSL
+	config TYPE_BETA
+		bool "BETA_13038"
+		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
+	config TYPE_57
+		bool "57"
+		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
+	config TYPE_58
+		bool "58"
+		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+	config TYPE_59
+		bool "59"
+		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+#	config TYPE_61
+#		bool "61"
+#		depends on TYPE_SPEEDPORT_W721V || TYPE_TCOM_LOCAL 
+	config TYPE_A59
+		bool "ANNEX_A_59"
+		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
+#	config TYPE_298
+#		bool "ALL_298"
+#		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+	config TYPE_67
+		bool "67"
+		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+#	config TYPE_ALL
+#		bool "AiO - Alles in einem"
+#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+	config TYPE_DSL
+		bool "DSL"
+		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+#	config TYPE_GAMING
+#		bool "GAMING"
+#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+#	config TYPE_MINI
+#		bool "MINI"
+#		depends on TYPE_SPEEDPORT_W721V || TYPE_TCOM_LOCAL 
+	config TYPE_PHONE
+		bool "PHONE_13286"
+		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+#	config TYPE_VPN
+#		bool "VPN"
+#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721VTYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+	config TYPE_UMTS
+		bool "UMTS_13265"
+		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+
+	config TYPE_AVM_LOCAL
+		bool "CUSTOM AVM LOCAL FIRMWARE"
+
+endchoice
+
+config AVM_LOCAL 
+    depends on TYPE_AVM_LOCAL
+    string "Enter your custom type AVM like firmware"
+    default "./Firmware.orig/..."
+    help 
+	Enter your custom type AVM like firmware, in the same manner with path/filename as usually.
+
+
+###------------------------------------------------------------------------------------------------------------
+
+config SOURCE2
+	bool "3rd Firmware (only for experiments!)"
+	default n
+	help
+		Enable this if you need a second AVM or TCOM Firmware, this may be needed with some options.
+
+###------------------------------------------------------------------------------------------------------------
+### if new firmware was added it could be needed to enter one more entrys into the second source section as well!
+
+choice
+
+	prompt "All possible firmware"
+		depends on SOURCE2
+		default TYPE_AVM_67
+
+#	config TYPE_10954
+#		bool "BETA_13038"
+	config TYPE_DSL_13046
+		bool "DSL_13046"
+	config TYPE_GAMING_11435
+		bool "GAMING_11435"
+	config TYPE_MINI_67
+		bool "MINI_67"
+	config TYPE_AVM_ALL_13038
+		bool "ALL_13038"
+	config TYPE_AVM_43
+		bool "AVM_43"
+	config TYPE_AVM_56
+		bool "AVM_56"
+	config TYPE_AVM_57
+		bool "AVM_57"
+	config TYPE_AVM_58
+		bool "AVM_58"
+	config TYPE_AVM_A59
+		bool "AVM_59_ANNEX_A"
+#	config TYPE_AVM_61
+#		bool "AVM_61"
+	config TYPE_AVM_67
+		bool "AVM_67"
+	config TYPE_AVM_50
+		bool "AVM_50"
+	config TYPE_AVM_57en
+		bool "AVM_57en"
+	config TYPE_AVM_32
+		bool "AVM_32"
+
+	config TYPE_TCOM_W500_27
+		bool "TCOM_W500_27"
+	config TYPE_TCOM_W501_38
+		bool "TCOM_W501_38"
+	config TYPE_TCOM_W701_57
+		bool "TCOM_W701_57"
+	config TYPE_TCOM_W721_60
+		bool "TCOM_W721_60"
+	config TYPE_TCOM_W900_57
+		bool "TCOM_W900_57"
+	config TYPE_TCOM_W920_58
+		bool "TCOM_W920_58"
+	config TYPE_TCOM_W920_63
+		bool "TCOM_W920_63"
+	config TYPE_TCOM_W920_13048
+		bool "TCOM_W920_13048"
+
+#	config TYPE_AVM7270_57
+#		bool "AVM7270_57"
+	config TYPE_AVM7270_58
+		bool "AVM7270_58"
+	config TYPE_AVM7270_59
+		bool "AVM7270_59_ANNEX_A_B"
+#	config TYPE_AVM7270_A59
+#		bool "AVM7270_59_ANNEX_A"
+	config TYPE_AVM7270_67
+		bool "AVM7270_67"
+	config TYPE_AVM7270_DSL_13225 
+		bool "AVM7270_DSL_13225"
+	config TYPE_AVM7270_DSL_12606 
+		bool "AVM7270_DSL_12606"
+	config TYPE_AVM7270_PHONE_13286
+		bool "AVM7270_PHONE_13286"
+	config TYPE_AVM7270_UMTS_13265
+		bool "AVM7270_UMTS_13265"
+	config TYPE_AVM7270_MINI_67
+		bool "AVM7270_MINI_67"
+	config TYPE_AVM_LOCAL_IMAGE
+		bool "AVM_LOCAL_IMAGE"
+	config TYPE_TCOM_LOCAL_IMAGE
+		bool "TCOM_LOCAL_IMAGE"
+
+endchoice
+
+###------------------------------------------------------------------------------------------------------------
+###------------------------------------------------------------------------------------------------------------
+###------------------------------------------------------------------------------------------------------------
+### If new firmware is added in the top section of this file, some of this section may be changed or added in connection
+### Keep in mind if in the top section the  SYMBOL NAME was XXX (example: TCOM_SINUS_27) then a $ sign is added here in front of it.  
+### Based on the above four menusections, here the corresponding firmwares are set up with "if"    
+config TCOM_IMG
+	string
+        default "$TCOM_SINUS_27" 		if TYPE_SINUS_W500V
+	default "$TCOM_W501_38" 		if TYPE_SPEEDPORT_W501V
+	default "$TCOM_W701_57" 		if TYPE_SPEEDPORT_W701V
+	default "$TCOM_W503_65" 		if TYPE_SPEEDPORT_W503V
+	default "$TCOM_W721_60" 		if TYPE_SPEEDPORT_W721V
+	default "$TCOM_W900_57" 		if TYPE_SPEEDPORT_W900V
+	default "$TCOM_W920_58" 		if TYPE_58 && ( TYPE_SPEEDPORT_W920V )
+	default "$TCOM_W920_13048" 		if ( ! TYPE_TCOMBETA || TYPE_TCOM_BETA_13048 ) && ( TYPE_SPEEDPORT_W920V )
+	default "$TCOM_W920_63" 		if TYPE_TCOM_BETA_63 && ( TYPE_SPEEDPORT_W920V )
+	default "$TCOM_LOCAL"	 		if TYPE_TCOM_LOCAL
+
+#--------------------------------------------------------------------------
+config AVM_IMG
+	string
+	default "$AVM_43"		if TYPE_SPEEDPORT_W501V
+	default "$AVM_56" 		if TYPE_SINUS_W500V
+#	default "$AVM_61" 		if (TYPE_SPEEDPORT_W721V && ! TYPE_LABOR ) || (TYPE_61 && ( TYPE_SPEEDPORT_W721V))
+ 	default "$AVM_50" 		if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_A_CH
+	default "$AVM_57en" 		if TYPE_LANG_EN && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_67" 		if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V ) && ! TYPE_LABOR && TYPE_LANG_DE
+	default "$AVM_57" 		if TYPE_57 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_59" 		if TYPE_59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_A59" 		if TYPE_A59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_67" 		if TYPE_67 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_BETA_13038" 	if TYPE_BETA && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_DSL_12526" 	if TYPE_DSL && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_ALL_13038" 	if TYPE_ALL && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_GAMING_11435" 	if TYPE_GAMING && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_MINI_67" 		if TYPE_MINI && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_LOCAL" 		if TYPE_AVM_LOCAL && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+
+
+
+        default "$AVM7270_67" 		if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && TYPE_LANG_DE
+        default "$AVM7270_58" 		if ( TYPE_58 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
+        default "$AVM7270_59" 		if TYPE_SPEEDPORT_W503V || (( TYPE_59 ) && ( TYPE_SPEEDPORT_W920V )) 
+#        default "$AVM7270_A59" 		if ( TYPE_A59 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
+        default "$AVM7270_67"		if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+        default "$AVM7270_DSL_13225" 	if ( TYPE_DSL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+        default "$AVM7270_ALL_12298"	if ( TYPE_298 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+        default "$AVM7270_PHONE_13286" 	if ( TYPE_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+        default "$AVM7270_UMTS_13265" 	if ( TYPE_UMTS ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+	default "$AVM7270_MINI_67" 	if ( TYPE_MINI ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+
+#-------------------------------------------------------------
+config SRC2_IMG
+	string
+	default "$AVM_32" 		if TYPE_AVM_32
+	default "$AVM_43" 		if TYPE_AVM_43
+	default "$AVM_50" 		if TYPE_AVM_50
+	default "$AVM_57en" 		if TYPE_AVM_57en
+	default "$AVM_56" 		if TYPE_AVM_56
+	default "$AVM_57" 		if TYPE_AVM_57
+	default "$AVM_67" 		if TYPE_AVM_67
+	default "$AVM_61" 		if TYPE_AVM_61
+	default "$AVM_59" 		if TYPE_AVM_59
+	default "$AVM_A59" 		if TYPE_AVM_A59
+	default "$AVM_58" 		if TYPE_AVM_58
+	default "$AVM_BETA_13038" 	if TYPE_BETA_13038
+	default "$AVM_DSL_12526" 	if TYPE_DSL_12526
+	default "$AVM_ALL_13038"	if TYPE_ALL_13038
+	default "$AVM_GAMING_11435" 	if TYPE_GAMING_11435
+	default "$AVM_MINI_67" 		if TYPE_MINI_67
+	default "$AVM_LOCAL"		if TYPE_AVM_LOCAL_IMAGE
+        default "$TCOM_SINUS_27" 	if TYPE_TCOM_W500_27
+	default "$TCOM_W501_38" 	if TYPE_TCOM_W501_56
+	default "$TCOM_W701_57" 	if TYPE_TCOM_W701_57
+	default "$TCOM_W721_60" 	if TYPE_TCOM_W721_60
+	default "$TCOM_W900_57" 	if TYPE_TCOM_W900_57
+	default "$TCOM_W920_58" 	if TYPE_TCOM_W920_58
+	default "$TCOM_W920_63" 	if TYPE_TCOM_W920_63
+	default "$TCOM_W920_13048" 	if TYPE_TCOM_W920_13048
+	default "$TCOM_LOCAL"		if TYPE_TCOM_LOCAL_IMAGE
+	
+        default "$AVM7270_57" 		if TYPE_AVM7270_57
+        default "$AVM7270_58" 		if TYPE_AVM7270_58
+        default "$AVM7270_59" 		if TYPE_AVM7270_59
+        default "$AVM7270_A59" 		if TYPE_AVM7270_A59
+        default "$AVM7270_67" 		if TYPE_AVM7270_67
+	default "$AVM7270_ALL_12298"	if TYPE_AVM7270_ALL_12298
+        default "$AVM7270_DSL_13225" 	if TYPE_AVM7270_DSL_13225
+        default "$AVM7270_PHONE_13286" 	if TYPE_AVM7270_PHONE_13286
+        default "$AVM7270_UMTS_13265" 	if TYPE_AVM7270_UMTS_13265
+	default "$AVM7270_MINI_67" 	if TYPE_AVM7270_MINI_67
+
+###------------------------------------------------------------------------------------------------------------
+###------------------------------------------------------------------------------------------------------------
+###------------------------------------------------------------------------------------------------------------
+
+config TYPE_LABOR_TYPE
+	string
+        default "58" 		if TYPE_58
+        default "59" 		if TYPE_59
+#        default "61" 		if TYPE_61
+        default "67" 		if TYPE_67
+        default "BETA" 		if TYPE_BETA
+        default "DSL" 		if TYPE_DSL
+#        default "GAMING" 	if TYPE_GAMING
+        default "PHONE" 	if TYPE_PHONE
+        default "UMTS" 		if TYPE_UMTS
+	default "MINI" 		if TYPE_MINI
+	default "ALL" 		if TYPE_ALL
+#	default "298" 		if TYPE_298
+#	default "VPN" 		if TYPE_VPN
+	default "LOCAL"		if TYPE_AVM_LOCAL
+
+
+choice
+	bool "Annex"
+	default TYPE_ANNEX_B
+	config TYPE_ANNEX_B
+		bool "B"
+	help
+		Annex parameter, internationally annex A is in use, in Germany this is usually B,
+		this is a parameter for DSL and specifies the frequency range of ADSL, POTS lines with 
+		ADLS usually are annex A, ISDN lines usually annex B. 
+		For Speed-to-Fritz, this parameter will be set correctly only if the automatic FTP push
+		option is used in combination or the resulting firmware is transfered via Web interface.
+		annex A or B. You would have to enter the annex parameter as FTP commandline,
+		as 'quote SETENV kernel_args annex=A' but then some telephone settings are not adjusted at the same time.
+	config TYPE_ANNEX_A
+		bool "A"
+	help
+		Annex parameter, internationally annex A is in use, in Germany this is usually B,
+		this is a parameter for DSL and specifies the frequency range of ADSL, POTS lines with 
+		ADLS usually are annex A, ISDN lines usually annex B. 
+		For Speed-to-Fritz, this parameter will be set correctly only if the automatic FTP push
+		option is used in combination or the resulting firmware is transfered via Web interface.
+		Using some other tools to transfer the kernel.image to the box will not work for setting
+		annex A or B. You would have to enter the annex parameter as FTP commandline,
+		as 'quote SETENV kernel_args annex=A' but then some telephone settings are not adjusted at the same time.
+endchoice
+config ANNEX
+	string
+	default "A" if TYPE_ANNEX_A
+	default "B" if TYPE_ANNEX_B
+
+config EXPORT_OEM
+	string
+	default "tcom" if ORI
+	default "avm" if TYPE_LANG_DE
+	default "avm" if TYPE_LANG_A_CH
+	default "avme" if TYPE_LANG_EN
+
+config SET_OEM
+	bool "Set Branding"
+	default n
+	help
+	    Branding should be left as it is, but if needed you may specify your own. 
+	    You can only specify a branding implemented within the AVM firmware used!
+	    1und1, ...
+	    In case of option ORI branding will always set to tcom later through the skript.
+
+config EXPORT_OEM
+	string "Branding (OEM)"
+	depends on SET_OEM
+	help
+	    Branding should be left as it is, but if needed you may specify your own. 
+	    You can only specify a branding implemented within the AVM firmware used!
+	    1und1, ...
+	    In case of option ORI branding will always be set to tcom.
+
+comment "Optional settings for Speed-to-fritz -------------------------------"
+
+menu "Options"
+
+config  ORI
+	bool "Restore original TCOM Firmware"
+	default n
+	select EXPORT_FORCE_CLEAR_FLASH
+	help
+		Set this to "y" if you want to flash back to the original firmware.
+		Speedport my be reebooting, in this case:	
+		If your PC netcard is set to DHCP and you did restart the PC you must set the PC netcard to:
+		IP 192.168.178.19 
+		MASK 255.255.0.0
+		Only one netcard should be installed, or you specifiy the IF Option as well.
+		Keep in mind if The Speedport is not responding, the speesport my use the alternative IP.
+		Use IP Option to change this. 
+
+config PUSHCONF
+	bool "Push firmware to box via FTP"
+	default y
+	help
+		Do an automatic upload after firmware is patched.
+config EXPORT_ADD_OLD_DECTMENU
+	bool "DECT menu (add)"
+	depends on TYPE_SPEEDPORT_W900V || TYPE_SINUS_W500V  || TYPE_TCOM_LOCAL
+	default y
+	help
+		Traditional DECT menu gives maximum functionality, both menues can be used at the same time.
+config EXPORT_ADD_7150_DECTMNUE
+	bool "DECT 7150 menu (add)"
+	depends on TYPE_SPEEDPORT_W900V  || TYPE_TCOM_LOCAL
+	default y
+	help
+		Add some parts of DECT menu pages originating from 7150 .56, this patch is useable with .57 AVM version or similar versions.
+config EXPORT_COPY_HEADER
+	bool "COPY HEADER"
+	default y
+	help
+		Set this to 'y' if you like to include  fw_header980.gif (new version) fw_header.gif (old version)
+		AVM minor version >= 47 uses the new file, if you don't want to copy both files you can remove one of this files in  ./addon/tmp/images.
+config EXPORT_DO_LOOKUP_PATCH
+	bool "Include reverse lookup patch"
+	default y
+	help
+		Add reverse lookup patch for Germany.
+config EXPORT_ADD_ONLINECOUNTER
+	depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL )
+	bool "onlinecounter volume patch"
+	default n if  ( TYPE_DSL )
+	default y if  ! ( TYPE_DSL )
+	help
+		Patch ONLINECOUNTER for 7270.
+config EXPORT_REMOVE_MENU_ITEM
+	bool "Unuseable menues (remove)"
+	default y
+	help
+		Set this to 'y' if you like to remove Fon3 (or more depending on the type of box) frome some menues. 
+		Both source files must be without leading "#", diff result is in directory ./LogSRC_SRC2
+config EXPORT_ADD_SUPPORT
+	bool "Support menu-item (add)"
+	depends on ! TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
+	default y
+	help
+		Set this to 'y' if you like to add url and hidden support page. 
+config EXPORT_RPL_ASSIST
+	bool "Assistent menu-item (replace)"
+	depends on ! TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
+	default y
+	help
+		Set this to 'y' if you like to replace the assistent menu-item with enhanced settings. 
+config EXPORT_REMOVE_HELP
+	bool "Help files (remove)"
+	depends on TYPE_SPEEDPORT_W501V || TYPE_TCOM_LOCAL
+	default n
+	help
+		Set this to 'y' if you like to remove help pages, to save space, normal this is "y".
+config EXPORT_REMOVE_KIDS
+	bool "Kids files (remove)"
+	depends on TYPE_SPEEDPORT_W501V || TYPE_TCOM_LOCAL
+	default n
+	help
+		Set this to 'y' if you like to remove kids pages, to save space, normal this is "n".
+
+config EXPORT_BUGFIX_FONCONFIG
+	bool "Bugfix for fon config ut8"
+	depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V ) && TYPE_LABOR
+	default n 
+#	default y if TYPE_ALL
+	help
+		Set this to 'y' if you like to correct some wrong letters on the fon config pages, normal this is "n".
+config SET_NAME
+	bool "Own productname (setup)"
+	default n
+	help
+	    Productname should be left as it is, but if needed you may specify your own. 
+	    Some tools like Fritz!FAX may be not useable if the box productname has been changed!
+	    This is not the Hostname of your box! This is a string transparent on the net 
+	    to other programs and on the settings page of the Speedport.  
+
+config  EXPORT_NEWNAME
+	    depends on SET_NAME
+	    string "productname"
+		    default "FRITZ!Box Fon WLAN 7170"
+	    help
+		Fritz!Fax works with the default value set! 
+config SET_HOSTNAME
+	bool "Box hostname (setup)"
+	default n
+	help
+	    Boxhostname should be left as it is, but if needed you may specify your own! Default is fritz.box.
+ 	config  EXPORT_HOSTNAME
+	    depends on SET_HOSTNAME
+	    string "hostname"
+		    default "fritz.box"
+	    help
+		This is the name used instead of the IP address, 
+		tcom uses "speedport.ip" but can be anything you like.
+		 
+config VERBOSE
+	string
+	default "-v" if VERBOSEETY 
+	default "" if ! VERBOSEETY 
+config EXPORT_ENABLE_EXT2
+	bool "Enable ext2"
+	default n
+	help
+		With new AVM Versions not usable any more!.
+config EXPORT_USE_SOURCE2_WEBMNUE
+	bool "Use source 3 webfiles"
+	depends on SOURCE2
+	select DO_NOT_STOP_ON_ERROR
+	default n
+	help
+		Use this additional option if new firmware with alternative menues is used, 
+		with limited funktionality but interesting for experiments.
+
+comment "DSL Options --------------------------------------------------------"
+config EXPORT_ATA_ONLY
+	bool "Remove ADSL - ATA only"
+	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W920V
+	default n 
+	default y if ( TYPE_SPEEDPORT_W920V )
+ 
+	help
+		Use this additional option, if VDSL or ADSL is not needed or not 
+		useable width the Firmwares in use.
+		"All In One" or similar firmwares in combination with T-com .58
+		can only be used in ATA Mode.
+		In Case of W501, no fon will be useable with this option.
+####
+if ! EXPORT_ATA_ONLY
+    config EXPORT_ADD_DSL_EXPERT_MNUE
+	bool "Add dsl expert pages"
+	default n if  ( TYPE_DSL )
+	default y if  ! ( TYPE_DSL )
+
+	help
+		Use this additional option to add expert-pages for dsl settings,
+		only useable on "All In One" or similar firmwares.
+    config EXPORT_USE_SOURCE2_DSLMNUE
+	bool "Use source 3 DSL webfiles"
+	depends on SOURCE2
+	default n
+	help
+		Use this additional option if new dsl-menupages from alternative firmware-images are used.
+    config USE_SRC2_DSL
+	bool "Use source 3 DSL driver"
+	depends on SOURCE2
+	default n
+	help
+		Use DSL DRIVER from second source firmware specified in SRC2_IMG.
+    config USE_OWN_DSL
+	bool "Use own DSL driver"
+	default n
+	help
+		Use DSL DRIVER from local directory ./addon/tmp/modules.
+    config FORCE_TCOM_DSL
+	bool "Force T-com DSL driver"
+	default n if ! TYPE_SPEEDPORT_W920V
+	default y if TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V  
+	help
+		For normal this is "n", only with some very bad ADSL connections this may be needed.
+    config SAVE_SRC2_DSL
+	bool "Save source 3 DSL driver"
+	depends on SOURCE2
+	default n
+	help
+		Save DSL DRIVER from AVM source 3 to ./addon/tmp/modules.
+    config SAVE_AVM_DSL
+	bool "Save AVM DSL driver"
+	depends on ! TYPE_SPEEDPORT_W920V
+	default n
+	help
+		Save DSL DRIVER from AVM source to ./addon/tmp/modules.
+    config SAVE_TCOM_DSL
+	bool "Save T-com DSL driver"
+	default n
+	help
+		Save DSL DRIVER from TCOM source to ./addon/tmp/modules.
+endif
+config EXPORT_SETATM
+	depends on   TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W721
+	bool "ATM - settings"
+	default n
+	help
+	    ATM should be left as it is, but if needed you may specify your own! Default is VPI 1 VCI 32
+	    This otion is only in use with W920 and W721, webmenu is not usable. 
+ 	config  EXPORT_VPI
+	    depends on EXPORT_SETATM
+	    string "VPI value"
+		    default "8"
+	    help
+		This is the value used instead, 
+		tcom uses "1" but my be specified by your proivider.
+ 	config  EXPORT_VCI
+	    depends on EXPORT_SETATM
+	    string "VCI value"
+		    default "48"
+	    help
+		This is the value used instead, 
+		tcom uses "32" but my be specified by your proivider.
+
+choice
+	prompt "Kapselung: "
+	depends on EXPORT_SETATM
+	default PPPOAVCMUX
+	config PPPOE
+		bool "PPPoE"
+	config PPPOLLC
+		bool "PPPoA LLC"
+	config PPPOAVCMUX
+		bool "PPPoA VC Mux"
+	config PPPOAVCMUX1
+		bool "3"
+	config PPPOAVCMUX2
+		bool "4"
+
+endchoice
+
+config EXPORT_KAPSELUNG
+	string
+	default "0" if PPPOE
+	default "1" if PPPOLLC
+	default "2" if PPPOAVCMUX
+	default "3" if PPPOAVCMUX1
+	default "4" if PPPOAVCMUX2
+
+
+
+comment "SYSTEM Options -----------------------------------------------------"
+config XCHANGE_KERNEL
+	bool "Xchange kernel between tcom and avm source"
+	default n
+	help
+		For normal this is "n", but for testing this may be used, this option is dangerous,
+		but it can be used in combination with the option restore original firmware as well.
+		It is mainly added for testing W920, W920 original firmware does not log to the console
+		but if the kernel is replaced with AVM kernel the log is present.
+#config COPY_TCOM_BIN
+#	bool "Keep 3 tcom libs to enable adsl2"
+#	depends on TYPE_SPEEDPORT_W920V
+#	default n
+#	help
+#		For normal this is "n", but for testing this may be used, webmenu is with errors.
+#config COPY_TCOM_BIN2
+#	bool "Keep all TCOM bin, sbin, lib"
+#	depends on TYPE_SPEEDPORT_W920V
+#	default n
+#	help
+#		For normal this is "n", but for testing this may be used, this option is dangerous.
+
+config FORCE_TCOM_PIGLET
+	bool "Force use of t-com piglet driver"
+#	default y if TYPE_ALL && TYPE_SPEEDPORT_W920V
+	default n
+	help
+		For normal this is "n", but for firmwares with minor versions less then 50 "y" works better.
+
+config FORCE_TCOM_LEDDRIVER
+	bool "Force use of t-com LED driver"
+	depends on TYPE_SPEEDPORT_W920V
+	default n
+	help
+		For normal this is "n", but you my use the tcom driver, definition of LEDs differ, not all LEDS are usable.
+
+config FORCE_TCOM_FON
+	bool "Force use of t-com fon driver"
+	default n  
+	help
+		For normal this is "n", but for firmwares with minor versions less then 50 "y" works better.
+
+config USE_SRC2_FON
+	bool "Use source 3 FON driver"
+	depends on SOURCE2
+	depends on TYPE_SINUS_W500V
+	default n
+	help
+		Use FON DRIVER from second source Firmware specified in SRC2_IMG.
+
+config COPY_ADDON_TMP
+	bool "Copy addon/tmp"
+	depends on !ORI
+	default n
+	help
+		Set this to 'y' if you like to include all files within the directory ./addon/tmp/squashfs-root.
+config COPY_ADDON_TMP_to_ORI
+	bool "Copy addon/tmp with option -u"
+	depends on ORI
+	default n
+	help
+		Set this to 'y' if you like to include all files within the directory 
+		./addon/tmp/squashfs-root in combination with Option -u.
+
+config MOVE_ALL_to_OEM
+	bool "MOVE ALL to OEM"
+	default y
+	help
+		Set this to "y" if Freetz 7170 Firmwares are used instead of original AVM Firmware, 
+		WWW "all" directory is moved to "$OEM"
+		Other OEM WWW directories if present are removed to save space.
+		Always turn this on if freetz Firmware is used!
+		Disable this option if autoconfig is used. 
+
+config EXPORT_FORCE_CLEAR_FLASH
+	bool "Clear mtd3 and mtd4"
+	default n
+	help
+		Set this to "y" if Firmwares are used witch are older or much newer as the one installed. 
+		Usual this is also made automtically on base of versionsnumbers but in some cases 
+		versions will not indicate the changes made by the skript. Ths will prevent a reboot loop,
+		coursed by settings incompatibility. 
+
+config EXPORT_CONFIG_TR069
+	bool "Enable TR069 disable ATA"
+	default n
+	help
+		Set this to "y" if you want that autoconfiguration is turned on, 
+		this may result that in the case that your box is turned back to t-com firmware
+		automatically if new t-com firmware is available, if this happens, it is not sure
+		that your box will funktion normal again, so don't use this option 
+		expect you be aware of this case.
+		You must set OEM to the brand you use.  
+		Autoconfiguration is only set on if AVM Firmware suports this Opition!.
+		ATA is disablet if tr069 is turned on.
+		
+config EXPORT_CONFIG_TR064
+	bool "Enable LAN autoconfiguration TR064"
+	default n
+	help
+		Set this to "y" if you want TR64 turned on, in most cases 
+		your box will function normal again, so don't use this option 
+		expect you be aware of this case.
+		Autoconfiguration from within the internal LAN is only 
+		set on if AVM Firmware suports this Opition!.
+
+comment "TEST Options -------------------------------------------------------"
+
+config VERBOSEETY
+	bool "Verbose display for debugging"
+	default y
+	help
+		Verbose display for debugging, skript may by interrupted if this is set!
+
+config SET_UP
+	bool "Just do a setup run"
+	default n
+	help
+		No output file will be generated! Process stops before packing firmware!.
+
+config EXPORT_REUSECONF
+	bool "Keep configuration"
+	default n
+	help
+		Firmware.conf is reused if menu is restarted.
+
+config DO_NOT_STOP_ON_ERROR
+	bool "Do not STOP on ERROR" 
+	default n
+	help
+		If you set this to 'y' for some reason, you are able to build a firmware with bugs!.
+
+config DO_DIFF
+	bool "DO DIFF source 3"
+	depends on SOURCE2
+	default n
+	help
+		Set this to 'y' to make a diff between SRC and SRC_2 (AVM_IMG, SRC2_IMG).
+
+config DO_FINAL_DIFF
+	bool "DO FINAL DIFF"
+	default n
+	help
+		Set this to 'y' to make a diff between DST and SRC   
+		Diff result is in directory ./LogDST_SRC.
+config DO_FINAL_DIFF_SRC2
+	bool "DO FINALDIFF source 3"
+	depends on SOURCE2
+	default n
+	help
+		Set this to 'y' to make a diff between DST and SRC2    
+		SRC2_IMG source files must be selected, diff result is in directory ./LogDST_SRC2.
+
+
+comment "Netcard Options ----------------------------------------------------"
+
+config ETH_IF_Q
+	bool "Setup a fixed Netcard port"
+	help
+		Only set this, if you have more than one netcard installed!
+		This option is only in use with the push option or with CLEAR_ENV or ftpXXX.
+choice
+	prompt "Netcard installed on: "
+	depends on ETH_IF_Q
+	default ETH0
+	config ETH0
+		bool "eth0"
+	config ETH1
+		bool "eth1"
+	config ETH2
+		bool "eth2"
+	config ETH3
+		bool "eth3"
+	config ETH4
+		bool "eth4"
+	config ETH5
+		bool "eth5"
+	config ETH6
+		bool "eth6"
+	config ETH7
+		bool "eth7"
+	config ETH8
+		bool "eth8"
+	config ETH9
+		bool "eth9"
+
+endchoice
+
+config ETH_IF
+	string
+	default "eth0" if ETH0
+	default "eth1" if ETH1
+	default "eth2" if ETH2
+	default "eth3" if ETH3
+	default "eth4" if ETH4
+	default "eth5" if ETH5
+	default "eth6" if ETH6
+	default "eth7" if ETH7
+	default "eth8" if ETH8
+	default "eth9" if ETH9
+
+config SET_IP_ADDRESS_Q
+	bool "Setup a fixed FTP IP Address"
+	help
+		Only set this, this if you know that your ADAM IP was changed!
+		This option is only in use with the push option or with ftpXXX.
+
+choice
+	prompt "Netcard installed on: "
+	depends on SET_IP_ADDRESS_Q
+	default TYPE_IP_178
+	config TYPE_IP_178
+		bool "192.168.178.1"
+	help
+	    This is the usual setting
+	config TYPE_IP_2
+		bool "192.168.2.1"
+	help
+	    This is the alternative setting if mtd3 was cleared through recovery
+
+endchoice
+config EXPORT_IPADDRESS
+	string
+	default "192.168.178.1" if TYPE_IP_178
+	default "192.168.2.1" if TYPE_IP_2
+
+endmenu
+comment "Addons for Speed-to-fritz ------------------------------------------"
+
+menu "Addon"
+
+config EXPORT_ADD_KAID
+	bool "Add kaid for XBOX"
+	default n
+	help
+		Set this to 'y' to if Xlink-kai for Xbox should be added   
+		Files are copied from /addon/kaid configuration must 
+		be done on the file /addon/kaid/kaid.conf before! 
+		Defaults, Username: admin, Password: 0000
+		Port: lan
+
+endmenu
+
+comment "Options only in use with start-freetz.sh ---------------------------"
+
+config SET_FREETZ_REVISION
+	bool "Set a freetz revision (setup)"
+	default n if ! TYPE_SPEEDPORT_W920V
+	default y if TYPE_ALL  && TYPE_SPEEDPORT_W920V
+	help
+	    normaly this is not set, but in specail cases new revisions of freetz
+	    cant be used in combination with the firmware on wants to use.
+	    So type in the revision number, this will be used with start-freetz.sh
+	    script only. 
+
+ 	config  EXPORT_FREETZREVISION
+	    depends on SET_FREETZ_REVISION
+	    string "revision number"
+		    default "2636" if ! TYPE_SPEEDPORT_W920V
+		    default "2640" if TYPE_SPEEDPORT_W920V
+
+#2750 vor freetz 1.1
+
+	    help
+		This is the revision number used if freetz is started via
+		start-freetz.sh.
+		 
+
+

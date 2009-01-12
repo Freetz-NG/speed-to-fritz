@@ -1,0 +1,131 @@
+--- usr/www/avme/en/html/en/dect/setting.frm	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/en/html/en/dect/setting.frm	2007-12-22 14:35:10.000000000 -0500
+@@ -0,0 +1,7 @@
++<input type="hidden" name="dect:settings/enabled" value="<? query dect:settings/enabled ?>" id="uiPost_DectActivated">
++<input type="hidden" name="dect:command/Unsubscribe" value="0" id="uiPostUnsubscribe" disabled>
++<input type="hidden" name="dect:command/PIN" value="" id="uiPostDectPIN" disabled>
++<input type="hidden" name="var:FromMenuDect" value="<? echo $var:FromMenuDect ?>" id="uiFromMenuDect">
++<input type="hidden" name="var:DeviceType" value="<? echo $var:DeviceType ?>" id="uiDeviceType">
++<input type="hidden" name="var:TechType" value="<? echo $var:TechType ?>" id="uiTechType">
++<input type="hidden" id="uiPostVarName" name="">
+--- usr/www/avme/en/html/en/dect/setting.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/en/html/en/dect/setting.html	2007-12-22 16:25:48.000000000 -0500
+@@ -0,0 +1,29 @@
++<? include ../html/$var:lang/dect/setting.js ?>
++<div id="content">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
++<? echo `$var:TextDectEinstellungen` ?>
++</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class="mb5"><? echo `$var:TextDectOption` ?></p>
++</div></div></div></div></div></div>
++<!-- Einstellungen -->
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<!--p class="mb5fett"><? echo $var:TextMultimedia ?></p-->
++<div style="margin-left: 25px;">
++<p class="pCheck25"><input type="checkbox" id="uiViewDectActivated">&nbsp;<label for="uiViewDectActivated"><? echo `$var:TextDectAktive` ?></label></p>
++</div>
++<table style="margin-top:5px;margin-bottom:5px;margin-left: 25px;">
++<tr>
++<td class="c1DectPinText"><label for="uiPinInput"><? echo `$var:TextDectPin` ?></label></td>
++<td class="c1DectPinInput"><input type="text" id="uiPinInput" size="4" maxlength="4" class="Eingabefeld"></td>
++<!--td class="c1DectSetPin">
++<input type="button" onclick="uiOnDectSetPin()" value="<? echo `$var:TextDectSetPin` ?>" class="Pushbutton" style="width: 180px" id="uiViewSetPin">
++</td-->
++</tr>
++</table>
++</div></div></div></div></div></div>
++<? include ../html/$var:lang/home/rbb_applycancel.html ?>
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="rundlb"><div class="rundrb"><div class="foredialog">
++<p class="ac"><input type="button" onclick="uiReboot()" value="<? echo $var:TextBoxNeuStart ?>" class=Pushbutton style="width: 360px"></p>
++</div></div></div></div></div></div>
++</div>
+--- usr/www/avme/en/html/en/dect/setting.inc	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/en/html/en/dect/setting.inc	2008-02-04 10:55:22.000000000 -0500
+@@ -0,0 +1,7 @@
++<? include ../html/$var:lang/global.inc ?>
++<? setvariable var:TextDectEinstellungen "DECT-Einstellungen" ?>
++<? setvariable var:TextDectOption 'Here you can alter your DECT-Configuration, changes only take effect after "Accept" and "Reboot".' ?>
++<? setvariable var:TextDectAktive "DECT-Basisstation aktivieren" ?>
++<? setvariable var:TextDectPin 'PIN:' ?>
++<? setvariable var:TextDectSetPin 'Set PIN' ?>
++<? setvariable var:TextBoxNeuStart "$var:BoxName neu starten" ?>
+--- usr/www/avme/en/html/en/dect/setting.js	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/en/html/en/dect/setting.js	2008-02-04 10:54:56.000000000 -0500
+@@ -0,0 +1,53 @@
++<!-- ../dect/setting.js -->
++<? include ../html/$var:lang/dect/setting.inc ?>
++<style type="text/css">
++<!--
++.pCheck25 {text-indent: -25px; padding-left: 22px;}
++.c1DectPinText{width: 50px;}
++.c1DectPinInput{width: 145px;}
++-->
++</style>
++<script type="text/javascript">
++<? include ../html/$var:lang/js/val.js ?>
++<? include ../html/$var:lang/js/jsl.js ?>
++// globals
++var g_mldPin = "DECT-Base PIX must have 4 digits."
++var mCount = "<? query telcfg:settings/Foncontrol ?>";
++function uiDoOnLoad() {
++document.title = "<? print `$var:BoxName` ?>" + " " + "<? print `$var:TextDectEinstellungen` ?>";
++jslSetChecked("uiViewDectActivated", jslGetValue("uiPost_DectActivated")==1);
++jslSetValue("uiPinInput", "****");
++}
++function uiDoSave() {
++jslSetValue("uiPostPageMaster","setting");
++jslSetValue("uiFromMenuDect","1");
++if (jslGetChecked("uiViewDectActivated")) {
++jslSetValue("uiPost_DectActivated", "1");
++if (uiOnDectSetPin()==false)
++return;
++}
++else
++jslSetValue("uiPost_DectActivated", "0");
++jslFormSubmitEx("", "");
++}
++
++function uiDoCancel() {
++jslGoTo("dect", "setting");
++}
++function uiDoHelp() {
++jslPopHelp("hilfe_fon_dect_einstellungen");
++}
++function uiOnDectSetPin(){
++pin=jslGetValue("uiPinInput");
++if (pin.length != 4 || !valIsZahl(pin) ) {alert(g_mldPin); return false;}
++jslCopyValue("uiPostDectPIN", "uiPinInput");
++jslEnable("uiPostDectPIN")
++return true;
++}
++function uiReboot() {
++document.getElementById("uiPostVarName").name = "logic:command/reboot";
++jslSetValue("uiPostVarName", "../gateway/commands/saveconfig.html");
++jslSetValue("uiPostGetPage", "../html/reboot.html");
++document.getElementById("uiPostForm").submit();
++}
++</script>
+--- usr/www/avme/en/html/en/menus/menu2_dect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/en/html/en/menus/menu2_dect.html	2007-12-22 16:27:45.000000000 -0500
+@@ -0,0 +1,15 @@
++<? include ../html/$var:lang/menus/menu2_$var:menu.inc ?>
++<li class="LMenuitem"><img class="LMenuPfeil" src="<? echo $var:aktivpfeil ?>"><a href="javascript:jslGoTo('dect','setting')"><? echo $var:TextMenuDECT ?></a><span class="PTextOnly"><? echo $var:TextMenuDECT ?></span></li>
++<!-- wlan:settings/ap_enabled = '<? query wlan:settings/ap_enabled ?>' -->
++<? setvariable var:showDect 0 ?>
++<? if eq <? query dect:settings/enabled ?> 1 '<? setvariable var:showDect 1 ?>' ?>
++<? setvariable var:classsetting 'LSubitem' ?>
++<? if eq $var:pagename setting `<? setvariable var:classsetting 'LSubitemaktiv' ?>` ?>
++<? setvariable var:classhandset 'LSubitem' ?>
++<? if eq $var:pagename handset `<? setvariable var:classhandset 'LSubitemaktiv' ?>` ?>
++<? if eq $var:pagename fon1NewDect `<? setvariable var:classhandset 'LSubitemaktiv' ?>` ?>
++<? if eq $var:showDect 0 `
++<li class="$var:classsetting"><img class="LMenuPfeil" src="$var:subpfeil"><a href="javascript:jslGoTo('dect','setting')"><? echo '$var:TextDectEinstellungen' ?></a><span class="PTextOnly"><? echo '$var:TextDectEinstellungen' ?></span></li>
++` `
++<li class="$var:classsetting"><img class="LMenuPfeil" src="$var:subpfeil"><a href="javascript:jslGoTo('dect','setting')"><? echo '$var:TextDectEinstellungen' ?></a><span class="PTextOnly"><? echo '$var:TextDectEinstellungen' ?></span></li>
++` ?>
+--- usr/www/avme/en/html/en/menus/menu2_dect.inc	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/en/html/en/menus/menu2_dect.inc	2008-02-03 16:27:00.000000000 -0500
+@@ -0,0 +1,2 @@
++<? setvariable var:TextDectEinstellungen "DECT-Configuration" ?>
++<? setvariable var:TextDectHandset "DECT-Devices" ?>
