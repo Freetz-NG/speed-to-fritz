@@ -1,0 +1,66 @@
+Startdirectoty is henrynestler
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Startdirectoty is henrynestler
+http://www.sixxs.net/archive/sixxs/aiccu/windows/tap32-driver.zip
+
+NSIS Software is neede use this instructions to get it working:
+#http://www.xdevsoftware.com/blog/post/How-to-Install-the-Nullsoft-Installer---NSIS-on-Linux-.aspx
+
+nsis-install.sh should install NSIS Software.
+
+To download and all the rest Run:
+
+./start.sh
+-------------------------------------------------------------------------
+-------------------------------------------------------------------------
+Download latest colinux versions, or use version 20090102
+
+#http://www.henrynestler.com/
+http://www.henrynestler.com/colinux/autobuild/devel-20090102/*
+Download:
+http://www.henrynestler.com/colinux/tools/bzip2-102-x86-win32.zip
+http://www.henrynestler.com/colinux/tools/file-utils-mingw-bin-stripped.zip
+http://www.henrynestler.com/colinux/tools/netdriver-tap84.zip
+
+-----
+This instructions would be the case if it is done by one self without installer:
+-----
+This is a short step-by-step guide for upgrading coLinux to 0.8.0 snapshot.
+1. Stop all running coLinux sessions.
+2. Uninstall the old driver:
+    cd c:\colinux  (resp. your installation path)
+    colinux-daemon.exe --remove-driver
+	
+    3. Backup all *.exe, vmlinux and the linux.sys from old installation 
+    (c:\colinux (resp. your installation path)).
+    4. Unzip all files from
+	   
+    daemons-0.8.0-20090102.zip  and
+    vmlinux-2.6.22.18-co-0.8.0-*.zip
+		
+    to c:\colinux (resp. your installation path).
+    (File daemons-0.8.0-20090102.dbg.zip is not needed as it is for debugging only.)
+    5. Remember to reload the driver:
+		      
+    cd c:\colinux  (resp. your installation path)
+    colinux-daemon.exe --install-driver
+			    
+    6. Copy the modules modules-2.6.22.18-co-0.8.0-20090102.tgz to a location 
+    you can access from coLinux. For example a cofs mounted directory. 
+    7. Inside running coLinux please update modules as following:
+			       
+   rm -rf /lib/modules/*-co-*
+   tar -xzf /mnt/windows/modules-2.6.22.18-co-0.8.0-20090102.tgz -C /
+				    
+   8. Reboot coLinux to make new modules running.
+   9. Have fun and report bugs.
+---------------------------------------------------------------------------------------
+
+PS:
+download svn from blackfin (also part of start.sh):
+svn checkout svn+ssh://anonymous@blackfin.uclinux.org/svnroot/bfin-colinux
+ Attentin: passwort 3 x anonymous 
+docks for blackfin:
+http://docs.blackfin.uclinux.org/doku.php?id=colinux:building-installer&s[]=colinux
+-------------------------------------------------------------------------
+

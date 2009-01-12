@@ -1,0 +1,29 @@
+Konsole;konsole.ico;konsole
+Konqueror;khomefolder.ico;konqueror --profile=filemanagement
+Kate;kate.ico;kate --use
+-
+Konqueror;konqueror.ico;konqueror
+KMail;kmail.ico;kmail
+KOrganizer;korganizer.ico;korganizer
+Kontact;kontact.ico;kontact
+-
+KWord;kword.ico;kword
+KSpread;kspread.ico;kspread
+KPresenter;kpresenter.ico;kpresenter
+Kexi;kexi.ico;kexi
+Kivio;kivio.ico;kivio
+Karbon;karbon.ico;karbon
+Krita;krita.ico;krita
+KPlato;kplato.ico;kplato
+KChart;kchart.ico;kchart
+KFormula;kformula.ico;kformula
+Kugar;kugar.ico;kugar
+-
+Kile;kile.ico;kile
+KDVI;kdvi.ico;kdvi
+KGhostView;kghostview.ico;kghostview
+KPDF;kpdf.ico;kpdf
+-
+KControl;kcontrol.ico;kcontrol
+Synaptic;synaptic.ico;synaptic
+PulseAudio Mixer;volume.ico;pavucontrol
