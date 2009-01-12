@@ -20,6 +20,9 @@ On some systems you have to add the patch tool (add install patch).
 
     For older info see older script versions!
 ---------------------------------------------------------------
+Jan. 10, 2009
+    - svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk/speed-to-fritz speed-to-fritz
+      can mow be used to checkout the latest revision of "speed-to-fritz"
 Jan.  5, 2009
     - GSM display set to always, if GSM firmware is used.
     - Bugfix an workaround for freetz in and W920
