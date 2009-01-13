@@ -14,19 +14,19 @@ if [ ! -e "${1}"/etc/hotplug/storage ]; then
 fi
 echo "/lib/modules/$KVersion/kernel/fs/ext2/ext2.ko: /lib/modules/$KVersion/kernel/fs/mbcache.ko" >>"${SRC}"/lib/modules/$KVersion/modules.dep
 
-echo2 "-- patch etx2 settings"
+echo2 "-- patch ext2 settings"
 echo2 "      /etc/hotplug/storage"
 
 
 sed -i -e 's|modprobe vfat|modprobe vfat\
 echo "mount ext2 ------------------------"\
-modprobe etx2\
-modprobe etx3\
+modprobe ext2\
+modprobe ext3\
 |' "${1}"/etc/hotplug/storage
 
 sed -i -e 's|rmmod vfat|rmmod vfat\
-rmmod etx3\
-rmmod etx2\
+rmmod ext3\
+rmmod ext2\
 |' "${1}"/etc/hotplug/storage
 
 #sed -i -e 's|wait4exist /proc/scsi/usb-storage 5|wait4exist /proc/scsi/usb-storage 10|' "${1}"/etc/hotplug/storage
@@ -44,7 +44,7 @@ echo2 "      /etc/hotplug/run_mount"
 sed -i -e "s/if mount -t vfat.*$/if mount_fs; then/" "${1}"/etc/hotplug/run_mount
 
 sed -i -e '/test -f .etc.hotplug.rc.usbsema/a\
-modprobe etx2\
+modprobe ext2\
 mount_fs () {\
 if [ -e /usr/bin/fstyp ]; then\
 FSTYPE=`/usr/bin/fstyp $DEVNODE`\

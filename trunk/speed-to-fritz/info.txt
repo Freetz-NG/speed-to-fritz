@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ---------------------------------------------------------------------------------------------------
 
 (Dont remove this line, becaus it is used for autoinserting)
+20090113-1649
+    - Tipping misstakes in patch_ext2 replaced.
 20090113-0802
     - remove menu entry LABOR .67
 20090113-0503
