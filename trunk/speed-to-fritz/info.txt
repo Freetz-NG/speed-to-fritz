@@ -20,6 +20,10 @@ On some systems you have to add the patch tool (add install patch).
 
     For older info see older script versions!
 ---------------------------------------------------------------
+Jan. 12, 2009
+    - 7270 config.in adjusted to LABOR fritz_box-labor-7270-13362.zip
+    - In ./includes/icludefunctions -function fileselect unzip option j added, because AVM added 
+      path inside zipfile with fritz_box-labor-7270-13362.zip
 Jan. 10, 2009
     - svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk/speed-to-fritz speed-to-fritz
       can mow be used to checkout the latest revision of "speed-to-fritz"

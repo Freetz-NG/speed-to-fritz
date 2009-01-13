@@ -95,11 +95,11 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 	echo "-- Extracting $IMG_REQ1 from archive "$IMG_REQ" ..."
 	rm -fdR "$DLD_DIR/$IMG_REQ1"
 	mkdir "$DLD_DIR/$IMG_REQ1"
-	unzip -qo "$DLD_DIR/$IMG_REQ" -d "$DLD_DIR/$IMG_REQ1"
+	unzip -qoj "$DLD_DIR/$IMG_REQ" -d "$DLD_DIR/$IMG_REQ1" 	#option j added because AVM added path inside zipfile with fritz_box-labor-7270-13362.zip 
 	#--> look for file suppled via Config.in as 2nd parameter -->  
 	if [ -f "$DLD_DIR/$IMG_REQ1/${FILENAME_DLD_TPL##*/}" ]; then
 		IMG_EXTRACTED="${FILENAME_DLD_TPL##*/}"
-	else 
+	else
 	#<--look for file suppled via Config.in as 2nd parameter
 #-->only used if more as one .image file is within the zipfile-->
 		IMG_EXTRACTED=`ls "$DLD_DIR/$IMG_REQ1" | grep  'image'`
