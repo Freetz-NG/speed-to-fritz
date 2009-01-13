@@ -22,7 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ---------------------------------------------------------------------------------------------------
 
 (Dont remove this line, becaus it is used for autoinserting)
-20090113-044605 - Pump up to fritz_box-labor-7270-13362.zip
+20090113-0503
+    - Pump up to fritz_box-labor-7270-13362.zip
 Jan. 12, 2009
     - 7270 config.in adjusted to LABOR fritz_box-labor-7270-13362.zip
     - In ./includes/icludefunctions -function fileselect unzip option j added, because AVM added 
