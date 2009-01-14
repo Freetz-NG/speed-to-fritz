@@ -46,6 +46,8 @@ f the are already included with freetz.
 
 f the are already included with freetz.
 (Dont remove this line, becaus it is used for autoinserting)
+20090114-1242
+    - revert
 20090114-1239
     - start-freetz: Disable some patches within speed-to-fritz, /n/
 f the are already included with freetz.
