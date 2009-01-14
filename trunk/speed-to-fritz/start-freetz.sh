@@ -304,7 +304,7 @@ else
  sed -i -e "s/AVM_IMG=.*$/AVM_IMG=\"${modimage}\"/" "$HOMEDIR/conf-${SPNUM}-freetz"
  sed -i -e "/SET_UP=y/d" "$HOMEDIR/conf-${SPNUM}-freetz"
  sed -i -e "/DO_LOOKUP_PATCH=y/d" "$HOMEDIR/conf-${SPNUM}-freetz"
- sed -i -e "/EXPORT_ADD_ONLINECOUNTER=y/d" "$HOMEDIR/conf-${SPNUM}-freetz"
+ sed -i -e "/ADD_ONLINECOUNTER=y/d" "$HOMEDIR/conf-${SPNUM}-freetz"
  echo "EXPORT_FREETZ_REVISION=\"$EXPORT_FREETZ_REVISION\"" >> "$HOMEDIR/conf-${SPNUM}-freetz"
  #restart speed-to-fretz with freetz.image
  rm -fdr $HOMEDIR/start-${SPNUM}
