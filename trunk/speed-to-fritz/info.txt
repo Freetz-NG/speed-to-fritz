@@ -1,694 +1,340 @@
-f the are already included with freetz.
  Shell script to make your Speedport function like a Fritz!Box
-f the are already included with freetz.
  
-f the are already included with freetz.
 Usage: ./sp-to-fritz.sh [OPTIONS] -m MODEL
-f the are already included with freetz.
 
-f the are already included with freetz.
 
-f the are already included with freetz.
 This script uses binaries in subdirectory  /tools, if you use this on other
-f the are already included with freetz.
 LINUX systems as on x86 machines (Intel etc.) compile the tools for your hardware in use.
-f the are already included with freetz.
 Source of the tools:  http://trac.freetz.org/browser/trunk/tools  
-f the are already included with freetz.
 It is known that not on all system you will be able to use the script without any problem,
-f the are already included with freetz.
 Tested systems are andLinux, Stinkylinux, Debian, SuSe, Knoppix, Ubunto.
-f the are already included with freetz.
 On some systems you have to add the patch tool (add install patch). 
-f the are already included with freetz.
           
-f the are already included with freetz.
                                                                        
-f the are already included with freetz.
  Call: sudo ./sp-to-fritz.sh to get some info.
-f the are already included with freetz.
  
-f the are already included with freetz.
  OR easy call via single name without parameters.
-f the are already included with freetz.
  
-f the are already included with freetz.
                                                                        
-f the are already included with freetz.
  History:                                                              
-f the are already included with freetz.
 
-f the are already included with freetz.
     For older info see older script versions!
-f the are already included with freetz.
 ---------------------------------------------------------------------------------------------------
-f the are already included with freetz.
-
-f the are already included with freetz.
 (Dont remove this line, becaus it is used for autoinserting)
-20090114-1242
+20090114-1244
     - revert
-20090114-1239
-    - start-freetz: Disable some patches within speed-to-fritz, /n/
-f the are already included with freetz.
-20090113-1649
-f the are already included with freetz.
-    - Tipping misstakes in patch_ext2 replaced.
-f the are already included with freetz.
-20090113-0802
-f the are already included with freetz.
-    - remove menu entry LABOR .67
-f the are already included with freetz.
-20090113-0503
-f the are already included with freetz.
-    - Pump up to fritz_box-labor-7270-13362.zip
-f the are already included with freetz.
 Jan. 12, 2009
-f the are already included with freetz.
     - 7270 config.in adjusted to LABOR fritz_box-labor-7270-13362.zip
-f the are already included with freetz.
     - In ./includes/icludefunctions -function fileselect unzip option j added, because AVM added 
-f the are already included with freetz.
       path inside zipfile with fritz_box-labor-7270-13362.zip
-f the are already included with freetz.
 Jan. 10, 2009
-f the are already included with freetz.
     - svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk/speed-to-fritz speed-to-fritz
-f the are already included with freetz.
       can mow be used to checkout the latest revision of "speed-to-fritz"
-f the are already included with freetz.
 Jan.  5, 2009
-f the are already included with freetz.
     - GSM display set to always, if GSM firmware is used.
-f the are already included with freetz.
     - Bugfix an workaround for freetz in and W920
-f the are already included with freetz.
     - Busybox version again set to the one used with freetz. Hopefully this time all
-f the are already included with freetz.
     - Firmware will work, if not stay with version 1.1.2008, Not tested.
-f the are already included with freetz.
 Jan.  1, 2009
-f the are already included with freetz.
     - Tools busybox set back to 1.10.4. DSL Firmware would not work with newer.
-f the are already included with freetz.
  Dez.  31, 2008
-f the are already included with freetz.
     - W503, dect parameter removed from rc.wlan.
-f the are already included with freetz.
     - Tools dir updated to freetz revision 2944, see comment in install-tools. 
-f the are already included with freetz.
     - Set "Clear mtd3 and mtd4" as selected if "restore original TCOM Firmware"
-f the are already included with freetz.
 is selected.
-f the are already included with freetz.
     - Clean up in tools/device_tabe.txt, does not change anything in the result.   
-f the are already included with freetz.
 Dez.  30, 2008 
-f the are already included with freetz.
     - W721 config.in adjusted to: 7170 .67 
-f the are already included with freetz.
     - Bugfix W920, VCI VPI
-f the are already included with freetz.
 Dez.  29, 2008
-f the are already included with freetz.
     - W920, W721 ATM parameter again fixed, was still buggy, but not tested.
-f the are already included with freetz.
     - Online counter one minir fix on home page, IE had problems.
-f the are already included with freetz.
 Dez.  28, 2008
-f the are already included with freetz.
     - W920 W721, add badget page 
-f the are already included with freetz.
 Dez.  27, 2008
-f the are already included with freetz.
     - W721 config.in adjusted to: FRITZ.Box_Fon_WLAN_7113.60.04.61.image
-f the are already included with freetz.
     - W920, W721 ATM parameter fixed, but not tested.
-f the are already included with freetz.
 Dez.  26, 2008
-f the are already included with freetz.
     - W920 Bug fix in combination with "Option Force Tcom-LED Dreiver"
-f the are already included with freetz.
     - Set FB_HWRevision to 139 for W503
-f the are already included with freetz.
     - defaults for W503 and W721 changed.
-f the are already included with freetz.
     - Add: FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image 
-f the are already included with freetz.
 Dez.  25, 2008
-f the are already included with freetz.
     - W503 tcom firmware link, entered:
-f the are already included with freetz.
 http://hilfe.telekom.de/dlp/eki/downloads/503_66.04.65.image
-f the are already included with freetz.
     - W503 more adaptions, not tested. 
-f the are already included with freetz.
 Dez.  23, 2008
-f the are already included with freetz.
     - W920 Bug fix in combination with fonmenu and Labor Firmware. 
-f the are already included with freetz.
     - Option copy t-com LED driver now copies libled's and led-crtl as well. 
-f the are already included with freetz.
     - config.in adjusted to: 7270_telefonie/fritz_box-labor-13286.zip
-f the are already included with freetz.
     - ext2 menu option not usable any more. 
-f the are already included with freetz.
 Dez.  22, 2008
-f the are already included with freetz.
     - W503 fist script adaptions, downloads for t-com not correct.
-f the are already included with freetz.
 Dez.  21, 2008
-f the are already included with freetz.
     - Option added to use Tcom LED driver with W920.
-f the are already included with freetz.
     - Changed file name script date to ISO
-f the are already included with freetz.
     - Entered /dev/fuse into /tools/device_table.txt 
-f the are already included with freetz.
     - Added menu option to select T-com beta .63
-f the are already included with freetz.
     - Removed default ATA-selection in combination with W920    
-f the are already included with freetz.
 Dez.  20, 2008
-f the are already included with freetz.
     - Local image selection fixed.
-f the are already included with freetz.
     - Plug-in fix  
-f the are already included with freetz.
  Dez.  19, 2008
-f the are already included with freetz.
     W920:
-f the are already included with freetz.
     - Fixed wrong tcom-firmware since script 20.11.2008
-f the are already included with freetz.
       (All scripts since 20.11.2008 had this bug.)
-f the are already included with freetz.
  Dez.  18, 2008
-f the are already included with freetz.
     - Bugfix, reboots in combination W920 and script 5.12 
-f the are already included with freetz.
       two lines removed.
-f the are already included with freetz.
     - config.in adjusted to:
-f the are already included with freetz.
     - Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image
-f the are already included with freetz.
     - FRITZ.Box_Fon_WLAN_7270.Labor.54.04.99-13225.image
-f the are already included with freetz.
     - FRITZ.Box_Fon_WLAN_7270.Labor.54.04.97-13253.image
-f the are already included with freetz.
     - FRITZ.Box_Fon_WLAN_7270.Labor.54.04.95-13265.image    
-f the are already included with freetz.
     - FRITZ.Box_Fon_WLAN_7170.Labor.29.04.63-13038.image
-f the are already included with freetz.
  Dez.  05, 2008
-f the are already included with freetz.
      - 7270 config.in adjusted to AiO FRITZ.Box_Fon_WLAN_7270.54.04.67.image
-f the are already included with freetz.
      - W920 config.in adjusted to Speedport_W_920V.AnnexB.65.04.63-13048.zip
-f the are already included with freetz.
  Nov.  21, 2008
-f the are already included with freetz.
      - 7170 config.in adjusted to LABOR AiO fritz_box-labor-13014.
-f the are already included with freetz.
      - 7270 config.in adjusted to LABOR AiO fritz_box-labor-13014.
-f the are already included with freetz.
  Nov.  19, 2008
-f the are already included with freetz.
      - Removed skript copy_alian_to_freetz, use start-freetz!
-f the are already included with freetz.
      - rtc dev enterd into device table
-f the are already included with freetz.
      - Added T-com beta Speedport_W_920V.AnnexB.65.04.63.image
-f the are already included with freetz.
        firmware.
-f the are already included with freetz.
  Nov.  15, 2008
-f the are already included with freetz.
      - 7170 config.in adjusted to LABOR AiO fritz_box-labor-12946.
-f the are already included with freetz.
      - 7270 config.in adjusted to LABOR AiO fritz_box-labor-12946.
-f the are already included with freetz.
  Nov.  12, 2008
-f the are already included with freetz.
      - 7270 config.in adjusted to LABOR AiO fritz_box-labor-12904.
-f the are already included with freetz.
      - default setting changed, clear mtd3 und mtd4" is now default.
-f the are already included with freetz.
  Okt.  26, 2008
-f the are already included with freetz.
      - 7270 config.in adjusted to LABOR AiO fritz_box-labor-12657.
-f the are already included with freetz.
        With this "alles in einem" Firmware AVM introduced a new LED module
-f the are already included with freetz.
        with closed source, so LED configuration no longer is possible until
-f the are already included with freetz.
        t-com comes up with a new Firmware providing a LED module for W920.
-f the are already included with freetz.
        Using the 7270 LED module results in wrong  LED assignments.
-f the are already included with freetz.
        Online LED is now used as Info led.
-f the are already included with freetz.
      
-f the are already included with freetz.
  Okt.  16, 2008    
-f the are already included with freetz.
      - 7170 config.in adjusted to LABOR Ai1 fritz_box-labor-12537.image
-f the are already included with freetz.
      - 7170 config.in adjusted to LABOR DSL fritz_box-labor-12526.image
-f the are already included with freetz.
      - 7270 config.in adjusted to LABOR DSL fritz_box-labor-12606.image
-f the are already included with freetz.
        Pleas read info at AVM page! Important you maut have a other
-f the are already included with freetz.
        firmware instlled in the firast place.
-f the are already included with freetz.
        http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/labor_start_dsl.php
-f the are already included with freetz.
     - W721 VLYNQ parameter taken from 7170 again. 
-f the are already included with freetz.
  Okt.  14, 2008    
-f the are already included with freetz.
     - 7170 config.in adjusted to LABOR AiO fritz_box-labor-12537.zip
-f the are already included with freetz.
     - device-tabel double entry removed.
-f the are already included with freetz.
  Okt.  10, 2008    
-f the are already included with freetz.
     - Some minor script changes, concerning starting with a clean
-f the are already included with freetz.
       emty configuration. Firmware.conf my be deleted if one
-f the are already included with freetz.
       wants to start with default settings.
-f the are already included with freetz.
     - ut-8 in for Rueckwaetssuche fixed. 
-f the are already included with freetz.
     - Option ut-8 deactivated becas is not needed with the 
-f the are already included with freetz.
       latest Ai1 any more.
-f the are already included with freetz.
     - install-tools mit der version 16.09.2008 ersetzt.
-f the are already included with freetz.
     - 7170 config.in adjusted (englsh version) to:
-f the are already included with freetz.
       FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.57.image 
-f the are already included with freetz.
     - 7170 config.in adjusted to LABOR AiO fritz_box-labor-12469.zip
-f the are already included with freetz.
  Okt.  08, 2008
-f the are already included with freetz.
     - Option reuse configuration added, default is now don't reuse
-f the are already included with freetz.
       Firmware.conf Config file, this should prevent that unexperienced 
-f the are already included with freetz.
       users restart with wrong default settings.
-f the are already included with freetz.
       "use t-com piglet" must be on on with this labor version.
-f the are already included with freetz.
     - Mod info page enhanced by some menu options.
-f the are already included with freetz.
     - Fixed missing text on DECT setup page if IE was used. 
-f the are already included with freetz.
     - Fixed one remove of usb on site map page.
-f the are already included with freetz.
     - Added menu option revision number of freetz.
-f the are already included with freetz.
     - Option .58 added for W920, uses final .58 extracted from 
-f the are already included with freetz.
       12397 zip 
-f the are already included with freetz.
       Zip file is not deleted after download, any more 
-f the are already included with freetz.
  Okt.  02, 2008
-f the are already included with freetz.
     - config.in adjusted for 7170-labor-12397 Ai1
-f the are already included with freetz.
     - start-freetz.sh changed to bi conform to the new paths
-f the are already included with freetz.
       used by freetz.
-f the are already included with freetz.
     - 7270 config.in adjusted for .59 Final 
-f the are already included with freetz.
  Okt.  01, 2008
-f the are already included with freetz.
     - Fixed Button text on dsl page with Ai1
-f the are already included with freetz.
  Sept. 30, 2008
-f the are already included with freetz.
     - 7270 config.in adjusted to LABOR 12365 Ai1
-f the are already included with freetz.
  Sept. 24, 2008
-f the are already included with freetz.
     - W721 support added
-f the are already included with freetz.
  Sept. 20, 2008
-f the are already included with freetz.
     - added some devices in /tools/device_table.txt
-f the are already included with freetz.
  Sept. 19, 2008
-f the are already included with freetz.
     - 7270 config.in adjusted to LABOR 12298 Ai1
-f the are already included with freetz.
  Sept. 14, 2008
-f the are already included with freetz.
     - Version 13.09 Bug dect add on was missing, corrected. 
-f the are already included with freetz.
  Sept. 13, 2008
-f the are already included with freetz.
     - Bug fix TR69 and TR64 Option did not work.
-f the are already included with freetz.
     - Bug fix for Option Branding, there was some error if 
-f the are already included with freetz.
       branding was set to something else as avm and W900 was used.
-f the are already included with freetz.
     - Bug fix for dect-update.sh some changes made in the past 
-f the are already included with freetz.
       within speed-to-fritz ware not carried on to dect-update.
-f the are already included with freetz.
  Sept. 12, 2008
-f the are already included with freetz.
     - fon setup page for Ai1 12199 in combination with  W701
-f the are already included with freetz.
       fixed.
-f the are already included with freetz.
     - Option for activating tr69 and tr64 added.
-f the are already included with freetz.
     - Option for setting Branding added. Dot use this new option
-f the are already included with freetz.
       except you really know way. Usual the are never needed.  
-f the are already included with freetz.
  Sept. 09, 2008
-f the are already included with freetz.
     - Kaid Option added, for uses with xbox.
-f the are already included with freetz.
     - Added CLEAR_ENVX, is the same as CLEAR_ENV but uses IP, OEM 
-f the are already included with freetz.
       and LAN settings from the settings made in speed-to-fritz
-f the are already included with freetz.
       menu.
-f the are already included with freetz.
     - Remove dsl (ATA-ONLY) added for W501.
-f the are already included with freetz.
     - Option force clear mtd3 - mtd4 added.
-f the are already included with freetz.
     - Fixed missing text on DECT page if All in one is used.    
-f the are already included with freetz.
  August 31, 2008
-f the are already included with freetz.
     - Fixed W900 DECT Button text in combination with 11945
-f the are already included with freetz.
       and DECT "Zuordnung" 
-f the are already included with freetz.
  August 29, 2008
-f the are already included with freetz.
     - Bug fix W900 handsets menus corrected writing to ut-8,
-f the are already included with freetz.
       Was already fixed in version 16.08.2008,
-f the are already included with freetz.
       But again the old files added upt to 28.08.2008.
-f the are already included with freetz.
     - Some correction on menu item DECT. 
-f the are already included with freetz.
     - Fixed 11500 del firmware if switched between 900 920.
-f the are already included with freetz.
       Only needed because both Firmwares use the same name.
-f the are already included with freetz.
  August 28, 2008
-f the are already included with freetz.
     - Added ATA display into mod info page.
-f the are already included with freetz.
     - Changed the way how firmwares can be specified in Config.in
-f the are already included with freetz.
       It is now possible to add a second local file name or a 
-f the are already included with freetz.
       mirror location within one line inside quotes.
-f the are already included with freetz.
       If a mirror download site is in use the word 'mirror'
-f the are already included with freetz.
       has to be inserted between first file name with zip 
-f the are already included with freetz.
       extension added and download link for the mirror location.
-f the are already included with freetz.
       If first download location is a packed zip, autonmatic
-f the are already included with freetz.
       add of a local filename will take place once it was downloaded. 
-f the are already included with freetz.
  August 26, 2008
-f the are already included with freetz.
     - Changed display of ATA starting page if menu option 
-f the are already included with freetz.
       remove ADSL is used.  
-f the are already included with freetz.
     - Bug fix for start-freetz
-f the are already included with freetz.
  August 23, 2008
-f the are already included with freetz.
     - Support menu entry corrected in combination with freetz
-f the are already included with freetz.
     - Config.in setup for 7170 busht to latest labor version.
-f the are already included with freetz.
     - ISDN msn enabled for remove unusable menus on W701 again.
-f the are already included with freetz.
     - W920 "all in one" internet ata mode page enabled without 
-f the are already included with freetz.
       expert mod on. 
-f the are already included with freetz.
  August 20, 2008
-f the are already included with freetz.
     - Removed setting of HWRevision to the value of AVM firmware
-f the are already included with freetz.
       only if ATA and W920 is enabled via menu options,
-f the are already included with freetz.
       this will be the case now (plugin support of 12043 Firmware 
-f the are already included with freetz.
       needs HWRevison set to the value of AVM 7270 box to resolve 
-f the are already included with freetz.
       the download url for plug ins). 
-f the are already included with freetz.
     - For W920 All in One Option added to remove ADSL completely
-f the are already included with freetz.
       All in one 12043 works well as Router in combination with
-f the are already included with freetz.
       an external modem. Freetz is not usable up to now, firmware
-f the are already included with freetz.
       is usable but routing will not be established if a Freetz
-f the are already included with freetz.
       Firmware based on 12043 is used. 
-f the are already included with freetz.
     - Isdn menu on W701 is removed again if Option in setup menu 
-f the are already included with freetz.
       is set. 
-f the are already included with freetz.
 
-f the are already included with freetz.
  August 17, 2008
-f the are already included with freetz.
     - add expert dsl settings via option in setup menu
-f the are already included with freetz.
     - Fixed defaults for W501 in menu (pip-tone on fon1 with wrong
-f the are already included with freetz.
       options)
-f the are already included with freetz.
     - Removes unusable ISDN option menus form web GUI 
-f the are already included with freetz.
       for 'all in one' in combination with W701
-f the are already included with freetz.
     - fritz_box-labor-12043.zip added
-f the are already included with freetz.
     - Some text changed for ut8 char-set, bug fix for 11945
-f the are already included with freetz.
 
-f the are already included with freetz.
  August 13, 2008
-f the are already included with freetz.
     - all in one added (not tested some text will not be removed)
-f the are already included with freetz.
     - as with earlier versions
-f the are already included with freetz.
 
-f the are already included with freetz.
  August 07, 2008
-f the are already included with freetz.
     - Bug fix Tam removable now AVM Bug fixed in all in one
-f the are already included with freetz.
     - Some adjustments to adopt to future "all in one"
-f the are already included with freetz.
     - structures with language database instead of inc files
-f the are already included with freetz.
     - Some German special char replaced with oe, ae, ue, ss,
-f the are already included with freetz.
     - because all in one uses different method for special char.
-f the are already included with freetz.
    
-f the are already included with freetz.
  July 23, 2008
-f the are already included with freetz.
     - some minor bug fix for start-freetz
-f the are already included with freetz.
     - W920 option copy bin files added, to be able to us it with
-f the are already included with freetz.
     - limited functionality to enable adsl2
-f the are already included with freetz.
     - COPY_TCOM_BIN "Keep 3 tcom libs to enable adsl2"
-f the are already included with freetz.
     - COPY_TCOM_BIN2 "Keep all TCOM bin, sbin, lib"
-f the are already included with freetz.
     
-f the are already included with freetz.
  July 20, 2008
-f the are already included with freetz.
     - Automatic remove of labor firmware 11500 if it was for 
-f the are already included with freetz.
     - different model before (7170 or 7270) 
-f the are already included with freetz.
     - W501 restricted to use t-com fon driver only
-f the are already included with freetz.
     - added mirror download for old .43 Firmware
-f the are already included with freetz.
     - mirror download for W920 Firmware added
-f the are already included with freetz.
  July 19, 2008
-f the are already included with freetz.
     - W501 minor bug fix err. missing file, W920 AVM version 
-f the are already included with freetz.
     - set to .58 
-f the are already included with freetz.
  July 19, 2008
-f the are already included with freetz.
     - W920, added missing gifs, and power led fixed 
-f the are already included with freetz.
     - Added Option replace assistant menu-item with enhanced settings
-f the are already included with freetz.
     - Service portal link added
-f the are already included with freetz.
     - Use of fon driver from 3rd Firmware for Sinus 500 fixed
-f the are already included with freetz.
     - Test Option XCHANGE_KERNEL added, this can be used with 
-f the are already included with freetz.
     - option restore original firmware as well. 
-f the are already included with freetz.
  July 15, 2008
-f the are already included with freetz.
     - Bugfix W920, Speedport920 tiping error corrected
-f the are already included with freetz.
     - W701 in combination with 3rd Firmware produced error last 
-f the are already included with freetz.
     - in version, fixed
-f the are already included with freetz.
  July 14, 2008
-f the are already included with freetz.
     - W920 is now without reboots.
-f the are already included with freetz.
     - W920 only annex VB is supported, by AVM vdsl driver at the moment.
-f the are already included with freetz.
     - First flash of firmware in case of W920 must be with FTP!
-f the are already included with freetz.
     - Looks like oem tcom must be used to get functional VDSL,
-f the are already included with freetz.
     - see discussion for more details.
-f the are already included with freetz.
     - Add Option support, bug fix 11500
-f the are already included with freetz.
     - Bug fix copy 3rd source WEB menu 
-f the are already included with freetz.
  July 07, 2008
-f the are already included with freetz.
     - LABOR MINI enabled via Config.in
-f the are already included with freetz.
     - Option use 3rd source FON driver added for Sinus 500
-f the are already included with freetz.
  July 04, 2008
-f the are already included with freetz.
     - mksqushfs tool updated now up to date with freetz
-f the are already included with freetz.
     - tools can now be compiled for different systems,
-f the are already included with freetz.
     - run 'make toolsdirclean' and 'make tools'
-f the are already included with freetz.
     - or ./install-tools 
-f the are already included with freetz.
     - to install for your system 
-f the are already included with freetz.
  Jun 28, 2008
-f the are already included with freetz.
     - Fakeroot fixed, now script can be run without root rights
-f the are already included with freetz.
  Jun 26, 2008
-f the are already included with freetz.
     - Fixed, Product Name could not be changed via menu 
-f the are already included with freetz.
     
-f the are already included with freetz.
  Jun 26, 2008
-f the are already included with freetz.
     - First attempt to make the script usable for W920
-f the are already included with freetz.
  Jun 16, 2008
-f the are already included with freetz.
     - Gaming labor was not set correctly
-f the are already included with freetz.
     - Same changes on start-freetz.sh freetz-config preset to 
-f the are already included with freetz.
     -settings made in speed2freetz  
-f the are already included with freetz.
  Jun 13, 2008
-f the are already included with freetz.
     - Link address for labor gaming set to 11435
-f the are already included with freetz.
     - start-freetz.sh some minor changes, last patch included
-f the are already included with freetz.
     -  
-f the are already included with freetz.
  Jun 11, 2008
-f the are already included with freetz.
     - Some minor fixes to so start-freetz.sh will do a complete job again.
-f the are already included with freetz.
     - Tipping corrected by ernest015
-f the are already included with freetz.
     - Added 'install-start' to start the first time if some tools are missing.
-f the are already included with freetz.
     - Added 'start' to start on systems without root permission. 
-f the are already included with freetz.
  Jun 10, 2008
-f the are already included with freetz.
     - Bug fix, pushmail, W701, Bug fix start-freetz.sh 
-f the are already included with freetz.
     - Default Firmwae.conf is now automatically generated
-f the are already included with freetz.
     - All old startfile and config files removed!
-f the are already included with freetz.
     - make menu config added type ./start.sh to start menu config
-f the are already included with freetz.
     - Old type config files can still be used but must be added.
-f the are already included with freetz.
     - If download firmware address change in future the have to be 
-f the are already included with freetz.
     - edited in Config.in file.
-f the are already included with freetz.
     - Config. in has a single line entry for each possible Firmware,
-f the are already included with freetz.
     - and this information is used the for all generated config files.
-f the are already included with freetz.
     - Reverse look up minor problem with double icons is not fixed jet.
-f the are already included with freetz.
     - Scrpit version is still 06.06.2008
-f the are already included with freetz.
 -------------------------------------------------------------------
-f the are already included with freetz.
 
-f the are already included with freetz.
 
-f the are already included with freetz.
 1. Calling lists can't be transferred to some DECT Handsets, Only Sinus 500i will store information on the handsets.
-f the are already included with freetz.
    Only Swissvoice Eurit 547/557/567/577. Handsets will give the complete functionality.
-f the are already included with freetz.
     
-f the are already included with freetz.
 
-f the are already included with freetz.
 For more information please read the corresponding threads at the IP Forum.
-f the are already included with freetz.
 For each type of router there is a active thread, there you can post problems, and hopefully find answers.
-f the are already included with freetz.
 
