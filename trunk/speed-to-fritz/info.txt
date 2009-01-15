@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090115-0509
+    - tools/busybox: bump to 1.12.4
 20090114-1247
     - start-freetz.sh: disable some patches so the are not applied twice.
 Jan. 12, 2009
