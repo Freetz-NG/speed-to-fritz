@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090115-1537
+    - W900: fw_Speedport_W900V_v34.04.57.image download link angepsst
 20090115-1421
     - W900: ext2 Option fix, Hawcline's addon of ntfs
 20090115-0509
