@@ -697,11 +697,28 @@ config VERBOSE
 	string
 	default "-v" if VERBOSEETY 
 	default "" if ! VERBOSEETY 
+
 config EXPORT_ENABLE_EXT2
-	bool "Enable ext2"
+	bool "add ext2 (ext3) driver"
 	default n
 	help
-		With new AVM Versions not usable any more!.
+		With new AVM Versions in most cases no drivers are present, 
+		you my place your own driver to: 
+		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext2/ext2.ko 
+		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext3/ext3.ko
+		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/mbcache.ko
+		"2.6.19.2" must match the kernelversion!  
+ 		Or you can select a 3rd Firmware from where the driver will be taken.
+
+config EXPORT_ADD_NTFS
+	bool "add ntfs"
+	select EXPORT_ENABLE_EXT2
+	depends on TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL
+	default n
+	help
+		With new AVM Versions in most cases ntfs is part of the Firmware.
+		Or you can select a 3rd Firmware from where the driver will be taken.
+		
 config EXPORT_USE_SOURCE2_WEBMNUE
 	bool "Use source 3 webfiles"
 	depends on SOURCE2

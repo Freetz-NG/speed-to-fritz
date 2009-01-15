@@ -1,0 +1,17 @@
+#!/bin/bash
+ . $include_modpatch
+FSDIR="/lib/modules/${KernelVersion}/kernel/fs"
+grep -q "$FSDIR/mini_fo/mini_fo.ko:" "$1"/lib/modules/$KernelVersion/modules.dep || echo "$FSDIR/mini_fo/mini_fo.ko:" >>"$1"/lib/modules/$KernelVersion/modules.dep
+grep -q "$FSDIR/fuse/fuse.ko:" "$1"/lib/modules/$KernelVersion/modules.dep || echo "$FSDIR/fuse/fuse.ko:" >>"$1"/lib/modules/$KernelVersion/modules.dep
+#add ntfs hotplug
+#echo "${KernelVersion} $FBMOD" 
+#echo "2.6.13.1-ohio 7170"
+if [ $FBMOD = "7170"  ] && [ "${KernelVersion}" = "2.6.13.1-ohio" ] && [ -e $P_DIR/add_ntfs.patch ];then 
+ modpatch "${1}" "$P_DIR/add_ntfs.patch"
+# echo " -- Add ntfs hotplug, kernel version: ${KernelVersion} - $FBMOD"
+else
+ echo " -- ntfs hotplug not added wrong kernel version, or modules missing!"
+fi
+
+exit
+

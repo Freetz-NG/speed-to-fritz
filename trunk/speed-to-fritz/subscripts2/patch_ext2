@@ -1,36 +1,50 @@
 #!/bin/bash
  . $include_modpatch
-# ls "${SRC}"/lib/modules
-if [ $FBMOD = "7270"  ]; then
-KVersion="2.6.19.2"
-
-[ -d "${SRC}"/lib/modules/$KVersion/kernel/fs/ext2 ] || mkdir "${SRC}"/lib/modules/$KVersion/kernel/fs/ext2
-[ -f "${SRC}"/lib/modules/$KVersion/kernel/fs/ext2/ext2.ko ] || cp -fdrp "${DST}"/lib/modules/$KVersion/kernel/fs/ext2/ext2.ko --target-directory="${SRC}"/lib/modules/$KVersion/kernel/fs/ext2
-[ -f "${SRC}"/lib/modules/$KVersion/kernel/fs/mbcache.ko ] || cp -fdrp "${DST}"/lib/modules/$KVersion/kernel/fs/mbcache.ko --target-directory="${SRC}"/lib/modules/$KVersion/kernel/fs
+FSDIR="/lib/modules/${KernelVersion}/kernel/fs"
+EXT2DIR="/lib/modules/${KernelVersion}/kernel/fs/ext2"
+if [ $FBMOD = "7270"  ];then 
+  [ -d "${SRC}"$EXT2DIR ] || mkdir -p "${SRC}"$EXT2DIR
+ if [ -f "${DST}"$EXT2DIR/ext2.ko ]; then
+  [ -f "${SRC}"$EXT2DIR/ext2.ko ] || cp -fdrp "${DST}"$EXT2DIR/ext2.ko --target-directory="${SRC}"$EXT2DIR
+  [ -f "${SRC}"$FSDIR/mbcache.ko ] || cp -fdrp "${DST}"$FSDIR/mbcache.ko --target-directory="${SRC}"$FSDIR
+ fi
+ if [ -f "${SRC_2}"$EXT2DIR/ext2.ko ]; then
+  [ -f "${SRC}"$EXT2DIR/ext2.ko ] || cp -fdrp "${SRC_2}"$EXT2DIR/ext2.ko --target-directory="${SRC}"$EXT2DIR
+  [ -f "${SRC}"$FSDIR/mbcache.ko ] || cp -fdrp "${SRC_2}"$FSDIR/mbcache.ko --target-directory="${SRC}"$FSDIR
+ fi
+ if [ -f ${HOMEDIR}/addon/tmp/W920/squashfs-root$EXT2DIR/ext2.ko ]; then
+  [ -f "${SRC}"$EXT2DIR/ext2.ko ] || cp -fdrp "${HOMEDIR}"/addon/tmp/W920/squashfs-root$EXT2DIR/ext2.ko --target-directory="${SRC}"$EXT2DIR
+  [ -f "${SRC}"$FSDIR/mbcache.ko ] || cp -fdrp "${HOMEDIR}"/addon/tmp/W920/squashfs-root$FSDIR/mbcache.ko --target-directory="${SRC}"$FSDIR
+ fi
+  sed -i -e "/.lib.modules.$KernelVersion.kernel.fs.ext2.ko:/d" "${SRC}"/lib/modules/$KernelVersion/modules.dep
+  echo "$EXT2DIR/ext2.ko: $FSDIR/mbcache.ko" >>"${SRC}"/lib/modules/$KernelVersion/modules.dep
+ [ -f "${SRC}"$EXT2DIR/ext2.ko ] || echo "---------No ext2 driver preset!----------" && sleep 2
+ #save ext2 to tmp
+  [ -d "${HOMEDIR}"/addon/tmp/W920/squashfs-root$EXT2DIR ] || mkdir -p "${HOMEDIR}"/addon/tmp/W920/squashfs-root$EXT2DIR
+  [ -f "${SRC}"$EXT2DIR/ext2.ko ] && cp -fdrp "${SRC}"$EXT2DIR/ext2.ko --target-directory="${HOMEDIR}"/addon/tmp/W920/squashfs-root$EXT2DIR
+  [ -f "${SRC}"$FSDIR/mbcache.ko ] && cp -fdrp "${SRC}"$FSDIR/mbcache.ko --target-directory="${HOMEDIR}"/addon/tmp/W920/squashfs-root$FSDIR
+#--------
+  [ -d "${SRC}"$FSDIR/ext3 ] || mkdir -p "${SRC}"$FSDIR/ext3
+ if [ -f "${DST}"/lib/modules/$KernelVersion/ext3/ext3.ko ]; then
+  [ -f "${SRC}"$FSDIR/ext3/ext3.ko ] || cp -fdrp "${DST}"$FSDIR/ext3/ext3.ko --target-directory="${SRC}"$FSDIR/ext3
+  [ -f "${SRC}"$FSDIR/mbcache.ko ] || cp -fdrp "${DST}"$FSDIR/mbcache.ko --target-directory="${SRC}"$FSDIR
+ fi
+ if [ -f "${SRC_2}"$FSDIR/ext3/ext3.ko ]; then
+  [ -f "${SRC}"$FSDIR/ext3/ext3.ko ] || cp -fdrp "${SRC_2}"$FSDIR/ext3/ext3.ko --target-directory="${SRC}"$FSDIR/ext3
+  [ -f "${SRC}"$FSDIR/mbcache.ko ] || cp -fdrp "${SRC_2}"$FSDIR/mbcache.ko --target-directory="${SRC}"$FSDIR
+ fi
+ if [ -f ${HOMEDIR}/addon/tmp/W920/squashfs-root$FSDIR/ext3/ext3.ko ]; then
+  [ -f "${SRC}"$FSDIR/ext3/ext3.ko ] || cp -fdrp "${HOMEDIR}"/addon/tmp/W920/squashfs-root$FSDIR/ext3/ext3.ko --target-directory="${SRC}"$FSDIR/ext3
+  [ -f "${SRC}"$FSDIR/mbcache.ko ] || cp -fdrp "${HOMEDIR}"/addon/tmp/W920/squashfs-root$FSDIR/mbcache.ko --target-directory="${SRC}"$FSDIR
+ fi
+  sed -i -e "/.lib.modules.$KernelVersion.kernel.fs.ext3.ko:/d" "${SRC}"/lib/modules/$KernelVersion/modules.dep
+  echo "$FSDIR/ext3/ext3.ko: $FSDIR/mbcache.ko" >>"${SRC}"/lib/modules/$KernelVersion/modules.dep
+ [ -f "${SRC}"$FSDIR/ext3/ext3.ko ] || echo "---------No ext3 driver preset!----------" && sleep 2
+ #save ext3 to tmp
+  [ -d "${HOMEDIR}"/addon/tmp/W920/squashfs-root$FSDIR/ext3 ] || mkdir -p "${HOMEDIR}"/addon/tmp/W920/squashfs-root$FSDIR/ext3
+  [ -f "${SRC}"$FSDIR/ext3/ext3.ko ] && cp -fdrp "${SRC}"$FSDIR/ext3/ext3.ko --target-directory="${HOMEDIR}"/addon/tmp/W920/squashfs-root$FSDIR/ext3
+  [ -f "${SRC}"$FSDIR/mbcache.ko ] && cp -fdrp "${SRC}"$FSDIR/mbcache.ko --target-directory="${HOMEDIR}"/addon/tmp/W920/squashfs-root$FSDIR
 fi
-
-if [ ! -e "${1}"/etc/hotplug/storage ]; then
-    exit 0
-fi
-echo "/lib/modules/$KVersion/kernel/fs/ext2/ext2.ko: /lib/modules/$KVersion/kernel/fs/mbcache.ko" >>"${SRC}"/lib/modules/$KVersion/modules.dep
-
-echo2 "-- patch ext2 settings"
-echo2 "      /etc/hotplug/storage"
-
-
-sed -i -e 's|modprobe vfat|modprobe vfat\
-echo "mount ext2 ------------------------"\
-modprobe ext2\
-modprobe ext3\
-|' "${1}"/etc/hotplug/storage
-
-sed -i -e 's|rmmod vfat|rmmod vfat\
-rmmod ext3\
-rmmod ext2\
-|' "${1}"/etc/hotplug/storage
-
-#sed -i -e 's|wait4exist /proc/scsi/usb-storage 5|wait4exist /proc/scsi/usb-storage 10|' "${1}"/etc/hotplug/storage
-
 
 if [ ! -e "${1}"/etc/hotplug/run_mount ]; then
     exit 0
@@ -39,42 +53,41 @@ fi
 
 echo2 "      /etc/hotplug/run_mount"
 
-#sed -i -e 's/echo "$NAME-$2$PARTHEX"/echo "uStor$2$3"/' "${1}"/etc/hotplug/run_mount
 
 sed -i -e "s/if mount -t vfat.*$/if mount_fs; then/" "${1}"/etc/hotplug/run_mount
 
-sed -i -e '/test -f .etc.hotplug.rc.usbsema/a\
-modprobe ext2\
+sed -i -e '/etc.hotplug.rc.usbsema &&/a\
 mount_fs () {\
-if [ -e /usr/bin/fstyp ]; then\
-FSTYPE=`/usr/bin/fstyp $DEVNODE`\
-else\
-FSTYPE="vfat"\
-fi\
-case $FSTYPE in\
-vfat)\
-mount -t vfat -o $READMODE,shortname=winnt,uid=$FTPUID,gid=$FTPGID,fmask=0000,dmask=0000 $DEVNODE $MNTPATH\
-;;\
-ext2)\
-mount -t ext2 $DEVNODE $MNTPATH -o noatime,nodiratime,rw,async\
-;;\
-ext3)\
-mount -t ext3 $DEVNODE $MNTPATH -o noatime,nodiratime,rw,async\
-;;\
-ntfs)\
-if [ -e /usr/bin/ntfs-3g ]; then\
-/usr/bin/ntfs-3g $DEVNODE $MNTPATH -o force\
-else\
-echo "ntfs-3g not installed"\
-fi\
-;;\
-*) # fs type unknown\
-;;\
-esac\
+ # mount according to type of filesystem \
+ # return exit code: true - all went well; other - something went wrong \
+ # gobal variables: \
+ #  $DEVNODE, $MNTPATH, READMODE, FTPUID, FTPGID \
+	FSTYPE="vfat"   # default as long as we dont know better \
+	[[ -x /usr/bin/fstyp ]] && FSTYPE=`/usr/bin/fstyp $DEVNODE` \
+	\
+	case $FSTYPE in\
+	vfat)\
+		mount -t vfat -o $READMODE,uid=$FTPUID,gid=$FTPGID,fmask=0000,dmask=0000 $DEVNODE $MNTPATH\
+		;;\
+	ext2)\
+		mount -t ext2 $DEVNODE $MNTPATH -o noatime,nodiratime,rw,async\
+		;;\
+	ext3)\
+		mount -t ext3 $DEVNODE $MNTPATH -o noatime,nodiratime,rw,async\
+		;;\
+	ntfs)\
+		/bin/ntfs-3g $DEVNODE $MNTPATH -o force\
+		;;\
+#	reiserfs)\
+#		mount -t reiserfs $DEVNODE $MNTPATH -o noatime,nodiratime,rw,async\
+#		;;\
+	*) # fs type unknown\
+		mount $DEVNODE $MNTPATH\
+		;;\
+	esac\
 }' "${1}"/etc/hotplug/run_mount
 
-exit 0
 
-#chmod 755 $FTPDIR
 
-#if mount -t vfat -o $READMODE,shortname=winnt,uid=$FTPUID,gid=$FTPGID $DEVNODE $MNTPATH; then 
+exit
+

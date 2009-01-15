@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090115-1421
+    - W900: ext2 Option fix, Hawcline's addon of ntfs
 20090115-0509
     - tools/busybox: bump to 1.12.4
 20090114-1247
