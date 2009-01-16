@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090116-1257
+    - W920: download link adjasted for: fritz_box-labor-7270-13422.zip 
 20090116-0401
     - W501: fw_Speedport_W501V_v_28.04.38.image, fixed download link 
 20090115-1537
