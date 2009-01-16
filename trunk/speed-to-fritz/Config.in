@@ -18,8 +18,9 @@ config TCOM_SINUS_27
     default "http://hilfe.telekom.de/dlp/eki/downloads/Sinus%20W%20500%20V/fw_SinusW500V_27_04_27.zip ./Firmware.orig/Sinus_W_500V.27.04.27.image"
 config TCOM_W501_38 
    string 
+    default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W501V/fw_Speedport_W501V_v_28.04.38.image"
 #   default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport_W501V/fw_Speedport_W501V_v_28.04.38.image"
-   default "ftp://software.t-online.de/pub/service/WinT-DSL/firmware/fw_Speedport_W501V_v_28.04.38.image"
+#   default "ftp://software.t-online.de/pub/service/WinT-DSL/firmware/fw_Speedport_W501V_v_28.04.38.image"
 config TCOM_W503_65 
     string 
     default "http://hilfe.telekom.de/dlp/eki/downloads/503_66.04.65.image"    
