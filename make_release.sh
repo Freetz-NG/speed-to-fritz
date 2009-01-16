@@ -6,7 +6,7 @@ echo "--------------------------------------------------------------------------
 TMP_DIR="./tmp"
 UPSTREAM_DIR="/mnt/win/upstream"
 SVN_TRUNK_DIR="./trunk"
-VER=$(date +%y.%m.%d)
+VER=$(date +%Y_%m_%d)
 mkdir -p $TMP_DIR
 mkdir -p $UPSTREAM_DIR
 cp -fdrp $SVN_TRUNK_DIR/speed-to-fritz --target-directory="$TMP_DIR"
