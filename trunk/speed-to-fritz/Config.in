@@ -121,7 +121,7 @@ config AVM7270_59
 #default ""
 config AVM7270_67
     string
-default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-7270-13422.zip ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
+default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13422.zip ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
 
 
 ###------------------------------------------------------------------------------------------------------------
