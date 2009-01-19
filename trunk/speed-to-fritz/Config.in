@@ -709,15 +709,6 @@ config EXPORT_ENABLE_EXT2
 		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/mbcache.ko
 		"2.6.19.2" must match the kernelversion!  
  		Or you can select a 3rd Firmware from where the driver will be taken.
-
-config EXPORT_ADD_NTFS
-	bool "add ntfs"
-	select EXPORT_ENABLE_EXT2
-	depends on TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL
-	default n
-	help
-		With new AVM Versions in most cases ntfs is part of the Firmware.
-		Or you can select a 3rd Firmware from where the driver will be taken.
 		
 config EXPORT_USE_SOURCE2_WEBMNUE
 	bool "Use source 3 webfiles"
@@ -1081,6 +1072,16 @@ config EXPORT_ADD_KAID
 		be done on the file /addon/kaid/kaid.conf before! 
 		Defaults, Username: admin, Password: 0000
 		Port: lan
+
+
+config EXPORT_ADD_NTFS
+	bool "Add ntfs"
+	select EXPORT_ENABLE_EXT2
+	depends on TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL
+	default n
+	help
+		With new AVM Versions in most cases ntfs is part of the Firmware.
+		Or you can select a 3rd Firmware from where the driver will be taken.
 
 endmenu
 
