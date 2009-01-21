@@ -159,7 +159,7 @@ choice
 		
 	config TYPE_SPEEDPORT_W503V
 		bool "Speedport W503V"
-
+		select XCHANGE_KERNEL
 	config TYPE_SPEEDPORT_W701V
 		bool "Speedport W701V"
 
@@ -728,9 +728,9 @@ config EXPORT_USE_SOURCE2_WEBMNUE
 comment "DSL Options --------------------------------------------------------"
 config EXPORT_ATA_ONLY
 	bool "Remove ADSL - ATA only"
-	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W920V
+	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V
 	default n 
-	default y if ( TYPE_SPEEDPORT_W920V )
+#	default y if ( TYPE_SPEEDPORT_W920V )
  
 	help
 		Use this additional option, if VDSL or ADSL is not needed or not 
@@ -862,7 +862,6 @@ config XCHANGE_KERNEL
 
 config FORCE_TCOM_PIGLET
 	bool "Force use of t-com piglet driver"
-#	default y if TYPE_ALL && TYPE_SPEEDPORT_W920V
 	default n
 	help
 		For normal this is "n", but for firmwares with minor versions less then 50 "y" works better.

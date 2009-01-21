@@ -3,7 +3,7 @@ PATH=/sbin:$PATH
 #dont change names of variables because some of the names are used in other files as well!
 ##########################################################################
 # Date of current version:                                          
-Tag="20"; Monat="01"; Jahr="09"
+Tag="21"; Monat="01"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -172,8 +172,8 @@ export CONFIG_LED_NO_DSL_LED="n"
 export CONFIG_DECT_ONOFF="n"
 export CONFIG_TR064=""
 export CONFIG_TR069=""
-export CONFIG_IsdnNT="0"
-export CONFIG_IsdnTE="0"
+export CONFIG_IsdnNT="0" 
+export CONFIG_IsdnTE="0" 
 export CONFIG_Usb="0" 
 export CONFIG_Pots="0"
 export CONFIG_UsbHost="0" 
@@ -360,11 +360,11 @@ case "$1" in
 	export CONFIG_TAM="y"
 	export CONFIG_TAM_MODE="1"
 	export CONFIG_MAILER2="y"
-	export CONFIG_IsdnTE="1"
+	export CONFIG_IsdnNT="1"
 	export CONFIG_Pots="1"
 	export kernel_size="7798784"
 #aditional not in use on W701 but on 7170	
-	export CONFIG_DSL_UR8="n"
+	export CONFIG_DSL_UR8="y"
         export CONFIG_EXPERT="y"
 	export CONFIG_GDB="n"
 	export CONFIG_GDB_FULL="n"	
@@ -399,6 +399,7 @@ case "$1" in
 	  export CONFIG_LABOR_DSL="n"
 	fi 
     ;;
+    
 "503")
 	export SPMOD="503"
 	export CLASS="Speedport"
@@ -422,11 +423,12 @@ case "$1" in
 	export CONFIG_TAM="y"
 	export CONFIG_TAM_MODE="1"
 	export CONFIG_MAILER2="y"
+	#is TE Terminal Equipt
 	export CONFIG_IsdnTE="1"
 	export CONFIG_Pots="1"
 	export kernel_size="7798784"
-#aditional not in use on W701 but on 7170	
-	export CONFIG_DSL_UR8="n"
+
+	export CONFIG_DSL_UR8="y"
         export CONFIG_EXPERT="y"
 	export CONFIG_GDB="n"
 	export CONFIG_GDB_FULL="n"	
@@ -435,23 +437,29 @@ case "$1" in
 	export CONFIG_RELEASE="2"
 	export CONFIG_SERVICEPORTAL_URL="none"
 	export CONFIG_USB_HOST_AVM="n"
-	export CONFIG_USB_STORAGE="y"
+	export CONFIG_USB_STORAGE="n"
 	export CONFIG_USB_PRINT_SERV="n"
 	export CONFIG_USB_STORAGE="n"
 	export CONFIG_USB_STORAGE_USERS="n"
-	export CONFIG_USB_WLAN_AUTH="y"
-	export CONFIG_VDSL="y"
-	export CONFIG_VINAX="y"
-#	export CONFIG_VLYNQ="y"
-#	export CONFIG_VLYNQ0="0"
-#	export CONFIG_VLYNQ1="0"
+	export CONFIG_USB_WLAN_AUTH="n"
+	export CONFIG_VDSL="n"
+	export CONFIG_VINAX="n"
+	export CONFIG_VLYNQ="y"
+	export CONFIG_VLYNQ0="0"
+	export CONFIG_VLYNQ1="0"
 #	export CONFIG_VLYNQ_PARAMS=""
-	export CONFIG_WLAN="n"
+	export CONFIG_WLAN_SAVEMEM="n"
+	export CONFIG_WLAN_TCOM_PRIO="y"
+	export CONFIG_WLAN_TXPOWER="y"
+	export CONFIG_WLAN_WMM="y"
+	export CONFIG_WLAN_WDS="y"
+
+	export CONFIG_WLAN="y"
 	export CONFIG_WLAN_1130TNET="n"
 	export CONFIG_WLAN_1350TNET="n"
-	export CONFIG_WLAN_GREEN="n"
-	export CONFIG_WLAN_IPTV="n"
-	export CONFIG_WLAN_MADWIFI="n"
+#	export CONFIG_WLAN_GREEN="n"
+	export CONFIG_WLAN_IPTV="y"
+	export CONFIG_WLAN_MADWIFI="y"
 	export CONFIG_WLAN_OPENWIFI="n"
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA_FULL="y"
@@ -486,6 +494,7 @@ case "$1" in
 	export CONFIG_TAM_MODE="1"
 	export CONFIG_MAILER2="y"
 	export CONFIG_Pots="1"
+	#has S0 NT
 	export CONFIG_IsdnNT="1"
 	export CONFIG_IsdnTE="1"
 	export CONFIG_Usb="1" 
@@ -759,6 +768,7 @@ if [ "$SET_UP" = "n" ]; then
 	echo
  	#FTP kann nicht mit zwei Parametern von quote uebergeben,  ${kernel_args} verursacht Fehlermeldung	
 	pushconfig "${NEWDIR}" "${OEM}" "${CONFIG_PRODUKT}" "${HWRevision}" "${ETH_IF}" "${IPADDRESS}" "${CONFIG_jffs2_size}" "annex=${ANNEX}" "${ANNEX}"
+#	pushconfig "${NEWDIR}" "${OEM}" "${CONFIG_PRODUKT}" "${HWRevision}" "${ETH_IF}" "${IPADDRESS}" "${CONFIG_jffs2_size}" "console=ttyS0,38400" "${ANNEX}"
 	echo
 	echo "Finished transfering kernel.image to Speedport. Enjoy!"
 	echo
