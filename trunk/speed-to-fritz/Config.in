@@ -13,28 +13,31 @@ comment "General settings for Speed-to-fritz --------------------------------"
 ### If new firmware must be setted up, keep in mind that new SYMBOLS are in use further down in 
 ### this configfile and might be added as well on later sections  
 ### TCOM Firmware
-config TCOM_SINUS_27 
+config TCOM_SINUS_27
     string 
     default "http://hilfe.telekom.de/dlp/eki/downloads/Sinus%20W%20500%20V/fw_SinusW500V_27_04_27.zip ./Firmware.orig/Sinus_W_500V.27.04.27.image"
-config TCOM_W501_38 
+config TCOM_W501_38
    string 
     default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W501V/fw_Speedport_W501V_v_28.04.38.image"
-config TCOM_W503_65 
+config TCOM_W503_65
     string 
     default "http://hilfe.telekom.de/dlp/eki/downloads/503_66.04.65.image"    
+config TCOM_W503_66
+    string 
+    default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20503V%20Typ%20A/fw_Speedport_W503V_v66.04.66.image"
 config TCOM_W701_57 
     string 
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20701%20V/fw_Speedport_W701V_v33.04.57.image"
 #    default "ftp://software.t-online.de/pub/service/WinT-DSL/firmware/fw_Speedport_W701V_v33.04.56.image"
-config TCOM_W900_57 
+config TCOM_W900_57
     string 
      default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20900V/fw_Speedport_W900V_v34.04.57.image"    
 #    default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20900V/fw_Speedport_W900V_v34.04.57.image"
 #    default "ftp://software.t-online.de/pub/service/WinT-DSL/firmware/Speedport_W_900V.AnnexB.34.04.57.image"
-config TCOM_W721_60 
+config TCOM_W721_60
     string 
     default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W721V/fw_Speedport_W_721V_v64.04.60.image"
-config TCOM_W920_58 
+config TCOM_W920_58
     string 
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.58.zip mirror http://www.hostarea.de/server-01/Januar-a98d49e8b1.zip"
 #    default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.58.zip mirror http://www.upload.crunkbass.de/?a=show&file=5370656564706f72745f575f393230562e416e6e6578422e36352e30342e35382e696d6167652e7a6970&big=1"
@@ -365,11 +368,14 @@ choice
 		bool "AVM_57en"
 	config TYPE_AVM_32
 		bool "AVM_32"
-
 	config TYPE_TCOM_W500_27
 		bool "TCOM_W500_27"
 	config TYPE_TCOM_W501_38
 		bool "TCOM_W501_38"
+	config TYPE_TCOM_W503_65
+		bool "TCOM_W503_65"
+	config TYPE_TCOM_W503_66
+		bool "TCOM_W503_66"
 	config TYPE_TCOM_W701_57
 		bool "TCOM_W701_57"
 	config TYPE_TCOM_W721_60
@@ -421,7 +427,7 @@ config TCOM_IMG
         default "$TCOM_SINUS_27" 		if TYPE_SINUS_W500V
 	default "$TCOM_W501_38" 		if TYPE_SPEEDPORT_W501V
 	default "$TCOM_W701_57" 		if TYPE_SPEEDPORT_W701V
-	default "$TCOM_W503_65" 		if TYPE_SPEEDPORT_W503V
+	default "$TCOM_W503_66" 		if TYPE_SPEEDPORT_W503V
 	default "$TCOM_W721_60" 		if TYPE_SPEEDPORT_W721V
 	default "$TCOM_W900_57" 		if TYPE_SPEEDPORT_W900V
 	default "$TCOM_W920_58" 		if TYPE_58 && ( TYPE_SPEEDPORT_W920V )
@@ -483,7 +489,9 @@ config SRC2_IMG
 	default "$AVM_MINI_67" 		if TYPE_MINI_67
 	default "$AVM_LOCAL"		if TYPE_AVM_LOCAL_IMAGE
         default "$TCOM_SINUS_27" 	if TYPE_TCOM_W500_27
-	default "$TCOM_W501_38" 	if TYPE_TCOM_W501_56
+	default "$TCOM_W501_38" 	if TYPE_TCOM_W501_38
+	default "$TCOM_W503_65" 	if TYPE_TCOM_W503_65
+	default "$TCOM_W503_66" 	if TYPE_TCOM_W503_66
 	default "$TCOM_W701_57" 	if TYPE_TCOM_W701_57
 	default "$TCOM_W721_60" 	if TYPE_TCOM_W721_60
 	default "$TCOM_W900_57" 	if TYPE_TCOM_W900_57
