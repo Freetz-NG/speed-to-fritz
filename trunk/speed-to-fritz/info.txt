@@ -21,6 +21,12 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090124-0441
+    - congstar: added W701, fixed problem with filnames including spc
+20090124-0256
+    - W920: Adjusted config.in for: fritz_box-labor-7270-13483.zip
+20090123-1240
+    - W503: added, some more variables used in rc.conf
 20090123-0957
     - W503: config.in added, fw_Speedport_W503V_v66.04.66.image
 20090121-1620

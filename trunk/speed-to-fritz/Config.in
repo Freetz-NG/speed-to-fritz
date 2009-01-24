@@ -25,6 +25,9 @@ config TCOM_W503_65
 config TCOM_W503_66
     string 
     default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20503V%20Typ%20A/fw_Speedport_W503V_v66.04.66.image"
+config CONGSTAR_W701_58
+    string 
+    default "http://cms.congstar.de/uploads/tx_templavoila/congstar_DSL-Box.AnnexB.33.04.58.zip ./Firmware.orig/congstar DSL-Box.AnnexB.33.04.58.image"
 config TCOM_W701_57 
     string 
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20701%20V/fw_Speedport_W701V_v33.04.57.image"
@@ -103,9 +106,10 @@ config AVM7270_DSL_13225
 #config AVM7270_ALL_12298
 #    string
 #default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_neues_aus_der_entwicklung/fritz_box-labor-12298.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.63-12298.image"
-config AVM7270_PHONE_13422
+config AVM7270_PHONE_13483
     string 
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13422.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_Labor.54.04.97-13422.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13483.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.97-13483.image"
+#    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13483.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_Labor.54.04.97-13483.image"
 #config AVM7270_VPN_13265
 #    string 
 #    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vpn/fritz_box-labor-13265.zip"
@@ -130,7 +134,7 @@ config AVM7270_59
 #default ""
 config AVM7270_67
     string
-default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13422.zip ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
+default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13483.zip ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
 
 
 ###------------------------------------------------------------------------------------------------------------
@@ -221,6 +225,19 @@ choice
 	config TYPE_TCOM_BETA_13048
 		bool "TCOM_BETA_13048"
 endchoice
+config TYPE_CONGSTAR
+	bool "Select a special CONGSTAR Firmware --->"
+	depends on TYPE_SPEEDPORT_W701V 
+	default n
+	help
+		Enable this to compile the mod based on an special AVM firmware.
+choice
+	prompt "congstar alternative firmware"
+		depends on TYPE_CONGSTAR
+	config TYPE_CONGSTAR_W701V_58
+		bool "CONGSTAR_W701V_58"
+endchoice
+
 ###------------------------------------------------------------------------------------------------------------
 choice
 	prompt "Firmware language"
@@ -299,7 +316,7 @@ choice
 #		bool "MINI"
 #		depends on TYPE_SPEEDPORT_W721V || TYPE_TCOM_LOCAL 
 	config TYPE_PHONE
-		bool "PHONE_13422"
+		bool "PHONE_13483"
 		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 #	config TYPE_VPN
 #		bool "VPN"
@@ -403,8 +420,8 @@ choice
 		bool "AVM7270_DSL_13225"
 	config TYPE_AVM7270_DSL_12606 
 		bool "AVM7270_DSL_12606"
-	config TYPE_AVM7270_PHONE_13422
-		bool "AVM7270_PHONE_13422"
+	config TYPE_AVM7270_PHONE_13483
+		bool "AVM7270_PHONE_13483"
 	config TYPE_AVM7270_UMTS_13265
 		bool "AVM7270_UMTS_13265"
 	config TYPE_AVM7270_MINI_67
@@ -426,7 +443,8 @@ config TCOM_IMG
 	string
         default "$TCOM_SINUS_27" 		if TYPE_SINUS_W500V
 	default "$TCOM_W501_38" 		if TYPE_SPEEDPORT_W501V
-	default "$TCOM_W701_57" 		if TYPE_SPEEDPORT_W701V
+	default "$TCOM_W701_57" 		if ( ! TYPE_CONGSTAR ) && ( TYPE_SPEEDPORT_W701V )
+	default "$CONGSTAR_W701_58" 		if TYPE_CONGSTAR_W701V_58 && ( TYPE_SPEEDPORT_W701V )
 	default "$TCOM_W503_66" 		if TYPE_SPEEDPORT_W503V
 	default "$TCOM_W721_60" 		if TYPE_SPEEDPORT_W721V
 	default "$TCOM_W900_57" 		if TYPE_SPEEDPORT_W900V
@@ -464,7 +482,7 @@ config AVM_IMG
         default "$AVM7270_67"		if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM7270_DSL_13225" 	if ( TYPE_DSL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM7270_ALL_12298"	if ( TYPE_298 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-        default "$AVM7270_PHONE_13422" 	if ( TYPE_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+        default "$AVM7270_PHONE_13483" 	if ( TYPE_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM7270_UMTS_13265" 	if ( TYPE_UMTS ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM7270_MINI_67" 	if ( TYPE_MINI ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 
@@ -507,7 +525,7 @@ config SRC2_IMG
         default "$AVM7270_67" 		if TYPE_AVM7270_67
 	default "$AVM7270_ALL_12298"	if TYPE_AVM7270_ALL_12298
         default "$AVM7270_DSL_13225" 	if TYPE_AVM7270_DSL_13225
-        default "$AVM7270_PHONE_13422" 	if TYPE_AVM7270_PHONE_13422
+        default "$AVM7270_PHONE_13483" 	if TYPE_AVM7270_PHONE_13483
         default "$AVM7270_UMTS_13265" 	if TYPE_AVM7270_UMTS_13265
 	default "$AVM7270_MINI_67" 	if TYPE_AVM7270_MINI_67
 

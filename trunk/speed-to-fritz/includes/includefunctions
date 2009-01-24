@@ -127,8 +127,10 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 		done
 #<--only used if more as one .image file is within the zipfile
 	fi #<--look for file suppled via Config.in as 2nd parameter
-		mv "$DLD_DIR/$IMG_REQ1/$IMG_EXTRACTED" "$DLD_DIR/$IMG_EXTRACTED" 
-		if [ -f "$DLD_DIR/$IMG_EXTRACTED" ]; then
+		#workaround problem with filenames including SPC
+		IMG_EXTRACTED_SPC="$(echo $IMG_EXTRACTED | sed -e "s/ /-/")" 
+		mv "$DLD_DIR/$IMG_REQ1/$IMG_EXTRACTED" "$DLD_DIR/$IMG_EXTRACTED_SPC" 
+		if [ -f "$DLD_DIR/$IMG_EXTRACTED_SPC" ]; then
 		
 		 #if [ "$MIRROR_DLD_TPL" == "" ]; then
 #			    sed -i -e "s|$DLD_TPL mirror $MIRROR_DLD_TPL.*$|$DLD_TPL \./$FWORIGDIR/$IMG_EXTRACTED $MIRROR_DLD_TPL\"|" "$HOMEDIR/Config.in"
@@ -146,8 +148,9 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 #original name was:\n\
 #$IMG_DESC=\"$DLD_TPL\" \n\
 #|" "$HOMEDIR/$firmwareconf_file_name"
+	echo "image extraktet: $IMG_EXTRACTED_SPC"
 
-		eval "$4=$IMG_EXTRACTED"
+		eval "$4=$IMG_EXTRACTED_SPC"
 		return 0
      else
 		eval "$4=$IMG_REQ"
@@ -448,7 +451,6 @@ function fw_unpack()
 	ARCHIVE="$1"
 	DESTDIR="$2"
 	FILE="."
-
 	[ -n "$3" ] && FILE="$3"
 	# Do we have the tool ?
 	if [ ! -x "$RMTICHKSUM" ]; then

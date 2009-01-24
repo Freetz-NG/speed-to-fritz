@@ -76,30 +76,6 @@ rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/avm_dect
 rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/dect_io
 
 #adapt parameters for Piglet bitfile to be
-#7270
-#piglet_bitfile=/lib/modules/microvoip_isdn_top.bit${HWRevision_BitFileCount}
-#dect_firstlevelfile=/lib/modules/dectfw_firstlevel.hex
-#dect_secondlevelfile=/lib/modules/dectfw_secondlevel.hex
-#piglet_load_params="\
-#"
-#modprobe Piglet_noemif \
-#piglet_bitfile=$piglet_bitfile \
-#piglet_enable_button=2 \
-#dect_firstlevelfile=$dect_firstlevelfile \
-#dect_secondlevelfile=$dect_secondlevelfile \
-#$piglet_load_params
-#w503
-#piglet_bitfile=/lib/modules/bitfile_isdn.bit${HWRevision_BitFileCount}
-#piglet_potsbitfile=/lib/modules/bitfile_pots.bit${HWRevision_BitFileCount}
-#piglet_bitfilemode=`/bin/testvalue /var/flash/telefon_misc 4 2638`
-#if [ -z $piglet_bitfilemode ] ; then piglet_bitfilemode=0 ; fi
-#echo PigletMode: $piglet_bitfilemode
-#piglet_load_params="\
-#piglet_enable_button=3 \
-#piglet_bitfilemode=$piglet_bitfilemode \
-#piglet_use_pll3_clk=1 \
-#"
-#modprobe Piglet_noemif piglet_bitfile=$piglet_bitfile piglet_potsbitfile=$piglet_potsbitfile $piglet_load_param
 
 sed -i -e 's/Fritz_Box_7270/Fritz_Box_W503/' "${SRC}/etc/init.d/rc.S"
 sed -i -e 's/microvoip_isdn_top.bit/bitfile_isdn.bit/' "${SRC}/etc/init.d/rc.S"
@@ -108,10 +84,10 @@ sed -i -e "/dectfw_firstlevel.hex/,/dectfw_secondlevel.hex/d" "${SRC}/etc/init.d
 sed -i -e 's/piglet_bitfile=$piglet_bitfile/piglet_bitfile=$piglet_bitfile piglet_potsbitfile=$piglet_potsbitfile /' "${SRC}/etc/init.d/rc.S"
 
 sed -i -e '/piglet_bitfile=/a \
-piglet_potsbitfile=/lib/modules/bitfile_pots.bit${HWRevision_BitFileCount} \
-piglet_bitfilemode=\`/bin/testvalue /var/flash/telefon_misc 4 2638\` \
-if [ -z $piglet_bitfilemode ] ; then piglet_bitfilemode=0 ; fi \
-echo PigletMode: $piglet_bitfilemode \
+piglet_potsbitfile=/lib/modules/bitfile_pots.bit${HWRevision_BitFileCount}\
+piglet_bitfilemode=\`/bin/testvalue /var/flash/telefon_misc 4 2638\`\
+if [ -z $piglet_bitfilemode ] ; then piglet_bitfilemode=0 ; fi\
+echo PigletMode: $piglet_bitfilemode\
 piglet_load_params="\\\
 piglet_enable_button=3 \\\
 piglet_bitfilemode=$piglet_bitfilemode \\\
@@ -122,9 +98,8 @@ modprobe Piglet_noemif piglet_bitfile=$piglet_bitfile piglet_potsbitfile=$piglet
 #mknod /var/flash/dect_misc c $tffs_major $((0xB0))
 #mknod /var/flash/dect_eeprom c $tffs_major $((0xB1))
 #mknod /var/flash/dmgr_handset_user c $tffs_major $((0xB2))
-#mknod /var/flash/aura-usb c $tffs_major $((0xA0))
 
-sed -i -e "/dect_misc/,/aura-usb/d" "${SRC}/etc/init.d/rc.S"
+sed -i -e "/dect_misc/,/dmgr_handset_user/d" "${SRC}/etc/init.d/rc.S"
 
 #remove USB config
 sed -i -e "/#### USB-Host Config ####/,/#### USB-Client Config ####/d" "${SRC}/etc/init.d/rc.S"
@@ -133,12 +108,24 @@ sed -i -e "s/copy_dect_defaults()/copy_dect()/" "${SRC}/etc/init.d/rc.S"
 sed -i -e "/copy_dect_defaults/d" "${SRC}/etc/init.d/rc.S"
 sed -i -e "/modprobe dect_io/d" "${SRC}/etc/init.d/rc.S"
 
+#watchdog
+#sed -i -e "s/init-start 120/init-start 240/" "${SRC}/etc/init.d/rc.S"
+
+#dont start mediaserver
+sed -i -e "/rc.media start/d" "${SRC}/etc/init.d/rc.S"
+
+sed -i -e '/## cleanup - if running, stop debug/i \
+## change to external SYNC for TE-Mode\
+#########################################################################\
+echo isdn_reg 8 0 >\/dev\/debug\
+#########################################################################' "${SRC}/etc/init.d/rc.S"
+
 
 
 #Testvariante!!
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-cp -fdrp "${DST}"/etc/init.d/rc.S --target-directory="${SRC}"/etc/init.d
+#cp -fdrp "${DST}"/etc/init.d/rc.S --target-directory="${SRC}"/etc/init.d
 
 
 

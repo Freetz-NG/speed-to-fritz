@@ -57,8 +57,17 @@ sed -i -e "s|CONFIG_SERVICEPORTAL_URL=\".*$|CONFIG_SERVICEPORTAL_URL=\"${CONFIG_
 [ "$CONFIG_VINAX_TRACE" ] &&  sed -i -e "s/CONFIG_VINAX_TRACE=\".*$/CONFIG_VINAX_TRACE=\"${CONFIG_VINAX_TRACE}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_LIBZ" ] &&  sed -i -e "s/CONFIG_LIBZ=\".*$/CONFIG_LIBZ=\"${CONFIG_LIBZ}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_DSL_MULTI_LANGUAGE" ] &&  sed -i -e "s/CONFIG_DSL_MULTI_LANGUAGE=\".*$/CONFIG_DSL_MULTI_LANGUAGE=\"${CONFIG_DSL_MULTI_LANGUAGE}\"/g" "${1}/etc/init.d/rc.conf"
-
-
+#W503
+[ "$CONFIG_MEDIASRV" ] &&  sed -i -e "s/CONFIG_MEDIASRV=\".*$/CONFIG_MEDIASRV=\"${CONFIG_MEDIASRV}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_CAPI_NT" ] &&  sed -i -e "s/CONFIG_CAPI_NT=\".*$/CONFIG_CAPI_NT=\"${CONFIG_CAPI_NT}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_REMOTE_HTTPS" ] &&  sed -i -e "s/CONFIG_REMOTE_HTTPS=\".*$/CONFIG_REMOTE_HTTPS=\"${CONFIG_REMOTE_HTTPS}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_DECT_MONI" ] &&  sed -i -e "s/CONFIG_DECT_MONI=\".*$/CONFIG_DECT_MONI=\"${CONFIG_DECT_MONI}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_DECT2" ] &&  sed -i -e "s/CONFIG_DECT2=\".*$/CONFIG_DECT2=\"${CONFIG_DECT2}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_USB_HOST" ] &&  sed -i -e "s/CONFIG_USB_HOST=\".*$/CONFIG_USB_HOST=\"${CONFIG_USB_HOST}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_USB_STORAGE" ] &&  sed -i -e "s/CONFIG_USB_STORAGE=\".*$/CONFIG_USB_STORAGE=\"${CONFIG_USB_STORAGE}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_USB_WLAN_AUTH" ] &&  sed -i -e "s/CONFIG_USB_WLAN_AUTH=\".*$/CONFIG_USB_WLAN_AUTH=\"${CONFIG_USB_WLAN_AUTH}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_USB_PRINT_SERV" ] &&  sed -i -e "s/CONFIG_USB_PRINT_SERV=\".*$/CONFIG_USB_PRINT_SERV=\"${CONFIG_USB_PRINT_SERV}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_VOL_COUNTER" ] &&  sed -i -e "s/CONFIG_VOL_COUNTER=\".*$/CONFIG_VOL_COUNTER=\"${CONFIG_VOL_COUNTER}\"/g" "${1}/etc/init.d/rc.conf"
 
 #[ "$" ] &&  sed -i -e "s/=\".*$/=\"${}\"/g" "${1}/etc/init.d/rc.conf"
 
