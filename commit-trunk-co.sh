@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="co version 900113"
+comment="colinux update to 090124"
 
 
 
@@ -19,7 +19,7 @@ echo "--------------------------------------------------------------------------
 
 #svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux svn
 #svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
-svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
+#svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
 cd trunk
 svn add * --force
 #svn delete --force /co/henrynestler/index.html

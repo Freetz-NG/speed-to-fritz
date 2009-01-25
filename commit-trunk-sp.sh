@@ -1,12 +1,11 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="W501: fw_Speedport_W501V_v_28.04.38.image, fixed download link "
+comment="Added ftp178 and ftp002 for push ftp to 192.168.178.1 or 192.168.2.1"
 
 
 
 
 echo "-------------------------------------------------------------------------------------------------------------"
-echo
 if [ `id -u` -eq 0 ]; then
  clear
   echo
