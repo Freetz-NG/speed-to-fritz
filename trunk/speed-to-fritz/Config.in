@@ -780,6 +780,12 @@ if ! EXPORT_ATA_ONLY
 	default n
 	help
 		Use this additional option if new dsl-menupages from alternative firmware-images are used.
+    config FORCE_TCOM_KDSLDMOD
+	bool "Use t-com ksldmod driver"
+	depends on TYPE_SPEEDPORT_W920V
+	default n
+	help
+		Use KSLDMOD from t-com firmware, VPN is corsing trouble with this option.
     config USE_SRC2_DSL
 	bool "Use source 3 DSL driver"
 	depends on SOURCE2
