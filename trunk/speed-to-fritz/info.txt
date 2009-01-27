@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090127-0710
+    - W920: 7270 ALL changed in config.in to fritz_box-labor-13486.ZIP, removed UMTS, and  PHONE
 20090127-0604
     - W920: 7270 PHONE changed in config.in to fritz_box-labor-13486.ZIP
 20090125-1420
