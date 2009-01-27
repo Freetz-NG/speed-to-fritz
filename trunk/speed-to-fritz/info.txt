@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090127-0749
+    - W920: 7270 menuoption PHONE used for prerelaese, to be compatibel with freetz
 20090127-0710
     - W920: 7270 ALL changed in config.in to fritz_box-labor-13486.ZIP, removed UMTS, and  PHONE
 20090127-0604
