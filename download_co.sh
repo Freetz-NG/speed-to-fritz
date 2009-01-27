@@ -12,7 +12,7 @@ if ! [ `id -u` -eq 0 ]; then
 fi
 
 apt-get -y install subversion 
-svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk/co co
-cd co/henrynestler
+svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk/co /trunk/co
+cd /trunk/co/henrynestler
 ./start.sh
 sleep 5

@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="Added ftp178 and ftp002 for push ftp to 192.168.178.1 or 192.168.2.1"
+comment="W920: 7270 PHONE changed in config.in to fritz_box-labor-13486.ZIP"
 
 
 
@@ -41,6 +41,9 @@ svn add * --force
 svn status
 svn diff > ../patch.diff
 cat ../patch.diff
-svn commit --message "${date} - ${comment}"
+echo -n "   Execute Commit?'  (y/n)? "; read -n 1 -s YESNO; echo
+([ "$YESNO" = "y" ] || [ "$YESNO" = "n" ]) || echo "wrong key!"
+[ "$YESNO" = "y" ] &&   svn commit --message "${date} - ${comment}"
 
-sleep 5
+
+ 

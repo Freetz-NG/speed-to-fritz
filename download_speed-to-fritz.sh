@@ -14,7 +14,7 @@ if [ `id -u` -eq 0 ]; then
 fi
 
 #sudo apt-get -y install subversion 
-svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk/speed-to-fritz speed-to-fritz
-cd speed-to-fritz
-./install-start
+svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk/speed-to-fritz trunk/speed-to-fritz
+#cd trunk/speed-to-fritz
+#./install-start
 sleep 5

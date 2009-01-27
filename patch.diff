@@ -1,0 +1,79 @@
+Index: speed-to-fritz/info.txt
+===================================================================
+--- speed-to-fritz/info.txt	(revision 40)
++++ speed-to-fritz/info.txt	(working copy)
+@@ -21,6 +21,8 @@
+     For older info see older script versions!
+ ---------------------------------------------------------------------------------------------------
+ (Dont remove this line, becaus it is used for autoinserting)
++20090127-0604
++    - W920: 7270 PHONE changed in config.in to fritz_box-labor-13486.ZIP
+ 20090125-1420
+     - W920: VPN Problem fixed, by seventy7, (added option to use t-com kdsldmod for compatibiliy within testing periode)
+ 20090124-1753
+Index: speed-to-fritz/Config.in
+===================================================================
+--- speed-to-fritz/Config.in	(revision 40)
++++ speed-to-fritz/Config.in	(working copy)
+@@ -113,9 +113,9 @@
+ #config AVM7270_VPN_13265
+ #    string 
+ #    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vpn/fritz_box-labor-13265.zip"
+-config AVM7270_UMTS_13265
++config AVM7270_UMTS_13486
+     string
+-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_umts/fritz_box-labor-13265.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.95-13265.image"
++    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritz_box-labor-13486.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.70-13486.image"
+ config AVM7270_MINI_67 
+     string 
+     default "http://clickonce.avm.de/7270_Mini_Firmware/deutsch/fritz_box_54_04_67.image"
+@@ -322,7 +322,7 @@
+ #		bool "VPN"
+ #		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721VTYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+ 	config TYPE_UMTS
+-		bool "UMTS_13265"
++		bool "UMTS_13486"
+ 		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+ 
+ 	config TYPE_AVM_LOCAL
+@@ -422,8 +422,8 @@
+ 		bool "AVM7270_DSL_12606"
+ 	config TYPE_AVM7270_PHONE_13483
+ 		bool "AVM7270_PHONE_13483"
+-	config TYPE_AVM7270_UMTS_13265
+-		bool "AVM7270_UMTS_13265"
++	config TYPE_AVM7270_UMTS_13486
++		bool "AVM7270_UMTS_13486"
+ 	config TYPE_AVM7270_MINI_67
+ 		bool "AVM7270_MINI_67"
+ 	config TYPE_AVM_LOCAL_IMAGE
+@@ -483,7 +483,7 @@
+         default "$AVM7270_DSL_13225" 	if ( TYPE_DSL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+         default "$AVM7270_ALL_12298"	if ( TYPE_298 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+         default "$AVM7270_PHONE_13483" 	if ( TYPE_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+-        default "$AVM7270_UMTS_13265" 	if ( TYPE_UMTS ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
++        default "$AVM7270_UMTS_13486" 	if ( TYPE_UMTS ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+ 	default "$AVM7270_MINI_67" 	if ( TYPE_MINI ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+ 
+ #-------------------------------------------------------------
+@@ -526,7 +526,7 @@
+ 	default "$AVM7270_ALL_12298"	if TYPE_AVM7270_ALL_12298
+         default "$AVM7270_DSL_13225" 	if TYPE_AVM7270_DSL_13225
+         default "$AVM7270_PHONE_13483" 	if TYPE_AVM7270_PHONE_13483
+-        default "$AVM7270_UMTS_13265" 	if TYPE_AVM7270_UMTS_13265
++        default "$AVM7270_UMTS_13486" 	if TYPE_AVM7270_UMTS_13486
+ 	default "$AVM7270_MINI_67" 	if TYPE_AVM7270_MINI_67
+ 
+ ###------------------------------------------------------------------------------------------------------------
+@@ -783,9 +783,9 @@
+     config FORCE_TCOM_KDSLDMOD
+ 	bool "Use t-com ksldmod driver"
+ 	depends on TYPE_SPEEDPORT_W920V
+-	default n
++	default y
+ 	help
+-		Use KSLDMOD from t-com firmware, VPN is corsing trouble with this option.
++		Use KSLDMOD from t-com firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
+     config USE_SRC2_DSL
+ 	bool "Use source 3 DSL driver"
+ 	depends on SOURCE2

@@ -28,6 +28,7 @@ svn add * --force
 svn status
 svn diff > ../patch.diff
 cat ../patch.diff
-svn commit --message "${date} - ${comment}"
+echo -n "   Execute Commit?'  (y/n)? "; read -n 1 -s YESNO; echo
+([ "$YESNO" = "y" ] || [ "$YESNO" = "n" ]) || echo "wrong key!"
+[ "$YESNO" = "y" ] &&   svn commit --message "${date} - ${comment}"
 
-sleep 5
