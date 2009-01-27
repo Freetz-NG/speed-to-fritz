@@ -5,6 +5,6 @@ cd ../../
 echo "Skriptversion: $version"
 echo "---------------------------------------------------------------------------------------------------------------"
 [ -d ./co/bfin-colinux ] && rm -R ./co/bfin-colinux
-tar cfv /mnt/and/co.1.${version}.tar -C co .
+tar cfv /mnt/and/co.1.${version}.tar -C . ./co
 ls /mnt/and/co.1.${version}.tar
 
