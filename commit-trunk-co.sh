@@ -17,13 +17,12 @@ if [ `id -u` -eq 0 ]; then
 fi
 echo "-------------------------------------------------------------------------------------------------------------"
 
-#svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux svn
 #svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
 #svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
 cd trunk
 svn add * --force
-#svn delete --force /co/henrynestler/index.html
-#svn revert /co/henrynestler/index.html
+#svn delete --force ./co/henrynestler/upload-file.sh
+#svn revert 
 #svn add speed-to-fritz
 svn status
 svn diff > ../patch.diff

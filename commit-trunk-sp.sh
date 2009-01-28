@@ -29,15 +29,12 @@ echo "--------------------------------------------------------------------------
 sleep 2
 #exit
 
-#svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux svn
 #svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
 #svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
 cd trunk
 svn add * --force
-#svn delete --force /trunk/co/henrynestler/index.html
-svn delete --force /trunk/speed-to-fritz/ftp192
+#svn delete --force ./speed-to-fritz/ftp192
 #svn revert 
-#/co/henrynestler/index.html
 #svn add speed-to-fritz
 svn status
 svn diff > ../patch.diff
