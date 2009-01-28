@@ -146,8 +146,8 @@ else
 sed -i -e 's|new_led|led|' "${SR1}/etc/init.d/rc.S"
 sed -i -e 's|new_led|led|' "${SR1}/etc/init.d/rc.wlan"
 
-cp -fr $2/bin/update_led_on ${SR1}/bin/update_led_on
-cp -fr $2/bin/update_led_off ${SR1}/bin/update_led_off
+#cp -fr $2/bin/update_led_on ${SR1}/bin/update_led_on
+#cp -fr $2/bin/update_led_off ${SR1}/bin/update_led_off
 
 fi
 exit 0

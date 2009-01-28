@@ -106,10 +106,9 @@ config AVM7270_DSL_13225
 config AVM7270_ALL_13486
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritz_box-labor-13486.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.70-13486.image"
-config AVM7270_PHONE_13486
+config AVM7270_PHONE_13483
     string 
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritz_box-labor-13486.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.70-13486.image"
-#    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13486.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_Labor.54.04.97-13486.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13483.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_Labor.54.04.97-13483.image"
 #config AVM7270_VPN_13265
 #    string 
 #    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vpn/fritz_box-labor-13265.zip"
@@ -303,9 +302,9 @@ choice
 #	config TYPE_67
 #		bool "67"
 #		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
-#	config TYPE_ALL
-#		bool "AiO - Alles in einem prerelease"
-#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+	config TYPE_ALL
+		bool "AiO - Alles in einem prerelease"
+		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 	config TYPE_DSL
 		bool "DSL"
 		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
@@ -316,7 +315,7 @@ choice
 #		bool "MINI"
 #		depends on TYPE_SPEEDPORT_W721V || TYPE_TCOM_LOCAL 
 	config TYPE_PHONE
-		bool "PHONE_13486 AiO - Alles in einem prerelease"
+		bool "PHONE_13483"
 		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 #	config TYPE_VPN
 #		bool "VPN"
@@ -420,8 +419,8 @@ choice
 		bool "AVM7270_DSL_13225"
 	config TYPE_AVM7270_ALL_13486 
 		bool "AVM7270_ALL_13486"
-	config TYPE_AVM7270_PHONE_13486
-		bool "AVM7270_PHONE_13486"
+	config TYPE_AVM7270_PHONE_13483
+		bool "AVM7270_PHONE_13483"
 #	config TYPE_AVM7270_UMTS_13265
 #		bool "AVM7270_UMTS_13265"
 	config TYPE_AVM7270_MINI_67
@@ -482,7 +481,7 @@ config AVM_IMG
         default "$AVM7270_67"		if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM7270_DSL_13225" 	if ( TYPE_DSL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM7270_ALL_13486"	if ( TYPE_ALL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-        default "$AVM7270_PHONE_13486" 	if ( TYPE_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+        default "$AVM7270_PHONE_13483" 	if ( TYPE_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM7270_UMTS_13265" 	if ( TYPE_UMTS ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM7270_MINI_67" 	if ( TYPE_MINI ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 
@@ -525,7 +524,7 @@ config SRC2_IMG
         default "$AVM7270_67" 		if TYPE_AVM7270_67
 	default "$AVM7270_ALL_13486"	if TYPE_AVM7270_ALL_13486
         default "$AVM7270_DSL_13225" 	if TYPE_AVM7270_DSL_13225
-        default "$AVM7270_PHONE_13486" 	if TYPE_AVM7270_PHONE_13486
+        default "$AVM7270_PHONE_13483" 	if TYPE_AVM7270_PHONE_13483
         default "$AVM7270_UMTS_13265" 	if TYPE_AVM7270_UMTS_13265
 	default "$AVM7270_MINI_67" 	if TYPE_AVM7270_MINI_67
 

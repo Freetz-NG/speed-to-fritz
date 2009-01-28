@@ -21,6 +21,10 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090128-1638
+    - W920: 7270 menuoption AIO used for prerelaese. Updateled changed. W503: aditional kernel_args argument console added
+20090128-1635
+    - W920: 7270 menuoption AIO used for prerelaese
 20090127-0749
     - W920: 7270 menuoption PHONE used for prerelaese, to be compatibel with freetz
 20090127-0710
