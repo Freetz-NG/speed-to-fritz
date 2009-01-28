@@ -95,9 +95,10 @@ default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_
 config AVM_MINI_67 
     string 
     default "http://clickonce.avm.de/7170_Mini_Firmware/deutsch/fritz_box_29_04_67.image"
-config AVM_ALL_13038
+config AVM_ALL_13475
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-13038.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.63-13038.image" 
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-13475.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.70-13475.image"
+#    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-13475.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.63-13475.image" 
 ##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ####7270
 config AVM7270_DSL_13225
@@ -279,7 +280,7 @@ choice
 		depends on TYPE_LABOR
 		default TYPE_DSL
 #	config TYPE_BETA
-#		bool "BETA_13038"
+#		bool "BETA_13475"
 #		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
 #	config TYPE_57
 #		bool "57"
@@ -355,15 +356,15 @@ choice
 		default TYPE_AVM_67
 
 #	config TYPE_10954
-#		bool "BETA_13038"
+#		bool "BETA_13475"
 	config TYPE_DSL_13046
 		bool "DSL_13046"
 	config TYPE_GAMING_11435
 		bool "GAMING_11435"
 	config TYPE_MINI_67
 		bool "MINI_67"
-	config TYPE_AVM_ALL_13038
-		bool "ALL_13038"
+	config TYPE_AVM_ALL_13475
+		bool "ALL_13475"
 	config TYPE_AVM_43
 		bool "AVM_43"
 	config TYPE_AVM_56
@@ -465,9 +466,9 @@ config AVM_IMG
 	default "$AVM_59" 		if TYPE_59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_A59" 		if TYPE_A59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_67" 		if TYPE_67 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
-	default "$AVM_BETA_13038" 	if TYPE_BETA && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_BETA_13475" 	if TYPE_BETA && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_DSL_12526" 	if TYPE_DSL && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
-	default "$AVM_ALL_13038" 	if TYPE_ALL && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_ALL_13475" 	if TYPE_ALL && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_GAMING_11435" 	if TYPE_GAMING && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_MINI_67" 		if TYPE_MINI && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_LOCAL" 		if TYPE_AVM_LOCAL && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
@@ -499,9 +500,9 @@ config SRC2_IMG
 	default "$AVM_59" 		if TYPE_AVM_59
 	default "$AVM_A59" 		if TYPE_AVM_A59
 	default "$AVM_58" 		if TYPE_AVM_58
-	default "$AVM_BETA_13038" 	if TYPE_BETA_13038
+	default "$AVM_BETA_13475" 	if TYPE_BETA_13475
 	default "$AVM_DSL_12526" 	if TYPE_DSL_12526
-	default "$AVM_ALL_13038"	if TYPE_ALL_13038
+	default "$AVM_ALL_13475"	if TYPE_ALL_13475
 	default "$AVM_GAMING_11435" 	if TYPE_GAMING_11435
 	default "$AVM_MINI_67" 		if TYPE_MINI_67
 	default "$AVM_LOCAL"		if TYPE_AVM_LOCAL_IMAGE
