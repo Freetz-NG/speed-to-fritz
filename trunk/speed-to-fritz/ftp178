@@ -1,0 +1,19 @@
+#!/bin/bash
+. incl_var
+if [ "$FIRST_RUN" = "y" ]; then
+ echo "You must run the main Skript first to set the parameters needed!" 
+    sleep 8 
+    exit 0 
+fi
+echo "" 
+echo "" 
+echo "" 
+echo "" 
+
+. $inc_DIR/includefunctions
+pushconfig "${NEWDIR}" "${OEM}" "${CONFIG_PRODUKT}" "${HWRevision}" "${ETH_IF}" "192.168.178.1" "${CONFIG_jffs2_size}" "annex=${ANNEX}" "${ANNEX}"
+
+echo "All done .... Press 'ENTER' to finish"
+while !(read -s); do 
+ sleep 1 
+done

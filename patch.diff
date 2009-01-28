@@ -1,79 +1,166 @@
-Index: speed-to-fritz/info.txt
+Index: speed-to-fritz/ftp178
 ===================================================================
---- speed-to-fritz/info.txt	(revision 40)
-+++ speed-to-fritz/info.txt	(working copy)
-@@ -21,6 +21,8 @@
-     For older info see older script versions!
- ---------------------------------------------------------------------------------------------------
- (Dont remove this line, becaus it is used for autoinserting)
-+20090127-0604
-+    - W920: 7270 PHONE changed in config.in to fritz_box-labor-13486.ZIP
- 20090125-1420
-     - W920: VPN Problem fixed, by seventy7, (added option to use t-com kdsldmod for compatibiliy within testing periode)
- 20090124-1753
-Index: speed-to-fritz/Config.in
+--- speed-to-fritz/ftp178	(revision 0)
++++ speed-to-fritz/ftp178	(revision 0)
+@@ -0,0 +1,19 @@
++#!/bin/bash
++. incl_var
++if [ "$FIRST_RUN" = "y" ]; then
++ echo "You must run the main Skript first to set the parameters needed!" 
++    sleep 8 
++    exit 0 
++fi
++echo "" 
++echo "" 
++echo "" 
++echo "" 
++
++. $inc_DIR/includefunctions
++pushconfig "${NEWDIR}" "${OEM}" "${CONFIG_PRODUKT}" "${HWRevision}" "${ETH_IF}" "192.168.178.1" "${CONFIG_jffs2_size}" "annex=${ANNEX}" "${ANNEX}"
++
++echo "All done .... Press 'ENTER' to finish"
++while !(read -s); do 
++ sleep 1 
++done
+
+Property changes on: speed-to-fritz/ftp178
+___________________________________________________________________
+Name: svn:executable
+   + *
+
+Index: speed-to-fritz/alien/subscripts/patch_leddef_W503.sh
 ===================================================================
---- speed-to-fritz/Config.in	(revision 40)
-+++ speed-to-fritz/Config.in	(working copy)
-@@ -113,9 +113,9 @@
- #config AVM7270_VPN_13265
- #    string 
- #    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vpn/fritz_box-labor-13265.zip"
--config AVM7270_UMTS_13265
-+config AVM7270_UMTS_13486
-     string
--    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_umts/fritz_box-labor-13265.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.95-13265.image"
-+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritz_box-labor-13486.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.70-13486.image"
- config AVM7270_MINI_67 
-     string 
-     default "http://clickonce.avm.de/7270_Mini_Firmware/deutsch/fritz_box_54_04_67.image"
-@@ -322,7 +322,7 @@
- #		bool "VPN"
- #		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721VTYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
- 	config TYPE_UMTS
--		bool "UMTS_13265"
-+		bool "UMTS_13486"
- 		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
- 
- 	config TYPE_AVM_LOCAL
-@@ -422,8 +422,8 @@
- 		bool "AVM7270_DSL_12606"
- 	config TYPE_AVM7270_PHONE_13483
- 		bool "AVM7270_PHONE_13483"
--	config TYPE_AVM7270_UMTS_13265
--		bool "AVM7270_UMTS_13265"
-+	config TYPE_AVM7270_UMTS_13486
-+		bool "AVM7270_UMTS_13486"
- 	config TYPE_AVM7270_MINI_67
- 		bool "AVM7270_MINI_67"
- 	config TYPE_AVM_LOCAL_IMAGE
-@@ -483,7 +483,7 @@
-         default "$AVM7270_DSL_13225" 	if ( TYPE_DSL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-         default "$AVM7270_ALL_12298"	if ( TYPE_298 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-         default "$AVM7270_PHONE_13483" 	if ( TYPE_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
--        default "$AVM7270_UMTS_13265" 	if ( TYPE_UMTS ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-+        default "$AVM7270_UMTS_13486" 	if ( TYPE_UMTS ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
- 	default "$AVM7270_MINI_67" 	if ( TYPE_MINI ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
- 
- #-------------------------------------------------------------
-@@ -526,7 +526,7 @@
- 	default "$AVM7270_ALL_12298"	if TYPE_AVM7270_ALL_12298
-         default "$AVM7270_DSL_13225" 	if TYPE_AVM7270_DSL_13225
-         default "$AVM7270_PHONE_13483" 	if TYPE_AVM7270_PHONE_13483
--        default "$AVM7270_UMTS_13265" 	if TYPE_AVM7270_UMTS_13265
-+        default "$AVM7270_UMTS_13486" 	if TYPE_AVM7270_UMTS_13486
- 	default "$AVM7270_MINI_67" 	if TYPE_AVM7270_MINI_67
- 
- ###------------------------------------------------------------------------------------------------------------
-@@ -783,9 +783,9 @@
-     config FORCE_TCOM_KDSLDMOD
- 	bool "Use t-com ksldmod driver"
- 	depends on TYPE_SPEEDPORT_W920V
--	default n
-+	default y
- 	help
--		Use KSLDMOD from t-com firmware, VPN is corsing trouble with this option.
-+		Use KSLDMOD from t-com firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
-     config USE_SRC2_DSL
- 	bool "Use source 3 DSL driver"
- 	depends on SOURCE2
+--- speed-to-fritz/alien/subscripts/patch_leddef_W503.sh	(revision 0)
++++ speed-to-fritz/alien/subscripts/patch_leddef_W503.sh	(revision 0)
+@@ -0,0 +1,112 @@
++#!/bin/bash
++ . ${include_modpatch}
++SR1="$1" 
++
++
++# change DECT text for infoled 
++if [ "$avm_Lang" != "en" ] ; then
++ for OEMDIR in ${OEMLIST}; do
++  if [ "$OEMDIR" = "avme" ] ; then
++   export HTML="$OEMDIR/$avm_Lang/html"
++  else
++   export HTML="$OEMDIR/html"
++  fi
++    if [ -e "$SR1"/usr/www/${HTML}/${avm_Lang}/system/infoled.inc ]; then
++     echo2 "-- Change TextBlinkDECT in: /usr/www/${HTML}/${avm_Lang}/system/infoled.inc"
++     [ "$OEMDIR" = "avm" ] && [ "$avm_Lang" = "de" ] && sed -i -e "s/^.*TextBlinkDECT.*$/<? setvariable var:TextBlinkDECT 'Die INFO-LED leuchtet immer wenn DECT aktiviert ist.' ?>/" "$SR1"/usr/www/${HTML}/${avm_Lang}/system/infoled.inc
++     [ "$OEMDIR" = "avme" ] && [ "$avm_Lang" = "en" ] && sed -i -e "s/^.*TextBlinkDECT.*$/<? setvariable var:TextBlinkDECT 'DECT activated' ?>/" "$SR1"/usr/www/${HTML}/${avm_Lang}/system/infoled.inc
++    fi
++ done
++fi
++
++
++
++# Map ISDN LED to ab LED (config of original FRITZ!Box and replace it by Speedport's LED config)  
++
++if ! `cat "${SR1}"/etc/init.d/rc.S | grep -q 'MAP isdn,0 TO ab,1'` ; then
++sed -i -e 's|ln -s /dev/new_led /var/led|ln -s /dev/new_led /var/led\
++case $OEM in\
++ tcom\|avm)\
++ echo "STATES isdn,0 = 0 -> 2, 1 -> 4" >/dev/new_led\
++ echo "MAP isdn,0 TO ab,1" >/dev/new_led\
++ echo "STATES ab,1 = 1 -> 18, 0 -> 2, 4 -> 1" >/dev/new_led\
++ ;;\
++ avme)\
++ ;;\
++esac\
++if /bin/testvalue /var/flash/dect_misc 1 0 0; then\
++echo "SET dect,0 = 0" >/dev/new_led\
++else\
++echo "SET dect,0 = 15" >/dev/new_led\
++fi|' "${SR1}/etc/init.d/rc.S"
++fi
++
++# W503
++cat <<EOF > "${SR1}/etc/led.conf"
++
++DEF error,0 = 1,402784896,0,all
++DEF error,1 = 3,0,0,all
++DOUBLE error,0 TO error,1
++DEF power,0 = 0,32,0,power
++DEF power,1 = 0,32,0,power
++DEF info,0 = 4,21,1,info
++DEF info,1 = 4,21,1,info
++DEF info,2 = 4,21,1,info
++DEF info,3 = 4,21,1,info
++DEF info,4 = 4,21,1,info
++DEF internet,0 = 0,17,2,internet
++DEF internet,1 = 0,17,2,internet
++DEF wlan,0 = 0,28,3,wlan
++DEF voip_con,0 = 0,9,4,voip_con
++DEF voip_con,1 = 0,9,4,voip_con
++DEF ab,1 = 0,27,5,festnetz
++DEF ab,2 = 0,27,5,festnetz
++DEF ab,3 = 0,27,5,festnetz
++DEF update,0 = 99,32,6,update
++DEF rot_eins,0 = 99,32,7,rot1
++DEF rot_zwei,0 = 99,32,7,rot2
++DEF rot_drei,0 = 99,32,7,rot3
++DEF rot_vier,0 = 99,32,7,rot4
++DEF rot_fuenf,0 = 99,32,7,rot5
++DEF pppoe,0 = 99,32,8,dsl
++DEF pppoe,1 = 99,32,8,dsl
++DEF adsl,0 = 99,32,9,adsl
++DEF adsl,1 = 99,32,9,adsl
++DEF ata,0 = 99,32,10,ata
++DEF tr69,0 = 99,32,11,tr69
++DEF tr69,1 = 99,32,11,tr69
++DEF tr69,2 = 99,32,11,tr69
++DEF tr69,3 = 99,32,11,tr69
++DEF tr69,4 = 99,32,11,tr69
++DEF tam,0 = 99,32,12,tam
++DEF tam,1 = 99,32,12,tam
++DEF usb,0 = 99,32,13,usb
++DEF usb,1 = 99,32,13,usb
++DEF cpmac,0 = 99,32,14,lan_all
++DEF cpmac,1 = 99,32,14,lan_all
++DEF cpmac,2 = 99,32,14,lan_all
++DEF cpmac,3 = 99,32,14,lan_all
++DEF cpmac,4 = 99,32,14,lan_all
++DEF blockring,0 = 99,32,15,blockring
++DEF missedcall,0 = 99,32,16,missedcall
++DEF budget,0 = 99,32,17,budget
++DEF isdn,0 = 99,32,19,isdn
++DEF isdn,1 = 99,32,19,isdn
++DEF isdn,2 = 99,32,19,isdn
++DEF stick_surf,0 = 99,32,20,stick_surf
++DEF stick_surf,1 = 99,32,20,stick_surf
++DEF stick_surf,2 = 99,32,20,stick_surf
++DEF stick_surf,3 = 99,32,20,stick_surf
++DEF null,0 = 99,32,21,null_device
++DEF dect,0 = 99,32,23,dect
++DEF null,0 = 99,32,24,null_device
++MAP ab,2 TO null,0
++MAP adsl,0 TO power,0
++MAP budget,0 TO info,1
++MAP ata,0 TO power,1
++MAP stick_surf,0 TO info,4
++SET power,0 = 1
++EOF
++
++exit 0
++
+
+Property changes on: speed-to-fritz/alien/subscripts/patch_leddef_W503.sh
+___________________________________________________________________
+Name: svn:executable
+   + *
+
+Index: speed-to-fritz/sp-to-fritz.sh
+===================================================================
+--- speed-to-fritz/sp-to-fritz.sh	(revision 40)
++++ speed-to-fritz/sp-to-fritz.sh	(working copy)
+@@ -3,7 +3,7 @@
+ #dont change names of variables because some of the names are used in other files as well!
+ ##########################################################################
+ # Date of current version:                                          
+-Tag="27"; Monat="01"; Jahr="09"
++Tag="28"; Monat="01"; Jahr="09"
+ export SKRIPT_DATE="$Tag.$Monat.$Jahr"
+ export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
+ export SKRIPT_REVISION="$Jahr$Monat$Tag"

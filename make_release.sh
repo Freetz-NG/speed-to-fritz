@@ -13,12 +13,12 @@ cp -fdrp $SVN_TRUNK_DIR/speed-to-fritz --target-directory="$TMP_DIR"
 cp -fdrp $SVN_TRUNK_DIR/co --target-directory="$TMP_DIR"
 # Remove left over Subversion directories
 find "$TMP_DIR" -type d -name .svn | xargs rm -rf
-tar zcf $UPSTREAM_DIR/speed-to-fritz-${VER}.tar.gz -C $TMP_DIR/speed-to-fritz . && echo "Created $UPSTREAM_DIR/speed-to-fritz-${VER}.tar.gz for upload!" 
+tar zcf $UPSTREAM_DIR/speed-to-fritz-${VER}.tar.gz -C $TMP_DIR ./speed-to-fritz && echo "Created $UPSTREAM_DIR/speed-to-fritz-${VER}.tar.gz for upload!" 
 #
 echo "---------------------------------------------------------------------------------------------------------------"
 VER=$(cat ${TMP_DIR}/co/henrynestler/version)
 echo "freetzlinux skript version: $VER"
-tar cf $UPSTREAM_DIR/co-${VER}.tar.gz -C $TMP_DIR/co . && echo "Created $UPSTREAM_DIR/co-${VER}.tar for upload!" 
+tar cf $UPSTREAM_DIR/co-${VER}.tar.gz -C $TMP_DIR ./co  && echo "Created $UPSTREAM_DIR/co-${VER}.tar for upload!" 
 rm -rf ${TMP_DIR}
 echo "---------------------------------------------------------------------------------------------------------------"
 #cp -v /mnt/and/co.1.${VER}.tar $UPSTREAM_DIR/co.1.${VER}.tar # beinhaltet auch die co downloads

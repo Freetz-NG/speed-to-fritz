@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="W920: 7270 PHONE changed in config.in to fritz_box-labor-13486.ZIP"
+comment="W920: 7270 menuoption PHONE used for prerelaese, to be compatibel with freetz"
 
 
 
@@ -34,7 +34,8 @@ sleep 2
 #svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
 cd trunk
 svn add * --force
-#svn delete --force /co/henrynestler/index.html
+#svn delete --force /trunk/co/henrynestler/index.html
+svn delete --force /trunk/speed-to-fritz/ftp192
 #svn revert 
 #/co/henrynestler/index.html
 #svn add speed-to-fritz
