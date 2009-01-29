@@ -541,17 +541,17 @@ config TYPE_LABOR_TYPE
 	string
         default "58" 		if TYPE_58
         default "59" 		if TYPE_59
-#        default "61" 		if TYPE_61
+        default "61" 		if TYPE_61
         default "67" 		if TYPE_67
         default "BETA" 		if TYPE_BETA
         default "DSL" 		if TYPE_DSL
-#        default "GAMING" 	if TYPE_GAMING
-#        default "PHONE" 	if TYPE_PHONE
-#        default "UMTS" 	if TYPE_UMTS
+        default "GAMING" 	if TYPE_GAMING
+        default "PHONE" 	if TYPE_PHONE
+        default "UMTS" 		if TYPE_UMTS
 	default "MINI" 		if TYPE_MINI
 	default "AIO" 		if TYPE_AIO
-#	default "298" 		if TYPE_298
-#	default "VPN" 		if TYPE_VPN
+	default "298" 		if TYPE_298
+	default "VPN" 		if TYPE_VPN
 	default "LOCAL"		if TYPE_AVM_LOCAL
 
 
