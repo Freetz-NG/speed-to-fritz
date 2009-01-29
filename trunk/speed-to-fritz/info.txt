@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090129-1620
+    - Some changes on onlinecounterpage
 20090129-1507
     - Freetz: LABOR_TYPE_PHONE defined in Cinfig.in 
 20090129-1457

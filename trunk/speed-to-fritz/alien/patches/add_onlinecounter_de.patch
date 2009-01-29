@@ -23,7 +23,7 @@
 +</div></div></div></div></div></div>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
 +<p class="mb5"><input type="checkbox" id="uiViewBudgetOn" onclick="OnToggleBudget()">&nbsp;<label for="uiViewBudgetOn">{?de.internet.budget.html:15?}</label></p>
-+<div style="margin-left: 25px;">
++<div class="ml25">
 +<p class="mb5"><input type="radio" name="uiViewTarif" id="uiViewBudgetVolumeOn" onclick="OnToggleTarif(1)">&nbsp;<label for="uiViewBudgetVolumeOn">Volumentarif</label></p>
 +<p class="mb5" style="margin-left: 25px">
 +<input type="text" size="7" maxlength="6" class="Eingabefeld" id="uiViewBudgetVolumeVal" style="text-align: right"> MB Datenvolumen pro Monat inklusive<br />
@@ -59,7 +59,7 @@
 +<!-- ../internet/budget.js -->
 +<style type="text/css">
 +<!--
-+#content {width: 520px; margin: auto;}
++
 +.pCheck25 {text-indent: -25px; padding-left: 25px;}
 +-->
 +</style>
@@ -70,8 +70,8 @@
 +var g_mldTime = "{?de.internet.budget.js:10?}";
 +var g_mldVolume = "{?de.internet.budget.js:15?}";
 +var g_mldStartChanged = "{?de.internet.budget.js:20?}"
-+var g_Mega = 1000000; 000*1000;
-+var g_Shift32 = 4294967296; **32
++var g_Mega = 1000000;
++var g_Shift32 = 4294967296;
 +function mb2byte(mb){ return Math.floor(g_Mega*mb); }
 +function byte2mb(b){ return Math.round(b/g_Mega); }
 +function byte2low(b){ return b%g_Shift32; }
@@ -79,7 +79,7 @@
 +function highlow2byte(h,l){ return h*g_Shift32+l; }
 +function uiDoOnLoad() {
 +var Title = "Tarif eintragen";
-+document.title = "<? print `$var:BoxName` ?>" + " " + Title;
++document.title = Title;
 +var tmp=0;
 +var tmp2=0;
 +// StartofMonth
@@ -388,7 +388,7 @@
 +<!-- ../internet/inetstat.js -->
 +<style type="text/css">
 +<!--
-+#content {width: 560px; margin: auto;}
++
 +#tStat {margin: 1px; width: 100%; font-size: 12px;}
 +#tStat td, #tStat th {padding: 0px 1px;}
 +#tStat .c1 {width:130px; text-align: left;font-weight: normal}
@@ -430,7 +430,7 @@
 +var g_txt_n = "{?de.internet.inetstat.js:9901?}";
 +var g_txtUnd = "{?de.internet.inetstat.js:70?} ";
 +function uiDoOnLoad() {
-+document.title = "<? print `$var:BoxName` ?>" + " " + "{?de.internet.inetstat.js:75?}";
++document.title = "{?de.internet.inetstat.js:75?}";
 +var timeknown = "<? query inetstat:status/timeknown ?>";
 +var budget = "<? query connection0:settings/Budget/Enabled ?>";
 +<? setvariable var:settimeknown <? query inetstat:status/timeknown ?> ?>
@@ -526,7 +526,7 @@
 +var startJahr = heuteJahr;
 +}
 +// ist das Startdatum korrekt?
-+// Wenn Starttag der 31./309. ist, startet die Berechnung am 1. des Folgemonats
++// Wenn Starttag der 31./30./29. ist, startet die Berechnung am 1. des Folgemonats
 +if (startTag > DaysInMonth(startMonat,startJahr))
 +{
 +startTag = 1;
@@ -675,8 +675,8 @@
 +//var g_Kilo = 1024;
 +var g_Kilo = 1000;
 +//var g_Mega = 1048576; 024*1024;
-+var g_Mega = 1000000; 000*1000;
-+var g_Shift32 = 4294967296; **32
++var g_Mega = 1000000;
++var g_Shift32 = 4294967296;
 +function mb2byte(mb){ return Math.floor(g_Mega*mb); }
 +function byte2mb(b){ return Math.round(b/g_Mega);}
 +function byte2low(b){ return b%g_Shift32; }
