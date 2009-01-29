@@ -71,10 +71,6 @@ sed -i -e "s|CONFIG_SERVICEPORTAL_URL=\".*$|CONFIG_SERVICEPORTAL_URL=\"${CONFIG_
 
 #[ "$" ] &&  sed -i -e "s/=\".*$/=\"${}\"/g" "${1}/etc/init.d/rc.conf"
 
-#new all in one firmwares need the hardwarerevision set to the value of the FB firmwaere in use, this is needed for plugin url
-# if enabled VDSL on W920 will not start
-#[ "$FB_HWRevision" ] && sed -i -e "s|HWRevision=.*$|HWRevision=${FB_HWRevision}|" "${1}/etc/init.d/rc.conf"
-#[ "$FB_HWRevision" ] && echo "-- HWRevision set to: $FB_HWRevision"
 # set hostname
 [ "$HOSTNAME" ] &&  echo2 "-- Setting 'HOSTNAME=${HOSTNAME}'"
 [ "$HOSTNAME" ] &&  sed -i -e "s/HOSTNAME=\".*$/HOSTNAME=\"${HOSTNAME}\"/g" "${1}/etc/init.d/rc.conf"

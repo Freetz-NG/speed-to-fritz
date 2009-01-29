@@ -188,10 +188,11 @@ export CONFIG_Debug="0"
 # SPMOD ist the only parameter to be changed according to your hardware 
 # Values for SPMOD: "500" (for SI W500V)                            
 #                   "501" (for SP W501V)                            
+#                   "503" (for SP W503V)                            
 #                   "701" (for SP W701V)                            
+#                   "721" (for SP W721V)                            
 #                   "900" (for SP W900V)                            
-#                   "707" (for SP W701V)                            
-#                   "907" (for SP W900V)                            
+#                   "920" (for SP W920V)                            
 ##########################################################################
 
 function set_model() 
@@ -584,7 +585,7 @@ case "$1" in
 	
 *)
 
-	echo "'$1' is an invalid argument for '-m': Choose '500', '501', '701', '721', '707', '900', '920', '907' or '920'." 
+	echo "'$1' is an invalid argument for '-m': Choose '500', '501', '503', '701', '721', '707', '900', '907' or '920'." 
 	sleep 20
 	exit 1
 	;;
@@ -706,7 +707,7 @@ if [ "$ORI" != "y" ]; then
  [ "$DO_LOOKUP_PATCH" = "y" ] && $sh2_DIR/patch_fc "${SRC}"
  # remove tcom and some other oem dirs and add link instead to enable other brands.
  $sh2_DIR/add_tcom_link "${SRC}"
- #add kaid for xobox 
+ #add kaid for xbox 
  [ "$ADD_KAID" = "y" ] && $sh2_DIR/add_kaid
  #exchange kernel 
  [ "$XCHANGE_KERNEL" = "y" ] && cp -rfv "${SPDIR}/kernel.raw" "${FBDIR}/kernel.raw"

@@ -80,8 +80,6 @@ alias symbol:PCMRoute_RefreshTimeslot pcmlink' "${SRC}"/lib/modules/$KernelVersi
 cp -fdpr  "${DST}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d
 #include vdsl skript
 sed -i -e 's|/etc/init.d/rc.dsl.sh start|\. /etc/init.d/rc.vdsl.sh|' "${SRC}/etc/init.d/rc.S" 
-###sed -i -e '/rc.dsl.sh start/a\
-###/etc/init.d/rc.vdsl.sh' "${SRC}/etc/init.d/rc.S"
 
 #Annex A not working up to now  
 sed -i -e "s/DSL_Mode=\"VB\"/DSL_Mode=\"V$ANNEX\"/" "${SRC}/etc/init.d/rc.vdsl.sh" 
@@ -96,11 +94,6 @@ sed -i -e 's|dsl_ur8|tiatm|' "${SRC}/etc/init.d/rc.dsl.sh"
 sed -i -e '/modprobe tiatm/a\
 echo "MODE = vdsl" > \/dev\/avm_power' "${SRC}/etc/init.d/rc.dsl.sh"
 
-#alternativ copy of the two files   
-#cp -fdpr  "${DST}"/etc/init.d/rc.dsl.sh  --target-directory="${SRC}"/etc/init.d
-#cp -fdpr  "${DST}"/etc/init.d/rc.S  --target-directory="${SRC}"/etc/init.d
-
-
 #dont think it is needed, but for safty
 sed -i -e '/CONFIG_VDSL=/a\
 export CONFIG_VINAX="y"' "${SRC}/etc/init.d/rc.conf" 
@@ -111,12 +104,10 @@ else
 #dont start dsl
 sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
 rm -fdr "${SRC}"/lib/modules/dsp_ur8
-#VDSL would not start if wrong HWrevision is in use, so it only can be set in ATA mod
-#But pluginsupport needs AVM HWrevision to setup the download URL for plugins 
-#[ "$FB_HWRevision" ] && sed -i -e "s|HWRevision=.*$|HWRevision=${FB_HWRevision}|" "${SRC}/etc/init.d/rc.conf"
-#[ "$FB_HWRevision" ] && echo "-- HWRevision set to: $FB_HWRevision"
 #<-- ATA only
 fi
+#VDSL would not start if wrong HWrevision is in use, so it only can be set in ATA mod
+#But pluginsupport needs AVM HWrevision to setup the download URL for plugins 
 #workaround for HWRevision
 if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
 sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/i\
