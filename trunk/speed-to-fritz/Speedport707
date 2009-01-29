@@ -61,9 +61,13 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
     rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
 
-#keep tcom oem dir
+#keep tcom or congstar oem dir
+if [  -e "${DST}/etc/default.${CONFIG_PRODUKT}"/tcom ]; then
 "$TAR" -c -C "${DST}/etc/default.${CONFIG_PRODUKT}" tcom  | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
-
+fi
+if [  -e "${DST}/etc/default.${CONFIG_PRODUKT}"/congstar ]; then
+"$TAR" -c -C "${DST}/etc/default.${CONFIG_PRODUKT}" congstar  | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
+fi
 #remove USB and internal S0
 [ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "7170" 
 
