@@ -1131,7 +1131,7 @@ comment "Options only in use with start-freetz.sh ---------------------------"
 config SET_FREETZ_REVISION
 	bool "Set a freetz revision (setup)"
 	default n if ! TYPE_SPEEDPORT_W920V
-	default y if TYPE_AIO  && TYPE_SPEEDPORT_W920V
+	default y if TYPE_58  && TYPE_SPEEDPORT_W920V
 	help
 	    normaly this is not set, but in specail cases new revisions of freetz
 	    cant be used in combination with the firmware on wants to use.
@@ -1142,7 +1142,7 @@ config SET_FREETZ_REVISION
 	    depends on SET_FREETZ_REVISION
 	    string "revision number"
 		    default "2636" if ! TYPE_SPEEDPORT_W920V
-		    default "2640" if TYPE_SPEEDPORT_W920V
+		    default "2600" if TYPE_SPEEDPORT_W920V
 
 #2750 vor freetz 1.1
 
