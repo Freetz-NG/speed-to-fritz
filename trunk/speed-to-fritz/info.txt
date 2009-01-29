@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090129-1035
+    - Start-freetz: ./freetz_var error fixed, but was not a real Problem
 20090129-1017
     - Congstar: added congstar directory in file ./Speedport707
 20090129-1005

@@ -281,7 +281,7 @@ done
 #include freetz variables
 . ./.config
 #include freetz firmware imagename variable 'modimage'
-. ./freetz_var
+[ -f "./freetz_var" ] && . ./freetz_var
 #copy freetz firmwares to speed-to-fritz 
 echo "---------------------------------------------------------------------------------------------------------------"
 echo "modimage=${modimage}"
