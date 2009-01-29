@@ -3,7 +3,7 @@ PATH=/sbin:$PATH
 #dont change names of variables because some of the names are used in other files as well!
 ##########################################################################
 # Date of current version:                                          
-Tag="28"; Monat="01"; Jahr="09"
+Tag="29"; Monat="01"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -619,7 +619,7 @@ echo "--------------------------------------------------------------------------
 # delete privias Firmware of 11500 if needed
   $sh2_DIR/del_zip "${AVM_DSL_11500}" "${AVM7270_DSL_11500}" "13014" 
 # delete privias Firmware of 13014 if needed
-  $sh2_DIR/del_zip "${AVM_ALL_13014}" "${AVM7270_ALL_13014}" "13014" 
+  $sh2_DIR/del_zip "${AVM_AIO_13014}" "${AVM7270_AIO_13014}" "13014" 
 # extract source
 . $inc_DIR/get_workingbase
 # create backup for final compare
@@ -697,7 +697,7 @@ if [ "$ORI" != "y" ]; then
  #patch DSL bug of 11500
  ([ "$TYPE_DSL_11500" = "y" ] || [ "$AVM_IMG" = "$AVM_DSL_11500" ]) &&  $sh2_DIR/fix_DSLlab "${SRC}" "${OEMLIST}" 
  #patch ut-8 bug of 11945
- ([ "$BUGFIX_FONCONFIG" = "y" ] || [ "$TYPE_DSL_11945" = "y" ] || [ "$AVM_IMG" = "$AVM_ALL_11945" ]) &&  $sh_DIR/conv_iso8859.sh "${SRC}" "${OEMLIST}" 
+ ([ "$BUGFIX_FONCONFIG" = "y" ] || [ "$TYPE_DSL_11945" = "y" ] || [ "$AVM_IMG" = "$AVM_AIO_11945" ]) &&  $sh_DIR/conv_iso8859.sh "${SRC}" "${OEMLIST}" 
  #tam bugfix remove tams    
  $sh_DIR/patch_tam.sh "${SRC}"
  #gsm    
