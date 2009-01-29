@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090129-1457
+    - Revert
 20090129-1310
     - Set freetz revision default to 2600 if .58 firmware is selected 
 20090129-1302
