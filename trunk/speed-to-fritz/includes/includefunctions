@@ -131,13 +131,13 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 		IMG_EXTRACTED_SPC="$(echo $IMG_EXTRACTED | sed -e "s/ /-/")" 
 		mv "$DLD_DIR/$IMG_REQ1/$IMG_EXTRACTED" "$DLD_DIR/$IMG_EXTRACTED_SPC" 
 		if [ -f "$DLD_DIR/$IMG_EXTRACTED_SPC" ]; then
-		
+	
 		 #if [ "$MIRROR_DLD_TPL" == "" ]; then
 #			    sed -i -e "s|$DLD_TPL mirror $MIRROR_DLD_TPL.*$|$DLD_TPL \./$FWORIGDIR/$IMG_EXTRACTED $MIRROR_DLD_TPL\"|" "$HOMEDIR/Config.in"
 #			    sed -i -e "s|$DLD_TPL mirror $MIRROR_DLD_TPL.*$|$DLD_TPL \./$FWORIGDIR/$IMG_EXTRACTED $MIRROR_DLD_TPL\"|" "$HOMEDIR/$firmwareconf_file_name"
 #         		else	
-		 [ "$MIRROR_DLD_TPL" == "" ] && sed -i -e "s|\"$DLD_TPL\"|\"$DLD_TPL \./$FWORIGDIR/$IMG_EXTRACTED\"|" "$HOMEDIR/Config.in"
-		 [ "$MIRROR_DLD_TPL" == "" ] && sed -i -e "s|\"$DLD_TPL\"|\"$DLD_TPL \./$FWORIGDIR/$IMG_EXTRACTED\"|" "$HOMEDIR/$firmwareconf_file_name"
+		echo "$IMG_EXTRACTED" | grep -q ' ' || ([ "$MIRROR_DLD_TPL" == "" ] && sed -i -e "s|\"$DLD_TPL\"|\"$DLD_TPL \./$FWORIGDIR/$IMG_EXTRACTED_SPC\"|" "$HOMEDIR/Config.in")
+		[ "$MIRROR_DLD_TPL" == "" ] && sed -i -e "s|\"$DLD_TPL\"|\"$DLD_TPL \./$FWORIGDIR/$IMG_EXTRACTED_SPC\"|" "$HOMEDIR/$firmwareconf_file_name"
 		 #fi
 		 rm -fdR "$DLD_DIR/$IMG_REQ1"
 #####		 rm -f "$DLD_DIR/$IMG_REQ"
