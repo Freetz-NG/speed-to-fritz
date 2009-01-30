@@ -3,7 +3,7 @@ PATH=/sbin:$PATH
 #dont change names of variables because some of the names are used in other files as well!
 ##########################################################################
 # Date of current version:                                          
-Tag="29"; Monat="01"; Jahr="09"
+Tag="30"; Monat="01"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -701,8 +701,8 @@ if [ "$ORI" != "y" ]; then
  ([ "$BUGFIX_FONCONFIG" = "y" ] || [ "$TYPE_DSL_11945" = "y" ] || [ "$AVM_IMG" = "$AVM_AIO_11945" ]) &&  $sh_DIR/conv_iso8859.sh "${SRC}" "${OEMLIST}" 
  #tam bugfix remove tams    
  $sh_DIR/patch_tam.sh "${SRC}"
- #gsm    
- $sh_DIR/disply_gsm.sh "${SRC}" "${OEMLIST}"
+ ##gsm    
+ [ "$DO_GSM_PATCH" = "y" ] && $sh_DIR/disply_gsm.sh "${SRC}" "${OEMLIST}"
  # reverse phonebook lookup
  [ "$DO_LOOKUP_PATCH" = "y" ] && $sh2_DIR/patch_fc "${SRC}"
  # remove tcom and some other oem dirs and add link instead to enable other brands.

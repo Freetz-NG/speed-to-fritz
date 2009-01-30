@@ -12,7 +12,8 @@ for OEMDIR in $2; do
  USRWWW="usr/www/${OEMDIR}/$html/${avm_Lang}"
 #-----------------------------------------------------------------
   if [ -f "$1"/usr/www/${OEMDIR}/$html/index.html ]; then
-    sed -i -e 's|<? query umts:settings/enabled ?>|1|' "$1/${USRWWW}/home/home.js"
+    sed -i -e '/function uiDoOnLoad() {/a\
+jslDisplay("uiShowGSM", true);' "$1/${USRWWW}/home/home.js"
     sed -i -e 's|$var:isUsbGsm|1|' "$1/${USRWWW}/menus/menu2_internet.html"
     sed -i -e 's|<? query gsm:settings/PinEmpty ?>|0|' "$1/${USRWWW}/menus/menu2_internet.html"
   echo2 "  /${USRWWW}/home/home.js"

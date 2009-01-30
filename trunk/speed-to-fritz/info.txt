@@ -21,6 +21,10 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090130-1159
+    - W920: 13486 online and DSL statusdisplay on statuspage fixed.
+20090130-0358
+    - Added menu option 'src3 local image'
 20090129-1620
     - Some changes on onlinecounterpage
 20090129-1507
