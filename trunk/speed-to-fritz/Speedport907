@@ -1,4 +1,4 @@
-#!/bin/bash
+$#!/bin/bash
 #KernelVersion="2.6.13.1-ohio"
 echo "********************************************************************************"
 echo -e "\033[1mPhase 4:\033[0m Apply changes."
@@ -66,7 +66,7 @@ if [ $TCOM_V_MINOR -eq 21 ] && [ $AVM_V_MINOR -eq 32 ]; then
     # This is alwas needed for W900 DECT Chip differs
     sed -i -e 's|dect_hw=3|dect_hw=2|' "${SRC}/etc/init.d/rc.S"
     #use 7270 web GUI
-    if [ "$USE_SOURCE2_WEMNUE" = "y" ]; then
+    if [ "USE_SOURCE2_WEMNUE" = "y" ]; then
 	cp -fdpr  "${SRC}"/etc/default.${SORCE_PRODUKT}/avm/*.cfg   --target-directory="${SRC_2}"/etc/default.${SORCE_2_PRODUKT}/avm
 	cp -fdpr  "${SRC_2}"/etc/default.${SORCE_2_PRODUKT}/avm/*   --target-directory="${SRC}"/etc/default.${SORCE_PRODUKT}/avm
 	rm -fdr "${SRC}"/usr/www/avm

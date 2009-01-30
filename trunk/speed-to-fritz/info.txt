@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090130-1718
+    - W900:  USE_SOURCE2_WEBMNUE in Speedport907 fixed 
 20090130-1317
     - W900: 13475 ntfs_patch fixed, mini_fo removed
 20090130-1159
