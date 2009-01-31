@@ -634,10 +634,15 @@ echo "--------------------------------------------------------------------------
 # get produkt from etc/default.F* into variables FBMOD, CONFIG_PRODUKT and CONFIG_SORCE
 . $inc_DIR/getprodukt
 # compose Filename for new .tar ended File
+if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
+ [ "${SVN_VERSION:0:6}" == "export" ] && SVN_VERSION=""
+ [ "$SVN_VERSION" != "" ] && SVN_VERSION="-r-$SVN_VERSION"
+ SKRIPT_DATE+="$SVN_VERSION"
+fi
 [ ${FREETZ_REVISION} ] && FREETZ_REVISION="-freetz-${FREETZ_REVISION}"
-[ "$ORI" != "y" ] && export NEWIMG="fw_${CLASS}_W${SPNUM}V_${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}_OEM-${OEM}_Annex${ANNEX}_${avm_Lang}.image"
+[ "$ORI" != "y" ] && export NEWIMG="fw_${CLASS}_W${SPNUM}V_${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}_Annex${ANNEX}_${avm_Lang}.image"
 [ "$ORI" = "y" ] && export NEWIMG="${SPIMG}_OriginalTcomAdjustedForAnnex${ANNEX}_${avm_Lang}.image"
-[ "$ATA_ONLY" = "y" ] && export NEWIMG="fw_${CLASS}_W${SPNUM}V_${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}_OEM-${OEM}_ATA-ONLY_${avm_Lang}.image"
+[ "$ATA_ONLY" = "y" ] && export NEWIMG="fw_${CLASS}_W${SPNUM}V_${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}_ATA-ONLY_${avm_Lang}.image"
 # print some info on screen
 . $inc_DIR/print_settings
 # save some variabels to incl_var
