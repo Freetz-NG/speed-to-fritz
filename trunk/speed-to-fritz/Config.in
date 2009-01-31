@@ -48,6 +48,9 @@ config TCOM_W920_63
     string 
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.63.zip mirror http://www.hostarea.de/server-01/Januar-93ddafca47.zip"
 #    default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.63.zip mirror http://www.upload.crunkbass.de/?a=show&file=5370656564706f72745f575f393230562e416e6e6578422e36352e30342e36332e7a6970&big=1"
+config TCOM_W920_70
+    string 
+    default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/fw_Speedport_W_920V_v_65.04.70.image"
 config TCOM_W920_13048
     string 
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.63-13048.zip mirror http://www.hostarea.de/server-01/Januar-25c121e202.zip"
@@ -224,6 +227,8 @@ choice
 		default TYPE_TCOM_BETA_63
 	config TYPE_TCOM_BETA_63
 		bool "TCOM_BETA_63"
+	config TYPE_TCOM_BETA_70
+		bool "TCOM_BETA_70"
 	config TYPE_TCOM_BETA_13048
 		bool "TCOM_BETA_13048"
 endchoice
@@ -304,6 +309,9 @@ choice
 #		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 #	config TYPE_67
 #		bool "67"
+#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+#	config TYPE_70
+#		bool "70"
 #		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 	config TYPE_AIO
 		bool "AiO - Alles in einem prerelease"
@@ -407,6 +415,8 @@ choice
 		bool "TCOM_W920_58"
 	config TYPE_TCOM_W920_63
 		bool "TCOM_W920_63"
+	config TYPE_TCOM_W920_70
+		bool "TCOM_W920_70"
 	config TYPE_TCOM_W920_13048
 		bool "TCOM_W920_13048"
 
@@ -462,8 +472,10 @@ config TCOM_IMG
 	default "$TCOM_W721_60" 		if TYPE_SPEEDPORT_W721V
 	default "$TCOM_W900_57" 		if TYPE_SPEEDPORT_W900V
 	default "$TCOM_W920_58" 		if TYPE_58 && ( TYPE_SPEEDPORT_W920V )
-	default "$TCOM_W920_13048" 		if ( ! TYPE_TCOMBETA || TYPE_TCOM_BETA_13048 ) && ( TYPE_SPEEDPORT_W920V )
+	default "$TCOM_W920_70" 		if ( ! TYPE_TCOMBETA ) && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_63" 		if TYPE_TCOM_BETA_63 && ( TYPE_SPEEDPORT_W920V )
+	default "$TCOM_W920_70" 		if TYPE_TCOM_BETA_70 && ( TYPE_SPEEDPORT_W920V )
+	default "$TCOM_W920_13048" 		if TYPE_TCOM_BETA_13048 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_LOCAL"	 		if TYPE_TCOM_LOCAL
 
 #--------------------------------------------------------------------------
@@ -528,6 +540,7 @@ config SRC2_IMG
 	default "$TCOM_W900_57" 	if TYPE_TCOM_W900_57
 	default "$TCOM_W920_58" 	if TYPE_TCOM_W920_58
 	default "$TCOM_W920_63" 	if TYPE_TCOM_W920_63
+	default "$TCOM_W920_70" 	if TYPE_TCOM_W920_70
 	default "$TCOM_W920_13048" 	if TYPE_TCOM_W920_13048
 	default "$TCOM_LOCAL"		if TYPE_TCOM_LOCAL_IMAGE
 	default "$SRC3_LOCAL"		if TYPE_SRC3_LOCAL_IMAGE
@@ -553,6 +566,7 @@ config TYPE_LABOR_TYPE
         default "59" 		if TYPE_59
         default "61" 		if TYPE_61
         default "67" 		if TYPE_67
+        default "70" 		if TYPE_70
         default "BETA" 		if TYPE_BETA
         default "DSL" 		if TYPE_DSL
         default "GAMING" 	if TYPE_GAMING

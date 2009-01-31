@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090131-0650
+    - W920: config.in add, /fw_Speedport_W_920V_v_65.04.70.image 
 20090130-1739
     - W900:  Speedport907, plugin HWRevision woarkaround inserted.
 20090130-1718
