@@ -12,9 +12,8 @@
 # Furthermore, you can use a single table entry to create a many device
 # minors.  For example, if I wanted to create /dev/hda and /dev/hda[0-15]
 # I could just use the following two table entries:
-#<name>			<type>	<mode>	<uid>	<gid>	<major>	<minor>	<start>	<inc>	<count>
-#   /dev/hda    	b       640     0       0       3       0       0       0       -
-#   /dev/hda    	b       640     0       0       3       1       1       1       15
+#   /dev/hda    b       640     0       0       3       0       0       0       -
+#   /dev/hda    b       640     0       0       3       1       1       1       15
 # 
 # Device table entries take the form of:
 # <name>    <type>      <mode>  <uid>   <gid>   <major> <minor> <start> <inc>   <count>
@@ -37,20 +36,14 @@
 /dev/pts	d	755	0	0	-	-	-	-	-
 /dev/mapper	d	755	0	0	-	-	-	-	-
 /dev/misc	d	755	0	0	-	-	-	-	-
+/dev/vinax	d	755	0	0	-	-	-	-	-
 #/dev/shm	d	755	0	0	-	-	-	-	-
 #/tmp		d	1777	0	0	-	-	-	-	-
 #/etc		d	755	0	0	-	-	-	-	-
-#<name>		<type>	<mode>	<uid>	<gid>	<major>	<minor>	<start>	<inc>	<count>
-#/bin/busybox	f	4755	0	0	-	-	-	-	-
-#/etc/shadow	f	600	0	0	-	-	-	-	-
-#/etc/passwd	f	644	0	0	-	-	-	-	-
-
-
-#vinax driver
-/dev/vinax		d	755	0	0	-	-	-	-	-
-#<name>			<type>	<mode>	<uid>	<gid>	<major>	<minor>	<start>	<inc>	<count>
-/dev/vinax/		c	666	0	0	253	0	0	1	2
-/dev/vinax/cntrl	c	666	0	0	253	128	0	1	2
+#<name>					<type>	<mode>	<uid>	<gid>	<major>	<minor>	<start>	<inc>	<count>
+#/bin/busybox				f	4755	0	0	-	-	-	-	-
+#/etc/shadow				f	600	0	0	-	-	-	-	-
+#/etc/passwd				f	644	0	0	-	-	-	-	-
 
 # Normal system devices
 /dev/mem	c	640	0	0	1	1	0	0	-
@@ -88,9 +81,7 @@
 /dev/net/tun	c	640	0	0	10	200	-	-	-
 
 #coda driver
-/dev/coda	d	755	0	0	-	-	-	-	-
-/dev/coda	c	666	0	0	67	0	0	1	1
-/dev/coda/	c	600	0	0	67	0	0	1	5
+/dev/cfs	c	666	0	0	67	0	0	1	4
 
 #bluez
 /dev/vhci	c	644	0	0	10	250	-	-	-
@@ -129,7 +120,7 @@
 /dev/led	c	666	0	0	247	0	0	0	-
 /dev/new_led	c	666	0	0	251	0	0	0	-
 /dev/Piglet	c	666	0	0	250	0	0	0	-
-/dev/rtc0	c	666	0	0	254	0	0	0	-
+/dev/rtc	c	666	0	0	254	0	0	1	2
 /dev/tffs	c	666	0	0	240	0	0	0	-
 /dev/tiatm	c	644	0	0	230	0	0	0	-
 /dev/ubik_boot_0	c	666	0	0	245	0	0	0	-
@@ -139,56 +130,8 @@
 /dev/userman	c	666	0	0	228	0	0	0	-
 /dev/watchdog	c	666	0	0	242	0	0	0	-
 /dev/ttyUSB	c	666	0	0	188	0	0	1	4
-
-# Normal system devices
-/dev/mem	c	640	0	0	1	1	0	0	-
-/dev/kmem	c	640	0	0	1	2	0	0	-
-/dev/null	c	666	0	0	1	3	0	0	-
-/dev/zero	c	666	0	0	1	5	0	0	-
-/dev/random	c	666	0	0	1	8	0	0	-
-/dev/urandom	c	666	0	0	1	9	0	0	-
-#/dev/ram	b	640	0	0	1	1	0	0	-
-#/dev/ram	b	640	0	0	1	0	0	1	4
-/dev/loop	b	640	0	0	7	0	0	1	8
-#/dev/rtc	c	640	0	0	10	135	-	-	-
-/dev/console	c	666	0	0	5	1	-	-	-
-/dev/tty	c	666	0	0	5	0	-	-	-
-/dev/tty	c	666	0	0	4	0	0	1	8
-/dev/ttyp	c	666	0	0	3	0	0	1	10
-/dev/ptyp	c	666	0	0	2	0	0	1	10
-/dev/ptmx	c	666	0	0	5	2	-	-	-
-/dev/ttyP	c	666	0	0	57	0	0	1	4
-/dev/ttyS	c	666	0	0	4	64	0	1	4
-/dev/fb		c	640	0	5	29	0	0	32	4
-#/dev/ttySA	c	666	0	0	204	5	0	1	3
-/dev/psaux	c	666	0	0	10	1	0	0	-
-/dev/ppp	c	666	0	0	108	0	-	-	-
-/dev/pts/	c	640	0	0	136	0	0	1	8
-/dev/log	p	666	0	0	1	0	-	-	-
-/dev/initrd	b	400	0	0	1	250	-	-
-
-# MTD stuff
-/dev/mtd	c	640	0	0	90	0	0	2	11
-/dev/mtdblock	b	640	0	0	31	0	0	1	11
-
-#Tun/tap driver
-/dev/net	d	755	0	0	-	-	-	-	-
-/dev/net/tun	c	640	0	0	10	200	-	-	-
-
-#bluez
-/dev/vhci	c	644	0	0	10	250	-	-	-
-/dev/rfcomm	c	666	0	0	216	0	0	1	32
-
-# SCSI Devices
-/dev/sda	b	640	0	0	8	0	0	0	-
-/dev/sda	b	640	0	0	8	1	1	1	16
-/dev/sdb	b	640	0	0	8	16	0	0	-
-/dev/sdb	b	640	0	0	8	17	1	1	16
-/dev/sdc	b	640	0	0	8	32	0	0	-
-/dev/sdc	b	640	0	0	8	33	1	1	16
-/dev/sdd	b	640	0	0	8	48	0	0	-
-/dev/sdd	b	640	0	0	8	49	1	1	16
-
 /dev/fuse	c	666	0	0	10	229	-	-	-
 /dev/misc/fuse	c	666	0	0	10	229	-	-	-
 /dev/mapper/control	c	666	0	0	10	63	-	-	-
+/dev/vinax/0	c	666	0	0	253	0	-	-	-
+/dev/vinax/cntrl0	c	666	0	0	253	128	-	-	-
