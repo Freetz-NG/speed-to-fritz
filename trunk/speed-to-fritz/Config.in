@@ -879,31 +879,20 @@ config EXPORT_SETATM
 		tcom uses "32" but my be specified by your proivider.
 
 choice
-	prompt "Kapselung: "
+	prompt "SAR MUX Type: "
 	depends on EXPORT_SETATM
-	default PPPOAVCMUX
-	config PPPOE
-		bool "PPPoE"
-	config PPPOLLC
-		bool "PPPoA LLC"
-	config PPPOAVCMUX
-		bool "PPPoA VC Mux"
-	config PPPOAVCMUX1
-		bool "3"
-	config PPPOAVCMUX2
-		bool "4"
+	default VCMUX
+	config VCMUX
+		bool "SAR: VC mux"
+	config LCC
+		bool "SAR: Llc"
 
 endchoice
 
 config EXPORT_KAPSELUNG
 	string
-	default "0" if PPPOE
-	default "1" if PPPOLLC
-	default "2" if PPPOAVCMUX
-	default "3" if PPPOAVCMUX1
-	default "4" if PPPOAVCMUX2
-
-
+	default "0" if VCMUX
+	default "1" if LLC
 
 comment "SYSTEM Options -----------------------------------------------------"
 config XCHANGE_KERNEL

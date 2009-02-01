@@ -3,7 +3,7 @@ PATH=/sbin:$PATH
 #dont change names of variables because some of the names are used in other files as well!
 ##########################################################################
 # Date of current version:                                          
-Tag="31"; Monat="01"; Jahr="09"
+Tag="01"; Monat="02"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"

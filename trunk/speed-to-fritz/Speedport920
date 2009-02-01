@@ -39,6 +39,8 @@ cp -fdrp "${DST}"/usr/sbin --target-directory="${SRC}"/usr
 cp -fdrp "${DST}"/lib/modules/vinax_fw_vdsl.bin --target-directory="${SRC}"/lib/modules
 cp -fdrp "${DST}"/lib/modules/vinax_fw_adsl.bin --target-directory="${SRC}"/lib/modules &&\
 echo "  -- DSL Driver was taken from the original t-com firmware!"
+#not needed as far, because /bin/ctlmgr is not compatibel, looks like this is the reason wy not all is configurabe concerning ATM and ADSL via GUI
+[ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
 
 if [ ${SAVE_TCOM_DSL} = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/vinax* --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
