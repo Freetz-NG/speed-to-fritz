@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090203-1548
+    - W920: 7270, added multilingual version to config in, FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it.54.04.67.image, not tested scrit needs adaptions!
 20090203-1517
     - Software download url fixed, by Hawcline
 20090203-1500

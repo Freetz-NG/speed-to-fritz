@@ -140,6 +140,9 @@ config AVM7270_59
 config AVM7270_67
     string
 default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritz_box-labor-13486.ZIP ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
+config AVM7270_67m
+    string
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it.54.04.67.image"
 
 
 ###------------------------------------------------------------------------------------------------------------
@@ -256,14 +259,14 @@ choice
 #	depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
 #		depends on ! TYPE_LABOR 
 	config TYPE_LANG_EN
-		bool "en - international"
-	depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
+		bool "international (en, sp, it, ...)"
+	depends on TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_TCOM_LOCAL 
 endchoice
 ###------------------------------------------------------------------------------------------------------------
 
 config TYPE_LABOR
 	bool "Select a special Firmware --->"
-	depends on TYPE_LANG_DE && ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL || TYPE_SPEEDPORT_W920V ) 
+	depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL || TYPE_SPEEDPORT_W920V ) 
 	default n
 	help
 		Enable this to compile the mod based on an special AVM firmware.
@@ -307,9 +310,9 @@ choice
 #	config TYPE_298
 #		bool "AIO_298"
 #		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
-#	config TYPE_67
-#		bool "67"
-#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+	config TYPE_67m
+		bool "67m"
+		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 #	config TYPE_70
 #		bool "70"
 #		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
@@ -430,6 +433,8 @@ choice
 #		bool "AVM7270_59_ANNEX_A"
 	config TYPE_AVM7270_67
 		bool "AVM7270_67"
+	config TYPE_AVM7270_67m
+		bool "AVM7270_67m"
 	config TYPE_AVM7270_DSL_13225 
 		bool "AVM7270_DSL_13225"
 	config TYPE_AVM7270_AIO_13486 
@@ -501,7 +506,9 @@ config AVM_IMG
 
 
         default "$AVM7270_67" 		if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && TYPE_LANG_DE
+        default "$AVM7270_67m" 		if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && TYPE_LANG_EN
         default "$AVM7270_58" 		if ( TYPE_58 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
+        default "$AVM7270_67m" 		if ( TYPE_67m ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
         default "$AVM7270_59" 		if TYPE_SPEEDPORT_W503V || (( TYPE_59 ) && ( TYPE_SPEEDPORT_W920V )) 
         default "$AVM7270_A59" 		if ( TYPE_A59 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
         default "$AVM7270_67"		if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
@@ -550,6 +557,7 @@ config SRC2_IMG
         default "$AVM7270_59" 		if TYPE_AVM7270_59
         default "$AVM7270_A59" 		if TYPE_AVM7270_A59
         default "$AVM7270_67" 		if TYPE_AVM7270_67
+        default "$AVM7270_67m"	 	if TYPE_AVM7270_67m
 	default "$AVM7270_AIO_13486"	if TYPE_AVM7270_AIO_13486
         default "$AVM7270_DSL_13225" 	if TYPE_AVM7270_DSL_13225
         default "$AVM7270_PHONE_13483" 	if TYPE_AVM7270_PHONE_13483
@@ -566,6 +574,7 @@ config TYPE_LABOR_TYPE
         default "59" 		if TYPE_59
         default "61" 		if TYPE_61
         default "67" 		if TYPE_67
+        default "67m" 		if TYPE_67m
         default "70" 		if TYPE_70
         default "BETA" 		if TYPE_BETA
         default "DSL" 		if TYPE_DSL
