@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090203-1500
+    - 7170 en version added to config.in FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.67.image, DECT otions not jet fixed
 20090201-1503
     - W920: .../usr/share/ctlmgr/libvdsl.so..., line entered into Speedport920.
 20090201-1217

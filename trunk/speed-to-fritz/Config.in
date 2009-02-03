@@ -74,9 +74,9 @@ config AVM_32
 config AVM_50
     string 
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.50.image"
-config AVM_57en
+config AVM_67en
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.57.image" 
+     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.67.image"
 #config AVM_57
 #    string 
 #    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-13475.zip ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7170.29.04.57.image" 
@@ -393,8 +393,8 @@ choice
 		bool "AVM_67"
 	config TYPE_AVM_50
 		bool "AVM_50"
-	config TYPE_AVM_57en
-		bool "AVM_57en"
+	config TYPE_AVM_67en
+		bool "AVM_67en"
 	config TYPE_AVM_32
 		bool "AVM_32"
 	config TYPE_TCOM_W500_27
@@ -485,7 +485,7 @@ config AVM_IMG
 	default "$AVM_56" 		if TYPE_SINUS_W500V
 #	default "$AVM_61" 		if (TYPE_SPEEDPORT_W721V && ! TYPE_LABOR ) || (TYPE_61 && ( TYPE_SPEEDPORT_W721V))
  	default "$AVM_50" 		if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_A_CH
-	default "$AVM_57en" 		if TYPE_LANG_EN && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_67en" 		if TYPE_LANG_EN && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_67" 		if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_57" 		if TYPE_57 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_59" 		if TYPE_59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
@@ -517,7 +517,7 @@ config SRC2_IMG
 	default "$AVM_32" 		if TYPE_AVM_32
 	default "$AVM_43" 		if TYPE_AVM_43
 	default "$AVM_50" 		if TYPE_AVM_50
-	default "$AVM_57en" 		if TYPE_AVM_57en
+	default "$AVM_67en" 		if TYPE_AVM_67en
 	default "$AVM_56" 		if TYPE_AVM_56
 	default "$AVM_57" 		if TYPE_AVM_57
 	default "$AVM_67" 		if TYPE_AVM_67
