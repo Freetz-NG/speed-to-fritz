@@ -10,8 +10,8 @@ for DIR in $2; do
   if [ -d "$1"/$DIRI ]; then
 
 #    [ -f "$1/${DIRI}/software/extern.js" ] && sed -i -e 's|url += "&kontext="+kontext;|url = "http://www.avm.de/de/Download/index.php3?js=enabled";|' "$1/${DIRI}/software/extern.js"
-#    [ -f "$1/${DIRI}/usb/aura.html" ] && sed -i -e 's|TextInstallationErforderlich ?><a href="javascript:ShowPopup()"|TextInstallationErforderlich ?><a href="http://clickonce.avm.de/usb-fernanschluss/deutsch/fritzbox-usb-fernanschluss.exe"|' "$1/${DIRI}/usb/aura.html"
-    sed -i -e 's|<a href="javascript:jslGoTo(.software.,.extern.)">|<a href=\"http://www.avm.de/de/Download/index.php3?js=enabled" target="_blank">|' "$1/${DIRI}/menus/menu2_konfig.html"
+    [ -f "$1/${DIRI}/usb/aura.html" ] && sed -i -e 's|TextInstallationErforderlich ?><a href="javascript:ShowPopup()"|TextInstallationErforderlich ?><a href="http://clickonce.avm.de/usb-fernanschluss/deutsch/fritzbox-usb-fernanschluss.exe"|' "$1/${DIRI}/usb/aura.html"
+#    sed -i -e 's|<a href="javascript:jslGoTo(.software.,.extern.)">|<a href=\"http://www.avm.de/de/Download/index.php3?js=enabled" target="_blank">|' "$1/${DIRI}/menus/menu2_konfig.html"
     # workaround freetz
     if `cat "$1/${DIRI}/menus/menu2_homehome.html" | grep -q 'freetz_status' `; then 
 #     sed -i -e "/freetz_status/i \
