@@ -559,6 +559,8 @@ Section -CreateConfigFile
   FileWrite $0 "#   http://www.colinux.org/$\r$\n"
   FileWrite $0 "#   http://wiki.ip-phone-forum.de/freetzlinux:network$\r$\n"
   FileWrite $0 "$\r$\n"
+  FileWrite $0 "exec0=Xming\Xming.exe :0 -dpi 85 -ac -clipboard -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log -xkbmodel pc105 -xkblayout se $\r$\n"
+  FileWrite $0 "#exec1=pulseaudio\pulseaudio.exe $\r$\n"
   FileWrite $0 "# Please do not change unless you understand these settings$\r$\n"
   FileWrite $0 "kernel=vmlinux$\r$\n"
   FileWrite $0 "#base.drv is the complete compressed ubuntu or any other linux$\r$\n"
