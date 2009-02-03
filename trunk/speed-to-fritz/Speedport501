@@ -64,6 +64,9 @@ sleep 3
 #<-- ATA only
 fi
 
+#patch download url
+sed -i -e "s|hardware=\${HWRevision}|hardware=${FB_HWRevision}|" "${SRC}/etc/init.d/rc.conf"
+
 
 #adapt parameters for Piglet bitfile to be suitable for this hardware
 $sh_DIR/patch_pigletsection.sh "${SRC}" "${DST}" 

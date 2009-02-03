@@ -136,6 +136,7 @@ sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/i\
 sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/a\
 	export HWRevision=\"$HWID\"" "${SRC}/sbin/start_plugin.sh"
 fi
+sed -i -e "s|hardware=\${HWRevision}|hardware=${FB_HWRevision}|" "${SRC}/etc/init.d/rc.conf"
 
 #tests 
 sed -i -e '/export ANNEX_TEST/a\

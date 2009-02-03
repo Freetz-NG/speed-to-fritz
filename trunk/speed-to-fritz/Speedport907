@@ -161,6 +161,7 @@ sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/a\
 	export HWRevision=\"$HWID\"" "${SRC}/sbin/start_plugin.sh"
 fi
 
+sed -i -e "s|hardware=\${HWRevision}|hardware=${FB_HWRevision}|" "${SRC}/etc/init.d/rc.conf"
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #adapt parameters for Piglet bitfile to be
 $sh_DIR/patch_pigletsection.sh "${SRC}" "${DST}"

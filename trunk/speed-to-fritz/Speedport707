@@ -81,4 +81,7 @@ $sh_DIR/patch_leddefinition.sh "${SRC}" "${DST}"
 #patch annex Fom parameter
 $sh_DIR/patch_annex.sh "${SRC}"
 
+#patch download url
+sed -i -e "s|hardware=\${HWRevision}|hardware=${FB_HWRevision}|" "${SRC}/etc/init.d/rc.conf"
+
 echo "********************************************************************************"

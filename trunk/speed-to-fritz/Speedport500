@@ -117,6 +117,9 @@ else\
 isdn_params="${isdn_params} dect_on=1"\
 fi\
 fi|' "${SRC}/etc/init.d/rc.S"
+#patch download url
+sed -i -e "s|hardware=\${HWRevision}|hardware=${FB_HWRevision}|" "${SRC}/etc/init.d/rc.conf"
+
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #adapt parameters for Piglet bitfile to be
 $sh_DIR/patch_pigletsection.sh "${SRC}" "${DST}"
