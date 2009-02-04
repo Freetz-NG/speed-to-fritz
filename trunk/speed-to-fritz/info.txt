@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090205-0030
+    - 701 - fix Add menu Programme in W701, by Hawcline
 20090204-1644
     - fix URL again, Software download url fixed, by Hawcline
 20090204-1551

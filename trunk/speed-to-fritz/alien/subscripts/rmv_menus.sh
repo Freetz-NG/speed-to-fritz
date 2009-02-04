@@ -25,8 +25,8 @@ for DIR in ${OEMLIST}; do
      [ -f "${DSTI}/de/fon/siplist.js" ] && sed -i -e "s/<? setvariable var:showtcom 0 ?>/<? setvariable var:showtcom 1 ?>/g" "${DSTI}/de/fon/siplist.js"
      [ -f "${DSTI}/de/internet/authform.html" ] && sed -i -e "s/<? setvariable var:allprovider 0 ?>/<? setvariable var:allprovider 1 ?>/g" "${DSTI}/de/internet/authform.html"
      #remove Progamme menu entry
-     [ -f "${DSTI}/de/menus/menu2.inc" ] && sed -i -e "s/<? setvariable var:TextMenuSoftware \"Programme\" ?>\\n//g" "${DSTI}/de/menus/menu2.inc"
-     [ -f "${DSTI}/de/home/sitemap.html" ] && sed -i -e "/'software', 'extern'/d" "${DSTI}/de/home/sitemap.html"
+ #    [ -f "${DSTI}/de/menus/menu2.inc" ] && sed -i -e "s/<? setvariable var:TextMenuSoftware \"Programme\" ?>\\n//g" "${DSTI}/de/menus/menu2.inc"
+ #    [ -f "${DSTI}/de/home/sitemap.html" ] && sed -i -e "/'software', 'extern'/d" "${DSTI}/de/home/sitemap.html"
     fi
 done
 
