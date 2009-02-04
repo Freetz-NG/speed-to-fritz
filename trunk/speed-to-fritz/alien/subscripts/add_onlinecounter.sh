@@ -4,27 +4,28 @@
 echo "-- Adding onlinecounter pages ..."
 
 for OEMDIR in $2; do
- if [ "$OEMDIR" = "avme" ] ; then
-  html="$avm_Lang/html"
- else
-  html="html"
- fi
- USRWWW="usr/www/${OEMDIR}/$html/${avm_Lang}"
+ USRWWW="usr/www/${OEMDIR}/html/de"
 
  rm -f "$1"/${USRWWW}/internet/budget*
  rm -f "$1"/${USRWWW}/internet/inetstat*
 #-----------------------------------------------------------------
-  if [ -f "$1"/usr/www/${OEMDIR}/$html/index.html ]; then
+  if [ -f "$1"/usr/www/${OEMDIR}/html/index.html ]; then
    Unicode_ut8="n"
-  `cat "$1"/usr/www/${OEMDIR}/$html/index.html | grep -q 'charset=utf-8' ` && Unicode_ut8="y" 
+  `cat "$1"/usr/www/${OEMDIR}/html/index.html | grep -q 'charset=utf-8' ` && Unicode_ut8="y" 
   #echo "ut8: $Unicode_ut8"
-    PatchfileName="add_onlinecounter_de"
+    [ "$avm_Lang" = "de" ] && PatchfileName="add_onlinecounter_de"
+    [ "$avm_Lang" = "en" ] && PatchfileName="add_onlinecounter_en"
    [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] && iconv --from-code=UTF-8 --to-code=ISO-8859-1 "$P_DIR/${PatchfileName}_ut8.patch" > "$P_DIR/${PatchfileName}.patch" 
    [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] || iconv --from-code=ISO-8859-1 --to-code=UTF-8 "$P_DIR/${PatchfileName}.patch" > "$P_DIR/${PatchfileName}_ut8.patch" 
    [ "$Unicode_ut8" = "n" ] && [ "$OEMDIR" = "avm" ] && [ "$avm_Lang" = "de" ] && modpatch "$1" "$P_DIR/${PatchfileName}.patch"
    [ "$Unicode_ut8" = "y" ] && [ "$OEMDIR" = "avm" ] && [ "$avm_Lang" = "de" ] && modpatch "$1" "$P_DIR/${PatchfileName}_ut8.patch"
-   #   [ "$OEMDIR" = "avme" ] && [ "$avm_Lang" = "en" ] && modpatch "$1" "$P_DIR/add_dsl_expert_en.patch"
-sed -i -e '/{?de.home.home.js:305?}/a\
+   [ "$Unicode_ut8" = "n" ] && [ "$OEMDIR" = "avme" ] && [ "$avm_Lang" = "en" ] && modpatch "$1" "$P_DIR/${PatchfileName}.patch"
+   [ "$Unicode_ut8" = "y" ] && [ "$OEMDIR" = "avme" ] && [ "$avm_Lang" = "en" ] && modpatch "$1" "$P_DIR/${PatchfileName}_ut8.patch"
+   [ "$avm_Lang" = "de" ] && sed -i -e '/{?de.home.home.js:305?}/a\
+var volBudgetReached = "<? query box:status/hint_volume_budget_reached ?>";\
+if (volBudgetReached == "1")\
+strWarn = "The limit your internet online time our volume is reached.";' "$1"/${USRWWW}/home/home.js 
+   [ "$avm_Lang" = "en" ] && sed -i -e '/{?de.home.home.js:305?}/a\
 var volBudgetReached = "<? query box:status/hint_volume_budget_reached ?>";\
 if (volBudgetReached == "1")\
 strWarn = "das in Ihrem Tarif enthaltene Datenvolumen f&uuml;r diesen Monat ist aufgebraucht.";' "$1"/${USRWWW}/home/home.js 

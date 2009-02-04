@@ -4,20 +4,20 @@ SR1="$1"
 
 
 # change DECT text for infoled 
-if [ "$avm_Lang" != "en" ] ; then
+#if [ "$avm_Lang" != "en" ] ; then
  for OEMDIR in ${OEMLIST}; do
-  if [ "$OEMDIR" = "avme" ] ; then
-   export HTML="$OEMDIR/$avm_Lang/html"
-  else
+#  if [ "$OEMDIR" = "avme" ] ; then
+#   export HTML="$OEMDIR/$avm_Lang/html"
+#  else
    export HTML="$OEMDIR/html"
-  fi
-    if [ -e "$SR1"/usr/www/${HTML}/${avm_Lang}/system/infoled.inc ]; then
-     echo2 "-- Change TextBlinkDECT in: /usr/www/${HTML}/${avm_Lang}/system/infoled.inc"
-     [ "$OEMDIR" = "avm" ] && [ "$avm_Lang" = "de" ] && sed -i -e "s/^.*TextBlinkDECT.*$/<? setvariable var:TextBlinkDECT 'Die INFO-LED leuchtet immer wenn DECT aktiviert ist.' ?>/" "$SR1"/usr/www/${HTML}/${avm_Lang}/system/infoled.inc
-     [ "$OEMDIR" = "avme" ] && [ "$avm_Lang" = "en" ] && sed -i -e "s/^.*TextBlinkDECT.*$/<? setvariable var:TextBlinkDECT 'DECT activated' ?>/" "$SR1"/usr/www/${HTML}/${avm_Lang}/system/infoled.inc
+#  fi
+    if [ -e "$SR1"/usr/www/${HTML}/de/system/infoled.inc ]; then
+     echo2 "-- Change TextBlinkDECT in: /usr/www/${HTML}/de/system/infoled.inc"
+     [ "$OEMDIR" = "avm" ] && [ "$avm_Lang" = "de" ] && sed -i -e "s/^.*TextBlinkDECT.*$/<? setvariable var:TextBlinkDECT 'Die INFO-LED leuchtet immer wenn DECT aktiviert ist.' ?>/" "$SR1"/usr/www/${HTML}/de/system/infoled.inc
+     [ "$OEMDIR" = "avme" ] && [ "$avm_Lang" = "en" ] && sed -i -e "s/^.*TextBlinkDECT.*$/<? setvariable var:TextBlinkDECT 'DECT activated' ?>/" "$SR1"/usr/www/${HTML}/de/system/infoled.inc
     fi
  done
-fi
+#fi
 
 #newer version in use form 10576 on
 echo "#!/bin/sh" >"${SR1}/bin/update_led_off"

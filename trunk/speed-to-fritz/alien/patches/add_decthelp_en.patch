@@ -1,5 +1,5 @@
---- usr/www/avme/en/html/en/help/hilfe_fon_dect.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/en/html/en/help/hilfe_fon_dect.html	2008-02-14 03:48:13.000000000 -0500
+--- usr/www/avme/html/de/help/hilfe_fon_dect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/help/hilfe_fon_dect.html	2008-02-14 03:48:13.000000000 -0500
 @@ -0,0 +1,23 @@
 +<div class="Hilfe">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">DECT-Endgeräte</div></div></div></div></div></div>
@@ -22,10 +22,10 @@
 +<p>Click here to send the phonebook or single records of your phonebook to a mobile device.</p>
 +<p>Click here to quot;Übernehmen&quot;, save changed settings.</p>
 +</div></div></div></div></div></div>
-+<? include ../html/$var:lang/help/rback.html ?>
++<? include ../html/de/help/rback.html ?>
 +</div>
---- usr/www/avme/en/html/en/help/hilfe_fon_dect_festnetzrufnummer.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/en/html/en/help/hilfe_fon_dect_festnetzrufnummer.html	2008-02-14 03:48:13.000000000 -0500
+--- usr/www/avme/html/de/help/hilfe_fon_dect_festnetzrufnummer.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/help/hilfe_fon_dect_festnetzrufnummer.html	2008-02-14 03:48:13.000000000 -0500
 @@ -0,0 +1,12 @@
 +<div class="Hilfe">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Festnetzrufnummern</div></div></div></div></div></div>
@@ -37,10 +37,10 @@
 +<li>Click on &quot;Übernehmen&quot;, to enter your phonenumbers into the FRITZ!Box.</li>
 +</ol>
 +</div></div></div></div></div></div>
-+<? include ../html/$var:lang/help/rback.html ?>
++<? include ../html/de/help/rback.html ?>
 +</div>
---- usr/www/avme/en/html/en/help/hilfe_fon_dect_fon1isdn.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/en/html/en/help/hilfe_fon_dect_fon1isdn.html	2008-02-14 03:48:13.000000000 -0500
+--- usr/www/avme/html/de/help/hilfe_fon_dect_fon1isdn.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/help/hilfe_fon_dect_fon1isdn.html	2008-02-14 03:48:13.000000000 -0500
 @@ -0,0 +1,15 @@
 +<div class="Hilfe">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Interne Nummer</div></div></div></div></div></div>
@@ -55,10 +55,10 @@
 +<p>The automatically from FRITZ!Box assigned number is also shown in this selection. The selection of this number is useful if the number already has been assigned to other devices. Please also enter the number in the DECT device. This ensures only this single DECT device reacts on this internal number.</p>
 +<p>Click here &quot;Übernehmen&quot;, to save changes.</p>
 +</div></div></div></div></div></div>
-+<? include ../html/$var:lang/help/rback.html ?>
++<? include ../html/de/help/rback.html ?>
 +</div>
---- usr/www/avme/en/html/en/help/hilfe_fon_editdect.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/en/html/en/help/hilfe_fon_editdect.html	2008-02-14 03:48:13.000000000 -0500
+--- usr/www/avme/html/de/help/hilfe_fon_editdect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/help/hilfe_fon_editdect.html	2008-02-14 03:48:13.000000000 -0500
 @@ -0,0 +1,15 @@
 +<div class="Hilfe">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Mobilteile</div></div></div></div></div></div>
@@ -73,10 +73,10 @@
 +<h4>Click &quot;Datum und Uhrzeit setzen&quot;</h4>
 +<p>By clicking here Date and Time can be send to assigned mobile devices (e.g. after changing the rechargable battery of a mobile device).</p>
 +</div></div></div></div></div></div>
-+<? include ../html/$var:lang/help/rback.html ?>
++<? include ../html/de/help/rback.html ?>
 +</div>
---- usr/www/avme/en/html/en/help/hilfe_fon_fon1dect.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/en/html/en/help/hilfe_fon_fon1dect.html	2008-02-14 03:48:13.000000000 -0500
+--- usr/www/avme/html/de/help/hilfe_fon_fon1dect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/help/hilfe_fon_fon1dect.html	2008-02-14 03:48:13.000000000 -0500
 @@ -0,0 +1,15 @@
 +<div class="Hilfe">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Mobilteile</div></div></div></div></div></div>
@@ -91,10 +91,10 @@
 +<h4>Click &quot;Datum und Uhrzeit setzen&quot;</h4>
 +<p>By clicking here Date and Time can be send to assigned mobile devices (e.g. after changing the rechargable battery of a mobile device).</p>
 +</div></div></div></div></div></div>
-+<? include ../html/$var:lang/help/rback.html ?>
++<? include ../html/de/help/rback.html ?>
 +</div>
---- usr/www/avme/en/html/en/help/hilfe_fon_listdect.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/en/html/en/help/hilfe_fon_listdect.html	2008-02-14 03:48:13.000000000 -0500
+--- usr/www/avme/html/de/help/hilfe_fon_listdect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/help/hilfe_fon_listdect.html	2008-02-14 03:48:13.000000000 -0500
 @@ -0,0 +1,19 @@
 +<div class="Hilfe">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Interne Nummern</div></div></div></div></div></div>
@@ -113,10 +113,10 @@
 +<h4>Button &quot;Neue Nummer&quot;</h4>
 +<p>With this button internal numbers can be assigned to DECT devices.</p>
 +</div></div></div></div></div></div>
-+<? include ../html/$var:lang/help/rback.html ?>
++<? include ../html/de/help/rback.html ?>
 +</div>
---- usr/www/avme/en/html/en/help/hilfe_fon_setupdect.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/en/html/en/help/hilfe_fon_setupdect.html	2008-02-14 03:48:13.000000000 -0500
+--- usr/www/avme/html/de/help/hilfe_fon_setupdect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/help/hilfe_fon_setupdect.html	2008-02-14 03:48:13.000000000 -0500
 @@ -0,0 +1,19 @@
 +<div class="Hilfe">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Assigning Numbers</div></div></div></div></div></div>
@@ -135,5 +135,5 @@
 +<h4>Option &quot;React on all Calls&quot;</h4>
 +<p>This option forces all DECT devices to react on all calls on all phonenumbers. If using this option all assigned numbers for DECT devices will be deleted.</p>
 +</div></div></div></div></div></div>
-+<? include ../html/$var:lang/help/rback.html ?>
++<? include ../html/de/help/rback.html ?>
 +</div>

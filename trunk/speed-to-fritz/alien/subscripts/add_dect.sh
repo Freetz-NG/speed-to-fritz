@@ -19,7 +19,7 @@ for OEMDIR in $OEMLIST; do
   TextNebenstelle="Extetion"
   DECTEinstellungen="DECT-settings"
   DECT="DECT"
-  html="$avm_Lang/html"
+  html="html"
  else
   TextHandteile="DECT-Handteile"
   TextDectPin="DECT-Basisstation PIN"
@@ -29,7 +29,7 @@ for OEMDIR in $OEMLIST; do
   DECT="DECT"
   html="html"
  fi
- USRWWW="usr/www/${OEMDIR}/$html/${avm_Lang}"
+ USRWWW="usr/www/${OEMDIR}/$html/de"
  Unicode_ut8="n"
  `cat "$SR1"/usr/www/${OEMDIR}/$html/index.html | grep -q 'charset=utf-8' ` && Unicode_ut8="y" 
  # echo "ut8: $Unicode_ut8"
@@ -151,9 +151,9 @@ if (asLink) str += \"</a>\";\n\
 return str;\n\
 }\n\
 function DectLed() {\n\
-var str = \"<img src=\\\\\"..\/html\/<? echo \$var:lang ?>\/images\/led_gray.gif\\\\\">\";\n\
+var str = \"<img src=\\\\\"..\/html\/de\/images\/led_gray.gif\\\\\">\";\n\
 <? if eq '<? query dect:settings\/enabled ?>' '1' \`\n\
-str = \"<img src=\\\\\"..\/html\/<? echo \$var:lang ?>\/images\/led_green.gif\\\\\">\";\n\
+str = \"<img src=\\\\\"..\/html\/de\/images\/led_green.gif\\\\\">\";\n\
 \` ?>\n\
 return str;\n\
 }\n\

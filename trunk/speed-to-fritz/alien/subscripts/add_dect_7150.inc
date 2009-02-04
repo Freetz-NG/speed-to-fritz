@@ -1,5 +1,5 @@
 #!/bin/bash
-USRWWW="usr/www/${OEMDIR}/$html/${avm_Lang}"
+USRWWW="usr/www/${OEMDIR}/$html/de"
 #normal condition patching menues for dect
 if [ -d "$SR1/usr/www/${OEMDIR}" ]; then
   #build link files used on .56 7150 type dect menu
@@ -9,7 +9,7 @@ if [ -d "$SR1/usr/www/${OEMDIR}" ]; then
 	rm -f "${DSTF}"
 	touch "${DSTF}"
 	echo2 "-> $FILE.$EXT"
-    	echo "<? include ../html/\$var:lang/fon/$FILE.$EXT ?>" >"${DSTF}"
+    	echo "<? include ../html/de/fon/$FILE.$EXT ?>" >"${DSTF}"
     done
   done
       PatchfileName="add_7150_dect_de"

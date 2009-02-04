@@ -7,11 +7,11 @@
 [ "$ATA_ONLY" = "y" ] && echo "-- Disable ADSL Option, from setup page ..."
 
 for DIR in ${OEMLIST}; do
- if [ "$DIR" = "avme" ] ; then
-  export HTML="$DIR/$avm_Lang/html"
- else
+# if [ "$DIR" = "avme" ] ; then
+#  export HTML="$DIR/$avm_Lang/html"
+# else
   export HTML="$DIR/html"
- fi
+# fi
     DSTI="${1}"/usr/www/$HTML
     if [ -d ${DSTI} ] ; then
      [ "$CONFIG_Usb" = "0" ] && $sh_DIR/rmv_usb "$1"
@@ -21,12 +21,12 @@ for DIR in ${OEMLIST}; do
      [ "$CONFIG_ETH_COUNT" = "1" ] &&   $sh_DIR/rmv_eth234 "$1"
      [ "$ATA_ONLY" = "y" ] && $sh_DIR/rmv_adsl "$1"
           #enable all providers
-     [ -f "${DSTI}/${avm_Lang}/fon/sip1.js" ] && sed -i -e "s/<? setvariable var:showtcom 0 ?>/<? setvariable var:showtcom 1 ?>/g" "${DSTI}/${avm_Lang}/fon/sip1.js"
-     [ -f "${DSTI}/${avm_Lang}/fon/siplist.js" ] && sed -i -e "s/<? setvariable var:showtcom 0 ?>/<? setvariable var:showtcom 1 ?>/g" "${DSTI}/${avm_Lang}/fon/siplist.js"
-     [ -f "${DSTI}/${avm_Lang}/internet/authform.html" ] && sed -i -e "s/<? setvariable var:allprovider 0 ?>/<? setvariable var:allprovider 1 ?>/g" "${DSTI}/${avm_Lang}/internet/authform.html"
+     [ -f "${DSTI}/de/fon/sip1.js" ] && sed -i -e "s/<? setvariable var:showtcom 0 ?>/<? setvariable var:showtcom 1 ?>/g" "${DSTI}/de/fon/sip1.js"
+     [ -f "${DSTI}/de/fon/siplist.js" ] && sed -i -e "s/<? setvariable var:showtcom 0 ?>/<? setvariable var:showtcom 1 ?>/g" "${DSTI}/de/fon/siplist.js"
+     [ -f "${DSTI}/de/internet/authform.html" ] && sed -i -e "s/<? setvariable var:allprovider 0 ?>/<? setvariable var:allprovider 1 ?>/g" "${DSTI}/de/internet/authform.html"
      #remove Progamme menu entry
-     [ -f "${DSTI}/${avm_Lang}/menus/menu2.inc" ] && sed -i -e "s/<? setvariable var:TextMenuSoftware \"Programme\" ?>\\n//g" "${DSTI}/${avm_Lang}/menus/menu2.inc"
-     [ -f "${DSTI}/${avm_Lang}/home/sitemap.html" ] && sed -i -e "/'software', 'extern'/d" "${DSTI}/${avm_Lang}/home/sitemap.html"
+     [ -f "${DSTI}/de/menus/menu2.inc" ] && sed -i -e "s/<? setvariable var:TextMenuSoftware \"Programme\" ?>\\n//g" "${DSTI}/de/menus/menu2.inc"
+     [ -f "${DSTI}/de/home/sitemap.html" ] && sed -i -e "/'software', 'extern'/d" "${DSTI}/de/home/sitemap.html"
     fi
 done
 

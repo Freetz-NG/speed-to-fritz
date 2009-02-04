@@ -1,6 +1,6 @@
 #!/bin/bash
  . $include_modpatch
-DIRI="/usr/www/${HTML}/${avm_Lang}/internet/portroule.js" 
+DIRI="/usr/www/${HTML}/de/internet/portroule.js" 
 if  [ -f "$1"$DIRI ]; then
  echo2 " -- Patch portrools:"
  echo2 "      ${DIRI}"

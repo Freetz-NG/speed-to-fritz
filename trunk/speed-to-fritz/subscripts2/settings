@@ -10,6 +10,7 @@ echo "export NEWDIR=\"${NEWDIR}\"" >> incl_var
 echo "export OEM=\"${OEM}\"" >> incl_var
 echo "export CONFIG_PRODUKT=\"${CONFIG_PRODUKT}\"" >> incl_var
 echo "export HWRevision=\"${HWRevision}\"" >> incl_var
+echo "export FBHWRevision=\"${FBHWRevision}\"" >> incl_var
 echo "export ETH_IF=\"${ETH_IF}\"" >> incl_var
 echo "export IPADDRESS=\"${IPADDRESS}\"" >> incl_var
 echo "export CONFIG_jffs2_size=\"${CONFIG_jffs2_size}\"" >> incl_var

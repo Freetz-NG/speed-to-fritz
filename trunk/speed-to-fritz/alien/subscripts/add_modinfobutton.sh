@@ -7,24 +7,24 @@
 #!/bin/bash
 echo "-- Adding 'Info' button and display of mod related data ..."
 for DIR in ${OEMLIST}; do
- if [ "$DIR" = "avme" ] ; then
-  export HTML="$DIR/$avm_Lang/html"
- else
+# if [ "$DIR" = "avme" ] ; then
+#  export HTML="$DIR/$avm_Lang/html"
+# else
   export HTML="$DIR/html"
- fi
-    DSS="/usr/www/$HTML/${avm_Lang}"
+# fi
+    DSS="/usr/www/$HTML/de"
     DSTI="$1"${DSS}
 	if [ -d ${DSTI}/help ] ; then
 #------------------------------------------------------------------------------------------------
 #add for .49 AVM
 #popup window is only functional with local help
-if [ -e "${DSTI}"/menus/menu2.html ] && [ ${AVM_V_MINOR} -gt 47 ]; then
+if [ -e "${DSTI}"/menus/menu2.html ]; then
     cp -fdpr  $P_DIR/help1.gif  --target-directory="${DSTI}"/images
 
     echo2 "      ${DSS}/menus/menu2.html"
     sed -i -e "/PopHelpEx/i \
 <td title=\"Mod Info\" style=\"width: 20px;\"><a href=\"javascript:jslPopHelp('modinfo')\">\n\ \
-<img src=\"..\/html\/<? echo \$var:lang ?>\/images\/help1.gif\">\n\ \
+<img src=\"..\/html\/de\/images\/help1.gif\">\n\ \
 <\/a><\/td>" "${DSTI}"/menus/menu2.html
 
     sed -i -e 's|var g_HelpPagesOnBox = new Array(|var g_ModHelpPagesOnBox = new Array(\
@@ -107,8 +107,8 @@ cat << 'EOF' >> "${DSTF}"
 <ul>
 <li><b>Branding:</b> Das Branding der Box wurde vom Skript auf den Wert <b>'OEM'</b> gesetzt.</li>
 <li><b>Hostname:</b> Der Hostname der Box wurde auf <b>'HOSTNAME'</b> eingestellt.</li>
-<li><b>Auto Konfiguration TR69:</b> Das automatische Einrichten durch den Dienstanbieter ist <b>AUTOCONF</b>ATACONF.</li>
-<li><b>LAN Auto Konfiguration TR64:</b> Das automatische Einrichten durch den Dienstanbieter aus dem lokalen Netz vom PC aus ist <b>AUTOCONF</b>.</li>
+<li><b>Auto Konfiguration TR69:</b> Das automatische Einrichten durch den Dienstanbieter ist <b>AUTOCONF </b>ATACONF.</li>
+<li><b>LAN Auto Konfiguration TR64:</b> Das automatische Einrichten durch den Dienstanbieter aus dem lokalen Netz vom PC aus ist <b>LANTR64TEXT</b>.</li>
 <li><b>Kompatibilität:</b> Der Produktname wurde <b>PREFIX</b> erweitert.</li>
 <li>Die Statusseite zeigt den AVM Produktnamen plus <b>MODEL</b></li>
 <li><b>TelefonMenü:</b> Die Menüführung für die Einrichtung von Telefongeräten wurde <b>FONMENU</b>.</li>
@@ -143,7 +143,7 @@ Die Autoren von 'Speed2Fritz' lehnen jegliche Haftung für Schäden ab, die durch 
 <p></p>
 <p>2006-2008</p>
 </div></div></div></div></div></div>
-<? include ../html/$var:lang/help/rback.html ?>
+<? include ../html/de/help/rback.html ?>
 </div>
 EOF
 
@@ -159,8 +159,8 @@ cat << 'EOF' >> "${DSTF}"
 <ul>
 <li><b>Branding:</b> Branding has been set to <b>'OEM'</b>.</li>
 <li><b>Host name:</b> Host name has been set to <b>'HOSTNAME'</b>.</li>
-<li><b>Auto Configuration TR69:</b> Auto Configuration via ISP is <b>AUTOCONF</b>ATAOCONF.</li>
-<li><b>LAN auto Configuration TR64:</b> Internal LAN auto Configuration via ISP is <b>LANAUTOCONF</b>.</li>
+<li><b>Auto Configuration TR69:</b> Auto Configuration via ISP is <b>AUTOCONF </b>ATACONF.</li>
+<li><b>LAN auto Configuration TR64:</b> Internal LAN auto Configuration via ISP is <b>LANTR64TEXT</b>.</li>
 <li><b>Compatibility:</b> <b>PREFIX</b> has been added to the Product name.</li>
 <li>Status Page shows AVM Product name plus hardware type</li>
 <li><b>Telefon-Menue:</b> Setup menu for telephones has been <b>FONMENU</b>.</li>
@@ -192,13 +192,11 @@ The authors of 'Speed2Fritz' refuses any accountability for all damage occurred 
 <p></p>
 <p>2006/2008</p>
 </div></div></div></div></div></div>
-<? include ../html/$var:lang/help/rback.html ?>
+<? include ../html/de/help/rback.html ?>
 </div>
 EOF
 fi
 chmod 755 "${DSTF}"
-
-
 
 function readConfig()
 {
@@ -231,177 +229,88 @@ sed -i -e "s/IMG0_TCOM/${SPIMG}/" "${DSTF}"
 sed -i -e "s/IMG1_AVM/${FBIMG}/" "${DSTF}"
 [ "$ATA_ONLY" = "n" ] && sed -i -e "s/ANNEX/${ANNEX}/" "${DSTF}"
 
-if [ -n "$FBIMG_2" ]; then
-	sed -i -e "s/IMG2_AVM/${FBIMG_2}/" "${DSTF}"
-else
-	sed -i -e "/<li><b>AVM WebUI-Image:/,/<\/li>/d" "${DSTF}"
-fi
+[ -n "$FBIMG_2" ] && sed -i -e "s/IMG2_AVM/${FBIMG_2}/" "${DSTF}" || sed -i -e "/<li><b>AVM WebUI-Image:/,/<\/li>/d" "${DSTF}"
 
 if [ "$avm_Lang" = "de" ]; then
 #////////////////////////////////////////////////////////////////
-if [ "$ADD_OLD_DECTMENU" = "y" ]; then
-	sed -i -e "s|ADD_OLD_DECTMENU|<li><b>DECT-Menü:</b> Die Menüführung für DECT Handteile wurde mit der altern Variante <b>erweitert</b>.</li>|" "${DSTF}"
-else
-	sed -i -e "s|ADD_OLD_DECTMENU||" "${DSTF}"
-fi
-if [ "$ADD_7150_DECTMNUE" = "y" ]; then
-	sed -i -e "s|ADD_7150_DECTMNUE|<li><b>DECT-Menü:</b> Die Menüführung für DECT Handteile wurde mit der neueren Variante <b>erweitert</b>.</li>|" "${DSTF}"
-else
-	sed -i -e "s|ADD_7150_DECTMNUE||" "${DSTF}"
-fi
-if [ "$ADD_DSL_EXPERT_MNUE" = "y" ]; then
-	sed -i -e "s|ADD_DSL_EXPERT_MNUE|<li><b>DSL-Experten Menü:</b> Die Menüführung für die DSL Einstellungen wurde <b>erweitert</b>.</li>|" "${DSTF}"
-else
-	sed -i -e "s|ADD_DSL_EXPERT_MNUE||" "${DSTF}"
-fi
-if [ "$USE_OWN_DSL" = "y" ]; then
-	sed -i -e "s|USE_OWN_DSL|<li><b>DSL-Treiber:</b> Der DSL Treiber wurde durch einen eigenen <b>ersetzt</b>.</li>|" "${DSTF}"
-else
-	sed -i -e "s|USE_OWN_DSL||" "${DSTF}"
-fi
-if [ "$FORCE_TCOM_DSL" = "y" ]; then
-	sed -i -e "s|FORCE_TCOM_DSL|<li><b>DSL-Treiber:</b> Der DSL Treiber wurde aus der t-com Firmware <b>verwendet</b>.</li>|" "${DSTF}"
-else
-	sed -i -e "s|FORCE_TCOM_DSL||" "${DSTF}"
-fi
-if [ "$FORCE_TCOM_FON" = "y" ]; then
-	sed -i -e "s|FORCE_TCOM_FON|<li><b>FON-Treiber:</b> Der Telefon Treiber wurde aus der t-com Firmware <b>verwendet</b>.</li>|" "${DSTF}"
-else
-	sed -i -e "s|FORCE_TCOM_FON||" "${DSTF}"
-fi
-if [ "$MOVE_ALL_XXX" = "y" ]; then
-	sed -i -e "s|MOVE_ALL_XXX|<li><b>Freetz-Kompatibilität:</b> Das Verzeichnis www/all wurde auf www/$OEM <b>umbenannt</b>.</li>|" "${DSTF}"
-else
-	sed -i -e "s|MOVE_ALL_XXX||" "${DSTF}"
-fi
-if [ "$FORCE_CLEAR_FLASH" = "y" ]; then
-	sed -i -e "s|FORCE_CLEAR_FLASH|<li><b>Werkseinstellung:</b> Diese Firmware führte beim Laden über die Updatefunktion einen automatischen Werksreset durch.</li>|" "${DSTF}"
-else
-	sed -i -e "s|FORCE_CLEAR_FLASH||" "${DSTF}"
-fi
+[ "$ADD_OLD_DECTMENU" = "y" ] && sed -i -e "s|ADD_OLD_DECTMENU|<li><b>DECT-Menü:</b> Die Menüführung für DECT Handteile wurde mit der altern Variante <b>erweitert</b>.</li>|" "${DSTF}" 
+[ "$ADD_OLD_DECTMENU" = "y" ] || sed -i -e "s|ADD_OLD_DECTMENU||" "${DSTF}"
+[ "$ADD_7150_DECTMNUE" = "y" ] && sed -i -e "s|ADD_7150_DECTMNUE|<li><b>DECT-Menü:</b> Die Menüführung für DECT Handteile wurde mit der neueren Variante <b>erweitert</b>.</li>|" "${DSTF}" 
+[ "$ADD_7150_DECTMNUE" = "y" ] || sed -i -e "s|ADD_7150_DECTMNUE||" "${DSTF}"
+[ "$ADD_DSL_EXPERT_MNUE" = "y" ] && sed -i -e "s|ADD_DSL_EXPERT_MNUE|<li><b>DSL-Experten Menü:</b> Die Menüführung für die DSL Einstellungen wurde <b>erweitert</b>.</li>|" "${DSTF}" 
+[ "$ADD_DSL_EXPERT_MNUE" = "y" ] || sed -i -e "s|ADD_DSL_EXPERT_MNUE||" "${DSTF}"
+[ "$USE_OWN_DSL" = "y" ] && sed -i -e "s|USE_OWN_DSL|<li><b>DSL-Treiber:</b> Der DSL Treiber wurde durch einen eigenen <b>ersetzt</b>.</li>|" "${DSTF}"
+[ "$USE_OWN_DSL" = "y" ] || sed -i -e "s|USE_OWN_DSL||" "${DSTF}"
+[ "$FORCE_TCOM_DSL" = "y" ] && sed -i -e "s|FORCE_TCOM_DSL|<li><b>DSL-Treiber:</b> Der DSL Treiber wurde aus der t-com rmware <b>verwendet</b>.</li>|" "${DSTF}"
+[ "$FORCE_TCOM_DSL" = "y" ] || sed -i -e "s|FORCE_TCOM_DSL||" "${DSTF}"
+[ "$FORCE_TCOM_FON" = "y" ] && sed -i -e "s|FORCE_TCOM_FON|<li><b>FON-Treiber:</b> Der Telefon Treiber wurde aus der t-com rmware <b>verwendet</b>.</li>|" "${DSTF}"
+[ "$FORCE_TCOM_FON" = "y" ] || sed -i -e "s|FORCE_TCOM_FON||" "${DSTF}"
+[ "$MOVE_ALL_XXX" = "y" ] && sed -i -e "s|MOVE_ALL_XXX|<li><b>Freetz-Kompatibilität:</b> Das Verzeichnis www/all wurde auf www/$OEM <b>umbenannt</b>.</li>|" "${DSTF}" 
+[ "$MOVE_ALL_XXX" = "y" ] || sed -i -e "s|MOVE_ALL_XXX||" "${DSTF}"
+[ "$FORCE_CLEAR_FLASH" = "y" ] && sed -i -e "s|FORCE_CLEAR_FLASH|<li><b>Werkseinstellung:</b> Diese rmware führte beim Laden über die Updatefunktion einen automatischen Werksreset durch.</li>|" "${DSTF}" 
+[ "$FORCE_CLEAR_FLASH" = "y" ] || sed -i -e "s|FORCE_CLEAR_FLASH||" "${DSTF}"
 [ "$ATA_ONLY" = "y" ] && sed -i -e "s/^.*ANNEX.*$/<li><b>Annex:<\/b> Annex ist nicht in Verwendung, Box ist im <b>'ATA'<\/b> Mod, LAN1 wird als Uplink verwendet\. <\/li>/" "${DSTF}"
-if [ "$CONFIG_TR069" = "y" ]; then
-	sed -i -e "s/AUTOCONF/zugelassen/" "${DSTF}"
-	sed -i -e "s/ATACONF/und ATA abgeschaltet/" "${DSTF}"
-else
-	sed -i -e "s/AUTOCONF/ausgeschaltet/" "${DSTF}"
-	sed -i -e "s/ATACONF//" "${DSTF}"
-fi
-if [ "$CONFIG_TR064" = "y" ]; then
-	sed -i -e "s/LANAUTOCONF/zugelassen/" "${DSTF}"
-else
-	sed -i -e "s/LANAUTOCONF/ausgeschaltet/" "${DSTF}"
-fi
-if [ -n "$NEWNAME" ]; then
-	sed -i -e "s/PREFIX/'${NEWNAME}'/" "${DSTF}"
-else
-	sed -i -e "s/PREFIX/nicht/" "${DSTF}"
-fi
-if [ "$DO_LOOKUP_PATCH" = "y" ]; then
-	sed -i -e "s/PATCH/angewendet/" "${DSTF}"
-else
-	sed -i -e "s/PATCH/nicht angewendet/" "${DSTF}"
-fi
-if [ "$REMOVE_MENU_ITEM" = "y" ]; then
-	sed -i -e "s/FONMENU/angepasst/" "${DSTF}"
-else
-	sed -i -e "s/FONMENU/nicht angepasst/" "${DSTF}"
-fi
-if [ "$SPMOD" = "501" -o "$SPMOD" = "500" ]; then 
-	sed -i -e "/<li><b>Telefon-Menü:/,/<\/li>/d" "${DSTF}"
-fi
-if [ "$XCHANGE_KERNEL" = "y" ]; then
-	sed -i -e "s/XCHANGE_KERNEL/ mit dem der t-com Firmware ersetzt /" "${DSTF}"
-else
-	sed -i -e "s/XCHANGE_KERNEL/beibehalten /" "${DSTF}"
-fi
+[ "$CONG_TR069" = "y" ] && sed -i -e sed -i -e "s/ATACONF/und ATA abgeschaltet/"
+[ "$CONG_TR069" = "y" ] && "${DSTF}" "s/AUTOCONF/zugelassen/" "${DSTF}";  
+[ "$CONG_TR069" = "y" ] || sed -i -e "s/ATACONF//" "${DSTF}"
+[ "$CONG_TR069" = "y" ] || sed -i -e "s/AUTOCONF/ausgeschaltet/" "${DSTF}"
+[ "$CONG_TR064" = "y" ] && sed -i -e "s/LANTR64TEXT/zugelassen/" "${DSTF}"
+[ "$CONG_TR064" = "y" ] || sed -i -e "s/LANTR64TEXT/ausgeschaltet/" "${DSTF}"
+[ -n "$NEWNAME" ] && sed -i -e "s/PREFIX/'${NEWNAME}'/" "${DSTF}"
+[ -n "$NEWNAME" ] || sed -i -e "s/PREFIX/nicht/" "${DSTF}"
+[ "$DO_LOOKUP_PATCH" = "y" ] && sed -i -e "s/PATCH/angewendet/" "${DSTF}"
+[ "$DO_LOOKUP_PATCH" = "y" ] || sed -i -e "s/PATCH/nicht angewendet/" "${DSTF}"
+[ "$REMOVE_MENU_ITEM" = "y" ] && sed -i -e "s/FONMENU/angepasst/" "${DSTF}"
+[ "$REMOVE_MENU_ITEM" = "y" ] || sed -i -e "s/FONMENU/nicht angepasst/" "${DSTF}"
+[ "$SPMOD" = "501" -o "$SPMOD" = "500" ] && sed -i -e "/<li><b>Telefon-Menü:/,/<\/li>/d" "${DSTF}"
+[ "$XCHANGE_KERNEL" = "y" ] && sed -i -e "s/XCHANGE_KERNEL/ mit dem der t-com rmware ersetzt /" "${DSTF}"
+[ "$XCHANGE_KERNEL" = "y" ] || sed -i -e "s/XCHANGE_KERNEL/beibehalten /" "${DSTF}"
+
 #charset=utf-8
 Unicode_ut8="n"
 `cat "${1}"/usr/www/$HTML/index.html | grep -q 'charset=utf-8' ` && Unicode_ut8="y" 
 #echo "2---------------------------------------------------------------------------------------------------------------------------------"
-    if [ "$Unicode_ut8" = "y" ]; then
+       if [ "$Unicode_ut8" = "y" ]; then 
 #echo "3---------------------------------------------------------------------------------------------------------------------------------"
 	[ -f "${DSTF}" ] && iconv --from-code=ISO-8859-1 --to-code=UTF-8 "${DSTF}" > "${DSTF}ut8"
 	rm "${DSTF}"
 	mv "${DSTF}ut8" "${DSTF}"
 	chmod 755 "${DSTF}"
-    fi
+       fi
 
 #'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 else
-if [ "$ADD_OLD_DECTMENU" = "y" ]; then
-	sed -i -e "s|ADD_OLD_DECTMENU|<li><b>DECT-Menu:</b> Older setup menu for DECT telephones has been <b>added</b>.</li>|""${DSTF}"
-else
-	sed -i -e "s|ADD_OLD_DECTMENU||" "${DSTF}"
-fi
-if [ "$ADD_7150_DECTMNUE" = "y" ]; then
-	sed -i -e "s|ADD_7150_DECTMNUE|<li><b>DECT-Menu:</b> New setup setup menu for DECT has been <b>added</b>.</li>|" "${DSTF}"
-else
-	sed -i -e "s|ADD_7150_DECTMNUE||" "${DSTF}"
-fi
-if [ "$ADD_DSL_EXPERT_MNUE" = "y" ]; then
-	sed -i -e "s|ADD_DSL_EXPERT_MNUE|<li><b>DSL-Expert Menu:</b> Setup menu for  DSL has been <b>added</b>.</li>|" "${DSTF}"
-else
-	sed -i -e "s|ADD_DSL_EXPERT_MNUE||" "${DSTF}"
-fi
-if [ "$USE_OWN_DSL" = "y" ]; then
-	sed -i -e "s|USE_OWN_DSL|<li><b>DSL-Driver:</b> DSL driver has been <b>replaced</b> with own.</li>|" "${DSTF}"
-else
-	sed -i -e "s|USE_OWN_DSL||" "${DSTF}"
-fi
-if [ "$FORCE_TCOM_DSL" = "y" ]; then
-	sed -i -e "s|FORCE_TCOM_DSL|<li><b>DSL-Driver:</b> DSL driver was taken from <b>T-com</b> firmware.</li>|" "${DSTF}"
-else
-	sed -i -e "s|FORCE_TCOM_DSL||" "${DSTF}"
-fi
-if [ "$FORCE_TCOM_FON" = "y" ]; then
-	sed -i -e "s|FORCE_TCOM_FON|<li><b>FON-Driver:</b> FON driver was taken from <b>T-com</b> firmware.</li>|" "${DSTF}"
-else
-	sed -i -e "s|FORCE_TCOM_FON||" "${DSTF}"
-fi
-if [ "$MOVE_ALL_XXX" = "y" ]; then
-	sed -i -e "s|MOVE_ALL_XXX|<li><b>Freetz-Compatibility:</b> directory www/all has been <b>changed</b> to www/$OEM.</li>|" "${DSTF}"
-else
-	sed -i -e "s|MOVE_ALL_XXX||" "${DSTF}"
-fi
-if [ "$FORCE_CLEAR_FLASH" = "y" ]; then
-	sed -i -e "s|FORCE_CLEAR_FLASH|<li><b>Factory-setting:</b> This firmware did invoke a factory reset, when the update was made.</li>|" "${DSTF}"
-else
-	sed -i -e "s|FORCE_CLEAR_FLASH||" "${DSTF}"
-fi
+[ "$ADD_OLD_DECTMENU" = "y" ] && sed -i -e "s|ADD_OLD_DECTMENU|<li><b>DECT-Menu:</b> Older setup menu for DECT telephones has been <b>added</b>.</li>|" "${DSTF}" 
+[ "$ADD_OLD_DECTMENU" = "y" ] || sed -i -e "s|ADD_OLD_DECTMENU||" "${DSTF}"
+[ "$ADD_7150_DECTMNUE" = "y" ] && sed -i -e "s|ADD_7150_DECTMNUE|<li><b>DECT-Menu:</b> New setup setup menu for DECT has been <b>added</b>.</li>|" "${DSTF}" 
+[ "$ADD_7150_DECTMNUE" = "y" ] || sed -i -e "s|ADD_7150_DECTMNUE||" "${DSTF}"
+[ "$ADD_DSL_EXPERT_MNUE" = "y" ] && sed -i -e "s|ADD_DSL_EXPERT_MNUE|<li><b>DSL-Expert Menu:</b> Setup menu for  DSL has been <b>added</b>.</li>|" "${DSTF}" 
+[ "$ADD_DSL_EXPERT_MNUE" = "y" ] || sed -i -e "s|ADD_DSL_EXPERT_MNUE||" "${DSTF}"
+[ "$USE_OWN_DSL" = "y" ] && sed -i -e "s|USE_OWN_DSL|<li><b>DSL-Driver:</b> DSL driver has been <b>replaced</b> with own.</li>|" "${DSTF}" 
+[ "$USE_OWN_DSL" = "y" ] || sed -i -e "s|USE_OWN_DSL||" "${DSTF}"
+[ "$FORCE_TCOM_DSL" = "y" ] && sed -i -e "s|FORCE_TCOM_DSL|<li><b>DSL-Driver:</b> DSL driver was taken from <b>T-com</b> rmware.</li>|" "${DSTF}" 
+[ "$FORCE_TCOM_DSL" = "y" ] || sed -i -e "s|FORCE_TCOM_DSL||" "${DSTF}"
+[ "$FORCE_TCOM_FON" = "y" ] && sed -i -e "s|FORCE_TCOM_FON|<li><b>FON-Driver:</b> FON driver was taken from <b>T-com</b> rmware.</li>|" "${DSTF}" 
+[ "$FORCE_TCOM_FON" = "y" ] || sed -i -e "s|FORCE_TCOM_FON||" "${DSTF}"
+[ "$MOVE_ALL_XXX" = "y" ] && sed -i -e "s|MOVE_ALL_XXX|<li><b>Freetz-Compatibility:</b> directory www/all has been <b>changed</b> to www/$OEM.</li>|" "${DSTF}" 
+[ "$MOVE_ALL_XXX" = "y" ] || sed -i -e "s|MOVE_ALL_XXX||" "${DSTF}"
+[ "$FORCE_CLEAR_FLASH" = "y" ] && sed -i -e "s|FORCE_CLEAR_FLASH|<li><b>Factory-setting:</b> This rmware did invoke a factory reset, when the update was made.</li>|" "${DSTF}" 
+[ "$FORCE_CLEAR_FLASH" = "y" ] || sed -i -e "s|FORCE_CLEAR_FLASH||" "${DSTF}"
 [ "$ATA_ONLY" = "y" ] && sed -i -e "s/^.*ANNEX.*$/<li><b>Annex:<\/b> Annex is not in use, Box is in <b>'ATA'<\/b> mode, LAN1 is used as up link\. <\/li>/" "${DSTF}"
-if [ "$CONFIG_TR069" = "y" ]; then
-	sed -i -e "s/AUTOCONF/is set to on/" "${DSTF}"
-	sed -i -e "s/ATACONF/ATA is disabled/" "${DSTF}"
-else
-	sed -i -e "s/AUTOCONF/is set to off/" "${DSTF}"
-	sed -i -e "s/ATACONF//" "${DSTF}"
-fi
-if [ "$CONFIG_TR064" = "y" ]; then
-	sed -i -e "s/LANAUTOCONF/is set to on/" "${DSTF}"
-else
-	sed -i -e "s/LANAUTOCONF/is set to off/" "${DSTF}"
-fi
-if [ -n "$NEWNAME" ]; then
-	sed -i -e "s/PREFIX/'${NEWNAME}'/" "${DSTF}"
-else
-	sed -i -e "s/PREFIX/not/" "${DSTF}"
-fi
-if [ "$DO_LOOKUP_PATCH" = "y" ]; then
-	sed -i -e "s/PATCH/executed/" "${DSTF}"
-else
-	sed -i -e "s/PATCH/not executed/" "${DSTF}"
-fi
-if [ "$REMOVE_MENU_ITEM" = "y" ]; then
-	sed -i -e "s/FONMENU/adapted/" "${DSTF}"
-else
-	sed -i -e "s/FONMENU/not adapted/" "${DSTF}"
-fi
-if [ "$XCHANGE_KERNEL" = "y" ]; then
-	sed -i -e "s/XCHANGE_KERNEL/ exchanged /" "${DSTF}"
-else
-	sed -i -e "s/XCHANGE_KERNEL/not exchanged /" "${DSTF}"
-fi
+[ "$CONG_TR069" = "y" ] && sed -i -e "s/AUTOCONF/is set to on/" "${DSTF}" 
+[ "$CONG_TR069" = "y" ] && sed -i -e "s/ATACONF/ ATA is disabled/" "${DSTF}"
+[ "$CONG_TR069" = "y" ] || sed -i -e "s/AUTOCONF/is set to off/" "${DSTF}" 
+[ "$CONG_TR069" = "y" ] || sed -i -e "s/ATACONF//" "${DSTF}"
+[ "$CONG_TR064" = "y" ] && sed -i -e "s/LANTR64TEXT/is set to on/" "${DSTF}" 
+[ "$CONG_TR064" = "y" ] || sed -i -e "s/LANTR64TEXT/is set to off/" "${DSTF}"
+[ -n "$NEWNAME" ] && sed -i -e "s/PREFIX/'${NEWNAME}'/" "${DSTF}"
+[ -n "$NEWNAME" ] || sed -i -e "s/PREFIX/not/" "${DSTF}"
+[ "$DO_LOOKUP_PATCH" = "y" ] && sed -i -e "s/PATCH/executed/" "${DSTF}" 
+[ "$DO_LOOKUP_PATCH" = "y" ] || sed -i -e "s/PATCH/not executed/" "${DSTF}"
+[ "$REMOVE_MENU_ITEM" = "y" ] && sed -i -e "s/FONMENU/adapted/" "${DSTF}" 
+[ "$REMOVE_MENU_ITEM" = "y" ] || sed -i -e "s/FONMENU/not adapted/" "${DSTF}"
+[ "$XCHANGE_KERNEL" = "y" ] && sed -i -e "s/XCHANGE_KERNEL/ exchanged /" "${DSTF}" 
+[ "$XCHANGE_KERNEL" = "y" ] || sed -i -e "s/XCHANGE_KERNEL/not exchanged /" "${DSTF}"
 #////////////////////////////////////////////////////////////////
 fi
 #-------------------------------------------------------------------------------------------------------------------

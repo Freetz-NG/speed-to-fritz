@@ -24,7 +24,7 @@
 +<p>Klicken Sie auf diese Schaltfläche, wenn Sie das Telefonbuch oder einzelne Einträge aus dem Telefonbuch zu einem Mobilteil übertragen möchten.</p>
 +<p>Klicken Sie auf die Schaltfläche &quot;Übernehmen&quot;, um die Änderungen der Einstellungen zu übernehmen.</p>
 +</div></div></div></div></div></div>
-+<? include ../html/$var:lang/help/rback.html ?>
++<? include ../html/de/help/rback.html ?>
 +</div>
 --- usr/www/avm/html/de/help/hilfe_fon_dect_festnetzrufnummer.html	2008-01-01 19:00:00.000000000 -0500
 +++ usr/www/avm/html/de/help/hilfe_fon_dect_festnetzrufnummer.html	2008-02-14 13:34:20.000000000 -0500
@@ -39,7 +39,7 @@
 +<li>Klicken Sie auf die Schaltfläche &quot;Übernehmen&quot;, damit die Rufnummern in der FRITZ!Box eingetragen werden.</li>
 +</ol>
 +</div></div></div></div></div></div>
-+<? include ../html/$var:lang/help/rback.html ?>
++<? include ../html/de/help/rback.html ?>
 +</div>
 --- usr/www/avm/html/de/help/hilfe_fon_dect_fon1isdn.html	2008-01-01 19:00:00.000000000 -0500
 +++ usr/www/avm/html/de/help/hilfe_fon_dect_fon1isdn.html	2008-02-14 13:34:20.000000000 -0500
@@ -65,7 +65,7 @@
 +die interne Nummer reagiert.</p>
 +<p>Klicken Sie auf die Schaltfläche &quot;Übernehmen&quot;, um die Änderungen der Einstellungen zu übernehmen.</p>
 +</div></div></div></div></div></div>
-+<? include ../html/$var:lang/help/rback.html ?>
++<? include ../html/de/help/rback.html ?>
 +</div>
 --- usr/www/avm/html/de/help/hilfe_fon_editdect.html	2008-01-01 19:00:00.000000000 -0500
 +++ usr/www/avm/html/de/help/hilfe_fon_editdect.html	2008-02-14 13:34:20.000000000 -0500
@@ -87,7 +87,7 @@
 +<p>Über diese Schaltfläche können Sie auf den angemeldeten DECT-Telefonen das aktuelle Datum und die Uhrzeit der FRITZ!Box setzen (z.B. nach einem 
 +Akkuwechsel am Mobilteil).</p>
 +</div></div></div></div></div></div>
-+<? include ../html/$var:lang/help/rback.html ?>
++<? include ../html/de/help/rback.html ?>
 +</div>
 --- usr/www/avm/html/de/help/hilfe_fon_fon1dect.html	2008-01-01 19:00:00.000000000 -0500
 +++ usr/www/avm/html/de/help/hilfe_fon_fon1dect.html	2008-02-14 13:34:20.000000000 -0500
@@ -109,7 +109,7 @@
 +<p>Über diese Schaltfläche können Sie auf den angemeldeten DECT-Telefonen das aktuelle Datum und die Uhrzeit der FRITZ!Box setzen (z.B. nach einem 
 +Akkuwechsel am Mobilteil).</p>
 +</div></div></div></div></div></div>
-+<? include ../html/$var:lang/help/rback.html ?>
++<? include ../html/de/help/rback.html ?>
 +</div>
 --- usr/www/avm/html/de/help/hilfe_fon_listdect.html	2008-01-01 19:00:00.000000000 -0500
 +++ usr/www/avm/html/de/help/hilfe_fon_listdect.html	2008-02-14 13:34:21.000000000 -0500
@@ -133,7 +133,7 @@
 +<h4>Schaltfläche &quot;Neue Nummer&quot;</h4>
 +<p>Über diese Schaltfläche weisen Sie den DECT-Telefonen interne Nummern zu.</p>
 +</div></div></div></div></div></div>
-+<? include ../html/$var:lang/help/rback.html ?>
++<? include ../html/de/help/rback.html ?>
 +</div>
 --- usr/www/avm/html/de/help/hilfe_fon_setupdect.html	2008-01-01 19:00:00.000000000 -0500
 +++ usr/www/avm/html/de/help/hilfe_fon_setupdect.html	2008-02-14 13:34:21.000000000 -0500
@@ -157,5 +157,5 @@
 +<p>Über diese Option weisen Sie die DECT-Telefone an, auf eingehende Anrufe an allen Rufnummern zu reagiern. Durch das Setzen dieser Option 
 +werden bereits eingerichtete Rufnummernzuordnungen gelöscht.</p>
 +</div></div></div></div></div></div>
-+<? include ../html/$var:lang/help/rback.html ?>
++<? include ../html/de/help/rback.html ?>
 +</div>

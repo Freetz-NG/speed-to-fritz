@@ -4,12 +4,12 @@
 echo "-- Adding DSL expert pages ..."
 
 for OEMDIR in $2; do
- if [ "$OEMDIR" = "avme" ] ; then
-  html="$avm_Lang/html"
- else
+# if [ "$OEMDIR" = "avme" ] ; then
+#  html="$avm_Lang/html"
+# else
   html="html"
- fi
- USRWWW="usr/www/${OEMDIR}/$html/${avm_Lang}"
+# fi
+ USRWWW="usr/www/${OEMDIR}/$html/de"
  if ! [ -f "$1"/${USRWWW}/internet/labor_dsl.html ]; then
 #-----------------------------------------------------------------
   if [ -f "$1"/usr/www/${OEMDIR}/$html/index.html ]; then

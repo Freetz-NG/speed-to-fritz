@@ -1,12 +1,12 @@
 #!/bin/bash
  # include modpatch function
  . ${include_modpatch}
-DIRI="/usr/www/${HTML}/${avm_Lang}/home" 
+DIRI="/usr/www/${HTML}/de/home" 
   if ! [ -f "$1"$DIRI/fondevices.html ]; then
-   DIRI="/usr/www/${HTML}/${avm_Lang}/fon"
+   DIRI="/usr/www/${HTML}/de/fon"
   fi
   # pulldown selection
-  WWWUSR="/usr/www/${HTML}/${avm_Lang}"
+  WWWUSR="/usr/www/${HTML}/de"
  [ -f "$1"$WWWUSR/fon_config/fon_config_1.js ] && sed -i -e "s/FON 3 (analog)/FON 3 (nicht vorhanden)/" "$1"$WWWUSR/fon_config/fon_config_1.js
  [ -f "$1"$WWWUSR/fon_config/fon_config_fondevices.js ] && sed -i -e "s/extensionNo = .;/extensionNo = 2;/" "$1"$WWWUSR/fon_config/fon_config_fondevices.js
  [ -f "$1"${DIRI}/fondevices.html ] && sed -i -e "s/extensionNo = .;/extensionNo = 2;/" "$1"${DIRI}/fondevices.js
@@ -27,10 +27,10 @@ DIRI="/usr/www/${HTML}/${avm_Lang}/home"
                sed -i -e "/\", \"/d" "$1"${DIRI}/ppFonbuch.html
                sed -i -e "/\"ISDN-Telefone=5\"/d" "$1"${DIRI}/ppFonbuch.html
        fi
-       if [ -e "$1"/usr/www/${HTML}/${avm_Lang}/fon_config/fon_config_1.js ]; then
-               echo2 "      /usr/www/${HTML}/${avm_Lang}/fon_config/fon_config_1.js"
-               sed -i -e "/^var g_txtPort3 .*$/d" "$1"/usr/www/${HTML}/${avm_Lang}/fon_config/fon_config_1.js
-               sed -i -e "/^\tname = jslGetValue(\"uiPostPort2Name\");$/,/^\t}[ \t]*$/d" "$1"/usr/www/${HTML}/${avm_Lang}/fon_config/fon_config_1.js
+       if [ -e "$1"/usr/www/${HTML}/de/fon_config/fon_config_1.js ]; then
+               echo2 "      /usr/www/${HTML}/de/fon_config/fon_config_1.js"
+               sed -i -e "/^var g_txtPort3 .*$/d" "$1"/usr/www/${HTML}/de/fon_config/fon_config_1.js
+               sed -i -e "/^\tname = jslGetValue(\"uiPostPort2Name\");$/,/^\t}[ \t]*$/d" "$1"/usr/www/${HTML}/de/fon_config/fon_config_1.js
        fi
 
 
@@ -41,39 +41,39 @@ DIRI="/usr/www/${HTML}/${avm_Lang}/home"
                fi
        done
 	for FILE in wecker.frm; do
-               if [ -e "$1"/usr/www/${HTML}/${avm_Lang}/fon/$FILE ]; then
-                       echo2 "      /usr/www/${HTML}/${avm_Lang}/fon/$FILE"
-                       sed -i -e "s/^<? repeat \[ 0 2 \]/<? repeat \[ 0 1 \]/g" "$1"/usr/www/${HTML}/${avm_Lang}/fon/$FILE
+               if [ -e "$1"/usr/www/${HTML}/de/fon/$FILE ]; then
+                       echo2 "      /usr/www/${HTML}/de/fon/$FILE"
+                       sed -i -e "s/^<? repeat \[ 0 2 \]/<? repeat \[ 0 1 \]/g" "$1"/usr/www/${HTML}/de/fon/$FILE
                fi
        done
-       if [ -e "$1"/usr/www/${HTML}/${avm_Lang}/first/first_Start_Sip.js ]; then
-               sed -i -e "/.*extensionNo = 3.*/d" "$1"/usr/www/${HTML}/${avm_Lang}/first/first_Start_Sip.js
-               sed -i -e "s/(\((jslGetValue( \"uiPostPort0Msn0\") == jslGetValue( \"uiPostPort1Msn0\"))\) &&/\1) return false;/" "$1"/usr/www/${HTML}/${avm_Lang}/first/first_Start_Sip.js
-               sed -i -e "/uiPostPort2Msn0/d" "$1"/usr/www/${HTML}/${avm_Lang}/first/first_Start_Sip.js
+       if [ -e "$1"/usr/www/${HTML}/de/first/first_Start_Sip.js ]; then
+               sed -i -e "/.*extensionNo = 3.*/d" "$1"/usr/www/${HTML}/de/first/first_Start_Sip.js
+               sed -i -e "s/(\((jslGetValue( \"uiPostPort0Msn0\") == jslGetValue( \"uiPostPort1Msn0\"))\) &&/\1) return false;/" "$1"/usr/www/${HTML}/de/first/first_Start_Sip.js
+               sed -i -e "/uiPostPort2Msn0/d" "$1"/usr/www/${HTML}/de/first/first_Start_Sip.js
        fi
 
-       if [ -e "$1"/usr/www/${HTML}/${avm_Lang}/first/first_Sip_3.frm ]; then
-               sed -i -e "/\/MSN\/Port2\/MSN0/d" "$1"/usr/www/${HTML}/${avm_Lang}/first/first_Sip_3.frm
+       if [ -e "$1"/usr/www/${HTML}/de/first/first_Sip_3.frm ]; then
+               sed -i -e "/\/MSN\/Port2\/MSN0/d" "$1"/usr/www/${HTML}/de/first/first_Sip_3.frm
        fi
 
-       if [ -e "$1"/usr/www/${HTML}/${avm_Lang}/first/first_Sip_3.js ]; then
-               sed -i -e "/uiPostNr20/d" "$1"/usr/www/${HTML}/${avm_Lang}/first/first_Sip_3.js
+       if [ -e "$1"/usr/www/${HTML}/de/first/first_Sip_3.js ]; then
+               sed -i -e "/uiPostNr20/d" "$1"/usr/www/${HTML}/de/first/first_Sip_3.js
        fi
 
-       if [ -e "$1"/usr/www/${HTML}/${avm_Lang}/first/first_Sip_free.frm ]; then
-               sed -i -e "/\/MSN\/Port2\/MSN0/d" "$1"/usr/www/${HTML}/${avm_Lang}/first/first_Sip_free.frm
+       if [ -e "$1"/usr/www/${HTML}/de/first/first_Sip_free.frm ]; then
+               sed -i -e "/\/MSN\/Port2\/MSN0/d" "$1"/usr/www/${HTML}/de/first/first_Sip_free.frm
        fi
 
-       if [ -e "$1"/usr/www/${HTML}/${avm_Lang}/first/first_Sip_free.js ]; then
-               sed -i -e "/uiPostNr20/d" "$1"/usr/www/${HTML}/${avm_Lang}/first/first_Sip_free.js
+       if [ -e "$1"/usr/www/${HTML}/de/first/first_Sip_free.js ]; then
+               sed -i -e "/uiPostNr20/d" "$1"/usr/www/${HTML}/de/first/first_Sip_free.js
        fi
 fi
 
 if [ "$2" = "7170" ]; then
        for FILE in rul.frm rulall.frm rulall.html rulall1.frm sip1.frm; do
-               if [ -e "$1"/usr/www/${HTML}/${avm_Lang}/fon/$FILE ]; then
-                       echo2 "      /usr/www/${HTML}/${avm_Lang}/fon/$FILE"
-                       sed -i -e "/\/MSN\/Port2\//d" "$1"/usr/www/${HTML}/${avm_Lang}/fon/$FILE
+               if [ -e "$1"/usr/www/${HTML}/de/fon/$FILE ]; then
+                       echo2 "      /usr/www/${HTML}/de/fon/$FILE"
+                       sed -i -e "/\/MSN\/Port2\//d" "$1"/usr/www/${HTML}/de/fon/$FILE
                fi
        done
 
@@ -81,9 +81,9 @@ if [ "$2" = "7170" ]; then
        sed -i -e "/.*g_Fon3.*/d" "$1"${DIRI}/dial.js
        sed -i -e "/^.*uiPostFon2\".*$/,/^.*\"uiViewPort\", \"3\".*$/d" "$1"${DIRI}/dial.js
 
-       echo2 "      /usr/www/${HTML}/${avm_Lang}/fon/wecker.js"
-       sed -i -e "/.*g_Fon3.*/d" "$1"/usr/www/${HTML}/${avm_Lang}/fon/wecker.js
-       sed -i -e "/^.*uiPostFon2\".*$/,/^.*id, \"3\".*$/d" "$1"/usr/www/${HTML}/${avm_Lang}/fon/wecker.js
+       echo2 "      /usr/www/${HTML}/de/fon/wecker.js"
+       sed -i -e "/.*g_Fon3.*/d" "$1"/usr/www/${HTML}/de/fon/wecker.js
+       sed -i -e "/^.*uiPostFon2\".*$/,/^.*id, \"3\".*$/d" "$1"/usr/www/${HTML}/de/fon/wecker.js
 
        echo2 "      ${DIRI}/foncalls.js"
        sed -i -e "/.*g_Fon3.*/d" "$1"${DIRI}/foncalls.js
@@ -97,35 +97,35 @@ if [ "$2" = "7170" ]; then
                sed -i -e "/^var g_txtBtn_Change.*/a var g_Fon1 = \"Nebenstelle FON 1\";\nvar g_Fon2 = \"Nebenstelle FON 2\";" "$1"${DIRI}/fonbuch.js
        fi
 
-       if [ -e "$1"/usr/www/${HTML}/${avm_Lang}/fon/rul.js ]; then
-               echo2 "      /usr/www/${HTML}/${avm_Lang}/fon/rul.js"
-               sed -i -e "/uiViewRulNr3/d" "$1"/usr/www/${HTML}/${avm_Lang}/fon/rul.js
-               sed -i -e "/uiViewRulArt3/d" "$1"/usr/www/${HTML}/${avm_Lang}/fon/rul.js
+       if [ -e "$1"/usr/www/${HTML}/de/fon/rul.js ]; then
+               echo2 "      /usr/www/${HTML}/de/fon/rul.js"
+               sed -i -e "/uiViewRulNr3/d" "$1"/usr/www/${HTML}/de/fon/rul.js
+               sed -i -e "/uiViewRulArt3/d" "$1"/usr/www/${HTML}/de/fon/rul.js
        fi
 
-       echo2 "      /usr/www/${HTML}/${avm_Lang}/fon/rulall.js"
-       sed -i -e "/SetFonActiv(\"3\")/d" "$1"/usr/www/${HTML}/${avm_Lang}/fon/rulall.js
+       echo2 "      /usr/www/${HTML}/de/fon/rulall.js"
+       sed -i -e "/SetFonActiv(\"3\")/d" "$1"/usr/www/${HTML}/de/fon/rulall.js
 
-       echo2 "      /usr/www/${HTML}/${avm_Lang}/fon/rulall1.js"
-       sed -i -e "/\"FON 3\"/d" "$1"/usr/www/${HTML}/${avm_Lang}/fon/rulall1.js
-       sed -i -e "/\"FON 4\"/d" "$1"/usr/www/${HTML}/${avm_Lang}/fon/rulall1.js
+       echo2 "      /usr/www/${HTML}/de/fon/rulall1.js"
+       sed -i -e "/\"FON 3\"/d" "$1"/usr/www/${HTML}/de/fon/rulall1.js
+       sed -i -e "/\"FON 4\"/d" "$1"/usr/www/${HTML}/de/fon/rulall1.js
 
-       echo2 "      /usr/www/${HTML}/${avm_Lang}/fon/sip1.js"
-       sed -i -e "/\"uiPostNr20\"/d" "$1"/usr/www/${HTML}/${avm_Lang}/fon/sip1.js
+       echo2 "      /usr/www/${HTML}/de/fon/sip1.js"
+       sed -i -e "/\"uiPostNr20\"/d" "$1"/usr/www/${HTML}/de/fon/sip1.js
 
        echo2 "      ${DIRI}/fonlist.html"
        sed -i -e "/^.*<td class=\"c1\"><? echo \$var:Text10 ?><\/td>$/,/^.*<\/button><\/td>/d" "$1"${DIRI}/fonlist.html
        sed -i -e "/^.*<tr>$/{N;/^.*<tr>\n.*<.tr>$/d}" "$1"${DIRI}/fonlist.html
 
-       if [ -e "$1"/usr/www/${HTML}/${avm_Lang}/fon/rul.html ]; then
-               echo2 "      /usr/www/${HTML}/${avm_Lang}/fon/rul.html"
-               sed -i -e "/Text48/d" "$1"/usr/www/${HTML}/${avm_Lang}/fon/rul.html
-               sed -i -e "/uiViewRulNr3/,/^.*<\/td>/d" "$1"/usr/www/${HTML}/${avm_Lang}/fon/rul.html
-               sed -i -e "/^.*<tr>$/{N;/^.*<tr>\n.*<.tr>$/d}" "$1"/usr/www/${HTML}/${avm_Lang}/fon/rul.html
+       if [ -e "$1"/usr/www/${HTML}/de/fon/rul.html ]; then
+               echo2 "      /usr/www/${HTML}/de/fon/rul.html"
+               sed -i -e "/Text48/d" "$1"/usr/www/${HTML}/de/fon/rul.html
+               sed -i -e "/uiViewRulNr3/,/^.*<\/td>/d" "$1"/usr/www/${HTML}/de/fon/rul.html
+               sed -i -e "/^.*<tr>$/{N;/^.*<tr>\n.*<.tr>$/d}" "$1"/usr/www/${HTML}/de/fon/rul.html
        fi
-       echo2 "      /usr/www/${HTML}/${avm_Lang}/system/nachts.js"
-       sed -i -e "/KeineSperre(\"[23]\")/d" "$1"/usr/www/${HTML}/${avm_Lang}/system/nacht.js
-       sed -i -e "/Klingelsperre(\"[23]\",/d" "$1"/usr/www/${HTML}/${avm_Lang}/system/nacht.js
+       echo2 "      /usr/www/${HTML}/de/system/nachts.js"
+       sed -i -e "/KeineSperre(\"[23]\")/d" "$1"/usr/www/${HTML}/de/system/nacht.js
+       sed -i -e "/Klingelsperre(\"[23]\",/d" "$1"/usr/www/${HTML}/de/system/nacht.js
 fi
 
 exit 0

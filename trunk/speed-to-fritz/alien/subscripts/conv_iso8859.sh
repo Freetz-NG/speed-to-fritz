@@ -1,12 +1,12 @@
 #!/bin/bash
  . $include_modpatch
 for DIR in $2; do
- if [ "$DIR" = "avme" ] ; then
-  export HTML="$DIR/$avm_Lang/html"
- else
+# if [ "$DIR" = "avme" ] ; then
+#  export HTML="$DIR/$avm_Lang/html"
+# else
   export HTML="$DIR/html"
- fi
-    DSTI="usr/www/$HTML/$avm_Lang/fon_config"
+# fi
+    DSTI="usr/www/$HTML/de/fon_config"
 
     if [ -d "$1"/${DSTI} ]; then
 #--------------------------------------

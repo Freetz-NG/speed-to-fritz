@@ -113,11 +113,11 @@ fi
 #workaround for HWRevision
 if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
 sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/i\
-	export HWRevision=\"$FB_HWRevision\"" "${SRC}/sbin/start_plugin.sh"
+	export HWRevision=\"$FBHWRevision\"" "${SRC}/sbin/start_plugin.sh"
 sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/a\
 	export HWRevision=\"$HWID\"" "${SRC}/sbin/start_plugin.sh"
 fi
-sed -i -e "s|hardware=\${HWRevision}|hardware=${FB_HWRevision}|" "${SRC}/etc/init.d/rc.conf"
+sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
 
 #tests 
 sed -i -e '/export ANNEX_TEST/a\

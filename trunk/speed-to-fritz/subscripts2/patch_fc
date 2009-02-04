@@ -4,15 +4,15 @@
 
 for DIR in ${OEMLIST}; do
  if [ -d "${1}/usr/www/${DIR}" ]; then
-  if [ "$DIR" = "avme" ] ; then
-   html="$avm_Lang/html"
-  else
+#  if [ "$DIR" = "avme" ] ; then
+#   html="$avm_Lang/html"
+#  else
    html="html"
-  fi
-  DIRI="${1}/usr/www/${DIR}/$html/$avm_Lang/home" 
+#  fi
+  DIRI="${1}/usr/www/${DIR}/$html/de/home" 
   FILE="foncalls.js"
   if ! [ -f "$DIRI/$FILE" ]; then
-   DIRI="${1}/usr/www/${DIR}/$html/$avm_Lang/fon"
+   DIRI="${1}/usr/www/${DIR}/$html/de/fon"
   fi
   if  [ -f "$DIRI/$FILE" ]; then
    if ! `cat $DIRI/$FILE | grep -q "www.dasoertliche.de"` ; then

@@ -37,58 +37,11 @@ rm -fdr "${SRC}"/lib/modules/dsp_ur8
 rm -f "${SRC}"/lib/modules/microvoip-dsl.bin
 #<-- ATA only
 fi
-
-#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-if [ $TCOM_V_MINOR -eq 21 ] && [ $AVM_V_MINOR -ne 32 ]; then
- echo "Only AVM 7150 Firmware with minor version 32 is useable with this T-com Firmware!"
-    sleep 20
-    exit 0
-fi
-#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# 7150 
-if [ $TCOM_V_MINOR -eq 21 ] && [ $AVM_V_MINOR -eq 32 ]; then
- echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
-    
-    # keep Piglet W900 driver
-    cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet/Piglet.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet
-    # keep Piglet W900 driver.bin
-    ln -sf  /lib/modules/microvoip_isdn_top.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit1
-    cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules
-    # keep DSL W900 driver
-    cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules
-    # keep t-com rc.S
-    cp -fdrp "${DST}"/etc/init.d/rc.S --target-directory="${SRC}"/etc/init.d
-    # add missing parts 
-    $sh_DIR/add_section_rc.S.sh "${SRC}"
-    # keep t-com rc.init rc.net rc.voip
-    cp -fdrp "${DST}"/etc/init.d/rc.init --target-directory="${SRC}"/etc/init.d
-    cp -fdrp "${DST}"/etc/init.d/rc.voip --target-directory="${SRC}"/etc/init.d
-    # This is alwas needed for W900 DECT Chip differs
-    sed -i -e 's|dect_hw=3|dect_hw=2|' "${SRC}/etc/init.d/rc.S"
-    #use 7270 web GUI
-    if [ "$USE_SOURCE2_WEBMNUE" = "y" ]; then
-	cp -fdpr  "${SRC}"/etc/default.${SORCE_PRODUKT}/avm/*.cfg   --target-directory="${SRC_2}"/etc/default.${SORCE_2_PRODUKT}/avm
-	cp -fdpr  "${SRC_2}"/etc/default.${SORCE_2_PRODUKT}/avm/*   --target-directory="${SRC}"/etc/default.${SORCE_PRODUKT}/avm
-	rm -fdr "${SRC}"/usr/www/avm
-	cp -fdpr "${SRC_2}"/usr/www   --target-directory="${SRC}"/usr
-	ln -sf /var/tmp/nohup.out "${SRC}"/nohup.out
-    else
-        export CONFIG_MAILER2="n"
-	$sh_DIR/add_eth.sh "${SRC}"
-	$sh_DIR/add_dect.47.sh "${SRC}"
-	# Patch rc.conf to handle timezone info passed in ar7.cfg
-	#$sh2_DIR/patch_tz "${SRC}"
-	# Do not display option for automatic firmware update 
-	$sh_DIR/patch_fwupdate.sh "${SRC}"
-    fi
-    cp -fdpr  "${DST}"/usr/share/ctlmgr/libdect.so  --target-directory="${SRC}"/usr/share/ctlmgr
-fi
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # all newer T-com Version 38, 39, 47, ... 
 #LABOR
-if [ $TCOM_V_MINOR -ne 21  ]; then
  echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
     [ ${FORCE_TCOM_PIGLET} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet/Piglet.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet
     #Fon Driver only usable with version 38
@@ -108,14 +61,6 @@ if [ $TCOM_V_MINOR -ne 21  ]; then
         cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules
     fi
 
-  # AVM En support
-#  if [ "$avm_Lang" = "en" ] || [ $AVM_V_MINOR -lt 49 ] || [ ${AVM_SUBVERSION} -gt 9000 -a  ${AVM_SUBVERSION} -lt 10000 ]; then
-  if [ "$avm_Lang" = "en" ] || [ $AVM_V_MINOR -lt 49 ]; then
- echo2 "Old WEB GUI will be modified."
-    export CONFIG_MAILER2="n"
-    $sh_DIR/add_dect.47.sh "${SRC}"
-    $sh_DIR/add_tam.47.sh "${SRC}" "n"
-  else
  echo2 "New WEB GUI will be modified"
     #use scond source web GUI
    if [ ${USE_SOURCE2_WEBMNUE} = "y" ]; then
@@ -130,7 +75,6 @@ if [ $TCOM_V_MINOR -ne 21  ]; then
    fi
    #copy second source internet dsl menue
    [ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
-  fi
   cp -fdpr  "${DST}"/usr/share/ctlmgr/libdect.so  --target-directory="${SRC}"/usr/share/ctlmgr
 
 #patch annex Fom parameter
@@ -151,17 +95,16 @@ else\
 isdn_params="${isdn_params} dect_on=1"\
 fi\
 fi|' "${SRC}/etc/init.d/rc.S"
-fi
 #But pluginsupport needs AVM HWrevision to setup the download URL for plugins 
 #workaround for HWRevision
 if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
 sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/i\
-	export HWRevision=\"$FB_HWRevision\"" "${SRC}/sbin/start_plugin.sh"
+	export HWRevision=\"$FBHWRevision\"" "${SRC}/sbin/start_plugin.sh"
 sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/a\
 	export HWRevision=\"$HWID\"" "${SRC}/sbin/start_plugin.sh"
 fi
 
-sed -i -e "s|hardware=\${HWRevision}|hardware=${FB_HWRevision}|" "${SRC}/etc/init.d/rc.conf"
+sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #adapt parameters for Piglet bitfile to be
 $sh_DIR/patch_pigletsection.sh "${SRC}" "${DST}"
@@ -179,12 +122,6 @@ if [ ${FORCE_TCOM_FON} = "y" ]; then
 echo "/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon5/zzz/isdn_fbox_fon5.ko: /lib/modules/$KernelVersion/kernel/drivers/char/ubik2/ubik2.ko /lib/modules/$KernelVersion/kernel/drivers/atm/avm_atm/tiatm.ko" >> "${SRC}/lib/modules/$KernelVersion/modules.dep"
 echo "/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz/isdn_fbox.ko: /lib/modules/$KernelVersion/kernel/drivers/char/ubik2/ubik2.ko /lib/modules/$KernelVersion/kernel/drivers/atm/avm_atm/tiatm.ko" >> "${SRC}/lib/modules/$KernelVersion/modules.dep"
 fi
-#if ! [ $AVM_V_MINOR -le 40 ]; then
-#    #patch Powermod info - not very impoerant dont know in what it results new Data is taken from 7270
-#    sed -i -e 's|PMINFO_MODE=2.*$|PMINFO_MODE=2,100,0,1,974|' "${SRC}/lib/modules/pm_info.in" 
-#    sed -i -e 's|PMINFO_MODE=7.*$|PMINFO_MODE=7,200,141,10,100|' "${SRC}/lib/modules/pm_info.in" 
-#    sed -i -e 's|PMINFO_MODE=8.*$|PMINFO_MODE=8,100,200,78,150|' "${SRC}/lib/modules/pm_info.in" 
-#fi
 
 # patch INI files acording to the setting made in the main skript speed-to-fritz.sh 
 # 900 is used for filname 900.init and for Produkt sring.

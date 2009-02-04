@@ -147,7 +147,7 @@ diff -Naur usr/www/avm/html/de/internet/labor_dsl.js usr/www/avm/html/de/interne
 +++ usr/www/avm/html/de/internet/labor_dsl.js	2008-08-17 16:00:42.000000000 -0400
 @@ -0,0 +1,193 @@
 +<!-- ../internet/labor_dsl.js -->
-+<? include ../html/$var:lang/internet/labor_dsl.inc ?>
++<? include ../html/de/internet/labor_dsl.inc ?>
 +<style type="text/css">
 +<!--
 +#content {width: 580px; margin: auto;}
@@ -161,8 +161,8 @@ diff -Naur usr/www/avm/html/de/internet/labor_dsl.js usr/www/avm/html/de/interne
 +-->
 +</style>
 +<script type="text/javascript">
-+<? include ../html/$var:lang/js/jsl.js ?>
-+<? include ../html/$var:lang/internet/awatch.js ?>
++<? include ../html/de/js/jsl.js ?>
++<? include ../html/de/internet/awatch.js ?>
 +function Select(id, index) {
 +var obj = document.getElementById(id);
 +if (obj) obj.selectedIndex = index;

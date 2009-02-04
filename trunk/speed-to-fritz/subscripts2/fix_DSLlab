@@ -1,12 +1,12 @@
 #!/bin/bash
     echo "-- Bugfix for LABOR 11500"
 for DIR in $2; do
- if [ "$DIR" = "avme" ] ; then
-  html="$avm_Lang/html"
- else
+# if [ "$DIR" = "avme" ] ; then
+#  html="$avm_Lang/html"
+# else
   html="html"
- fi
-DIRI="usr/www/$DIR/$html/$avm_Lang"
+# fi
+DIRI="usr/www/$DIR/$html/de"
 
  TREE="$DIRI/internet"
   if [ -f "$1"/$TREE/atm.js ]; then

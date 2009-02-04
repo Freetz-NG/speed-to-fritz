@@ -85,20 +85,11 @@ replaced="0"
   echo "----------------------------------------------------------"
 ) 
 
-  # AVM En support
-if [ $AVM_V_MINOR -lt 49 ]; then
- echo2 "Old WEB GUI will be modified."
-    export CONFIG_MAILER2="n"
-    $sh_DIR/add_dect.47.sh "${SRC}"
-    # keep t-com rc.init
-    cp -fdrp "${DST}"/etc/init.d/rc.init --target-directory="${SRC}"/etc/init.d
-    cp -fdrp "${DST}"/usr/share/ctlmgr/libdect.so --target-directory="${SRC}"/usr/share/ctlmgr
-else
- echo2 "New WEB GUI will be modified"
+
+echo2 "New WEB GUI will be modified"
 #    $sh_DIR/add_dect_section.sh "${SRC}"
     #.56 dect pages can be used as the are but old vesion can be adden to give more funtioalyty
     [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect.sh "${SRC}" "X" "${OEMLINK}"
-fi
 #set DECT hardwaetype 
 #sed -i -e "s/dect_hw=./dect_hw=1/" "${SRC}/etc/init.d/rc.S" 
 sed -i -e '/isdn_params="${isdn_params} dect_hw=/d' "${SRC}/etc/init.d/rc.S" 
@@ -118,7 +109,7 @@ isdn_params="${isdn_params} dect_on=1"\
 fi\
 fi|' "${SRC}/etc/init.d/rc.S"
 #patch download url
-sed -i -e "s|hardware=\${HWRevision}|hardware=${FB_HWRevision}|" "${SRC}/etc/init.d/rc.conf"
+sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #adapt parameters for Piglet bitfile to be

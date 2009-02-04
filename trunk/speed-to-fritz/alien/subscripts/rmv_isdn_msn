@@ -2,9 +2,9 @@
  # include modpatch function
  . ${include_modpatch}
 # is no ISTN Terminal equiptment "TE"
-DIRI="usr/www/${HTML}/${avm_Lang}/home" 
+DIRI="usr/www/${HTML}/de/home" 
 if ! [ -f "$1"/$DIRI/msn.html ]; then
-   DIRI="usr/www/${HTML}/${avm_Lang}/fon"
+   DIRI="usr/www/${HTML}/de/fon"
 fi
 if  [ -f "$1"/$DIRI/msn.html ]; then
     #remove auswal Analog / ISDN
@@ -32,7 +32,7 @@ if  [ -f "$1"/$DIRI/msn.js ]; then
 fi
 # added for W501 W701 remove ISDN from callthough page, still usable on all in one 
 
-DIRI="usr/www/${HTML}/${avm_Lang}/fon/durchwahl."
+DIRI="usr/www/${HTML}/de/fon/durchwahl."
 if  [ -f "$1"/${DIRI}htm ]; then
  if `cat $1/${DIRI}html | grep -q 'uiViewArtIsdn' ` ; then  
   sed -i -e 's|<input.*id="uiViewArtIsdn".*<br>|<input type="hidden" name="OnArt" id="uiViewArtIsdn" onload="OnChangeOnArt(0)"><br>|' "$1/${DIRI}html"
@@ -55,13 +55,13 @@ if  [ -f "$1"/${DIRI}inc ]; then
  fi
 fi
 # older help text not in use on all in one
-if  [ -f "$1"/usr/www/${HTML}/${avm_Lang}/help/hilfe_fon_festnetz.html ]; then
-    echo2 "      /usr/www/${HTML}/${avm_Lang}/help/hilfe_fon_nebenstelle.html"
-    sed -i -e "/W.hlen Sie die Art Ihres Festnetzanschlusses aus/d" "$1"/usr/www/${HTML}/${avm_Lang}/help/hilfe_fon_festnetz.html
-    sed -i -e "s/Ihre ISDN-Rufnummern oder //" "$1"/usr/www/${HTML}/${avm_Lang}/help/hilfe_fon_festnetz.html
-    sed -i -e "s/die dafür vorgesehenen Felder/das dafür vorgesehene Feld/" "$1"/usr/www/${HTML}/${avm_Lang}/help/hilfe_fon_festnetz.html
+if  [ -f "$1"/usr/www/${HTML}/de/help/hilfe_fon_festnetz.html ]; then
+    echo2 "      /usr/www/${HTML}/de/help/hilfe_fon_nebenstelle.html"
+    sed -i -e "/W.hlen Sie die Art Ihres Festnetzanschlusses aus/d" "$1"/usr/www/${HTML}/de/help/hilfe_fon_festnetz.html
+    sed -i -e "s/Ihre ISDN-Rufnummern oder //" "$1"/usr/www/${HTML}/de/help/hilfe_fon_festnetz.html
+    sed -i -e "s/die dafür vorgesehenen Felder/das dafür vorgesehene Feld/" "$1"/usr/www/${HTML}/de/help/hilfe_fon_festnetz.html
     #all in one
-    sed -i -e "s/die da.* vorgesehenen Felder/das vorgesehene Feld/" "$1"/usr/www/${HTML}/${avm_Lang}/help/hilfe_fon_festnetz.html
+    sed -i -e "s/die da.* vorgesehenen Felder/das vorgesehene Feld/" "$1"/usr/www/${HTML}/de/help/hilfe_fon_festnetz.html
 fi
 
 exit 0

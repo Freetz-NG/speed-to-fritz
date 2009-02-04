@@ -4,14 +4,14 @@
 
 echo "-- Removing 'Tab0' from updatepage ..."
 for DIR in ${OEMLIST}; do
- if [ "$DIR" = "avme" ] ; then
-  export HTML="$DIR/$avm_Lang/html"
- else
+# if [ "$DIR" = "avme" ] ; then
+#  export HTML="$DIR/$avm_Lang/html"
+# else
   export HTML="$DIR/html"
- fi
+# fi
     DSTI="${1}"/usr/www/$HTML
     if [ -d ${DSTI} ] ; then
-    DIRI="/usr/www/${HTML}/${avm_Lang}/system" 
+    DIRI="/usr/www/${HTML}/de/system" 
 
     if  [ -f "$1"$DIRI/update_OnClick_1.js ]; then
     #    [ -n "$VERBOSITY" ] && echo2 "   -- Patching files:"

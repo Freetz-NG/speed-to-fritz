@@ -65,7 +65,7 @@ sleep 3
 fi
 
 #patch download url
-sed -i -e "s|hardware=\${HWRevision}|hardware=${FB_HWRevision}|" "${SRC}/etc/init.d/rc.conf"
+sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
 
 
 #adapt parameters for Piglet bitfile to be suitable for this hardware

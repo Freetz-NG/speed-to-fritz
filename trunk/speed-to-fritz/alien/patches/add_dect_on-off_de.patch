@@ -11,7 +11,7 @@
 --- usr/www/avm/html/de/dect/setting.html	2008-01-01 19:00:00.000000000 -0500
 +++ usr/www/avm/html/de/dect/setting.html	2007-12-22 16:25:48.000000000 -0500
 @@ -0,0 +1,33 @@
-+<? include ../html/$var:lang/dect/setting.js ?>
++<? include ../html/de/dect/setting.js ?>
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
 +DECT-Einstellungen
@@ -56,8 +56,8 @@
 +-->
 +</style>
 +<script type="text/javascript">
-+<? include ../html/$var:lang/js/val.js ?>
-+<? include ../html/$var:lang/js/jsl.js ?>
++<? include ../html/de/js/val.js ?>
++<? include ../html/de/js/jsl.js ?>
 +// globals
 +var g_mldPin = "Die DECT-Basisstation PIN muss aus 4 Ziffern bestehen."
 +var mCount = "<? query telcfg:settings/Foncontrol ?>";
@@ -102,7 +102,7 @@
 --- usr/www/avm/html/de/menus/menu2_dect.html	2008-01-01 19:00:00.000000000 -0500
 +++ usr/www/avm/html/de/menus/menu2_dect.html	2007-12-22 16:27:45.000000000 -0500
 @@ -0,0 +1,13 @@
-+<? include ../html/$var:lang/menus/menu2_$var:menu.inc ?>
++<? include ../html/de/menus/menu2_$var:menu.inc ?>
 +<li class="LMenuitem"><img class="LMenuPfeil" src="<? echo $var:aktivpfeil ?>"><a href="javascript:jslGoTo('dect','setting')">DECT</a><span class="PTextOnly">DECT</span></li>
 +<!-- wlan:settings/ap_enabled = '<? query wlan:settings/ap_enabled ?>' -->
 +<? setvariable var:showDect 0 ?>

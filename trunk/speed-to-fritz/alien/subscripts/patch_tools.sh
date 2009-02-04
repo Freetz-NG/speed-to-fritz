@@ -205,34 +205,59 @@ if  [ $FileSize1 -ne $FileSize2 ]; then
 	echo "Original Filesize=$FileSize1 Changed Filesize=$FileSize2"
 	sleep 10
 fi
-#<----all in one variante
+#<----all variante
+#en variante ---->
+#lengh of lines must be exact the same as teh original!!
+#replacing text in binary file is rahter problematic!
+if [ -e "$1/etc/htmltext_en.db" ];then
+let FileSize1="$(wc -c < "$1/etc/htmltext_en.db")"
+sed -i -e '
+s|When the .INFO. LED stops flashing you can log on to the system again.|\
+Box IP is: 192.168.178.1 oder 192.168.2.1. PC Restart may be needed. | 
+s|The specified file does not contain firmware released for this device by AVM.|\
+If box is rebooting: Set static IPs, and script option "Clear mtd3 and mtd4"| 
+s|If you install non-released firmware in the FRITZ!Box, it can result in the complete loss of FRITZ!Box functionality. Further, you will lose all claims to support, guarantees and warranty for your FRITZ.Box.|\
+If you cant get to the webintreface any more, you can use a patched recover tool, or FTP (Windows or LINUX) one of the following Addresses should work. (192.168.178.1, 192.168.2.1, 192.168.1.1)             | 
+s|Only use firmware that has been released for this device by AVM. Only for such firmware AVM can ensure the complete range of FRITZ!Box functions.|\
+Depending on the Firmware you must adjust the network settings on your PC to the new address or renew DHCP, by resetting network adapter.       |
+s|The firmware files released for your FRITZ.Box are.|\
+Box IP Address: 192.168.178.1 or 192.168.2.1.     |
+s|generated and publicized by AVM|\
+Set Box after reboot to:      | 
+s|created for your FRITZ!Box model|\
+FACTORY DEFAULT                | 
+s|at least as up to date as the firmware installed on the FRITZ.Box|\
+Or with a connected phone, by typing in: #991*15901590*.        | 
+s|Cancel Update (Recommended)|\
+        Cancel Update     | 
+' "$1"/etc/htmltext_en.db
+let FileSize2="$(wc -c < "$1/etc/htmltext_en.db")"
+if  [ $FileSize1 -ne $FileSize2 ]; then
+	echo "--------------Patch of htmltext_en.db went wrong!---------------"
+	echo "Original Filesize=$FileSize1 Changed Filesize=$FileSize2"
+	sleep 10
+fi
+fi
+#<---- en variante
 fi
 #addon source toolsdir is different if original t-com firmware is patched
 Lang="${avm_Lang}"
 [ "$ORI" = "y" ] && Lang="tcom"
 
 for OEMDIR in ${OEMLIST}; do
- if [ "$OEMDIR" = "avme" ] ; then
-  export HTML="$OEMDIR/$avm_Lang/html"
- else
   export HTML="$OEMDIR/html"
- fi
- for html in ${HTML} ${HTML}/${avm_Lang} ; do
+ for html in ${HTML} ${HTML}/de ; do
   for FILE in flash.html flash2.html update_not_signed.html restart.html; do
-#     if [ -f ./addon/${Lang}/tools/${FILE} ]; then
       DSTI="${1}"/usr/www/${html}/${FILE}
       if [ -f ${DSTI} ] ; then
        echo2 "      patch update page (${Lang}) ${html}/${FILE}..."
-       #cp -fdprv  ./addon/${Lang}/tools/${FILE}  ${DSTI}
 	patch_flash_txt	${DSTI}
       fi
       DSTI="${1}"/usr/www/${html}/tools/$FILE
       if [ -f ${DSTI} ] ; then
        echo2 "      patch update page (${Lang}) ${html}/tools/${FILE}..."
-       #cp -fdprv  ./addon/${Lang}/tools/${FILE}  ${DSTI}
 	patch_flash_txt ${DSTI}
       fi
-#     fi
   done
  done
 done

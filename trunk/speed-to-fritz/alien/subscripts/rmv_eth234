@@ -4,29 +4,29 @@
 #echo "-- Removing 'LAN 2-4' ..."
 
 echo2 "   -- Removing lines from:"
-echo2 "      /usr/www/${HTML}/${avm_Lang}/home/home.html"
-sed -i -e "/^.*<td>.*eth[123].*<.td>$/{N;/^.*<td>.*eth[123].*<.td>\n.*<td>.*<.td>$/d}" "$1"/usr/www/${HTML}/${avm_Lang}/home/home.html
-sed -i -e "/^.*<tr>$/{N;/^.*<tr>\n.*<.tr>$/d}" "$1"/usr/www/${HTML}/${avm_Lang}/home/home.html
-sed -i -e "s/ \$var:txt038 / \$var:txt006 /" "$1"/usr/www/${HTML}/${avm_Lang}/home/home.html
+echo2 "      /usr/www/${HTML}/de/home/home.html"
+sed -i -e "/^.*<td>.*eth[123].*<.td>$/{N;/^.*<td>.*eth[123].*<.td>\n.*<td>.*<.td>$/d}" "$1"/usr/www/${HTML}/de/home/home.html
+sed -i -e "/^.*<tr>$/{N;/^.*<tr>\n.*<.tr>$/d}" "$1"/usr/www/${HTML}/de/home/home.html
+sed -i -e "s/ \$var:txt038 / \$var:txt006 /" "$1"/usr/www/${HTML}/de/home/home.html
 
 
 echo2 "   -- Changing 'LAN 1' to 'LAN' in:"
-echo2 "      /usr/www/${HTML}/${avm_Lang}/internet/internet_expert.js"
-sed -i -e "s/LAN 1/LAN/" "$1"/usr/www/${HTML}/${avm_Lang}/internet/internet_expert.js
-sed -i -e "s/LAN 2, LAN 3, LAN 4//" "$1"/usr/www/${HTML}/${avm_Lang}/internet/internet_expert.js
+echo2 "      /usr/www/${HTML}/de/internet/internet_expert.js"
+sed -i -e "s/LAN 1/LAN/" "$1"/usr/www/${HTML}/de/internet/internet_expert.js
+sed -i -e "s/LAN 2, LAN 3, LAN 4//" "$1"/usr/www/${HTML}/de/internet/internet_expert.js
 
-echo2 "      /usr/www/${HTML}/${avm_Lang}/internet/internet_expert.inc"
-sed -i -e "s/'Internetzugang über LAN 1'/'Internetzugang über LAN'/" "$1"/usr/www/${HTML}/${avm_Lang}/internet/internet_expert.inc
-sed -i -e "s/\"Internetzugang über LAN A\"/\"Internetzugang über LAN\"/" "$1"/usr/www/${HTML}/${avm_Lang}/internet/internet_expert.inc
+echo2 "      /usr/www/${HTML}/de/internet/internet_expert.inc"
+sed -i -e "s/'Internetzugang über LAN 1'/'Internetzugang über LAN'/" "$1"/usr/www/${HTML}/de/internet/internet_expert.inc
+sed -i -e "s/\"Internetzugang über LAN A\"/\"Internetzugang über LAN\"/" "$1"/usr/www/${HTML}/de/internet/internet_expert.inc
 
-echo2 "      /usr/www/${HTML}/${avm_Lang}/system/netipadr.js"
-sed -i -e "s/\"Internetzugang über LAN 1\"/\"Internetzugang über LAN\"/" "$1"/usr/www/${HTML}/${avm_Lang}/system/netipadr.js
+echo2 "      /usr/www/${HTML}/de/system/netipadr.js"
+sed -i -e "s/\"Internetzugang über LAN 1\"/\"Internetzugang über LAN\"/" "$1"/usr/www/${HTML}/de/system/netipadr.js
 
-if  [ -f "$1"/usr/www/${HTML}/${avm_Lang}/system/energy.html ]; then
-    echo2 "      /usr/www/${HTML}/${avm_Lang}/system/enertgie.html"
-    sed -i -e "/eth1/d" "$1"/usr/www/${HTML}/${avm_Lang}/system/energy.html
-    sed -i -e "/eth2/d" "$1"/usr/www/${HTML}/${avm_Lang}/system/energy.html
-    sed -i -e "/eth3/d" "$1"/usr/www/${HTML}/${avm_Lang}/system/energy.html
-    sed -i -e "s/LAN 1/LAN/" "$1"/usr/www/${HTML}/${avm_Lang}/system/energy.inc
+if  [ -f "$1"/usr/www/${HTML}/de/system/energy.html ]; then
+    echo2 "      /usr/www/${HTML}/de/system/enertgie.html"
+    sed -i -e "/eth1/d" "$1"/usr/www/${HTML}/de/system/energy.html
+    sed -i -e "/eth2/d" "$1"/usr/www/${HTML}/de/system/energy.html
+    sed -i -e "/eth3/d" "$1"/usr/www/${HTML}/de/system/energy.html
+    sed -i -e "s/LAN 1/LAN/" "$1"/usr/www/${HTML}/de/system/energy.inc
 fi
 exit 0

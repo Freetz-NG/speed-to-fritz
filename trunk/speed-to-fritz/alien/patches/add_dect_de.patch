@@ -115,8 +115,8 @@
 +-->
 +</style>
 +<script type="text/javascript">
-+<? include ../html/$var:lang/js/val.js ?>
-+<? include ../html/$var:lang/js/jsl.js ?>
++<? include ../html/de/js/val.js ?>
++<? include ../html/de/js/jsl.js ?>
 +var g_txtInternettyp	= "Internet: ";
 +var g_txtFestnetztyp	= "Festnetz: ";
 +var g_mldDigit			= "Eine Rufnummer darf nur aus Ziffern bestehen.";
@@ -336,8 +336,8 @@
 +-->
 +</style>
 +<script type="text/javascript">
-+<? include ../html/$var:lang/js/val.js ?>
-+<? include ../html/$var:lang/js/jsl.js ?>
++<? include ../html/de/js/val.js ?>
++<? include ../html/de/js/jsl.js ?>
 +var g_txt_Festnetz	= "Festnetz: ";
 +var g_txt_Internet	= "Internet: ";
 +var g_txt_Intern		= "Intern: ";
@@ -543,7 +543,7 @@
 +
 + <td class="c5">
 +  <button type="button" id="uiViewDelete$0" onclick="uiDoDelete($0)" title="Abmelden" style="width: 30px">
-+  <img src="../html/<? echo $var:lang ?>/images/loeschen.gif" align="bottom" width="16" height="16" hspace="4">
++  <img src="../html/de/images/loeschen.gif" align="bottom" width="16" height="16" hspace="4">
 +  </button>
 + </td>
 +</tr>
@@ -590,7 +590,7 @@
 +-->
 +</style>
 +<script type="text/javascript">
-+<? include ../html/$var:lang/js/jsl.js ?>
++<? include ../html/de/js/jsl.js ?>
 +var g_New = -1;
 +function uiDoOnLoad() {
 +var bFound = false;
@@ -700,7 +700,7 @@
 +<td class="c2"><? query telcfg:settings/MSN/Port0/Name ?></td>
 +<td class="c3"><script type="text/javascript">document.write(uiNummerDisplay("<? query telcfg:settings/MSN/Port0/MSN0 ?>"));</script></td>
 +<td class="c4" style="text-align: right;"><button type="button" id="uiViewEdit0" onclick="uiEditFon(0)" title="Bearbeiten" style="width: 30px">
-+<img src="../html/<? echo $var:lang ?>/images/bearbeiten.gif" align="bottom" width="16" height="16" hspace="4">
++<img src="../html/de/images/bearbeiten.gif" align="bottom" width="16" height="16" hspace="4">
 +</button></td>
 +</tr>
 +<tr>
@@ -708,7 +708,7 @@
 +<td class="c2"><? query telcfg:settings/MSN/Port1/Name ?></td>
 +<td class="c3"><script type="text/javascript">document.write(uiNummerDisplay("<? query telcfg:settings/MSN/Port1/MSN0 ?>"));</script></td>
 +<td class="c4" style="text-align: right;"><button type="button" id="uiViewEdit1" onclick="uiEditFon(1)" title="Bearbeiten" style="width: 30px">
-+<img src="../html/<? echo $var:lang ?>/images/bearbeiten.gif" align="bottom" width="16" height="16" hspace="4">
++<img src="../html/de/images/bearbeiten.gif" align="bottom" width="16" height="16" hspace="4">
 +</button></td>
 +</tr>
 +</table>
@@ -732,7 +732,7 @@
 --- usr/www/avm/html/de/fon/fonlistdect.html	2008-01-01 19:00:00.000000000 -0500
 +++ usr/www/avm/html/de/fon/fonlistdect.html	2008-05-21 09:58:07.000000000 -0400
 @@ -0,0 +1,44 @@
-+<? include ../html/$var:lang/fon/fonlistdect.inc ?>
++<? include ../html/de/fon/fonlistdect.inc ?>
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
 +Schnurlostelefone (DECT)
@@ -760,10 +760,10 @@
 +<td class="c2"><? query telcfg:settings/NTHotDialList/Name$0 ?></td>
 +<td class="c3"><? query telcfg:settings/NTHotDialList/Number$0 ?></td>
 +<td class="c4"><button type="button" id="uiViewEdit0" onclick="uiEditDECT($0)" title="Editieren" style="width: 30px">
-+<img src="../html/<? echo $var:lang ?>/images/bearbeiten.gif" align="bottom" width="16" height="16" hspace="4">
++<img src="../html/de/images/bearbeiten.gif" align="bottom" width="16" height="16" hspace="4">
 +</button></td>
 +<td class="c5"><button type="button" id="uiViewDelete0" onclick="uiDeleteDECT($0)" title="Löschen" style="width: 30px">
-+<img src="../html/<? echo $var:lang ?>/images/loeschen.gif" align="bottom" width="16" height="16" hspace="4">
++<img src="../html/de/images/loeschen.gif" align="bottom" width="16" height="16" hspace="4">
 +</button></td>
 +</tr>
 +' ?>
@@ -794,7 +794,7 @@
 +-->
 +</style>
 +<script type="text/javascript">
-+<? include ../html/$var:lang/js/jsl.js ?>
++<? include ../html/de/js/jsl.js ?>
 +var g_mldDelete	= "Wollen Sie diese Nummer löschen ?";
 +var g_New = 0;
 +function uiDoOnLoad() {
@@ -890,10 +890,10 @@
 +<td class="c5"><input type="checkbox" id="uiViewBusyOnBusy$0" disabled></td>
 +<td class="c6"><script type="text/javascript">document.write(uiListHandsets("<? query dect:settings/MSN$0/Handsets ?>"));</script></td>
 +<td class="c7"><button type="button" id="uiViewEdit$0" onclick="uiEditMSN($0)" title="Zuordnung ändern" style="width: 30px">
-+<img src="../html/<? echo $var:lang ?>/images/bearbeiten.gif" align="bottom" width="16" height="16" hspace="4">
++<img src="../html/de/images/bearbeiten.gif" align="bottom" width="16" height="16" hspace="4">
 +</button></td>
 +<td class="c8"><button type="button" id="uiViewDelete$0" onclick="uiDeleteMSN($0)" title="Zuordnung löschen" style="width: 30px">
-+<img src="../html/<? echo $var:lang ?>/images/loeschen.gif" align="bottom" width="16" height="16" hspace="4">
++<img src="../html/de/images/loeschen.gif" align="bottom" width="16" height="16" hspace="4">
 +</button></td>
 +</tr>
 +' ?>
@@ -929,7 +929,7 @@
 +-->
 +</style>
 +<script type="text/javascript">
-+<? include ../html/$var:lang/js/jsl.js ?>
++<? include ../html/de/js/jsl.js ?>
 +var g_mldDelete	= "Wollen Sie diese Zuordnung löschen ?";
 +var g_mldAllOn	= "Wollen Sie alle bestehenden Zuordnungen löschen ?";
 +var g_New = -1;

@@ -2,11 +2,11 @@
  . $include_modpatch
 # copy www directory of second source
 for DIR in $3; do
- if [ "$DIR" = "avme" ] ; then
-  html="$avm_Lang/html"
- else
+# if [ "$DIR" = "avme" ] ; then
+#  html="$avm_Lang/html"
+# else
   html="html"
- fi
+# fi
 # copy missing files if not existent
 echo "   ------------------WEBGUI from source 3 is in use!--------------------"
 

@@ -7,13 +7,13 @@ EXTESIONLIST="js inc html frm"
 
 
 for DIR in $3; do
- if [ "$DIR" = "avme" ] ; then
-  html="$avm_Lang/html"
- else
+# if [ "$DIR" = "avme" ] ; then
+#  html="$avm_Lang/html"
+# else
   html="html"
- fi
+# fi
 
-DIRI="usr/www/$DIR/$html/$avm_Lang"
+DIRI="usr/www/$DIR/$html/de"
 FILE="images/balkeneinheit24-blau.gif"
 [ -e "$2/$DIRI/$FILE" ] && cp  "$2/$DIRI/$FILE"   "$1/$DIRI/$FILE"
 

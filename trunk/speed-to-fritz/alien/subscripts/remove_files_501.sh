@@ -2,11 +2,11 @@
  . ${include_modpatch}
 echo2 "-- Removing files ..."
 for DIR in ${OEMLIST}; do
- if [ "$DIR" = "avme" ] ; then
-  export HTML="$DIR/$avm_Lang/html"
- else
+# if [ "$DIR" = "avme" ] ; then
+#  export HTML="$DIR/$avm_Lang/html"
+# else
   export HTML="$DIR/html"
- fi
+# fi
     DSTI="${1}"/usr/www/$HTML
     if [ -d ${DSTI} ]; then
 #-----------------------------------------

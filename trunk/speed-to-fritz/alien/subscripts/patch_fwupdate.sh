@@ -1,11 +1,11 @@
 #!/bin/bash
 for DIR in ${OEMLIST}; do
- if [ "$DIR" = "avme" ] ; then
-  html="$avm_Lang/html"
- else
+# if [ "$DIR" = "avme" ] ; then
+#  html="$avm_Lang/html"
+# else
   html="html"
- fi
-    DSTI="${1}"/usr/www/${DIR}/${html}/${avm_Lang}/system/update_OnClick_1.js
+# fi
+    DSTI="${1}"/usr/www/${DIR}/${html}/de/system/update_OnClick_1.js
     if [ -f ${DSTI} ] ; then
 sed -i -e "/<div id=\"uiUpdate\" style=\"display:none\">[ \t]*$/,/^\t<\/div>[ \t]*$/d" "${DSTI}"
 sed -i -e "/^[ \t]*<ul class=\"tabs\">/,/^[ \t]*<\/ul>/d" "${DSTI}"

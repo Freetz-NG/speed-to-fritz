@@ -2,18 +2,18 @@
  . $include_modpatch
  echo "-- Applying Button for sending fonbook ..."
 for DIR in ${OEMLIST}; do
- if [ "$DIR" = "avme" ] ; then
-  export HTML="$DIR/$avm_Lang/html"
- else
+# if [ "$DIR" = "avme" ] ; then
+#  export HTML="$DIR/$avm_Lang/html"
+# else
   export HTML="$DIR/html"
- fi
-    DSTI="${1}"/usr/www/$HTML/$avm_Lang/fon
+# fi
+    DSTI="${1}"/usr/www/$HTML/de/fon
     if [ -d ${DSTI} ] ; then
 
 
-  DIRI="usr/www/${HTML}/${avm_Lang}/home" 
+  DIRI="usr/www/${HTML}/de/home" 
   if ! [ -f "$1"/$DIRI/fondevices.html ]; then
-   DIRI="usr/www/${HTML}/${avm_Lang}/fon"
+   DIRI="usr/www/${HTML}/de/fon"
      #link for booksend
      if ! [ -f "$1"/$DIRI/fonbuch.js ]; then 
         # generate linke files -->

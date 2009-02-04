@@ -1,22 +1,6 @@
 #!/bin/bash
 . ${include_modpatch}
 cat "${1}/etc/init.d/rc.conf" | grep 'export CONFIG_.*=' | sort > 1_init.log
-if [ $AVM_V_MINOR -lt 49 ]; then
- . $sh_DIR/inc_func_init
- #delete parse init section in rc.conf
- del_section "${1}/etc/init.d/rc.conf"
- #move config (init or conf ) form $2 to $1 (rc.conf)   
- copy_config ".*" "${2}" "${1}"
- #Get defaults given in  $3.init to rc.conf
- parse_copy_rcconf "CONFIG_.*" "$sh_DIR/${3}.init" "${1}"
- #remove rc.init because data ist now transfered to rc.conf
- [ -e "${1}"/etc/init.d/rc.init ] && rm -f "${1}"/etc/init.d/rc.init
- sed -i -e "s/CONFIG_MAILER2=\".*$/CONFIG_MAILER2=\"${CONFIG_MAILER2}\"/g" "${1}/etc/init.d/rc.conf"
- sed -i -e "s/CONFIG_MAILER=\".*$/CONFIG_MAILER=\"${CONFIG_MAILER}\"/g" "${1}/etc/init.d/rc.conf"
- sed -i -e "s/CONFIG_TAM=\".*$/CONFIG_TAM=\"${CONFIG_TAM}\"/g" "${1}/etc/init.d/rc.conf"
- sed -i -e "s/CONFIG_TAM_MODE=\".*$/CONFIG_TAM_MODE=\"${CONFIG_TAM_MODE}\"/g" "${1}/etc/init.d/rc.conf"
- sed -i -e "s/CONFIG_UPNP=\".*$/CONFIG_UPNP=\"${CONFIG_UPNP}\"/g" "${1}/etc/init.d/rc.conf"
-fi
 #set some variabels  
 echo2 "-- Adjusting config parms in:"
 echo2 "      /etc/init.d/rc.conf"
