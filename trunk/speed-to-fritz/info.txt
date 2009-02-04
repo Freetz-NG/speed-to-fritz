@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090204-1644
+    - fix URL again, Software download url fixed, by Hawcline
 20090204-1551
     - Major script changes to get conform to AVM en and multilingual versions, but the should not have an effect on other firmwares
 20090203-2259
