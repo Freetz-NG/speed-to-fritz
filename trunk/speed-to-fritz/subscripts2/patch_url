@@ -8,7 +8,6 @@ for DIR in $2; do
 # fi
     DIRI="usr/www/$DIR/$html/de"
   if [ -d "$1"/$DIRI ]; then
- [ -f "$1/${DIRI}/usb/aura.html" ] && sed -i -e 's|TextInstallationErforderlich ?>||' "$1/${DIRI}/menus/menu2_konfig.html"
     # workaround freetz
     if `cat "$1/${DIRI}/menus/menu2_homehome.html" | grep -q 'freetz_status' `; then 
 #     sed -i -e "/freetz_status/i \
