@@ -146,7 +146,7 @@ dieselbe Kernel-Version verwendet. Verwendet wurde das Image-File <b>'IMG1_AVM'<
 <h2>Allgemeine Hinweise und Disclaimer</h2>
 <p>Die aktuelle Skriptversion finden Sie <a href="http://www.ip-phone-forum.de/showpost.php?p=1009138&postcount=1" target="_blank">im IP-Phone-Forum</a>.
 Die Doku dazu finden Sie ebenfalls <a href="http://wiki.ip-phone-forum.de/skript:speedport2fritz" target="_blank">dort</a>, wie auch eine aktuelle <a href="http://wiki.ip-phone-forum.de/skript:speed2fritzfaq" target="_blank">FAQ-Liste</a>.</p>
-<p>Die Anwendung dieser Modifikation erfolgt auf eigene Gefahr. Sie verlieren dadurch Ihren Support anspruch gegenüber dem Hersteller. 
+<p>Die Anwendung dieser Modifikation erfolgt auf eigene Gefahr. Sie verlieren dadurch Ihren Supportanspruch gegenüber dem Hersteller. 
 Die Autoren von 'Speed2Fritz' lehnen jegliche Haftung für Schäden ab, die durch die Installation des Skripts oder der modifizierten Firmware entstehen.</p>
 <p></p>
 <p>2006-2009</p>
