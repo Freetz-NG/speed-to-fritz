@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090206-0545
+    - W900: en Version Dect some typing correcions, some more to come.
 20090206-0353
     - W920: 7270 PHONE Firmware removed, because is not avalable any more.
 20090206-0344

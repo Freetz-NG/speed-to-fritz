@@ -73,13 +73,21 @@ sed -i -e 's|var url = jslGetValue("uiPostPortal");|var url = "http://www.avm.de
 sed -i -e "s|<Modell-Nummer>|${FBMOD}|" "${DSTI}"/help/popup.html
 
 echo2 "-- Patching files:"
+if [ "$avm_Lang" = "de" ]; then
 echo2 "      ${DSS}/home/home.html"
 sed -i -e 's|^.*rbb.refresh.*$|<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="forebuttons">\
 <input type="button" onclick="uiDoInfo()" value="Info" class=Pushbutton>\
 <input type="button" onclick="uiDoHelp()" value="Hilfe" class="Pushbutton" id="buttonHilfe">\
 <input type="button" onclick="uiDoRefresh()" value="Aktualisieren" class=Pushbutton>\
 </div></div></div></div></div></div>|' "${DSTI}/home/home.html"
-
+else
+echo2 "      ${DSS}/home/home.html"
+sed -i -e 's|^.*rbb.refresh.*$|<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="forebuttons">\
+<input type="button" onclick="uiDoInfo()" value="Info" class=Pushbutton>\
+<input type="button" onclick="uiDoHelp()" value="Help" class="Pushbutton" id="buttonHilfe">\
+<input type="button" onclick="uiDoRefresh()" value="Refresh" class=Pushbutton>\
+</div></div></div></div></div></div>|' "${DSTI}/home/home.html"
+fi
 
 echo2 "      ${DSS}/home/home.js"
 sed -i -e "/<\/script>/i \
@@ -141,7 +149,7 @@ Die Doku dazu finden Sie ebenfalls <a href="http://wiki.ip-phone-forum.de/skript
 <p>Die Anwendung dieser Modifikation erfolgt auf eigene Gefahr. Sie verlieren dadurch Ihren Support anspruch gegenüber dem Hersteller. 
 Die Autoren von 'Speed2Fritz' lehnen jegliche Haftung für Schäden ab, die durch die Installation des Skripts oder der modifizierten Firmware entstehen.</p>
 <p></p>
-<p>2006-2008</p>
+<p>2006-2009</p>
 </div></div></div></div></div></div>
 <? include ../html/de/help/rback.html ?>
 </div>
@@ -153,16 +161,18 @@ cat << 'EOF' >> "${DSTF}"
 <div class="Hilfe">
 <div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Information</div></div></div></div></div></div>
 <div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
-<p>The user interface of<b>MODEL</b> has been modified with <b>Speed2Fritz-Mod</b> from The following Script- and Firmware Versions have been used.</p>
-<h2>Script Version used</h2>
-<p> <b>'speed2fritz'</b> version <b>VERSION</b> has been used. Used options:</p>
+<p>The user interface of <b>MODEL</b> has been modified with <b>Speed2Fritz-Mod</b>. The following Script- and Firmware Versions have been used.</p>
+<h2>Script Version used:</h2>
+<p> <b>'speed2fritz'</b> version <b>VERSION</b> has been used.</p> 
+<ul>
+<li>Used options:</li>
 <ul>
 <li><b>Branding:</b> Branding has been set to <b>'OEM'</b>.</li>
 <li><b>Host name:</b> Host name has been set to <b>'HOSTNAME'</b>.</li>
-<li><b>Auto Configuration TR69:</b> Auto Configuration via ISP is <b>AUTOCONF </b>ATACONF.</li>
-<li><b>LAN auto Configuration TR64:</b> Internal LAN auto Configuration via ISP is <b>LANTR64TEXT</b>.</li>
-<li><b>Compatibility:</b> <b>PREFIX</b> has been added to the Product name.</li>
-<li>Status Page shows AVM Product name plus hardware type</li>
+<li><b>Auto Configuration TR69:</b> Auto Configuration via ISP <b>AUTOCONF </b>ATACONF.</li>
+<li><b>LAN auto Configuration TR64:</b> Internal LAN auto Configuration via ISP <b>LANTR64TEXT</b>.</li>
+<li><b>Compatibility:</b>  has <b>PREFIX</b> been added to the Product name.</li>
+<li>Status Page shows AVM Product name <b>plus hardware type</b>.</li>
 <li><b>Telefon-Menue:</b> Setup menu for telephones has been <b>FONMENU</b>.</li>
 ADD_7150_DECTMNUE
 ADD_DSL_EXPERT_MNUE
@@ -178,19 +188,19 @@ FORCE_CLEAR_FLASH
 <h2>Used Firmware-Versions</h2>
 <p>Following Firmware Images from TCOM and AVM have been used for the WEB-GUI and to enable system functionality:</p>
 <ul>
-<li><b>TCOM Base image:</b> The Telekom base Image is used for the basic functions and is designed for Telekom Hardware.	Image-File <b>'IMG0_TCOM'</b> has been used.</li>
-<li><b>AVM System Image:</b> This image is used to complete missing system functions and also the AVM WEB-GUI. The image comes from an AVM Hardware that is common to the Telekom Hardware and uses same Kernel version. <b>'IMG1_AVM'</b>.</li> Image has been used.
-<li><b>AVM WebUI-Image:</b> For Speedport W 900V the WEB-GUI is copied from a separate Image, that is also supporting the special ISDN functionality of this box. <b>'IMG2_AVM'</b>.</li> image has been used.
+<li><b>TCOM image:</b> The Telekom Image is used for the basic driver functions as it is designed for Telekom Hardware.	Image-File <b>'IMG0_TCOM'</b> has been used.</li>
+<li><b>AVM System Image:</b> This image is used to complete system functions and also the AVM WEB-GUI. The image comes from an AVM Hardware that is common to the Telekom Hardware and uses same Kernel version. <b>'IMG1_AVM'</b>.</li> Image has been used.
+<li><b>AVM WebUI-Image:</b> For Speedport W 900V the WEB-GUI may be copied from a separate Image, that is also supporting the special ISDN functionality of this box. <b>'IMG2_AVM'</b>.</li> image has been used.
 <li><b>Kernel-Update:</b> AVM Firmware kernel has been <b>XCHANGE_KERNEL</b> with t-com kernel.</li>
 </ul>
 <p></p>
 <h2>Standard terms and conditions and and Disclaimer</h2>
 <p>The actual Script Version can be found on <a href="http://www.ip-phone-forum.de/showpost.php?p=1009138&postcount=1" target="_blank">IP-Phone-Forum</a>.
-The manual also can be found on <a href="http://wiki.ip-phone-forum.de/skript:speedport2fritz" target="_blank">dort</a>, as also an actual <a href="http://wiki.ip-phone-forum.de/skript:speed2fritzfaq" target="_blank">FAQ-Liste</a>.</p>
+The manual also can be found <a href="http://wiki.ip-phone-forum.de/skript:speedport2fritz" target="_blank">here</a>, and also an actual <a href="http://wiki.ip-phone-forum.de/skript:speed2fritzfaq" target="_blank">FAQ-Liste</a>.</p>
 <p>Using this modification is on your own risk. All guarantee and entitlement to the manufacturer for support is lost.
 The authors of 'Speed2Fritz' refuses any accountability for all damage occurred from the use of the script or a modified Firmware.</p>
 <p></p>
-<p>2006/2008</p>
+<p>2006/2009</p>
 </div></div></div></div></div></div>
 <? include ../html/de/help/rback.html ?>
 </div>

@@ -2,7 +2,7 @@
 +++ usr/www/avme/html/de/help/hilfe_fon_dect.html	2008-02-14 03:48:13.000000000 -0500
 @@ -0,0 +1,23 @@
 +<div class="Hilfe">
-+<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">DECT-Endgeräte</div></div></div></div></div></div>
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">DECT-mobile</div></div></div></div></div></div>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
 +<p>Following steps are necessary to use DECT devices with FRITZ!Box:</p>
 +<ul>
@@ -20,7 +20,7 @@
 +<b>Hinweis:</b> If you used numbers for your DECT devices that are not entered in this list, please also enter these numbers in your FRITZ!Box ein. </p>
 +<h2>Send Phonebook</h2>
 +<p>Click here to send the phonebook or single records of your phonebook to a mobile device.</p>
-+<p>Click here to quot;Übernehmen&quot;, save changed settings.</p>
++<p>Click Appley, to save changed settings.</p>
 +</div></div></div></div></div></div>
 +<? include ../html/de/help/rback.html ?>
 +</div>
@@ -34,7 +34,7 @@
 +<ol>
 +<li>Select type of fixed subscriber line.</li>
 +<li>Enter your ISDN numbers or the analog numbers in the dedicated fields.</li>
-+<li>Click on &quot;Übernehmen&quot;, to enter your phonenumbers into the FRITZ!Box.</li>
++<li>Click om Appley, to enter your phonenumbers into the FRITZ!Box.</li>
 +</ol>
 +</div></div></div></div></div></div>
 +<? include ../html/de/help/rback.html ?>
@@ -47,13 +47,13 @@
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
 +<p>On this page an internal number can be assigned to a DECT device, that is connected to the FRITZ!Box. The device the number will be assigned to can be chosen by input in field &quot;Number of the telphone&quot;.</p>
 +<h3>Number</h3>
-+<p>The shown number is the internal number, that is assigned to the DECT device. The number is assigned by FRITZ!Box and can´t be changed.</p>
++<p>The shown number is the internal number, that is assigned to the DECT device. The number is assigned by FRITZ!Box and cannt be changed.</p>
 +<h3>Description</h3>
 +<p>Enter a description for the DECT device, that you want to assign the internal number. With this description the DECT device is listed in othe r menues (e.g. &quot;Anrufliste&quot;, &quot;Wecker&quot;).</p>
 +<h3>Number of the telephone</h3>
 +<p>Select a number, that is entered on the DECT device, with this choice the DECT device is selected for the internal number. Only numbers that are already entered in the FRITZ!Box are shown.</p>
 +<p>The automatically from FRITZ!Box assigned number is also shown in this selection. The selection of this number is useful if the number already has been assigned to other devices. Please also enter the number in the DECT device. This ensures only this single DECT device reacts on this internal number.</p>
-+<p>Click here &quot;Übernehmen&quot;, to save changes.</p>
++<p>Click Appley, to save changes.</p>
 +</div></div></div></div></div></div>
 +<? include ../html/de/help/rback.html ?>
 +</div>
