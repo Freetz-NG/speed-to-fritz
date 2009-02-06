@@ -528,7 +528,7 @@ case "$1" in
     	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
 	export HWID="135"
 	export FBMOD="7270"
-	[ FBHWRevision ] || export FBHWRevision="139"
+	[ "$FBHWRevision" == "" ] && export FBHWRevision="139"
 	export HWRevision="${HWID}.1.0.6"
 	export CONFIG_INSTALL_TYPE="ur8_16MB_xilinx_4eth_2ab_isdn_nt_te_pots_wlan_mimo_usb_host_dect_40456"
 	export CONFIG_XILINX="y"

@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090206-1240
+    - W920 fix plugin, the was a bug in the script since the changes for multlingual ware made.
 20090206-1238
     - FTP Downloadlink for english versions fixed.
 20090206-1149
