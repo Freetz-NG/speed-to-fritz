@@ -158,10 +158,11 @@ sed -i -e 's|Continue Update|Continue Update (Recommended)|' "$1"
 sed -i -e 's|Cancel Update (Recommended)|Cancel Update|' "$1"
 
 #/usr/www/avme/en/html/tools/update_not_signed.html
-
+sed -i -e "/released for this device by AVM/d" "$1"
 sed -i -e "/for your FRITZ!Box are/d" "$1"
 sed -i -e "/generated and publicized by AVM/d" "$1"
 sed -i -e "/generated for your FRITZ!Box model/d" "$1"
+sed -i -e "/created for your FRITZ!Box model/d" "$1"
 sed -i -e "/at least as up to date as the firmware/d" "$1"
 
 sed -i -e 's|("uiReboot")|("uiInstall")|' "$1"
