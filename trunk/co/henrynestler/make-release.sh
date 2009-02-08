@@ -69,5 +69,5 @@ cd ${COLINUX_INSTALL}
 #makensis -DBFIN_BASE colinux.nsi
 #cp freetzLinux.exe ${BASE}/freetzLinux-${COLINUX_VER}-freetzLinux-base-${ANDLINUX_VER}.exe
 makensis -DBFIN_LITE colinux.nsi
-cp freetzLinux.exe ${BASE}/freetzLinux-${COLINUX_VER}-freetzLinux-lite-${ANDLINUX_VER}.exe
-cp freetzLinux.exe /mnt/and/freetzLinux-${ANDLINUX_VER}.exe
+#cp freetzLinux.exe ${BASE}/freetzLinux-${COLINUX_VER}-freetzLinux-lite-${ANDLINUX_VER}.exe
+mv freetzLinux.exe /mnt/win/upstream/freetzLinux-${ANDLINUX_VER}.exe

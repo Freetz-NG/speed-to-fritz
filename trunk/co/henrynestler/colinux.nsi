@@ -559,7 +559,8 @@ Section -CreateConfigFile
   FileWrite $0 "#   http://www.colinux.org/$\r$\n"
   FileWrite $0 "#   http://wiki.ip-phone-forum.de/freetzlinux:network$\r$\n"
   FileWrite $0 "$\r$\n"
-  FileWrite $0 "exec0=Xming\Xming.exe :0 -dpi 85 -ac -clipboard -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log -xkbmodel pc105 -xkblayout se $\r$\n"
+  FileWrite $0 'exec0="Xming\Xming.exe",":0 -dpi 85 -clipboard -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log"$\r$\n'
+  FileWrite $0 '#exec0="Xming\Xming.exe",":0 -dpi 85 -ac -clipboard -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log -xkbmodel pc105 -xkblayout se"$\r$\n'
   FileWrite $0 "#exec1=pulseaudio\pulseaudio.exe $\r$\n"
   FileWrite $0 "# Please do not change unless you understand these settings$\r$\n"
   FileWrite $0 "kernel=vmlinux$\r$\n"
@@ -581,16 +582,19 @@ Section -CreateConfigFile
   FileWrite $0 "# http://colinux.wikia.com/wiki/Network$\r$\n"
   FileWrite $0 "# eth0=slirp,,tcp:22:22/tcp:333:22/tcp:10000:10000/udp:69:69$\r$\n"
   FileWrite $0 "eth0=slirp$\r$\n"
-  FileWrite $0 "# eth0=pcap-bridge needs Win-Pcap installed, in your Windows network neighbourhood you may then bridge TAP with any physical card.$\r$\n"
-  FileWrite $0 "# Ubuntu must be updated as well, then: apt-get install pump, so eth0 is usable with dhcp, ping via LAN possible, but not via WLAN if not bridged.$\r$\n"
-  FileWrite $0 "#eth0=pcap-bridge$\r$\n"
+  FileWrite $0 "# eth0=pcap-bridge needs Win-Pcap installed. ndis-bridge is about the same but does not need Win-Pcap.$\r$\n"
+  FileWrite $0 "# Ubuntu must be updated as well, then: apt-get install pump, so eth0 is usable with dhcp, ping via LAN1 possible, but not via WLAN if not bridged inside windows.$\r$\n"
+  FileWrite $0 "# eth0 is set to dhcp, eth2 to 192.168.178.19, in /etc/network/interfaces. You must rename your Windows pysical LAN connection to 'LAN1' inside windows.$\r$\n"
+  FileWrite $0 'eth2=ndis-bridge,"LAN1",$\r$\n'
+  FileWrite $0 "If an other instance of tuntap is used, you must fist install a second tuntap driver and name it 'HostTAP', inside windows.$\r$\n"
   FileWrite $0 '#eth0=tuntap,"HostTAP",$\r$\n'
-  FileWrite $0 'eth1=tuntap$\r$\n'
   FileWrite $0 '#eth1=tuntap,"BridgedTAP",$\r$\n'
   FileWrite $0 "$\r$\n"
-  FileWrite $0 "cocon=120x40$\r$\n"
+  FileWrite $0 '#Dont touch this, is needed for Xming$\r$\n'
+  FileWrite $0 'eth1=tuntap$\r$\n'
+  FileWrite $0 "cocon=120x60$\r$\n"
   FileWrite $0 "# Serial configuration$\r$\n"
-  FileWrite $0 'ttys0=$NW_COM_Value,"baud=38400 parity=N data=8 stop=1 xon=off odsr=off octs=off idsr=off to=on rts=on dtr=on"$\r$\n'
+  FileWrite $0 '#ttys0=$NW_COM_Value,"baud=38400 parity=N data=8 stop=1 xon=off odsr=off octs=off idsr=off to=on rts=on dtr=on"$\r$\n'
   FileClose $0
   #skip_config:
 

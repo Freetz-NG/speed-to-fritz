@@ -1,3 +1,4 @@
+
 #!/bin/sh
 # assumption: $PWD is the colinux install dir
 #clear
@@ -84,7 +85,7 @@ then
 	echo 'password required /lib/security/pam_smbpass.so nullok use_authtok try_first_pass' >> /etc/pam.d/common-password
 fi
 root_pw="root"
-useradd -m \${NewUser} -s /bin/bash -c "\${NewUser} development account,,," -G audio,cdrom,dialout,floppy,plugdev,uucp,video
+useradd -m \${NewUser} -s /bin/bash -c "\${NewUser} development account,,," -G root
 freetz_pw=\${NewUser}
 #rm -f passwd.exp
 sed -e "s/windowsPathPrefix = .*;/windowsPathPrefix = \\"\\$mountpath\\";/" < /usr/local/sbin/launcher.pl > /tmp/launcher.pl
@@ -113,10 +114,17 @@ User_uid="\${User_uid:4:4}"
 echo "uid=\${User_uid}"
 if [ -e /etc/fstab ]; then 
     sed -i -e "/mnt.win/d" "/etc/fstab"    
-    echo "/dev/cofs0 /mnt/win cofs uid=\${User_uid},gid=100 0 0" >> /etc/fstab 
+    echo "/dev/cofs0 /mnt/win cofs uid=\${User_uid},gid=0 0 0" >> /etc/fstab 
 #    echo "/dev/cofs0 /mnt/win cofs defaults 0 0" >> /etc/fstab
 fi
-# remove autodedct netcard MAC, becaus colinux set this randomly 
+
+#remove entry
+#ACTION=="add", SUBSYSTEM=="net", KERNEL=="eth*|ath*|wlan*|ra*|sta*"
+if [ -e /etc/udev/rules.d/75-persistent-net-generator.rules ]; then 
+ sed -i -e 's/eth..//' "/etc/udev/rules.d/75-persistent-net-generator.rules"
+ echo " -- removed udev ethx"
+ sleep 2
+fi
 cat <<EOF > /etc/udev/rules.d/70-persistent-net.rules
 # This file maintains persistent names for network interfaces.
 # See udev(7) for syntax.
@@ -143,13 +151,15 @@ iface eth1 inet static
      netmask 255.255.255.0
 #     gateway 192.168.11.1
 
-#iface eth2 inet static
+iface eth2 inet static
+     address 192.168.178.19
+     netmask 255.255.0.0
+     gateway 192.168.178.1
+
+#iface eth3 inet static
 #     address 192.168.2.19
 #     netmask 255.255.0.0
-
-iface eth2 inet static
-     address 10.10.10.150
-     netmask 255.255.0.0
+#     gateway 192.168.2.1
 
 EOF
 smbpasswd -a -s \${NewUser} << EOF
@@ -157,11 +167,10 @@ smbpasswd -a -s \${NewUser} << EOF
 \${freetz_pw}
 EOF
 cat <<EOF > /etc/issue
-set root password to: \${root_pw}
+Password of root is: \${root_pw}
 set \${NewUser} password to: \${freetz_pw}
-Use 'passwd' to set the passwords.
-'/setpw' may be usable for this. 
-Please log in as root, change these, and then update the /etc/issue file.
+Use 'passwd' \${NewUser} to set \${freetz_pw}.
+Please log in as root, change the password, and then update the /etc/issue file, to remove this info.
 EOF
 cat <<EOF >/setpw
 #!/bin/sh
