@@ -1,5 +1,5 @@
 #!/bin/bash
-PATH=/sbin:$PATH
+export PATH=$PATH:/sbin
 #dont change names of variables because some of the names are used in other files as well!
 ##########################################################################
 # Date of current version:                                          

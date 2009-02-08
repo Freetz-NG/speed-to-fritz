@@ -1,5 +1,6 @@
 #!/bin/bash
 echo "#!/bin/bash" > incl_var
+echo "export PATH=$PATH:/sbin" >> incl_var
 echo "export NEWIMG=\"${NEWIMG}\"" >> incl_var
 echo "export inc_DIR=\"${inc_DIR}\"" >> incl_var
 echo "export TOOLS_DIR=\"${TOOLS_DIR}\"" >> incl_var
