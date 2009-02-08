@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090208-1557
+    - Added ftp install 'apt-get install ftp' to install-start
 20090208-0922
     - Added subversion install 'apt-get install subversion' to install-start
 20090206-1240
