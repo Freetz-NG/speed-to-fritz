@@ -11,7 +11,7 @@ cp -fr ./scripts/* ../bfin-colinux/trunk/scripts
 [ -d ../bfin-colinux/trunk/patches/2 ] || mkdir ../bfin-colinux/trunk/patches/2
 cp -f ./colinux.nsi ../bfin-colinux/trunk/patches/2/colinux.nsi
 cp ./srvstart.bat ../bfin-colinux/trunk/and/srvstart.bat
-cp ./addtap.bat ../bfin-colinux/trunk/and/netdriver/andtap.bat
+cp ./addtap.bat ../bfin-colinux/trunk/and/netdriver/addtap.bat
 cp ./srvstop.bat ../bfin-colinux/trunk/and/srvstop.bat
 cp ./README.txt ../bfin-colinux/trunk/and/README.txt
 #ln -s $(pwd)/Launcher ../bfin-colinux/trunk/and
