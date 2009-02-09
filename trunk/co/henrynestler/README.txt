@@ -2,9 +2,32 @@
 This Version is adjusted for the use with speed2freetz and freetz.
 There is still a problem with setting passwords, so you must do the manually.
 
-By invoking 'passwd' as root within the black window after start.
-'chmod 777 /setpw' 
-and '/setpw' would do the same.
+By invoking 'passwd' as root within the black FLTK window after start.
+Default root password is 'root'
+The new user is without password but you must assign a password!
+
+
+LAN connectivity:
+
+You can enable a bridge connection to the Internet if you remove the leading hash sign from  
+the following line within andlinux/settings.txt
+#eth2=ndis-bridge,"LAN1", -> eth2=ndis-bridge,"LAN1",
+
+pcap-bridge needs Win-Pcap installed. ndis-bridge is about the same but does not need Win-Pcap.
+You should update ubuntu and install pump by invoking the following line:
+sudo apt-get -y update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade && apt-get install pump
+
+This will make eth0 usable with dhcp, and pings via LAN1 will be possible, but not via WLAN if not bridged inside windows.
+
+In /etc/network/interfaces
+eth0 is set to: dhcp
+eth2 is set to: 192.168.178.10
+You must rename your Windows physical LAN connection to 'LAN1' if the install script could not do it.
+ATENTION!
+If eth2 is enable by you, then make sure you already have a physical LAN connection up running with a link to the router, 
+because there is a bug that blocks all activity if this is not the case.
+
+
 
 X Applications:
 1.

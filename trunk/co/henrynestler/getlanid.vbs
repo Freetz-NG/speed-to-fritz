@@ -1,9 +1,9 @@
 '*****************************************************
 '     Script Name:  getlanid.vbs
-'     Version:  0.4
+'     Version:  0.5
 '      Author:   (Johann.Pascher AT gmail.com)
-'     Last Updated:  01 Dezember 08
-'     Purpose:
+'     Last Updated:  2009 02 09
+'     Purpose: 
 '              Queries the registry of the target system using WMI
 '              searching for cards. If any card
 '              is found, it displays the version of the associated driver,
@@ -19,7 +19,7 @@
 '              If more arguments are specified they order of the 
 '	     argument's must be as specified.
 '              If run without arguments, defaults are used.
-' Notes:
+' Notes: 
 '              getlanid.vbs [, /w (write files) (or /s (ip settings)]  ["Driver Description String"]  [IP Address]  [Mask]  [ Gateway]
 '	     Parantheses mut be part of the parameters if space ist part of it.  
 'Default: TAP-Win32 Adapter V8 (coLinux)
@@ -28,12 +28,11 @@
 ' Example Command Line: 
 'getlanid.vbs  /s "TAP-Win32 Adapter V8 (coLinux)"  "192.168.11.10" "255.255.255.0" "192.168.11.1"
 ' Legal: Public Domain.  Modify and redistribute freely.  No rights reserved.
-
 '*****************************************************
 Option Explicit
 Dim objFSO, objFolder, objShell, objTextFile, objFile, oReg, objScriptExec, wshShell
-Dim strIpConfig, strTmp, iNumArgs
-Dim strDirectory, strFile, strDriverDescArg, strComputer, strKeyPath, strKeyPath2
+Dim strIpConfig, strTmp, iNumArgs, iNumCount 
+Dim strDirectory, strFile,  strFile2,  strFileI,  strFileN, strDriverDescArg, strComputer, strKeyPath, strKeyPath2
 Dim strName, strNetCfgInstanceId, strNetCfgInstanceIdFound, strConnectionName, strStringGateway
 Dim strService, strImagePath, strDriverVersion, strDriverDesc, strKeyPath3, subkey2, arrSubKeys
 Dim arrSubKeys2, strStringIP, strStringMask, strValueName, strMediaSubType, quiet, subkey
@@ -96,7 +95,7 @@ if (quiet = "/h") Then
 "		Admin rights are needed!"   & vbCrLf &_
 "	Arguments:"   & vbCrLf &_
 "		[/h (displays this help)"   & vbCrLf &_
-"		/w (write files)"   & vbCrLf &_  
+"		/w (write connectionXName.txt, NetCfgInstanceXId)"   & vbCrLf &_  
 "		or /s (set ip setting)]"   & vbCrLf &_
 "		[Driver Description String]"   & vbCrLf &_
 "		[IP Address]"   & vbCrLf &_
@@ -120,6 +119,7 @@ if (quiet = "/h") Then
 Wscript.Quit
 End If
 strComputer = "."
+iNumCount = 0
 Set oReg=GetObject("winmgmts:{impersonationLevel=impersonate}!\\" & strComputer & "\root\default:StdRegProv")
 strKeyPath = "SYSTEM\CurrentControlSet\Control\Network\{4D36E972-E325-11CE-BFC1-08002BE10318}"
 oReg.EnumKey HKEY_LOCAL_MACHINE, strKeyPath, arrSubKeys
@@ -154,28 +154,50 @@ For Each subkey In arrSubKeys
 						vbTab & "ImagePath" & ":" & vbTab & strImagePath
 					End If
 					if (quiet = "/w" ) Then
-					'write connectionName to file 
-						strFile = "connectionName.txt"
+						iNumCount = iNumCount+1
+						'write connectionName to file 
+						strFileN = "connection" & iNumCount & "Name.txt"
 						Set objFSO = CreateObject("Scripting.FileSystemObject")
-						If not objFSO.FileExists(strFile) Then
-							Set objFile = objFSO.CreateTextFile(strFile)
+						If not objFSO.FileExists(strFileN) Then
+							Set objFile = objFSO.CreateTextFile(strFileN)
 						End If
 						set objFile = nothing
 						Set objTextFile = objFSO.OpenTextFile _
-						(strFile, 2, True)
+						(strFileN, 2, True)
 						objTextFile.WriteLine(strConnectionName)
 						objTextFile.Close	
 					'write NetCfgInstanceId to file 
-						strFile = "NetCfgInstanceId.txt"
+						strFileI = "NetCfgInstance" & iNumCount & "Id.txt"
 						Set objFSO = CreateObject("Scripting.FileSystemObject")
-						If not objFSO.FileExists(strFile) Then
-							Set objFile = objFSO.CreateTextFile(strFile)
+						If not objFSO.FileExists(strFileI) Then
+							Set objFile = objFSO.CreateTextFile(strFileI)
 						End If
 						set objFile = nothing
 						Set objTextFile = objFSO.OpenTextFile _
-						(strFile, 2, True)
+						(strFileI, 2, True)
 						objTextFile.WriteLine(strNetCfgInstanceIdFound)
 						objTextFile.Close
+'						strFile2 = "connectionName.txt"
+'						Set objFSO = CreateObject("Scripting.FileSystemObject")
+'						If not objFSO.FileExists(strFile2) Then
+'							Set objFile = objFSO.CreateTextFile(strFile2)
+'						End If
+'						set objFile = nothing
+'						Set objTextFile = objFSO.OpenTextFile _
+'						(strFile2, 2, True)
+'						objTextFile.WriteLine(strConnectionName)
+'						objTextFile.Close	
+'						'write NetCfgInstanceId to file 
+'						strFile2 = "NetCfgInstanceId.txt"
+'						Set objFSO = CreateObject("Scripting.FileSystemObject")
+'						If not objFSO.FileExists(strFile2) Then
+'							Set objFile = objFSO.CreateTextFile(strFile2)
+'						End If
+'						set objFile = nothing
+'						Set objTextFile = objFSO.OpenTextFile _
+'						(strFile2, 2, True)
+'						objTextFile.WriteLine(strNetCfgInstanceIdFound)
+'						objTextFile.Close
 					End if
 					if (quiet = "/s" ) Then
 						Set objShell = CreateObject("WScript.Shell")
@@ -184,7 +206,6 @@ For Each subkey In arrSubKeys
 						Set objScriptExec = objShell.Exec (strTmp)						
 						strIpConfig = objScriptExec.StdOut.ReadAll
 						if (Len(strIpConfig) > 3) Then
-						 WScript.Echo strTmp & vbCrLf & strIpConfig
 						End if
 					End if
 				End If
@@ -192,5 +213,19 @@ For Each subkey In arrSubKeys
 		Next
 	End If
 Next
-
+'if (quiet = "/w" ) Then
+	'Wscript.Echo "numcount: "  & iNumCount
+'	Set objFSO = CreateObject("Scripting.FileSystemObject")
+'	strFileN = "connection" & iNumCount & "Name.txt"
+'	Set objTextFile = objFSO.GetFile(strFileN)
+'	If objFSO.FileExists(strFileN) Then
+'		objTextFile.Delete
+'	End If
+'	Set objFSO = CreateObject("Scripting.FileSystemObject")
+'	strFileI = "NetCfgInstance" & iNumCount & "Id.txt"
+'	Set objTextFile = objFSO.GetFile(strFileI)
+'	If objFSO.FileExists(strFileI) Then
+'		objTextFile.Delete
+'	End If
+'End If						
 WScript.Quit
