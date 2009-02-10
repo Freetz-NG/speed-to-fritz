@@ -51,6 +51,9 @@ config TCOM_W920_63
 config TCOM_W920_70
     string 
     default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/fw_Speedport_W_920V_v_65.04.70.image"
+config TCOM_W920_71
+    string 
+    default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.71.image"
 config TCOM_W920_13048
     string 
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.63-13048.zip mirror http://www.hostarea.de/server-01/Januar-25c121e202.zip"
@@ -227,11 +230,13 @@ config TYPE_TCOMBETA
 choice
 	prompt "T-com alternative firmware"
 		depends on TYPE_TCOMBETA
-		default TYPE_TCOM_BETA_63
+		default TYPE_TCOM_BETA_71
 	config TYPE_TCOM_BETA_63
 		bool "TCOM_BETA_63"
 	config TYPE_TCOM_BETA_70
 		bool "TCOM_BETA_70"
+	config TYPE_TCOM_BETA_71
+		bool "TCOM_BETA_71"
 	config TYPE_TCOM_BETA_13048
 		bool "TCOM_BETA_13048"
 endchoice
@@ -477,9 +482,10 @@ config TCOM_IMG
 	default "$TCOM_W721_60" 		if TYPE_SPEEDPORT_W721V
 	default "$TCOM_W900_57" 		if TYPE_SPEEDPORT_W900V
 	default "$TCOM_W920_58" 		if TYPE_58 && ( TYPE_SPEEDPORT_W920V )
-	default "$TCOM_W920_70" 		if ( ! TYPE_TCOMBETA ) && ( TYPE_SPEEDPORT_W920V )
+	default "$TCOM_W920_71" 		if ( ! TYPE_TCOMBETA ) && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_63" 		if TYPE_TCOM_BETA_63 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_70" 		if TYPE_TCOM_BETA_70 && ( TYPE_SPEEDPORT_W920V )
+	default "$TCOM_W920_71" 		if TYPE_TCOM_BETA_71 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_13048" 		if TYPE_TCOM_BETA_13048 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_LOCAL"	 		if TYPE_TCOM_LOCAL
 
