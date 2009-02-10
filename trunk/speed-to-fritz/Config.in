@@ -1053,28 +1053,28 @@ config DO_DIFF
 	default n
 	help
 		Set this to 'y' to make a diff between SRC and SRC_2 (AVM_IMG, SRC2_IMG),
-		diff result is in directory ./LogAVM_SRC2.
+		diff result is in directory ./LogAVMto3.
 config DO_DIFF_TCOM
 	bool "Do DIFF between TCOM source and source 3"
 	depends on SOURCE2
 	default n
 	help
 		Set this to 'y' to make a diff between  (SP_IMG, SRC2_IMG),
-		diff result is in directory ./LogTCOM_SRC2.
+		diff result is in directory ./LogTCOMto3.
 
 config DO_FINAL_DIFF
 	bool "Do final DIFF, show changes on AVM source"
 	default n
 	help
 		Set this to 'y' to make a diff between DST and SRC (Destination and Source 2)  
-		Diff result is in directory ./LogFINAL_SRC.
+		Diff result is in directory ./LogFINALtoAVM.
 config DO_FINAL_DIFF_SRC2
 	bool "Do final DIFF, show difference to source 3"
 	depends on SOURCE2
 	default n
 	help
 		Set this to 'y' to make a diff between DST and SRC2    
-		SRC2_IMG source files must be selected, diff result is in directory ./LogFINAL_SRC2.
+		SRC2_IMG source files must be selected, diff result is in directory ./LogFINALto3.
 
 
 comment "Netcard Options ----------------------------------------------------"

@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090210-1332
+    - Directory namming for diffresults changed.
 20090210-1317
     - Compare option between TCOM and source 3, added.
 20090210-1121

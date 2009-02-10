@@ -627,9 +627,9 @@ echo "--------------------------------------------------------------------------
 [ "$DO_FINAL_DIFF" = "y" ] && mkdir -p "${TEMPDIR}"
 [ "$DO_FINAL_DIFF" = "y" ] && cp -fdpr "${FBDIR}"/*  --target-directory="${TEMPDIR}"  
 # do a compare of source 1 and 2
-[ "$DO_DIFF" = "y" ] && ./0diff "${FBDIR}" "${FBDIR_2}" "./logAVM_SRC2"
+[ "$DO_DIFF" = "y" ] && ./0diff "${FBDIR}" "${FBDIR_2}" "./logAVMto3"
 # do a compare of tcom source 1 and 2
-[ "$DO_DIFF_TCOM" = "y" ] && ./0diff "${SPDIR}" "${FBDIR_2}" "./logTCOM_SRC2"
+[ "$DO_DIFF_TCOM" = "y" ] && ./0diff "${SPDIR}" "${FBDIR_2}" "./logTCOMto3"
 #
 [ "$DO_NOT_STOP_ON_ERROR" = "n" ] && exec 2>"${HOMEDIR}/${ERR_LOGFILE}" || rm -f "${HOMEDIR}/${ERR_LOGFILE}"
 # get version from etc/.version into variables
@@ -760,8 +760,8 @@ echo "**************************************************************************
 echo -e "\033[1mPhase 10:\033[0m Pack and deliver."
 echo "********************************************************************************"
 #do a final compare
-[ "$DO_FINAL_DIFF" = "y" ] && ./0diff "${SPDIR}" "${TEMPDIR}" "./logFINAL_AVM"
-[ "$DO_FINAL_DIFF_SRC2" = "y" ] && ./0diff "${SPDIR}" "${FBDIR_2}" "./logFINAL_SRC2"
+[ "$DO_FINAL_DIFF" = "y" ] && ./0diff "${SPDIR}" "${TEMPDIR}" "./logFINALtoAVM"
+[ "$DO_FINAL_DIFF_SRC2" = "y" ] && ./0diff "${SPDIR}" "${FBDIR_2}" "./logFINALto3"
 [ "$DO_STOP_ON_ERROR" = "y" ] && exec 2>"${HOMEDIR}/${ERR_LOGFILE}"
 if [ "$SET_UP" = "n" ]; then
  #wrap all up again
