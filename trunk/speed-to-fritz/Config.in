@@ -843,6 +843,12 @@ if ! EXPORT_ATA_ONLY
 	default y
 	help
 		Use KSLDMOD from t-com firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
+    config FORCE_TCOM_PCLINK
+	bool "Use t-com pclink driver"
+	depends on TYPE_SPEEDPORT_W920V
+	default n
+	help
+		Use PCLINK from t-com firmware.
     config USE_SRC2_DSL
 	bool "Use source 3 DSL driver"
 	depends on SOURCE2
