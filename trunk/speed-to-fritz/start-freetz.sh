@@ -67,7 +67,7 @@ echo "invoking 'speed-to-freetz'"
 #echo "With W501 it is only possible to use an older firmware version."
 #echo 
 echo "---------------------------------------------------------------------------------"
-# Removing privias sp2fritz sources if still in existant                         
+# Removing privious sp2fritz sources if still existent                         
 rm -rf "$FBDIR"
 rm -rf "$FBDIR_2"
 rm -rf "$SPDIR"
