@@ -425,6 +425,8 @@ choice
 		bool "TCOM_W920_63"
 	config TYPE_TCOM_W920_70
 		bool "TCOM_W920_70"
+	config TYPE_TCOM_W920_71
+		bool "TCOM_W920_71"
 	config TYPE_TCOM_W920_13048
 		bool "TCOM_W920_13048"
 
@@ -554,6 +556,7 @@ config SRC2_IMG
 	default "$TCOM_W920_58" 	if TYPE_TCOM_W920_58
 	default "$TCOM_W920_63" 	if TYPE_TCOM_W920_63
 	default "$TCOM_W920_70" 	if TYPE_TCOM_W920_70
+	default "$TCOM_W920_71" 	if TYPE_TCOM_W920_71
 	default "$TCOM_W920_13048" 	if TYPE_TCOM_W920_13048
 	default "$TCOM_LOCAL"		if TYPE_TCOM_LOCAL_IMAGE
 	default "$SRC3_LOCAL"		if TYPE_SRC3_LOCAL_IMAGE
@@ -1045,25 +1048,33 @@ config DO_NOT_STOP_ON_ERROR
 		If you set this to 'y' for some reason, you are able to build a firmware with bugs!.
 
 config DO_DIFF
-	bool "Do DIFF between source 2 and source 3"
+	bool "Do DIFF between AVM source and source 3"
 	depends on SOURCE2
 	default n
 	help
-		Set this to 'y' to make a diff between SRC and SRC_2 (AVM_IMG, SRC2_IMG).
+		Set this to 'y' to make a diff between SRC and SRC_2 (AVM_IMG, SRC2_IMG),
+		diff result is in directory ./LogAVM_SRC2.
+config DO_DIFF_TCOM
+	bool "Do DIFF between TCOM source and source 3"
+	depends on SOURCE2
+	default n
+	help
+		Set this to 'y' to make a diff between  (SP_IMG, SRC2_IMG),
+		diff result is in directory ./LogTCOM_SRC2.
 
 config DO_FINAL_DIFF
-	bool "Do final DIFF, show changes on source 2"
+	bool "Do final DIFF, show changes on AVM source"
 	default n
 	help
 		Set this to 'y' to make a diff between DST and SRC (Destination and Source 2)  
-		Diff result is in directory ./LogDST_SRC.
+		Diff result is in directory ./LogFINAL_SRC.
 config DO_FINAL_DIFF_SRC2
 	bool "Do final DIFF, show difference to source 3"
 	depends on SOURCE2
 	default n
 	help
 		Set this to 'y' to make a diff between DST and SRC2    
-		SRC2_IMG source files must be selected, diff result is in directory ./LogDST_SRC2.
+		SRC2_IMG source files must be selected, diff result is in directory ./LogFINAL_SRC2.
 
 
 comment "Netcard Options ----------------------------------------------------"
