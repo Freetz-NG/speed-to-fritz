@@ -23,7 +23,7 @@ if [ ${ATA_ONLY} = "n" ]; then
 echo "/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:" >>"${SRC}"/lib/modules/$KernelVersion/modules.dep
 
 # "vinax_driver"  
-#Attention! Vinax uses aditional /dev/vinax device entrys the are generateed via /tools/device_table.txt (makedevice option)
+#Attention! Vinax uses additional /dev/vinax device entrys, they are generated via /tools/device_table.txt (makedevice option)
 mkdir "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
 cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
 cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld

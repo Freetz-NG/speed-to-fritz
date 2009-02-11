@@ -19,7 +19,7 @@ if [ $ETH_IF ]; then
  echo "Net cards set up for search active netconnections: $ETHLIST"
 else 
  echo "Net cards set up for search active netconnections: $ETHLIST"
- echo "This list was set default, but can be set in advance." 
+ echo "This list was set as default, but can be set in advance." 
 fi
 for ETH in ${ETHLIST} ; do
   if  ifconfig $ETH > /dev/null ; then

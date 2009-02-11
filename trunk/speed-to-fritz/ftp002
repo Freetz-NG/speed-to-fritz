@@ -1,7 +1,7 @@
 #!/bin/bash
 . incl_var
 if [ "$FIRST_RUN" = "y" ]; then
- echo "You must run the main Skript first to set the parameters needed!" 
+ echo "You must run the main skript first to set the parameters needed!" 
     sleep 8 
     exit 0 
 fi

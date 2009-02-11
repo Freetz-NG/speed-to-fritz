@@ -28,13 +28,13 @@ echo "New user will be created: $NewUser"
 
 useradd -m $NewUser
 echo
-echo "Install sudo via apt-get install, the has to be a active internetconnection!"
+echo "Install sudo via apt-get install, there has to be an active internetconnection!"
 apt-get install sudo
 apt-get install patch
 echo " --------------- "
-#Der erstellte neue Bentzer muss aber noch in /etc/sudoers, eingetragen werden.
+#Der erstellte neue Benutzer muss aber noch in /etc/sudoers eingetragen werden.
 #Das File /etc/sudoers mit visudo oeffnen, und die folgende Zeile anhaengen.
-#(Dazu visodo [Enter] NewUser ALL=(ALL) ALL als letzte Zeile eintippen, Strg O [Enter], Strg X)
+#(Dazu visudo [Enter] NewUser ALL=(ALL) ALL als letzte Zeile eintippen, Strg O [Enter], Strg X)
 #NewUser ALL=(ALL) ALL
 #Default Benutzer fuer Konsole
 cp -f "/etc/sudoers" "/etc/sudoers.tmp"
@@ -48,7 +48,7 @@ cat "/etc/sudoers.tmp" | grep  "$NewUser"
 cp -f "/etc/sudoers.tmp" "/etc/sudoers"
 echo " --------------- "
 sleep 5
-#Edit von /usr/bin/startwindowsterminalsession ersetzen von 'root' mit 'NewUser'. (Optional, ansonsten login NewUser nachdem ein Konsolenfenster geffnet wurde)
+#Edit von /usr/bin/startwindowsterminalsession ersetzen von 'root' mit 'NewUser'. (Optional, ansonsten login NewUser nachdem ein Konsolenfenster geöffnet wurde)
 
 if `cat "/usr/bin/startwindowsterminalsession" | grep -q "termcommand" `; then
  echo "Replacee terminaluser with $NewUser in: /usr/bin/startwindowsterminalsession"
@@ -57,13 +57,13 @@ fi
 cat "/usr/bin/startwindowsterminalsession" | grep "sux "
 echo " --------------- "
 sleep 10
-#Schreibrechte, muss nicht sein aber es vereinfacht das kopieren von Files!
-#Edit /etc/fstab um einen nicht root Benutzer Schreibrechte auf /mnt/win zu ermglichen.
+#Schreibrechte, müssen nicht sein, aber es vereinfacht das Kopieren von Files!
+#Edit /etc/fstab um einem nicht root Benutzer Schreibrechte auf /mnt/win zu ermöglichen.
 #Letzte Zeile von "/dev/cofs0 /mnt/win cofs defaults 0 0" auf "/dev/cofs0 /mnt/win cofs defaults,uid=1001,gid=100 0 0" aendern.
-#Der uid Parameter in der letzten Zeile ist wichtig und der sollte die id des Benutzers ?NewUser? entsprechen.
-#Der erste Benutzer der angelegt wird hat id 1001, aber um sicherzugehen, dass NewUser wirklich id 1001 hat bitte wie folgt nachprfen:
-#Zur Kontrolle fr Benutzername ?NewUser?:
-#id NewUser [Enter] sollte das Ergebniss liefern:
+#Der uid Parameter in der letzten Zeile ist wichtig und der sollte der id des Benutzers ?NewUser? entsprechen.
+#Der erste Benutzer der angelegt wird hat id 1001, aber um sicherzugehen, dass NewUser wirklich id 1001 hat bitte wie folgt nachprüfen:
+#Zur Kontrolle für Benutzername ?NewUser?:
+#id NewUser [Enter] sollte das Ergebnis liefern:
 #uid=1001(NewUser) gid=1001(NewUser) groups=1001(NewUser)
 User_uid=$(id $NewUser)
 User_uid="${User_uid:0:8}" 

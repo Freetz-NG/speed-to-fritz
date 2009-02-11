@@ -67,7 +67,7 @@ echo "invoking 'speed-to-freetz'"
 #echo "With W501 it is only possible to use an older firmware version."
 #echo 
 echo "---------------------------------------------------------------------------------"
-# Removing privious sp2fritz sources if still existent                         
+# Removing previous sp2fritz sources if still existent                         
 rm -rf "$FBDIR"
 rm -rf "$FBDIR_2"
 rm -rf "$SPDIR"
@@ -153,7 +153,7 @@ fi
 done
 echo
 echo
-#Set Freetz /dl Downloaddirectory to windows partition if existent to free up room needed for working, if andLinux is used 
+#Set Freetz /dl Downloaddirectory to windows partition if existent to free up space needed for working, if andLinux is used 
 WinPartitopn="/mnt/win/dl"
 WinPartitopn=`echo "$WinPartitopn" | tr '/' '\/' `
 #echo "WinPartitopn:$WinPartitopn"

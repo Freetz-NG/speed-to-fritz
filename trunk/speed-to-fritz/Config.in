@@ -670,8 +670,8 @@ config  ORI
 		If your PC netcard is set to DHCP and you did restart the PC you must set the PC netcard to:
 		IP 192.168.178.19 
 		MASK 255.255.0.0
-		Only one netcard should be installed, or you specifiy the IF Option as well.
-		Keep in mind if The Speedport is not responding, the speesport my use the alternative IP.
+		Only one netcard should be installed, or you specify the IF Option as well.
+		Keep in mind if the speedport is not responding, the speedport my use the alternative IP.
 		Use IP Option to change this. 
 
 config PUSHCONF
@@ -713,7 +713,7 @@ config EXPORT_REMOVE_MENU_ITEM
 	bool "Unuseable menues (remove)"
 	default y
 	help
-		Set this to 'y' if you like to remove Fon3 (or more depending on the type of box) frome some menues. 
+		Set this to 'y' if you like to remove Fon3 (or more depending on the type of box) from some menues. 
 		Both source files must be without leading "#", diff result is in directory ./LogSRC_SRC2
 config EXPORT_ADD_SUPPORT
 	bool "Support menu-item (add)"
@@ -753,7 +753,7 @@ config EXPORT_DO_GSM_PATCH
 	bool "Show GSM Page, if present"
 	default n
 	help
-		Enables GSM page without divice pluged in. Usual a GSM modem shows only up if the device is pluged in.
+		Enables GSM page without device plugged in. Usual a GSM modem shows only up if the device is plugged in.
 config SET_NAME
 	bool "Own productname (setup)"
 	default n
@@ -797,7 +797,7 @@ config EXPORT_ENABLE_EXT2
 		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext3/ext3.ko
 		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/mbcache.ko
 		"2.6.19.2" must match the kernelversion!  
- 		Or you can select a 3rd Firmware from where the driver will be taken.
+ 		Or you can select a 3rd Firmware from which the driver will be taken.
 		
 config EXPORT_USE_SOURCE2_WEBMNUE
 	bool "Use source 3 webfiles"
@@ -806,7 +806,7 @@ config EXPORT_USE_SOURCE2_WEBMNUE
 	default n
 	help
 		Use this additional option if new firmware with alternative menues is used, 
-		with limited funktionality but interesting for experiments.
+		with limited functionality but interesting for experiments.
 
 comment "DSL Options --------------------------------------------------------"
 config EXPORT_ATA_ONLY
@@ -817,7 +817,7 @@ config EXPORT_ATA_ONLY
  
 	help
 		Use this additional option, if VDSL or ADSL is not needed or not 
-		useable width the Firmwares in use.
+		useable with the Firmwares in use.
 		"All In One" or similar firmwares in combination with T-com .58
 		can only be used in ATA Mode.
 		In Case of W501, no fon will be useable with this option.
@@ -897,14 +897,14 @@ config EXPORT_SETATM
 		    default "8"
 	    help
 		This is the value used instead, 
-		tcom uses "1" but my be specified by your proivider.
+		tcom uses "1" but my be specified by your provider.
  	config  EXPORT_VCI
 	    depends on EXPORT_SETATM
 	    string "VCI value"
 		    default "48"
 	    help
 		This is the value used instead, 
-		tcom uses "32" but my be specified by your proivider.
+		tcom uses "32" but my be specified by your provider.
 
 choice
 	prompt "SAR MUX Type: "
@@ -1000,7 +1000,7 @@ config EXPORT_FORCE_CLEAR_FLASH
 	default n
 	help
 		Set this to "y" if Firmwares are used witch are older or much newer as the one installed. 
-		Usual this is also made automtically on base of versionsnumbers but in some cases 
+		Usual this is also made automatically on base of versionsnumbers but in some cases 
 		versions will not indicate the changes made by the skript. Ths will prevent a reboot loop,
 		coursed by settings incompatibility. 
 
@@ -1013,9 +1013,9 @@ config EXPORT_CONFIG_TR069
 		automatically if new t-com firmware is available, if this happens, it is not sure
 		that your box will funktion normal again, so don't use this option 
 		expect you be aware of this case.
-		You must set OEM to the brand you use.  
-		Autoconfiguration is only set on if AVM Firmware suports this Opition!.
-		ATA is disablet if tr069 is turned on.
+		You must set OEM to the branding you use.  
+		Autoconfiguration is only set on if AVM Firmware suports this option!.
+		ATA is disabled if tr069 is turned on.
 		
 config EXPORT_CONFIG_TR064
 	bool "Enable LAN autoconfiguration TR064"
@@ -1025,7 +1025,7 @@ config EXPORT_CONFIG_TR064
 		your box will function normal again, so don't use this option 
 		expect you be aware of this case.
 		Autoconfiguration from within the internal LAN is only 
-		set on if AVM Firmware suports this Opition!.
+		set on if AVM Firmware supports this option!.
 
 comment "TEST Options -------------------------------------------------------"
 
@@ -1190,7 +1190,7 @@ config SET_FREETZ_REVISION
 	default y if TYPE_58  && TYPE_SPEEDPORT_W920V
 	help
 	    normaly this is not set, but in specail cases new revisions of freetz
-	    cant be used in combination with the firmware on wants to use.
+	    can't be used in combination with the firmware on wants to use.
 	    So type in the revision number, this will be used with start-freetz.sh
 	    script only. 
 
