@@ -122,7 +122,7 @@ fi
 #ACTION=="add", SUBSYSTEM=="net", KERNEL=="eth*|ath*|wlan*|ra*|sta*"
 if [ -e /etc/udev/rules.d/75-persistent-net-generator.rules ]; then 
  sed -i -e 's/eth..//' "/etc/udev/rules.d/75-persistent-net-generator.rules"
- echo " -- removed udev ethx"
+ echo " -- removed udev eth"
  sleep 2
 fi
 cat <<EOF > /etc/udev/rules.d/70-persistent-net.rules
@@ -152,12 +152,12 @@ iface eth1 inet static
 #     gateway 192.168.11.1
 
 iface eth2 inet static
-     address 192.168.178.19
+     address 192.168.178.10
      netmask 255.255.0.0
      gateway 192.168.178.1
 
 #iface eth3 inet static
-#     address 192.168.2.19
+#     address 192.168.2.10
 #     netmask 255.255.0.0
 #     gateway 192.168.2.1
 

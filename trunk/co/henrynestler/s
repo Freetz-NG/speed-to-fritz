@@ -1,0 +1,16 @@
+#!/bin/bash
+DVERSION="20090210"
+DVERSION_PRI="20090205"
+#[ -f ./colinux-0.8.0-$DVERSION.src.tgz ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/colinux-0.8.0-$DVERSION.src.tgz"
+#[ -f ./daemons-0.8.0-$DVERSION.dbg.zip ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/daemons-0.8.0-$DVERSION.dbg.zip"
+#[ -f ./daemons-0.8.0-$DVERSION.zip ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/daemons-0.8.0-$DVERSION.zip"
+#[ -f ./modules-2.6.22.18-co-0.8.0-$DVERSION.tgz ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/modules-2.6.22.18-co-0.8.0-$DVERSION.tgz" \
+#|| 
+wget --spider --no-remove-listing -P "./tmp" "http://www.henrynestler.com/colinux/autobuild" 
+
+
+#&& mv "./modules-2.6.22.18-co-0.8.0-$DVERSION_PRI.tgz" "./modules-2.6.22.18-co-0.8.0-$DVERSION.tgz"
+#[ -f ./vmlinux-2.6.22.18-co-0.8.0-$DVERSION.zip ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/vmlinux-2.6.22.18-co-0.8.0-$DVERSION.zip" \
+#|| wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION_PRI/vmlinux-2.6.22.18-co-0.8.0-$DVERSION_PRI.zip" \
+#&& mv "./vmlinux-2.6.22.18-co-0.8.0-$DVERSION_PRI.zip" "./vmlinux-2.6.22.18-co-0.8.0-$DVERSION.zip"
+sleep 10

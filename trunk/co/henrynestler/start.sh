@@ -21,20 +21,57 @@ echo "==========================================================================
 [ -f ./file-utils-mingw-bin-stripped.zip ] || wget "http://www.henrynestler.com/colinux/tools/file-utils-mingw-bin-stripped.zip"
 [ -f ./netdriver-tap84.zip ] || wget "http://www.henrynestler.com/colinux/tools/netdriver-tap84.zip"
 [ -f ./tap32-driver-v9.zip ] || wget "http://www.sixxs.net/archive/sixxs/aiccu/windows/tap32-driver-v9.zip"
-DVERSION="20090208"
-DVERSION_PRI="20090205"
+echo "====================================================================================================="
+#get_latest_colinux
+INDEX="./index"
+LISTING="./listing"
+TMP="./temp"
+rm -f $TMP
+rm -f "$TMP"1
+rm -f "$INDEX"*
+rm -f $LISTING
+wget --no-remove-listing "http://www.henrynestler.com/colinux/autobuild" 
+cat $INDEX.html | grep 'devel-' | sed -e "s|\/\">.*$||" | sed -e "s|^.*devel-||" > $LISTING
+rm -f "$INDEX"*
+tac $LISTING > $TMP
+rm -f $LISTING
+read DVERSION < $TMP
+echo "coVersion: $DVERSION"
+sed -i -e "/$DVERSION/d" $TMP
+cp $TMP "$TMP"1 
+function get_older_modules()
+{
+while ! [ -e "./modules-2.6.22.18-co-0.8.0-$DVERSION.tgz" ]
+do
+    read DVERSION_PRI < ./$TMP
+    echo "Zeile: $DVERSION_PRI"
+    sed -i -e "/$DVERSION_PRI/d" "$TMP" 
+    wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION_PRI/modules-2.6.22.18-co-0.8.0-$DVERSION_PRI.tgz" \
+    && mv "./modules-2.6.22.18-co-0.8.0-$DVERSION_PRI.tgz" "./modules-2.6.22.18-co-0.8.0-$DVERSION.tgz" \
+    && return 0
+done
+}
+function get_older_vmlinux()
+{
+while ! [ -e "./vmlinux-2.6.22.18-co-0.8.0-$DVERSION.zip" ]
+do
+    read DVERSION_PRI < "$TMP"1
+    echo "Zeile: $DVERSION_PRI"
+    sed -i -e "/$DVERSION_PRI/d" "$TMP"1 
+    wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION_PRI/vmlinux-2.6.22.18-co-0.8.0-$DVERSION_PRI.zip" \
+    && mv "./vmlinux-2.6.22.18-co-0.8.0-$DVERSION_PRI.zip" "./vmlinux-2.6.22.18-co-0.8.0-$DVERSION.zip" \
+    && return 0
+done
+}
 [ -f ./colinux-0.8.0-$DVERSION.src.tgz ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/colinux-0.8.0-$DVERSION.src.tgz"
 [ -f ./daemons-0.8.0-$DVERSION.dbg.zip ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/daemons-0.8.0-$DVERSION.dbg.zip"
 [ -f ./daemons-0.8.0-$DVERSION.zip ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/daemons-0.8.0-$DVERSION.zip"
-[ -f ./modules-2.6.22.18-co-0.8.0-$DVERSION.tgz ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/modules-2.6.22.18-co-0.8.0-$DVERSION.tgz" \
-|| mv "./modules-2.6.22.18-co-0.8.0-$DVERSION_PRI.tgz" "./modules-2.6.22.18-co-0.8.0-$DVERSION.tgz"
-[ -f ./vmlinux-2.6.22.18-co-0.8.0-$DVERSION.zip ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/vmlinux-2.6.22.18-co-0.8.0-$DVERSION.zip" \
-|| mv "./vmlinux-2.6.22.18-co-0.8.0-$DVERSION_PRI.zip" "./vmlinux-2.6.22.18-co-0.8.0-$DVERSION.zip"
-
-#sleep 10
-#exit
+[ -f ./modules-2.6.22.18-co-0.8.0-$DVERSION.tgz ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/modules-2.6.22.18-co-0.8.0-$DVERSION.tgz" || get_older_modules
+[ -f ./vmlinux-2.6.22.18-co-0.8.0-$DVERSION.zip ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/vmlinux-2.6.22.18-co-0.8.0-$DVERSION.zip" || get_older_vmlinux
+rm -f $TMP
+rm -f "$TMP"1
 echo "====================================================================================================="
-
+echo "====================================================================================================="
 export home=$(pwd)
 export COLINUX_VER=$(find -name 'colinux-*.src.tgz' | LC_ALL=C sort | tail -n1 | sed 's:.*colinux-\(.*\).src.tgz:\1:')
 echo "New colinux version: $COLINUX_VER"

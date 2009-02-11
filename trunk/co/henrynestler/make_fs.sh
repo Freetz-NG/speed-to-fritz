@@ -5,14 +5,13 @@ if ! [ `id -u` -eq 0 ]; then
  clear
   echo
   echo "This script needs to be executed with 'su' privileges."
-  echo "Speed-to-fritz must be run as normal user as well!" 
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   sleep 10
   exit 0
 fi
 
 #!/bin/sh
-#6. Create, resize and optimize images
+# Create, resize and optimize images
 #-------------------------------------
 
 #Mostly images are created from minimal distribution installation under Qemu.
@@ -38,21 +37,17 @@ CO_MOUNT_NEW=$CO_ROOT/tmp/new
 umount $CO_MOUNT_NEW
 #umount $CO_MOUNT_OLD
 	
-#Final clean and resize the image:
-#- You should have an image file, here
+#- You should have an image file, here if not,
 #- Create an new empty file.  This is the best to compress it very small.
 #Use your favorite size as count. Blocksize is 1MB, the count=1024 in
 #the example creates a file with size of 1GB. Increase the count for
 #bigger images.
-
 
 #For coLinux version >= 0.7.1 the old and new image files can live on "cofs"
 #mounted file system.  That means, you can create the new image directly in
 #our Windows filesystem (... of=/mmt/cofs-Windows/image.new ...).
 	      
 #- Create a filesystem on the new file
-		      
-#mkfs.ext3 ./image.new
 
 #  dd bs=1k count=$CO_SIZE if=/dev/zero of=$CO_IMAGE_NEW
 #  mkfs.ext3 -J size=1 -F -m 0 $CO_IMAGE_NEW
@@ -64,10 +59,11 @@ fi
 #  mkdir -p $CO_MOUNT_OLD
 #fi
 
-#- Mount new and old images
+#- Mount new and (old) images
 mount -o loop $CO_IMAGE_NEW $CO_MOUNT_NEW
 #mount -o loop,ro $CO_IMAGE_OLD $CO_MOUNT_OLD
 
+#Final clean the image:
 echo 	"- Clean files in /var/log (don't remove files! Set the size to zero.)"
 
 for FILE in `ls $CO_MOUNT_NEW/var/log` ; do 
@@ -122,7 +118,7 @@ tune2fs -i 0 -c 60 $CO_IMAGE_NEW
 										
 bzip2 <$CO_IMAGE_NEW >$CO_IMAGE_NEW.bz2
 										    
-#- Test the /tmp/image.new on coLinux now.
+#- Test the $CO_IMAGE_NEW on coLinux now.
 #If it fails, repair it and repeat the steps from beginning
 										        
 			  
