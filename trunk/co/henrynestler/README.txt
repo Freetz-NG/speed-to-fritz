@@ -23,7 +23,7 @@ In /etc/network/interfaces
 eth0 is set to: dhcp
 eth2 is set to: 192.168.178.10
 You must rename your Windows physical LAN connection to 'LAN1' if the install script could not do it.
-ATENTION!
+ATTENTION!
 If eth2 is enable by you, then make sure you already have a physical LAN connection up running with a link to the router, 
 because there is a bug that blocks all activity if this is not the case.
 

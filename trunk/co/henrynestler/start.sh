@@ -14,8 +14,6 @@ find ../ -type d -name .svn | xargs rm -rf
 echo "Backup: ../bfin-colinux-ori"
 [ -d ../bfin-colinux ] && rm -R ../bfin-colinux
 mkdir ../bfin-colinux
-#cp -af ../bfin-colinux/* ../bfin-colinux-ori/
-cp -af ../bfin-colinux-ori/* ../bfin-colinux
 echo "====================================================================================================="
 [ -f ./bzip2-102-x86-win32.zip ] || wget "http://www.henrynestler.com/colinux/tools/bzip2-102-x86-win32.zip"
 [ -f ./file-utils-mingw-bin-stripped.zip ] || wget "http://www.henrynestler.com/colinux/tools/file-utils-mingw-bin-stripped.zip"
@@ -75,6 +73,15 @@ echo "==========================================================================
 export home=$(pwd)
 export COLINUX_VER=$(find -name 'colinux-*.src.tgz' | LC_ALL=C sort | tail -n1 | sed 's:.*colinux-\(.*\).src.tgz:\1:')
 echo "New colinux version: $COLINUX_VER"
+cd ../bfin-colinux-ori/trunk/upstream
+[ -f coLinux-0.7.3.exe ] || wget "http://www.henrynestler.com/colinux/releases/0.7.3/coLinux-0.7.3.exe"
+#[ -f coLinux-0.7.3-src.tgz ] || wget "http://www.henrynestler.com/colinux/releases/0.7.3/coLinux-0.7.3-src.tgz"
+[ -f Xming-6-9-0-31-setup.exe ] || wget "http://downloads.sourceforge.net/xming/Xming-6-9-0-31-setup.exe?use_mirror="
+#[ -f Xming-fonts-7-3-0-33-setup.exe ] || wget "http://downloads.sourceforge.net/xming/Xming-fonts-7-3-0-33-setup.exe?use_mirror="
+[ -f WinPcap_4_0_2.exe ] || wget "http://www.winpcap.org/install/bin/WinPcap_4_0_2.exe"
+[ -f putty-0.60-installer.exe ] || wget "http://the.earth.li/~sgtatham/putty/0.60/x86/putty-0.60-installer.exe"
+cd $home
+cp -af ../bfin-colinux-ori/* ../bfin-colinux
 cd ../bfin-colinux/trunk
 export COLINUX_OLDVER=$(find upstream -name 'coLinux-*.exe' | LC_ALL=C sort | tail -n1 | sed 's:.*coLinux-\(.*\).exe:\1:')
 echo "Old colinux version: $COLINUX_OLDVER"
@@ -83,7 +90,7 @@ mkdir and
 cd and
 #some files are not includese with new releas so we need them from the old package
 7z x -y ../upstream/coLinux-$COLINUX_OLDVER.exe
-rm ../upstream/coLinux-$COLINUX_OLDVER.exe
+#rm ../upstream/coLinux-$COLINUX_OLDVER.exe
 #
 [ -e ../patches/colinux-$COLINUX_OLDVER-initrd-hook.patch ] && cp ../patches/colinux-$COLINUX_OLDVER-initrd-hook.patch ../patches/colinux-$COLINUX_VER-initrd-hook.patch
 [ -e ../patches/colinux-$COLINUX_OLDVER-initrd-hook.patch ] && rm ../patches/colinux-$COLINUX_OLDVER-initrd-hook.patch
@@ -126,14 +133,13 @@ mv mkFile.exe $and/mkFile.exe
 #chmod 777 ./vmlinux
 
 cp -f vmlinux $and/vmlinux
-
+mkdir -p $and/netdriver
 cp modules-2.6.22.18-co-$COLINUX_VER.tgz $and/vmlinux-modules.tar.gz
 mv OemWin2k.inf $and/netdriver/OemWin2k.inf
 mv README.TXT $and/netdriver/README.TXT
 mv tap.cat $and/netdriver/tap.cat
 mv tap0801co.sys $and/netdriver/tap0801co.sys
 mv tapcontrol.exe $and/netdriver/tapcontrol.exe
-
 rm URL.txt
 rm mkSparse.exe
 rm spSize.exe
