@@ -88,9 +88,8 @@ echo "Old colinux version: $COLINUX_OLDVER"
 [ -d and ] && rm -R and
 mkdir and
 cd and
-#some files are not includese with new releas so we need them from the old package
+#--initrd.gz and colinux-daemon.txt are not includese with new releas so we need them from the old package
 7z x -y ../upstream/coLinux-$COLINUX_OLDVER.exe
-#rm ../upstream/coLinux-$COLINUX_OLDVER.exe
 #
 [ -e ../patches/colinux-$COLINUX_OLDVER-initrd-hook.patch ] && cp ../patches/colinux-$COLINUX_OLDVER-initrd-hook.patch ../patches/colinux-$COLINUX_VER-initrd-hook.patch
 [ -e ../patches/colinux-$COLINUX_OLDVER-initrd-hook.patch ] && rm ../patches/colinux-$COLINUX_OLDVER-initrd-hook.patch
@@ -105,28 +104,21 @@ cp ./colinux-$COLINUX_VER.src.tgz ../bfin-colinux/trunk/upstream/coLinux-${COLIN
 
 
 7z x -y  vmlinux-2.6.22.18-co-$COLINUX_VER.zip
-#7z x -y  daemons-$COLINUX_VER.dbg.zip 
 7z x -y  daemons-$COLINUX_VER.zip
 7z x -y  netdriver-tap84.zip
 7z x -y  tap32-driver-v9.zip 
 7z x -y  file-utils-mingw-bin-stripped.zip
 mv ./tuntap $and
 
-#mv README.txt $and/README.txt  
-#mv Uninstall.exe $and/Uninstall.exe
-#mv blackfin.ico $and/blackfin.ico
 mv colinux-bridged-net-daemon.exe $and/colinux-bridged-net-daemon.exe
 mv colinux-console-fltk.exe $and/colinux-console-fltk.exe
 mv colinux-console-nt.exe $and/colinux-console-nt.exe
 mv colinux-daemon.exe $and/colinux-daemon.exe
-#mv colinux-daemon.txt $and/colinux-daemon.txt
 mv colinux-debug-daemon.exe $and/colinux-debug-daemon.exe
 mv colinux-ndis-net-daemon.exe $and/colinux-ndis-net-daemon.exe
 mv colinux-net-daemon.exe $and/colinux-net-daemon.exe
 mv colinux-serial-daemon.exe $and/colinux-serial-daemon.exe
 mv colinux-slirp-net-daemon.exe $and/colinux-slirp-net-daemon.exe 
-#mv colinux.settings $and/colinux.settings
-#mv initrd.gz $and/initrd.gz
 mv linux.sys $and/linux.sys
 mv mkFile.exe $and/mkFile.exe
 
@@ -144,7 +136,6 @@ rm URL.txt
 rm mkSparse.exe
 rm spSize.exe
 rm vmlinux
-
 echo "====================================================================================================="
 
 ./build-and-installer.sh  

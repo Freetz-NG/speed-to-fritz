@@ -11,9 +11,13 @@ cp -fr ./scripts/* ../bfin-colinux/trunk/scripts
 [ -d ../bfin-colinux/trunk/patches/2 ] || mkdir ../bfin-colinux/trunk/patches/2
 cp -f ./colinux.nsi ../bfin-colinux/trunk/patches/2/colinux.nsi
 cp ./srvstart.bat ../bfin-colinux/trunk/and/srvstart.bat
-cp ./addtap.bat ../bfin-colinux/trunk/and/netdriver/addtap.bat
+cp ./addtap.bat ../bfin-colinux/trunk/and/netdriver/andtap.bat
 cp ./srvstop.bat ../bfin-colinux/trunk/and/srvstop.bat
 cp ./README.txt ../bfin-colinux/trunk/and/README.txt
+#this files ar from the older firmware
+#cp ./initrd.gz ../bfin-colinux/trunk/and/initrd.gz
+#cp colinux-daemon.txt ../bfin-colinux/trunk/and/colinux-daemon.txt
+
 #ln -s $(pwd)/Launcher ../bfin-colinux/trunk/and
 sed -i -e 's|MediaStatus,          Default,   0, "0"|MediaStatus,          Default,   0, "1"|g' ../bfin-colinux/trunk/and/netdriver/OemWin2k.inf
 sed -i -e 's|MediaStatus,          Default,   0, "0"|MediaStatus,          Default,   0, "1"|g' ../bfin-colinux/trunk/and/tuntap/OemWin2k.inf

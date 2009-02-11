@@ -231,7 +231,7 @@ no_old_linux_sys:
   ;Backup config file if present
   #IfFileExists "$INSTDIR\example.conf" 0 +2
     #CopyFiles /SILENT "$INSTDIR\example.conf" "$INSTDIR\example.conf.old"
-  #File "premaid\example.conf"
+  File "premaid\example.conf"
 
   ; Remove kludge from older installations
   Delete "$INSTDIR\packet.dll"
@@ -331,7 +331,6 @@ Section "Virtual Ethernet Driver (coLinux TAP-Win32)" SeccoLinuxNet
   File "premaid\netdriver\tap0801co.sys"
   File "premaid\netdriver\tapcontrol.exe"
   File "premaid\netdriver\tap.cat"
-  File "premaid\netdriver\addtap.bat"
 
   SetOutPath "$INSTDIR"
   File "premaid\colinux-net-daemon.exe"
@@ -663,7 +662,7 @@ Section "WinPcap" WinPcap
 SectionEnd
 
 Section "XMing" XMing
-  File /oname=Xming-setup.exe upstream\Xming-*-setup.exe
+  File /oname=Xming-setup.exe upstream\Xming-6*-setup.exe
   ExecWait Xming-setup.exe
   Delete Xming-setup.exe
 SectionEnd
