@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="some unused files removed"
+comment="added ./s.sh for starting without su."
 
 
 
