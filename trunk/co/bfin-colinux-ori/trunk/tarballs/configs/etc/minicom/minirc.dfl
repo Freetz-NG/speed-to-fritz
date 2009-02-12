@@ -1,6 +1,0 @@
-pr port /dev/ttyS0
-pu baudrate 57600
-pu minit
-pu mreset
-pu mhangup
-pu rtscts No
