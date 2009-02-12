@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="colinux update to 090124"
+comment="some unused files removed"
 
 
 
@@ -17,13 +17,22 @@ if [ `id -u` -eq 0 ]; then
 fi
 echo "-------------------------------------------------------------------------------------------------------------"
 
-#svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
-#svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
+svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
 cd trunk
-svn add * --force
 #svn delete --force ./co/henrynestler/upload-file.sh
+#svn delete --force ./co/henrynestler/s
+#svn delete --force ./co/bfin-colinux-ori/trunk/upstream/WinPcap_4_0_2.exe
+#svn delete --force ./co/bfin-colinux-ori/trunk/upstream/log
+#svn delete --force ./co/bfin-colinux-ori/trunk/upstream/Xming-6-9-0-31-setup.exe
+#svn delete --force ./co/bfin-colinux-ori/trunk/upstream/coLinux-0.7.3-src.tar.gz
+#svn delete --force ./co/bfin-colinux-ori/trunk/upstream/coLinux-0.7.3.exe
+#svn delete --force ./co/bfin-colinux-ori/trunk/upstream/putty-0.60-installer.exe
+#svn delete --force ./co/bfin-colinux-ori/trunk/scripts/init.sh
+#svn delete --force ./co/bfin-colinux-ori/trunk/tarballs/configs
+#svn delete --force ./co/bfin-colinux-ori/trunk/make-release.sh
+
 #svn revert 
-#svn add speed-to-fritz
+svn add * --force
 svn status
 svn diff > ../patch.diff
 cat ../patch.diff

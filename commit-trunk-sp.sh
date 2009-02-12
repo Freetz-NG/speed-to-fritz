@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="W920: 7270 menuoption PHONE used for prerelaese, to be compatibel with freetz"
+comment="en Version 'buchentryinfo' in patch rverselookup fixed."
 
 
 
@@ -23,19 +23,31 @@ ${date}\n    - ${comment}" "${DSTI}"
 DSTI="./trunk/speed-to-fritz/sp-to-fritz.sh"
 Year=$(date +%y)
 Month=$(date +%m)
-Day=$(date +%d)
+Day=$(date +%d) 
 sed -i -e "s/Tag=\"..\"; Monat=\"..\"; Jahr=\"..\"/Tag=\"${Day}\"; Monat=\"${Month}\"; Jahr=\"${Year}\"/" "${DSTI}"
 echo "-------------------------------------------------------------------------------------------------------------"
 sleep 2
 #exit
 
-#svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
-#svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
+svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
 cd trunk
-svn add * --force
 #svn delete --force ./speed-to-fritz/ftp192
+#svn delete --force ./speed-to-fritz/info.txt.r77
+#svn delete --force ./speed-to-fritz/info.txt.r79
+#svn delete --force ./speed-to-fritz/info.txt.mine
+
+#svn delete --force ./speed-to-fritz/alien/subscripts/500.init
+#svn delete --force ./speed-to-fritz/alien/subscripts/501.init
+#svn delete --force ./speed-to-fritz/alien/subscripts/701.init
+#svn delete --force ./speed-to-fritz/alien/subscripts/900.init
+#svn delete --force ./speed-to-fritz/alien/subscripts/add_dect.47.sh
+#svn delete --force ./speed-to-fritz/alien/subscripts/inc_func_init
+#svn delete --force ./speed-to-fritz/alien/patches/add_tam_en.47.patch
+#svn delete --force ./speed-to-fritz/alien/patches/add_tamhelp_en.47.patch
+
 #svn revert 
-#svn add speed-to-fritz
+svn add * --force
+
 svn status
 svn diff > ../patch.diff
 cat ../patch.diff
@@ -44,4 +56,3 @@ echo -n "   Execute Commit?'  (y/n)? "; read -n 1 -s YESNO; echo
 [ "$YESNO" = "y" ] &&   svn commit --message "${date} - ${comment}"
 
 
- 
