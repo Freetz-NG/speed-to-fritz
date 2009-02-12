@@ -4,6 +4,19 @@
 # revision 11
 #http://docs.blackfin.uclinux.org/doku.php?id=colinux:building-installer&s[]=colinux
 # Remove left over Subversion directories
+echo "-------------------------------------------------------------------------------------------------------------"
+echo
+if ! [ `id -u` -eq 0 ]; then
+ clear
+  echo
+  echo "This script needs to be executed with 'su' privileges."
+  echo 
+  echo "Use ./s.sh instead!"
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  sleep 10
+  exit 0
+fi
+echo "-------------------------------------------------------------------------------------------------------------"
 echo "====================================================================================================="
 echo "====================================================================================================="
 echo "Checking for left over Subversion directories"
