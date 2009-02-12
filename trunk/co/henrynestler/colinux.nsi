@@ -133,7 +133,7 @@ Section
 
   ;Check running 64 bit and block it (NSIS 2.21 and newer)
   ${If} ${RunningX64}
-    MessageBox MB_OK "andLinux can't run on x64"
+    MessageBox MB_OK "freetzLinux can't run on x64"
     DetailPrint "Abort on 64 bit"
     Abort
   ${EndIf}
@@ -391,14 +391,14 @@ Function PageFileSystem
     Abort
   ${EndIf}
 
-  ${NSD_CreateLabel} 0 0% 60% 24u "How much RAM should andlinux use? (in MB)$\r$\n  (recommend: min = 256, optimal = 512+)"
+  ${NSD_CreateLabel} 0 0% 60% 24u "How much RAM should freetzlinux use? (in MB)$\r$\n  (recommend: min = 256, optimal = 512+)"
   Pop $FS_RAM_Label
   ${NSD_CreateText} 60% 2% 25% 12u $FS_RAM_Value
   Pop $FS_RAM_Text
 
 !ifndef BFIN_BASE
 
-  ${NSD_CreateLabel} 0 25% 60% 24u "How much swap should andlinux use? (in MB)$\r$\n  (recommend: min = RAM, optimal = 1.5xRAM)"
+  ${NSD_CreateLabel} 0 25% 60% 24u "How much swap should freetzlinux use? (in MB)$\r$\n  (recommend: min = RAM, optimal = 1.5xRAM)"
   Pop $FS_SWAP_Label
   ${NSD_CreateText} 60% 27% 25% 12u $FS_SWAP_Value
   Pop $FS_SWAP_Text
@@ -480,7 +480,7 @@ Function PageNetworking
     Abort
   ${EndIf}
 
-  ${NSD_CreateLabel} 0 0% 100% 24u "Configure the network settings of the private TAP network tunnel for communication between Windows and andLinux.  The default values are fine."
+  ${NSD_CreateLabel} 0 0% 100% 24u "Configure the network settings of the private TAP network tunnel for communication between Windows and freetzLinux.  The default values are fine."
   Pop $NW_Label
 
   ${NSD_CreateLabel} 0 20% 50% 12u "Windows IP Address"
