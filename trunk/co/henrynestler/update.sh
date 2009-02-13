@@ -14,4 +14,6 @@ sudo apt-get autoclean -y
 sudo apt-get clean -y
 
 exit
+apt-get install update-manager-core
+do-release-upgrade -d #ohne -d 
 

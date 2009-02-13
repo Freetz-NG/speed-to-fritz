@@ -3,7 +3,7 @@ export PATH=$PATH:/sbin
 #dont change names of variables because some of the names are used in other files as well!
 ##########################################################################
 # Date of current version:                                          
-Tag="12"; Monat="02"; Jahr="09"
+Tag="13"; Monat="02"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -217,8 +217,8 @@ case "$1" in
 	export SPNUM="500"
 	export HWID="91"
 	export CLASS="Sinus"
-#	export FBMOD="7150"
-#	export FBHWRevision="106"
+	export FBMOD="7150"
+	export FBHWRevision="76"
 	export PROD="DECT_W500V"
     	export CONFIG_PRODUKT="Fritz_Box_$PROD"
 	export HWRevision="${HWID}.1.1.0"
@@ -248,8 +248,8 @@ case "$1" in
 "501")
 	export HWID="93"
 	export SPNUM="501"
-#	export FBMOD="7141"
-#	export FBHWRevision="108"
+	export FBMOD="7141"
+	export FBHWRevision="108"
 	export CLASS="Speedport"
 	export PROD="SpeedportW501V"
     	export CONFIG_PRODUKT="Fritz_Box_$PROD"
@@ -280,6 +280,18 @@ case "$1" in
 	  export CONFIG_VDSL="n"
 	  export CONFIG_LABOR_DSL="n"
 	fi 
+	export CONFIG_EXPERT="y"
+	export CONFIG_FONGUI2="y"
+	export CONFIG_IPONE="n"
+	export CONFIG_FON_HD="n"
+	export CONFIG_CAPI_TE="n"
+	export CONFIG_CAPI_XILINX="n"
+	export CONFIG_USB_HOST_AVM="n"
+	export CONFIG_USB_PRINT_SERV="n"
+	export CONFIG_USB_STORAGE="n"
+	export CONFIG_USB_WLAN_AUTH="n"
+	export CONFIG_WLAN_WMM="n"
+	export CONFIG_WLAN_WPS="n"
 	;;
 "701"|"707")
 	export SPMOD="707"

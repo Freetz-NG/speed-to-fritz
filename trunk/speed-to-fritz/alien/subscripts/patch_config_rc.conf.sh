@@ -52,6 +52,18 @@ sed -i -e "s|CONFIG_SERVICEPORTAL_URL=\".*$|CONFIG_SERVICEPORTAL_URL=\"${CONFIG_
 [ "$CONFIG_USB_WLAN_AUTH" ] &&  sed -i -e "s/CONFIG_USB_WLAN_AUTH=\".*$/CONFIG_USB_WLAN_AUTH=\"${CONFIG_USB_WLAN_AUTH}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_USB_PRINT_SERV" ] &&  sed -i -e "s/CONFIG_USB_PRINT_SERV=\".*$/CONFIG_USB_PRINT_SERV=\"${CONFIG_USB_PRINT_SERV}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_VOL_COUNTER" ] &&  sed -i -e "s/CONFIG_VOL_COUNTER=\".*$/CONFIG_VOL_COUNTER=\"${CONFIG_VOL_COUNTER}\"/g" "${1}/etc/init.d/rc.conf"
+#W500
+[ "$CONFIG_ETH_COUNT" ] &&  sed -i -e "s/CONFIG_ETH_COUNT=\".*$/CONFIG_ETH_COUNT=\"${CONFIG_ETH_COUNT}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_EXPERT" ] &&  sed -i -e "s/CONFIG_EXPERT=\".*$/CONFIG_EXPERT=\"${CONFIG_EXPERT}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_FONGUI2" ] &&  sed -i -e "s/CONFIG_FONGUI2=\".*$/CONFIG_FONGUI2=\"${CONFIG_FONGUI2}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_IPONE" ] &&  sed -i -e "s/CONFIG_IPONE=\".*$/CONFIG_IPONE=\"${CONFIG_IPONE}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_UPNP" ] &&  sed -i -e "s/CONFIG_UPNP=\".*$/CONFIG_UPNP=\"${CONFIG_UPNP}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_FON_HD" ] &&  sed -i -e "s/CONFIG_FON_HD=\".*$/CONFIG_FON_HD=\"${CONFIG_FON_HD}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_CAPI_TE" ] &&  sed -i -e "s/CONFIG_CAPI_TE=\".*$/CONFIG_CAPI_TE=\"${CONFIG_CAPI_TE}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_CAPI_XILINX" ] &&  sed -i -e "s/CONFIG_CAPI_XILINX=\".*$/CONFIG_CAPI_XILINX=\"${CONFIG_CAPI_XILINX}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_USB_HOST_AVM" ] &&  sed -i -e "s/CONFIG_USB_HOST_AVM=\".*$/CONFIG_USB_HOST_AVM=\"${CONFIG_USB_HOST_AVM}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_WLAN_WMM" ] &&  sed -i -e "s/CONFIG_WLAN_WMM=\".*$/CONFIG_WLAN_WMM=\"${CONFIG_WLAN_WMM}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_WLAN_WPS" ] &&  sed -i -e "s/CONFIG_WLAN_WPS=\".*$/CONFIG_WLAN_WPS=\"${CONFIG_WLAN_WPS}\"/g" "${1}/etc/init.d/rc.conf"
 
 #[ "$" ] &&  sed -i -e "s/=\".*$/=\"${}\"/g" "${1}/etc/init.d/rc.conf"
 
