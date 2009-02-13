@@ -112,6 +112,9 @@ config AVM_AIO_13531
 config AVM7270_DSL_13225
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-13225.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.99-13225.image"
+config AVM7270_13486
+    string 
+    default "http://www.hostarea.de/server-02/Februar-3257971088.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.70-13486.image"
 config AVM7270_AIO_13538
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritz_box-labor-13538.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.70-13538.image"
@@ -312,9 +315,9 @@ choice
 	config TYPE_A59
 		bool "ANNEX_A_59"
 		depends on TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
-#	config TYPE_298
-#		bool "AIO_298"
-#		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+	config TYPE_13486
+		bool "13486"
+		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 	config TYPE_67m
 		bool "67m"
 		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
@@ -450,6 +453,8 @@ choice
 		bool "AVM7270_PHONE_13537"
 #	config TYPE_AVM7270_UMTS_13265
 #		bool "AVM7270_UMTS_13265"
+	config TYPE_AVM7270_13486
+		bool "AVM7270_13486"
 	config TYPE_AVM7270_MINI_67
 		bool "AVM7270_MINI_67"
 	config TYPE_AVM_LOCAL_IMAGE
@@ -520,6 +525,7 @@ config AVM_IMG
         default "$AVM7270_67m" 		if ( TYPE_67m ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
         default "$AVM7270_A59" 		if ( TYPE_A59 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
         default "$AVM7270_67"		if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+        default "$AVM7270_13486"	if ( TYPE_13486 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM7270_DSL_13225" 	if ( TYPE_DSL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM7270_AIO_13538"	if ( TYPE_AIO ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM7270_PHONE_13537" 	if ( TYPE_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
@@ -567,6 +573,7 @@ config SRC2_IMG
         default "$AVM7270_A59" 		if TYPE_AVM7270_A59
         default "$AVM7270_67" 		if TYPE_AVM7270_67
         default "$AVM7270_67m"	 	if TYPE_AVM7270_67m
+	default "$AVM7270_13486"	if TYPE_AVM7270_13486
 	default "$AVM7270_AIO_13538"	if TYPE_AVM7270_AIO_13538
         default "$AVM7270_DSL_13225" 	if TYPE_AVM7270_DSL_13225
         default "$AVM7270_PHONE_13537" 	if TYPE_AVM7270_PHONE_13537
@@ -585,6 +592,7 @@ config TYPE_LABOR_TYPE
         default "67" 		if TYPE_67
         default "67m" 		if TYPE_67m
         default "70" 		if TYPE_70
+        default "13486" 	if TYPE_13486
         default "BETA" 		if TYPE_BETA
         default "DSL" 		if TYPE_DSL
         default "GAMING" 	if TYPE_GAMING
