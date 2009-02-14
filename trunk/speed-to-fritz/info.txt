@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090214-0031
+    - W920: Firmware 13640 inserted into config.in
 20090213-1650
     - W920: Firmware 13486 insertete as option for special firmware,
 20090213-1250
