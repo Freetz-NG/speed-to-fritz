@@ -233,7 +233,7 @@ case "$1" in
 	export CONFIG_AB_COUNT="0"
 	export CONFIG_ETH_COUNT="1"
 	export CONFIG_MAILER="y"
-	export CONFIG_UPNP="n"
+	export CONFIG_UPNP="y"
 	export CONFIG_DECT="y"
 	export CONFIG_TAM="y"
 	export CONFIG_TAM_MODE="1"
@@ -241,12 +241,17 @@ case "$1" in
 	export CONFIG_Pots="1"
 	export kernel_size="7798784"
 	if [ "$ATA_ONLY" = "y" ]; then
+	  export CONFIG_ATA="n"  
 	  export CONFIG_ATA_FULL="y"
 	  export CONFIG_DSL="n"
 	  export CONFIG_DSL_MULTI_ANNEX="n"
 	  export CONFIG_VDSL="n"
 	  export CONFIG_LABOR_DSL="n"
 	fi 
+	[ "$CONFIG_TR064" == "" ] && export CONFIG_TR064="n"
+	[ "$CONFIG_TR069" == "" ] && export CONFIG_TR069="n"
+	[ "$HOSTNAME" == "" ] && export HOSTNAME="fritz.box"
+	[ "$NEWNAME" == "" ] && export NEWNAME="FRITZ!Box Fon WLAN Sinus W 500V"
 	;;
 "501")
 	export HWID="93"
@@ -279,6 +284,7 @@ case "$1" in
 	export CONFIG_Pots="1"
 	export kernel_size="3866624"
 	if [ "$ATA_ONLY" = "y" ]; then
+	  export CONFIG_ATA="n"  
 	  export CONFIG_AB_COUNT="0"
 	  export CONFIG_Pots="0"
 	  export CONFIG_ATA_FULL="y"
@@ -349,6 +355,7 @@ case "$1" in
 	export CONFIG_WLAN_MADWIFI="n"
 	export CONFIG_WLAN_OPENWIFI="n"
 	if [ "$ATA_ONLY" = "y" ]; then
+	  export CONFIG_ATA="n"  
 	  export CONFIG_ATA_FULL="y"
 	  export CONFIG_DSL="n"
 	  export CONFIG_DSL_MULTI_ANNEX="n"
@@ -412,6 +419,7 @@ case "$1" in
 	export CONFIG_WLAN_MADWIFI="n"
 	export CONFIG_WLAN_OPENWIFI="n"
 	if [ "$ATA_ONLY" = "y" ]; then
+	  export CONFIG_ATA="n"  
 	  export CONFIG_ATA_FULL="y"
 	  export CONFIG_DSL="n"
 	  export CONFIG_DSL_MULTI_ANNEX="n"
@@ -489,6 +497,7 @@ case "$1" in
 	export CONFIG_WLAN_MADWIFI="y"
 	export CONFIG_WLAN_OPENWIFI="n"
 	if [ "$ATA_ONLY" = "y" ]; then
+	  export CONFIG_ATA="n"  
 	  export CONFIG_ATA_FULL="y"
 	  export CONFIG_DSL="n"
 	  export CONFIG_DSL_MULTI_ANNEX="n"
@@ -530,6 +539,7 @@ case "$1" in
 	export CONFIG_UsbPrint="1"
 
 	if [ "$ATA_ONLY" = "y" ]; then
+	  export CONFIG_ATA="n"  
 	  export CONFIG_ATA_FULL="y"
 	  export CONFIG_DSL="n"
 	  export CONFIG_DSL_MULTI_ANNEX="n"
@@ -571,6 +581,7 @@ case "$1" in
 #	export CONFIG_VLYNQ0="3"
 #	export CONFIG_VLYNQ1="0"
 	if [ "$ATA_ONLY" = "y" ]; then
+	  export CONFIG_ATA="n"  
 	  export CONFIG_ATA_FULL="y"
 	  export CONFIG_DSL="n"
 	  export CONFIG_DSL_MULTI_ANNEX="n"

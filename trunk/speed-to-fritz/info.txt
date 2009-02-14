@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090214-0745
+    - Sinus 500 some variablels fixed by comparing with script dated 19.07.2008, one diffence remains usb menu is removeable now.
 20090214-0727
     - Remove 'software' in rem_usb_menu.sh corrected becaus liks is funktional.
 20090214-0556
