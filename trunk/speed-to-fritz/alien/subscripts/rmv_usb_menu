@@ -26,9 +26,9 @@ for ITEM in fon home konfig internet wlan system software; do
 
                echo2 "      /usr/www/${HTML}/de/menus/menu2_$ITEM.html"
 		#remove usb menu item
-               sed -i -e "s/^.*'usb',.*$/<li><\/li>/" "$1"/usr/www/${HTML}/de/menus/menu2_$ITEM.html
+               sed -i -e "s/^.*'usb',.*$//" "$1"/usr/www/${HTML}/de/menus/menu2_$ITEM.html
 		#remove software menu item
-               sed -i -e "s/^.*'software',.*$/<li><\/li>/" "$1"/usr/www/${HTML}/de/menus/menu2_$ITEM.html
+#               sed -i -e "s/^.*'software',.*$/<li><\/li>/" "$1"/usr/www/${HTML}/de/menus/menu2_$ITEM.html
        fi
 done
 
