@@ -149,7 +149,10 @@ default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_
 config AVM7270_67m
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it.54.04.67.image"
-
+### 7570
+config AVM7570_70
+    string 
+    default "http://www.hostarea.de/server-02/Februar-ac23b9e7d7.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.image"
 ###------------------------------------------------------------------------------------------------------------
 ###------------------------------------------------------------------------------------------------------------
 ###------------------------------------------------------------------------------------------------------------
@@ -241,6 +244,8 @@ choice
 		bool "TCOM_BETA_71"
 	config TYPE_TCOM_BETA_13048
 		bool "TCOM_BETA_13048"
+	config TYPE_TCOM_7570_70
+		bool "AVM7570_70 used as t-com Firmware"
 endchoice
 config TYPE_CONGSTAR
 	bool "Select a special CONGSTAR Firmware --->"
@@ -344,6 +349,9 @@ choice
 #	config TYPE_UMTS
 #		bool "UMTS_13265"
 #		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+	config TYPE_7570_70
+		bool "7570_70"
+		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 
 	config TYPE_AVM_LOCAL
 		bool "CUSTOM AVM LOCAL FIRMWARE"
@@ -456,6 +464,8 @@ choice
 		bool "AVM7270_13486"
 	config TYPE_AVM7270_MINI_67
 		bool "AVM7270_MINI_67"
+	config TYPE_AVM7570_70
+		bool "AVM7570_70"
 	config TYPE_AVM_LOCAL_IMAGE
 		bool "AVM_LOCAL_IMAGE"
 	config TYPE_TCOM_LOCAL_IMAGE
@@ -493,6 +503,7 @@ config TCOM_IMG
 	default "$TCOM_W920_70" 		if TYPE_TCOM_BETA_70 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_71" 		if TYPE_TCOM_BETA_71 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_13048" 		if TYPE_TCOM_BETA_13048 && ( TYPE_SPEEDPORT_W920V )
+	default "$AVM7570_70" 			if TYPE_TCOM_7570_70 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_LOCAL"	 		if TYPE_TCOM_LOCAL
 
 #--------------------------------------------------------------------------
@@ -525,6 +536,7 @@ config AVM_IMG
         default "$AVM7270_A59" 		if ( TYPE_A59 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
         default "$AVM7270_67"		if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM7270_13486"	if ( TYPE_13486 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+        default "$AVM7570_70"		if ( TYPE_7570_70 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM7270_DSL_13225" 	if ( TYPE_DSL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM7270_AIO_13640"	if ( TYPE_AIO ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM7270_PHONE_13537" 	if ( TYPE_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
@@ -578,6 +590,7 @@ config SRC2_IMG
         default "$AVM7270_PHONE_13537" 	if TYPE_AVM7270_PHONE_13537
         default "$AVM7270_UMTS_13265" 	if TYPE_AVM7270_UMTS_13265
 	default "$AVM7270_MINI_67" 	if TYPE_AVM7270_MINI_67
+        default "$AVM7570_70" 		if TYPE_AVM7570_70
 
 ###------------------------------------------------------------------------------------------------------------
 ###------------------------------------------------------------------------------------------------------------
@@ -600,11 +613,17 @@ config TYPE_LABOR_TYPE
 	default "MINI" 		if TYPE_MINI
 	default "AIO" 		if TYPE_AIO
 	default "298" 		if TYPE_298
+	default "7570_70" 	if TYPE_7570_70
 	default "VPN" 		if TYPE_VPN
 	default "LOCAL"		if TYPE_AVM_LOCAL
 
+#config MULTILINGUAL
+#	bool
+#	default y 		if TYPE_67m
 
 choice
+#depends on ! MULTILINGUAL
+
 	bool "Annex"
 	default TYPE_ANNEX_B
 	config TYPE_ANNEX_B
@@ -637,9 +656,9 @@ config ANNEX
 config EXPORT_OEM
 	string
 	default "tcom" if ORI
-	default "avm" if TYPE_LANG_DE
+	default "avm" if TYPE_LANG_DE && ! TYPE_67m && ! TYPE_7570_70
 	default "avm" if TYPE_LANG_A_CH
-	default "avme" if TYPE_LANG_EN || TYPE_67m
+	default "avme" if TYPE_LANG_EN || TYPE_67m || TYPE_7570_70
 
 
 config SET_OEM
@@ -772,12 +791,12 @@ config  EXPORT_NEWNAME
 	    string "productname"
 		    default "FRITZ!Box Fon WLAN 7170"
 	    help
-		Fritz!Fax works with the default value set! 
+		Fritz!Fax works with the default value set! Default is the name used by the AVM Firmware. 
 config SET_HOSTNAME
 	bool "Box hostname (setup)"
 	default n
 	help
-	    Boxhostname should be left as it is, but if needed you may specify your own! Default is fritz.box.
+	    Boxhostname should be left as it is, but if needed you may specify your own! Default is the name used by the AVM Firmware.
  	config  EXPORT_HOSTNAME
 	    depends on SET_HOSTNAME
 	    string "hostname"
@@ -933,6 +952,7 @@ config EXPORT_ATA_ONLY
 ####
 if ! EXPORT_ATA_ONLY
     config EXPORT_ADD_DSL_EXPERT_MNUE
+	depends on ! TYPE_7570_70
 	bool "Add dsl expert pages"
 	default n if  ( TYPE_DSL )
 	default y if  ! ( TYPE_DSL )
@@ -994,7 +1014,8 @@ if ! EXPORT_ATA_ONLY
 		Save DSL DRIVER from TCOM source to ./addon/tmp/modules.
 endif
 config EXPORT_SETATM
-	depends on   TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W721
+
+	depends on   ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W721 ) && ! TYPE_7570_70 
 	bool "ATM - settings"
 	default n
 	help
@@ -1016,20 +1037,42 @@ config EXPORT_SETATM
 		tcom uses "32" but my be specified by your provider.
 
 choice
-	prompt "SAR MUX Type: "
-	depends on EXPORT_SETATM
+	prompt "ATM Type: "
+	depends on TYPE_7570_70
 	default VCMUX
 	config VCMUX
-		bool "SAR: VC mux"
-	config LCC
-		bool "SAR: Llc"
-
+		bool "PPPoE"
+	config PPPLLC
+		bool "PPPoA LLC"
+	config PPPoA
+		bool "PPPoA"
 endchoice
 
 config EXPORT_KAPSELUNG
 	string
-	default "0" if VCMUX
-	default "1" if LLC
+	default "0"	if VCMUX
+	default "1" 	if PPPLLC
+	default "2" 	if PPPoA
+
+choice
+	prompt "Select DSL mod: "
+	depends on TYPE_7570_70
+	default DSLAUTO
+		bool "select ADSL/VDSL"
+	config DSLAUTO
+		bool "Autoselect"
+	config VDSL
+		bool "VDSL"
+	config ADSL
+		bool "ADSL"
+endchoice
+
+config EXPORT_DSLMOD
+	string
+	default "0"	if DSLAUTO
+	default "1" 	if VDSL
+	default "2" 	if ADSL
+
 
 comment "SYSTEM Options -----------------------------------------------------"
 config XCHANGE_KERNEL
@@ -1062,7 +1105,7 @@ config FORCE_TCOM_PIGLET
 config FORCE_TCOM_LEDDRIVER
 	bool "Force use of t-com LED driver"
 	depends on TYPE_SPEEDPORT_W920V
-	default n
+	default y
 	help
 		For normal this is "n", but you my use the tcom driver, definition of LEDs differ, not all LEDS are usable.
 

@@ -13,6 +13,8 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
     rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
+#7570 only--->
+if ! [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ]; then 
 #ATA only--->
 if [ ${ATA_ONLY} = "n" ]; then
 #add DSL driver depending on the settings made
@@ -37,8 +39,8 @@ cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko -
 [ "${FORCE_TCOM_PCMLINK}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2/pcmlink.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2
 cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory="${SRC}"/lib/modules/$KernelVersion
 cp -fdrp "${DST}"/usr/sbin --target-directory="${SRC}"/usr
-cp -fdrp "${DST}"/lib/modules/vinax_fw_vdsl.bin --target-directory="${SRC}"/lib/modules
-cp -fdrp "${DST}"/lib/modules/vinax_fw_adsl.bin --target-directory="${SRC}"/lib/modules &&\
+#cp -fdrp "${DST}"/lib/modules/vinax_fw_vdsl.bin --target-directory="${SRC}"/lib/modules
+cp -fdrp "${DST}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
 echo "  -- DSL Driver was taken from the original t-com firmware!"
 #not needed as far, because /bin/ctlmgr is not compatible, looks like this is the reason why not all is configurable concerning ATM and ADSL via GUI
 [ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
@@ -66,8 +68,8 @@ if [ ${USE_SRC2_DSL} = "y" ]; then
     [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] || cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.symbols --target-directory="${SRC}"/lib/modules/$KernelVersion
     cp -fdrp "${SRC_2}"/usr/sbin --target-directory="${SRC}"/usr
-    cp -fdrp "${SRC_2}"/lib/modules/vinax_fw_vdsl.bin --target-directory="${SRC}"/lib/modules
-    cp -fdrp "${SRC_2}"/lib/modules/vinax_fw_adsl.bin --target-directory="${SRC}"/lib/modules &&\
+    #cp -fdrp "${SRC_2}"/lib/modules/vinax_fw_vdsl.bin --target-directory="${SRC}"/lib/modules
+    cp -fdrp "${SRC_2}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
     echo "  -- DSL Driver was taken from the original t-com firmware!"
 fi
  
@@ -89,7 +91,7 @@ sed -i -e "s/DSL_Mode=\"VB\"/DSL_Mode=\"V$ANNEX\"/" "${SRC}/etc/init.d/rc.vdsl.s
 #sed -i -e "s/annex=B/annex=$ANNEX/" "${SRC}/etc/init.d/rc.dsl.sh" 
 
 #ATM Parameter
-sed -i -e "s/dsl_pipe sarcs 0 0 0 1 32 1/dsl_pipe sarcs 0 0 0 $VPI $VCI $KAPSELUNG/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+sed -i -e "s/dsl_pipe sarcs 0 0 0 1 32/dsl_pipe sarcs 0 0 0 $VPI $VCI/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 sed -i -e "s/dsl_pipe sarrts 0 0 1 1 32/dsl_pipe sarrts 0 0 1 $VPI $VCI/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 
 #diffence in rc.dsl.sh  
@@ -101,32 +103,13 @@ echo "MODE = vdsl" > \/dev\/avm_power' "${SRC}/etc/init.d/rc.dsl.sh"
 sed -i -e '/CONFIG_VDSL=/a\
 export CONFIG_VINAX="y"' "${SRC}/etc/init.d/rc.conf" 
 #<---DSL skripts
-else
-
-#remove ADSL
-#dont start dsl
-sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
-rm -fdr "${SRC}"/lib/modules/dsp_ur8
 #<-- ATA only
 fi
-#VDSL would not start if wrong HWrevision is in use, so it only can be set in ATA mod
-#But pluginsupport needs AVM HWrevision to setup the download URL for plugins 
-#workaround for HWRevision
-if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
-sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/i\
-	export HWRevision=\"$FBHWRevision\"" "${SRC}/sbin/start_plugin.sh"
-sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/a\
-	export HWRevision=\"$HWID\"" "${SRC}/sbin/start_plugin.sh"
-fi
-sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
-
 #tests 
 sed -i -e '/export ANNEX_TEST/a\
 if [ "$STATUS_TEST" != "0" ]; then\
 /usr/bin/dsl_info.sh /&\
 fi' "${SRC}/etc/init.d/rc.S" 
-
-
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -136,20 +119,19 @@ echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_S
 #Fon Driver
 [ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon5/zzz/* --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon5/zzz
 #xilix W920 Driver must be for the hardware in use
-cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules
-
-#copy second source internet dsl menue
-[ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLIST}"
- echo2 "New WEB GUI will be modified"
-#use scond source web GUI
-[ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
-#Annex A is not usable up to now
+[ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules
+[ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit
 #patch annex Fom parameter
 $sh_DIR/patch_annex.sh "${SRC}"
-
 #enable button
 sed -i -e 's/piglet_enable_button=2/piglet_enable_button=3/' "${SRC}/etc/init.d/rc.S" 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#remove FON3 menus
+[ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
+# add missing gifs
+$sh_DIR/add_vdslscale.sh "${SRC}" "${OEMLIST}"
+fi
+#7570  only <---
 # set led definition 
 if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ ${FORCE_TCOM_LEDDRIVER} = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
@@ -160,18 +142,39 @@ if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] 
     echo "  -- LED Driver was taken from the original t-com firmware!"
 fi
 $sh_DIR/patch_leddef_7270.sh "${SRC}" "${DST}"
-# add missing gifs
-$sh_DIR/add_vdslscale.sh "${SRC}" "${OEMLIST}"
 # 920 
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 920
-#remove FON3 menus
-[ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
+#there is still no option within the menus
+###sed -i -e "s/local ppp_conf=.*$/local ppp_conf=${KAPSELUNG}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+#VNX_PPP=0 #default is PPPoE
+sed -i -e "s/VNX_PPP=0/VNX_PPP=${KAPSELUNG}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+#Annex default  
+sed -i -e "s/VNX_Mode=\"VB\"/VNX_Mode=\"V$ANNEX\"/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+#set DSLMOD
+sed -i -e "s/local DSLMODE=.*$/local DSLMODE=${DSLMOD}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 
+#VDSL would not start if wrong HWrevision is in use, so it only can be set in ATA mod
+#But pluginsupport needs AVM HWrevision to setup the download URL for plugins 
+#workaround for HWRevision
+if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
+sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/i\
+	export HWRevision=\"$FBHWRevision\"" "${SRC}/sbin/start_plugin.sh"
+sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/a\
+	export HWRevision=\"$HWID\"" "${SRC}/sbin/start_plugin.sh"
+fi
+sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
+#copy second source internet dsl menue
+[ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLIST}"
+ echo2 "New WEB GUI will be modified"
+#use scond source web GUI
+[ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
 #Add buchsend button to fon bookpage
 $sh_DIR/patch_fonbuch.sh "${SRC}"
-
 # skripts for startig ftp on USB
 cp -fdpr  ./addon/tmp/jp   --target-directory="${SRC}"
-
+if [ ${ATA_ONLY} = "y" ]; then
+#remove ADSL
+    sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
+    rm -fdr "${SRC}"/lib/modules/dsp_ur8
+fi
 echo "********************************************************************************"
-
