@@ -641,9 +641,6 @@ config EXPORT_OEM
 	default "avm" if TYPE_LANG_A_CH
 	default "avme" if TYPE_LANG_EN || TYPE_67m
 
-config EXPORT_FBHWRevision
-	string
-	default "145" if TYPE_67m || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_EN )
 
 config SET_OEM
 	bool "Set Branding"
@@ -788,6 +785,111 @@ config SET_HOSTNAME
 	    help
 		This is the name used instead of the IP address, 
 		tcom uses "speedport.ip" but can be anything you like.
+ 
+config SET_FBMOD
+	bool "Box MOD ID (setup)"
+	default n
+	help
+	    Box MOD ID should be left as it is, but if needed you may specify your own!.
+ 	config  EXPORT_FBMOD
+	    depends on SET_FBMOD
+	    string "Type in FritzBox Mod ID, see help for more info."
+	    default ""
+	    help
+		This is the ID name used instead of the ID used in AVM Firmware, 
+		use "7270, 7170, ...  but can be any valled ID used in download addresses.
+		This ID is used to construct the URLs for "Programme" and for Plugindownload. 
+
+config SET_FBHWRevision
+	bool "Box Hardwarerevision (setup)"
+	default n
+	help
+	    Box Hardwarerevision should be left as it is, but if needed you may specify your own!.
+
+config EXPORT_FBHWRevision
+	string
+	depends on SET_FBHWRevision || TYPE_67m || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_EN )
+	default "145" if TYPE_67m || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_EN )
+	string "type in new HWRevision, see help for more info."
+	    help
+		This is the Hardwarerevision used instead of the one used in AVM Firmware, 
+		use defaults, but can be any valled Hardwarerevision used in download addresses.
+		This Hardwarerevision is used for Plugindownload.
+		HWR 58 = FB Fon
+		HWR 60 = FB WLAN
+		HWR 61 = FB Fon WLAN
+		HWR 62 = FB AnnexA
+		HWR 63 = FB SL AnnexA
+		HWR 64 = FB Fon AnnexA
+		HWR 65 = FB WLAN AnnexA
+		HWR 66 = FB Fon WLAN AnnexA
+		HWR 71 = FB Fon ata
+		HWR 72 = FB Fon 5050
+		HWR 73 = FB Fon 5050 AnnexA
+		HWR 76 = FB Fon WLAN 7050
+		HWR 77 = FB Fon WLAN 7050 AnnexA
+		HWR 78 = Eumex 300 IP
+		HWR 79 = FB WLAN 3070
+		HWR 82 = FB WLAN 3050
+		HWR 83 = FB 2030
+		HWR 84 = FB 2070
+		HWR 85 = FB WLAN 3030
+		HWR 86 = FB Fon 5010
+		HWR 87 = FB Fon CTP (*)
+		HWR 88 = FB Radio (*)
+		HWR 89 = FB Fon 5012
+		HWR 91 = Sinus W300V
+		HWR 93 = Speedport W501V
+		HWR 94 = FB Fon WLAN 7170
+		HWR 95 = FB Fon WLAN 7140
+		HWR 96 = FB Fon WLAN 7130
+		HWR 97 = Sinus W500V
+		HWR 101 = Speedport W701V
+		HWR 102 = Speedport W900V
+		HWR 104 = FB Gateway 5188
+		HWR 105 = FB Fon WLAN 7540V
+		HWR 106 = Fritz!Fon 7150
+		HWR 107 = FB Fon WLAN 7140 AnnexA
+		HWR 108 = FB Fon WLAN 7141
+		HWR 109 = FB Fon WLAN 7170SL
+		HWR 110 = FB Fon 5120
+		HWR 111 = FB Fon 5140
+		HWR 112 = FB WLAN 3131
+		HWR 113 = FB 2031
+		HWR 114 = FB Fon 5122 (*)
+		HWR 115 = FB Fon WLAN 7122 (*)
+		HWR 116 = FB Fon 5010 AnnexA
+		HWR 117 = FB WLAN 3170
+		HWR 118 = FB WLAN 3131
+		HWR 119 = FB 2170
+		HWR 120 = Speedport W702V
+		HWR 121 = Speedport W900V
+		HWR 122 = FB Fon WLAN 7270 (8 MB)
+		HWR 123 = Fritz!Media 8020
+		HWR 124 = Fritz!Media 8040
+		HWR 125 = FB Fon 5124
+		HWR 126 = FB Fon 5124 AnnexA
+		HWR 127 = FB Fon WLAN 7170 AnnexA
+		HWR 128 = Fritz!Fon 7150 AnnexA
+		HWR 129 = FB Fon WLAN 7113
+		HWR 130 = FB 2121
+		HWR 131 = FB Fon 5130
+		HWR 133 = FB 2110
+		HWR 134 = Speedport W721V
+		HWR 135 = Speedport W920V
+		HWR 136 = Speedport W503V
+		HWR 139 = FB Fon WLAN 7270 (16 MB)
+		HWR 140 = FB Fon 5125 AnnexA
+		HWR 141 = FB Fon WLAN 7270 AnnexA
+		HWR 142 = Speedport W721VK
+		HWR 143 = Speedport W101 Bridge
+		HWR 144 = FB Fon WLAN 7240
+		HWR 145 = FB Fon WLAN 7270 (andere Version als HWR139?)
+		HWR 146 = FB Fon WLAN 7570 vDSL
+		HWR 147 = DSL-EasyBox A802-R
+		HWR 148 = DSL-EasyBox A602
+		HWR 149 = DSL-EasyBox A402
+		 
 		 
 config VERBOSE
 	string
