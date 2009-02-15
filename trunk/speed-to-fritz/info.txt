@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090215-0535
+    - AVM 7570: downloadlink entfernt!
 20090215-0345
     - 7270 multilingual downloadlink fixed AVM did change name. W920: Options kdsldmod pcmlink changed. AVM 7570 defaults changed.
 20090215-0343
