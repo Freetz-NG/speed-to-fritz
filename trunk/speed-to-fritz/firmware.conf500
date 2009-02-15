@@ -1,0 +1,24 @@
+#!/bin/bash
+# Automatically generated make config: don't edit
+# Sat Feb 14 06:05:24 2009
+# General settings for Speed-to-fritz --------------------------------
+#
+TCOM_SINUS_04_27="/home/freetz/090719/speed-to-fritz/Firmware.orig/Sinus_W_500V.27.04.27.image" 
+AVM_04_56="ftp://ftp.avm.de/fritz.box/fritzfon.7150/firmware/FRITZ.Fon_7150.AnnexB.38.04.56.image"
+
+TYPE_SINUS_W500V=y
+SPMOD="500"
+TYPE_LANG_DE=y
+TCOM_IMG="$TCOM_SINUS_04_27"
+AVM_IMG="$AVM_04_56"
+OEM="avm"
+TYPE_ANNEX_B=y
+ANNEX="B"
+PUSHCONF=y
+EXPORT_ADD_OLD_DECTMENU=y
+EXPORT_COPY_HEADER=y
+EXPORT_DO_LOOKUP_PATCH=y
+EXPORT_REMOVE_MENU_ITEM=y
+EXPORT_ADD_SUPORT=y
+EXPORT_RPL_ASSIST=y
+MOVE_ALL_to_OEM=y

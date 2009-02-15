@@ -13,11 +13,6 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
     rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
-#7570 only--->
-if ! [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ]; then 
-#ATA only--->
-if [ ${ATA_ONLY} = "n" ]; then
-#add DSL driver depending on the settings made
 
 # "vinax_fw_adsl.bin" "vinax_fw_vdsl.bin"
 #remove 7270 DSL 
@@ -25,15 +20,11 @@ if [ ${ATA_ONLY} = "n" ]; then
 rm -fdr "${SRC}"/lib/modules/dsp_ur8
 rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsl
 #/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:
-
-#sed -i -e 's|/dsl/dsl_ur8.ko|/vinax/drv_vinax.ko|' "${SRC}"/lib/modules/$KernelVersion/modules.dep
-echo "/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:" >>"${SRC}"/lib/modules/$KernelVersion/modules.dep
-
 # "vinax_driver"  
 #Attention! Vinax uses aditional /dev/vinax device entrys the are generateed via /tools/device_table.txt (makedevice option)
 [ ${FAKEROOT_ON} = "n" ] && cp -fdrp "${DST}"/dev/vinax --target-directory="${SRC}"/dev #this copy is onliy usable if run as root
 
-mkdir "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
+[ -d "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax ] || mkdir "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
 cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
 [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
 [ "${FORCE_TCOM_PCMLINK}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2/pcmlink.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2
@@ -76,6 +67,11 @@ fi
 [ ${USE_OWN_DSL} = "y" ] && cp -fdrp ./addon/tmp/W920/squashfs-root/* --target-directory="${SRC}" &&\
 echo "  -- DSL Driver was taken from local directory ./addon/tmp/W920!"
 
+#not 7570 only--->
+if ! [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ]; then 
+#sed -i -e 's|/dsl/dsl_ur8.ko|/vinax/drv_vinax.ko|' "${SRC}"/lib/modules/$KernelVersion/modules.dep
+echo "/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:" >>"${SRC}"/lib/modules/$KernelVersion/modules.dep
+
 #add one entry in module
 sed -i -e '/alias symbol:scsi_mode_sense scsi_mod/a\
 alias symbol:PCMRoute_RefreshTimeslot pcmlink' "${SRC}"/lib/modules/$KernelVersion/modules.symbols
@@ -103,13 +99,24 @@ echo "MODE = vdsl" > \/dev\/avm_power' "${SRC}/etc/init.d/rc.dsl.sh"
 sed -i -e '/CONFIG_VDSL=/a\
 export CONFIG_VINAX="y"' "${SRC}/etc/init.d/rc.conf" 
 #<---DSL skripts
-#<-- ATA only
-fi
 #tests 
 sed -i -e '/export ANNEX_TEST/a\
 if [ "$STATUS_TEST" != "0" ]; then\
 /usr/bin/dsl_info.sh /&\
 fi' "${SRC}/etc/init.d/rc.S" 
+#patch annex Fom parameter
+$sh_DIR/patch_annex.sh "${SRC}"
+#remove FON3 menus
+[ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
+# add missing gifs
+$sh_DIR/add_vdslscale.sh "${SRC}" "${OEMLIST}"
+
+$sh_DIR/patch_leddef_7270.sh "${SRC}" "${DST}"
+#xilix W920 Driver must be for the hardware in use
+[ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules
+[ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit
+fi
+#not 7570  only <---
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -118,20 +125,9 @@ echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_S
 [ ${FORCE_TCOM_PIGLET} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet_noemif/Piglet_noemif.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet_noemif
 #Fon Driver
 [ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon5/zzz/* --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon5/zzz
-#xilix W920 Driver must be for the hardware in use
-[ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules
-[ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit
-#patch annex Fom parameter
-$sh_DIR/patch_annex.sh "${SRC}"
 #enable button
 sed -i -e 's/piglet_enable_button=2/piglet_enable_button=3/' "${SRC}/etc/init.d/rc.S" 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#remove FON3 menus
-[ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
-# add missing gifs
-$sh_DIR/add_vdslscale.sh "${SRC}" "${OEMLIST}"
-fi
-#7570  only <---
 # set led definition 
 if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ ${FORCE_TCOM_LEDDRIVER} = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
@@ -141,17 +137,16 @@ if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] 
     cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
     echo "  -- LED Driver was taken from the original t-com firmware!"
 fi
-$sh_DIR/patch_leddef_7270.sh "${SRC}" "${DST}"
 # 920 
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 920
 #there is still no option within the menus
-###sed -i -e "s/local ppp_conf=.*$/local ppp_conf=${KAPSELUNG}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+[ "${KAPSELUNG}" == "y" ] && sed -i -e "s/local ppp_conf=.*$/local ppp_conf=${KAPSELUNG}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 #VNX_PPP=0 #default is PPPoE
-sed -i -e "s/VNX_PPP=0/VNX_PPP=${KAPSELUNG}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+[ "${KAPSELUNG}" == "y" ] && sed -i -e "s/VNX_PPP=0/VNX_PPP=${KAPSELUNG}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 #Annex default  
 sed -i -e "s/VNX_Mode=\"VB\"/VNX_Mode=\"V$ANNEX\"/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 #set DSLMOD
-sed -i -e "s/local DSLMODE=.*$/local DSLMODE=${DSLMOD}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+[ "${DSLMOD}" == "y" ] && sed -i -e "s/local DSLMODE=.*$/local DSLMODE=${DSLMOD}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 
 #VDSL would not start if wrong HWrevision is in use, so it only can be set in ATA mod
 #But pluginsupport needs AVM HWrevision to setup the download URL for plugins 
@@ -175,6 +170,7 @@ cp -fdpr  ./addon/tmp/jp   --target-directory="${SRC}"
 if [ ${ATA_ONLY} = "y" ]; then
 #remove ADSL
     sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
+    sed -i -e 's|/etc/init.d/rc.vdsl.sh start||' "${SRC}/etc/init.d/rc.S" 
     rm -fdr "${SRC}"/lib/modules/dsp_ur8
 fi
 echo "********************************************************************************"
