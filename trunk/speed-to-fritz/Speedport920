@@ -170,7 +170,7 @@ cp -fdpr  ./addon/tmp/jp   --target-directory="${SRC}"
 if [ ${ATA_ONLY} = "y" ]; then
 #remove ADSL
     sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
-    sed -i -e 's|/etc/init.d/rc.vdsl.sh start||' "${SRC}/etc/init.d/rc.S" 
+    sed -i -e 's|. /etc/init.d/rc.vdsl.sh||' "${SRC}/etc/init.d/rc.S" 
     rm -fdr "${SRC}"/lib/modules/dsp_ur8
 fi
 echo "********************************************************************************"

@@ -676,9 +676,11 @@ if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
  [ "$SVN_VERSION" != "" ] && SVN_VERSION="-r-$SVN_VERSION"
  SKRIPT_DATE+="$SVN_VERSION"
 fi
+[ "7570" == "${TYPE_LABOR_TYPE:0:4}" ] && AVM_SUBVERSION="7570-$AVM_SUBVERSION"
+[ "y" == "${TYPE_TCOM_7570_70}" ] && TCOM_SUBVERSION="7570-$TCOM_SUBVERSION"
 [ ${FREETZ_REVISION} ] && FREETZ_REVISION="-freetz-${FREETZ_REVISION}"
 [ "$ORI" != "y" ] && export NEWIMG="fw_${CLASS}_W${SPNUM}V_${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}_Annex${ANNEX}_${avm_Lang}.image"
-[ "$ORI" = "y" ] && export NEWIMG="${SPIMG}_OriginalTcomAdjustedForAnnex${ANNEX}_${avm_Lang}.image"
+[ "$ORI" == "y" ] && export NEWIMG="${SPIMG}_OriginalTcomAdjustedForAnnex${ANNEX}_${avm_Lang}.image"
 [ "$ATA_ONLY" = "y" ] && export NEWIMG="fw_${CLASS}_W${SPNUM}V_${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}_ATA-ONLY_${avm_Lang}.image"
 # print some info on screen
 . $inc_DIR/print_settings
