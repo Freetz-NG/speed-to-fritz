@@ -77,7 +77,7 @@ fi
    [ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
   cp -fdpr  "${DST}"/usr/share/ctlmgr/libdect.so  --target-directory="${SRC}"/usr/share/ctlmgr
 
-#patch annex Fom parameter
+#patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
 #set DECT hardwaretype 
 #sed -i -e "s/dect_hw=./dect_hw=2/" "${SRC}/etc/init.d/rc.S" 

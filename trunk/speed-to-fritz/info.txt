@@ -21,6 +21,14 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090222-0251
+    - 7270 PHONE config.in changed: fritz_box-labor-7270-13682.zip
+20090222-0241
+    - Some corrections concerning W920 - 7570/7570, 
+      'en' or 'de' language is forced for addon pages depending on the selection made. 
+      Default language is set to the selection made.
+      'en' version in generell, addon 7150 dect pages are added in 'en' language but the text within 
+      alian/patches/add_7150_dect_en.patch would need corrections.
 20090215-1355
     - AVM 7570: 7570 entered into filename if 7570 firmware is used.
 20090215-0535

@@ -63,12 +63,9 @@ else
  export AVM_VERSION=$TCOM_VERSION
  export avm_Lang=$tcom_Lang
 fi
-
-#change minor versions on labor firmwares that usually force a "werksreset"
-#if [ "$AVM_V_MINOR" -gt "89" ]; then
-# echo "04.56" > ${SRC}/etc/.version
-# echo "-$AVM_V_MINOR-$AVM_SUBVERSION" > ${SRC}/etc/.subversion
-#fi
+#force default language 
+[ "$FORCE_LANGUAGE" != "" ] && sed -i -e "s|language ..|language $FORCE_LANGUAGE|" "${SRC}"/etc/default.language
+[ "$FORCE_LANGUAGE" != "" ] && export avm_Lang="$FORCE_LANGUAGE"
 echo2 "--------------------------------------------------------------------------------"
 #get Kernel version
 MODULESDEP_DIR="$(find ${DST}/lib/modules -name modules.dep)" # find file 

@@ -78,7 +78,7 @@ $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 701
 # set led definition 
 $sh_DIR/patch_leddefinition.sh "${SRC}" "${DST}"
 
-#patch annex Fom parameter
+#patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
 
 #patch download url

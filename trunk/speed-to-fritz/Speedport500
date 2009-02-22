@@ -94,7 +94,7 @@ echo2 "New WEB GUI will be modified"
 #sed -i -e "s/dect_hw=./dect_hw=1/" "${SRC}/etc/init.d/rc.S" 
 sed -i -e '/isdn_params="${isdn_params} dect_hw=/d' "${SRC}/etc/init.d/rc.S" 
 
-#patch annex Fom parameter
+#patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
 # DECT aktivieren, ON / OFF
 sed -i -e 's|isdn_params=""|isdn_params=""\

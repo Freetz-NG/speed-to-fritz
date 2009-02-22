@@ -4,11 +4,7 @@
 echo "-- Adding DSL expert pages ..."
 
 for OEMDIR in $2; do
-# if [ "$OEMDIR" = "avme" ] ; then
-#  html="$avm_Lang/html"
-# else
-  html="html"
-# fi
+ html="html"
  USRWWW="usr/www/${OEMDIR}/$html/de"
  if ! [ -f "$1"/${USRWWW}/internet/labor_dsl.html ]; then
 #-----------------------------------------------------------------
@@ -19,9 +15,8 @@ for OEMDIR in $2; do
     PatchfileName="add_dsl_expert_de"
    [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] && iconv --from-code=UTF-8 --to-code=ISO-8859-1 "$P_DIR/${PatchfileName}_ut8.patch" > "$P_DIR/${PatchfileName}.patch" 
    [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] || iconv --from-code=ISO-8859-1 --to-code=UTF-8 "$P_DIR/${PatchfileName}.patch" > "$P_DIR/${PatchfileName}_ut8.patch" 
-   [ "$Unicode_ut8" = "n" ] && [ "$OEMDIR" = "avm" ] && [ "$avm_Lang" = "de" ] && modpatch "$1" "$P_DIR/${PatchfileName}.patch"
-   [ "$Unicode_ut8" = "y" ] && [ "$OEMDIR" = "avm" ] && [ "$avm_Lang" = "de" ] && modpatch "$1" "$P_DIR/${PatchfileName}_ut8.patch"
-   #   [ "$OEMDIR" = "avme" ] && [ "$avm_Lang" = "en" ] && modpatch "$1" "$P_DIR/add_dsl_expert_en.patch"
+   [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "de" ] && modpatch "$1" "$P_DIR/${PatchfileName}.patch"
+   [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ] && modpatch "$1" "$P_DIR/${PatchfileName}_ut8.patch"
   fi
   for FILE in adsl.html atm.html bits.html overview.html; do
   if [ -f "$1/${USRWWW}/internet/$FILE" ]; then 

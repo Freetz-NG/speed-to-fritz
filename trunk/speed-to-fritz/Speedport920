@@ -72,9 +72,14 @@ if ! [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ]; then
 #sed -i -e 's|/dsl/dsl_ur8.ko|/vinax/drv_vinax.ko|' "${SRC}"/lib/modules/$KernelVersion/modules.dep
 echo "/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:" >>"${SRC}"/lib/modules/$KernelVersion/modules.dep
 
-#add one entry in module
+#add one entry in modules.sybols
 sed -i -e '/alias symbol:scsi_mode_sense scsi_mod/a\
 alias symbol:PCMRoute_RefreshTimeslot pcmlink' "${SRC}"/lib/modules/$KernelVersion/modules.symbols
+
+## Default: ggfs. notweniger pcmlink-Treiber wird von modprobe automatisch
+## ueber kernel-dependencys ermittelt und vor dem isdn-treiber gestartet
+sed -i -e '/modprobe ${pcm_link} ${pcm_link_params}/d' "${SRC}/etc/init.d/rc.S" 
+rm -fdr "${SRC}"/lib/modules/c55fw.hex
 
 #DSL skripts--->
 #copy VDSL Skript
@@ -104,8 +109,6 @@ sed -i -e '/export ANNEX_TEST/a\
 if [ "$STATUS_TEST" != "0" ]; then\
 /usr/bin/dsl_info.sh /&\
 fi' "${SRC}/etc/init.d/rc.S" 
-#patch annex Fom parameter
-$sh_DIR/patch_annex.sh "${SRC}"
 #remove FON3 menus
 [ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
 # add missing gifs
@@ -117,6 +120,8 @@ $sh_DIR/patch_leddef_7270.sh "${SRC}" "${DST}"
 [ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit
 fi
 #not 7570  only <---
+#patch annex parameter
+$sh_DIR/patch_annex.sh "${SRC}"
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -140,13 +145,26 @@ fi
 # 920 
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 920
 #there is still no option within the menus
-[ "${KAPSELUNG}" == "y" ] && sed -i -e "s/local ppp_conf=.*$/local ppp_conf=${KAPSELUNG}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+case $KAPSELUNG in 
+    "0") 
+        VNX_PPP="dslencap_pppoe"
+    ;;
+    "1")   
+        VNX_PPP="dslencap_pppoa_llc"
+    ;;
+    "2")
+        VNX_PPP="dslencap_pppoa"
+    ;;
+    *)  echo "Unknown PPP Mode, Using default Mode PPPoE."
+    ;;
+esac
+[ "${KAPSELUNG}" != "" ] && sed -i -e "s/local ppp_conf=.*$/local ppp_conf=${VNX_PPP}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 #VNX_PPP=0 #default is PPPoE
-[ "${KAPSELUNG}" == "y" ] && sed -i -e "s/VNX_PPP=0/VNX_PPP=${KAPSELUNG}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+[ "${KAPSELUNG}" != "" ] && sed -i -e "s/VNX_PPP=0 #/VNX_PPP=${KAPSELUNG}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 #Annex default  
 sed -i -e "s/VNX_Mode=\"VB\"/VNX_Mode=\"V$ANNEX\"/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 #set DSLMOD
-[ "${DSLMOD}" == "y" ] && sed -i -e "s/local DSLMODE=.*$/local DSLMODE=${DSLMOD}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+[ "${DSLMOD}" != "" ] && sed -i -e "s/local DSLMODE=.*$/local DSLMODE=${DSLMOD}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 
 #VDSL would not start if wrong HWrevision is in use, so it only can be set in ATA mod
 #But pluginsupport needs AVM HWrevision to setup the download URL for plugins 

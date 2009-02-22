@@ -118,9 +118,10 @@ config AVM7270_13486
 config AVM7270_AIO_13679
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritz_box-labor-13679.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.70-13679.image"
-config AVM7270_PHONE_13537
+config AVM7270_PHONE_13682
     string 
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13537.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_Labor.54.04.97-13537.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13682.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_Labor.54.04.97-13682.image"
+#    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13537.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_Labor.54.04.97-13537.image"
 #config AVM7270_VPN_13265
 #    string 
 #    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vpn/fritz_box-labor-13265.zip"
@@ -263,7 +264,7 @@ endchoice
 
 ###------------------------------------------------------------------------------------------------------------
 choice
-	prompt "Firmware language"
+	prompt "Firmware language select"
 		default TYPE_LANG_DE
 	config TYPE_LANG_DE
 		bool "de - deutsch"
@@ -342,7 +343,7 @@ choice
 #		bool "MINI"
 #		depends on TYPE_SPEEDPORT_W721V || TYPE_TCOM_LOCAL 
 	config TYPE_PHONE
-		bool "PHONE_13537"
+		bool "PHONE_13682"
 		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 #	config TYPE_VPN
 #		bool "VPN"
@@ -457,8 +458,8 @@ choice
 		bool "AVM7270_DSL_13225"
 	config TYPE_AVM7270_AIO_13679 
 		bool "AVM7270_AIO_13679"
-	config TYPE_AVM7270_PHONE_13537
-		bool "AVM7270_PHONE_13537"
+	config TYPE_AVM7270_PHONE_13682
+		bool "AVM7270_PHONE_13682"
 #	config TYPE_AVM7270_UMTS_13265
 #		bool "AVM7270_UMTS_13265"
 	config TYPE_AVM7270_13486
@@ -504,7 +505,7 @@ config TCOM_IMG
 	default "$TCOM_W920_70" 		if TYPE_TCOM_BETA_70 && ( TYPE_SPEEDPORT_W920V && ! TYPE_7570_70 )
 	default "$TCOM_W920_71" 		if TYPE_TCOM_BETA_71 && ( TYPE_SPEEDPORT_W920V && ! TYPE_7570_70 )
 	default "$TCOM_W920_13048" 		if TYPE_TCOM_BETA_13048 && ( TYPE_SPEEDPORT_W920V && ! TYPE_7570_70 )
-	default "$AVM7570_70" 			if TYPE_7570_70 || ( TYPE_TCOM_7570_70 &&  TYPE_SPEEDPORT_W920V )
+	default "$AVM7570_70" 			if TYPE_7570_70 || ( TYPE_TCOM_7570_70 && TYPE_SPEEDPORT_W920V )
 	default "$TCOM_LOCAL"	 		if TYPE_TCOM_LOCAL
 
 #--------------------------------------------------------------------------
@@ -540,7 +541,7 @@ config AVM_IMG
         default "$AVM7570_70"		if ( TYPE_7570_70 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM7270_DSL_13225" 	if ( TYPE_DSL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM7270_AIO_13679"	if ( TYPE_AIO ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-        default "$AVM7270_PHONE_13537" 	if ( TYPE_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+        default "$AVM7270_PHONE_13682" 	if ( TYPE_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM7270_UMTS_13265" 	if ( TYPE_UMTS ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM7270_MINI_67" 	if ( TYPE_MINI ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 
@@ -588,7 +589,7 @@ config SRC2_IMG
 	default "$AVM7270_13486"	if TYPE_AVM7270_13486
 	default "$AVM7270_AIO_13679"	if TYPE_AVM7270_AIO_13679
         default "$AVM7270_DSL_13225" 	if TYPE_AVM7270_DSL_13225
-        default "$AVM7270_PHONE_13537" 	if TYPE_AVM7270_PHONE_13537
+        default "$AVM7270_PHONE_13682" 	if TYPE_AVM7270_PHONE_13682
         default "$AVM7270_UMTS_13265" 	if TYPE_AVM7270_UMTS_13265
 	default "$AVM7270_MINI_67" 	if TYPE_AVM7270_MINI_67
         default "$AVM7570_70" 		if TYPE_AVM7570_70
@@ -618,11 +619,13 @@ config TYPE_LABOR_TYPE
 	default "VPN" 		if TYPE_VPN
 	default "LOCAL"		if TYPE_AVM_LOCAL
 
+
 #config MULTILINGUAL
 #	bool
 #	default y 		if TYPE_67m
 
 choice
+
 #depends on ! MULTILINGUAL
 
 	bool "Annex"
@@ -660,6 +663,11 @@ config EXPORT_OEM
 	default "avm" if TYPE_LANG_DE && ! TYPE_67m && ! TYPE_7570_70
 	default "avm" if TYPE_LANG_A_CH
 	default "avme" if TYPE_LANG_EN || TYPE_67m || TYPE_7570_70
+
+config EXPORT_FORCE_LANGUAGE
+	string
+	default "en" if TYPE_LANG_EN && TYPE_7570_70
+	default "de" if TYPE_LANG_DE && TYPE_7570_70
 
 
 config SET_OEM
@@ -975,7 +983,7 @@ if ! EXPORT_ATA_ONLY
 		Use KSLDMOD from t-com firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
     config FORCE_TCOM_PCMLINK
 	bool "Use t-com pcmlink driver"
-	depends on TYPE_SPEEDPORT_W920V && TYPE_7570_70 && XCHANGE_KERNEL
+	depends on TYPE_SPEEDPORT_W920V && TYPE_7570_70
 	default n
 	help
 		Use PCMLINK from t-com firmware.
@@ -1016,7 +1024,7 @@ if ! EXPORT_ATA_ONLY
 endif
 config EXPORT_SETATM
 
-	depends on   ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W721 ) && ! TYPE_7570_70 
+	depends on   ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W721 ) && ! TYPE_TCOM_7570_70
 	bool "ATM - settings"
 	default n
 	help
@@ -1039,7 +1047,7 @@ config EXPORT_SETATM
 
 choice
 	prompt "ATM Type: "
-	depends on TYPE_7570_70
+	depends on TYPE_TCOM_7570_70
 	default VCMUX
 	config VCMUX
 		bool "PPPoE"
@@ -1057,7 +1065,7 @@ config EXPORT_KAPSELUNG
 
 choice
 	prompt "Select DSL mod: "
-	depends on TYPE_7570_70
+	depends on TYPE_TCOM_7570_70
 	default DSLAUTO
 		bool "select ADSL/VDSL"
 	config DSLAUTO

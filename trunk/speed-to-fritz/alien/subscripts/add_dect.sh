@@ -12,7 +12,7 @@ echo "-- Adding DECT handsets setup pages..."
 # copy missing files if not existent
 
 for OEMDIR in $OEMLIST; do
- if [ "$OEMDIR" = "avme" ] ; then
+ if [ "$avm_Lang" = "en" ] ; then
   TextHandteile="DECT-handsets"
   TextDectPin="DECT-Basis PIN"
   TextDectSetPin="setup PIN"
@@ -38,7 +38,8 @@ for OEMDIR in $OEMLIST; do
   if [ ! -d "$SR1"/${USRWWW}/dect ]; then
     mkdir  "$SR1/${USRWWW}/dect"
   fi
-  [ "$ADD_7150_DECTMNUE" = "y" ] && [ "$OEMDIR" = "avm" ] && [ "$avm_Lang" = "de" ] && . "$sh_DIR/add_dect_7150.inc"
+  [ "$ADD_7150_DECTMNUE" = "y" ] && [ "$avm_Lang" = "de" ] && . "$sh_DIR/add_dect_7150.inc"
+  [ "$ADD_7150_DECTMNUE" = "y" ] && [ "$avm_Lang" = "en" ] && . "$sh_DIR/add_dect_7150_en.inc"
   ##add dect menue pages
   #    for FILE in `ls ./addon/$avm_Lang/fon_dect`; do
   #	[ -n "$VERBOSITY" ] && echo "      /${USRWWW}/fon/$FILE"
@@ -48,9 +49,9 @@ for OEMDIR in $OEMLIST; do
       PatchfileName="add_dect_de"
    [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] && iconv --from-code=UTF-8 --to-code=ISO-8859-1 "$P_DIR/${PatchfileName}_ut8.patch" > "$P_DIR/${PatchfileName}.patch" 
    [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] || iconv --from-code=ISO-8859-1 --to-code=UTF-8 "$P_DIR/${PatchfileName}.patch" > "$P_DIR/${PatchfileName}_ut8.patch" 
-   [ "$Unicode_ut8" = "n" ] && [ "$OEMDIR" = "avm" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}.patch"
-   [ "$Unicode_ut8" = "y" ] && [ "$OEMDIR" = "avm" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}_ut8.patch"
-   [ "$OEMDIR" = "avme" ] && [ "$avm_Lang" = "en" ] && modpatch "$SR1" "$P_DIR/add_dect_en.patch"
+   [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}.patch"
+   [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}_ut8.patch"
+   [ "$avm_Lang" = "en" ] && modpatch "$SR1" "$P_DIR/add_dect_en.patch"
    #the folowing patch must be after the above line becase it patches a file added by add_dect_**.patch
    sed -i -e "/var bits = (String.fromCharCode(bits + 48));/d" "$SR1"/${USRWWW}/fon/fon1dect.js
    [ -f "$SR1/${USRWWW}/fon/fon1dect.js" ] && [ "$ADD_OLD_DECTMENU" = "y" ] || echo "worong firmware combinations!" >"${HOMEDIR}/${ERR_LOGFILE}"
@@ -216,9 +217,9 @@ sed -i -e '/DslStateDisplay()/a\
     PatchfileName="add_dect_on-off_de"
    [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] && iconv --from-code=UTF-8 --to-code=ISO-8859-1 "$P_DIR/${PatchfileName}_ut8.patch" > "$P_DIR/${PatchfileName}.patch" 
    [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] || iconv --from-code=ISO-8859-1 --to-code=UTF-8 "$P_DIR/${PatchfileName}.patch" > "$P_DIR/${PatchfileName}_ut8.patch" 
-   [ "$Unicode_ut8" = "n" ] && [ "$OEMDIR" = "avm" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}.patch"
-   [ "$Unicode_ut8" = "y" ] && [ "$OEMDIR" = "avm" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}_ut8.patch"
- [ "$OEMDIR" = "avme" ] && [ "$avm_Lang" = "en" ] && modpatch "$SR1" "$P_DIR/add_dect_on-off_en.patch"
+   [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}.patch"
+   [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}_ut8.patch"
+ [ "$avm_Lang" = "en" ] && modpatch "$SR1" "$P_DIR/add_dect_on-off_en.patch"
 # DIRI=$1/${USRWWW}/menus
 # [ -f ${DIRI}/menu2_dect.html ] || cp -fdfp ./addon/tmp/$SPMOD/$avm_Lang/menus/* "${DIRI}"
 # DIRI=$1/${USRWWW}/dect
@@ -249,9 +250,9 @@ fi
     PatchfileName="add_decthelp_de"
    [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] && iconv --from-code=UTF-8 --to-code=ISO-8859-1 "$P_DIR/${PatchfileName}_ut8.patch" > "$P_DIR/${PatchfileName}.patch" 
    [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] || iconv --from-code=ISO-8859-1 --to-code=UTF-8 "$P_DIR/${PatchfileName}.patch" > "$P_DIR/${PatchfileName}_ut8.patch" 
-   [ "$Unicode_ut8" = "n" ] && [ "$OEMDIR" = "avm" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}.patch"
-   [ "$Unicode_ut8" = "y" ] && [ "$OEMDIR" = "avm" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}_ut8.patch"
-     [ "$OEMDIR" = "avme" ] && [ "$avm_Lang" = "en" ] && modpatch "$SR1" "$P_DIR/add_decthelp_en.patch"
+   [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}.patch"
+   [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}_ut8.patch"
+     [ "$avm_Lang" = "en" ] && modpatch "$SR1" "$P_DIR/add_decthelp_en.patch"
 
 
 #    [ -n "$VERBOSITY" ] && echo "      /${USRWWW}/help/hilfe_fon_setupdect.html"

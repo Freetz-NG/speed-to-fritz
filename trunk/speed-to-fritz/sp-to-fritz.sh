@@ -3,7 +3,7 @@ export PATH=$PATH:/sbin
 #dont change names of variables because some of the names are used in other files as well!
 ##########################################################################
 # Date of current version:                                          
-Tag="20"; Monat="02"; Jahr="09"
+Tag="22"; Monat="02"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -697,6 +697,11 @@ echo "**************************************************************************
  echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
 # Flashing original firmware image ...                               
 if [ "$ORI" != "y" ]; then
+ #international language - fix patches in advance 
+ for FILE in `ls $P_DIR`  ; do
+    [ "$OEMLINK" == "avme" ] && sed -i -e "s|/avm/|/$OEM/|" $P_DIR/$FILE 
+    [ "$OEMLINK" == "avm" ] && sed -i -e "s|/avme/|/$OEM/|" $P_DIR/$FILE 
+ done
  #prepare for use of Freetz 7170 Firmware 
  [ "$MOVE_ALL_to_OEM" = "y" ] && $sh_DIR/move_all_to_OEM.sh "${SRC}" || $sh_DIR/remake_link_avm.sh "${SRC}"
  # Please dont add conditions on models in any external file

@@ -81,7 +81,7 @@ $sh_DIR/swap_infoled_501.sh "${SRC}"
 
 #disable fon Driver
 #sed -i -e 's|modprobe $isdn_fbox $isdn_params|# modprobe $isdn_fbox $isdn_params|' "${SRC}/etc/init.d/rc.S"
-#patch annex Fom parameter
+#patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
 # correct LAN interface in existent
 #sed -i -e 's|interfaces = "lan", "usbrndis", "eth0".*$|interfaces = "usbrndis", "eth0", "tiwlan0", "wdsup0", "wdsdw0", "wdsdw1", "wdsdw2", "wdsdw3";|' "${SRC}/etc/default.${CONFIG_PRODUKT}"/avm/ar7.cfg

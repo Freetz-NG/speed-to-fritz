@@ -41,6 +41,7 @@ sed -i -e "s|CONFIG_SERVICEPORTAL_URL=\".*$|CONFIG_SERVICEPORTAL_URL=\"${CONFIG_
 [ "$CONFIG_VINAX_TRACE" ] &&  sed -i -e "s/CONFIG_VINAX_TRACE=\".*$/CONFIG_VINAX_TRACE=\"${CONFIG_VINAX_TRACE}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_LIBZ" ] &&  sed -i -e "s/CONFIG_LIBZ=\".*$/CONFIG_LIBZ=\"${CONFIG_LIBZ}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_DSL_MULTI_LANGUAGE" ] &&  sed -i -e "s/CONFIG_DSL_MULTI_LANGUAGE=\".*$/CONFIG_DSL_MULTI_LANGUAGE=\"${CONFIG_DSL_MULTI_LANGUAGE}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_DIAGNOSE_LEVEL" ] &&  sed -i -e "s/CONFIG_DIAGNOSE_LEVEL=\".*$/CONFIG_DIAGNOSE_LEVEL=\"${CONFIG_DIAGNOSE_LEVEL}\"/g" "${1}/etc/init.d/rc.conf"
 #W503
 [ "$CONFIG_MEDIASRV" ] &&  sed -i -e "s/CONFIG_MEDIASRV=\".*$/CONFIG_MEDIASRV=\"${CONFIG_MEDIASRV}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_CAPI_NT" ] &&  sed -i -e "s/CONFIG_CAPI_NT=\".*$/CONFIG_CAPI_NT=\"${CONFIG_CAPI_NT}\"/g" "${1}/etc/init.d/rc.conf"

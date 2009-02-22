@@ -12,11 +12,8 @@ if [ -d "$SR1/usr/www/${OEMDIR}" ]; then
     	echo "<? include ../html/de/fon/$FILE.$EXT ?>" >"${DSTF}"
     done
   done
-      PatchfileName="add_7150_dect_de"
-   [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] && iconv --from-code=UTF-8 --to-code=ISO-8859-1 "$P_DIR/${PatchfileName}_ut8.patch" > "$P_DIR/${PatchfileName}.patch" 
-   [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] || iconv --from-code=ISO-8859-1 --to-code=UTF-8 "$P_DIR/${PatchfileName}.patch" > "$P_DIR/${PatchfileName}_ut8.patch" 
-   [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}.patch"
-   [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}_ut8.patch"
+      PatchfileName="add_7150_dect_en"
+   [ "$avm_Lang" = "en" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}.patch"
 #-------------------------------------------------------------------------------- 
 FN="$SR1/${USRWWW}/home/fondevices.html"
 sed -i -e "/<div id=\"uiShowFonTable\" style=\"display:none\">/i\
@@ -68,49 +65,31 @@ echo '` ?>' >>"$FN"
 echo '<input type="hidden" name="dect:settings/RingOnAllMSNs" value="<? query dect:settings/RingOnAllMSNs ?>" id="uiPostDectRingAllMsns" disabled />' >>"$FN"
 echo '<input type="hidden" name="dect:command/Unsubscribe" value="" id="uiPostUnsubscribeDect" disabled />' >>"$FN"
 echo '<Input type="hidden" name="var:DectID" value="<? echo $var:DectID ?>" id="uiPostDectID">' >>"$FN"
-if [ "$Unicode_ut8" = "n" ]; then 
+
 FN="$SR1/${USRWWW}/help/home.html"
 sed -i -e "/<h2>B<\/h2>/i\
-<P><a href=\"javascript:opener.jslPopHelp('hilfe_fon_dect')\">DECT-Engeräte<\/a><\/P>" "$FN"
+<P><a href=\"javascript:opener.jslPopHelp('hilfe_fon_dect')\">DECT-Devices<\/a><\/P>" "$FN"
 sed -i -e "/<h2>E<\/h2>/i\
 <P><a href=\"javascript:opener.jslPopHelp('hilfe_budget')\">Dynamic DNS<\/a><\/P>" "$FN"
 sed -i -e "/<h2>T<\/h2>/i\
-<P><a href=\"javascript:opener.jslPopHelp('hilfe_fon_dect')\">Schnurlostelefone (DECT)<\/a><\/P>" "$FN"
+<P><a href=\"javascript:opener.jslPopHelp('hilfe_fon_dect')\">DECT<\/a><\/P>" "$FN"
 sed -i -e "/<h2>V<\/h2>/i\
 <P><a href=\"javascript:opener.jslPopHelp('hilfe_client')\">U-APSD<\/a><\/P>" "$FN"
 sed -i -e "/WLAN-Netzwerkger/i\
-<P><a href=\"javascript:opener.jslPopHelp('hilfe_client')\">WLAN-Netzwerkgeräte<\/a><\/P>" "$FN"
+<P><a href=\"javascript:opener.jslPopHelp('hilfe_client')\">WLAN-Network device<\/a><\/P>" "$FN"
 sed -i -e "/WLAN-Verschl.sselung/a\
-<P><a href=\"javascript:opener.jslPopHelp('hilfe_client')\">WLAN-Verschlüsselung<\/a><\/P>" "$FN"
+<P><a href=\"javascript:opener.jslPopHelp('hilfe_client')\">WLAN-Incryiption<\/a><\/P>" "$FN"
 sed -i -e "/<h2>Z<\/h2>/a\
-<P><a href=\"javascript:opener.jslPopHelp('hilfe_hilfe_dyndns')\">DSL-Einstellungen<\/a><\/P>" "$FN"
-sed -i -e "/zusï¿½tzliche Programme/a\
-<P><a href=\"hilfe_wlan_repeater_sicherheit.html\">Repeater, Verschlüsselung<\/a><\/P>" "$FN"
-else
-FN="$SR1/${USRWWW}/help/home.html"
-sed -i -e "/<h2>B<\/h2>/i\
-<P><a href=\"javascript:opener.jslPopHelp('hilfe_fon_dect')\">DECT-EngerÃ¤te<\/a><\/P>" "$FN"
-sed -i -e "/<h2>E<\/h2>/i\
-<P><a href=\"javascript:opener.jslPopHelp('hilfe_budget')\">Dynamic DNS<\/a><\/P>" "$FN"
-sed -i -e "/<h2>T<\/h2>/i\
-<P><a href=\"javascript:opener.jslPopHelp('hilfe_fon_dect')\">Schnurlostelefone (DECT)<\/a><\/P>" "$FN"
-sed -i -e "/<h2>V<\/h2>/i\
-<P><a href=\"javascript:opener.jslPopHelp('hilfe_client')\">U-APSD<\/a><\/P>" "$FN"
-sed -i -e "/WLAN-Netzwerkger/i\
-<P><a href=\"javascript:opener.jslPopHelp('hilfe_client')\">WLAN-NetzwerkgerÃ¤te<\/a><\/P>" "$FN"
-sed -i -e "/WLAN-Verschl.sselung/a\
-<P><a href=\"javascript:opener.jslPopHelp('hilfe_client')\">WLAN-VerschlÃ¼sselung<\/a><\/P>" "$FN"
-sed -i -e "/<h2>Z<\/h2>/a\
-<P><a href=\"javascript:opener.jslPopHelp('hilfe_hilfe_dyndns')\">DSL-Einstellungen<\/a><\/P>" "$FN"
-sed -i -e "/zusï¿½tzliche Programme/a\
-<P><a href=\"hilfe_wlan_repeater_sicherheit.html\">Repeater, VerschlÃ¼sselung<\/a><\/P>" "$FN"
-fi
+<P><a href=\"javascript:opener.jslPopHelp('hilfe_hilfe_dyndns')\">DSL-settings<\/a><\/P>" "$FN"
+sed -i -e "/additional programs/a\
+<P><a href=\"hilfe_wlan_repeater_sicherheit.html\">Repeater, Incryption<\/a><\/P>" "$FN"
+
 FN="$SR1/${USRWWW}/home/fondevices.js"
 sed -i -e 's|var mCount|//var mCount|' "$FN"
-sed -i -e '/var g_txt_Device_AB = "Anrufbeantworter";/a\
-var g_txtDect = "Schnurlostelefon (DECT) ";' "$FN"
+sed -i -e '/var g_txt_Device_AB = "Answering machine";/a\
+var g_txtDect = "DECT ";' "$FN"
 sed -i -e '/var g_txt_Type_Mini/a\
-var g_txt_Type_Dect = "Schnurlostelefon (DECT)";' "$FN"
+var g_txt_Type_Dect = "DECT";' "$FN"
 sed -i -e '/case "1"/a\
 case "2" : strRetCode ="DECT";break;' "$FN"
 sed -i -e '/<? repeat . 0 2 . `/i\
@@ -143,7 +122,7 @@ return false;\
 FN="$SR1/${USRWWW}/fon_config/fon_config_fondevices.js"
 sed -i -e 's|var mCount|//var mCount|' "$FN"
 sed -i -e '/var g_txt_Type_Mini/a\
-var g_txt_Type_Dect = "Schnurlostelefon (DECT)";' "$FN"
+var g_txt_Type_Dect = "DECT";' "$FN"
 sed -i -e '/case "1"/a\
 case "2" : strRetCode ="DECT";break;' "$FN"
 sed -i -e '/<? repeat . 0 2 . `/i\
@@ -274,9 +253,9 @@ g_NameList[4] = new String(g_txtDect + (g_curDectPort+1));\
 ` ?>' "$FN"
 sed -i -e "s/FFaxx/'Fax'/" "$FN"
 sed -i -e "s/AABB/'AB'/" "$FN"
-sed -i -e 's/Zeichen sind:\\x0a `~/Zeichen sind: `~/' "$FN"
-sed -i -e 's/<>\/?";/<>\/und?";/' "$FN"
+sed -i -e 's/:\\x0a `~/: `~/' "$FN"
+sed -i -e 's/<>\/?";/<>\/and?";/' "$FN"
 sed -i -e '/var g_txt_Device_AB/a\
-var g_txtDect = "Schnurlostelefon (DECT) ";' "$FN"
+var g_txtDect = "DECT ";' "$FN"
 #-------------------------------------------------------------------------------- 
 fi

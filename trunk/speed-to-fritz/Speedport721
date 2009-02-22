@@ -146,7 +146,7 @@ cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"
 #use scond source web GUI
 [ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
 #Annex A is not usable up to now
-#patch annex Fom parameter
+#patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
 
 #enable button
