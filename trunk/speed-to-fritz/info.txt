@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, becaus it is used for autoinserting)
+20090223-1935
+    - 7170 AIO config.in changed: fritz_box-labor-13679.zip
 20090223-1041-r-117_129M
     - typing 'Firmware' corrected
 20090222-0251

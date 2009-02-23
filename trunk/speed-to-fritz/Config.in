@@ -95,18 +95,18 @@ config AVM_61
 config AVM_67
     string
     default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.67.image"
-config AVM_BETA_13531 
+config AVM_BETA_13679 
     string 
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-13531.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.63-13531.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-13679.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.70-13679.image"
 config AVM_DSL_12526 
     string 
 default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_dsl/fritz_box-labor-12526.image"
 config AVM_MINI_67 
     string 
     default "http://clickonce.avm.de/7170_Mini_Firmware/deutsch/fritz_box_29_04_67.image"
-config AVM_AIO_13531
+config AVM_AIO_13679
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-13531.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.70-13531.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-13679.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.70-13679.image"
 ##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ####7270
 config AVM7270_DSL_13225
@@ -304,7 +304,7 @@ choice
 		depends on TYPE_LABOR
 		default TYPE_DSL
 #	config TYPE_BETA
-#		bool "BETA_13531"
+#		bool "BETA_13679"
 #		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
 #	config TYPE_57
 #		bool "57"
@@ -386,15 +386,15 @@ choice
 		default TYPE_AVM_67
 
 #	config TYPE_10954
-#		bool "BETA_13531"
+#		bool "BETA_13679"
 	config TYPE_DSL_13046
 		bool "DSL_13046"
 	config TYPE_GAMING_11435
 		bool "GAMING_11435"
 	config TYPE_MINI_67
 		bool "MINI_67"
-	config TYPE_AVM_AIO_13531
-		bool "AIO_13531"
+	config TYPE_AVM_AIO_13679
+		bool "AIO_13679"
 	config TYPE_AVM_43
 		bool "AVM_43"
 	config TYPE_AVM_56
@@ -521,9 +521,9 @@ config AVM_IMG
 	default "$AVM_59" 		if TYPE_59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_A59" 		if TYPE_A59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_67" 		if TYPE_67 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
-	default "$AVM_BETA_13531" 	if TYPE_BETA && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_BETA_13679" 	if TYPE_BETA && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_DSL_12526" 	if TYPE_DSL && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
-	default "$AVM_AIO_13531" 	if TYPE_AIO && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_AIO_13679" 	if TYPE_AIO && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_GAMING_11435" 	if TYPE_GAMING && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_MINI_67" 		if TYPE_MINI && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_LOCAL" 		if TYPE_AVM_LOCAL && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
@@ -559,9 +559,9 @@ config SRC2_IMG
 	default "$AVM_59" 		if TYPE_AVM_59
 	default "$AVM_A59" 		if TYPE_AVM_A59
 	default "$AVM_58" 		if TYPE_AVM_58
-	default "$AVM_BETA_13531" 	if TYPE_BETA_13531
+	default "$AVM_BETA_13679" 	if TYPE_BETA_13679
 	default "$AVM_DSL_12526" 	if TYPE_DSL_12526
-	default "$AVM_AIO_13531"	if TYPE_AIO_13531
+	default "$AVM_AIO_13679"	if TYPE_AIO_13679
 	default "$AVM_GAMING_11435" 	if TYPE_GAMING_11435
 	default "$AVM_MINI_67" 		if TYPE_MINI_67
 	default "$AVM_LOCAL"		if TYPE_AVM_LOCAL_IMAGE
