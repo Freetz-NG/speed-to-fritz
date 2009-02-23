@@ -23,9 +23,9 @@ cd trunk
 #svn delete --force ./speed-to-fritz/ftp192
 #svn revert 
 #svn add speed-to-fritz
-svn status > ../patch.diff
+svn status  > ../patch.diff
 echo "-------------------------------------------------------------------------------------------------------------"
-svn diff -r 107 >> ../patch.diff
+svn diff  >> ../patch.diff
 cat ../patch.diff
 echo -n "   All done' ? "; read -n 1 -s YESNO; echo
 
