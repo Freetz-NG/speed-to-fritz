@@ -31,12 +31,9 @@ config CONGSTAR_W701_58
 config TCOM_W701_57 
     string 
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20701%20V/fw_Speedport_W701V_v33.04.57.image"
-#    default "ftp://software.t-online.de/pub/service/WinT-DSL/firmware/fw_Speedport_W701V_v33.04.56.image"
 config TCOM_W900_57
     string 
      default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20900V/fw_Speedport_W900V_v34.04.57.image"    
-#    default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20900V/fw_Speedport_W900V_v34.04.57.image"
-#    default "ftp://software.t-online.de/pub/service/WinT-DSL/firmware/Speedport_W_900V.AnnexB.34.04.57.image"
 config TCOM_W721_60
     string 
     default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W721V/fw_Speedport_W_721V_v64.04.60.image"
@@ -74,9 +71,10 @@ config AVM_32
     string 
     default "./Firmware.orig/fritz.fon_7150.annexb.38.04.32.zip mirror http://www.hostarea.de/server-01/Januar-839fd7d22e.zip"
 #    default "./Firmware.orig/fritz.fon_7150.annexb.38.04.32.zip mirror http://www.upload.crunkbass.de/?a=show&file=667269747a2e666f6e5f373135302e616e6e6578622e33382e30342e33322e7a6970&big=1"
-config AVM_50
-    string 
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.50.image"
+config AVM_59
+    string
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image"
+    #default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.50.image"
 config AVM_67en
     string
      default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.67.image"
@@ -94,7 +92,8 @@ config AVM_61
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch/FRITZ.Box_Fon_WLAN_7113.60.04.61.image"
 config AVM_67
     string
-    default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.67.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.67.image"
+    #default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.67.image"
 config AVM_BETA_13679 
     string 
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-13679.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.70-13679.image"
@@ -103,7 +102,7 @@ config AVM_DSL_12526
 default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_dsl/fritz_box-labor-12526.image"
 config AVM_MINI_67 
     string 
-    default "http://clickonce.avm.de/7170_Mini_Firmware/deutsch/fritz_box_29_04_67.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
 config AVM_AIO_13679
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-13679.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.70-13679.image"
@@ -121,7 +120,6 @@ config AVM7270_AIO_13679
 config AVM7270_PHONE_13682
     string 
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13682.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_Labor.54.04.97-13682.image"
-#    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13537.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_Labor.54.04.97-13537.image"
 #config AVM7270_VPN_13265
 #    string 
 #    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vpn/fritz_box-labor-13265.zip"
@@ -130,7 +128,8 @@ config AVM7270_PHONE_13682
 #    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritz_box-labor-13265.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.70-13265.image"
 config AVM7270_MINI_67 
     string 
-    default "http://clickonce.avm.de/7270_Mini_Firmware/deutsch/fritz_box_54_04_67.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.67.image"
+    #default "http://clickonce.avm.de/7270_Mini_Firmware/deutsch/fritz_box_54_04_67.image"
 #config AVM7270_57 
 #    string 
 #    default "http://download.avm.de/fritz.box/fritzbox.fon_WLAN_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.57.image"
@@ -143,14 +142,13 @@ config AVM7270_59
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.59.image"
 #config AVM7270_A59
 #    string
-#default ""
+#    default ""
 config AVM7270_67
     string
 default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritz_box-labor-13679.ZIP ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
 config AVM7270_67m
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image"    
-#    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it.54.04.67.image"
 ### 7570
 config AVM7570_70
     string 
@@ -264,16 +262,16 @@ endchoice
 
 ###------------------------------------------------------------------------------------------------------------
 choice
-	prompt "Firmware language select"
+	prompt "Select Firmware default language"
 		default TYPE_LANG_DE
 	config TYPE_LANG_DE
-		bool "de - deutsch"
+		bool "de - german"
 #	config TYPE_LANG_A_CH
-#		bool "a-ch - deutsch"
+#		bool "a-ch - german"
 #	depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
 #		depends on ! TYPE_LABOR 
 	config TYPE_LANG_EN
-		bool "international (en, sp, it, ...)"
+		bool "en - english"
 	depends on TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_TCOM_LOCAL 
 endchoice
 ###------------------------------------------------------------------------------------------------------------
@@ -620,14 +618,30 @@ config TYPE_LABOR_TYPE
 	default "LOCAL"		if TYPE_AVM_LOCAL
 
 
-#config MULTILINGUAL
-#	bool
-#	default y 		if TYPE_67m
+config EXPORT_CONFIG_MULTI_LANGUAGE
+	bool "Force Multilingual"
+	depends on TYPE_67m || TYPE_7570_70 || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL
+	default n
+	help
+	    To make this work you must have a 2nd Firmware that supplys the neede feature.
+
+config EXPORT_CONFIG_MULTI_COUNTRY
+	bool "Force Multicountry"
+	depends on  TYPE_67m || TYPE_7570_70 || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL
+	default n
+	help
+	    To make this work you must have a 2nd Firmware that supplys the neede feature.
+
+config EXPORT_CONFIG_DSL_MULTI_ANNEX
+	bool "Force Multiannex"
+	depends on  TYPE_67m || TYPE_7570_70 || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL
+	default n
+	help
+	    To make this work you must have a 2nd Firmware that supplys the neede feature.
+
 
 choice
-
-#depends on ! MULTILINGUAL
-
+	depends ! EXPORT_CONFIG_DSL_MULTI_ANNEX
 	bool "Annex"
 	default TYPE_ANNEX_B
 	config TYPE_ANNEX_B
@@ -656,6 +670,7 @@ config ANNEX
 	string
 	default "A" if TYPE_ANNEX_A
 	default "B" if TYPE_ANNEX_B
+
 
 config EXPORT_OEM
 	string
@@ -906,6 +921,7 @@ config EXPORT_FBHWRevision
 		HWR 134 = Speedport W721V
 		HWR 135 = Speedport W920V
 		HWR 136 = Speedport W503V
+		HWR 137 = FB WLAN 3270	
 		HWR 139 = FB Fon WLAN 7270 (16 MB)
 		HWR 140 = FB Fon 5125 AnnexA
 		HWR 141 = FB Fon WLAN 7270 AnnexA
@@ -983,7 +999,8 @@ if ! EXPORT_ATA_ONLY
 		Use KSLDMOD from t-com firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
     config FORCE_TCOM_PCMLINK
 	bool "Use t-com pcmlink driver"
-	depends on TYPE_SPEEDPORT_W920V && TYPE_7570_70
+	depends on TYPE_SPEEDPORT_W920V
+	# && TYPE_7570_70
 	default n
 	help
 		Use PCMLINK from t-com firmware.
@@ -1022,65 +1039,65 @@ if ! EXPORT_ATA_ONLY
 	help
 		Save DSL DRIVER from TCOM source to ./addon/tmp/modules.
 endif
-config EXPORT_SETATM
+#config EXPORT_SETATM
+#
+#	depends on   ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W721 ) && ! TYPE_TCOM_7570_70
+#	bool "ATM - settings"
+#	default n
+#	help
+#	    ATM should be left as it is, but if needed you may specify your own! Default is VPI 1 VCI 32
+#	    This otion is only in use with W920 and W721, webmenu is not usable. 
+# 	config  EXPORT_VPI
+#	    depends on EXPORT_SETATM
+#	    string "VPI value"
+#		    default "8"
+#	    help
+#		This is the value used instead, 
+#		tcom uses "1" but my be specified by your provider.
+# 	config  EXPORT_VCI
+#	    depends on EXPORT_SETATM
+#	    string "VCI value"
+#		    default "48"
+#	    help
+#		This is the value used instead, 
+#		tcom uses "32" but my be specified by your provider.
 
-	depends on   ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W721 ) && ! TYPE_TCOM_7570_70
-	bool "ATM - settings"
-	default n
-	help
-	    ATM should be left as it is, but if needed you may specify your own! Default is VPI 1 VCI 32
-	    This otion is only in use with W920 and W721, webmenu is not usable. 
- 	config  EXPORT_VPI
-	    depends on EXPORT_SETATM
-	    string "VPI value"
-		    default "8"
-	    help
-		This is the value used instead, 
-		tcom uses "1" but my be specified by your provider.
- 	config  EXPORT_VCI
-	    depends on EXPORT_SETATM
-	    string "VCI value"
-		    default "48"
-	    help
-		This is the value used instead, 
-		tcom uses "32" but my be specified by your provider.
+#choice
+#	prompt "ATM Type: "
+#	depends on TYPE_TCOM_7570_70
+#	default VCMUX
+#	config VCMUX
+#		bool "PPPoE"
+#	config PPPLLC
+#		bool "PPPoA LLC"
+#	config PPPoA
+#		bool "PPPoA"
+#endchoice
 
-choice
-	prompt "ATM Type: "
-	depends on TYPE_TCOM_7570_70
-	default VCMUX
-	config VCMUX
-		bool "PPPoE"
-	config PPPLLC
-		bool "PPPoA LLC"
-	config PPPoA
-		bool "PPPoA"
-endchoice
+#config EXPORT_KAPSELUNG
+#	string
+#	default "0"	if VCMUX
+#	default "1" 	if PPPLLC
+#	default "2" 	if PPPoA
 
-config EXPORT_KAPSELUNG
-	string
-	default "0"	if VCMUX
-	default "1" 	if PPPLLC
-	default "2" 	if PPPoA
+#choice
+#	prompt "Select DSL mod: "
+#	depends on TYPE_TCOM_7570_70
+#	default DSLAUTO
+#		bool "select ADSL/VDSL"
+#	config DSLAUTO
+#		bool "Autoselect"
+#	config VDSL
+#		bool "VDSL"
+#	config ADSL
+#		bool "ADSL"
+#endchoice
 
-choice
-	prompt "Select DSL mod: "
-	depends on TYPE_TCOM_7570_70
-	default DSLAUTO
-		bool "select ADSL/VDSL"
-	config DSLAUTO
-		bool "Autoselect"
-	config VDSL
-		bool "VDSL"
-	config ADSL
-		bool "ADSL"
-endchoice
-
-config EXPORT_DSLMOD
-	string
-	default "0"	if DSLAUTO
-	default "1" 	if VDSL
-	default "2" 	if ADSL
+#config EXPORT_DSLMOD
+#	string
+#	default "0"	if DSLAUTO
+#	default "1" 	if VDSL
+#	default "2" 	if ADSL
 
 
 comment "SYSTEM Options -----------------------------------------------------"

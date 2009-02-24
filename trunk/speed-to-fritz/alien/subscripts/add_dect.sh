@@ -236,15 +236,60 @@ sed -i -e '/DslStateDisplay()/a\
  fi
 fi
 #7170 end ------------
-#add tabs for nebenstelle on fondeviceses page    
+ #add tabs for nebenstelle on fondeviceses page    
     sed -i -e "/uiDoMsn()/a\
-<li><a href=\"javascript:uiDoEditDevice( 0, 0, 0)\">${TextNebenstelle} 1<\/a><\/li>\
-<li><a href=\"javascript:uiDoEditDevice( 0, 1, 0)\">${TextNebenstelle} 2<\/a><\/li>\
-<li><a href=\"javascript:uiDoEditDevice( 1, 0, 11)\">S0 Buss Int.<\/a><\/li>" "$SR1"/${USRWWW}/home/fondevices.html
-#remove tabs again if this model is without S0
-[ "$CONFIG_IsdnNT" = "0" ] && sed -i -e '/<li><a href="javascript:uiDoEditDevice( 1, 0, 11)">S0 Buss Int.<\/a><\/li>/d' "$SR1"/${USRWWW}/home/fondevices.html
-#remove tabs again if this model is without intenal Fon
-[ "$CONFIG_AB_COUNT" = "0" ] && sed -i -e '/<li><a href="javascript:uiDoEditDevice( 0, ., 0)">/d' "$SR1"/${USRWWW}/home/fondevices.html
+ <li><a href=\"javascript:uiDoEditDevice( 0, 0, 0)\">${TextNebenstelle} 1<\/a><\/li>\
+ <li><a href=\"javascript:uiDoEditDevice( 0, 1, 0)\">${TextNebenstelle} 2<\/a><\/li>\
+ <li><a href=\"javascript:uiDoEditDevice( 1, 0, 11)\">S0 Buss Int.<\/a><\/li>" "$SR1"/${USRWWW}/home/fondevices.html
+ #remove tabs again if this model is without S0
+ [ "$CONFIG_IsdnNT" = "0" ] && sed -i -e '/<li><a href="javascript:uiDoEditDevice( 1, 0, 11)">S0 Buss Int.<\/a><\/li>/d' "$SR1"/${USRWWW}/home/fondevices.html
+ #remove tabs again if this model is without intenal Fon
+ [ "$CONFIG_AB_COUNT" = "0" ] && sed -i -e '/<li><a href="javascript:uiDoEditDevice( 0, ., 0)">/d' "$SR1"/${USRWWW}/home/fondevices.html
+ #fix width of addons for firmwares newer as 13561
+ if ! `grep -q 'function uiDoEditDevice(' "$SR1"/${USRWWW}/home/fondevices.js`; then
+
+ for file in dect0.js fonsetupdect.js fon1dect.js foneditdect.js fonlistdect.js; do
+	file="$1/usr/www/${OEMLINK}/html/de/fon/$file"
+	if [ -f "$file" ]; then
+	 grep -q '' "$file" && echo2 "'#content' removed in File: ${file##*/}"
+	 sed -i -e '/#content {width:/d' "$file"
+	fi 
+ done
+ #fix tabs for firmwares newer as 13561
+ sed -i -e '/<\/script>/i\
+function uiDoEditDevice( technik, portNo, deviceType) {\
+jslSetValue("uiPostPageMaster", "fondevices");\
+if (technik == "1") {\
+jslSetValue("uiPostIsdnNr", portNo);\
+jslSetValue("uiPostParent", "fondevices");\
+if ( deviceType == 11) {\
+jslSetValue( "uiShowIsdnDefault", "1")\
+jslSubmitFormEx(g_menu, "isdn", "fondevices");\
+} else {\
+jslSetValue( "uiShowIsdnDefault", "0")\
+jslSubmitFormEx(g_menu, "fon1isdn", "fondevices");\
+}\
+} else if ( technik == "2") {\
+jslSetValue("uiPostDectID", portNo);\
+jslSetValue("uiPostParent", "fondevices");\
+jslSubmitFormEx(g_menu, "fon1Dect", "fondevices");\
+} else if ( technik == "5") {\
+jslSetValue("uiPostParent", "fondevices");\
+jslSubmitFormEx(g_menu, "fon1fxi", "fondevices");\
+} else {\
+jslSetValue("uiPostFonNr", portNo);\
+switch ( deviceType) {\
+case 0:\
+jslSetValue("uiPostFonDeviceKind", g_txt_Type_Fon);break;\
+case 1:\
+jslSetValue("uiPostFonDeviceKind", g_txt_Type_AB);break;\
+case 2:\
+jslSetValue("uiPostFonDeviceKind", g_txt_Type_Fax);break;\
+}\
+jslSubmitFormEx(g_menu, "fon1", "fondevices");\
+}\
+}' "$SR1"/${USRWWW}/home/fondevices.js
+ fi
   
  if [ "$REMOVE_HELP" = "n" ]; then
     PatchfileName="add_decthelp_de"
