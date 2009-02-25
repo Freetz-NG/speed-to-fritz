@@ -35,7 +35,6 @@ export SP_kernel_size="kernel_size=${kernel_size}"
 [ -n "$SP_Vesioninfo" ] && echo2 "-- TCOM  $SP_Vesioninfo"
 [ -n "$SP_Checkpoint" ] && echo2 "-- TCOM  $SP_Checkpoint"
 
-
 ## Für Language den Default der Firmware auflösen
 ## (es wird immer die Sprache der FW genommen)
 Language=`grep language ${DST}/etc/default.language`
@@ -47,14 +46,14 @@ if [ "$ORI" != "y" ]; then
  if [ "$OEM" = "avme" ] && [ "$avm_Lang" != "en" ]; then
  echo "-- AVM  firmware image version is: $AVM_VERSION-$AVM_SUBVERSION"
  echo "-- Language of AVM firmware is: $avm_Lang, language of TCOM firmware is: $tcom_Lang"
- echo "-- You cant use branding: \"$OEM\" with this version!"
+ echo "-- You cant use branding: \"$OEM\" with this version! Set it to 'avm' or a other valid oem and try again!"
   sleep 20
   exit 0
  fi
  if [ "$OEM" != "avme" ] && [ "$avm_Lang" = "en" ]; then
  echo "-- AVM  firmware image version is: $AVM_VERSION-$AVM_SUBVERSION"
  echo "-- Language of AVM firmware is: $avm_Lang, language of TCOM firmware is: $tcom_Lang"
- echo "-- You can't use branding: \"$OEM\" with this version!"
+ echo "-- You can't use branding: \"$OEM\" with this version. Set it to 'avm' or a other valid oem and try again!"
   sleep 20
   exit 0
  fi

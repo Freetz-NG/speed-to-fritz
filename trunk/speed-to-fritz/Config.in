@@ -152,7 +152,7 @@ config AVM7270_67m
 ### 7570
 config AVM7570_70
     string 
-    default "./Firmware.orig//FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.image"
+    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.image"
 ###------------------------------------------------------------------------------------------------------------
 ###------------------------------------------------------------------------------------------------------------
 ###------------------------------------------------------------------------------------------------------------
@@ -266,14 +266,40 @@ choice
 		default TYPE_LANG_DE
 	config TYPE_LANG_DE
 		bool "de - german"
-#	config TYPE_LANG_A_CH
-#		bool "a-ch - german"
+	config TYPE_LANG_IT
+		bool "it - italean"
+	config TYPE_LANG_SP
+		bool "sp - spamish"
+	config TYPE_LANG_FR
+		bool "fr - frensh"
 #	depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
-#		depends on ! TYPE_LABOR 
+#		depends on ! TYPE_LABOR
 	config TYPE_LANG_EN
 		bool "en - english"
-	depends on TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_TCOM_LOCAL 
+	depends on TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_TCOM_LOCAL
+	help
+	    The selectet firmware language is usual the one used by the AVM firmware.
+	    If 2nd or 3rd Firmware is a multilingual firmware one of this firmwarelanguage can be forced, but only with 7270 or 7570 firmwares this is possible.
+	    The resulting text within the generated firmware my be not comletly in this language, text not fond in the selected language will be displayed in german or english"
+	    
 endchoice
+
+config EXPORT_CONFIG_MULTI_LANGUAGE
+	bool "Use Multilingual from 2nd or 3rd Firmware"
+	depends on TYPE_67m || TYPE_7570_70 || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL || TYPE_SPEEDPORT_W920V
+	default n
+	help
+	    Dont use this option if the AVM 1st firmware is a multilingual firmware originaly!  
+	    To make this work you must have a 2nd (tcom) or 3rd Firmware that supplys the neede feature.
+
+config EXPORT_CONFIG_MULTI_COUNTRY
+	bool "Use Multicountry from 2nd or 3rd Firmware"
+	depends on  TYPE_67m || TYPE_7570_70 || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL || TYPE_SPEEDPORT_W920V
+	default y
+	help
+	    Dont use this option if the AVM 1st firmware is a multililingual firmware originaly!
+	    To make this work you must have a 2nd or 3rd Firmware that supplys the neede feature, some text may be wrong or missing!.
+		
 ###------------------------------------------------------------------------------------------------------------
 
 config TYPE_LABOR
@@ -300,7 +326,7 @@ config TYPE_LABOR
 choice
 	prompt "Labor or final version"
 		depends on TYPE_LABOR
-		default TYPE_DSL
+		default TYPE_AIO
 #	config TYPE_BETA
 #		bool "BETA_13679"
 #		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
@@ -346,9 +372,9 @@ choice
 #	config TYPE_VPN
 #		bool "VPN"
 #		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
-#	config TYPE_UMTS
-#		bool "UMTS_13265"
-#		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+	config TYPE_UMTS
+		bool "UMTS_13265"
+		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 	config TYPE_7570_70
 		bool "7570_70"
 		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
@@ -458,8 +484,8 @@ choice
 		bool "AVM7270_AIO_13679"
 	config TYPE_AVM7270_PHONE_13682
 		bool "AVM7270_PHONE_13682"
-#	config TYPE_AVM7270_UMTS_13265
-#		bool "AVM7270_UMTS_13265"
+	config TYPE_AVM7270_UMTS_13265
+		bool "AVM7270_UMTS_13265"
 	config TYPE_AVM7270_13486
 		bool "AVM7270_13486"
 	config TYPE_AVM7270_MINI_67
@@ -618,24 +644,11 @@ config TYPE_LABOR_TYPE
 	default "LOCAL"		if TYPE_AVM_LOCAL
 
 
-config EXPORT_CONFIG_MULTI_LANGUAGE
-	bool "Force Multilingual"
-	depends on TYPE_67m || TYPE_7570_70 || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL || TYPE_SPEEDPORT_W920V
-	default n
-	help
-	    To make this work you must have a 2nd or 3rd Firmware that supplys the neede feature.
-
-config EXPORT_CONFIG_MULTI_COUNTRY
-	bool "Force Multicountry"
-	depends on  TYPE_67m || TYPE_7570_70 || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL || TYPE_SPEEDPORT_W920V
-	default n
-	help
-	    To make this work you must have a 2nd or 3rd Firmware that supplys the neede feature.
 
 config EXPORT_CONFIG_DSL_MULTI_ANNEX
 	bool "Force Multiannex"
 	depends on  TYPE_67m || TYPE_7570_70 || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL || TYPE_SPEEDPORT_W920V
-	default n
+	default y
 	help
 	    To make this work you must have a 2nd or 3rd Firmware that supplys the neede feature.
 
@@ -668,22 +681,24 @@ choice
 endchoice
 config ANNEX
 	string
-	default "A" if TYPE_ANNEX_A
-	default "B" if TYPE_ANNEX_B
+	default "A" if TYPE_ANNEX_A 
+	default "B" if TYPE_ANNEX_B || EXPORT_CONFIG_DSL_MULTI_ANNEX
 
 
 config EXPORT_OEM
 	string
 	default "tcom" if ORI
-	default "avm" if TYPE_LANG_DE && ! TYPE_67m && ! TYPE_7570_70
-	default "avm" if TYPE_LANG_A_CH
-	default "avme" if TYPE_LANG_EN || TYPE_67m || TYPE_7570_70
-
+	default "avm" if ( TYPE_LANG_DE && ! TYPE_67m && ! TYPE_7570_70 && ! EXPORT_CONFIG_MULTI_LANGUAGE )
+	#default "avm" if TYPE_LANG_A_CH
+	default "avme" if ( TYPE_LANG_EN  || TYPE_67m || TYPE_7570_70 ) && ! EXPORT_CONFIG_MULTI_LANGUAGE   
+ 
 config EXPORT_FORCE_LANGUAGE
 	string
-	default "en" if TYPE_LANG_EN && TYPE_7570_70
-	default "de" if TYPE_LANG_DE && TYPE_7570_70
-
+	default "en" if TYPE_LANG_EN && ( TYPE_7570_70 || TYPE_TCOM_7570_70 )
+	default "de" if TYPE_LANG_DE && ( TYPE_7570_70 || TYPE_TCOM_7570_70 )
+	default "fr" if TYPE_LANG_FR
+	default "sp" if TYPE_LANG_SP
+	default "it" if TYPE_LANG_IT
 
 config SET_OEM
 	bool "Set Branding"
@@ -951,7 +966,7 @@ config EXPORT_ENABLE_EXT2
 		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/mbcache.ko
 		"2.6.19.2" must match the kernelversion!  
  		Or you can select a 3rd Firmware from which the driver will be taken.
-		
+
 config EXPORT_USE_SOURCE2_WEBMNUE
 	bool "Use source 3 webfiles"
 	depends on SOURCE2
@@ -977,7 +992,7 @@ config EXPORT_ATA_ONLY
 ####
 if ! EXPORT_ATA_ONLY
     config EXPORT_ADD_DSL_EXPERT_MNUE
-	depends on ! TYPE_7570_70
+	depends on ! TYPE_TCOM_7570_70
 	bool "Add dsl expert pages"
 	default n if  ( TYPE_DSL )
 	default y if  ! ( TYPE_DSL )

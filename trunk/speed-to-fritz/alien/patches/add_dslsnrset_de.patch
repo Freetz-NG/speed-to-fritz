@@ -1,0 +1,450 @@
+--- usr/www/avm/html/de/internet/dslsnrset.html	2009-02-19 09:57:18.000000000 -0500
++++ usr/www/avm/html/de/internet/dslsnrset.html	2009-01-22 10:31:54.000000000 -0500
+@@ -0,0 +1,83 @@
++﻿<div id="content">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
++{?de.internet.dslsnrset.html:5SNRPage?}
++</div></div></div></div></div></div>
++<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
++<ul class="tabs">
++<li><a href="javascript:uiDoOverviewPage()">{?de.internet.dslsnrset.html:10?}</a></li>
++<li><a href="javascript:uiDoADSLPage()">{?de.internet.dslsnrset.html:15?}</a></li>
++<li><a href="javascript:uiDoBitsPage()">{?de.internet.dslsnrset.html:20?}</a></li>
++<li><a href="javascript:uiDoATMPage()">
++{?de.internet.dslsnrset.html:4183?}
++</a></li>
++<li class="tabs_on"><div class="activtab">{?de.internet.dslsnrset.html:35SNRPage?}</div></li>
++</ul>
++<? if neq $var:Annex A `
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class="mb10">{?de.internet.dslsnrset.html:40?}</p>
++<div class="SlideDiv">
++<table class="SNRSetTable">
++<tr>
++<td style="padding-left:0px;" class="SNR_td_tadio_text" colspan="1">{?de.internet.dslsnrset.html:45?}</td>
++<td style="width:220px;" colspan="8">&nbsp;</td>
++<td class="SNR_td_tadio_text" colspan="1">{?de.internet.dslsnrset.html:50?}</td>
++</tr>
++</table>
++<table class="SNRSetTable" style="margin-left:20px;">
++<tr>
++<td class="SNR_td_tadio" style="padding-left:10px;"><input type="radio" class="SNRRadio" name="SNRValue" value="4" id="uiViewDefaultSNR4" onclick="OnChangeMode(4)"></input></td>
++<td class="RadioConnectStrichTd"><div class="RadioConnectStrich"></div></td>
++<td class="SNR_td_tadio"><input type="radio" class="SNRRadio" name="SNRValue" value="3" id="uiViewDefaultSNR3" onclick="OnChangeMode(3)"></input></td>
++<td class="RadioConnectStrichTd"><div class="RadioConnectStrich"></div></td>
++<td class="SNR_td_tadio"><input type="radio" class="SNRRadio" name="SNRValue" value="2" id="uiViewDefaultSNR2" onclick="OnChangeMode(2)"></input></td>
++<td class="RadioConnectStrichTd"><div class="RadioConnectStrich"></div></td>
++<td class="SNR_td_tadio"><input type="radio" class="SNRRadio" name="SNRValue" value="1" id="uiViewDefaultSNR1" onclick="OnChangeMode(1)"></input></td>
++<td class="RadioConnectStrichTd"><div class="RadioConnectStrich"></div></td>
++<td class="SNR_td_tadio"><input type="radio" class="SNRRadio" name="SNRValue" value="0" id="uiViewDefaultSNR0" onclick="OnChangeMode(0)"></input></td>
++</tr>
++</table>
++</div>
++<p class="mb10">
++{?de.internet.dslsnrset.html:3442?}<br>
++{?de.internet.dslsnrset.html:60?}
++</p>
++</div></div></div></div></div></div>
++` ?>
++<? if eq $var:isMultiAnnex 1 `
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<div>
++<p class="mb10">DSL-Mode-Einstellung</p>
++<p class="mb10">
++<input id="uiViewDSLModeAuto" type="radio" name="DSLMode" onclick="uiSetDSLMode(0)" />
++<label for="uiViewDSLModeAuto">Auto</label><br>
++<input id="uiViewDSLModeVDSLOnly" type="radio" name="DSLMode" onclick="uiSetDSLMode(1)" />
++<label for="uiViewDSLModeVDSLOnly">VDSL only</label>
++</p>
++<p class="mt10 mb10"><b>Achtung!</b>&nbsp; Eine falsche Einstellung kann dazu fuehren, dass keine DSL-Verbindung mehr zustande kommt. Nach der Aenderung der Einstellung startet die FRITZ!Box automatisch neu, damit die Aenderungen wirksam werden.</p>
++</div>
++</div></div></div></div></div></div>
++` ?>
++<? if eq $var:isMultiAnnex 1 `
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<div>
++<p class="mb10" id="uiAnnexHead">ADSL-Leitungskonfiguration</p>
++<p class="mb10">
++<input id="uiViewAnnexA" type="radio" name="Annex" onclick="uiSetAnnex(0)" />
++<label for="uiViewAnnexA" id="uiViewAnnexALabel">Annex A</label><br>
++<input id="uiViewAnnexB" type="radio" name="Annex" onclick="uiSetAnnex(1)" />
++<label for="uiViewAnnexB" id="uiViewAnnexBLabel">Annex B</label>
++</p>
++<p>Geben Sie hier an, nach welcher DSL-Richtlinie (Annex) Ihr DSL-Anschluss arbeitet. Informationen zu dem an Ihrem Anschluss verwendeten Annex erhalten Sie bei Ihrem Internetanbieter.</p>
++<p class="mt10 mb10"><b>Achtung!</b>&nbsp; Eine falsche Einstellung kann dazu fuehren, dass keine DSL-Verbindung mehr zustande kommt. Nach der Aenderung der Einstellung startet die FRITZ!Box automatisch neu, damit die Aenderungen wirksam werden.</p>
++</div>
++</div></div></div></div></div></div>
++` ?>
++<div class="backdialog" id="uiApplyCancelButtons"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="forebuttons">
++<input type="button" onclick="uiDoSave()" value="{?txtApply?}" class="Pushbutton" id="buttonSave">
++<input type="button" onclick="uiDoCancel()" value="{?txtCancel?}" class="Pushbutton" id="buttonCancel">
++<? if eq $var:isMultiAnnex 1 `
++<input type="button" onclick="uiDoHelp()" value="{?txtHelp?}" class="Pushbutton" id="buttonHilfe">
++` ?>
++</div></div></div></div></div></div>
++</div></div></div></div></div></div></div>
++</div>
+--- usr/www/avm/html/de/internet/dslsnrset.js	2009-02-19 09:57:14.000000000 -0500
++++ usr/www/avm/html/de/internet/dslsnrset.js	2009-01-22 10:31:47.000000000 -0500
+@@ -0,0 +1,194 @@
++﻿<!-- ../internet/dslsnrset.js -->
++<STYLE type = "text/css">
++<!--
++.SlideDiv{position:relative;top:0px;left:0px;width: 680px; height: 50px;}
++.SNR_td_tadio{
++width:20px;
++}
++.SNR_td_tadio_text{
++width:120px;
++}
++.SNRRadio{
++height:12px;
++}
++.SNRSetTable{
++}
++.RadioConnectStrich{
++height:1px;
++width:70px;
++color:black;
++background-color:black;
++margin:0px;
++padding:0px;
++font-size:1px;
++}
++.RadioConnectStrichTd{
++height:1px;
++}
++.OSNR_td_tadio{
++width:80px;
++}
++.OSNRRadio{
++height:12px;
++}
++.OSNRSetTable{
++margin-top:0px;
++}
++-->
++</STYLE>
++<script type="text/javascript">
++<? include ../html/de/js/jsl.js ?>
++<? include ../html/de/internet/awatch.js ?>
++var g_mode=0;
++var g_oem = "<? query env:status/OEM ?>";
++<? if eq $var:isMultiAnnex 1 `
++var g_mldChangeAnnex = "Annex aendern";
++var g_mldChangeOver = "Annex geaendert";
++g_mldChangeAnnexQuestion=g_mldChangeAnnex;
++` ?>
++<? if eq $var:isMultiAnnex 1 `
++var g_mldChangeDSLMode= "Aendere DSL Mode";
++` ?>
++function uiDoOnLoad() {
++document.title = "<? print `$var:BoxName` ?>" + " " + "{?de.internet.dslsnrset.js:5SNRPage?}";
++InitMode();
++jslSetChecked("uiViewDefaultSNR"+g_mode, true);
++<? if eq $var:isMultiAnnex 1 `
++InitAnnex();
++` ?>
++<? if eq $var:isMultiAnnex 1 `
++InitDSLMode();
++` ?>
++}
++<? if eq $var:isMultiAnnex 1 `
++function InitAnnex()
++{
++annex = jslGetValue("uiPostAnnex");
++if (annex=="A")
++uiSetAnnex(0);
++else if (annex=="B")
++uiSetAnnex(1);
++}
++function uiSetAnnex(n)
++{
++jslSetChecked("uiViewAnnexA", n==0);
++jslSetChecked("uiViewAnnexB", n==1);
++}
++` ?>
++<? if eq $var:isMultiAnnex 1 `
++function InitDSLMode()
++{
++dslmode = jslGetValue("uiPostDSLMode");
++if (dslmode=="0")
++uiSetDSLMode(0);
++else if (dslmode=="1")
++uiSetDSLMode(1);
++}
++function uiSetDSLMode(n)
++{
++jslSetChecked("uiViewDSLModeAuto", n==0);
++jslSetChecked("uiViewDSLModeVDSLOnly", n==1);
++<? if eq $var:isMultiAnnex 1 `
++if(n==0){
++g_mldChangeAnnexQuestion=g_mldChangeAnnex;
++jslSetSpanText('uiViewAnnexALabel','Annex A');
++jslSetSpanText('uiViewAnnexBLabel','Annex B');
++jslSetSpanText('uiAnnexHead','Annex');
++}else if(n==1){
++g_mldChangeAnnexQuestion=g_mldChangeOver;
++jslSetSpanText('uiViewAnnexALabel','Annex A');
++jslSetSpanText('uiViewAnnexBLabel','Annex B');
++jslSetSpanText('uiAnnexHead','Annex');
++}else{
++}
++` ?>
++}
++` ?>
++function InitMode(){
++var ctlbits = jslGetValue("uiPostControlBitfield");
++if(ctlbits & 4){
++snrmargin=(jslGetValue("iPostDownstreamMarginOffset")/10).toString(10);
++switch(snrmargin){
++case "0":g_mode=0;break;
++case "1":g_mode=1;break;
++case "2":g_mode=2;break;
++case "3":g_mode=3;break;
++case "4":g_mode=4;break;
++default: g_mode=0;break;
++}
++}else{
++g_mode=0;
++}
++}
++function OnChangeMode(mode){
++g_mode=mode;
++}
++function uiDoRefresh() {
++jslGoTo("internet","dslsnrset");
++}
++function uiDoHelp() {
++jslPopHelp("hilfe_internet_dslsnrset");
++}
++function uiDoSave() {
++<? if eq $var:isMultiAnnex 1 `
++bAnnexConfirm=false;
++annex = jslGetValue("uiPostAnnex");
++if (jslGetChecked("uiViewAnnexA") && annex!="A") {
++if (confirm(g_mldChangeAnnexQuestion)) {
++jslSetValue("uiPostAnnex", "A");
++jslEnable("uiPostAnnex");
++bAnnexConfirm=true;
++}
++}
++if (jslGetChecked("uiViewAnnexB") && annex!="B") {
++if (confirm(g_mldChangeAnnexQuestion)) {
++jslSetValue("uiPostAnnex", "B");
++jslEnable("uiPostAnnex");
++bAnnexConfirm=true;
++}
++}
++` ?>
++bDSLModeConfirm=false;
++dlsmode = jslGetValue("uiPostDSLMode");
++if (jslGetChecked("uiViewDSLModeAuto") && dlsmode!="0") {
++if (confirm(g_mldChangeDSLMode)) {
++jslSetValue("uiPostDSLMode", "0");
++jslEnable("uiPostDSLMode");
++bDSLModeConfirm=true;
++}
++}
++if (jslGetChecked("uiViewDSLModeVDSLOnly") && dlsmode!="1") {
++if (confirm(g_mldChangeDSLMode)) {
++jslSetValue("uiPostDSLMode", "1");
++jslEnable("uiPostDSLMode");
++bDSLModeConfirm=true;
++}
++}
++jslSetValue("iPostDownstreamMarginOffset", g_mode * 10);
++var ctlbits = jslGetValue("uiPostControlBitfield");
++ctlbits &= ~6;
++if(g_mode>0)
++{
++ctlbits |= 4;
++}
++jslSetValue("uiPostControlBitfield", ctlbits);
++if (
++<? if eq $var:isMultiAnnex 1 `
++bAnnexConfirm
++|| bDSLModeConfirm
++` `
++0
++|| bDSLModeConfirm
++` ?>
++){
++jslSetValue("uiPostGetPage", "../html/reboot.html");
++document.getElementById("uiPostForm").submit();
++}
++else {
++jslFormSubmitEx("internet", "dslsnrset");
++}
++}
++function uiDoCancel() {
++jslGoTo("internet", "dslsnrset");
++}
++</script>
+--- usr/www/avm/html/de/internet/dslsnrset.frm	2009-02-19 09:57:20.000000000 -0500
++++ usr/www/avm/html/de/internet/dslsnrset.frm	2009-01-22 10:31:44.000000000 -0500
+@@ -0,0 +1,4 @@
++<input type="hidden" name="sar:settings/ControlBitfield" value="<? query sar:settings/ControlBitfield ?>" id="uiPostControlBitfield">
++<input type="hidden" name="sar:settings/DownstreamMarginOffset" value="<? query sar:settings/DownstreamMarginOffset ?>" id="iPostDownstreamMarginOffset">
++<Input type="hidden" name="sar:settingnnex" value="<? query sar:settingnnex ?>" id="uiPostAnnex" disabled>
++<Input type="hidden" name="sar:settings/DSLMode" value="<? query sar:settings/DSLMode ?>" id="uiPostDSLMode" disabled>
+--- usr/www/avm/html/de/first/basic_first_Annex.frm	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/first/basic_first_Annex.frm	2009-01-22 10:31:50.000000000 -0500
+@@ -0,0 +1 @@
++<? include ../html/de/first/basic_first.frm ?>
+--- usr/www/avm/html/de/first/basic_first_Annex.html	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/first/basic_first_Annex.html	2009-01-22 10:31:55.000000000 -0500
+@@ -0,0 +1,20 @@
++﻿
++<div id="content">
++<div class="backtitelkonfig"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
++ADSL-Leitungskonfiguration
++</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p>Geben Sie hier an, nach welcher DSL-Richtlinie (Annex) Ihr DSL-Anschluss arbeitet. Informationen zu dem an Ihrem Anschluss verwendeten Annex erhalten Sie bei Ihrem Internetanbieter. Achtung! Eine falsche Einstellung kann dazu fhren, dass keine DSL-Verbindung mehr zustande kommt. Nach der nderung der Einstellung startet die FRITZ!Box automatisch neu, damit die nderungen wirksam werden.
++<p class="mb10 mt10" id="uiViewAnnex">
++<input id="uiViewAnnexA" type="radio" name="Annex" onclick="SelectAnnex('A')" />
++<label for="uiViewAnnexA">Annex A </label><br>
++<input id="uiViewAnnexB" type="radio" name="Annex" onclick="SelectAnnex('B')" />
++<label for="uiViewAnnexB">Annex B </label>
++</p>
++</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="forebuttons">
++<input type="button" onclick="uiDoBack()" value="Zurueck" class="Pushbutton" style="display:none;" id="uiBackButtonDiv">&nbsp;&nbsp;
++<input type="button" onclick="uiDoOk()" value="Uebernehmen" class="Pushbuttonfett " id="uiBtnOK">
++<input type="button" onclick="uiDoHelp()" value="Hilfe" class="Pushbutton" id="buttonHilfe">
++</div></div></div></div></div></div>
++</div>
+--- usr/www/avm/html/de/first/basic_first_Annex.js	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/first/basic_first_Annex.js	2009-01-22 10:31:49.000000000 -0500
+@@ -0,0 +1,32 @@
++<!-- ../first/basic_first_Annex.js -->
++<script type="text/javascript">
++<? include ..usr/www/avm/html/de/js/jsl.js ?>
++<? include ..usr/www/avm/html/de/first/basic_first.js ?>
++function uiDoOnLoad() {
++document.title = "<? print `$var:BoxName` ?>" + " " + "ANNEX ?? ";
++if(jslGetValue('uiNeedCountrySetting')=="1")
++jslDisplay('uiBackButtonDiv',true);
++if(jslGetValue('uiAnnexSetting')!="")
++SelectAnnex(jslGetValue('uiAnnexSetting'));
++else
++jslSetChecked("uiViewAnnexA", true);
++}
++function uiDoOk(){
++if(jslGetChecked("uiViewAnnexA")) {
++jslSetValue('uiAnnexSetting',"A");
++}else if(jslGetChecked("uiViewAnnexB")) {
++jslSetValue('uiAnnexSetting',"B");
++}
++DoRebootSubmit();
++}
++function uiDoBack(){
++jslGoTo("first", "basic_first_Country");
++}
++function SelectAnnex(value){
++jslSetChecked("uiViewAnnexA", value=="A");
++jslSetChecked("uiViewAnnexB", value=="B");
++}
++function uiDoHelp() {
++jslPopHelp("hilfe_internet_dslsnrset");
++}
++</script>
+--- usr/www/avm/html/de/internet/vdsl_profile.html	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/internet/vdsl_profile.html	2009-01-22 10:31:50.000000000 -0500
+@@ -0,0 +1,65 @@
++<div id="content">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
++{?de.internet.vdsl_profile.html:5DSLInfo?}
++</div></div></div></div></div></div>
++<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
++<ul class="tabs">
++<li><a href="javascript:uiDoOverviewPage()">Overview</a></li>
++<li><a href="javascript:uiDoADSLPage()">DSL</a></li>
++<li><a href="javascript:uiDoBitsPage()">Spektrum</a></li>
++<li class="tabs_on"><div class="activtab">VdslProf</div></li>
++<? if eq $var:isMultiAnnex 1 `
++<? if eq '<? query box:settings/expertmode/activated ?>' '1' `
++<li><a href="javascript:uiDoSNRPage()">Einstellungen</a></li>
++` ?>
++` `
++<? if neq $var:Annex A `
++<? if eq '<? query box:settings/expertmode/activated ?>' '1' `
++<li><a href="javascript:uiDoSNRPage()">Einstellungen</a></li>
++` ?>
++` ?>
++` ?>
++</ul>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<form method="post" action="/cgi-bin/webcm">
++<p>
++<input type="hidden" name="getpage" value="../html/de/menus/menu2.html" />
++<input type="hidden" name="errorpage" value="../html/de/menus/menu2.html" />
++<input type="hidden" name="var:pagename" value="vdsl_profile" />
++<input type="hidden" name="var:errorpagename" value="vdsl_profile" />
++<input type="hidden" name="var:menu" value="internet" />
++{?de.internet.vdsl_profile.html:35Prof?}
++<select name="vdsl:settings/vdsl_profile" id="vdsl_profile_box">
++<option value="0">annex17a</option>
++<option value="1">annex8a</option>
++<option value="2">annex8b</option>
++<option value="3">annex8d</option>
++<option value="4">annex12a</option>
++<option value="5">annex12b</option>
++<option value="6">annex17b</option>
++<option value="7">annex30a</option>
++</select>
++<input type="submit" value="Uebernehmen" />
++</p>
++</form>
++<br>
++<form method="post" action="/cgi-bin/webcm">
++<p>
++<input type="hidden" name="getpage" value="..usr/www/avm/html/de/menus/menu2.html" />
++<input type="hidden" name="errorpage" value="..usr/www/avm/html/de/menus/menu2.html" />
++<input type="hidden" name="var:pagename" value="vdsl_profile" />
++<input type="hidden" name="var:errorpagename" value="vdsl_profile" />
++<input type="hidden" name="var:menu" value="internet" />
++{?de.internet.vdsl_profile.html:85Filter?}
++<select name="vdsl:settings/vdsl_filter" id="vdsl_filter_box">
++<option value="0">Filter Off</option>
++<option value="1">ISND Filter</option>
++<option value="2">POTS Filter</option>
++</select>
++<input type="submit" value="Uebernehmen" />
++</p>
++</form>
++</div></div></div></div></div></div>
++<? include ../html/de/home/rbb_refresh.html ?>
++</div></div></div></div></div></div></div>
++</div>
+--- usr/www/avm/html/de/internet/vdsl_profile.js	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/internet/vdsl_profile.js	2009-01-22 10:31:49.000000000 -0500
+@@ -0,0 +1,27 @@
++<!-- ../internet/vdsl_profile.js -->
++<style type="text/css">
++<!--
++#content {width: 580px; margin: auto;}
++.ac {text-align:center;}
++.fett {font-weight: bold;}
++-->
++</style>
++<script type="text/javascript">
++<? include ../html/de/js/jsl.js ?>
++<? include ../html/de/internet/awatch.js ?>
++function Select(id, index) {
++var obj = document.getElementById(id);
++if (obj) obj.selectedIndex = index;
++}
++function uiDoOnLoad() {
++document.title = "<? print `$var:BoxName` ?>" + " " + "DSL Info";
++Select('vdsl_profile_box',"<? query vdsl:settings/vdsl_profile ?>");
++Select('vdsl_filter_box',"<? query vdsl:settings/vdsl_filter ?>");
++}
++function uiDoHelp() {
++jslPopHelp("hilfe_dslinfo_ATM");
++}
++function uiDoRefresh() {
++jslGoTo("internet", "vdsl_profile");
++}
++</script>

@@ -6,8 +6,8 @@ Usage: ./sp-to-fritz.sh [OPTIONS] -m MODEL
 This script uses binaries in subdirectory  /tools, if you use this on other
 LINUX systems as on x86 machines (Intel etc.) compile the tools for your hardware in use.
 Source of the tools:  http://trac.freetz.org/browser/trunk/tools  
-It is known that not on all system you will be able to use the script without any problem,
-Tested systems are andLinux, Stinkylinux, Debian, SuSe, Knoppix, Ubunto.
+It is known that you will not be able to use the script on all system  without any problems,
+Tested systems are andLinux, Stinkylinux, Debian, SuSe, Knoppix, Ubuntu.
 On some systems you have to add the patch tool (add install patch). 
           
                                                                        
@@ -20,13 +20,13 @@ On some systems you have to add the patch tool (add install patch).
 
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
-(Dont remove this line, becaus it is used for autoinserting)
+(Dont remove this line, because it is used for autoinserting)
 20090225-0257-r-117_135M
-    - fix tr069 modinfo disply entry 
+    - fix tr069 modinfo display entry 
 20090224-1202-r-117_134M
-    - multilingual und multicountry optiom added, not fully usable yet.
+    - multilingual und multicountry option added, not fully usable yet.
 20090224-1147-r-117_133M
-    - Config.in: Fixes for firmwares downloadlinks concerning MINI and 'en versions', some changes concerning multilingual, and ATM Options removed
+    - Config.in: Fixes for firmwares downloadlinks concerning MINI and 'en versions', some changes concerning multilingual and ATM Options removed
 20090224-0554-r-117_133M
     - W900: tabproblem fixed
 20090223-1737-r-0_131M
@@ -56,23 +56,23 @@ On some systems you have to add the patch tool (add install patch).
 20090214-0745
     - Sinus 500 some variablels fixed by comparing with script dated 19.07.2008, one diffence remains usb menu is removeable now.
 20090214-0727
-    - Remove 'software' in rem_usb_menu.sh corrected becaus liks is funktional.
+    - Remove 'software' in rem_usb_menu.sh corrected because link is functional.
 20090214-0556
-    - Menue option for setting HWRevision and modedel in plugin URL, added.
+    - Menue option for setting HWRevision and model in plugin URL, added.
 20090214-0031
     - W920: Firmware 13640 inserted into config.in
 20090213-1650
-    - W920: Firmware 13486 insertete as option for special firmware,
+    - W920: Firmware 13486 inserted as option for special firmware,
 20090213-1250
     - W501: some variables fixed.
 20090210-1444
-    - en Version 'buchentryinfo' in patch rverselookup fixed.
+    - en Version 'buchentryinfo' in patch reverselookup fixed.
 20090210-1402
     - W920: Option use Tcom pclink driver, added
 20090210-1332
-    - Directory namming for diffresults changed.
+    - Directory naming for diffresults changed.
 20090210-1317
-    - Compare option between TCOM and source 3, added.
+    - Compare option between TCOM and source 3 added.
 20090210-1121
     - W920: added Speedport_W_920V.AnnexB.65.04.71.image
 20090208-1605
@@ -82,7 +82,7 @@ On some systems you have to add the patch tool (add install patch).
 20090208-0922
     - Added subversion install 'apt-get install subversion' to install-start
 20090206-1240
-    - W920 fix plugin, the was a bug in the script since the changes for multlingual ware made.
+    - W920 fix plugin, the was a bug in the script since the changes for multilingual were made.
 20090206-1238
     - FTP Downloadlink for english versions fixed.
 20090206-1149
@@ -90,9 +90,9 @@ On some systems you have to add the patch tool (add install patch).
 20090206-0623
     - W920: add 7270 PHONE, fritz_box-labor-7270-13537.zip
 20090206-0545
-    - W900: en Version Dect some typing correcions, some more to come.
+    - W900: en Version Dect some typing corrections, some more to come.
 20090206-0353
-    - W920: 7270 PHONE Firmware removed, because is not avalable any more.
+    - W920: 7270 PHONE Firmware removed, because is not available any more.
 20090206-0344
     - W920: AiO 7270 changed to fritz_box-labor-13538.ZIP
 20090205-0741
@@ -102,11 +102,11 @@ On some systems you have to add the patch tool (add install patch).
 20090204-1644
     - fix URL again, Software download url fixed, by Hawcline
 20090204-1551
-    - Major script changes to get conform to AVM en and multilingual versions, but the should not have an effect on other firmwares
+    - Major script changes to get conform to AVM en and multilingual versions, but they should not have an effect on other firmwares
 20090203-2259
     - Korrektur Software download url fixed, by Hawcline
 20090203-1548
-    - W920: 7270, added multilingual version to config in, FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it.54.04.67.image, not tested scrit needs adaptions!
+    - W920: 7270, added multilingual version to config in, FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it.54.04.67.image, not tested script needs adaptions!
 20090203-1517
     - Software download url fixed, by Hawcline
 20090203-1500
@@ -122,7 +122,7 @@ On some systems you have to add the patch tool (add install patch).
 20090131-0650
     - W920: config.in add, /fw_Speedport_W_920V_v_65.04.70.image 
 20090130-1739
-    - W900:  Speedport907, plugin HWRevision woarkaround inserted.
+    - W900:  Speedport907, plugin HWRevision workaround inserted.
 20090130-1718
     - W900:  USE_SOURCE2_WEBMNUE in Speedport907 fixed 
 20090130-1317
@@ -134,7 +134,7 @@ On some systems you have to add the patch tool (add install patch).
 20090129-1620
     - Some changes on onlinecounterpage
 20090129-1507
-    - Freetz: LABOR_TYPE_PHONE defined in Cinfig.in 
+    - Freetz: LABOR_TYPE_PHONE defined in Config.in 
 20090129-1457
     - Revert
 20090129-1310
@@ -146,7 +146,7 @@ On some systems you have to add the patch tool (add install patch).
 20090129-1017
     - Congstar: added congstar directory in file ./Speedport707
 20090129-1005
-    - Congstar: Woraround with filename contining Space
+    - Congstar: Workaround with filename containing Space
 20090129-0615
     - 7170 download links fixed
 20090129-0602
@@ -154,9 +154,9 @@ On some systems you have to add the patch tool (add install patch).
 20090128-1708
     - 7170 AiO added to config.in. fritz_box-labor-13475.zip
 20090128-1638
-    - W920: 7270 menuoption AIO used for prerelaese. Updateled changed. W503: aditional kernel_args argument console added
+    - W920: 7270 menuoption AIO used for prerelease. Update LED changed. W503: additional kernel_args argument console added
 20090127-0749
-    - W920: 7270 menuoption PHONE used for prerelaese, to be compatibel with freetz
+    - W920: 7270 menuoption PHONE used for prerelease, to be compatible with freetz
 20090127-0710
     - W920: 7270 ALL changed in config.in to fritz_box-labor-13486.ZIP, removed UMTS, and  PHONE
 20090127-0604
@@ -166,7 +166,7 @@ On some systems you have to add the patch tool (add install patch).
 20090124-1753
     - Added ftp178 and ftp002 for push ftp to 192.168.178.1 or 192.168.2.1
 20090124-0441
-    - congstar: added W701, fixed problem with filnames including spc
+    - congstar: added W701, fixed problem with filenames including spc
 20090124-0256
     - W920: Adjusted config.in for: fritz_box-labor-7270-13483.zip
 20090123-1240
@@ -174,13 +174,13 @@ On some systems you have to add the patch tool (add install patch).
 20090123-0957
     - W503: config.in added, fw_Speedport_W503V_v66.04.66.image
 20090121-1620
-    - W503: first useable version, with major limitaitons
+    - W503: first useable version, with major limitations
 20090120-0729
     - Altenativen mirror download eingetragen in config.in
 20090119-0231
     - W920:changed addon ntfs in config.in
 20090118-0235
-    - W920: AVM 72770 .67 download link fixed, did not work sinse last change
+    - W920: AVM 72770 .67 download link fixed, did not work since last change
 20090116-1257
     - W920: download link adjasted for: fritz_box-labor-7270-13422.zip 
 20090116-0401
@@ -192,19 +192,19 @@ On some systems you have to add the patch tool (add install patch).
 20090115-0509
     - tools/busybox: bump to 1.12.4
 20090114-1247
-    - start-freetz.sh: disable some patches so the are not applied twice.
+    - start-freetz.sh: disable some patches so they are not applied twice.
 Jan. 12, 2009
     - 7270 config.in adjusted to LABOR fritz_box-labor-7270-13362.zip
     - In ./includes/icludefunctions -function fileselect unzip option j added, because AVM added 
       path inside zipfile with fritz_box-labor-7270-13362.zip
 Jan. 10, 2009
     - svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk/speed-to-fritz speed-to-fritz
-      can mow be used to checkout the latest revision of "speed-to-fritz"
+      can now be used to checkout the latest revision of "speed-to-fritz"
 Jan.  5, 2009
     - GSM display set to always, if GSM firmware is used.
-    - Bugfix an workaround for freetz in and W920
+    - Bugfix a workaround for freetz in and W920
     - Busybox version again set to the one used with freetz. Hopefully this time all
-    - Firmware will work, if not stay with version 1.1.2008, Not tested.
+    - firmware will work, if not stay with version 1.1.2008, Not tested.
 Jan.  1, 2009
     - Tools busybox set back to 1.10.4. DSL Firmware would not work with newer.
  Dez.  31, 2008
@@ -218,12 +218,12 @@ Dez.  30, 2008
     - Bugfix W920, VCI VPI
 Dez.  29, 2008
     - W920, W721 ATM parameter again fixed, was still buggy, but not tested.
-    - Online counter one minir fix on home page, IE had problems.
+    - Online counter one minor fix on home page, IE had problems.
 Dez.  28, 2008
     - W920 W721, add badget page 
 Dez.  27, 2008
     - W721 config.in adjusted to: FRITZ.Box_Fon_WLAN_7113.60.04.61.image
-    - W920, W721 ATM parameter fixed, but not tested.
+    - W920, W721 ATM parameter fixed but not tested.
 Dez.  26, 2008
     - W920 Bug fix in combination with "Option Force Tcom-LED Dreiver"
     - Set FB_HWRevision to 139 for W503
@@ -302,7 +302,7 @@ Dez.  20, 2008
     - Some minor script changes, concerning starting with a clean
       emty configuration. Firmware.conf my be deleted if one
       wants to start with default settings.
-    - ut-8 in for Rueckwaetssuche fixed. 
+    - ut-8 in for Rueckwaertssuche fixed. 
     - Option ut-8 deactivated becas is not needed with the 
       latest Ai1 any more.
     - install-tools mit der version 16.09.2008 ersetzt.
@@ -376,7 +376,7 @@ Dez.  20, 2008
       If a mirror download site is in use the word 'mirror'
       has to be inserted between first file name with zip 
       extension added and download link for the mirror location.
-      If first download location is a packed zip, autonmatic
+      If first download location is a packed zip, automatic
       add of a local filename will take place once it was downloaded. 
  August 26, 2008
     - Changed display of ATA starting page if menu option 

@@ -691,8 +691,8 @@ echo "**************************************************************************
 if [ "$ORI" != "y" ]; then
  #international language - fix patches in advance 
  for FILE in `ls $P_DIR`  ; do
-    [ "$OEMLINK" == "avme" ] && sed -i -e "s|/avm/|/$OEM/|" $P_DIR/$FILE 
-    [ "$OEMLINK" == "avm" ] && sed -i -e "s|/avme/|/$OEM/|" $P_DIR/$FILE 
+    [ "$OEMLINK" == "avme" ] && sed -i -e "s|/avm/|/$OEMLINK/|" $P_DIR/$FILE 
+    [ "$OEMLINK" == "avm" ] && sed -i -e "s|/avme/|/$OEMLINK/|" $P_DIR/$FILE 
  done
  #prepare for use of Freetz 7170 Firmware 
  [ "$MOVE_ALL_to_OEM" = "y" ] && $sh_DIR/move_all_to_OEM.sh "${SRC}" || $sh_DIR/remake_link_avm.sh "${SRC}"

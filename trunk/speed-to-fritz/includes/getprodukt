@@ -2,10 +2,9 @@
 #########################################################################
 #  set variables according to Source                                    #
 ######################################################################### 
-#CONFIG_PRODUKT=`ls -d "${DST}"/etc/default.Fritz* | ##*.` #this expression courses problems with some images
 #SORCE_PRODUKT=`ls -d "${SRC}"/etc/default.Fritz* | ##*.`  #so the longer one is taken instead
-#CONFIG_PRODUKT=`ls -d "${DST}"/etc/default.F*` 
-#export CONFIG_PRODUKT=${CONFIG_PRODUKT##*.} 
+DEST_PRODUKT=`ls -d "${DST}"/etc/default.F*` 
+export DEST_PRODUKT=${DEST_PRODUKT##*.}
 SORCE_PRODUKT=`ls -d "${SRC}"/etc/default.F*` 
 export SORCE_PRODUKT=${SORCE_PRODUKT##*.}
 if [ ${CONFIG_PRODUKT} = "" ]; then

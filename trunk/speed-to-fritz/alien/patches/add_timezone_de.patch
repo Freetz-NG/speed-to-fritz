@@ -1,0 +1,123 @@
+--- usr/www/avm/html/de/system/timeZone.frm	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/system/timeZone.frm	2009-01-22 10:31:46.000000000 -0500
+@@ -0,0 +1,4 @@
++<input type="hidden" name="time:settings/tz_enabled" value="<? query time:settings/tz_enabled ?>" id="uiPostTZ_Enabled" disabled>
++<input type="hidden" name="time:settings/tz_offset" value="<? query time:settings/tz_offset ?>" id="uiPostTZ_Offset" disabled>
++<input type="hidden" name="time:settings/tz_offset_minutes" value="<? query time:settings/tz_offset_minutes ?>" id="uiPostTZ_Offset_Minutes" disabled>
++<input type="hidden" name="time:settings/tz_dst_enabled" value="<? query time:settings/tz_dst_enabled ?>" id="uiPostTZ_DstEnabled" disabled>
+--- usr/www/avm/html/de/system/timeZone.html	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/system/timeZone.html	2009-01-22 10:31:57.000000000 -0500
+@@ -0,0 +1,52 @@
++<div id="content">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
++Zeitzone
++</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class0"mt10">Die Zeitzone wird beim Aufbau einer Internetverbindung automatisch konfiguriert. Um Ihre Zeitzone manuell einzustellen, aktivieren Sie die folgende Option und stellen Sie die Abweichung zu GMT (Greenwich Mean Time) ein.</p>
++<p class="mt10"><input type="checkbox" id="uiViewTZ_Enabled" name="uiViewClickToTZ_Enabled" onclick="OnClickTo_TZ_Enabled()">&nbsp;<label for="uiViewTZ_Enabled">Zeit Zonne waehlen</label></p>
++<div class="ml25">
++<p class="mt10">Geben Sie Ihre Zeitzone relativ zur GMT an: &nbsp;
++<select id="uiViewTZ_GMT_Offset" name="View_TZ_Offset" class="Eingabefeld">
++<option value=" ">  </option>
++<option value="720" >GMT Minus 12</option>
++<option value="660" >GMT Minus 11</option>
++<option value="600" >GMT Minus 10</option>
++<option value="540" >GMT Minus 9</option>
++<option value="480" >GMT Minus 8</option>
++<option value="420" >GMT Minus 7</option>
++<option value="360" >GMT Minus 6</option>
++<option value="300" >GMT Minus 5</option>
++<option value="240" >GMT Minus 4</option>
++<option value="180" >GMT Minus 3</option>
++<option value="120" >GMT Minus 2</option>
++<option value="60" >GMT Minus 1</option>
++<option value="0" >GMT        </option>
++<option value="-60" >GMT Plus 1</option>
++<option value="-120">GMT Plus 2</option>
++<option value="-180">GMT Plus 3</option>
++<option value="-210">GMT Plus 3,5</option>
++<option value="-240">GMT Plus 4</option>
++<option value="-270">GMT Plus 4,5</option>
++<option value="-300">GMT Plus 5</option>
++<option value="-330">GMT Plus 5,5</option>
++<option value="-360">GMT Plus 6</option>
++<option value="-390">GMT Plus 6,5</option>
++<option value="-420">GMT Plus 7</option>
++<option value="-480">GMT Plus 9</option>
++<option value="-525">GMT Plus 9:45</option>
++<option value="-540">GMT Plus 9</option>
++<option value="-600">GMT Plus 10</option>
++<option value="-630">GMT Plus 10,5</option>
++<option value="-660">GMT Plus 11</option>
++<option value="-690">GMT Plus 11,5</option>
++<option value="-720">GMT Plus 12</option>
++<option value="-765">GMT Plus 12:45</option>
++</select></p>
++<p class="mb10"><input type="checkbox" id="uiViewTZ_Dst_Enabled" name="uiViewClickToTZ_DstEnabled" onclick="OnClickTo_DstEnabled()">&nbsp;<label for="uiViewTZ_Dst_Enabled">Sommer- und Winterzeit nutzen</label></p>
++</div>
++<p class="mt10 mt10"><b>Achtung!</b>&nbsp; Wenn Sie diese Einstellungen aendern, wird die FRITZ!Box zur uebernahme der Einstellungen automatisch neu gestartet.</p>
++</div></div></div></div></div></div>
++<? include ../html/de/home/rbb_applycancel.html ?>
++</div></div></div></div></div></div></div>
++</div>
+--- usr/www/avm/html/de/system/timeZone.js	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/system/timeZone.js	2009-01-22 10:31:50.000000000 -0500
+@@ -0,0 +1,58 @@
++<!-- ../system/timeZome.js -->
++<style type="text/css">
++<!--
++
++.ar {text-align: right;}
++-->
++</style>
++<script type=text/javascript>
++<? include ..usr/www/avm/html/de/js/jsl.js ?>
++var g_txtConfirmSubmit = "Confirm Submit ?";
++function uiDoOnLoad() {
++document.title = "<? print `$var:BoxName` ?>" + " " + "Time Zone";
++jslSetChecked("uiViewTZ_Enabled", jslGetValue("uiPostTZ_Enabled") == "1");
++jslSetChecked("uiViewTZ_Dst_Enabled", jslGetValue("uiPostTZ_DstEnabled") == "1");
++if ( jslGetValue("uiPostTZ_Enabled") == "1") {
++jslSetSelection("uiViewTZ_GMT_Offset", jslGetValue("uiPostTZ_Offset_Minutes"));
++} else {
++jslSetSelection("uiViewTZ_GMT_Offset", " ");
++}
++OnClickTo_TZ_Enabled ();
++}
++function uiDoCancel() {
++jslGoTo("", "");
++}
++function uiDoSave() {
++var tz_Enabled = jslGetChecked("uiViewTZ_Enabled") ? "1":"0";
++var tz_DstEnabled = jslGetChecked("uiViewTZ_Dst_Enabled") ? "1":"0";
++if ((tz_Enabled != jslGetValue("uiPostTZ_Enabled")) ||
++(( jslGetChecked("uiViewTZ_Enabled")) &&
++((jslGetValue("uiViewTZ_GMT_Offset") != jslGetValue("uiPostTZ_Offset_Minutes")) || (tz_DstEnabled != jslGetValue("uiPostTZ_DstEnabled"))))) {
++if (confirm(g_txtConfirmSubmit)) {
++jslSetValue("uiPostTZ_Enabled", tz_Enabled);
++jslCopyValue("uiPostTZ_Offset_Minutes", "uiViewTZ_GMT_Offset");
++jslSetValue("uiPostTZ_DstEnabled", tz_DstEnabled);
++jslEnable("uiPostTZ_Enabled");
++jslEnable("uiPostTZ_Offset_Minutes");
++jslEnable("uiPostTZ_DstEnabled");
++jslSetValue("uiPostGetPage", "..usr/www/avm/html/reboot.html");
++jslFormSubmit("uiPostForm");
++}
++}
++}
++function uiDoHelp() {
++jslPopHelp("hilfe_system_timeZone");
++}
++function OnClickTo_TZ_Enabled () {
++if ( jslGetChecked("uiViewTZ_Enabled")) {
++jslEnable("uiViewTZ_GMT_Offset");
++jslEnable("uiViewTZ_Dst_Enabled");
++} else {
++jslDisable("uiViewTZ_GMT_Offset");
++jslDisable("uiViewTZ_Dst_Enabled");
++}
++}
++function OnClickTo_DstEnabled () {
++// jslSetEnabled("uiView_TZSettings", jslGetChecked("uiViewTZ_Enabled"));
++}
++</script>

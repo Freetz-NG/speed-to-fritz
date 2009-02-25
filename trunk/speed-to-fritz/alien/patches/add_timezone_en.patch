@@ -1,0 +1,123 @@
+--- usr/www/avm/html/de/system/timeZone.frm	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/system/timeZone.frm	2009-01-22 10:31:46.000000000 -0500
+@@ -0,0 +1,4 @@
++<input type="hidden" name="time:settings/tz_enabled" value="<? query time:settings/tz_enabled ?>" id="uiPostTZ_Enabled" disabled>
++<input type="hidden" name="time:settings/tz_offset" value="<? query time:settings/tz_offset ?>" id="uiPostTZ_Offset" disabled>
++<input type="hidden" name="time:settings/tz_offset_minutes" value="<? query time:settings/tz_offset_minutes ?>" id="uiPostTZ_Offset_Minutes" disabled>
++<input type="hidden" name="time:settings/tz_dst_enabled" value="<? query time:settings/tz_dst_enabled ?>" id="uiPostTZ_DstEnabled" disabled>
+--- usr/www/avm/html/de/system/timeZone.html	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/system/timeZone.html	2009-01-22 10:31:57.000000000 -0500
+@@ -0,0 +1,52 @@
++<div id="content">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
++{?de.system.timeZone.html:5TimeZone?}
++</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class0"mt10">{?de.system.timeZone.html:10FirstTime?}</p>
++<p class="mt10"><input type="checkbox" id="uiViewTZ_Enabled" name="uiViewClickToTZ_Enabled" onclick="OnClickTo_TZ_Enabled()">&nbsp;<label for="uiViewTZ_Enabled">{?de.system.timeZone.html:15SetTimeZone?}</label></p>
++<div class="ml25">
++<p class="mt10">{?de.system.timeZone.html:20LocalZoneToGMT?}&nbsp;
++<select id="uiViewTZ_GMT_Offset" name="View_TZ_Offset" class="Eingabefeld">
++<option value=" ">{?de.system.timeZone.html:25Space?}</option>
++<option value="720" >{?de.system.timeZone.html:30GMTMinus12?}</option>
++<option value="660" >{?de.system.timeZone.html:35GMTMinus11?}</option>
++<option value="600" >{?de.system.timeZone.html:40GMTMinus10?}</option>
++<option value="540" >{?de.system.timeZone.html:45GMTMinus9?}</option>
++<option value="480" >{?de.system.timeZone.html:50GMTMinus8?}</option>
++<option value="420" >{?de.system.timeZone.html:55GMTMinus7?}</option>
++<option value="360" >{?de.system.timeZone.html:60GMTMinus6?}</option>
++<option value="300" >{?de.system.timeZone.html:65GMTMinus5?}</option>
++<option value="240" >{?de.system.timeZone.html:70GMTMinus4?}</option>
++<option value="180" >{?de.system.timeZone.html:75GMTMinus3?}</option>
++<option value="120" >{?de.system.timeZone.html:80GMTMinus2?}</option>
++<option value="60" >{?de.system.timeZone.html:85GMTMinus1?}</option>
++<option value="0" >{?de.system.timeZone.html:90GMT?}</option>
++<option value="-60" >{?de.system.timeZone.html:95GMTPlus1?}</option>
++<option value="-120">{?de.system.timeZone.html:100GMTPlus2?}</option>
++<option value="-180">{?de.system.timeZone.html:105GMTPlus3?}</option>
++<option value="-210">{?de.system.timeZone.html:9426?}</option>
++<option value="-240">{?de.system.timeZone.html:110GMTPlus4?}</option>
++<option value="-270">{?de.system.timeZone.html:5022?}</option>
++<option value="-300">{?de.system.timeZone.html:115GMTPlus5?}</option>
++<option value="-330">{?de.system.timeZone.html:355?}</option>
++<option value="-360">{?de.system.timeZone.html:120GMTPlus6?}</option>
++<option value="-390">{?de.system.timeZone.html:2819?}</option>
++<option value="-420">{?de.system.timeZone.html:125GMTPlus7?}</option>
++<option value="-480">{?de.system.timeZone.html:130GMTPlus9?}</option>
++<option value="-525">{?de.system.timeZone.html:9628?}</option>
++<option value="-540">{?de.system.timeZone.html:135GMTPlus9?}</option>
++<option value="-600">{?de.system.timeZone.html:140GMTPlus10?}</option>
++<option value="-630">{?de.system.timeZone.html:6549?}</option>
++<option value="-660">{?de.system.timeZone.html:145GMTPlus11?}</option>
++<option value="-690">{?de.system.timeZone.html:2495?}</option>
++<option value="-720">{?de.system.timeZone.html:150GMTPlus12?}</option>
++<option value="-765">{?de.system.timeZone.html:6497?}</option>
++</select></p>
++<p class="mb10"><input type="checkbox" id="uiViewTZ_Dst_Enabled" name="uiViewClickToTZ_DstEnabled" onclick="OnClickTo_DstEnabled()">&nbsp;<label for="uiViewTZ_Dst_Enabled">{?de.system.timeZone.html:155SavingTime?}</label></p>
++</div>
++<p class="mt10 mt10"><b>{?de.system.timeZone.html:160Achtung?}</b>&nbsp;{?de.system.timeZone.html:165Restart?}</p>
++</div></div></div></div></div></div>
++<? include ../html/de/home/rbb_applycancel.html ?>
++</div></div></div></div></div></div></div>
++</div>
+--- usr/www/avm/html/de/system/timeZone.js	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/system/timeZone.js	2009-01-22 10:31:50.000000000 -0500
+@@ -0,0 +1,58 @@
++<!-- ../system/timeZome.js -->
++<style type="text/css">
++<!--
++#content {width: 560px; margin: auto;}
++.ar {text-align: right;}
++-->
++</style>
++<script type=text/javascript>
++<? include ../html/de/js/jsl.js ?>
++var g_txtConfirmSubmit = "{?de.system.timeZone.js:5?}";
++function uiDoOnLoad() {
++document.title = "<? print `$var:BoxName` ?>" + " " + "{?de.system.timeZone.js:10TimeZone?}";
++jslSetChecked("uiViewTZ_Enabled", jslGetValue("uiPostTZ_Enabled") == "1");
++jslSetChecked("uiViewTZ_Dst_Enabled", jslGetValue("uiPostTZ_DstEnabled") == "1");
++if ( jslGetValue("uiPostTZ_Enabled") == "1") {
++jslSetSelection("uiViewTZ_GMT_Offset", jslGetValue("uiPostTZ_Offset_Minutes"));
++} else {
++jslSetSelection("uiViewTZ_GMT_Offset", " ");
++}
++OnClickTo_TZ_Enabled ();
++}
++function uiDoCancel() {
++jslGoTo("", "");
++}
++function uiDoSave() {
++var tz_Enabled = jslGetChecked("uiViewTZ_Enabled") ? "1":"0";
++var tz_DstEnabled = jslGetChecked("uiViewTZ_Dst_Enabled") ? "1":"0";
++if ((tz_Enabled != jslGetValue("uiPostTZ_Enabled")) ||
++(( jslGetChecked("uiViewTZ_Enabled")) &&
++((jslGetValue("uiViewTZ_GMT_Offset") != jslGetValue("uiPostTZ_Offset_Minutes")) || (tz_DstEnabled != jslGetValue("uiPostTZ_DstEnabled"))))) {
++if (confirm(g_txtConfirmSubmit)) {
++jslSetValue("uiPostTZ_Enabled", tz_Enabled);
++jslCopyValue("uiPostTZ_Offset_Minutes", "uiViewTZ_GMT_Offset");
++jslSetValue("uiPostTZ_DstEnabled", tz_DstEnabled);
++jslEnable("uiPostTZ_Enabled");
++jslEnable("uiPostTZ_Offset_Minutes");
++jslEnable("uiPostTZ_DstEnabled");
++jslSetValue("uiPostGetPage", "../html/reboot.html");
++jslFormSubmit("uiPostForm");
++}
++}
++}
++function uiDoHelp() {
++jslPopHelp("hilfe_system_timeZone");
++}
++function OnClickTo_TZ_Enabled () {
++if ( jslGetChecked("uiViewTZ_Enabled")) {
++jslEnable("uiViewTZ_GMT_Offset");
++jslEnable("uiViewTZ_Dst_Enabled");
++} else {
++jslDisable("uiViewTZ_GMT_Offset");
++jslDisable("uiViewTZ_Dst_Enabled");
++}
++}
++function OnClickTo_DstEnabled () {
++// jslSetEnabled("uiView_TZSettings", jslGetChecked("uiViewTZ_Enabled"));
++}
++</script>
