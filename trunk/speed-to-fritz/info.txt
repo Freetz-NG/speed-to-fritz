@@ -21,12 +21,15 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, because it is used for autoinserting)
+20090225-1519-r-136_139M
+    - W920: multilingual adaptionens
 20090225-0257-r-117_135M
     - fix tr069 modinfo display entry 
 20090224-1202-r-117_134M
     - multilingual und multicountry option added, not fully usable yet.
 20090224-1147-r-117_133M
-    - Config.in: Fixes for firmwares downloadlinks concerning MINI and 'en versions', some changes concerning multilingual and ATM Options removed
+    - Config.in: Fixes for firmwares downloadlinks concerning MINI and 'en versions', 
+      some changes concerning multilingual and ATM Options removed
 20090224-0554-r-117_133M
     - W900: tabproblem fixed
 20090223-1737-r-0_131M
@@ -41,7 +44,8 @@ On some systems you have to add the patch tool (add install patch).
     - Some corrections concerning W920 - 7570/7570, 
       'en' or 'de' language is forced for addon pages depending on the selection made. 
       Default language is set to the selection made.
-      'en' version in generell, addon 7150 dect pages are added in 'en' language but the text within 
+      'en' version in generell, addon 7150 dect pages are added in 'en' 
+      language but the text within 
       alian/patches/add_7150_dect_en.patch would need corrections.
 20090215-1355
     - AVM 7570: 7570 entered into filename if 7570 firmware is used.
