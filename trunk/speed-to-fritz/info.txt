@@ -21,6 +21,7 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, because it is used for autoinserting)
+    - Config.in: minor changes
 20090225-0257-r-117_135M
     - fix tr069 modinfo display entry 
 20090224-1202-r-117_134M
