@@ -620,24 +620,24 @@ config TYPE_LABOR_TYPE
 
 config EXPORT_CONFIG_MULTI_LANGUAGE
 	bool "Force Multilingual"
-	depends on TYPE_67m || TYPE_7570_70 || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL
+	depends on TYPE_67m || TYPE_7570_70 || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL || TYPE_SPEEDPORT_W920V
 	default n
 	help
-	    To make this work you must have a 2nd Firmware that supplys the neede feature.
+	    To make this work you must have a 2nd or 3rd Firmware that supplys the neede feature.
 
 config EXPORT_CONFIG_MULTI_COUNTRY
 	bool "Force Multicountry"
-	depends on  TYPE_67m || TYPE_7570_70 || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL
+	depends on  TYPE_67m || TYPE_7570_70 || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL || TYPE_SPEEDPORT_W920V
 	default n
 	help
-	    To make this work you must have a 2nd Firmware that supplys the neede feature.
+	    To make this work you must have a 2nd or 3rd Firmware that supplys the neede feature.
 
 config EXPORT_CONFIG_DSL_MULTI_ANNEX
 	bool "Force Multiannex"
-	depends on  TYPE_67m || TYPE_7570_70 || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL
+	depends on  TYPE_67m || TYPE_7570_70 || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL || TYPE_SPEEDPORT_W920V
 	default n
 	help
-	    To make this work you must have a 2nd Firmware that supplys the neede feature.
+	    To make this work you must have a 2nd or 3rd Firmware that supplys the neede feature.
 
 
 choice

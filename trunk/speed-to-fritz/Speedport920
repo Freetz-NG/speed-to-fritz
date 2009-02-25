@@ -29,12 +29,13 @@ cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko -
 [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
 [ "${FORCE_TCOM_PCMLINK}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2/pcmlink.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2
 cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory="${SRC}"/lib/modules/$KernelVersion
+cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.dep --target-directory="${SRC}"/lib/modules/$KernelVersion
+cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.alias --target-directory="${SRC}"/lib/modules/$KernelVersion
 cp -fdrp "${DST}"/usr/sbin --target-directory="${SRC}"/usr
-#cp -fdrp "${DST}"/lib/modules/vinax_fw_vdsl.bin --target-directory="${SRC}"/lib/modules
 cp -fdrp "${DST}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
 echo "  -- DSL Driver was taken from the original t-com firmware!"
-#not needed as far, because /bin/ctlmgr is not compatible, looks like this is the reason why not all is configurable concerning ATM and ADSL via GUI
 [ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
+[ -f "${SRC}"/usr/share/ctlmgr/libtr064.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libtr064.so --target-directory=${SRC}/usr/share/ctlmgr
 
 if [ ${SAVE_TCOM_DSL} = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/vinax* --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
@@ -42,7 +43,11 @@ if [ ${SAVE_TCOM_DSL} = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/vinax
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
+    cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.dep --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
+    cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.alias --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
     cp -fdrp "${DST}"/usr/sbin --target-directory=./addon/tmp/W920/squashfs-root/usr
+    cp -fdrp "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory=./addon/tmp/W920/squashfs-root/usr/share/ctlmgr
+    cp -fdrp "${DST}"/usr/share/ctlmgr/libtr064.so --target-directory=./addon/tmp/W920/squashfs-root/usr/share/ctlmgr
 fi
 
 if [ ${SAVE_SRC2_DSL} = "y" ]; then
@@ -51,15 +56,22 @@ if [ ${SAVE_SRC2_DSL} = "y" ]; then
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/vinax
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.symbols --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
+    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.dep --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
+    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.alias --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
     cp -fdrp "${SRC_2}"/usr/sbin --target-directory=./addon/tmp/W920/squashfs-root/usr
+    cp -fdrp "${SRC_2}"/usr/share/ctlmgr/libvdsl.so --target-directory=./addon/tmp/W920/squashfs-root/usr/share/ctlmgr
+    cp -fdrp "${SRC_2}"/usr/share/ctlmgr/libtr064.so --target-directory=./addon/tmp/W920/squashfs-root/usr/share/ctlmgr
 fi
 
 if [ ${USE_SRC2_DSL} = "y" ]; then
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
     [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] || cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.symbols --target-directory="${SRC}"/lib/modules/$KernelVersion
+    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.dep --target-directory="${SRC}"/lib/modules/$KernelVersion
+    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.alias --target-directory="${SRC}"/lib/modules/$KernelVersion
     cp -fdrp "${SRC_2}"/usr/sbin --target-directory="${SRC}"/usr
-    #cp -fdrp "${SRC_2}"/lib/modules/vinax_fw_vdsl.bin --target-directory="${SRC}"/lib/modules
+    [ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${SRC_2}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
+    [ -f "${SRC}"/usr/share/ctlmgr/libtr064.so ] || cp -fdrp "${SRC_2}"/usr/share/ctlmgr/libtr064.so --target-directory=${SRC}/usr/share/ctlmgr
     cp -fdrp "${SRC_2}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
     echo "  -- DSL Driver was taken from the original t-com firmware!"
 fi
@@ -70,11 +82,13 @@ echo "  -- DSL Driver was taken from local directory ./addon/tmp/W920!"
 #not 7570 only--->
 if ! [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ]; then 
 #sed -i -e 's|/dsl/dsl_ur8.ko|/vinax/drv_vinax.ko|' "${SRC}"/lib/modules/$KernelVersion/modules.dep
-echo "/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:" >>"${SRC}"/lib/modules/$KernelVersion/modules.dep
+#echo "/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:" >>"${SRC}"/lib/modules/$KernelVersion/modules.dep
 
-#add one entry in modules.sybols
-sed -i -e '/alias symbol:scsi_mode_sense scsi_mod/a\
-alias symbol:PCMRoute_RefreshTimeslot pcmlink' "${SRC}"/lib/modules/$KernelVersion/modules.symbols
+#add entrys in modules.sybols
+sed -i -e '/ alias symbol:pcmlink_ul_dspfwversion_pcmrouter pcmlink/a\
+alias symbol:pcmlink_ul_closeslots pcmlink\
+alias symbol:pcmlink_ul_linkhandle_to_handle pcmlink\
+alias symbol:pcmlink_ul_openslots pcmlink' "${SRC}"/lib/modules/$KernelVersion/modules.symbols
 
 ## Default: ggfs. notweniger pcmlink-Treiber wird von modprobe automatisch
 ## ueber kernel-dependencys ermittelt und vor dem isdn-treiber gestartet
@@ -88,12 +102,12 @@ cp -fdpr  "${DST}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d
 sed -i -e 's|/etc/init.d/rc.dsl.sh start|\. /etc/init.d/rc.vdsl.sh|' "${SRC}/etc/init.d/rc.S" 
 
 #Annex A not working up to now  
-sed -i -e "s/DSL_Mode=\"VB\"/DSL_Mode=\"V$ANNEX\"/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+##sed -i -e "s/DSL_Mode=\"VB\"/DSL_Mode=\"V$ANNEX\"/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 #sed -i -e "s/annex=B/annex=$ANNEX/" "${SRC}/etc/init.d/rc.dsl.sh" 
 
 #ATM Parameter
-sed -i -e "s/dsl_pipe sarcs 0 0 0 1 32/dsl_pipe sarcs 0 0 0 $VPI $VCI/" "${SRC}/etc/init.d/rc.vdsl.sh" 
-sed -i -e "s/dsl_pipe sarrts 0 0 1 1 32/dsl_pipe sarrts 0 0 1 $VPI $VCI/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+#sed -i -e "s/dsl_pipe sarcs 0 0 0 1 32/dsl_pipe sarcs 0 0 0 $VPI $VCI/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+#sed -i -e "s/dsl_pipe sarrts 0 0 1 1 32/dsl_pipe sarrts 0 0 1 $VPI $VCI/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 
 #diffence in rc.dsl.sh  
 sed -i -e 's|dsl_ur8|tiatm|' "${SRC}/etc/init.d/rc.dsl.sh"
@@ -118,10 +132,12 @@ $sh_DIR/patch_leddef_7270.sh "${SRC}" "${DST}"
 #xilix W920 Driver must be for the hardware in use
 [ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules
 [ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit
-fi
-#not 7570  only <---
 #patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
+fi
+#not 7570  only <---
+# add kapselung and annex settings page if missing
+$sh_DIR/add_settings.sh "${SRC}" "${DST}"  
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -145,26 +161,26 @@ fi
 # 920 
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 920
 #there is still no option within the menus
-case $KAPSELUNG in 
-    "0") 
-        VNX_PPP="dslencap_pppoe"
-    ;;
-    "1")   
-        VNX_PPP="dslencap_pppoa_llc"
-    ;;
-    "2")
-        VNX_PPP="dslencap_pppoa"
-    ;;
-    *)  echo "Unknown PPP Mode, Using default Mode PPPoE."
-    ;;
-esac
-[ "${KAPSELUNG}" != "" ] && sed -i -e "s/local ppp_conf=.*$/local ppp_conf=${VNX_PPP}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+#case $KAPSELUNG in 
+#    "0") 
+#        VNX_PPP="dslencap_pppoe"
+#    ;;
+#    "1")   
+#        VNX_PPP="dslencap_pppoa_llc"
+#    ;;
+#    "2")
+#        VNX_PPP="dslencap_pppoa"
+#    ;;
+#    *)  echo "Unknown PPP Mode, Using default Mode PPPoE."
+#    ;;
+#esac
+#[ "${KAPSELUNG}" != "" ] && sed -i -e "s/local ppp_conf=.*$/local ppp_conf=${VNX_PPP}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 #VNX_PPP=0 #default is PPPoE
-[ "${KAPSELUNG}" != "" ] && sed -i -e "s/VNX_PPP=0 #/VNX_PPP=${KAPSELUNG}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+#[ "${KAPSELUNG}" != "" ] && sed -i -e "s/VNX_PPP=0 #/VNX_PPP=${VNX_PPP}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 #Annex default  
-sed -i -e "s/VNX_Mode=\"VB\"/VNX_Mode=\"V$ANNEX\"/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+#sed -i -e "s/VNX_Mode=\"VB\"/VNX_Mode=\"V$ANNEX\"/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 #set DSLMOD
-[ "${DSLMOD}" != "" ] && sed -i -e "s/local DSLMODE=.*$/local DSLMODE=${DSLMOD}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+#[ "${DSLMOD}" != "" ] && sed -i -e "s/local DSLMODE=.*$/local DSLMODE=${DSLMOD}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 
 #VDSL would not start if wrong HWrevision is in use, so it only can be set in ATA mod
 #But pluginsupport needs AVM HWrevision to setup the download URL for plugins 
