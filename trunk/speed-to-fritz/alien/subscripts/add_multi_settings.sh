@@ -32,24 +32,37 @@ if [ "${CONFIG_MULTI_COUNTRY}" = "y" ]; then
  }
  rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.html)" 
 fi
+if ! [ -f "${SRC}/${USRWWW}/first/basic_first_Annex.js" ]; then
+#show settings tub
+#-----------------------------------------------------------------
+  for FILE in adsl.html atm.html bits.html overview.html; do
+  if [ -f "${SRC}/${USRWWW}/internet/$FILE" ]; then 
+    sed -i -e "s|<? if neq \$var:Annex A|<? if eq A A|" "${SRC}/${USRWWW}/internet/$FILE"
+    echo2 "  /${USRWWW}/internet/$FILE"
+  fi
+ done
+#-----------------------------------------------------------------
+fi
+
 #copy default country
-cp -fdrp "${DST}"/etc/default.0* --target-directory=${SRC}/etc
-[ -d "${DST}/etc/default.99" ] && cp -fdrp "${DST}"/etc/default.9* --target-directory=${SRC}/etc
-if [ -n "$FBIMG_2" ]; then
+if [ "${CONFIG_MULTI_COUNTRY}" = "y" ]; then
+ cp -fdrp "${DST}"/etc/default.0* --target-directory=${SRC}/etc
+ [ -d "${DST}/etc/default.99" ] && cp -fdrp "${DST}"/etc/default.9* --target-directory=${SRC}/etc
+ if [ -n "$FBIMG_2" ]; then
   cp -fdrp "${SRC_2}"/etc/default.0* --target-directory=${SRC}/etc
   [ -d "${SRC_2}/etc/default.99" ] && cp -fdrp "${SRC_2}"/etc/default.9* --target-directory=${SRC}/etc
-fi
-rn_files()
-{
+ fi
+ rn_files()
+ {
 	for file in $1; do
 	IMGN="${file%/*}"
 	#echo "$file" $IMGN/"$2"
 	mv "$file" $IMGN/"$2"
 	done
-}
-rn_files "$(find "${SRC}/etc" -name fx_conf.avme)" "fx_conf.default"
-rn_files "$(find "${SRC}/etc" -name fx_lcr.avme)" "fx_lcr.default"
-
+ }
+ rn_files "$(find "${SRC}/etc" -name fx_conf.avme)" "fx_conf.${OEMLINK}"
+ rn_files "$(find "${SRC}/etc" -name fx_lcr.avme)" "fx_lcr.${OEMLINK}"
+fi
 FILELIST="/html/de/internet/vdsl_profile.js \
 /html/de/internet/vdsl_profile.html \
 /html/de/internet/vdsl_profile.frm \
@@ -86,17 +99,6 @@ if [ "${CONFIG_DSL_MULTI_ANNEX}" = "y" ]; then
  fi
 fi
 USRWWW="usr/www/${OEMLINK}/html/de"
-if  [ -f "${SRC}/${USRWWW}/first/basic_first_Annex.js" ]; then
-#show settings tub
-#-----------------------------------------------------------------
-  for FILE in adsl.html atm.html bits.html overview.html; do
-  if [ -f "${SRC}/${USRWWW}/internet/$FILE" ]; then 
-    sed -i -e "s|<? if neq \$var:Annex A|<? if eq A A|" "${SRC}/${USRWWW}/internet/$FILE"
-    echo2 "  /${USRWWW}/internet/$FILE"
-  fi
- done
-#-----------------------------------------------------------------
-fi
 
 if [ "${CONFIG_MULTI_LANGUAGE}" = "y" ]; then
  echo "-- Adding mulilingual pages from source 2 or 3 ..."
