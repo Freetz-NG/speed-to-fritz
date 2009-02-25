@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="W900/W701: update config.in to fritz_box-labor-13679.zip "
+comment="W920: multilingual adaptionens"
 
 
 
@@ -22,7 +22,7 @@ if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
 fi
 date=$(date +%Y%m%d-%H%M)
 DSTI="./trunk/speed-to-fritz/info.txt"
-grep -q "${comment}" ${DSTI} || sed -i -e "/Dont remove this line, becaus it is used for autoinserting/a\
+grep -q "${comment}" ${DSTI} || sed -i -e "/Dont remove this line, because it is used for autoinserting/a\
 ${date}$SVN_VERSION\n    - ${comment}" "${DSTI}"
 DSTI="./trunk/speed-to-fritz/sp-to-fritz.sh"
 Year=$(date +%y)
