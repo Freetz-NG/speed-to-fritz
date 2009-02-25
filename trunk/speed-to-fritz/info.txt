@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, because it is used for autoinserting)
+20090225-1546-r-140_141M
+    - W920: fix cp: Aufruf von stat /speed-to-fritz/SPDIR/squashfs-root/etc/default.9*? nicht mglich: No such file or directory
 20090225-1519-r-136_139M
     - W920: multilingual adaptionens
 20090225-0257-r-117_135M

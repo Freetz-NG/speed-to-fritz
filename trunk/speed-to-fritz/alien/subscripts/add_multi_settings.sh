@@ -34,10 +34,10 @@ if [ "${CONFIG_MULTI_COUNTRY}" = "y" ]; then
 fi
 #copy default country
 cp -fdrp "${DST}"/etc/default.0* --target-directory=${SRC}/etc
-cp -fdrp "${DST}"/etc/default.9* --target-directory=${SRC}/etc
+[ -d "${DST}/etc/default.99" ] && cp -fdrp "${DST}"/etc/default.9* --target-directory=${SRC}/etc
 if [ -n "$FBIMG_2" ]; then
- cp -fdrp "${SRC_2}"/etc/default.0* --target-directory=${SRC}/etc
- cp -fdrp "${SRC_2}"/etc/default.9* --target-directory=${SRC}/etc
+  cp -fdrp "${SRC_2}"/etc/default.0* --target-directory=${SRC}/etc
+  [ -d "${SRC_2}/etc/default.99" ] && cp -fdrp "${SRC_2}"/etc/default.9* --target-directory=${SRC}/etc
 fi
 rn_files()
 {
