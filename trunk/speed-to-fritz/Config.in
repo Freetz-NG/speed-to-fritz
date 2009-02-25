@@ -606,17 +606,19 @@ choice
 		default TYPE_LANG_DE
 	config TYPE_LANG_DE
 		bool "de - german"
+	config TYPE_LANG_EN
+		bool "en - english"
+	depends on TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_TCOM_LOCAL
 	config TYPE_LANG_IT
 		bool "it - italean"
+		depends on TYPE_SPEEDPORT_W920V || TYPE_TCOM_LOCAL
 	config TYPE_LANG_SP
 		bool "sp - spamish"
+		depends on TYPE_SPEEDPORT_W920V || TYPE_TCOM_LOCAL
 	config TYPE_LANG_FR
 		bool "fr - frensh"
 #	depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
 #		depends on ! TYPE_LABOR
-	config TYPE_LANG_EN
-		bool "en - english"
-	depends on TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_TCOM_LOCAL
 	help
 	    The selectet firmware language is usual the one used by the AVM firmware.
 	    If 2nd or 3rd Firmware is a multilingual firmware one of this firmwarelanguage can be forced, but only with 7270 or 7570 firmwares this is possible.
@@ -626,7 +628,7 @@ endchoice
 
 config EXPORT_CONFIG_MULTI_LANGUAGE
 	bool "Use Multilingual from 2nd or 3rd Firmware"
-	depends on ( TYPE_67m || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL || TYPE_SPEEDPORT_W920V ) && ! TYPE_7570_70
+	depends on ( TYPE_67m || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL ) && ! TYPE_7570_70
 	default n
 	help
 	    Dont use this option if the AVM 1st firmware is a multilingual firmware originaly!  
@@ -634,8 +636,8 @@ config EXPORT_CONFIG_MULTI_LANGUAGE
 
 config EXPORT_CONFIG_MULTI_COUNTRY
 	bool "Use Multicountry from 2nd or 3rd Firmware"
-	depends on ( TYPE_67m || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL || TYPE_SPEEDPORT_W920V ) && ! TYPE_7570_70
-	default y
+	depends on ( TYPE_67m || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL ) && ! TYPE_7570_70
+	default n
 	help
 	    Dont use this option if the AVM 1st firmware is a multililingual firmware originaly!
 	    To make this work you must have a 2nd or 3rd Firmware that supplys the neede feature, some text may be wrong or missing!.
@@ -647,8 +649,8 @@ config EXPORT_CONFIG_MULTI_COUNTRY
 
 config EXPORT_CONFIG_DSL_MULTI_ANNEX
 	bool "Force Multiannex"
-	depends on  ( TYPE_67m || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL || TYPE_SPEEDPORT_W920V ) && ! TYPE_7570_70
-	default y
+	depends on ( TYPE_67m || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL ) && ! TYPE_7570_70
+	default n
 	help
 	    To make this work you must have a 2nd or 3rd Firmware that supplys the neede feature.
 
