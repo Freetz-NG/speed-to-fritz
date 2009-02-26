@@ -116,9 +116,10 @@ if [ "${CONFIG_MULTI_LANGUAGE}" = "y" ]; then
     [ -f "${SRC_2}"/etc/htmltext_$DIR.db ] && cp -fdrp "${SRC_2}"/etc/htmltext_$DIR.db --target-directory="${SRC}"/etc && echo2 "  copy: database $DIR"
  done
 fi
-[ "${FORCE_LANGUAGE}" != "" ] && [ -f "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "  copy: database ${FORCE_LANGUAGE}"
-[ "${FORCE_LANGUAGE}" != "" ] && [ -f "${SRC_2}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${SRC_2}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "  copy: database ${FORCE_LANGUAGE}"
-
+if [ "${FORCE_LANGUAGE}" != "de" ]; then
+ [ "${FORCE_LANGUAGE}" != "" ] && [ -f "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "  copy: database ${FORCE_LANGUAGE}"
+ [ "${FORCE_LANGUAGE}" != "" ] && [ -f "${SRC_2}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${SRC_2}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "  copy: database ${FORCE_LANGUAGE}"
+fi
 #if ! `grep -q 'id="uiTempLang"' "${SRC}"/usr/www/$OEMLINK/html/de/first/basic_first.frm`; then
 #echo '<input type="hidden" name="var:lang" value="<? echo $var:lang ?>" id="uiTempLang">' >> "${SRC}"/usr/www/$OEMLINK/html/de/first/basic_first.frm
 #fi

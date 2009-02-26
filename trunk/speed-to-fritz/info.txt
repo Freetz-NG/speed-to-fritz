@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, because it is used for autoinserting)
+20090226-1622-r-148_149M
+    - W920 fix missing text 7570/7270
 20090226-1753-r-147M
     - Fixed some typing errors in Config.in and info.txt
 20090226-0555-r-140_146M
