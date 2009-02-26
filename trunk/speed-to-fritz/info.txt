@@ -6,7 +6,7 @@ Usage: ./sp-to-fritz.sh [OPTIONS] -m MODEL
 This script uses binaries in subdirectory  /tools, if you use this on other
 LINUX systems as on x86 machines (Intel etc.) compile the tools for your hardware in use.
 Source of the tools:  http://trac.freetz.org/browser/trunk/tools  
-It is known that you will not be able to use the script on all system  without any problems,
+It is known that you will not be able to use the script on all systems without any problems,
 Tested systems are andLinux, Stinkylinux, Debian, SuSe, Knoppix, Ubuntu.
 On some systems you have to add the patch tool (add install patch). 
           
@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, because it is used for autoinserting)
+20090226-1753-r-147M
+    - Fixed some typing errors in Config.in and info.txt
 20090226-0555-r-140_146M
     - W920 -pump to  FRITZ.Box_Fon_WLAN_7240.Labor.73.04.97-13715.image
 20090226-0444-r-140_145M
@@ -72,7 +74,7 @@ On some systems you have to add the patch tool (add install patch).
 20090214-1832
     - 7570 Firmware inserted, can be used instead of AVM and TCOM
 20090214-0745
-    - Sinus 500 some variablels fixed by comparing with script dated 19.07.2008, one diffence remains usb menu is removeable now.
+    - Sinus 500 some variables fixed by comparing with script dated 19.07.2008, one diffence remains usb menu is removeable now.
 20090214-0727
     - Remove 'software' in rem_usb_menu.sh corrected because link is functional.
 20090214-0556
@@ -158,7 +160,7 @@ On some systems you have to add the patch tool (add install patch).
 20090129-1310
     - Set freetz revision default to 2600 if .58 firmware is selected 
 20090129-1302
-    - Some outdated commentents removed
+    - Some outdated comments removed
 20090129-1035
     - Start-freetz: ./freetz_var error fixed, but was not a real Problem
 20090129-1017

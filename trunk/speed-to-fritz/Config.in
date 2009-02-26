@@ -620,9 +620,9 @@ choice
 #	depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
 #		depends on ! TYPE_LABOR
 	help
-	    The selectet firmware language is usual the one used by the AVM firmware.
-	    If 2nd or 3rd Firmware is a multilingual firmware one of this firmwarelanguage can be forced, but only with 7270 or 7570 firmwares this is possible.
-	    The resulting text within the generated firmware my be not comletly in this language, text not fond in the selected language will be displayed in german or english"
+	    The selected firmware language is usual the one used by the AVM firmware.
+	    If 2nd or 3rd Firmware is a multilingual firmware, one of this firmwarelanguages can be forced, but this is possible only with 7270 or 7570 firmwares.
+	    The resulting text within the generated firmware may be not completly in this language, text not found in the selected language will be displayed in german or english"
 	    
 endchoice
 
@@ -632,15 +632,15 @@ config EXPORT_CONFIG_MULTI_LANGUAGE
 	default n
 	help
 	    Dont use this option if the AVM 1st firmware is a multilingual firmware originaly!  
-	    To make this work you must have a 2nd (tcom) or 3rd Firmware that supplys the neede feature.
+	    To make this work you must have a 2nd (tcom) or 3rd Firmware that supplies the needed feature.
 
 config EXPORT_CONFIG_MULTI_COUNTRY
 	bool "Use Multicountry from 2nd or 3rd Firmware"
 	depends on ( TYPE_67m || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL ) && ! TYPE_7570_70
 	default n
 	help
-	    Dont use this option if the AVM 1st firmware is a multililingual firmware originaly!
-	    To make this work you must have a 2nd or 3rd Firmware that supplys the neede feature, some text may be wrong or missing!.
+	    Dont use this option if the AVM 1st firmware is a multililingual firmware originally!
+	    To make this work you must have a 2nd or 3rd Firmware that supplies the needed feature, some text may be wrong or missing!.
 		
 ###------------------------------------------------------------------------------------------------------------
 
@@ -652,7 +652,7 @@ config EXPORT_CONFIG_DSL_MULTI_ANNEX
 	depends on ( TYPE_67m || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL ) && ! TYPE_7570_70
 	default n
 	help
-	    To make this work you must have a 2nd or 3rd Firmware that supplys the neede feature.
+	    To make this work you must have a 2nd or 3rd Firmware that supplies the needed feature.
 
 
 choice
