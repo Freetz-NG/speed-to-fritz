@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, because it is used for autoinserting)
+20090226-0555-r-140_146M
+    - W920 -pump to  FRITZ.Box_Fon_WLAN_7240.Labor.73.04.97-13715.image
 20090226-0444-r-140_145M
     - W920 - bugfix 3: svn Speedport920 was not up to date with local file
 20090226-0428-r-140_144M
