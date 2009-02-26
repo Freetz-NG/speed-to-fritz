@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, because it is used for autoinserting)
+20090226-0428-r-140_144M
+    - minir changes to Config.in and add_muli options
 20090225-1806-r-140_143M
     - Config.in multi options set to default n
 20090225-1717-r-140_142M

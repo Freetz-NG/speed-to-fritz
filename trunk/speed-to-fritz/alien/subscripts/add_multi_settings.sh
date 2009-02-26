@@ -18,6 +18,8 @@ export ANNEX=`cat $CONFIG_ENVIRONMENT_PATH\/annex` \
 fi' "${SRC}"/etc/init.d/rc.conf
 fi
 echo "-- Adding settings timezone pages ..."
+
+
 if [ "${CONFIG_MULTI_COUNTRY}" = "y" ]; then
  echo "-- Adding mulicountry pages from source 2 or 3 ..."
  FILELIST="menu2_system.html sitemap.html authform.html vpn.html pppoe.html first_Sip_1.html first_ISP_0.html"
@@ -31,21 +33,8 @@ if [ "${CONFIG_MULTI_COUNTRY}" = "y" ]; then
 	done
  }
  rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.html)" 
-fi
-if ! [ -f "${SRC}/${USRWWW}/first/basic_first_Annex.js" ]; then
-#show settings tub
-#-----------------------------------------------------------------
-  for FILE in adsl.html atm.html bits.html overview.html; do
-  if [ -f "${SRC}/${USRWWW}/internet/$FILE" ]; then 
-    sed -i -e "s|<? if neq \$var:Annex A|<? if eq A A|" "${SRC}/${USRWWW}/internet/$FILE"
-    echo2 "  /${USRWWW}/internet/$FILE"
-  fi
- done
-#-----------------------------------------------------------------
-fi
 
 #copy default country
-if [ "${CONFIG_MULTI_COUNTRY}" = "y" ]; then
  cp -fdrp "${DST}"/etc/default.0* --target-directory=${SRC}/etc
  [ -d "${DST}/etc/default.99" ] && cp -fdrp "${DST}"/etc/default.9* --target-directory=${SRC}/etc
  if [ -n "$FBIMG_2" ]; then
@@ -81,6 +70,15 @@ if [ "${CONFIG_DSL_MULTI_ANNEX}" = "y" ]; then
  done
  [ "$avm_Lang" = "de" ] && modpatch "${SRC}" "$P_DIR/add_dslsnrset_de.patch"
  [ "$avm_Lang" = "en" ] && modpatch "${SRC}" "$P_DIR/add_dslsnrset_en.patch"
+ #show settings tub
+ #-----------------------------------------------------------------
+  for FILE in adsl.html atm.html bits.html overview.html; do
+  if [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/$FILE" ]; then 
+    sed -i -e "s|<? if neq \$var:Annex A|<? if eq A A|" "${SRC}/usr/www/${OEMLINK}/html/de/internet/$FILE"
+    echo2 "  /usr/www/${OEMLINK}/html/de/internet/$FILE"
+  fi
+ done
+ #-----------------------------------------------------------------
  else
   FILELIST="$FILELIST \
 /html/de/system/timeZone.js \
@@ -118,10 +116,11 @@ if [ "${CONFIG_MULTI_LANGUAGE}" = "y" ]; then
     [ -f "${SRC_2}"/etc/htmltext_$DIR.db ] && cp -fdrp "${SRC_2}"/etc/htmltext_$DIR.db --target-directory="${SRC}"/etc && echo2 "  copy: database $DIR"
  done
 fi
-if ! `grep -q 'id="uiTempLang"' "${SRC}"/usr/www/$OEMLINK/html/de/first/basic_first.frm`; then
-echo '<input type="hidden" name="var:lang" value="<? echo $var:lang ?>" id="uiTempLang">' >> "${SRC}"/usr/www/$OEMLINK/html/de/first/basic_first.frm
-fi
 [ "${FORCE_LANGUAGE}" != "" ] && [ -f "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "  copy: database ${FORCE_LANGUAGE}"
 [ "${FORCE_LANGUAGE}" != "" ] && [ -f "${SRC_2}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${SRC_2}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "  copy: database ${FORCE_LANGUAGE}"
+
+#if ! `grep -q 'id="uiTempLang"' "${SRC}"/usr/www/$OEMLINK/html/de/first/basic_first.frm`; then
+#echo '<input type="hidden" name="var:lang" value="<? echo $var:lang ?>" id="uiTempLang">' >> "${SRC}"/usr/www/$OEMLINK/html/de/first/basic_first.frm
+#fi
 
 exit 0
