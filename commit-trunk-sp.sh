@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="W920: multilingual adaptionens"
+comment="W920 fix missing text 7570/7270"
 
 
 
@@ -14,6 +14,7 @@ if [ `id -u` -eq 0 ]; then
   sleep 10
   exit 0
 fi
+svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
 echo "-------------------------------------------------------------------------------------------------------------"
 #insert comment into "info.txt"
 if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
@@ -33,7 +34,6 @@ echo "--------------------------------------------------------------------------
 sleep 2
 #exit
 
-svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
 
 cd trunk
 #svn delete --force ./speed-to-fritz/ftp192
@@ -50,11 +50,12 @@ cd trunk
 #svn delete --force ./speed-to-fritz/alien/subscripts/900.init
 #svn delete --force ./speed-to-fritz/alien/subscripts/add_dect.47.sh
 #svn delete --force ./speed-to-fritz/alien/subscripts/inc_func_init
+#svn delete --force ./speed-to-fritz/alien/subscripts/add_settings.sh
 #svn delete --force ./speed-to-fritz/alien/patches/add_tam_en.47.patch
 #svn delete --force ./speed-to-fritz/alien/patches/add_tamhelp_en.47.patch
 
 #svn revert 
-svn add * --force
+#svn add * --force
 
 svn status
 svn diff > ../patch.diff
