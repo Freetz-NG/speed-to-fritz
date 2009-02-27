@@ -10,9 +10,13 @@ comment "General settings for Speed-to-fritz --------------------------------"
 ###------------------------------------------------------------------------------------------------------------
 ###------------------------------------------------------------------------------------------------------------
 ###------------------------------------------------------------------------------------------------------------
-### If new firmware must be setted up, keep in mind that new SYMBOLS are in use further down in 
-### this configfile and might be added as well on later sections  
+### If new firmware must be setted up, keep in mind that new SYMBOLS are in use further down in this configfile and might be added as well on later sections.  
+###------------------------------------------------------------------------------------------------------------
+#( dont remove the following line)
+### FIRMWARE_CONFIG_START ###
 ### TCOM Firmware
+### TCOM Firmware
+###------------------------------------------------------------------------------------------------------------
 config TCOM_SINUS_27
     string 
     default "http://hilfe.telekom.de/dlp/eki/downloads/Sinus%20W%20500%20V/fw_SinusW500V_27_04_27.zip ./Firmware.orig/Sinus_W_500V.27.04.27.image"
@@ -56,10 +60,9 @@ config TCOM_W920_13048
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.63-13048.zip mirror http://www.hostarea.de/server-01/Januar-25c121e202.zip"
 #    default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.63-13048.zip mirror http://www.upload.crunkbass.de/?a=show&file=5370656564706f72745f575f393230562e416e6e6578422e36352e30342e36332d31333034382e7a6970&big=1"
 ###------------------------------------------------------------------------------------------------------------
-###------------------------------------------------------------------------------------------------------------
-
 ### AVM firmware
-
+### AVM firmware
+###------------------------------------------------------------------------------------------------------------
 config AVM_43 
     string 
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/deutsch_a-ch/fritz.box_fon_wlan_7140.annexa.39.04.43.zip mirror http://www.hostarea.de/server-01/Januar-de288cff9c.zip"
@@ -85,7 +88,7 @@ config AVM_67en
 #    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-13475.zip ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7170.29.04.57.image" 
 #config AVM_59
 #    string 
-#    default ""
+#    default "placeholder"
 config AVM_A59
     string 
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image"
@@ -109,6 +112,8 @@ config AVM_AIO_13679
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-13679.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.70-13679.image"
 ##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ####7270
+####7270
+##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config AVM7270_DSL_13225
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-13225.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.99-13225.image"
@@ -130,7 +135,7 @@ config AVM7270_UMTS_13265
 config AVM7270_MINI_67 
     string 
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.67.image"
-#config AVM7270_57 
+#config AVM7270_57  
 #    string 
 #    default "http://download.avm.de/fritz.box/fritzbox.fon_WLAN_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.57.image"
 config AVM7270_58 
@@ -142,10 +147,13 @@ config AVM7270_59
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.59.image"
 #config AVM7270_A59
 #    string
-#    default ""
+#    default "placeholder"
 config AVM7270_67
     string
 default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritz_box-labor-13679.ZIP ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
+config AVM7270_70
+    string
+default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
 config AVM7270_67m
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image"    
@@ -153,9 +161,10 @@ config AVM7270_67m
 config AVM7570_70
     string 
     default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.image"
-###------------------------------------------------------------------------------------------------------------
-###------------------------------------------------------------------------------------------------------------
-###------------------------------------------------------------------------------------------------------------
+##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#( dont remove the following line)
+### FIRMWARE_CONFIG_ENDE ###
+##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###------------------------------------------------------------------------------------------------------------
 ### ATTENTION! Most variables set up here are in use by various skripts later, so don't change, 
 ### except numbers within variable names corresponding to the above firmware names.
@@ -309,6 +318,9 @@ choice
 	config TYPE_67m
 		bool "67m"
 		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+	config TYPE_67
+		bool "67"
+		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 #	config TYPE_70
 #		bool "70"
 #		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
@@ -393,6 +405,8 @@ choice
 #		bool "AVM_61"
 	config TYPE_AVM_67
 		bool "AVM_67"
+	config TYPE_AVM_70
+		bool "AVM_70"
 	config TYPE_AVM_50
 		bool "AVM_50"
 	config TYPE_AVM_67en
@@ -512,10 +526,11 @@ config AVM_IMG
 
 
 
-        default "$AVM7270_67" 		if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && TYPE_LANG_DE
+        default "$AVM7270_70" 		if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && TYPE_LANG_DE
         default "$AVM7270_67m" 		if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) && ! TYPE_LABOR && TYPE_LANG_EN
         default "$AVM7270_59" 		if ( TYPE_59  &&  TYPE_SPEEDPORT_W920V ) || ( TYPE_SPEEDPORT_W503V  && ! TYPE_LABOR && TYPE_LANG_DE )
         default "$AVM7270_58" 		if ( TYPE_58 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
+        default "$AVM7270_67" 		if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
         default "$AVM7270_67m" 		if ( TYPE_67m ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
         default "$AVM7270_A59" 		if ( TYPE_A59 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
         default "$AVM7270_67"		if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
@@ -567,6 +582,7 @@ config SRC2_IMG
         default "$AVM7270_59" 		if TYPE_AVM7270_59
         default "$AVM7270_A59" 		if TYPE_AVM7270_A59
         default "$AVM7270_67" 		if TYPE_AVM7270_67
+        default "$AVM7270_70" 		if TYPE_AVM7270_70
         default "$AVM7270_67m"	 	if TYPE_AVM7270_67m
 	default "$AVM7270_13486"	if TYPE_AVM7270_13486
 	default "$AVM7270_AIO_13679"	if TYPE_AVM7270_AIO_13679
@@ -620,9 +636,9 @@ choice
 #	depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
 #		depends on ! TYPE_LABOR
 	help
-	    The selected firmware language is usual the one used by the AVM firmware.
-	    If 2nd or 3rd Firmware is a multilingual firmware, one of this firmwarelanguages can be forced, but this is possible only with 7270 or 7570 firmwares.
-	    The resulting text within the generated firmware may be not completly in this language, text not found in the selected language will be displayed in german or english"
+	    The selectet firmware language is usual the one used by the AVM firmware.
+	    If 2nd or 3rd Firmware is a multilingual firmware one of this firmwarelanguage can be forced, but only with 7270 or 7570 firmwares this is possible.
+	    The resulting text within the generated firmware my be not comletly in this language, text not fond in the selected language will be displayed in german or english"
 	    
 endchoice
 
@@ -632,15 +648,15 @@ config EXPORT_CONFIG_MULTI_LANGUAGE
 	default n
 	help
 	    Dont use this option if the AVM 1st firmware is a multilingual firmware originaly!  
-	    To make this work you must have a 2nd (tcom) or 3rd Firmware that supplies the needed feature.
+	    To make this work you must have a 2nd (tcom) or 3rd Firmware that supplys the neede feature.
 
 config EXPORT_CONFIG_MULTI_COUNTRY
 	bool "Use Multicountry from 2nd or 3rd Firmware"
 	depends on ( TYPE_67m || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL ) && ! TYPE_7570_70
 	default n
 	help
-	    Dont use this option if the AVM 1st firmware is a multililingual firmware originally!
-	    To make this work you must have a 2nd or 3rd Firmware that supplies the needed feature, some text may be wrong or missing!.
+	    Dont use this option if the AVM 1st firmware is a multililingual firmware originaly!
+	    To make this work you must have a 2nd or 3rd Firmware that supplys the neede feature, some text may be wrong or missing!.
 		
 ###------------------------------------------------------------------------------------------------------------
 
@@ -652,7 +668,7 @@ config EXPORT_CONFIG_DSL_MULTI_ANNEX
 	depends on ( TYPE_67m || TYPE_TCOM_7570_70 || TYPE_TCOM_LOCAL ) && ! TYPE_7570_70
 	default n
 	help
-	    To make this work you must have a 2nd or 3rd Firmware that supplies the needed feature.
+	    To make this work you must have a 2nd or 3rd Firmware that supplys the neede feature.
 
 
 choice
@@ -1401,5 +1417,5 @@ config SET_FREETZ_REVISION
 		This is the revision number used if freetz is started via
 		start-freetz.sh.
 		 
-
-
+#( dont remove the following line)
+### FILE_ENDE ###

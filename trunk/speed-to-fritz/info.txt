@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, because it is used for autoinserting)
+20090227-0658-r-149_151M
+    - W920: new releas added FRITZ.Box_Fon_WLAN_7270.54.04.70.image
 20090226-1858-r-149_150M
     - W920 fix tr069 option
 20090226-1622-r-148_149M
