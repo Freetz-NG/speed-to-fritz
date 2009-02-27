@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="W920 fix missing text 7570/7270"
+comment="W920: multilingual token 'es' for spanish corrected"
 
 
 
@@ -17,14 +17,14 @@ fi
 svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
 echo "-------------------------------------------------------------------------------------------------------------"
 #insert comment into "info.txt"
-if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
- [ "${SVN_VERSION:0:6}" == "export" ] && SVN_VERSION=""
- [ "$SVN_VERSION" != "" ] && SVN_VERSION="-r-$SVN_VERSION"
+if SVN_VERSION="$(svnversion . )"; then
+ let "SVN_VERSION=$(echo ${SVN_VERSION##*:} | tr -d '[:alpha:]') + 1"
+ #echo "Subversion=$SVN_VERSION"
 fi
 date=$(date +%Y%m%d-%H%M)
 DSTI="./trunk/speed-to-fritz/info.txt"
 grep -q "${comment}" ${DSTI} || sed -i -e "/Dont remove this line, because it is used for autoinserting/a\
-${date}$SVN_VERSION\n    - ${comment}" "${DSTI}"
+${date}-r-$SVN_VERSION\n    - ${comment}" "${DSTI}"
 DSTI="./trunk/speed-to-fritz/sp-to-fritz.sh"
 Year=$(date +%y)
 Month=$(date +%m)
