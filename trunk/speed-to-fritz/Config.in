@@ -316,7 +316,7 @@ choice
 		bool "13486"
 		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 	config TYPE_67m
-		bool "67m"
+		bool "67 multilingual german english italian spanish"
 		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 	config TYPE_67
 		bool "67"
@@ -630,10 +630,10 @@ choice
 		bool "it - italean"
 		depends on TYPE_SPEEDPORT_W920V || TYPE_TCOM_LOCAL
 	config TYPE_LANG_SP
-		bool "sp - spamish"
+		bool "es - spamish"
 		depends on TYPE_SPEEDPORT_W920V || TYPE_TCOM_LOCAL
-	config TYPE_LANG_FR
-		bool "fr - frensh"
+#	config TYPE_LANG_FR
+#		bool "fr - frensh"
 #	depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
 #		depends on ! TYPE_LABOR
 	help
@@ -716,7 +716,7 @@ config EXPORT_FORCE_LANGUAGE
 	default "en" if TYPE_LANG_EN && ( TYPE_7570_70 || TYPE_TCOM_7570_70 )
 	default "de" if TYPE_LANG_DE && ( TYPE_7570_70 || TYPE_TCOM_7570_70 )
 	default "fr" if TYPE_LANG_FR
-	default "sp" if TYPE_LANG_SP
+	default "es" if TYPE_LANG_SP
 	default "it" if TYPE_LANG_IT
 
 config SET_OEM

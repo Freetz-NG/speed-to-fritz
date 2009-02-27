@@ -101,7 +101,7 @@ USRWWW="usr/www/${OEMLINK}/html/de"
 if [ "${CONFIG_MULTI_LANGUAGE}" = "y" ]; then
  echo "-- Adding mulilingual pages from source 2 or 3 ..."
  #copy language datbase
- LanguageList="de en it sp fr" #de dont copy de as well
+ LanguageList="de en it es fr" #de dont copy de as well
  for DIR in $LanguageList; do
     if [ -d "${DST}/etc/default.${DEST_PRODUKT}"/${OEML}/$DIR ]; then
      cp -fdrp "${DST}/etc/default.${DEST_PRODUKT}"/${OEML}/$DIR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  copy directory from 2nd FW: $DIR"
@@ -110,7 +110,7 @@ if [ "${CONFIG_MULTI_LANGUAGE}" = "y" ]; then
      cp -fdrp "${SRC_2}/etc/default.${SORCE_2_PRODUKT}"/${OEML2}/$DIR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  copy directory from 3nd FW: $DIR"
     fi 
  done
- LanguageList="en it sp fr" #de dont copy de as well
+ LanguageList="en it es fr" #de dont copy de as well
  for DIR in $LanguageList; do
     [ -f "${DST}"/etc/htmltext_$DIR.db ] && cp -fdrp "${DST}"/etc/htmltext_$DIR.db --target-directory="${SRC}"/etc && echo2 "  copy: database $DIR"
     [ -f "${SRC_2}"/etc/htmltext_$DIR.db ] && cp -fdrp "${SRC_2}"/etc/htmltext_$DIR.db --target-directory="${SRC}"/etc && echo2 "  copy: database $DIR"

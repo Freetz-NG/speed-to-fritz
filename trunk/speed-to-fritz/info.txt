@@ -21,6 +21,8 @@ On some systems you have to add the patch tool (add install patch).
     For older info see older script versions!
 ---------------------------------------------------------------------------------------------------
 (Dont remove this line, because it is used for autoinserting)
+20090227-0735-r-149_154M
+    - W920: multilingual token 'es' for spanish corrected
 20090227-0727-r-149_153M
     - W920: AIO option disabled
 20090227-0658-r-149_151M
