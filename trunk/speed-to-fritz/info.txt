@@ -19,50 +19,51 @@ On some systems you have to add the patch tool (add install patch).
  History:                                                              
 
     For older info see older script versions!
----------------------------------------------------------------------------------------------------
-(Dont remove this line, because it is used for autoinserting)
-20090227-0735-r-149_154M
+------------------------------------------------------------------------------
+(Dont remove or edit the following line, because it is used for autoinserting)
+### --- START --- ###
+------------------------------------------------------------------------------
+20090227-0735-r-155
     - W920: multilingual token 'es' for spanish corrected
-20090227-0727-r-149_153M
+20090227-0727-r-154
     - W920: AIO option disabled
-20090227-0658-r-149_151M
+20090227-0658-r-152
     - W920: new releas added FRITZ.Box_Fon_WLAN_7270.54.04.70.image
-20090226-1858-r-149_150M
+20090226-1858-r-151
     - W920 fix tr069 option
-20090226-1622-r-148_149M
+20090226-1622-r-150
     - W920 fix missing text 7570/7270
-20090226-1753-r-147M
+20090226-1753-r-148
     - Fixed some typing errors in Config.in and info.txt
-20090226-0555-r-140_146M
+20090226-0555-r-147
     - W920 -pump to  FRITZ.Box_Fon_WLAN_7240.Labor.73.04.97-13715.image
-20090226-0444-r-140_145M
+20090226-0444-r-146
     - W920 - bugfix 3: svn Speedport920 was not up to date with local file
-20090226-0428-r-140_144M
+20090226-0428-r-145
     - minir changes to Config.in and add_muli options
-20090225-1806-r-140_143M
+20090225-1806-r-144
     - Config.in multi options set to default n
-20090225-1717-r-140_142M
+20090225-1717-r-143
     - Config.in order of options changed
-20090225-1715-r-140_142M
+20090225-1715-r-143
     - W920: fix again cp: Aufruf von stat /speed-to-fritz/SPDIR/squashfs-root/etc/default.9*? nicht mglich: No such file or directory
-20090225-1546-r-140_141M
+20090225-1546-r-142
     - W920: fix cp: Aufruf von stat /speed-to-fritz/SPDIR/squashfs-root/etc/default.9*? nicht mglich: No such file or directory
-20090225-1519-r-136_139M
+20090225-1519-r-140
     - W920: multilingual adaptionens
-20090225-0257-r-117_135M
+20090225-0257-r-136
     - fix tr069 modinfo display entry 
-20090224-1202-r-117_134M
+20090224-1202-r-135
     - multilingual und multicountry option added, not fully usable yet.
-20090224-1147-r-117_133M
+20090224-1147-r-134
     - Config.in: Fixes for firmwares downloadlinks concerning MINI and 'en versions', 
       some changes concerning multilingual and ATM Options removed
-20090224-0554-r-117_133M
     - W900: tabproblem fixed
-20090223-1737-r-0_131M
+20090223-1737-r-132
     - W900/W701: update config.in to fritz_box-labor-13679.zip 
 20090223-1935
     - 7170 AIO config.in changed: fritz_box-labor-13679.zip
-20090223-1041-r-117_129M
+20090223-1041-r-130
     - typing 'Firmware' corrected
 20090222-0251
     - 7270 PHONE config.in changed: fritz_box-labor-7270-13682.zip

@@ -23,7 +23,7 @@ if SVN_VERSION="$(svnversion . )"; then
 fi
 date=$(date +%Y%m%d-%H%M)
 DSTI="./trunk/speed-to-fritz/info.txt"
-grep -q "${comment}" ${DSTI} || sed -i -e "/Dont remove this line, because it is used for autoinserting/a\
+grep -q "${comment}" ${DSTI} || sed -i -e "/### --- START --- ###/a\
 ${date}-r-$SVN_VERSION\n    - ${comment}" "${DSTI}"
 DSTI="./trunk/speed-to-fritz/sp-to-fritz.sh"
 Year=$(date +%y)
