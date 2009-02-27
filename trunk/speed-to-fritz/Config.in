@@ -125,7 +125,7 @@ config AVM7270_AIO_13679
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritz_box-labor-13679.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.70-13679.image"
 config AVM7270_PHONE_13715
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13715.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_Labor.54.04.97-13715.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13715.zip ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
 #config AVM7270_VPN_13265
 #    string 
 #    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vpn/fritz_box-labor-13265.zip"
@@ -150,7 +150,7 @@ config AVM7270_59
 #    default "placeholder"
 config AVM7270_67
     string
-default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritz_box-labor-13679.ZIP ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
+default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13715.zip ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
 config AVM7270_70
     string
 default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
@@ -326,7 +326,8 @@ choice
 #		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 	config TYPE_AIO
 		bool "AiO - Alles in einem prerelease"
-		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
 	config TYPE_DSL
 		bool "DSL"
 		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
