@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090228-0946-r-159
+    - Config.in: IPV6- and WLAN-Labor-Versions added
 20090227-0940-r-158
     - Commit revisionnumber in info.txt fixed
 ------------------------------------------------------------------------------
