@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090228-1409-r-162
+    - W920: IPV6- and WLAN-Labor-Versions added
 20090228-1029-r-160
     - Took back changes from last Revision
 20090228-0946-r-159
