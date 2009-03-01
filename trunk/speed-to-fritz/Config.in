@@ -126,19 +126,20 @@ config AVM7270_A59
     default "placeholder"
 config AVM7270_58 
     string 
-    default "http://download.avm.de/fritz.box/fritzbox.fon_WLAN_7270/firmware/deutsch/Release_FRITZ.Box_Fon_WLAN_7270.54.04.58.zip mirror http://www.hostarea.de/server-01/Januar-4bf414c469.zip"
+    default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/Release_FRITZ.Box_Fon_WLAN_7270.54.04.58.zip mirror http://www.hostarea.de/server-01/Januar-4bf414c469.zip"
 config AVM7270_59 
     string 
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.59.image"
 config AVM7270_70
     string
-default "http://download.avm.de/fritz.box/fritzbox.fon_WLAN_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
+    
+default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
 config AVM7270_67
     string
 default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13715.zip ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
 config AVM7270_67m
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_WLAN_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image"    
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image"    
 config AVM7270_DSL_13225
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-13225.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.99-13225.image"
