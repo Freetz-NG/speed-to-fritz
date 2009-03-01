@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090301-1746-r-169
+    - typing corrected
 20090301-1604-r-166
     - Added replace_link.sh and extract_rpllist.sh
 20090301-0140-r-164
