@@ -564,7 +564,8 @@ case "$1" in
 	export CONFIG_jffs2_size="132"
 	export CONFIG_RAMSIZE="64"
 	export CONFIG_ROMSIZE="16"
-	export CONFIG_DIAGNOSE_LEVEL="1"
+#	export CONFIG_DIAGNOSE_LEVEL="1"
+	export CONFIG_DIAGNOSE_LEVEL="0"
 	#----dsl menu selection
 	export CONFIG_ATA_FULL="n"
 	export CONFIG_DSL_UR8="n"
@@ -756,7 +757,9 @@ if [ "$ORI" != "y" ]; then
  $sh_DIR/rmv_signatur.sh "${SRC}"
  $sh_DIR/remove_autoupdatetab.sh "${SRC}"
  # patch update pages 
- $sh_DIR/patch_tools.sh "${SRC}"	
+ $sh_DIR/patch_tools.sh "${SRC}"
+ #export download links
+ $HOMEDIR/extract_rpllist.sh	
  #packing takes place on SPDIR
  export SPDIR="${FBDIR}"
  echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"

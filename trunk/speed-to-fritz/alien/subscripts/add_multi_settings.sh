@@ -3,23 +3,7 @@
 . ${include_modpatch}
 echo "-- Adding multiannex pages ..."
 #annex settings made via GUI
-if ! `grep -q 'ar7cfg.dslglobalconfig.Annex' "${SRC}"/etc/init.d/rc.conf`; then
-     sed -i -e '/export ANNEX=.cat .CONFIG_ENVIRONMENT_PATH.annex./d' "${SRC}"/etc/init.d/rc.conf
-     sed -i -e '/"$annex_param"/a\
-if [ "${CONFIG_DSL_MULTI_ANNEX}" = "y" ] ; then\
-LOADANNEX=`echo ar7cfg.dslglobalconfig.Annex | ar7cfgctl -s 2>\/dev\/null | sed s\/\\\\"\/\/g` ; # annex aus userselection?\
-if [ -z "${LOADANNEX}" ] ; then\
-export ANNEX=`cat $CONFIG_ENVIRONMENT_PATH\/annex` ; # annex aus /proc nehmen, nicht von Config!\
-else\
-export ANNEX=${LOADANNEX} ; # annex aus userselection\
-fi\
-else\
-export ANNEX=`cat $CONFIG_ENVIRONMENT_PATH\/annex` \
-fi' "${SRC}"/etc/init.d/rc.conf
-fi
 echo "-- Adding settings timezone pages ..."
-
-
 if [ "${CONFIG_MULTI_COUNTRY}" = "y" ]; then
  echo "-- Adding mulicountry pages from source 2 or 3 ..."
  FILELIST="menu2_system.html sitemap.html authform.html vpn.html pppoe.html first_Sip_1.html first_ISP_0.html"
@@ -94,6 +78,20 @@ if [ "${CONFIG_DSL_MULTI_ANNEX}" = "y" ]; then
     cp -fdrp "${DST}/usr/www/${OEML}/$file" "${SRC}/usr/www/${OEMLINK}/$file" && echo2 "  copy from 2nd FW: $file"
    fi
   done
+ fi
+ if ! `grep -q 'ar7cfg.dslglobalconfig.Annex' "${SRC}"/etc/init.d/rc.conf`; then
+     sed -i -e '/export ANNEX=.cat .CONFIG_ENVIRONMENT_PATH.annex./d' "${SRC}"/etc/init.d/rc.conf
+     sed -i -e '/"$annex_param"/a\
+if [ "${CONFIG_DSL_MULTI_ANNEX}" = "y" ] ; then\
+LOADANNEX=`echo ar7cfg.dslglobalconfig.Annex | ar7cfgctl -s 2>\/dev\/null | sed s\/\\\\"\/\/g` ; # annex aus userselection?\
+if [ -z "${LOADANNEX}" ] ; then\
+export ANNEX=`cat $CONFIG_ENVIRONMENT_PATH\/annex` ; # annex aus /proc nehmen, nicht von Config!\
+else\
+export ANNEX=${LOADANNEX} ; # annex aus userselection\
+fi\
+else\
+export ANNEX=`cat $CONFIG_ENVIRONMENT_PATH\/annex` \
+fi' "${SRC}"/etc/init.d/rc.conf
  fi
 fi
 USRWWW="usr/www/${OEMLINK}/html/de"
