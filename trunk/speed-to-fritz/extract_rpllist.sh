@@ -9,7 +9,7 @@ sed -i -e '/### FIRMWARE_CONFIG_ENDE ###/,/### FILE_ENDE ###/ {/.*/d}' -e 's/^.*
 sed -i -e 's/[ ^I]*$//'  "$HOMEDIR/rpllist.1"
 cp $HOMEDIR/rpllist.1 $HOMEDIR/rpllist.2
 rm -f $HOMEDIR/replacelink.lst
-echo "#Only edit every second line to replace a link! Start 'impoert_link.sh' to insert the changes into Config.in'" > "$HOMEDIR/replacelink.lst"
+echo "#Only edit every second line to replace a link! Start 'import_link.sh' to insert the changes into Config.in'" > "$HOMEDIR/replacelink.lst"
 echo "#---" >> "$HOMEDIR/replacelink.lst"
 touch $HOMEDIR/replacelink.lst
 sed -i -e 's|="|\n|g' "$HOMEDIR/rpllist.2"
