@@ -438,7 +438,7 @@ choice
 	config TYPE_AVM_7270_67
 		bool "AVM_7270_67"
 	config TYPE_AVM_7270_70
-		bool "AVM_7270_70 (select default instead)"
+		bool "AVM_7270_70"
 	config TYPE_AVM_7270_67m
 		bool "AVM_7270_67m"
 	config TYPE_AVM_DSL_7270_13225 
