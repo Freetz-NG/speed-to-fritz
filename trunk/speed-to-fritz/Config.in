@@ -1,7 +1,6 @@
+### Generel help for systax used within this Config.in File see: /tools/config/kconfig-language.txt
 mainmenu " Configuration"
-
 comment "General settings for Speed-to-fritz --------------------------------"
-
 ### If alternative download link is a pointer, then the first filename is needed with .zip extension.
 ### There may be up to two in one definition, 2nd name can be link to local location, 
 ### 3rd definition can be an alternative mirror download link.  
@@ -157,7 +156,7 @@ config AVM_7570_70
 ### ATTENTION! Most variables set up here are in use by various skripts later, so don't change, 
 ### except numbers within variable names corresponding to the above firmware names.
 ### If a firmware version or subversion changes replace all the partial numbers accuring within this configfile.
-### Example:  _11779 to _XXXXX.  Or _58 to _XX 
+### Example:  _11779 to _XXXXX.  Or _58 to _XX (but be carefull becaus some of the very short numbers may be used on other ocasins)
 ###------------------------------------------------------------------------------------------------------------
 
 choice
@@ -215,6 +214,7 @@ config SPMOD
 	default "920"	if TYPE_SPEEDPORT_W920V
 	default "500"	if TYPE_SINUS_W500V
 endif
+
 config TCOM_LOCAL
     depends on TYPE_TCOM_LOCAL
     string "Enter your custom type TCOM like Firmware"
@@ -263,6 +263,8 @@ config TYPE_LABOR
 	default n
 	help
 		Enable this to compile the mod based on an special AVM firmware.
+		The actual final release versin should not be selcted is anyway preselected! 
+		If you select it here your freetz config is not correct! 
 
 #config COMMENT
 #	depends on TYPE_LABOR
@@ -279,7 +281,7 @@ config TYPE_LABOR
 #### If types are added here the skript file /subscripts/settings has to be edited as well to represent the new labor versions too. 
 
 choice
-	prompt "Labor or final version"
+	prompt "Labor or any other non default"
 		depends on TYPE_LABOR
 		default TYPE_AIO
 	config TYPE_57
@@ -302,31 +304,31 @@ choice
 		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 	config TYPE_67
 		bool "67"
-		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
-#	config TYPE_70
-#		bool "70"
-#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+	config TYPE_70
+		bool "70"
+		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 	config TYPE_AIO
 		bool "AiO - Alles in einem prerelease"
-#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
-		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
+#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
 	config TYPE_DSL
 		bool "DSL"
-		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 	config TYPE_WLAN
 		bool "WLAN"
 		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
-#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 	config TYPE_IPV6
 		bool "IPV6"
 		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
-#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 #	config TYPE_GAMING
 #		bool "GAMING"
-#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 #	config TYPE_MINI
 #		bool "MINI"
-#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V|| TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL
+#		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL
 	config TYPE_PHONE
 		bool "PHONE"
 		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
@@ -435,8 +437,8 @@ choice
 #		bool "AVM_7270_59_ANNEX_A"
 	config TYPE_AVM_7270_67
 		bool "AVM_7270_67"
-#	config TYPE_AVM_7270_70
-#		bool "AVM_7270_70"
+	config TYPE_AVM_7270_70
+		bool "AVM_7270_70 (select default instead)"
 	config TYPE_AVM_7270_67m
 		bool "AVM_7270_67m"
 	config TYPE_AVM_DSL_7270_13225 
@@ -522,6 +524,7 @@ config AVM_IMG
         default "$AVM_7270_67" 		if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
         default "$AVM_7270_67m" 	if ( TYPE_67m ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
         default "$AVM_7270_67"		if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+        default "$AVM_7270_70"		if ( TYPE_70 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM_7270_13486"	if ( TYPE_13486 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM_DSL_7270_13225" 	if ( TYPE_DSL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM_AIO_7270_13679"	if ( TYPE_AIO ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )

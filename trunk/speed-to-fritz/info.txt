@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090302-1001-r-172
+    - W920: TCOM/AVM..13468 telfon bug fix
 20090301-1746-r-169
     - typing corrected
 20090301-1604-r-166
