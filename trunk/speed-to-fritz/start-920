@@ -1,2 +1,0 @@
-#!/bin/bash
-./sp-to-fritz.sh -z -c conf-920-freetz
