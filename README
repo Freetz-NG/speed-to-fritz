@@ -1,0 +1,23 @@
+commit-trunk-co.sh : Aktulisiert den Zweig co.
+
+commit-trunk-sp.sh : Aktulisiert den Zweig Speed-to-fritz.
+    
+ !!!Wichtig dieses File muss editiert werden!!! 
+ 
+ Je nach den Beduerfnissen anpassen. 
+ Add SVN wird alle zusaetzlichen Files hochladen, 
+ jedoch loeschbar sind Files und Verzeichnisse nur einzeln!
+ Revisionsnummer wird automatsch in info.txt eingerage und der Kommentar der in dieses File eingefuegt wurde.
+ Kommt eine Kommentarzeile bereits in info.txt vor wird diese nicht erneut eingetragen.
+ Wird erwuenscht, dass kein Text eingetragen wird, dann muss man den alten Text unveraendert im File belassen.
+ Mehrfache Verwendung hintereinader ist somit moeglich. 
+		      
+
+
+diff.sh : Erstell ein patch.diff zur zuletzt hochgladen Version.
+download_co.sh : Laedt das co Verzeichniss neu.
+download_speed-to-fritz.sh : Laedt das Speed-to-fritz Verzeichniss neu, das alte wird vorher geloescht.
+add_patch.sh : Fuegt einen fremden patch mit filenamen 'patch.diff' zum speed-to-fritz Zweig hinzu. 
+make_release.sh : Packt speed-to-fritz Verzeichniss fuer den Upload ins Forun, Das Ergebnis: ist im Verzeichniss: /mnt/win/upload (dieses Verzeichnis muss vorhanden sein).  
+patch.diff : Wird immer neu erstellt wenn commit-trunk-co.sh, commit-trunk-sh.sh, oder diff.sh verwendet wird. 
+trunk : Hauptverzeichniss

@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="W920: multilingual token 'es' for spanish corrected"
+comment="Addon of usbroot by: abraXxl"
 
 
 
@@ -30,6 +30,7 @@ Year=$(date +%y)
 Month=$(date +%m)
 Day=$(date +%d) 
 sed -i -e "s/Tag=\"..\"; Monat=\"..\"; Jahr=\"..\"/Tag=\"${Day}\"; Monat=\"${Month}\"; Jahr=\"${Year}\"/" "${DSTI}"
+sed -i -e "s/svn diff .*$/svn diff -r $SVN_VERSION  >> \.\.\/patch.diff/" "./diff.sh"
 echo "-------------------------------------------------------------------------------------------------------------"
 sleep 2
 #exit
@@ -42,6 +43,9 @@ cd trunk
 #svn delete --force ./speed-to-fritz/info.txt.mine
 #svn delete --force ./speed-to-fritz/info.txt.r130
 #svn delete --force ./speed-to-fritz/info.txt.r131
+#svn delete --force ./speed-to-fritz/conf-920-freetz
+#svn delete --force ./speed-to-fritz/start-920
+
 
 #svn delete --force ./speed-to-fritz/alien/add_dect_7150.inc
 #svn delete --force ./speed-to-fritz/alien/subscripts/500.init
@@ -55,7 +59,7 @@ cd trunk
 #svn delete --force ./speed-to-fritz/alien/patches/add_tamhelp_en.47.patch
 
 #svn revert 
-#svn add * --force
+svn add * --force
 
 svn status
 svn diff > ../patch.diff
