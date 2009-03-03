@@ -135,9 +135,9 @@ config AVM_DSL_7270_13225
 config AVM_7270_13486
     string 
     default "http://www.hostarea.de/server-02/Februar-3257971088.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.70-13486.image"
-config AVM_PHONE_7270_13715
+config AVM_PHONE_7270_13806
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13715.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_Labor.54.04.97-13715.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13806.image"
 config AVM_IPV6_7270_13781
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_IPv6/fritz_box-labor-13781.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabIPV6.AnnexB.54.04.94-13781.image"
@@ -449,8 +449,8 @@ choice
 		bool "AVM_WLANX_7270_13783"
 	config TYPE_AVM_IPV6_7270_13781
 		bool "AVM_IPV6_7270_13781"
-	config TYPE_AVM_PHONE_7270_13715
-		bool "AVM_PHONE_7270_13715"
+	config TYPE_AVM_PHONE_7270_13806
+		bool "AVM_PHONE_7270_13806"
 #	config TYPE_AVM_UMTS_7270_13265
 #		bool "AVM_UMTS_7270_13265"
 	config TYPE_AVM_7270_13486
@@ -530,7 +530,7 @@ config AVM_IMG
         default "$AVM_AIO_7270_13679"	if ( TYPE_AIO ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_WLANX_7270_13783"	if ( TYPE_WLAN ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_IPV6_7270_13781"	if ( TYPE_IPV6 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )	
-        default "$AVM_PHONE_7270_13715" if ( TYPE_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+        default "$AVM_PHONE_7270_13806" if ( TYPE_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
         default "$AVM_UMTS_7270_13265" 	if ( TYPE_UMTS ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_MINI_7270_67" 	if ( TYPE_MINI ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 
@@ -585,7 +585,7 @@ config SRC2_IMG
 	default "$AVM_WLANX_7270_13783"	if TYPE_AVM_WLANX_7270_13783
 	default "$AVM_IPV6_7270_13781"	if TYPE_AVM_IPV6_7270_13781	
         default "$AVM_DSL_7270_13225" 	if TYPE_AVM_DSL_7270_13225
-        default "$AVM_PHONE_7270_13715" if TYPE_AVM_PHONE_7270_13715
+        default "$AVM_PHONE_7270_13806" if TYPE_AVM_PHONE_7270_13715
         default "$AVM_UMTS_7270_13265" 	if TYPE_AVM_UMTS_7270_13265
 	default "$AVM_MINI_7270_67" 	if TYPE_AVM_MINI_7270_67
         default "$AVM_7570_70" 		if TYPE_AVM_7570_70

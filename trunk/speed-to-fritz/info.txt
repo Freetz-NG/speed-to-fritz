@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090303-1048-r-181
+    - Inserted neue PHONE 7270 in Config.in:  fritz_box-labor-7270-13806.image
 20090303-0903-r-178
     - Addon of usbroot by: abraXxl
 20090303-0856-r-178
