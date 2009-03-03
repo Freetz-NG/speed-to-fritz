@@ -122,7 +122,7 @@ config AVM_7270_59
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.59.image"
 config AVM_7270_67
     string
-    default "p"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_wlan/fritz_box-labor-13783.zip ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
 config AVM_7270_67m
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image"    
@@ -304,7 +304,8 @@ choice
 		depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
 	config TYPE_67
 		bool "67"
-		depends on TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
+		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
+#		depends on TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_TCOM_LOCAL 
 	config TYPE_70
 		bool "70"
 		depends on TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_TCOM_LOCAL 
@@ -435,8 +436,8 @@ choice
 		bool "AVM_7270_59_ANNEX_A_B"
 #	config TYPE_AVM_7270_A59
 #		bool "AVM_7270_59_ANNEX_A"
-#	config TYPE_AVM_7270_67
-#		bool "AVM_7270_67"
+	config TYPE_AVM_7270_67
+		bool "AVM_7270_67"
 	config TYPE_AVM_7270_70
 		bool "AVM_7270_70"
 	config TYPE_AVM_7270_67m

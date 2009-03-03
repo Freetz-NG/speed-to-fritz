@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090303-1126-r-184
+    - Config.in:7270 .67 added again becaus it is part of wlanlabor.zip
 20090303-1101-r-182
     - Config.in:7270 .67 removed becaus is not avalabe any more
 20090303-1048-r-181
