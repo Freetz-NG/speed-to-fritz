@@ -122,10 +122,10 @@ config AVM_7270_59
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.59.image"
 config AVM_7270_70
     string
-default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
+    default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
 config AVM_7270_67
     string
-default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13715.zip ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13715.zip ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
 config AVM_7270_67m
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image"    
@@ -424,8 +424,8 @@ choice
 		bool "AVM_DSL_7170_12562"
 #	config TYPE_AVM_GAMING_7170_11435
 #		bool "AVM_GAMING_7170_11435"
-	config TYPE_AVM_MINI_7170_67
-		bool "AVM_MINI_7170_67"
+#	config TYPE_AVM_MINI_7170_67
+#		bool "AVM_MINI_7170_67"
 
 #	config TYPE_AVM_7270_57
 #		bool "AVM_7270_57"
