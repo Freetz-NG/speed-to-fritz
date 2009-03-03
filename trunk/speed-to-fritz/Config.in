@@ -85,7 +85,7 @@ config AVM_7170_A59
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image"
 config AVM_MINI_7170_67 
     string 
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.67.image"
+    default "p"
 config AVM_7170_67en
     string
      default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.67.image"
@@ -1138,6 +1138,15 @@ endif
 comment "SYSTEM Options -----------------------------------------------------"
 config XCHANGE_KERNEL
 	bool "Xchange kernel between tcom and avm source"
+	default n
+	help
+		For normal this is "n", but for testing this may be used, this option is dangerous,
+		but it can be used in combination with the option restore original firmware as well.
+		It is mainly added for testing W920, W920 original firmware does not log to the console
+		but if the kernel is replaced with AVM kernel the log is present.
+config SRC2_KERNEL
+	bool "Take kernel from source 3"
+	depends on SOURCE2
 	default n
 	help
 		For normal this is "n", but for testing this may be used, this option is dangerous,

@@ -3,7 +3,7 @@ export PATH=$PATH:/sbin
 #dont change names of variables because some of the names are used in other files as well!
 ##########################################################################
 # Date of current version:                                          
-Tag="02"; Monat="03"; Jahr="09"
+Tag="03"; Monat="03"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -753,6 +753,7 @@ if [ "$ORI" != "y" ]; then
  [ "$ADD_KAID" = "y" ] && $sh2_DIR/add_kaid
  #exchange kernel 
  [ "$XCHANGE_KERNEL" = "y" ] && cp -rfv "${SPDIR}/kernel.raw" "${FBDIR}/kernel.raw"
+ [ "$SRC2_KERNEL" = "y" ] && cp -rfv "${FBDIR_2}/kernel.raw" "${FBDIR}/kernel.raw"
   #remove signature
  $sh_DIR/rmv_signatur.sh "${SRC}"
  $sh_DIR/remove_autoupdatetab.sh "${SRC}"
@@ -770,8 +771,9 @@ else
  #add addons
  export OEM="tcom"
  [ "$COPY_ADDON_TMP_to_ORI" = "y" ] &&  cp -fdpr  ./addon/tmp/squashfs-root/*  --target-directory="${DST}"
- #exchange kernel 
+ #exchange kernel
  [ "$XCHANGE_KERNEL" = "y" ] && cp -rfv "${FBDIR}/kernel.raw" "${SPDIR}/kernel.raw"
+ [ "$SRC2_KERNEL" = "y" ] && cp -rfv "${FBDIR_2}/kernel.raw" "${FBDIR}/kernel.raw"
  echo "Assembling original TCOM Firmware for transfer via FTP and Webinterface ..."
  echo
  echo "Some changes are made to the original tar file, so it can be used on "

@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090303-0508-r-175
+    - Added Option Xchange kernel with 3rd firmmware.
 20090302-1035-r-174
     - UT8 Option removed, some variabels removed from: /subscripts/settings and replaced through dynamic setting
 20090302-1033-r-174
