@@ -79,6 +79,7 @@ fi
  
 [ ${USE_OWN_DSL} = "y" ] && cp -fdrp ./addon/tmp/W920/squashfs-root/* --target-directory="${SRC}" &&\
 echo "  -- DSL Driver was taken from local directory ./addon/tmp/W920!"
+[ "${FORCE_SRC2_KDSLDMOD}" = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
 
 #not 7570 only--->
 if ! [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ]; then 
@@ -197,6 +198,7 @@ sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init
 #copy second source internet dsl menue
 [ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLIST}"
  echo2 "New WEB GUI will be modified"
+
 #use scond source web GUI
 [ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
 #Add buchsend button to fon bookpage
