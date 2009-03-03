@@ -12,7 +12,7 @@ if [ `id -u` -eq 0 ]; then
   sleep 10
   exit 0
 fi
-rm -f ./trunk/speed-to-fritz
+rm -fdr ./trunk/speed-to-fritz
 #sudo apt-get -y install subversion 
 svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk/speed-to-fritz trunk/speed-to-fritz
 #cd trunk/speed-to-fritz
