@@ -6,7 +6,7 @@ echo "-- Adding multiannex pages ..."
 echo "-- Adding settings timezone pages ..."
 if [ "${CONFIG_MULTI_COUNTRY}" = "y" ]; then
  echo "-- Adding mulicountry pages from source 2 or 3 ..."
- FILELIST="menu2_system.html sitemap.html authform.html vpn.html pppoe.html first_Sip_1.html first_ISP_0.html"
+ FILELIST="menu2_system.html sitemap.html authform.html vpn.html pppoe.html first_Sip_1.html first_ISP_0.html first_ISP_3.frm"
  rpl_avme_avm()
  {
 	for file in $1; do
@@ -17,6 +17,7 @@ if [ "${CONFIG_MULTI_COUNTRY}" = "y" ]; then
 	done
  }
  rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.html)" 
+ rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.frm)" 
 
 #copy default country
  cp -fdrp "${DST}"/etc/default.0* --target-directory=${SRC}/etc
@@ -45,6 +46,16 @@ FILELIST="/html/de/internet/vdsl_profile.js \
 /html/de/first/basic_first_Annex.js \
 /html/de/first/basic_first_Annex.frm \
 /html/de/first/basic_first_Annex.html"
+ #show settings tub
+ #-----------------------------------------------------------------
+  for FILE in adsl.html atm.html bits.html overview.html; do
+  if [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/$FILE" ]; then 
+    sed -i -e "s|<? if neq \$var:Annex A|<? if neq \$var:Annex Z|" "${SRC}/usr/www/${OEMLINK}/html/de/internet/$FILE"
+    echo2 "  /usr/www/${OEMLINK}/html/de/internet/$FILE"
+  fi
+ done
+ #-----------------------------------------------------------------
+
 if [ "${CONFIG_DSL_MULTI_ANNEX}" = "y" ]; then
  if [ "${CONFIG_MULTI_LANGUAGE}" != "y" ]; then
  [ "$avm_Lang" = "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}" "$P_DIR/add_timezone_de.patch" )
@@ -54,15 +65,6 @@ if [ "${CONFIG_DSL_MULTI_ANNEX}" = "y" ]; then
  done
  [ "$avm_Lang" = "de" ] && modpatch "${SRC}" "$P_DIR/add_dslsnrset_de.patch"
  [ "$avm_Lang" = "en" ] && modpatch "${SRC}" "$P_DIR/add_dslsnrset_en.patch"
- #show settings tub
- #-----------------------------------------------------------------
-  for FILE in adsl.html atm.html bits.html overview.html; do
-  if [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/$FILE" ]; then 
-    sed -i -e "s|<? if neq \$var:Annex A|<? if eq A A|" "${SRC}/usr/www/${OEMLINK}/html/de/internet/$FILE"
-    echo2 "  /usr/www/${OEMLINK}/html/de/internet/$FILE"
-  fi
- done
- #-----------------------------------------------------------------
  else
   FILELIST="$FILELIST \
 /html/de/system/timeZone.js \
@@ -79,6 +81,7 @@ if [ "${CONFIG_DSL_MULTI_ANNEX}" = "y" ]; then
    fi
   done
  fi
+fi
  if ! `grep -q 'ar7cfg.dslglobalconfig.Annex' "${SRC}"/etc/init.d/rc.conf`; then
      sed -i -e '/export ANNEX=.cat .CONFIG_ENVIRONMENT_PATH.annex./d' "${SRC}"/etc/init.d/rc.conf
      sed -i -e '/"$annex_param"/a\
@@ -93,9 +96,7 @@ else\
 export ANNEX=`cat $CONFIG_ENVIRONMENT_PATH\/annex` \
 fi' "${SRC}"/etc/init.d/rc.conf
  fi
-fi
 USRWWW="usr/www/${OEMLINK}/html/de"
-
 if [ "${CONFIG_MULTI_LANGUAGE}" = "y" ]; then
  echo "-- Adding mulilingual pages from source 2 or 3 ..."
  #copy language datbase

@@ -7,7 +7,7 @@ Tag="03"; Monat="03"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
-export MODVER="${SKRIPT_DATE}-de/en-annexA/B"
+export MODVER="${SKRIPT_DATE}-multi"
 ##########################################################################
 # Set this to "y" if you run the skript within CYGWIN, only used with -p option
 # For more info, look into file includefunction    
@@ -631,7 +631,7 @@ echo "Firmware configuration taken from: ${firmwareconf_file_name}"
 sed -i -e 's|export |EXPORT_|' $HOMEDIR/${firmwareconf_file_name}
 [ "$ANNEX" != "B" ] && [ "$ANNEX" != "A" ] && echo "Commandline annex parameter -x is: '$ANNEX' but must be 'A' or 'B'" && exit 0  
 kernel_args="annex=${ANNEX}" 
-export kernel_args="${kernel_args} idle=4"
+#export kernel_args="${kernel_args} idle=4"
 export CONFIG_ANNEX="${ANNEX}"
 # set above variables according to your hardware                    
 set_model "$SPMOD"
@@ -645,9 +645,9 @@ echo -e "\033[1mSpeed-to-Fritz version: ${MODVER}\033[0m"
 echo "--------------------------------------------------------------------------------"
 #START
 # delete privias Firmware of 11500 if needed
-  $sh2_DIR/del_zip "${AVM_DSL_11500}" "${AVM7270_DSL_11500}" "13014" 
+  $sh2_DIR/del_zip "${AVM_DSL_7170_11500}" "${AVM_DSL_7270_11500}" "13014" 
 # delete privias Firmware of 13014 if needed
-  $sh2_DIR/del_zip "${AVM_AIO_13014}" "${AVM7270_AIO_13014}" "13014" 
+  $sh2_DIR/del_zip "${AVM_AIO_7170_13014}" "${AVM_AIO_7270_13014}" "13014" 
 # extract source
 . $inc_DIR/get_workingbase
 # create backup for final compare
@@ -663,20 +663,6 @@ echo "--------------------------------------------------------------------------
 . $inc_DIR/getversion
 # get produkt from etc/default.F* into variables FBMOD, CONFIG_PRODUKT and CONFIG_SORCE
 . $inc_DIR/getprodukt
-# compose Filename for new .tar ended File
-if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
- [ "${SVN_VERSION:0:6}" == "export" ] && SVN_VERSION=""
- [ "$SVN_VERSION" != "" ] && SVN_VERSION="-r-$SVN_VERSION"
- SKRIPT_DATE+="$SVN_VERSION"
-fi
-[ "7570" == "${TYPE_LABOR_TYPE:0:4}" ] && AVM_SUBVERSION="7570-$AVM_SUBVERSION"
-[ "y" == "${TYPE_TCOM_7570_70}" ] && TCOM_SUBVERSION="7570-$TCOM_SUBVERSION"
-[ ${FREETZ_REVISION} ] && FREETZ_REVISION="-freetz-${FREETZ_REVISION}"
-[ "$ORI" != "y" ] && export NEWIMG="fw_${CLASS}_W${SPNUM}V_${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}_Annex${ANNEX}_${avm_Lang}.image"
-[ "$ORI" == "y" ] && export NEWIMG="${SPIMG}_OriginalTcomAdjustedForAnnex${ANNEX}_${avm_Lang}.image"
-[ "$ATA_ONLY" = "y" ] && export NEWIMG="fw_${CLASS}_W${SPNUM}V_${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}_ATA-ONLY_${avm_Lang}.image"
-# print some info on screen
-. $inc_DIR/print_settings
 # save some variabels to incl_var
 . $sh2_DIR/settings
 #print some Hardware setting found in the two firmwares in use
@@ -786,12 +772,6 @@ else
  $sh_DIR/patch_tools.sh "${DST}"	
 fi
 $sh_DIR/patch_install.sh "${SPDIR}"
-if [ "$VERBOSE" = "-v" ]; then
-echo "Ready for packing... Press 'ENTER' to continue..."
- while !(read -s);do
-    sleep 1
- done
-fi
 . $inc_DIR/testerror
 [ ${FAKEROOT_ON} = "n" ] && chmod -R 777 "${FBDIR}"
 echo "********************************************************************************"
@@ -801,28 +781,47 @@ echo "**************************************************************************
 [ "$DO_FINAL_DIFF" = "y" ] && ./0diff "${SPDIR}" "${TEMPDIR}" "./logFINALtoAVM"
 [ "$DO_FINAL_DIFF_SRC2" = "y" ] && ./0diff "${SPDIR}" "${FBDIR_2}" "./logFINALto3"
 [ "$DO_STOP_ON_ERROR" = "y" ] && exec 2>"${HOMEDIR}/${ERR_LOGFILE}"
+# compose Filename for new .tar ended File
+if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
+ [ "${SVN_VERSION:0:6}" == "export" ] && SVN_VERSION=""
+ [ "$SVN_VERSION" != "" ] && SVN_VERSION="-r-$SVN_VERSION"
+ SKRIPT_DATE+="$SVN_VERSION"
+fi
+[ "7570" == "${TYPE_LABOR_TYPE:0:4}" ] && AVM_SUBVERSION="7570-$AVM_SUBVERSION"
+[ "y" == "${TYPE_TCOM_7570_70}" ] && TCOM_SUBVERSION="7570-$TCOM_SUBVERSION"
+[ ${FREETZ_REVISION} ] && FREETZ_REVISION="-freetz-${FREETZ_REVISION}"
+readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
+PANNEX="_annex${ANNEX}"
+[ "$DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
+[ "$DSL_MULTI_ANNEX" == "y" ] && PANNEX=""
+readConfig "MULTI_LANGUAGE" "MULTI_LANGUAGE" "${SRC}/etc/init.d"
+#Language="_${FORCE_LANGUAGE}"
+Language="_${avm_Lang}"
+[ "$MULTI_LANGUAGE" == "y" ] && Language=""
+[ "$ORI" != "y" ] && export NEWIMG="fw_${CLASS}_W${SPNUM}V_${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}${PANNEX}${Language}.image"
+[ "$ORI" == "y" ] && export NEWIMG="${SPIMG}_OriginalTcomAdjusted${PANNEX}${Language}.image"
+[ "$ATA_ONLY" = "y" ] && export NEWIMG="fw_${CLASS}_W${SPNUM}V_${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}_ATA-ONLY${Language}.image"
+echo "export NEWIMG=\"${NEWIMG}\"" >> incl_var
+echo "export kernel_args=\"${kernel_args}\"" >> incl_var
+# print some info on screen
+. $inc_DIR/print_settings
+if [ "$VERBOSE" = "-v" ]; then
+echo "Ready for packing... Press 'ENTER' to continue..."
+ while !(read -s);do
+    sleep 1
+ done
+fi
 if [ "$SET_UP" = "n" ]; then
  #wrap all up again
  fw_pack "$SPDIR" "${NEWDIR}" "${NEWIMG}"
  . $inc_DIR/testerror
-	echo "********************************************************************************"
-	echo
-	echo "New firmware image completed successfully!"
-	echo "You may now use it in regular firmware upgrade process."
-	echo "Use at your own risk!!!"
-	echo
-	echo "      kernel.image - and " 
-	echo "      ${NEWIMG}"
-	echo "are now in output directory:"
-	echo "      ${NEWDIR}"
-	echo
 	echo "********************************************************************************"
  if [ "$PUSHCONF" = "y" ]; then
 	echo "Flashing firmware image $NEWDIR/kernel.image..."
 	echo "********************************************************************************"
 	echo
  	#FTP kann nicht mit zwei Parametern von quote uebergeben,  ${kernel_args} verursacht Fehlermeldung	
-	pushconfig "${NEWDIR}" "${OEM}" "${CONFIG_PRODUKT}" "${HWRevision}" "${ETH_IF}" "${IPADDRESS}" "${CONFIG_jffs2_size}" "annex=${ANNEX}" "${ANNEX}"
+	pushconfig "${NEWDIR}" "${OEM}" "${CONFIG_PRODUKT}" "${HWRevision}" "${ETH_IF}" "${IPADDRESS}" "${CONFIG_jffs2_size}" "${kernel_args}" "${ANNEX}"
 #	pushconfig "${NEWDIR}" "${OEM}" "${CONFIG_PRODUKT}" "${HWRevision}" "${ETH_IF}" "${IPADDRESS}" "${CONFIG_jffs2_size}" "console=ttyS0,38400" "${ANNEX}"
 	echo
 	echo "Finished transfering kernel.image to Speedport. Enjoy!"
@@ -830,18 +829,19 @@ if [ "$SET_UP" = "n" ]; then
 	echo "********************************************************************************"
  else
 	echo "********************************************************************************"
-	echo
+	echo -e "You may now use it in regular \033[1mfirmware upgrade\033[0m process."
+	echo "Or:"
 	echo " Continue with upload of new kernel.image to speedport via ftp ..."
 	echo " 1. Login to 192.168.178.1 as adam2 (pw adam2)"
-	echo " 2. Issue commands:   bin, passiv, quote MEDIA FLSH"
-	echo " 3. Transfer file:    put kernel.image mtd1"
-	echo " 4. Change branding:  quote SETENV firmware_version ${OEM}"
-	echo " 5. Change branding:  quote SETENV kernel_args annex=${ANNEX}"
-	echo " 6. Reboot speedport: quote REBOOT"
-	echo " 7. Exit ftp:         quit "
-	echo
-	echo " You can use ./ftpXXX 'ENTER' to do the above, if you have a functional "
-	echo " netconnection on this LINUX System to your Speedport, no additional settings are needed."
+	echo " 2. Issue commands:     bin, passiv, quote MEDIA FLSH"
+	echo " 3. Transfer file:      put kernel.image mtd1"
+	echo " 4. Change branding:    quote SETENV firmware_version ${OEM}"
+	echo " 5. Change kernel_args: quote SETENV kernel_args ${kernel_args}"
+	echo " 6. Reboot speedport:   quote REBOOT"
+	echo " 7. Exit ftp:           quit "
+	echo "Or:"
+	echo -e " Use \033[1m./ftpXXX 'ENTER'\033[0m to do the above, if you have a functional netconnection "
+	echo " on this LINUX System to your Speedport, no additional settings are needed."
 	echo "********************************************************************************"
  fi
 

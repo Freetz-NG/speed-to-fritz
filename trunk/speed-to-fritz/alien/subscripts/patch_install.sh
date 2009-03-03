@@ -11,10 +11,10 @@ echo "#! /bin/sh" >"${1}"/var/post_install
 echo "/var/install" >>"${1}"/var/post_install
 chmod +x "${1}"/var/post_install
 
-
+[ "${kernel_args}" != "console=ttyS0,38400" ] && kernel_args="${kernel_args} console=ttyS0,38400"
 
 sed -i -e "/echo \"echo language > \/proc\/sys\/urlader\/environment\"/a \
-echo \"echo kernel_args ${kernel_args} console=ttyS0,38400 > \/proc\/sys\/urlader\/environment\" >>\/var\/post_install \n\
+echo \"echo kernel_args ${kernel_args} > \/proc\/sys\/urlader\/environment\" >>\/var\/post_install \n\
 echo \"echo ${ANNEX} > \/proc\/sys\/urlader\/annex\" >>\/var\/post_install \n\
 echo \"echo annex ${ANNEX} > \/proc\/sys\/urlader\/environment\" >>\/var\/post_install \n\
 echo \"echo ${OEM} > \/proc\/sys\/urlader\/firmware_version\" >>\/var\/post_install \n\

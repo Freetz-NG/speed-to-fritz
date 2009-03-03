@@ -2,11 +2,10 @@
  . $include_modpatch
 	
 echo "-- Make link's..."
-
-#[ -d "${1}/usr/www/tcom" ] && rm -rf "${1}/usr/www/tcom"
-
-#[ ! -L "${1}/usr/www/tcom" ] && ln -s /usr/www/$lnk "${1}/usr/www/tcom"
 [ ! -L "${1}/etc/default.${CONFIG_PRODUKT}/tcom" ] && ln -s /etc/default.${CONFIG_PRODUKT}/${OEMLINK} "${1}/etc/default.${CONFIG_PRODUKT}/tcom"
+#add avme
+#[ ! -L "${1}/etc/default.${CONFIG_PRODUKT}/avme" ] && ln -s /etc/default.${CONFIG_PRODUKT}/${OEMLINK} "${1}/etc/default.${CONFIG_PRODUKT}/avme"
+#[ ! -L "${1}/usr/www/avme" ] && ln -s /usr/www/${OEMLINK} "${1}/usr/www/avme"
 
 
 DIRI="$1/etc/default.${CONFIG_PRODUKT}" 

@@ -11,7 +11,7 @@ echo ""
 echo "" 
 
 . $inc_DIR/includefunctions
-pushconfig "${NEWDIR}" "${OEM}" "${CONFIG_PRODUKT}" "${HWRevision}" "${ETH_IF}" "${IPADDRESS}" "${CONFIG_jffs2_size}" "annex=${ANNEX}" "${ANNEX}"
+pushconfig "${NEWDIR}" "${OEM}" "${CONFIG_PRODUKT}" "${HWRevision}" "${ETH_IF}" "${IPADDRESS}" "${CONFIG_jffs2_size}" "${kernel_args}" "${ANNEX}"
 
 echo "All done .... Press 'ENTER' to finish"
 while !(read -s); do 

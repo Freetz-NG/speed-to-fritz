@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090303-1640-r-186
+    - Changed some of the sructure of sp-to-fritz.sh to be able to reflect multi settings in the filename.
 20090303-1232-r-185
     - Config.in: 7170 .70 Option for W900, W701 removed becase we dont have this .70 firmware
 20090303-1126-r-184

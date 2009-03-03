@@ -71,7 +71,7 @@
 +-->
 +</style>
 +<script type=text/javascript>
-+<? include ..usr/www/avm/html/de/js/jsl.js ?>
++<? include ../html/de/js/jsl.js ?>
 +var g_txtConfirmSubmit = "Confirm Submit ?";
 +function uiDoOnLoad() {
 +document.title = "<? print `$var:BoxName` ?>" + " " + "Time Zone";

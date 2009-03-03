@@ -4,7 +4,7 @@
 +<input type="hidden" name="sar:settings/ControlBitfield" value="<? query sar:settings/ControlBitfield ?>" id="uiPostControlBitfield">
 +<input type="hidden" name="sar:settings/DownstreamMarginOffset" value="<? query sar:settings/DownstreamMarginOffset ?>" id="iPostDownstreamMarginOffset">
 +<? if eq $var:isMultiAnnex 1 `
-+<Input type="hidden" name="sar:settingnnex" value="<? query sar:settingnnex ?>" id="uiPostAnnex" disabled>
++<Input type="hidden" name="sar:settings/Annex" value="<? query sar:settings/Annex ?>" id="uiPostAnnex" disabled>
 +<Input type="hidden" name="sar:settings/DSLMode" value="<? query sar:settings/DSLMode ?>" id="uiPostDSLMode" disabled>
 +` ?>
 --- usr/www/avm/html/de/internet/dslsnrset.html	2009-02-19 09:57:18.000000000 -0500

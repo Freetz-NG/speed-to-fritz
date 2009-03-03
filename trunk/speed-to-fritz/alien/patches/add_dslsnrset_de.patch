@@ -286,7 +286,7 @@
 @@ -0,0 +1,4 @@
 +<input type="hidden" name="sar:settings/ControlBitfield" value="<? query sar:settings/ControlBitfield ?>" id="uiPostControlBitfield">
 +<input type="hidden" name="sar:settings/DownstreamMarginOffset" value="<? query sar:settings/DownstreamMarginOffset ?>" id="iPostDownstreamMarginOffset">
-+<Input type="hidden" name="sar:settingnnex" value="<? query sar:settingnnex ?>" id="uiPostAnnex" disabled>
++<Input type="hidden" name="sar:settings/Annex" value="<? query sar:settings/Annex ?>" id="uiPostAnnex" disabled>
 +<Input type="hidden" name="sar:settings/DSLMode" value="<? query sar:settings/DSLMode ?>" id="uiPostDSLMode" disabled>
 --- usr/www/avm/html/de/first/basic_first_Annex.frm	1969-12-31 19:00:00.000000000 -0500
 +++ usr/www/avm/html/de/first/basic_first_Annex.frm	2009-01-22 10:31:50.000000000 -0500
@@ -320,8 +320,8 @@
 @@ -0,0 +1,32 @@
 +<!-- ../first/basic_first_Annex.js -->
 +<script type="text/javascript">
-+<? include ..usr/www/avm/html/de/js/jsl.js ?>
-+<? include ..usr/www/avm/html/de/first/basic_first.js ?>
++<? include ../html/de/js/jsl.js ?>
++<? include ../html/de/first/basic_first.js ?>
 +function uiDoOnLoad() {
 +document.title = "<? print `$var:BoxName` ?>" + " " + "ANNEX ?? ";
 +if(jslGetValue('uiNeedCountrySetting')=="1")
@@ -400,8 +400,8 @@
 +<br>
 +<form method="post" action="/cgi-bin/webcm">
 +<p>
-+<input type="hidden" name="getpage" value="..usr/www/avm/html/de/menus/menu2.html" />
-+<input type="hidden" name="errorpage" value="..usr/www/avm/html/de/menus/menu2.html" />
++<input type="hidden" name="getpage" value="../html/de/menus/menu2.html" />
++<input type="hidden" name="errorpage" value="../html/de/menus/menu2.html" />
 +<input type="hidden" name="var:pagename" value="vdsl_profile" />
 +<input type="hidden" name="var:errorpagename" value="vdsl_profile" />
 +<input type="hidden" name="var:menu" value="internet" />

@@ -1,6 +1,8 @@
 #!/bin/bash
  # include modpatch function
  . ${include_modpatch}
+. $inc_DIR/includefunctions
+
 #########################################################################
 # Add mod info button on home screen                                    #
 #########################################################################
@@ -208,28 +210,9 @@ EOF
 fi
 chmod 755 "${DSTF}"
 
-function readConfig()
-{
-	if [ -n "$1" ]; then
-		if [ -e "$3/rc.init" ] && `grep -e "HW=[0-9]* OEM=all" "$3/rc.init" | grep -q "$1="` ; then
-			VAL=`grep -e "HW=[0-9]* OEM=all" "$3/rc.init" | grep -m 1 -o -e "$1=.*" | awk -F "[= ]" '{print $2}'`
-			eval "export $2=$VAL"
-		elif [ -e "$3/rc.conf" ] && `cat "$3/rc.conf" | grep -q "export CONFIG_$1="` ; then
-			VAR=$(echo $1 | sed -e "s/^_//")
-			VAL=`grep -e "export CONFIG_${VAR}=." "$3/rc.conf" | grep -m 1 -o -e "CONFIG_${VAR}=.*" | awk -F "[= ]" '{print $2}' | sed -e "s/\"//g"`
-			eval "export $2=$VAL"
-		else
-			return 1
-		fi
-	else
-		return 1
-	fi
-
-	return 0
-}
-
 readConfig "HOSTNAME" "HOSTNAME" "${1}/etc/init.d"
 
+readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${1}/etc/init.d"
 
 sed -i -e "s/MODEL/${CLASS} W ${SPNUM}V/" "${DSTF}"
 sed -i -e "s/VERSION/${SKRIPT_DATE}/" "${DSTF}"
@@ -237,6 +220,7 @@ sed -i -e "s/OEM/${OEM}/" "${DSTF}"
 sed -i -e "s/HOSTNAME/${HOSTNAME}/" "${DSTF}"
 sed -i -e "s/IMG0_TCOM/${SPIMG}/" "${DSTF}"
 sed -i -e "s/IMG1_AVM/${FBIMG}/" "${DSTF}"
+[ "$DSL_MULTI_ANNEX" = "y" ] && sed -i -e "s/ANNEX/Multi/" "${DSTF}"
 [ "$ATA_ONLY" = "n" ] && sed -i -e "s/ANNEX/${ANNEX}/" "${DSTF}"
 
 [ -n "$FBIMG_2" ] && sed -i -e "s/IMG2_AVM/${FBIMG_2}/" "${DSTF}" || sed -i -e "/<li><b>AVM WebUI-Image:/,/<\/li>/d" "${DSTF}"
