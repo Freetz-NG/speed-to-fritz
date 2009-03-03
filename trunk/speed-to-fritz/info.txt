@@ -22,8 +22,12 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
-20090303-0656-r-177
+20090303-0903-r-178
+    - Addon of usbroot by: abraXxl
+20090303-0856-r-178
     - mini 7170 source2 commente hesh added
+20090303-0656-r-177
+    - mini 7170 source2 comment hesh added
 20090303-0619-r-176
     - config.in missing ' '' ' added.
 20090303-0508-r-175
