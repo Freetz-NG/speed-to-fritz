@@ -1,0 +1,87 @@
+#!/bin/bash
+echo "********************************************************************************"
+echo -e "\033[1mPhase 4:\033[0m Apply changes."
+echo "********************************************************************************"
+echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
+echo "Replacing hardware related files of AVM firmware images ..."
+echo2 "-- Copy original T-com module:"
+echo2 "      /lib/modules"
+
+#KernelVersion="2.6.13.1-ohio"
+
+[ ${FORCE_TCOM_PIGLET} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet/Piglet.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet
+cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit1 --target-directory="${SRC}"/lib/modules
+cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules
+rm -fr "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz/* 
+
+if [ ${ATA_ONLY} = "n" ]; then
+#add DSL driver dependig on the settings made in firmware.conf707
+[ ${FORCE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DSL Driver was taken from the original t-com firmware!"
+[ ${SAVE_AVM_DSL} = "y" ] && cp -fdrp "${SRC}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+[ ${SAVE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+[ ${SAVE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+echo "  -- TCOM DSL Driver saved to: ./addon/tmp/modules!"
+[ ${USE_OWN_DSL} = "y" ] && cp -fdrp ./addon/tmp/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
+[ ${USE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!" 
+else
+#remove ADSL
+#dont start dsl
+sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
+rm -fdr "${SRC}"/lib/modules/dsp_ur8
+rm -f "${SRC}"/lib/modules/microvoip-dsl.bin
+#<-- ATA only
+fi
+
+#adapt parameters for Piglet bitfile to be
+$sh_DIR/patch_pigletsection.sh "${SRC}" "${DST}"
+
+#copy second source www dir
+[ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
+[ ${USE_SOURCE2_WEBMNUE} = "y" ] && . $inc_DIR/get_SRC2_ver 
+
+#copy second source internet dsl menue
+[ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
+
+echo2 "-- copy complete AVM source to destination directory!"
+
+# only executed if productname is changed
+if [ ! -e "${SRC}"/etc/default.${CONFIG_PRODUKT} ]; then
+echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
+ echo2 "-- Move contents of OEM directory:"
+ echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
+    mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
+   "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
+#   mv "${SRC}/etc/default.${SORCE_PRODUKT}" "${SRC}/etc/default.${CONFIG_PRODUKT}"
+
+    rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
+fi
+
+#keep tcom or congstar oem dir
+if [  -e "${DST}/etc/default.${CONFIG_PRODUKT}"/tcom ]; then
+"$TAR" -c -C "${DST}/etc/default.${CONFIG_PRODUKT}" tcom  | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
+fi
+if [  -e "${DST}/etc/default.${CONFIG_PRODUKT}"/congstar ]; then
+"$TAR" -c -C "${DST}/etc/default.${CONFIG_PRODUKT}" congstar  | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
+fi
+#remove USB and internal S0
+[ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "7170" 
+
+# patch INI files according to the setting made in the main Skript speed-to-fritz.sh 
+# 701 is used for filename 701.init and for Produkt string.
+$sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 701
+
+# set led definition 
+$sh_DIR/patch_leddefinition.sh "${SRC}" "${DST}"
+
+#patch annex parameter
+$sh_DIR/patch_annex.sh "${SRC}"
+
+#patch download url
+sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
+
+echo "********************************************************************************"

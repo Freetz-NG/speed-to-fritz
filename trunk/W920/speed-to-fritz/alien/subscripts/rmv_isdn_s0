@@ -1,0 +1,224 @@
+#!/bin/bash
+ # include modpatch function
+ . ${include_modpatch}
+# hardware has no Intenal S0 Net Teminal Equiptment connector "NT"
+DIRI="/usr/www/${HTML}/de/home" 
+  if ! [ -f "$1"/$DIRI/fondevices.html ]; then
+   DIRI="/usr/www/${HTML}/de/fon"
+  fi
+    echo2 " -- Remove some 'internal S0' Text in Files ..."
+if [ $AVM_V_MINOR -gt 48 ]; then
+ #remove radio button for ISDN S0 setup
+ if [ -e "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.html ]; then
+    echo2 "      /usr/www/${HTML}/de/fon_config/fon_config_Start.html"
+    sed -i -e 's/<input type="radio" name="Device" id="uiViewDeviceIsdn">/<input type="hidden" name="Device" id="uiViewDeviceIsdn">/' "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.html
+ fi
+ if [ -e "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.inc ]; then
+  if `cat "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.inc| grep -q 'ISDN-' `; then  
+    sed -i -e "s/'ISDN-Telefonanlage'/' '/" "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.inc
+    sed -i -e "s/'.*ISDN-Telefonanlagen.*'/' '/" "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.inc
+    echo2 "      /usr/www/${HTML}/de/fon_config/fon_config_Start.inc"
+  fi
+  #remove ISDN- Prefix in some text displayed, only .inc files are changed
+  if [ -d "$1"/usr/www/${HTML}/de/fon_config ]; then
+     for FILE in `ls "$1"/usr/www/${HTML}/de/fon_config/*.inc`; do
+	if `cat "$FILE" | grep -q 'ISDN-' `; then  
+    	    echo2 "      /usr/www/${HTML}/de/home/${FILE##*/}"
+	    sed -i -e "s/ISDN-//" "$FILE"
+	fi
+    done
+  fi
+  if [ -d "$1"/usr/www/${HTML}/de/home ]; then
+     for FILE in `ls "$1"/usr/www/${HTML}/de/home/*.inc`; do
+	if `cat "$FILE" | grep -q 'ISDN-' `; then  
+    	    echo2 "      /usr/www/${HTML}/de/home/${FILE##*/}"
+	    sed -i -e "s/ISDN-Anschluss/ISDN Anschluss/" "$FILE"
+	    sed -i -e "s/ISDN-//" "$FILE"
+	fi
+    done
+  fi
+ fi
+ # all in one --->
+  if [ -e "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.html ]; then
+   if `cat "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.html| grep -q 'ISDN-' `; then  
+    sed -i -e "/id=.uiViewDeviceIsdn/,/<p class=.pCheck/d" "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.html
+   fi
+  fi
+   #remove ISDN- Prefix in some text displayed, all files are changed
+   if [ -d "$1"/usr/www/${HTML}/de/fon_config ]; then
+     for FILE in `ls "$1"/usr/www/${HTML}/de/fon_config/*`; do
+	if `cat "$FILE" | grep -q 'ISDN-' `; then  
+    	    echo2 "      /usr/www/${HTML}/de/fon_config/${FILE##*/}"
+	    sed -i -e "s/ISDN-//" "$FILE"
+	    sed -i -e "s/Telefon, //" "$FILE"
+	fi
+    done
+   fi
+   if [ -d "$1"/usr/www/${HTML}/de/home ]; then
+     for FILE in `ls "$1"/usr/www/${HTML}/de/home/*`; do
+	if `cat "$FILE" | grep -q 'ISDN-' `; then  
+    	    echo2 "      /usr/www/${HTML}/de/home/${FILE##*/}"
+	    sed -i -e "s/ISDN-Anschluss/ISDN Anschluss/" "$FILE"
+	    sed -i -e "s/, ISDN-Telefone//" "$FILE"
+	    sed -i -e "s/ISDN-//" "$FILE"
+	fi
+    done
+   fi
+#<---------------------------     
+ # pulldown selection
+ sed -i -e "s/FON S0.*\"/S0 (nicht vorhanden)\"/g" "$1"/usr/www/${HTML}/de/fon_config/fon_config_1.js
+ 
+
+else 
+# older version of menus
+ if [ -d "$1"/usr/www/${HTML}/de/fon_config ]; then
+       for FILE in fon_config_1.frm fon_config_End.frm; do
+       if [ -e "$1"/usr/www/${HTML}/de/fon_config/$FILE ]; then
+                       echo2 "      /usr/www/${HTML}/de/fon_config/$FILE"
+                       sed -i -e "/^<? repeat \[ 1 8 \] \`$/,/^\` ?>$/d" "$1"/usr/www/${HTML}/de/fon_config/$FILE
+               fi
+       done
+
+       if [ -e "$1"/usr/www/${HTML}/de/fon_config/fon_config_End.js ]; then
+               echo2 "      /usr/www/${HTML}/de/fon_config/fon_config_End.js"
+               sed -i -e "/^.*for ( var j=1;j<9;j++) {/,/^.*}.*$/d" "$1"/usr/www/${HTML}/de/fon_config/fon_config_End.js
+       fi
+
+       if [ -e "$1"/usr/www/${HTML}/de/fon_config/fon_config_1.js ]; then
+               echo2 "      /usr/www/${HTML}/de/fon_config/fon_config_1.js"
+               sed -i -e "/^<? if eq \$var:DeviceType 'Fax' \`$/,/^\` ?>$/d" "$1"/usr/www/${HTML}/de/fon_config/fon_config_1.js
+               sed -i -e "/^<? if eq \$var:DeviceType 'AB' \`$/,/^\` ?>$/{/\`/! d}" "$1"/usr/www/${HTML}/de/fon_config/fon_config_1.js
+               sed -i -e "/^<? if eq \$var:DeviceType 'Fon' \`$/,/^\` ?>$/d" "$1"/usr/www/${HTML}/de/fon_config/fon_config_1.js
+               sed -i -e "/^.*if (wert == 50) {$/,/^.*}.*$/d" "$1"/usr/www/${HTML}/de/fon_config/fon_config_1.js
+
+               sed -i -e "/^var g_txtNoMoreIsdn/d" "$1"/usr/www/${HTML}/de/fon_config/fon_config_1.js
+               sed -i -e "/^var g_txtNoMoreFaxIsdn/d" "$1"/usr/www/${HTML}/de/fon_config/fon_config_1.js
+       fi
+
+       if [ -e "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.html ]; then
+               echo2 "      /usr/www/${HTML}/de/fon_config/fon_config_Start.html"
+               sed -i -e "/uiViewDeviceIsdn/d" "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.html
+       fi
+
+       if [ -e "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.js ]; then
+               echo2 "      /usr/www/${HTML}/de/fon_config/fon_config_Start.js"
+               sed -i -e "/^.*} else if (jslGetChecked(\"uiViewDeviceIsdn\")) {$/,/^.*deviceType = \"Isdn\";$/d" "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.js
+               sed -i -e "/^.*if ( deviceType == \"Isdn\") {$/,/^.*}.*$/d" "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.js
+       fi
+ fi
+
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#remove NT  Option
+
+if [ -e "$1"/usr/www/${HTML}/de/first/first_Sip_2.frm ]; then
+    echo2 "      /usr/www/${HTML}/de/first/first_Sip_2.frm"
+    sed -i -e "/\/MSN\/NTDefault/d" "$1"/usr/www/${HTML}/de/first/first_Sip_2.frm
+fi
+
+if [ -e "$1"/usr/www/${HTML}/de/first/first_Sip_2.js ]; then
+   echo2 "      /usr/www/${HTML}/de/first/first_Sip_2.js"
+   sed -i -e "/\"uiPostNTDefault\"/d" "$1"/usr/www/${HTML}/de/first/first_Sip_2.js
+fi
+
+if [ -e "$1"/usr/www/${HTML}/de/first/first_Sip_3.frm ]; then
+       echo2 "      /usr/www/${HTML}/de/first/first_Sip_3.frm"
+       sed -i -e "/\/MSN\/NTDefault/d" "$1"/usr/www/${HTML}/de/first/first_Sip_3.frm
+fi
+
+if [ -e "$1"/usr/www/${HTML}/de/first/first_Sip_3.js ]; then
+   echo2 "      /usr/www/${HTML}/de/first/first_Sip_3.js"
+   sed -i -e "/\"uiPostNTDefault\"/d" "$1"/usr/www/${HTML}/de/first/first_Sip_3.js
+fi
+if [ -e "$1"/usr/www/${HTML}/de/first/first_Sip_free.frm ]; then
+   echo2 "      /usr/www/${HTML}/de/first/first_Sip_free.frm"
+   sed -i -e "/\/MSN\/NTDefault/d" "$1"/usr/www/${HTML}/de/first/first_Sip_free.frm
+fi
+
+if [ -e "$1"/usr/www/${HTML}/de/first/first_Sip_free.js ]; then
+   echo2 "      /usr/www/${HTML}/de/first/first_Sip_free.js"
+   sed -i -e "/\"uiPostNTDefault\"/d" "$1"/usr/www/${HTML}/de/first/first_Sip_free.js
+fi
+if [ -e "$1"/usr/www/${HTML}/de/first/first_Start_Sip.js ]; then
+   echo2 "      /usr/www/${HTML}/de/first/first_Start_Sip.js"
+   sed -i -e "/^.*for(var j=1;j<9;j++) {/,/^.*}/d" "$1"/usr/www/${HTML}/de/first/first_Start_Sip.js
+fi
+
+ #echo2 "      ${DIRI}/sip1.frm"
+ #sed -i -e "/\/MSN\/NTDefault/d" "$1"${DIRI}/sip1.frm
+
+ #echo2 "      ${DIRI}/sip1.js"
+ #sed -i -e "/\"uiPostNTDefault\"/d" "$1"${DIRI}/sip1.js
+ #sed -i -e "s/^var g_mldNoRufnrIsdn = .*$/var g_mldNoRufnrIsdn = \"Bitte geben Sie Ihre %1 an.\";/" "$1"${DIRI}/sip1.js
+
+
+
+
+
+
+#remove S0 port display
+
+ if [ -e "$1"${DIRI}/fondevices.frm ]; then
+        sed -i -e "/\/MSN\/NTDefault/d" "$1"${DIRI}/fondevices.frm
+ fi
+
+ if [ -e "$1"${DIRI}/fondevices.html ]; then
+       sed -i -e "/\"DeviceIsdnDef.*\"/d" "$1"${DIRI}/fondevices.html
+ fi
+
+ #if [ -e "$1"${DIRI}/fondevices.js ]; then
+ #       echo2 "      ${DIRI}/fondevices.js"
+ #       sed -i -e "/^.*var NoIsdnDeviceFound = true;$/,/^.*}.*$/d" "$1"${DIRI}/fondevices.js
+ #       sed -i -e "/^.*if ((NoIsdnDeviceFound == true)/,/^.*}.*$/d" "$1"${DIRI}/fondevices.js
+ #       sed -i -e "/^.*for (var j=1; j<9; j++) {/,/^.*}.*$/d" "$1"${DIRI}/fondevices.js
+ #       sed -i -e "/^function IsdnDefaultsChanged() {$/,/^}.*$/d" "$1"${DIRI}/fondevices.js 
+ #       sed -i -e "/^function IsLastIsdnDevice([ ]*curPortNo) {$/,/^}.*$/d" "$1"${DIRI}/fondevices.js
+ #fi
+
+ for FILE in dial.frm fonbuch.frm foncalls.frm wecker.frm fondevices.frm fondevices.html; do
+  if [ -e "$1"${DIRI}/$FILE ]; then
+               echo2 "      ${DIRI}/$FILE"
+               sed -i -e "/^<? repeat \[ 1 8 \] \`$/,/^\` ?>$/d" "$1"${DIRI}/$FILE
+       fi
+ done
+
+
+#remove S0 port display
+ for FILE in fonbuch.js foncalls.js; do
+       echo2 "      ${DIRI}/$FILE"
+       sed -i -e "/^.*case \"50\":.*$/,/^\` ?>$/d" "$1"${DIRI}/$FILE
+ done
+
+# remove Option S0  
+ echo2 "      ${DIRI}/dial.js"
+ sed -i -e "s/ISDN-Telefone/DECT-Telefone/" "$1"${DIRI}/dial.js
+ sed -i -e "/^.*\"uiViewPort\", \"50\".*$/,/^.*}$/d" "$1"${DIRI}/dial.js
+
+ if  [ -f "$1"/$DIRI/wecker.js ]; then
+  echo2 "      ${DIRI}/wecker.js"
+  sed -i -e "s/ISDN-Telefone/DECT-Telefone/" "$1"${DIRI}/wecker.js
+  sed -i -e "/^.*id, \"50\".*$/,/^.*}$/d" "$1"${DIRI}/wecker.js
+ fi
+ DIRI="/usr/www/${HTML}/de/fon"
+ if  [ -f "$1"/$DIRI/wecker.js ]; then
+  echo2 "      ${DIRI}/wecker.js"
+  sed -i -e "s/ISDN-Telefone/DECT-Telefone/" "$1"${DIRI}/wecker.js
+  sed -i -e "/^.*id, \"50\".*$/,/^.*}$/d" "$1"${DIRI}/wecker.js
+ fi
+
+#remove help for isdn devices on S0
+
+ if  [ -f "$1"/usr/www/${HTML}/de/help/home.html ]; then
+    echo2 "      /usr/www/${HTML}/de/help/home.html"
+    sed -i -e "/'hilfe_fon.*isdn'/d" "$1"/usr/www/${HTML}/de/help/home.html
+ fi
+ echo2 "   -- Removing files:"
+ echo2 "      /usr/www/${HTML}/de/help/hilfe_fon*isdn*.html"
+ rm -f "$1"/usr/www/${HTML}/de/help/hilfe_fon*isdn*.html
+
+
+
+
+fi
+exit 0
+
+

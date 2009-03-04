@@ -1,0 +1,145 @@
+#!/bin/bash
+echo "********************************************************************************"
+echo -e "\033[1mPhase 4:\033[0m Apply changes."
+echo "********************************************************************************"
+echo2 "-- Copy Speedport LED-configfile:"
+echo2 "      /etc/led.conf"
+cp -fdrp "${DST}/etc/led.conf" "${SRC}/etc/led.conf"
+# set led definition 
+#$sh_DIR/patch_leddefinition.sh "${SRC}" "${DST}"
+$sh_DIR/swap_infoled_500.sh "${SRC}"
+
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# only exicuted new productname
+if [ ! -e "${SRC}"/etc/default.${CONFIG_PRODUKT} ]; then
+echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
+echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
+ echo2 "-- Move contents of OEM directory:"
+ echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
+    mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
+   "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
+    rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
+fi
+
+#keep tcom oem dir
+"$TAR" -c -C "${DST}/etc/default.${CONFIG_PRODUKT}" tcom  | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+echo2 "-- Copy original T-com module:"
+echo2 "      /lib/modules"
+
+cp -fdrp "${DST}"/lib/modules/microvoip_top.bit "${SRC}"/lib/modules/microvoip_top.bit
+
+if [ ${ATA_ONLY} = "n" ]; then
+
+#add DSL driver 
+[ ${FORCE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DSL Driver was taken from the original t-com firmware!"
+[ ${SAVE_AVM_DSL} = "y" ] && cp -fdrp "${SRC}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+[ ${SAVE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+[ ${SAVE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+echo "  -- TCOM DSL Driver saved to: ./addon/tmp/modules!"
+[ ${USE_OWN_DSL} = "y" ] && cp -fdrp ./addon/tmp/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
+[ ${USE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!" 
+else
+#remove ADSL
+#dont start dsl
+sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
+#rm -fdr "${SRC}"/lib/modules/dsp_ur8
+rm -f "${SRC}"/lib/modules/microvoip-dsl.bin
+#<-- ATA only
+fi
+
+
+#fon diriver 
+#KernelVersion="2.6.13.1-ohio"
+
+FONDRV_PATH="lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz"
+replaced="0"
+      [ -f "${DST}/${FONDRV_PATH}/isdn_fbox.ko" ] && [ "${FORCE_TCOM_FON}" == "y" ] && cp -fdrp "${DST}/${FONDRV_PATH}/isdn_fbox.ko" "${SRC}/${FONDRV_PATH}/isdn_fbox_fon4.ko" &&\
+      ( echo "  -- FON Driver 'isdn_fbox.ko' was taken from original t-com Firmware" 
+      rm -rf ${SRC}/${FONDRV_PATH}/isdn_fbox.ko
+      replaced="1" )
+      [ -f "${SRC_2}/${FONDRV_PATH}/isdn_fbox.ko" ] && [ "${USE_SRC2_FON}" == "y" ] && cp -fdrp "${SRC_2}/${FONDRV_PATH}/isdn_fbox.ko" "${SRC}/${FONDRV_PATH}/isdn_fbox_fon4.ko" &&\
+      (echo "  -- FON Driver 'isdn_fbox.ko' was taken from 3rd source Firmware"
+      rm -rf ${SRC}/${FONDRV_PATH}/isdn_fbox.ko
+      replaced="1" )
+      [ -f "${DST}/${FONDRV_PATH}/isdn_fbox_fon4.ko" ] && [ "${FORCE_TCOM_FON}" = "y" ] && cp -fdrp ${DST}/${FONDRV_PATH}/isdn_fbox_fon4.ko --target-directory="${SRC}/${FONDRV_PATH}" &&\
+      ( rm -rf ${SRC}/${FONDRV_PATH}/isdn_fbox.ko  
+      echo "  -- FON Driver 'isdn_fbox_fon4.ko' was taken from original t-com Firmware"
+      replaced="1" )
+      [ -f "${SRC_2}/${FONDRV_PATH}/isdn_fbox_fon4.ko" ] && [ "${USE_SRC2_FON}" = "y" ] && cp -fdrp ${SRC_2}/${FONDRV_PATH}/isdn_fbox_fon4.ko --target-directory="${SRC}/${FONDRV_PATH}" &&\
+      ( rm -rf ${SRC}/${FONDRV_PATH}/isdn_fbox.ko 
+      echo "  -- FON Driver 'isdn_fbox_fon4.ko' was taken from 3rd source Firmware"
+      replaced="1" )
+
+( [ "${USE_SRC2_FON}" = "y" ] || [ "${FORCE_TCOM_FON}" = "y" ] ) && [ "${replaced}" = "0" ] &&\
+( 
+  echo "----------------------------------------------------------"
+  echo "  --No replacemnt of FON DRIVER ware made!"
+  echo "  --Wrong kernelversion for replacing driver."
+  echo "----------------------------------------------------------"
+) 
+
+
+echo2 "New WEB GUI will be modified"
+#    $sh_DIR/add_dect_section.sh "${SRC}"
+    #.56 dect pages can be used as the are but old vesion can be adden to give more funtioalyty
+    [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect.sh "${SRC}" "X" "${OEMLINK}"
+#set DECT hardwaetype 
+#sed -i -e "s/dect_hw=./dect_hw=1/" "${SRC}/etc/init.d/rc.S" 
+sed -i -e '/isdn_params="${isdn_params} dect_hw=/d' "${SRC}/etc/init.d/rc.S" 
+
+#patch annex parameter
+$sh_DIR/patch_annex.sh "${SRC}"
+# DECT aktivieren, ON / OFF
+sed -i -e 's|isdn_params=""|isdn_params=""\
+isdn_params="${isdn_params} dect_hw=1"\
+if /usr/bin/checkempty /var/flash/dect_misc; then\
+isdn_params="${isdn_params} dect_on=1"\
+else\
+if /bin/testvalue /var/flash/dect_misc 1 0 0; then\
+isdn_params="${isdn_params} dect_on=0"\
+else\
+isdn_params="${isdn_params} dect_on=1"\
+fi\
+fi|' "${SRC}/etc/init.d/rc.S"
+#patch download url
+sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
+
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#adapt parameters for Piglet bitfile to be
+$sh_DIR/patch_pigletsection.sh "${SRC}" "${DST}"
+
+# patch InI files acording to the setting made in the main Skript speed-to-fritz.sh 
+#set some Variables  
+$sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 500
+
+#copy second source internet dsl menue
+[ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
+
+#copy second source www dir
+[ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
+[ ${USE_SOURCE2_WEBMNUE} = "y" ] && . $inc_DIR/get_SRC2_ver 
+
+#remove USB S0 und ISDN
+[ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
+
+#Add buchsend button to fon bookpage
+[ ${AVM_V_MINOR} -lt 56 ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
+#bug fix
+LCLASS=$( echo $CLASS | tr "[:upper:]" "[:lower:]" )
+for OEMD in $OEMLIST; do
+    DSTI="${SRC}"/etc/default.${CONFIG_PRODUKT}/${OEMD}/igddesc-template.xml
+    [ -f ${DSTI} ] && sed -i -e "s/${LCLASS}.ip/fritz.box/" ${DSTI}
+done
+
+# Apply bug fix for file foncalls.js in FRITZ!Fon 7150 FW 38.04.27      
+[ ${TCOM_V_MINOR} -eq 27 ] && $sh_DIR/patch_foncalls.sh
+
+$sh_DIR/remove_files_500.sh ${SRC}
+

@@ -1,0 +1,15 @@
+#!/bin/bash
+ . $include_modpatch
+
+echo "-- Adjusting TAM max record length ..."
+
+echo2 "-- Patching files:"
+
+echo2 "      /usr/www/all/html/de/fon/tam.html"
+sed -i -e "s/maxlength=\"2\" id=\"uiViewLen\"/maxlength=\"3\" id=\"uiViewLen\"/" "$1"/usr/www/all/html/de/fon/tam.html
+
+echo2 "      /usr/www/all/html/de/fon/tam.js"
+sed -i -e "s/60 Sekunden/180 Sekunden/" "$1"/usr/www/all/html/de/fon/tam.js
+sed -i -e "s/>60/>180/" "$1"/usr/www/all/html/de/fon/tam.js
+
+exit 0

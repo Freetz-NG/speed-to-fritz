@@ -1,0 +1,139 @@
+--- usr/www/avme/html/de/help/hilfe_fon_dect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/help/hilfe_fon_dect.html	2008-02-14 03:48:13.000000000 -0500
+@@ -0,0 +1,23 @@
++<div class="Hilfe">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">DECT-mobile</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p>Following steps are necessary to use DECT devices with FRITZ!Box:</p>
++<ul>
++<li>Enter your Internet- and fixed subscriber line phonenumbers in your FRITZ!Box.</li>
++<li>Assign numbers to your DECT devices.</li>
++</ul>
++<p><b>Enter phonenumbers to FRITZ!Box:</b><br>
++Internetphonenumbers can be entered in Menue &quot;Telefonie / Internettelefonie&quot;. Fixed subscriber lines phonenumbers can be entered in  &quot;Festnetzrufnummern&quot;
++this menue.</p>
++<h2>main phonenumber</h2>
++<p>DECT devices, where where no number is assigned place calls via the number entered in &quot;Hauptrufnummer&quot;.
++First Internet phonenumber entered in FRITZ!Box will be used as main phonenumber.</p>
++<h2>available phonenumbers</h2>
++<p>In List &quot;vorhandene Rufnummern&quot; already entered numbers will be displayed. These numbers can be used as multiple subscriber number (MSNs) with your DECT devices.<br>
++<b>Hinweis:</b> If you used numbers for your DECT devices that are not entered in this list, please also enter these numbers in your FRITZ!Box ein. </p>
++<h2>Send Phonebook</h2>
++<p>Click here to send the phonebook or single records of your phonebook to a mobile device.</p>
++<p>Click Appley, to save changed settings.</p>
++</div></div></div></div></div></div>
++<? include ../html/de/help/rback.html ?>
++</div>
+--- usr/www/avme/html/de/help/hilfe_fon_dect_festnetzrufnummer.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/help/hilfe_fon_dect_festnetzrufnummer.html	2008-02-14 03:48:13.000000000 -0500
+@@ -0,0 +1,12 @@
++<div class="Hilfe">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Festnetzrufnummern</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p>On this tab you can enter the numbers of your fixed subscriber line.</p>
++<ol>
++<li>Select type of fixed subscriber line.</li>
++<li>Enter your ISDN numbers or the analog numbers in the dedicated fields.</li>
++<li>Click om Appley, to enter your phonenumbers into the FRITZ!Box.</li>
++</ol>
++</div></div></div></div></div></div>
++<? include ../html/de/help/rback.html ?>
++</div>
+--- usr/www/avme/html/de/help/hilfe_fon_dect_fon1isdn.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/help/hilfe_fon_dect_fon1isdn.html	2008-02-14 03:48:13.000000000 -0500
+@@ -0,0 +1,15 @@
++<div class="Hilfe">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Interne Nummer</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p>On this page an internal number can be assigned to a DECT device, that is connected to the FRITZ!Box. The device the number will be assigned to can be chosen by input in field &quot;Number of the telphone&quot;.</p>
++<h3>Number</h3>
++<p>The shown number is the internal number, that is assigned to the DECT device. The number is assigned by FRITZ!Box and cannt be changed.</p>
++<h3>Description</h3>
++<p>Enter a description for the DECT device, that you want to assign the internal number. With this description the DECT device is listed in othe r menues (e.g. &quot;Anrufliste&quot;, &quot;Wecker&quot;).</p>
++<h3>Number of the telephone</h3>
++<p>Select a number, that is entered on the DECT device, with this choice the DECT device is selected for the internal number. Only numbers that are already entered in the FRITZ!Box are shown.</p>
++<p>The automatically from FRITZ!Box assigned number is also shown in this selection. The selection of this number is useful if the number already has been assigned to other devices. Please also enter the number in the DECT device. This ensures only this single DECT device reacts on this internal number.</p>
++<p>Click Appley, to save changes.</p>
++</div></div></div></div></div></div>
++<? include ../html/de/help/rback.html ?>
++</div>
+--- usr/www/avme/html/de/help/hilfe_fon_editdect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/help/hilfe_fon_editdect.html	2008-02-14 03:48:13.000000000 -0500
+@@ -0,0 +1,15 @@
++<div class="Hilfe">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Mobilteile</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p>Up to six DECT devices can be assigned to FRITZ!Box. </p>
++<p>In the list DECT devices that are alredy assigned to FRITZ!Box are shown. To unassign a DECT device click on right hand side of the list.</p>
++<p>Only with DECT devices featuring &quot;Swissvoice/GAP&quot; additional settings for the answering machine and number assignment directly from mobile device can be used.</p>
++<h4>Button &quot;Assign mobile device&quot;</h4>
++<p>Click &quot;Mobilteil anmelden&quot;. to assign a new mobile device to FRITZ!Box. To register 4-digit system PIN is needed &quot;0000&quot;)  default.</p>
++<h4>Click &quot;Page mobile devices&quot;</h4>
++<p>By clicking here all mobile devices assigned to FRITZ!Box can be located.</p>
++<h4>Click &quot;Datum und Uhrzeit setzen&quot;</h4>
++<p>By clicking here Date and Time can be send to assigned mobile devices (e.g. after changing the rechargable battery of a mobile device).</p>
++</div></div></div></div></div></div>
++<? include ../html/de/help/rback.html ?>
++</div>
+--- usr/www/avme/html/de/help/hilfe_fon_fon1dect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/help/hilfe_fon_fon1dect.html	2008-02-14 03:48:13.000000000 -0500
+@@ -0,0 +1,15 @@
++<div class="Hilfe">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Mobilteile</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p>Up to six DECT devices can be assigned to FRITZ!Box. </p>
++<p>In the list DECT devices that are alredy assigned to FRITZ!Box are shown. To unassign a DECT device click on right hand side of the list.</p>
++<p>Only with DECT devices featuring &quot;Swissvoice/GAP&quot; additional settings for the answering machine and number assignment directly from mobile device can be used.</p>
++<h4>Button &quot;Assign mobile device&quot;</h4>
++<p>Click &quot;Mobilteil anmelden&quot;. to assign a new mobile device to FRITZ!Box. To register 4-digit system PIN is needed &quot;0000&quot;)  default.</p>
++<h4>Click &quot;Page mobile devices&quot;</h4>
++<p>By clicking here all mobile devices assigned to FRITZ!Box can be located.</p>
++<h4>Click &quot;Datum und Uhrzeit setzen&quot;</h4>
++<p>By clicking here Date and Time can be send to assigned mobile devices (e.g. after changing the rechargable battery of a mobile device).</p>
++</div></div></div></div></div></div>
++<? include ../html/de/help/rback.html ?>
++</div>
+--- usr/www/avme/html/de/help/hilfe_fon_listdect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/help/hilfe_fon_listdect.html	2008-02-14 03:48:13.000000000 -0500
+@@ -0,0 +1,19 @@
++<div class="Hilfe">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Interne Nummern</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p>You can assign internal numbers to DECT devices assigned to FRITZ!Box. </p>
++<p>With the internal number </p>
++<ul>
++<li>DECT devices assigned to FRITZ!Box can place calls to each other</li>
++<li>DECT devices can be selected directly in other configurations like e. g. &quot;Anrufliste&quot;.</li>
++</ul>
++<p></p>
++<p>To place a call between two devices assigned to FRITZ!Box, dial **&lt;Nummer&gt;<br>
++<b>Example: </b>You want to call mobile device with number &quot;55&quot; from another device that is assigned to FRITZ!Box. Dial **55</p>
++<p>To assign an internal number to a DECT device, click on &quot;Neue Nummer&quot;.</p>
++<p>In the list DECT devices that are already have a number are shown. The records can be changed or deleted via the Button on the right-hand side of the list.</p>
++<h4>Button &quot;Neue Nummer&quot;</h4>
++<p>With this button internal numbers can be assigned to DECT devices.</p>
++</div></div></div></div></div></div>
++<? include ../html/de/help/rback.html ?>
++</div>
+--- usr/www/avme/html/de/help/hilfe_fon_setupdect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/help/hilfe_fon_setupdect.html	2008-02-14 03:48:13.000000000 -0500
+@@ -0,0 +1,19 @@
++<div class="Hilfe">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Assigning Numbers</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p>You can assign up to five numbers (MSN A bis E) to DECT devices assigned to FRITZ!Box. </p>
++<p>Numbers that can be assigned to a mobile device are </p>
++<ul>
++<li>Internet phonenumbers, that have been configured via menue &quot;Internettelefonie&quot;.</li>
++<li>Fixed subscriber line phonenumbers of an existing analog or ISDN connection.</li>
++<li>Configured internal numbers of DECT devices from &quot;Internal numbers&quot;.</li>
++</ul>
++<p></p>
++<h4>Button &quot;New Assignment&quot</h4>
++<p>To assign a number to a DECT device, click on &quot;Neue Zuordnung&quot;.</p>
++<p>In the list numbers (MSN A bis E) that are already assigned to a DECT device are shown. The records can be changed or deleted via the button on the right-hand side of the list.</p>
++<h4>Option &quot;React on all Calls&quot;</h4>
++<p>This option forces all DECT devices to react on all calls on all phonenumbers. If using this option all assigned numbers for DECT devices will be deleted.</p>
++</div></div></div></div></div></div>
++<? include ../html/de/help/rback.html ?>
++</div>

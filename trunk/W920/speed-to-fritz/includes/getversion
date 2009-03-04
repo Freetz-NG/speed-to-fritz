@@ -1,0 +1,101 @@
+#!/bin/bash
+#########################################################################
+# Check version of AVM firmware source                                  #
+#########################################################################
+echo2 "--------------------------------------------------------------------------------"
+echo2 "Verifying version of TCOM and AVM firmware images ..."
+export TCOM_VERSION=`cat ${DST}/etc/.version`
+export TCOM_V_MINOR=${TCOM_VERSION##*.}
+export TCOM_SUBVERSION=`cat ${DST}/etc/.subversion`
+export TCOM_SUBVERSION=`echo ${TCOM_SUBVERSION##*-} | tr -d '[:alpha:]'`
+[ "$TCOM_SUBVERSION" = "" ] &&  export TCOM_SUBVERSION="0"
+echo2 "-- TCOM firmware image version is: $TCOM_VERSION-$TCOM_SUBVERSION"
+
+export AVM_VERSION=`cat ${SRC}/etc/.version`
+export AVM_V_MINOR=${AVM_VERSION##*.}
+export AVM_SUBVERSION=`cat ${SRC}/etc/.subversion`
+export AVM_SUBVERSION=`echo ${AVM_SUBVERSION##*-} | tr -d '[:alpha:]'`
+[ "$AVM_SUBVERSION" = "" ] && export AVM_SUBVERSION="0"
+echo2 "-- AVM  firmware image version is: $AVM_VERSION-$AVM_SUBVERSION"
+
+
+if [  -e "${SPDIR}/var/install" ]; then
+export SP_Vesioninfo=`cat "${SPDIR}"/var/install | grep Versioninfo: | tr , ' '`
+export SP_Checkpoint=`cat "${SPDIR}"/var/install | grep Checkpoint: | tr , ' '`
+#export SP_kernel_size=`cat "${SPDIR}"/var/install | grep kernel_size= | tr , ' '`
+
+else
+export SP_Vesioninfo="# Versioninfo:	33.$TCOM_VERSION"
+export SP_Checkpoint="# Checkpoint:	r0000"
+#export SP_kernel_size="kernel_size=7798784"
+fi
+#Now taken as constant from speed-to-fritz.sh
+export SP_kernel_size="kernel_size=${kernel_size}"
+
+[ -n "$SP_Vesioninfo" ] && echo2 "-- TCOM  $SP_Vesioninfo"
+[ -n "$SP_Checkpoint" ] && echo2 "-- TCOM  $SP_Checkpoint"
+
+## Für Language den Default der Firmware auflösen
+## (es wird immer die Sprache der FW genommen)
+Language=`grep language ${DST}/etc/default.language`
+export tcom_Lang=`echo ${Language##language} | tr -d ' '`
+Language=`grep language ${SRC}/etc/default.language`
+export avm_Lang=`echo ${Language##language} | tr -d ' '`
+
+if [ "$ORI" != "y" ]; then
+ if [ "$OEM" = "avme" ] && [ "$avm_Lang" != "en" ]; then
+ echo "-- AVM  firmware image version is: $AVM_VERSION-$AVM_SUBVERSION"
+ echo "-- Language of AVM firmware is: $avm_Lang, language of TCOM firmware is: $tcom_Lang"
+ echo "-- You cant use branding: \"$OEM\" with this version! Set it to 'avm' or a other valid oem and try again!"
+  sleep 20
+  exit 0
+ fi
+ if [ "$OEM" != "avme" ] && [ "$avm_Lang" = "en" ]; then
+ echo "-- AVM  firmware image version is: $AVM_VERSION-$AVM_SUBVERSION"
+ echo "-- Language of AVM firmware is: $avm_Lang, language of TCOM firmware is: $tcom_Lang"
+ echo "-- You can't use branding: \"$OEM\" with this version. Set it to 'avm' or a other valid oem and try again!"
+  sleep 20
+  exit 0
+ fi
+else
+ #avm version is actual tcom-version if original is made up for transfer via webinterface
+ export AVM_VERSION=$TCOM_VERSION
+ export avm_Lang=$tcom_Lang
+fi
+#force default language 
+[ "$FORCE_LANGUAGE" != "" ] && sed -i -e "s|language ..|language $FORCE_LANGUAGE|" "${SRC}"/etc/default.language
+[ "$FORCE_LANGUAGE" != "" ] && export avm_Lang="$FORCE_LANGUAGE"
+echo2 "--------------------------------------------------------------------------------"
+#get Kernel version
+MODULESDEP_DIR="$(find ${DST}/lib/modules -name modules.dep)" # find file 
+MODULESDEP_DIR=${MODULESDEP_DIR%%/modules.dep*} # von links bis zu /modules.dep
+export TCOM_KernelVersion=${MODULESDEP_DIR##*/} # von rechts bis zum letzten /
+echo2 "-- TCOM Kernel version is: $TCOM_KernelVersion"
+
+MODULESDEP_DIR="$(find ${SRC}/lib/modules -name modules.dep)" # find file 
+MODULESDEP_DIR=${MODULESDEP_DIR%%/modules.dep*} # von links bis zu /modules.dep
+export KernelVersion=${MODULESDEP_DIR##*/} # von rechts bis zum letzten /
+echo2 "-- AVM  Kernel version is: $KernelVersion"
+if [ "$TCOM_KernelVersion" != "$KernelVersion" ]; then
+ export DifferentKernelVersion="y"
+ echo "ATTENTION! Kernel version of AVM and TCOM Firmware differ!"
+ echo "You cant use options like:"
+ echo "'Force use of t-com piglet driver' or 'Force use of t-com fon driver."
+ sleep 5
+fi
+echo2 "--------------------------------------------------------------------------------"
+# Get uClib version
+UCLIB_DIR="$(find ${DST}/lib -name *libuClibc-*.so)" # find file 
+UCLIB_DIR=${UCLIB_DIR##*-} # von rechts bis zu -
+export TCOM_uClibVersion=${UCLIB_DIR%%.so*} # von links bis zu .so
+echo2 "-- TCOM  uClib version is: $TCOM_uClibVersion"
+UCLIB_DIR="$(find ${SRC}/lib -name *libuClibc-*.so)" # find file 
+UCLIB_DIR=${UCLIB_DIR##*-} # von rechts bis zu -
+export uClibVersion=${UCLIB_DIR%%.so*} # von links bis zu .so
+echo2 "-- AVM   uClib version is: $uClibVersion"
+[ "$uClibVersion" ] || echo "WARNING! AVM uClib version not found!"
+if [ "$TCOM_uClibVersion" != "$uClibVersion" ]; then
+ export DifferentuClibVersion="y"
+ echo "WARNING! uClib version of AVM and TCOM Firmware differ!"
+ sleep 2
+fi

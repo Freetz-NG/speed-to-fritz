@@ -1,0 +1,2 @@
+#!/bin/bash
+./sp-to-fritz.sh  -m 501 -f -p -o avm -q -x B -c firmware.conf501

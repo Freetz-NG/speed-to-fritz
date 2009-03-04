@@ -1,0 +1,161 @@
+--- usr/www/avm/html/de/help/hilfe_fon_dect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/help/hilfe_fon_dect.html	2008-02-14 13:34:20.000000000 -0500
+@@ -0,0 +1,25 @@
++<div class="Hilfe">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">DECT-Endgeräte</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p>Um die DECT-Endgeräte an der FRITZ!Box in Betrieb zu nehmen, sind folgende Schritte notwendig:</p>
++<ul>
++<li>Tragen Sie Ihre Internetrufnummern und Ihre Festnetzrufnummern in die FRITZ!Box ein.</li>
++<li>Weisen Sie den DECT-Endgeräten die Rufnummern zu.</li>
++</ul>
++<p><b>Rufnummern in die FRITZ!Box eintragen:</b><br>
++Internetrufnummern tragen Sie im Menü &quot;Telefonie / Internettelefonie&quot; ein. Festnetzrufnummern tragen Sie auf der Seite &quot;Festnetzrufnummern&quot; 
++in diesem Menü ein.</p>
++<h2>Hauptrufnummer</h2>
++<p>DECT-Endgeräte, an denen keine Rufnummer zugewiesen wurde, führen ausgehende Rufe über die im Feld &quot;Hauptrufnummer&quot; eingetragene Rufnummer. 
++Die erste Internetrufnummer, die in die FRITZ!Box eingtragen wird, wird automatisch zur Hauptrufnummer.</p>
++<h2>vorhandene Rufnummern</h2>
++<p>In der Liste &quot;vorhandene Rufnummern&quot; werden die Rufnummern angezeigt, die Sie bereits in die FRITZ!Box eingetragen haben. Diese Rufnummern 
++können an den DECT-Endgeräten als Mehrfachrufnummern (MSNs) angegeben werden.<br>
++<b>Hinweis:</b> Falls an den DECT-Endgeräten Rufnummern eingetragen sind, die in dieser Liste noch nicht aufgeführt sind, tragen Sie diese Rufnummern 
++ebenfalls in die FRITZ!Box ein. </p>
++<h2>Telefonbuch senden</h2>
++<p>Klicken Sie auf diese Schaltfläche, wenn Sie das Telefonbuch oder einzelne Einträge aus dem Telefonbuch zu einem Mobilteil übertragen möchten.</p>
++<p>Klicken Sie auf die Schaltfläche &quot;Übernehmen&quot;, um die Änderungen der Einstellungen zu übernehmen.</p>
++</div></div></div></div></div></div>
++<? include ../html/de/help/rback.html ?>
++</div>
+--- usr/www/avm/html/de/help/hilfe_fon_dect_festnetzrufnummer.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/help/hilfe_fon_dect_festnetzrufnummer.html	2008-02-14 13:34:20.000000000 -0500
+@@ -0,0 +1,12 @@
++<div class="Hilfe">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Festnetzrufnummern</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p>Auf dieser Registerkarte tragen Sie die Rufnummern Ihres Festnetzanschlusses in die FRITZ!Box ein.</p>
++<ol>
++<li>Wählen Sie die Art Ihres Festnetzanschlusses aus.</li>
++<li>Tragen Sie Ihre ISDN-Rufnummern oder die Rufnummer Ihres analogen Anschlusses in die dafür vorgesehenen Felder ein.</li>
++<li>Klicken Sie auf die Schaltfläche &quot;Übernehmen&quot;, damit die Rufnummern in der FRITZ!Box eingetragen werden.</li>
++</ol>
++</div></div></div></div></div></div>
++<? include ../html/de/help/rback.html ?>
++</div>
+--- usr/www/avm/html/de/help/hilfe_fon_dect_fon1isdn.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/help/hilfe_fon_dect_fon1isdn.html	2008-02-14 13:34:20.000000000 -0500
+@@ -0,0 +1,23 @@
++<div class="Hilfe">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Interne Nummer</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p>Auf dieser Seite weisen Sie einem DECT-Telefon, das mit der FRITZ!Box verbunden ist, eine interne Nummer zu. Das Telefon, dem Sie die interne 
++Nummer zuweisen möchten, bestimmen Sie durch die Angabe im Feld &quot;Rufnummer des Telefons&quot;.</p>
++<h3>Nummer</h3>
++<p>Der hier angezeigte Wert ist die interne Nummer, die dem DECT-Telefon zugewiesen wird. Die Nummer wird automatisch von der FRITZ!Box vorgegeben 
++und kann nicht verändert werden.</p>
++<h3>Bezeichnung</h3>
++<p>Tragen Sie hier eine beliebige Bezeichnung für das DECT-Telefon ein, dem Sie die interne Nummer zuweisen möchten. Mit dieser Bezeichnung 
++wird das DECT-Telefon in den Listen anderer Menüs (z.B. &quot;Anrufliste&quot;, &quot;Wecker&quot;) angezeigt.</p>
++<h3>Rufnummer des Telefons</h3>
++<p>Wählen Sie hier eine Rufnummer aus, die Sie direkt am DECT-Telefon eingegeben haben. Mit dieser Auswahl legen Sie das DECT-Telefon fest, 
++dem Sie die interne Nummer zuweisen möchten. Hier werden nur Rufnummern zur Auswahl angeboten, die Sie bereits in die FRITZ!Box eingetragen 
++haben.</p>
++<p>Die automatisch von der FRITZ!Box vorgegebene interne Nummer steht ebenfalls in dieser Liste zur Auswahl. Die Auswahl der internen Nummer 
++als Rufnummer des Telefons ist dann sinnvoll, wenn die Rufnummer des Telefons auch an anderen Telefonen zugewiesen worden ist. Geben Sie in 
++diesem Fall auch direkt am DECT-Telefon die interne Nummer als Rufnummer ein. Damit stellen Sie sicher, dass nur dieses eine DECT-Telefon auf 
++die interne Nummer reagiert.</p>
++<p>Klicken Sie auf die Schaltfläche &quot;Übernehmen&quot;, um die Änderungen der Einstellungen zu übernehmen.</p>
++</div></div></div></div></div></div>
++<? include ../html/de/help/rback.html ?>
++</div>
+--- usr/www/avm/html/de/help/hilfe_fon_editdect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/help/hilfe_fon_editdect.html	2008-02-14 13:34:20.000000000 -0500
+@@ -0,0 +1,19 @@
++<div class="Hilfe">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Mobilteile</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p>Bis zu sechs DECT-Telefone, können mit der FRITZ!Box verbunden werden. </p>
++<p>In der Tabelle werden Ihnen die DECT-Telefone angezeigt, die bereits mit der FRITZ!Box verbunden sind. über 
++die Schaltflächen am rechten Tabellenrand können Sie registrierte DECT-Telefone abmelden.</p>
++<p>Nur bei DECT-Telefonen mit dem Zusatzmerkmal &quot;Swissvoice/GAP&quot; können die erweiterten Einstellungen, u.a. für den Anrufbeantworter und die 
++Rufnummernzuordnung, vom Mobilteil aus vorgenommen werden.</p>
++<h4>Schaltfläche &quot;Mobilteil anmelden&quot;</h4>
++<p>Um ein neues DECT-Telefon an der FRITZ!Box anzumelden, klicken Sie auf die Schaltfläche &quot;Mobilteil anmelden&quot;. Am DECT-Telefon müssen Sie
++zur Registrierung die System-PIN (in der Werkseinstellung &quot;0000&quot;) eingeben.</p>
++<h4>Schaltfläche &quot;Mobilteile pagen&quot;</h4>
++<p>Über diese Schaltflöche können Sie alle mit der FRITZ!Box verbundene DECT-Telefonen durch einen internen Anruf lokalisieren.</p>
++<h4>Schaltfläche &quot;Datum und Uhrzeit setzen&quot;</h4>
++<p>Über diese Schaltfläche können Sie auf den angemeldeten DECT-Telefonen das aktuelle Datum und die Uhrzeit der FRITZ!Box setzen (z.B. nach einem 
++Akkuwechsel am Mobilteil).</p>
++</div></div></div></div></div></div>
++<? include ../html/de/help/rback.html ?>
++</div>
+--- usr/www/avm/html/de/help/hilfe_fon_fon1dect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/help/hilfe_fon_fon1dect.html	2008-02-14 13:34:20.000000000 -0500
+@@ -0,0 +1,19 @@
++<div class="Hilfe">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Mobilteile</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p>Bis zu sechs DECT-Telefone, können mit der FRITZ!Box verbunden werden. </p>
++<p>In der Tabelle werden Ihnen die DECT-Telefone angezeigt, die bereits mit der FRITZ!Box verbunden sind. Über 
++die Schaltflächen am rechten Tabellenrand können Sie registrierte DECT-Telefone abmelden.</p>
++<p>Nur bei DECT-Telefonen mit dem Zusatzmerkmal &quot;Swissvoice/GAP&quot; können die erweiterten Einstellungen, u.a. für den Anrufbeantworter und die 
++Rufnummernzuordnung, vom Mobilteil aus vorgenommen werden.</p>
++<h4>Schaltfläche &quot;Mobilteil anmelden&quot;</h4>
++<p>Um ein neues DECT-Telefon an der FRITZ!Box anzumelden, klicken Sie auf die Schaltfläche &quot;Mobilteil anmelden&quot;. Am DECT-Telefon müssen Sie
++zur Registrierung die System-PIN (in der Werkseinstellung &quot;0000&quot;) eingeben.</p>
++<h4>Schaltfläche &quot;Mobilteile pagen&quot;</h4>
++<p>Über diese Schaltfläche können Sie alle mit der FRITZ!Box verbundene DECT-Telefonen durch einen internen Anruf lokalisieren.</p>
++<h4>Schaltfläche &quot;Datum und Uhrzeit setzen&quot;</h4>
++<p>Über diese Schaltfläche können Sie auf den angemeldeten DECT-Telefonen das aktuelle Datum und die Uhrzeit der FRITZ!Box setzen (z.B. nach einem 
++Akkuwechsel am Mobilteil).</p>
++</div></div></div></div></div></div>
++<? include ../html/de/help/rback.html ?>
++</div>
+--- usr/www/avm/html/de/help/hilfe_fon_listdect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/help/hilfe_fon_listdect.html	2008-02-14 13:34:21.000000000 -0500
+@@ -0,0 +1,21 @@
++<div class="Hilfe">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Interne Nummern</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p>DECT-Telefonen, die mit der FRITZ!Box verbunden sind, können Sie interne Rufnummern zuweisen. </p>
++<p>Mit der internen Nummer </p>
++<ul>
++<li>können die DECT-Telefone, die mit der FRITZ!Box verbunden sind, sich gegenseitig anwählen</li>
++<li>können die DECT-Telefone in anderen Einstellungsoptionen, wie z. B. der &quot;Anrufliste&quot; gezielt ausgewählt werden.</li>
++</ul>
++<p></p>
++<p>Um einen Anruf zwischen zwei mit der FRITZ!Box verbundenen DECT-Telefonen herzustellen, wählen Sie **&lt;Nummer&gt;<br>
++<b>Beispiel: </b>Sie wollen von einem mit der FRITZ!Box verbundenen DECT-Telefon das DECT-Telefon mit der internen Nummer &quot;55&quot; anrufen. Wählen 
++Sie: **55</p>
++<p>Um eine interne Nummer einem DECT-Telefon zuzuweisen, klicken Sie auf die Schaltfläche &quot;Neue Nummer&quot;.</p>
++<p>In der Tabelle werden Ihnen die DECT-Telefone angezeigt, die schon über eine interne Nummer verfügen. Die Tabelleneinträge können Sie über 
++die Schaltflächen am rechten Tabellenrand verändern oder löschen.</p>
++<h4>Schaltfläche &quot;Neue Nummer&quot;</h4>
++<p>Über diese Schaltfläche weisen Sie den DECT-Telefonen interne Nummern zu.</p>
++</div></div></div></div></div></div>
++<? include ../html/de/help/rback.html ?>
++</div>
+--- usr/www/avm/html/de/help/hilfe_fon_setupdect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/help/hilfe_fon_setupdect.html	2008-02-14 13:34:21.000000000 -0500
+@@ -0,0 +1,21 @@
++<div class="Hilfe">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Rufnummernzuordnung</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p>DECT-Telefonen, die mit der FRITZ!Box verbunden sind, können Sie bis zu fünf Rufnummern (MSN A bis E) zuweisen. </p>
++<p>Rufnummern, die einem Mobilteil zugeordnet werden können, sind </p>
++<ul>
++<li>Internetrufnummern, die im Menü &quot;Internettelefonie&quot; eingerichtet wurden.</li>
++<li>Festnetzrufnummer(n) eines vorhandenen Analog- oder ISDN-Telefonanschlusses.</li>
++<li>Unter &quot;Interne Nummern&quot; eingerichtete interne Rufnummern der DECT-Telefone.</li>
++</ul>
++<p></p>
++<h4>Schaltfläche &quot;Neue Zuordnung&quot</h4>
++<p>Um eine Rufnummer einem DECT-Telefon zuzuweisen, klicken Sie auf die Schaltfläche &quot;Neue Zuordnung&quot;.</p>
++<p>In der Tabelle werden Ihnen die Rufnummern (MSN A bis E) angezeigt, die schon einem DECT-Telefon zugeordnet sind. Die Tabelleneinträge können Sie über 
++die Schaltflächen am rechten Tabellenrand verändern oder löschen.</p>
++<h4>Option &quot;Auf alle Rufnummern reagieren&quot;</h4>
++<p>Über diese Option weisen Sie die DECT-Telefone an, auf eingehende Anrufe an allen Rufnummern zu reagiern. Durch das Setzen dieser Option 
++werden bereits eingerichtete Rufnummernzuordnungen gelöscht.</p>
++</div></div></div></div></div></div>
++<? include ../html/de/help/rback.html ?>
++</div>

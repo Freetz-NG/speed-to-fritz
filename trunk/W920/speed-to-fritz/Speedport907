@@ -1,0 +1,139 @@
+#!/bin/bash
+#KernelVersion="2.6.13.1-ohio"
+echo "********************************************************************************"
+echo -e "\033[1mPhase 4:\033[0m Apply changes."
+echo "********************************************************************************"
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# only executed if productname is changed
+if [ ! -e "${SRC}"/etc/default.${CONFIG_PRODUKT} ]; then
+echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
+ echo2 "-- Move contents of OEM directory:"
+ echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
+    mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
+   "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
+    rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
+fi
+if [ ${ATA_ONLY} = "n" ]; then
+#add DSL driver depending on the settings made in firmware.conf500
+[ ${FORCE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DSL Driver was taken from the original t-com firmware!"
+[ ${SAVE_AVM_DSL} = "y" ] && cp -fdrp "${SRC}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+[ ${SAVE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+[ ${SAVE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+echo "  -- TCOM DSL Driver saved to: ./addon/tmp/modules!"
+[ ${USE_OWN_DSL} = "y" ] && cp -fdrp ./addon/tmp/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
+[ ${USE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!" 
+
+else
+
+#remove ADSL
+#dont start dsl
+sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
+rm -fdr "${SRC}"/lib/modules/dsp_ur8
+rm -f "${SRC}"/lib/modules/microvoip-dsl.bin
+#<-- ATA only
+fi
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# all newer T-com Version 38, 39, 47, ... 
+#LABOR
+ echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
+    [ ${FORCE_TCOM_PIGLET} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet/Piglet.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet
+    #Fon Driver only usable with version 38
+    if [ -s "${DST}/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz/isdn_fbox.ko" ]; then
+      [ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz/isdn_fbox.ko "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz/isdn_fbox_fon4.ko
+    else
+      [ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz/* --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz
+    fi
+    #onliy needed if copy on top of t-com dir
+    #rm -fr "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz/* 
+
+    if  [ -e "${DST}"/lib/modules/microvoip_top.bit ]; then
+	cp -fdrp "${DST}"/lib/modules/microvoip_top.bit "${SRC}"/lib/modules/microvoip_top.bit
+    else
+ 	rm -f "${SRC}"/lib/modules/microvoip_top.bit
+        ln -sf  /lib/modules/microvoip_isdn_top.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit1
+        cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules
+    fi
+
+ echo2 "New WEB GUI will be modified"
+    #use scond source web GUI
+   if [ ${USE_SOURCE2_WEBMNUE} = "y" ]; then
+    #copy second source www dir
+    $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
+    . $inc_DIR/get_SRC2_ver 
+    [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect.sh "${SRC}" "${SRC_2}" "${OEMLINK}"
+   else
+    [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect_section.sh "${SRC}"
+    [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect.sh "${SRC}" "X" "${OEMLINK}"
+#    cp -fdprv  $P_DIR/libdect.so  --target-directory="$SRC"/usr/share/ctlmgr
+   fi
+   #copy second source internet dsl menue
+   [ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
+  cp -fdpr  "${DST}"/usr/share/ctlmgr/libdect.so  --target-directory="${SRC}"/usr/share/ctlmgr
+
+#patch annex parameter
+$sh_DIR/patch_annex.sh "${SRC}"
+#set DECT hardwaretype 
+#sed -i -e "s/dect_hw=./dect_hw=2/" "${SRC}/etc/init.d/rc.S" 
+sed -i -e '/isdn_params="${isdn_params} dect_hw=/d' "${SRC}/etc/init.d/rc.S" 
+
+# DECT aktivieren, ON / OFF
+sed -i -e 's|isdn_params=""|isdn_params=""\
+isdn_params="${isdn_params} dect_hw=2"\
+if /usr/bin/checkempty /var/flash/dect_misc; then\
+isdn_params="${isdn_params} dect_on=1"\
+else\
+if /bin/testvalue /var/flash/dect_misc 1 0 0; then\
+isdn_params="${isdn_params} dect_on=0"\
+else\
+isdn_params="${isdn_params} dect_on=1"\
+fi\
+fi|' "${SRC}/etc/init.d/rc.S"
+#But pluginsupport needs AVM HWrevision to setup the download URL for plugins 
+#workaround for HWRevision
+if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
+sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/i\
+	export HWRevision=\"$FBHWRevision\"" "${SRC}/sbin/start_plugin.sh"
+sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/a\
+	export HWRevision=\"$HWID\"" "${SRC}/sbin/start_plugin.sh"
+fi
+
+sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#adapt parameters for Piglet bitfile to be
+$sh_DIR/patch_pigletsection.sh "${SRC}" "${DST}"
+
+# set led definition 
+$sh_DIR/patch_leddefinition.sh "${SRC}" "${DST}"
+
+if [ ${FORCE_TCOM_FON} = "y" ]; then
+ #insert old w900 fon driver
+ echo2 "   -- Patching modules.dep"
+ echo2 "      /lib/modules/$KernelVersion/modules.dep"
+ if ! `cat "${SRC}/lib/modules/$KernelVersion/modules.dep" | grep -q 'isdn_fon4/zzz/isdn_fbox'` ; then
+	echo2 "!!!!!!!!!! 'Eintrag nicht vorhanden!!!!!!!!!!!!!!!!"
+ fi
+echo "/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon5/zzz/isdn_fbox_fon5.ko: /lib/modules/$KernelVersion/kernel/drivers/char/ubik2/ubik2.ko /lib/modules/$KernelVersion/kernel/drivers/atm/avm_atm/tiatm.ko" >> "${SRC}/lib/modules/$KernelVersion/modules.dep"
+echo "/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz/isdn_fbox.ko: /lib/modules/$KernelVersion/kernel/drivers/char/ubik2/ubik2.ko /lib/modules/$KernelVersion/kernel/drivers/atm/avm_atm/tiatm.ko" >> "${SRC}/lib/modules/$KernelVersion/modules.dep"
+fi
+
+# patch INI files acording to the setting made in the main skript speed-to-fritz.sh 
+# 900 is used for filname 900.init and for Produkt sring.
+$sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 900
+#remove FON3 menus
+[ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
+
+#Add buchsend button to fon bookpage
+$sh_DIR/patch_fonbuch.sh "${SRC}"
+
+# skripts for startig ftp on USB
+cp -fdpr  ./addon/tmp/jp   --target-directory="${SRC}"
+#add ntfs 
+[ "$ADD_NTFS" = "y" ] && $sh2_DIR/add_ntfs_W900 "${SRC}"
+echo "********************************************************************************"

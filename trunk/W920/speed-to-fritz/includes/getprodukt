@@ -1,0 +1,40 @@
+#!/bin/bash
+#########################################################################
+#  set variables according to Source                                    #
+######################################################################### 
+#SORCE_PRODUKT=`ls -d "${SRC}"/etc/default.Fritz* | ##*.`  #so the longer one is taken instead
+DEST_PRODUKT=`ls -d "${DST}"/etc/default.F*` 
+export DEST_PRODUKT=${DEST_PRODUKT##*.}
+SORCE_PRODUKT=`ls -d "${SRC}"/etc/default.F*` 
+export SORCE_PRODUKT=${SORCE_PRODUKT##*.}
+if [ ${CONFIG_PRODUKT} = "" ]; then
+ echo "Could not find source directory: ${SRC}/etc/default.F*"
+    sleep 10
+    exit 1
+fi
+if [ ${SORCE_PRODUKT} = "" ]; then
+ echo "Could not find source directory: ${SRC}/etc/default.F*"
+    sleep 10
+    exit 1
+fi
+#only used if a second source source file is needed
+if [ -n "$FBIMG_2" ]; then
+ SORCE_2_PRODUKT=`ls -d "${SRC_2}"/etc/default.F*` 
+ export SORCE_2_PRODUKT=${SORCE_2_PRODUKT##*.}
+ if [ ${SORCE_2_PRODUKT} = "" ]; then
+ echo "Could not find destination directory: ${SRC_2}/etc/default.F*"
+    sleep 10
+    exit 1
+ fi
+fi
+# find the number in SORCE_PRODUKT 
+FBMOD=${SORCE_PRODUKT##*Fritz_Box_}
+FBMOD=${FBMOD%%_*}
+export FBMOD=`echo ${FBMOD} | tr -d '[:alpha:]'`
+#echo "Fritz Box Firmware mod is: ${FBMOD}"
+
+export OEMLINK="avm"
+[ -d "${SRC}"/usr/www/avme ] && export OEMLINK="avme"
+#echo "OEMLINK: ${OEMLINK}"
+
+

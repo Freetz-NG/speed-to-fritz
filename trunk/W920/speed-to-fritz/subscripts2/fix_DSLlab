@@ -1,0 +1,25 @@
+#!/bin/bash
+    echo "-- Bugfix for LABOR 11500"
+for DIR in $2; do
+# if [ "$DIR" = "avme" ] ; then
+#  html="$avm_Lang/html"
+# else
+  html="html"
+# fi
+DIRI="usr/www/$DIR/$html/de"
+
+ TREE="$DIRI/internet"
+  if [ -f "$1"/$TREE/atm.js ]; then
+   #Bugfix DSL page 
+   sed -i -e "/if( (k == 0) && (hCRC!=0) && (hFEC!=0))/,/tdArray.push(sTd)/ {
+   s|\(.*/images/balkeneinheit24.*+hFEC\)|if (hFEC!=0) \1|
+   s|\(.*/images/balkeneinheit24.*+hCRC\)|if (hCRC!=0) \1|
+   s_(hCRC!=0) && (hFEC!=0))_(hCRC!=0) || (hFEC!=0))_ 
+   s_if( hCRC != 0 && hFEC!=0)_if( hCRC != 0 || hFEC!=0)_ 
+   }" "$1/${TREE}/atm.js"    
+  fi
+done
+exit 0
+
+#Die DSL-Labor 11500 hat einen Bug auf der Statistik-Seite. Der macht sich sofern bemerkbar, dass ein CRC-Fehler-Balken erst angezeigt wird, 
+#wenn der FEC-Fehler-Balken nicht auf 0 ist und anders herum. 

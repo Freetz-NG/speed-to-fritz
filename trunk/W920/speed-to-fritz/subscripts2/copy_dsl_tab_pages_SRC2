@@ -1,0 +1,38 @@
+#!/bin/bash
+# copy internet dsl files of second source
+echo "   ------------------DSL WEBGUI from source 3 is in use!--------------------"
+
+FILELIST="adsl atm bits labor_dsl overview"
+EXTESIONLIST="js inc html frm" 
+
+
+for DIR in $3; do
+# if [ "$DIR" = "avme" ] ; then
+#  html="$avm_Lang/html"
+# else
+  html="html"
+# fi
+
+DIRI="usr/www/$DIR/$html/de"
+FILE="images/balkeneinheit24-blau.gif"
+[ -e "$2/$DIRI/$FILE" ] && cp  "$2/$DIRI/$FILE"   "$1/$DIRI/$FILE"
+
+
+ TREE="$DIRI/internet"
+ if [ -d "$2"/$TREE ]; then
+  # is newer version so coppy comlete internet directory
+  if [ -e "$2/${TREE}/ajaxutility.js" ]; then
+   cp -dpr "$2/${TREE}/"*    --target-directory="$1/$TREE"
+  else  
+       for FILE in $FILELIST ; do
+        for Ext in $EXTESIONLIST ; do
+        if [ -e "$2/${TREE}/${FILE}.$Ext" ]; then
+    	 echo2 "      $TREE/$FILE.$Ext"
+	    cp -dpr "$2/${TREE}/${FILE}.$Ext"    --target-directory="$1/$TREE"
+	fi
+	done
+       done
+  fi
+ fi
+done
+exit 0

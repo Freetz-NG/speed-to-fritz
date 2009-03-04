@@ -1,0 +1,14 @@
+#!/bin/bash
+############################################################################################################################
+# Speedport W501V requires AVM's Fritz!Box Fon WLAN 7140 firmware                                                          #
+############################################################################################################################
+TCOM_IMG="http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport_W501V/fw_Speedport_W501V_v_28.04.38.image"
+AVM_IMG="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/deutsch_a-ch/fritz.box_fon_wlan_7140.annexa.39.04.43.image"
+#--------------------------------------------------------------------------------------------------------------------------
+EXPORT_REMOVE_HELP="y"
+FORCE_TCOM_DSL="y"
+FORCE_TCOM_PIGLET="y"
+FORCE_TCOM_FON="y"
+EXPORT_REMOVE_MENU_ITEM="y"
+EXPORT_COPY_HEADER="y"
+MOVE_ALL_to_OEM="y"

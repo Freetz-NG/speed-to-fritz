@@ -1,0 +1,40 @@
+#!/bin/bash
+# include modpatch function
+. ${include_modpatch}
+# set expert display
+DIRI="$1/usr/www/${HTML}/de/internet" 
+if [ -d ${DIRI} ]; then
+    echo2 "--------------------------------------------------------------------------------"
+    echo2 "  Directoty: ${DIRI}"
+    for FILE in `ls "${DIRI}"/*`; do
+	if `cat "$FILE" | grep -q "expertmode.activated" `; then  
+    	    echo2 "    Set pages to expert display: ${FILE##*/}"
+	    sed -i -e 's/.. query box.settings.expertmode.activated ../1/' "$FILE"
+	fi
+    	if `cat "$FILE" | grep -q 'for="uiViewAnschlussDsl">' `; then
+      	    echo2 "    Insert info text on page: ${FILE##*/}"
+	    [ "${avm_Lang}" = "de" ] && sed -i -e 's/\(id="uiViewAnschlussDsl"\)\(>.*for="uiViewAnschlussDsl">\).*<\/label>/\1 disabled\2 DSL Internetzugang wurde durch speed-to-fritz Option deaktiviert!<\/label>/' "$FILE"
+	    [ "${avm_Lang}" = "en" ] && sed -i -e 's/\(id="uiViewAnschlussDsl"\)\(>.*for="uiViewAnschlussDsl">\).*<\/label>/\1 disabled\2 DSL Internetconection has been disabled trough speed-to-fritz option!<\/label>/' "$FILE"
+	fi
+    done
+    for FILE in `ls "${DIRI}"/internet_expert.js`; do
+	if `cat "$FILE" | grep -q '<? echo $var:isDsl ?>' `; then  
+	    echo2 "    Set page to disply top section: ${FILE##*/}"
+	    sed -i -e 's/"<? echo $var:isDsl ?>"/"1"/' "$FILE"
+	fi
+    done
+fi
+DIRI="$1/usr/www/${HTML}/${avm_Lang}/first" 
+if [ -d ${DIRI} ]; then
+    echo2 "--------------------------------------------------------------------------------"
+    echo2 "  Directoty: ${DIRI}"
+    for FILE in `ls "${DIRI}"/*`; do
+	if `cat "$FILE" | grep -q 'for="uiViewAnschlussDsl">' `; then  
+    	    echo2 "    Insert info text on ADSL assistent page: ${FILE##*/}"
+	    [ "${avm_Lang}" = "de" ] && sed -i -e 's/\(id="uiViewAnschlussDsl"\)\(>.*for="uiViewAnschlussDsl">\).*<\/label>/\1 disabled\2 DSL Internetzugang wurde durch speed-to-fritz Option deaktiviert!<\/label>/' "$FILE"
+	    [ "${avm_Lang}" = "en" ] && sed -i -e 's/\(id="uiViewAnschlussDsl"\)\(>.*for="uiViewAnschlussDsl">\).*<\/label>/\1 disabled\2 DSL Internetconection has been disabled trough speed-to-fritz option!<\/label>/' "$FILE"
+	fi
+    done
+fi    
+echo2 "--------------------------------------------------------------------------------"
+exit 0

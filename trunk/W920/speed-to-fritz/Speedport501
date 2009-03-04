@@ -1,0 +1,124 @@
+#!/bin/bash
+echo "********************************************************************************"
+echo -e "\033[1mPhase 4:\033[0m Apply changes."
+echo "********************************************************************************"
+# only exicuted new productname
+if [ ! -e "${SRC}"/etc/default.${CONFIG_PRODUKT} ]; then
+echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
+echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
+ echo2 "-- Move contents of OEM directory:"
+ echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
+    mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
+#    mkdir "${SRC}/etc/default.${CONFIG_PRODUKT}"
+   "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
+    rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
+fi
+#keep tcom oem dir
+"$TAR" -c -C "${DST}/etc/default.${CONFIG_PRODUKT}" tcom  | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
+
+KernelVersion="2.6.13.1-ohio"
+
+echo2 "-- Copy original T-com module:"
+echo2 "      /lib/modules"
+[ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz/isdn_fbox.ko "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz/isdn_fbox_fon4.ko
+[ ${FORCE_TCOM_PIGLET} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet/Piglet.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet
+
+cp -fdrp "${DST}"/lib/modules/microvoip_top.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit
+
+if [ ${ATA_ONLY} = "n" ]; then
+
+#add DSL driver dependig on the settings made in firmware.conf501
+[ ${FORCE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DSL Driver was taken from the original t-com firmware!"
+[ ${SAVE_AVM_DSL} = "y" ] && cp -fdrp "${SRC}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+[ ${SAVE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+[ ${SAVE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+echo "  -- TCOM DSL Driver saved to: ./addon/tmp/modules!"
+[ ${USE_OWN_DSL} = "y" ] && cp -fdrp ./addon/tmp/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
+[ ${USE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!" 
+
+else
+
+#remove ADSL
+#dont start dsl
+sed -i -e "/STATUS_TEST. = .0. /,/sleep 2/d" "${SRC}/etc/init.d/rc.S"
+#sed -i -e "/mknod .var.flash.voip.cfg c/,/mknod .var.flash.browser-data c/d" "${SRC}/etc/init.d/rc.S"
+#sed -i -e "/mknod .var.flash.tr069.cfg c/d" "${SRC}/etc/init.d/rc.S"
+rm -f "${SRC}"/lib/modules/microvoip-dsl.bin
+#the following drivers depend on tiatm therfore the are not usable if microvoip-dsl.bin is not loaded 
+rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn 
+rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn/capi_codec
+rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn/capi
+
+rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/char/ubik2
+rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/atm
+echo "ATTENTION: Fon is not useabel because dsl driver was removed by option! "
+echo "With this option there are still some unused files within the firmware. "
+
+sleep 3
+
+#<-- ATA only
+fi
+
+#patch download url
+sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
+
+
+#adapt parameters for Piglet bitfile to be suitable for this hardware
+$sh_DIR/patch_pigletsection.sh "${SRC}" "${DST}" 
+# remove usb section
+sed -i -e "/usb_mount/,/##/d" "${SRC}/etc/init.d/rc.S"
+
+echo2 "-- Copy Speedport LED-configfile:"
+echo2 "      /etc/led.conf"
+cp -fdrp "${DST}/etc/led.conf" "${SRC}/etc/led.conf"
+# swap infoled with wlan led
+$sh_DIR/swap_infoled_501.sh "${SRC}"
+
+#disable fon Driver
+#sed -i -e 's|modprobe $isdn_fbox $isdn_params|# modprobe $isdn_fbox $isdn_params|' "${SRC}/etc/init.d/rc.S"
+#patch annex parameter
+$sh_DIR/patch_annex.sh "${SRC}"
+# correct LAN interface in existent
+#sed -i -e 's|interfaces = "lan", "usbrndis", "eth0".*$|interfaces = "usbrndis", "eth0", "tiwlan0", "wdsup0", "wdsdw0", "wdsdw1", "wdsdw2", "wdsdw3";|' "${SRC}/etc/default.${CONFIG_PRODUKT}"/avm/ar7.cfg
+
+#cp -fdprv  ./addon/tmp/501/init.d  --target-directory="${SRC}/etc"
+$sh2_DIR/patch_tz ${SRC}
+#set some variables  
+export CONFIG_MAILER2="n"
+$sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 501
+#insert some variables used in Web GUI
+$sh_DIR/patch_rc.S.sh ${SRC}
+# user c - only needed if t-com rc.S is used 
+#$sh2_DIR/add_section_rcS_501 ${SRC}
+
+# remove comment parts related to usb 
+sed -i -e '/aura-usb c/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/browser-data c/d' "${SRC}/etc/init.d/rc.S"
+#remove all comment
+sed -i -e '/####/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/## /d' "${SRC}/etc/init.d/rc.S"
+#copy second source www dir
+[ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
+[ ${USE_SOURCE2_WEBMNUE} = "y" ] && . $inc_DIR/get_SRC2_ver 
+
+#copy second source internet dsl menue
+[ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
+
+
+#remove menus fon3 lan234 S0 ISDN
+[ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
+#remove kids
+[ ${REMOVE_KIDS} = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
+
+echo2 "Removing files for further image size reduction:"
+
+$sh_DIR/remove_files_501.sh ${SRC}
+
+
+##########################################################################################
+echo "********************************************************************************"

@@ -1,0 +1,141 @@
+#!/bin/bash
+ # include modpatch function
+ . ${include_modpatch}
+for FILE in "menus/menu2_usb.inc" "home/menu2_usb.html"; do
+       echo2 " -- Removing /usr/www/${HTML}/de/$FILE"
+       rm -rf "$1"/usr/www/${HTML}/de/$FILE
+done
+#echo "-- Removing 'USB-Zubehoer menue eintrys' ..."
+
+echo2 "   -- Removing USB Symbol LED from:"
+echo2 "      /usr/www/${HTML}/de/home/home.html"
+#the following removes work on all versions
+
+sed -i -e "/Usb/d" "$1"/usr/www/${HTML}/de/home/home.html
+sed -i -e "/txt036/d" "$1"/usr/www/${HTML}/de/home/home.html
+sed -i -e "/^.*<tr>$/{N;/^.*<tr>\n.*<.tr>$/d}" "$1"/usr/www/${HTML}/de/home/home.html
+
+#remove  usb item
+sed -i -e "/'status'/d" "$1"/usr/www/${HTML}/de/menus/menu2_homehome.html
+
+#the following removes are diffent on newer versions
+
+if [ $AVM_V_MINOR -gt 47 ]; then
+for ITEM in fon home konfig internet wlan system software; do
+       if [ -w "$1"/usr/www/${HTML}/de/menus/menu2_$ITEM.html ]; then
+
+               echo2 "      /usr/www/${HTML}/de/menus/menu2_$ITEM.html"
+		#remove usb menu item
+               sed -i -e "s/^.*'usb',.*$//" "$1"/usr/www/${HTML}/de/menus/menu2_$ITEM.html
+		#remove software menu item
+#               sed -i -e "s/^.*'software',.*$/<li><\/li>/" "$1"/usr/www/${HTML}/de/menus/menu2_$ITEM.html
+       fi
+done
+
+ #remove enhsettings usb item
+[ -f "$1"/usr/www/${HTML}/de/enhsettings/enhsettings.html ] && sed -i -e "s/<? setvariable var:myConfigflag 'BoxHatUsb' ?>/<? setvariable var:myConfigflag 'BoxHatWlanOderDectAberOhneUsb' ?>/" "$1"/usr/www/${HTML}/de/enhsettings/enhsettings.html
+ #remove sitemap usb item
+[ -f "$1"/usr/www/${HTML}/de/home/sitemap.html ] && sed -i -e "/'usb', 'status'/d" "$1"/usr/www/${HTML}/de/home/sitemap.html
+[ -f "$1"/usr/www/${HTML}/de/home/sitemap.html ] && sed -i -e "s/<? setvariable var:showdisk 1 ?>/<? setvariable var:showdisk 0 ?>/" "$1"/usr/www/${HTML}/de/home/sitemap.html
+else
+
+for ITEM in fon homekonfig internet wlan system software; do
+       if [ -w "$1"/usr/www/${HTML}/de/menus/menu2_$ITEM.html ]; then
+
+               echo2 "      /usr/www/${HTML}/de/menus/menu2_$ITEM.html"
+		#remove usb menu item
+               sed -i -e "/'usb'/d" "$1"/usr/www/${HTML}/de/menus/menu2_$ITEM.html
+		#remove software menu item
+#               sed -i -e "/'software'/d" "$1"/usr/www/${HTML}/de/menus/menu2_$ITEM.html
+       fi
+done
+fi
+
+## remove usb tab entrys
+# /usr/www/${HTML}/de/system/syslog.html #
+
+
+echo2 "      /usr/www/${HTML}/de/system/syslog.html"
+sed -i -e "/<div id=\"uiUsb\"/,/<\/div>$/d" "$1"/usr/www/${HTML}/de/system/syslog.html
+sed -i -e "/USB-Zubeh.r/d" "$1"/usr/www/${HTML}/de/system/syslog.html
+sed -i -e "/Tabs(3)/d" "$1"/usr/www/${HTML}/de/system/syslog.html
+
+###########################################
+## remove usb entrys in energysaving optio
+
+if [ -e "$1"/usr/www/${HTML}/de/system/energy.html ]; then
+       if `cat "$1"/usr/www/${HTML}/de/system/energy.html | grep -q 'usbleft_val'` ; then
+               echo2 "      /usr/www/${HTML}/de/system/energy.html"
+               sed -i -e "/\$var:Text23 /,/class=\"backdialog\"/d" "$1"/usr/www/${HTML}/de/system/energy.html
+	       #.49 vesion
+               sed -i -e "/\$var:TextUSBZubehoer /,/class=\"backdialog\"/d" "$1"/usr/www/${HTML}/de/system/energy.html
+               sed -i -e "/USB-/,/class=\"backdialog\"/d" "$1"/usr/www/${HTML}/de/system/energy.html # all in one
+               echo2 "      /usr/www/${HTML}/de/system/energy.js"
+               sed -i -e "/SetPowerDisplay('usb'/,/jslSetSpanText('usbstate', g_txtUsbNotFound)/d" "$1"/usr/www/${HTML}/de/system/energy.js
+ fi
+fi
+##########################################
+#remouve usb options for infoled
+if [ -e "$1"/usr/www/${HTML}/de/system/infoled.inc ]; then
+    echo2 "      /usr/www/${HTML}/de/system/infoled.inc"
+#    sed -i -e "s/^.*TextBlinkDECT.*$/<? setvariable var:TextBlinkDECT 'Die INFO-LED leuchtet immer wenn DECT aktiviert ist ' ?>/" "$1"/usr/www/${HTML}/de/system/infoled.inc
+    sed -i -e "s/^.*TextBlinkFWUpdateUSB.*$/<? setvariable var:TextBlinkFWUpdateUSB 'Die INFO-LED blinkt immer beim Firmware-Update' ?>/" "$1"/usr/www/${HTML}/de/system/infoled.inc
+    sed -i -e "/USB/d" "$1"/usr/www/${HTML}/de/system/infoled.inc
+fi
+if [ -e "$1"/usr/www/${HTML}/de/system/infoled.html ]; then
+    sed -i -e "/TextLeuchtetUSBZubehoer/d" "$1"/usr/www/${HTML}/de/system/infoled.html
+# all in one
+    sed -i -e "s/setvariable var:showstick 1/setvariable var:showstick 0/" "$1"/usr/www/${HTML}/de/system/infoled.html
+    sed -i -e "/USB-Ger/d" "$1"/usr/www/${HTML}/de/system/infoled.html
+
+#older versions 
+    sed -i -e "/Text9/d" "$1"/usr/www/${HTML}/de/system/infoled.html
+fi
+
+
+#WLAN stick and surf remove
+echo2 "      /usr/www/${HTML}/de/wlan/common.html"
+sed -i -e "/uiViewAutoprov/d" "$1"/usr/www/${HTML}/de/wlan/common.html
+#all in one
+sed -i -e "s/in der FRITZ!Box aktivieren./funktioniert am W701 nicht!/" "$1"/usr/www/${HTML}/de//wlan/common.html
+
+#Remove USB Freigabe on firmwares newer as .51
+for FILENAME in "home/sitemap.html" "menus/menu2_internet.html"; do
+ if [ -e "$1"/usr/www/${HTML}/de/$FILENAME ]; then
+    echo2 "      /usr/www/${HTML}/de/$FILENAME"
+    sed -i -e 's|<? setvariable var:showUsbfreigabe 1 ?>|<? setvariable var:showUsbfreigabe 0 ?>|g' "$1"/usr/www/${HTML}/de/$FILENAME
+ fi
+done
+
+#Remove USB clickbox form answering machine page , apears on different pages on version 10864 od 10842 
+for FILENAME in "fon/tamlist.html" "home/tamedit.html"; do
+ if [ -e "$1"/usr/www/${HTML}/de/$FILENAME ]; then
+    echo2 "      /usr/www/${HTML}/de/$FILENAME"
+#    sed -i -e 's|input type="checkbox" id="uiView_TamUseStick"|input type="hidden" id="uiView_TamUseStick"|g' "$1"/usr/www/${HTML}/de/$FILENAME
+    sed -i -e '/id="uiView_TamUseStick"/d' "$1"/usr/www/${HTML}/de/$FILENAME
+    sed -i -e '/echo $var:TextUseStick/d' "$1"/usr/www/${HTML}/de/$FILENAME
+# all in one    
+    sed -i -e '/USB-/d' "$1"/usr/www/${HTML}/de/$FILENAME
+ fi
+done
+
+#FAX all in one ->
+if [ -e "$1"/usr/www/${HTML}/de/fon_config/fon_config_3fxi.js ]; then 
+    echo2 "      /usr/www/${HTML}/de/fon_config/fon_config_3fxi.js"
+    sed -i -e 's|if ("<? query aura:settings/aura4storage ?>" == "1")|if ("1" == "0")|' "$1"/usr/www/${HTML}/de/fon_config/fon_config_3fxi.js
+fi
+if [ -e "$1"/usr/www/${HTML}/de/fon_config/fon_config_3fxi.html ]; then 
+    echo2 "      /usr/www/${HTML}/de/fon_config/fon_config_3fxi.html"
+    sed -i -e 's| und/oder auf einem USB-Speicher gespeichert||' "$1"/usr/www/${HTML}/de/fon_config/fon_config_3fxi.html
+    sed -i -e 's|<input type="checkbox" id="uiViewSaveFax"|<input type="hidden" id="uiViewSaveFax"|' "$1"/usr/www/${HTML}/de/fon_config/fon_config_3fxi.html
+fi
+if [ -e "$1"/usr/www/${HTML}/de/fon_config/fon_config_3fxi.html ]; then
+sed -i -e "/id=\"uiViewSaveFax\"/,/id=\"uiSpanUsbDiskPath\"/d" "$1"/usr/www/${HTML}/de/fon_config/fon_config_3fxi.html
+sed -i -e "s/ und\/oder auf einem USB-Speicher gespeichert//" "$1"/usr/www/${HTML}/de/fon_config/fon_config_3fxi.html
+fi
+if [ -e "$1"/usr/www/${HTML}/de/home/fon1fxi.html ]; then
+sed -i -e "/id=\"uiViewSaveFax\"/,/id=\"uiSpanUsbDiskPath\"/d" "$1"/usr/www/${HTML}/de/home/fon1fxi.html
+sed -i -e "s/ und\/oder auf einem USB-Speicher gespeichert//" "$1"/usr/www/${HTML}/de/home/fon1fxi.html
+fi
+
+exit 0

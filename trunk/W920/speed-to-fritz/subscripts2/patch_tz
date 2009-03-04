@@ -1,0 +1,9 @@
+#!/bin/bash
+ . $include_modpatch
+
+echo "-- Applying 'timezone' patch ..."
+echo2 "-- Patching file:"
+echo2 "      /etc/init.d/rc.conf"
+sed -i -e "s/export TZ=\`cat \/etc\/TZ\`/export TZ=\`cat \/etc\/TZ|tr -d '\"'\`/" "$1"/etc/init.d/rc.conf
+
+exit 0

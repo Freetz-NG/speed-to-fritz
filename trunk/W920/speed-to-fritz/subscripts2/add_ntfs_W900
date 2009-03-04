@@ -1,0 +1,35 @@
+#!/bin/bash
+ . $include_modpatch
+FSDIR="/lib/modules/${KernelVersion}/kernel/fs"
+#grep -q "$FSDIR/mini_fo/mini_fo.ko:" "$1"/lib/modules/$KernelVersion/modules.dep || echo "$FSDIR/mini_fo/mini_fo.ko:" >>"$1"/lib/modules/$KernelVersion/modules.dep
+grep -q "$FSDIR/fuse/fuse.ko:" "$1"/lib/modules/$KernelVersion/modules.dep || echo "$FSDIR/fuse/fuse.ko:" >>"$1"/lib/modules/$KernelVersion/modules.dep
+#add ntfs hotplug
+#echo "${KernelVersion} $FBMOD" 
+#echo "2.6.13.1-ohio 7170"
+if [ $FBMOD = "7170"  ] && [ "${KernelVersion}" = "2.6.13.1-ohio" ] && [ -e $P_DIR/add_ntfs.patch ];then 
+ modpatch "${1}" "$P_DIR/add_ntfs.patch"
+ grep -q "ntfs_ready)" "$1/etc/hotplug/storage" || sed -i -e '/stop)/i\
+ntfs_ready)\
+## echo storage: ntfs_ready called > \/dev\/ttyS0\
+if test -x \/bin\/ntfs-3g ; then\
+for hnd in \/var\/USB-proc-bus-*-storage-* ; do\
+local TEMP=`echo ${hnd##\/var\/USB}\|tr "\\-" "\/"`\
+local DEVID=`echo $TEMP|sed "s%\\(\/proc\/.*\/[0-9]*\\\)\/[a-z][a-z0-9\/]*%\\\1%"`\
+local DEV=${DEVID##*\/}\
+local SDEV\
+SDEV=`cat $hnd`\
+echo NTFS mount retry: $DEVID sdev:$SDEV > \/dev\/ttyS0\
+\/etc\/hotplug\/run_mount $DEV $DEVID $SDEV > \/dev\/null 2>&1\
+sleep 1\
+done\
+fi\
+;;' "$1/etc/hotplug/storage"
+# echo " -- Add ntfs hotplug, kernel version: ${KernelVersion} - $FBMOD"
+else
+ echo " -- ntfs hotplug not added wrong kernel version, or modules missing!"
+fi
+
+exit
+
+
+

@@ -1,0 +1,8 @@
+#!/bin/bash
+#########################################################################
+# Check version of AVM firmware source                                  #
+#########################################################################
+#set new Firmwareversion 
+export AVM_VERSION=`cat ${SRC_2}/etc/.version`
+export AVM_V_MINOR=${AVM_VERSION##*.}
+echo "-- AVM firmware image version is now: $AVM_VERSION"
