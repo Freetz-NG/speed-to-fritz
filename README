@@ -1,24 +1,24 @@
-commit-trunk-co.sh : Aktulisiert den Zweig co.
+commit-trunk-co.sh : Aktualisiert den Zweig co.
 
-commit-trunk-sp.sh : Aktulisiert den Zweig Speed-to-fritz.
+commit-trunk-sp.sh : Aktualisiert den Zweig Speed-to-fritz.
     
  !!!Wichtig dieses File muss editiert werden!!! 
  
- Je nach den Beduerfnissen anpassen. 
- Add SVN wird alle zusaetzlichen Files hochladen, 
- jedoch loeschbar sind Files und Verzeichnisse nur einzeln!
- Revisionsnummer wird automatsch in info.txt eingerage und der Kommentar der in dieses File eingefuegt wurde.
+ Je nach den Bedürfnissen anpassen. 
+ Add SVN wird alle zusätzlichen Files hochladen, 
+ jedoch lösbar sind Files und Verzeichnisse nur einzeln!
+ Revisionsnummer wird Automatsch in info.txt eingetragen und auch der Kommentar der unter "comment" in diesen File eingefügt wurde.
  Kommt eine Kommentarzeile bereits in info.txt vor wird diese nicht erneut eingetragen.
- Wird erwuenscht, dass kein Text eingetragen wird, dann muss man den alten Text unveraendert im File belassen.
- Mehrfache Verwendung hintereinader ist somit moeglich. 
+ Wird erwünscht, dass kein Text eingetragen wird, dann muss man den alten Text unverändert im File belassen.
+ Mehrfache Verwendung hintereinander ist somit möglich. 
 		      
 
 
-diff.sh : Erstell ein patch.diff zur zuletzt hochgladen Version.
-download_co.sh : Laedt das co Verzeichniss neu.
-download_speed-to-fritz.sh : Laedt das Speed-to-fritz Verzeichniss neu, das alte wird vorher geloescht.
-add_patch.sh : Fuegt einen fremden patch mit filenamen 'patch.diff' zum speed-to-fritz Zweig hinzu. 
-make_release.sh : Packt speed-to-fritz Verzeichniss fuer den Upload ins Forun, Das Ergebnis: ist im Verzeichniss: /mnt/win/upload (dieses Verzeichnis muss vorhanden sein).  
+diff.sh : Erstellt ein patch.diff zur zuletzt hochladen Version.
+download_co.sh : Ladet das co Verzeichnis neu.
+download_speed-to-fritz.sh : Ladet das Speed-to-fritz Verzeichnis neu, das alte wird vorher gelöscht.
+add_patch.sh : Fügt einen fremden patch mit Filenamen 'patch.diff' zum speed-to-fritz Zweig hinzu. 
+make_release.sh : Packt speed-to-fritz Verzeichnis für den Upload ins Forum, Das Ergebnis: ist im Verzeichnis: /mnt/win/upload (dieses Verzeichnis muss vorhanden sein).  
 patch.diff : Wird immer neu erstellt wenn commit-trunk-co.sh oder commit-trunk-sh.sh verwendet wird. 
 XXX-to-local.diff : Wird immer neu erstellt wenn diff.sh verwendet wird. 
-trunk : Hauptverzeichniss
+trunk : Hauptverzeichnis
