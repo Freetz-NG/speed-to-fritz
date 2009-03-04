@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="W920: Addon of Option sr3 kdsldmod.co, by: abraXxl"
+comment="Copy of trunk Speed-to-fritz added!"
 
 
 
@@ -22,10 +22,10 @@ if SVN_VERSION="$(svnversion . )"; then
  #echo "Subversion=$SVN_VERSION"
 fi
 date=$(date +%Y%m%d-%H%M)
-DSTI="./W920/speed-to-fritz/info.txt"
+DSTI="./trunk/W920/speed-to-fritz/info.txt"
 grep -q "${comment}" ${DSTI} || sed -i -e "/### --- START --- ###/a\
 ${date}-r-$SVN_VERSION\n    - ${comment}" "${DSTI}"
-DSTI="./W920/speed-to-fritz/sp-to-fritz.sh"
+DSTI="./trunk/W920/speed-to-fritz/sp-to-fritz.sh"
 Year=$(date +%y)
 Month=$(date +%m)
 Day=$(date +%d) 
@@ -37,7 +37,7 @@ sleep 2
 
 cd trunk
 #svn delete --force ./W920/commit-trunk-W920.sh
-#svn delete --force ./W920/download_sp2fr_w920.sh
+#svn delete --force ./W920/downlaod_sp2fr_w920.sh
 #svn delete --force ./W920/diff.sh
 
 #svn delete --force ./W920/speed-to-fritz/ftp192
@@ -62,7 +62,7 @@ cd trunk
 #svn delete --force ./W920/speed-to-fritz/alien/patches/add_tamhelp_en.47.patch
 
 #svn revert 
-svn add * --force
+#svn add * --force
 
 svn status
 svn diff > ../patch.diff
