@@ -19,5 +19,6 @@ download_co.sh : Laedt das co Verzeichniss neu.
 download_speed-to-fritz.sh : Laedt das Speed-to-fritz Verzeichniss neu, das alte wird vorher geloescht.
 add_patch.sh : Fuegt einen fremden patch mit filenamen 'patch.diff' zum speed-to-fritz Zweig hinzu. 
 make_release.sh : Packt speed-to-fritz Verzeichniss fuer den Upload ins Forun, Das Ergebnis: ist im Verzeichniss: /mnt/win/upload (dieses Verzeichnis muss vorhanden sein).  
-patch.diff : Wird immer neu erstellt wenn commit-trunk-co.sh, commit-trunk-sh.sh, oder diff.sh verwendet wird. 
+patch.diff : Wird immer neu erstellt wenn commit-trunk-co.sh oder commit-trunk-sh.sh verwendet wird. 
+XXX-to-local.diff : Wird immer neu erstellt wenn diff.sh verwendet wird. 
 trunk : Hauptverzeichniss

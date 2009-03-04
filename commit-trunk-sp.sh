@@ -66,6 +66,5 @@ cat ../patch.diff
 echo -n "   Execute Commit?'  (y/n)? "; read -n 1 -s YESNO; echo
 ([ "$YESNO" = "y" ] || [ "$YESNO" = "n" ]) || echo "wrong key!"
 [ "$YESNO" = "y" ] &&   svn commit --message "${date} - ${comment}"
-[ "$YESNO" = "y" ] && sed -i -e "s/svn diff .*$/svn diff -r $SVN_VERSION  > \.\.\/$SVN_VERSION-to-local.diff/" "./diff.sh"
-
+[ "$YESNO" = "y" ] && sed -i -e "s/svn diff .*$/svn diff -r $SVN_VERSION  > \.\.\/$SVN_VERSION-to-local.diff/" -e "s/cat  \.\..*$/cat  \.\.\/$SVN_VERSION-to-local.diff/" "./diff.sh"
 
