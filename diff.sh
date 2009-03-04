@@ -25,7 +25,7 @@ cd trunk
 #svn add speed-to-fritz
 svn status
 echo "-------------------------------------------------------------------------------------------------------------"
-svn diff -r 178  >> ../patch.diff
+svn diff -r 188  > ../188-to-local.diff
 cat ../patch.diff
 echo -n "   All done' ? "; read -n 1 -s YESNO; echo
 

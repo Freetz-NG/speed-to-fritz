@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="Addon of usbroot by: abraXxl"
+comment="W920: Addon of Option sr3 kdsldmod.co, by: abraXxl"
 
 
 
@@ -30,7 +30,6 @@ Year=$(date +%y)
 Month=$(date +%m)
 Day=$(date +%d) 
 sed -i -e "s/Tag=\"..\"; Monat=\"..\"; Jahr=\"..\"/Tag=\"${Day}\"; Monat=\"${Month}\"; Jahr=\"${Year}\"/" "${DSTI}"
-sed -i -e "s/svn diff .*$/svn diff -r $SVN_VERSION  >> \.\.\/patch.diff/" "./diff.sh"
 echo "-------------------------------------------------------------------------------------------------------------"
 sleep 2
 #exit
@@ -67,5 +66,6 @@ cat ../patch.diff
 echo -n "   Execute Commit?'  (y/n)? "; read -n 1 -s YESNO; echo
 ([ "$YESNO" = "y" ] || [ "$YESNO" = "n" ]) || echo "wrong key!"
 [ "$YESNO" = "y" ] &&   svn commit --message "${date} - ${comment}"
+[ "$YESNO" = "y" ] && sed -i -e "s/svn diff .*$/svn diff -r $SVN_VERSION  > \.\.\/$SVN_VERSION-to-local.diff/" "./diff.sh"
 
 
