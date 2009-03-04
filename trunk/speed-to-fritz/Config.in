@@ -147,8 +147,7 @@ config AVM_WLANX_7270_13783
 ### 7570
 config AVM_7570_70
     string 
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7570/firmware/english/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.zip mirror http://www.hostarea.de/server-02/Februar-24ac2a1ab1.zip"
-    #default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.image"
+    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.image"
 ##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #( dont remove the following line)
 ### FIRMWARE_CONFIG_ENDE ###
