@@ -1,5 +1,5 @@
---- usr/www/avme/html/de/fon/fonsetupdect.frm	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon/fonsetupdect.frm	2008-08-31 06:00:52.000000000 -0400
+--- usr/www/avm/html/de/fon/fonsetupdect.frm	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/fon/fonsetupdect.frm	2008-08-31 06:00:52.000000000 -0400
 @@ -0,0 +1,9 @@
 +<input type="hidden" name="var:MsnNr" value="<? echo $var:MsnNr ?>" id="uiPostMsnNr">
 +<input type="hidden" name="dect:settings/RingOnAllMSNs" value="<? query dect:settings/RingOnAllMSNs ?>" id="uiPostRingOnAllMSNs" disabled>
@@ -10,8 +10,8 @@
 +<input type="hidden" name="dect:settings/MSN$0/BusyOnBusy" value="<? query dect:settings/MSN$0/BusyOnBusy ?>" id="uiPostBusyOnBusy$0" disabled>
 +<input type="hidden" name="dect:settings/MSN$0/Handsets" value="<? query dect:settings/MSN$0/Handsets ?>" id="uiPostHandsets$0" disabled>
 +` ?>
---- usr/www/avme/html/de/fon/dect0.frm	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon/dect0.frm	2008-08-15 07:46:06.000000000 -0400
+--- usr/www/avm/html/de/fon/dect0.frm	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/fon/dect0.frm	2008-08-15 07:46:06.000000000 -0400
 @@ -0,0 +1,32 @@
 +<input type="hidden" name="var:FonNr" value="<? echo $var:FonNr ?>" id="uiPostFonNr">
 +<input type="hidden" name="var:IsdnNr" value="<? echo $var:IsdnNr ?>" id="uiPostIsdnNr">
@@ -45,8 +45,8 @@
 +
 +<input type="hidden" name="dect:command/PageHandsets" id="uiPostPageHandsets" disabled>
 +<input type="hidden" name="dect:command/DateTime" id="uiPostHandsetsTime" disabled>
---- usr/www/avme/html/de/fon/dect0.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon/dect0.html	2008-08-15 11:51:14.000000000 -0400
+--- usr/www/avm/html/de/fon/dect0.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/fon/dect0.html	2008-08-15 11:51:14.000000000 -0400
 @@ -0,0 +1,47 @@
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -95,8 +95,8 @@
 +<input type="button" onclick="uiDoHelp()" value="Help" class="Pushbutton" id="buttonHilfe">
 +</div></div></div></div></div></div>
 +</div>
---- usr/www/avme/html/de/fon/dect0.js	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon/dect0.js	2008-08-15 07:46:06.000000000 -0400
+--- usr/www/avm/html/de/fon/dect0.js	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/fon/dect0.js	2008-08-15 07:46:06.000000000 -0400
 @@ -0,0 +1,153 @@
 +<!--		../fon/dect0.js		-->
 +<style type="text/css">
@@ -251,8 +251,8 @@
 +alert("Clock time will be set only on registered Swiss-Voice comaptible devices!");
 +}
 +</script>
---- usr/www/avme/html/de/fon/fon1dect.frm	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon/fon1dect.frm	2008-08-15 07:46:06.000000000 -0400
+--- usr/www/avm/html/de/fon/fon1dect.frm	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/fon/fon1dect.frm	2008-08-15 07:46:06.000000000 -0400
 @@ -0,0 +1,23 @@
 +<input type="hidden" name="dect:settings/MSN<? echo $var:MsnNr ?>/MSN" value="<? query dect:settings/MSN<? echo $var:MsnNr ?>/MSN ?>" id="uiPostThisMSN">
 +<input type="hidden" name="dect:settings/MSN<? echo $var:MsnNr ?>/CLIR" value="<? query dect:settings/MSN<? echo $var:MsnNr ?>/CLIR ?>" id="uiPostCLIR">
@@ -277,8 +277,8 @@
 +<input type="hidden" name="dect:settings/Handset$0/Type" value="<? query dect:settings/Handset$0/Type ?>" id="uiPostType$0" disabled>
 +<input type="hidden" name="dect:settings/Handset$0/Name" value="<? query dect:settings/Handset$0/Name ?>" id="uiPostDectDeviceName$0" disabled>
 +` ?>
---- usr/www/avme/html/de/fon/fon1dect.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon/fon1dect.html	2008-08-15 11:56:37.000000000 -0400
+--- usr/www/avm/html/de/fon/fon1dect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/fon/fon1dect.html	2008-08-15 11:56:37.000000000 -0400
 @@ -0,0 +1,43 @@
 +
 +<div id="content">
@@ -323,8 +323,8 @@
 +<input type="button" onclick="uiDoHelp()" value="Help" class="Pushbutton" id="buttonHilfe">
 +</div></div></div></div></div></div>
 +</div>
---- usr/www/avme/html/de/fon/fon1dect.js	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon/fon1dect.js	2008-08-15 11:49:30.000000000 -0400
+--- usr/www/avm/html/de/fon/fon1dect.js	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/fon/fon1dect.js	2008-08-15 11:49:30.000000000 -0400
 @@ -0,0 +1,169 @@
 +<!--		../fon/fon1dect.js		-->
 +<style type="text/css">
@@ -495,8 +495,8 @@
 +return g_Index[Number(nr)];
 +}
 +</script>
---- usr/www/avme/html/de/fon/foneditdect.frm	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon/foneditdect.frm	2008-08-15 07:46:06.000000000 -0400
+--- usr/www/avm/html/de/fon/foneditdect.frm	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/fon/foneditdect.frm	2008-08-15 07:46:06.000000000 -0400
 @@ -0,0 +1,9 @@
 +<input type="hidden" name="dect:command/StartSubscription" id="uiPostStartSubscription" disabled>
 +<input type="hidden" name="dect:command/Unsubscribe" id="uiPostUnsubscribe" disabled>
@@ -507,8 +507,8 @@
 +<input type="hidden" name="dect:settings/Handset$0/Type" value="<? query dect:settings/Handset$0/Type ?>" id="uiPostType$0" disabled>
 +<input type="hidden" name="dect:settings/Handset$0/Name" value="<? query dect:settings/Handset$0/Name ?>" id="uiPostDectDeviceName$0" disabled>
 +` ?>
---- usr/www/avme/html/de/fon/foneditdect.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon/foneditdect.html	2008-08-15 11:56:17.000000000 -0400
+--- usr/www/avm/html/de/fon/foneditdect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/fon/foneditdect.html	2008-08-15 11:56:17.000000000 -0400
 @@ -0,0 +1,58 @@
 +
 +<div id="content">
@@ -562,15 +562,15 @@
 +<input type="button" value="Send phonebook" id="uiSendBook" onclick="uiDoSendBook()" class="Pushbutton" style="width:180px;">
 +</div>
 +</div></div></div></div></div></div>
-+<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="forebuttons">
++
 +<div class="backdialog" id="uiApplyCancelButtons"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="forebuttons">
 +<input type="button" onclick="uiDoSave()" value="Apply" class="Pushbutton" id="buttonSave">
 +<input type="button" onclick="uiDoCancel()" value="Cancel" class="Pushbutton" id="buttonCancel">
 +<input type="button" onclick="uiDoHelp()" value="Help" class="Pushbutton" id="buttonHilfe">
 +</div></div></div></div></div></div>
 +</div>
---- usr/www/avme/html/de/fon/foneditdect.js	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon/foneditdect.js	2008-08-15 11:44:42.000000000 -0400
+--- usr/www/avm/html/de/fon/foneditdect.js	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/fon/foneditdect.js	2008-08-15 11:44:42.000000000 -0400
 @@ -0,0 +1,99 @@
 +<!--		../fon/foneditdect.js		-->
 +<style type="text/css">
@@ -671,8 +671,8 @@
 +jslSubmitFormEx("fon", "", "");
 +}
 +</script>
---- usr/www/avme/html/de/fon/fonlist.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon/fonlist.html	2008-05-21 09:52:59.000000000 -0400
+--- usr/www/avm/html/de/fon/fonlist.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/fon/fonlist.html	2008-05-21 09:52:59.000000000 -0400
 @@ -0,0 +1,46 @@
 +
 +<div id="content">
@@ -720,8 +720,8 @@
 +</div></div></div></div></div></div></div>
 +` ?>
 +</div>
---- usr/www/avme/html/de/fon/fonlistdect.frm	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon/fonlistdect.frm	2008-05-20 17:10:00.000000000 -0400
+--- usr/www/avm/html/de/fon/fonlistdect.frm	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/fon/fonlistdect.frm	2008-05-20 17:10:00.000000000 -0400
 @@ -0,0 +1,6 @@
 +<input type="hidden" name="var:IsdnNr" value="<? echo $var:IsdnNr ?>" id="uiPostIsdnNr">
 +<input type="hidden" name="var:parent" value="<? echo $var:parent ?>" id="uiPostParent">
@@ -729,8 +729,8 @@
 +<input type="hidden" name="telcfg:settings/NTHotDialList/Name$0" value="<? query telcfg:settings/NTHotDialList/Name$0 ?>" id="uiPostName$0" disabled>
 +<input type="hidden" name="telcfg:settings/NTHotDialList/Number$0" value="<? query telcfg:settings/NTHotDialList/Number$0 ?>" id="uiPostNummer$0" disabled>
 +` ?>
---- usr/www/avme/html/de/fon/fonlistdect.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon/fonlistdect.html	2008-05-21 09:58:07.000000000 -0400
+--- usr/www/avm/html/de/fon/fonlistdect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/fon/fonlistdect.html	2008-05-21 09:58:07.000000000 -0400
 @@ -0,0 +1,44 @@
 +<? include ../html/de/fon/fonlistdect.inc ?>
 +<div id="content">
@@ -776,8 +776,8 @@
 +</div></div></div></div></div></div>
 +</div></div></div></div></div></div></div>
 +</div>
---- usr/www/avme/html/de/fon/fonlistdect.js	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon/fonlistdect.js	2008-03-04 00:39:49.000000000 -0500
+--- usr/www/avm/html/de/fon/fonlistdect.js	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/fon/fonlistdect.js	2008-03-04 00:39:49.000000000 -0500
 @@ -0,0 +1,70 @@
 +<!--		../fon/fonlistdect.js		-->
 +<style type="text/css">
@@ -849,8 +849,8 @@
 +jslSubmitFormEx("fon", "fon1isdn", jslGetValue("uiPostPageName"));
 +}
 +</script>
---- usr/www/avme/html/de/fon/fonsetupdect.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon/fonsetupdect.html	2008-08-15 11:55:48.000000000 -0400
+--- usr/www/avm/html/de/fon/fonsetupdect.html	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/fon/fonsetupdect.html	2008-08-15 11:55:48.000000000 -0400
 @@ -0,0 +1,54 @@
 +
 +<div id="content">
@@ -906,8 +906,8 @@
 +</div></div></div></div></div></div>
 +</div></div></div></div></div></div></div>
 +</div>
---- usr/www/avme/html/de/fon/fonsetupdect.js	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon/fonsetupdect.js	2008-08-15 11:40:31.000000000 -0400
+--- usr/www/avm/html/de/fon/fonsetupdect.js	2008-01-01 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/fon/fonsetupdect.js	2008-08-15 11:40:31.000000000 -0400
 @@ -0,0 +1,126 @@
 +<!--		../fon/fonsetupdect.js		-->
 +<style type="text/css">

@@ -115,7 +115,7 @@ export sh_DIR="$HOMEDIR/alien/subscripts"
 export inc_DIR="$HOMEDIR/includes"
 export sh2_DIR="$HOMEDIR/subscripts2"
 # Temporary directories for unpacked/modified images                
-export TEMPDIR="${HOMEDIR}/tmp"
+export TEMPDIR="${HOMEDIR}/FBDIRori"
 export SPDIR="${HOMEDIR}/SPDIR"
 export FBDIR="${HOMEDIR}/FBDIR"
 export SRC="${FBDIR}/$SQUASHFSROOT"
@@ -219,7 +219,7 @@ case "$1" in
 	export CLASS="Sinus"
 #	export FBMOD="7150"
 #	export FBHWRevision="76"
-	[ "$FBMOD" == "" ] && export FBMOD="7170"
+	[ "$FBMOD" == "" ] && export FBMOD="7150"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
 	export HWID="101"
 	export PROD="DECT_W500V"
@@ -240,9 +240,9 @@ case "$1" in
 	export CONFIG_MAILER2="y"
 	export CONFIG_Pots="1"
 	export kernel_size="7798784"
+	export CONFIG_ATA_FULL="y"
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA="n"  
-	  export CONFIG_ATA_FULL="y"
 	  export CONFIG_DSL="n"
 	  export CONFIG_DSL_MULTI_ANNEX="n"
 	  export CONFIG_VDSL="n"
@@ -256,10 +256,9 @@ case "$1" in
 "501")
 	export HWID="93"
 	export SPNUM="501"
-	- Annex B = HWR 106
 #	export FBMOD="7140"
 #	export FBHWRevision="107"
-	[ "$FBMOD" == "" ] && export FBMOD="7170"
+	[ "$FBMOD" == "" ] && export FBMOD="7140"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
 	export HWID="101"
 	export CLASS="Speedport"
@@ -622,13 +621,15 @@ return 0
 }
 # get commandline options to variables
 . $inc_DIR/processcomline
-# menuconfig uses .config as Firmwareconfigfile and export must be adjusted
+# menuconfig uses Firmware.conf as Firmwareconfigfile and export must be adjusted
 sed -i -e 's|EXPORT_|export |' $HOMEDIR/${firmwareconf_file_name}
 . $inc_DIR/includefunctions
+# include SET Varabels from Firmware.conf
 echo "Firmware configuration taken from: ${firmwareconf_file_name}"
 . ${firmwareconf_file_name}
 # restore optionname
 sed -i -e 's|export |EXPORT_|' $HOMEDIR/${firmwareconf_file_name}
+# make sure Annex is set to A or B (muli uses B as default)
 [ "$ANNEX" != "B" ] && [ "$ANNEX" != "A" ] && echo "Commandline annex parameter -x is: '$ANNEX' but must be 'A' or 'B'" && exit 0  
 kernel_args="annex=${ANNEX}" 
 #export kernel_args="${kernel_args} idle=4"
@@ -645,25 +646,20 @@ echo -e "\033[1mSpeed-to-Fritz version: ${MODVER}\033[0m"
 echo "--------------------------------------------------------------------------------"
 #START
 # delete privias Firmware of 11500 if needed
-  $sh2_DIR/del_zip "${AVM_DSL_7170_11500}" "${AVM_DSL_7270_11500}" "13014" 
+$sh2_DIR/del_zip "${AVM_DSL_7170_11500}" "${AVM_DSL_7270_11500}" "13014" 
 # delete privias Firmware of 13014 if needed
-  $sh2_DIR/del_zip "${AVM_AIO_7170_13014}" "${AVM_AIO_7270_13014}" "13014" 
+$sh2_DIR/del_zip "${AVM_AIO_7170_13014}" "${AVM_AIO_7270_13014}" "13014" 
 # extract source
 . $inc_DIR/get_workingbase
 # create backup for final compare
-[ "$DO_FINAL_DIFF" = "y" ] && mkdir -p "${TEMPDIR}"
-[ "$DO_FINAL_DIFF" = "y" ] && cp -fdpr "${FBDIR}"/*  --target-directory="${TEMPDIR}"  
-[ "$DO_FINAL_KDIFF3_2" = "y" ] && mkdir -p "${TEMPDIR}"
-[ "$DO_FINAL_KDIFF3_2" = "y" ] && cp -fdpr "${FBDIR}"/*  --target-directory="${TEMPDIR}"
-[ "$DO_FINAL_KDIFF3_3" = "y" ] && mkdir -p "${TEMPDIR}"
-[ "$DO_FINAL_KDIFF3_3" = "y" ] && cp -fdpr "${FBDIR}"/*  --target-directory="${TEMPDIR}"
-# do a compare of source 1 and 2
+[ "$DO_FINAL_DIFF" = "y" ] || [ "$DO_FINAL_KDIFF3_2" = "y" ] || [ "$DO_FINAL_KDIFF3_3" = "y" ] && mkdir -p "${TEMPDIR}" && cp -fdpr "${FBDIR}"/*  --target-directory="${TEMPDIR}"  
+# do a compare of TCOM and AVM
 [ "$DO_KDIFF3_2" = "y" ] && kdiff3 "${SPDIR}" "${FBDIR}"
-# do a compare of source 1,2 and 3
+# do a compare of source 1 (TCOM) , 2 (AVM) and 3
 [ "$DO_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${FBDIR_2}" "${FBDIR}"
-# do a compare of source 1 and 2
+# do a compare of avm and 3
 [ "$DO_DIFF" = "y" ] && ./0diff "${FBDIR}" "${FBDIR_2}" "./logAVMto3"
-# do a compare of tcom source 1 and 2
+# do a compare of tcom and 3
 [ "$DO_DIFF_TCOM" = "y" ] && ./0diff "${SPDIR}" "${FBDIR_2}" "./logTCOMto3"
 #
 [ "$DO_NOT_STOP_ON_ERROR" = "n" ] && exec 2>"${HOMEDIR}/${ERR_LOGFILE}" || rm -f "${HOMEDIR}/${ERR_LOGFILE}"
@@ -731,13 +727,9 @@ if [ "$ORI" != "y" ]; then
  [ "$ADD_ONLINECOUNTER" = "y" ] && $sh_DIR/add_onlinecounter.sh "${SRC}" "${OEMLIST}"
  #relpace assistent menuitem with enhenced settings 
  [ "$RPL_ASSIST" = "y" ] && $sh2_DIR/rpl_ass_menuitem "${SRC}" "${OEMLIST}" 
- #patch DSL bug of 11500
- ([ "$TYPE_DSL_11500" = "y" ] || [ "$AVM_IMG" = "$AVM_DSL_11500" ]) &&  $sh2_DIR/fix_DSLlab "${SRC}" "${OEMLIST}" 
- #patch ut-8 bug of 11945
- ([ "$BUGFIX_FONCONFIG" = "y" ] || [ "$TYPE_DSL_11945" = "y" ] || [ "$AVM_IMG" = "$AVM_AIO_11945" ]) &&  $sh_DIR/conv_iso8859.sh "${SRC}" "${OEMLIST}" 
  #tam bugfix remove tams    
  $sh_DIR/patch_tam.sh "${SRC}"
- ##gsm    
+ #gsm page    
  [ "$DO_GSM_PATCH" = "y" ] && $sh_DIR/disply_gsm.sh "${SRC}" "${OEMLIST}"
  # reverse phonebook lookup
  [ "$DO_LOOKUP_PATCH" = "y" ] && $sh2_DIR/patch_fc "${SRC}"
@@ -748,8 +740,9 @@ if [ "$ORI" != "y" ]; then
  #exchange kernel 
  [ "$XCHANGE_KERNEL" = "y" ] && cp -rfv "${SPDIR}/kernel.raw" "${FBDIR}/kernel.raw"
  [ "$SRC2_KERNEL" = "y" ] && cp -rfv "${FBDIR_2}/kernel.raw" "${FBDIR}/kernel.raw"
-  #remove signature
+ #remove signature
  $sh_DIR/rmv_signatur.sh "${SRC}"
+ #remove autoupdate tab
  $sh_DIR/remove_autoupdatetab.sh "${SRC}"
  # patch update pages 
  $sh_DIR/patch_tools.sh "${SRC}"
@@ -779,6 +772,11 @@ else
  # patch update pages 
  $sh_DIR/patch_tools.sh "${DST}"	
 fi
+#dont set kernel annex args, if it is a multi annex firmware
+readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
+[ "$DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
+echo "export kernel_args=\"${kernel_args}\"" >> incl_var
+#make firmware insallable via GUI
 $sh_DIR/patch_install.sh "${SPDIR}"
 . $inc_DIR/testerror
 [ ${FAKEROOT_ON} = "n" ] && chmod -R 777 "${FBDIR}"
@@ -786,10 +784,10 @@ echo "**************************************************************************
 echo -e "\033[1mPhase 10:\033[0m Pack and deliver."
 echo "********************************************************************************"
 #do a final compare
-[ "$DO_FINAL_KDIFF3_2" = "y" ] && kdiff3 "${SPDIR}/../SPDIR" "${TEMPDIR}"
-[ "$DO_FINAL_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}/../SPDIR" "${FBDIR_2}" "${TEMPDIR}"
 [ "$DO_FINAL_DIFF" = "y" ] && ./0diff "${SPDIR}" "${TEMPDIR}" "./logFINALtoAVM"
 [ "$DO_FINAL_DIFF_SRC2" = "y" ] && ./0diff "${SPDIR}" "${FBDIR_2}" "./logFINALto3"
+[ "$DO_FINAL_KDIFF3_2" = "y" ] && kdiff3 "${SPDIR}" "${TEMPDIR}"
+[ "$DO_FINAL_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${FBDIR_2}" "${TEMPDIR}"
 [ "$DO_STOP_ON_ERROR" = "y" ] && exec 2>"${HOMEDIR}/${ERR_LOGFILE}"
 # compose Filename for new .tar ended File
 if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
@@ -800,9 +798,7 @@ fi
 [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ] && AVM_SUBVERSION="7570-$AVM_SUBVERSION"
 [ "y" == "${TYPE_TCOM_7570_70}" ] && TCOM_SUBVERSION="7570-$TCOM_SUBVERSION"
 [ ${FREETZ_REVISION} ] && FREETZ_REVISION="-freetz-${FREETZ_REVISION}"
-readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
 PANNEX="_annex${ANNEX}"
-[ "$DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
 [ "$DSL_MULTI_ANNEX" == "y" ] && PANNEX=""
 readConfig "MULTI_LANGUAGE" "MULTI_LANGUAGE" "${SRC}/etc/init.d"
 #Language="_${FORCE_LANGUAGE}"
@@ -812,7 +808,6 @@ Language="_${avm_Lang}"
 [ "$ORI" == "y" ] && export NEWIMG="${SPIMG}_OriginalTcomAdjusted${PANNEX}${Language}.image"
 [ "$ATA_ONLY" = "y" ] && export NEWIMG="fw_${CLASS}_W${SPNUM}V_${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}_ATA-ONLY${Language}.image"
 echo "export NEWIMG=\"${NEWIMG}\"" >> incl_var
-echo "export kernel_args=\"${kernel_args}\"" >> incl_var
 # print some info on screen
 . $inc_DIR/print_settings
 if [ "$VERBOSE" = "-v" ]; then

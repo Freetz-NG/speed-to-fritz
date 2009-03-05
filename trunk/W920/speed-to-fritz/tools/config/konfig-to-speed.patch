@@ -666,7 +666,7 @@ diff -rdup kernel-config/mconf.c config/mconf.c
 -			"*** End of Linux kernel configuration.\n"
 -			"*** Execute 'make' to build the kernel or try 'make help'."
 +			"*** End of Speed-to-fritz configuration.\n"
-+			"*** Execute speed-to-fritz to build Speed-to-fritz."
++			"*** Execute sp-to-fritz to build Speed-to-fritz."
  			"\n\n"));
  		break;
  	default:

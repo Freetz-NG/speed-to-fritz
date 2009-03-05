@@ -226,7 +226,7 @@ NET=${CNET%.*}
 #NET_1=${NET%.*}
 #NET_2=${NET##*.}
 #. $HOMEDIR/incl_var
-ETHLIST=" eth0 eth1 eth2 eth3"
+ETHLIST=" eth0 eth1 eth2 eth3 eth4 eth5"
 if [ $ETH_IF ]; then 
  ETHLIST="$ETH_IF"
  echo "Net cards set up for search active netconnections: $ETHLIST"
@@ -234,7 +234,7 @@ if [ $ETH_IF ]; then
 else 
  echo "Net cards set up for search active netconnections: $ETHLIST"
  echo "This list was set default, but can be set in advance." 
- echo "By invoking sp-to-fritz.sh with the command line -i ethX."
+ echo "By invoking via Menue or commandline option."
 fi
 for ETH_IF in ${ETHLIST} ; do
   if  ifconfig $ETH_IF >/dev/null ; then

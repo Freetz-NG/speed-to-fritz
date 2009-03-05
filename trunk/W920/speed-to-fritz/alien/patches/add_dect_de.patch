@@ -562,7 +562,7 @@
 +<input type="button" value="Telefonbuch senden" id="uiSendBook" onclick="uiDoSendBook()" class="Pushbutton" style="width:180px;">
 +</div>
 +</div></div></div></div></div></div>
-+<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="forebuttons">
++
 +<div class="backdialog" id="uiApplyCancelButtons"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="forebuttons">
 +<input type="button" onclick="uiDoSave()" value="Übernehmen" class="Pushbutton" id="buttonSave">
 +<input type="button" onclick="uiDoCancel()" value="Abbrechen" class="Pushbutton" id="buttonCancel">

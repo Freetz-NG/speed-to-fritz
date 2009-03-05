@@ -71,9 +71,9 @@ jslSetValue("uiPostHandsets", bits);/' "$SR1"/${USRWWW}/fon/fon1dect.js
    fi
   fi
 
-  # 7170 mod dect is missing
-  if [ "$FBMOD" = "7170" ] ; then
- echo "-- FBBOX mode: 7170"
+# 7170 mod dect is missing
+#  if [ "$FBMOD" = "7170" ] ; then
+# echo "-- FBBOX mode: 7170"
  # add some dect specific text variablels to diverse include files 
  echo "<? setvariable var:TextMenuDECT \"DECT\" ?>" >>"$SR1/${USRWWW}/menus/menu2.inc"
  echo "<? setvariable var:TextSetting \"setting\" ?>" >>"$SR1/${USRWWW}/menus/menu2_konfig.inc"
@@ -195,8 +195,8 @@ sed -i -e '/DslStateDisplay()/a\
 
  #add dect menue entrys
  DIRI="$SR1"/${USRWWW}/menus
- if ! `cat ${DIRI}/menu2_konfig.html | grep -q "('dect',"` ; then
-  sed -i -e "/^.*('wlan','wlan').*$/a \
+ if ! `cat ${DIRI}/menu2_konfig.html | grep -q "('dect','setting'"` ; then
+  sed -i -e "/wlan...wlan/a \
 \` ?>\n\
 <li class=\"LMenuitem\"><img class=\"LMenuPfeil\" src=\"<? echo \$var:aktivpfeil ?>\"><a href=\"javascript:jslGoTo('dect','setting')\">${DECT}<\/a><span class=\"PTextOnly\">${DECT}<\/span><\/li>\n\
 <!-- wlan:settings\/ap_enabled = '<? query wlan:settings\/ap_enabled ?>' -->\n\
@@ -234,7 +234,7 @@ sed -i -e '/DslStateDisplay()/a\
   [ "$avm_Lang" = "en" ] && sed -i -e "/option value=.11/a \
 <option value=\"12\">Is flashing if DECT is activ<\/option>" "${DIRI}/infoled.html"
  fi
-fi
+#fi
 #7170 end ------------
  #add tabs for nebenstelle on fondeviceses page    
     sed -i -e "/uiDoMsn()/a\

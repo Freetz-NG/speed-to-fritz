@@ -1,6 +1,6 @@
-### Generel help for systax used within this Config.in File see: /tools/config/kconfig-language.txt
-mainmenu " Configuration"
 comment "General settings for Speed-to-fritz --------------------------------"
+mainmenu " Configuration"
+### Generel help for systax used within this Config.in File see: /tools/config/kconfig-language.txt
 ### If alternative download link is a pointer, then the first filename is needed with .zip extension.
 ### There may be up to two in one definition, 2nd name can be link to local location, 
 ### 3rd definition can be an alternative mirror download link.  
@@ -1462,7 +1462,7 @@ config SET_FREETZ_REVISION
 		This is the revision number used if freetz is started via
 		start-freetz.sh.
 
-comment " "
+comment "--"
 comment "--------------------------------------------------------------------"
 
 comment "If you save or load the configuration with a different name, you must"
