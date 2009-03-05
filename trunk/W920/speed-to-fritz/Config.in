@@ -1310,7 +1310,34 @@ config DO_FINAL_DIFF_SRC2
 	help
 		Set this to 'y' to make a diff between DST and SRC2    
 		SRC2_IMG source files must be selected, diff result is in directory ./LogFINALto3.
-
+config DO_KDIFF3_2
+	bool "Do KDIFF3, show AVM and TCOM"
+	depends on ! SOURCE2
+	default n
+	help
+		Set this to 'y' to make a kdiff3 between AVM and TCOM
+		Diff result is shown in kdiff3 gui.
+config DO_KDIFF3_3
+	bool "Do KDIFF3, show AVM source, source 2 and TCOM"
+	depends on SOURCE2
+	default n
+	help
+		Set this to 'y' to make a kdiff3 between AVM source, and source 2 and TCOM
+		Diff result is shown in kdiff3 gui.
+config DO_FINAL_KDIFF3_2
+	bool "Do final KDIFF3, show changed AVM and orignal AVM"
+	depends on ! SOURCE2
+	default n
+	help
+		Set this to 'y' to make a kdiff3 between changed AVM and original AVM source
+		Diff result is shown in kdiff3 gui.
+config DO_FINAL_KDIFF3_3
+	bool "Do final KDIFF3, show changed AVM, original AVM and source 2"
+	depends on SOURCE2
+	default n
+	help
+		Set this to 'y' to make a kdiff3 show changed AVM, orignal AVM source, and source 2
+		Diff result is shown in kdiff3 gui.
 
 comment "Netcard Options ----------------------------------------------------"
 
@@ -1434,6 +1461,11 @@ config SET_FREETZ_REVISION
 	    help
 		This is the revision number used if freetz is started via
 		start-freetz.sh.
-		 
+
+comment " "
+comment "--------------------------------------------------------------------"
+
+comment "If you save or load the configuration with a different name, you must"
+comment "save with name 'Firmware.conf' again, only this File name is in use!"		  
 #( dont remove the following line)
 ### FILE_ENDE ###

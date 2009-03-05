@@ -653,6 +653,14 @@ echo "--------------------------------------------------------------------------
 # create backup for final compare
 [ "$DO_FINAL_DIFF" = "y" ] && mkdir -p "${TEMPDIR}"
 [ "$DO_FINAL_DIFF" = "y" ] && cp -fdpr "${FBDIR}"/*  --target-directory="${TEMPDIR}"  
+[ "$DO_FINAL_KDIFF3_2" = "y" ] && mkdir -p "${TEMPDIR}"
+[ "$DO_FINAL_KDIFF3_2" = "y" ] && cp -fdpr "${FBDIR}"/*  --target-directory="${TEMPDIR}"
+[ "$DO_FINAL_KDIFF3_3" = "y" ] && mkdir -p "${TEMPDIR}"
+[ "$DO_FINAL_KDIFF3_3" = "y" ] && cp -fdpr "${FBDIR}"/*  --target-directory="${TEMPDIR}"
+# do a compare of source 1 and 2
+[ "$DO_KDIFF3_2" = "y" ] && kdiff3 "${SPDIR}" "${FBDIR}"
+# do a compare of source 1,2 and 3
+[ "$DO_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${FBDIR_2}" "${FBDIR}"
 # do a compare of source 1 and 2
 [ "$DO_DIFF" = "y" ] && ./0diff "${FBDIR}" "${FBDIR_2}" "./logAVMto3"
 # do a compare of tcom source 1 and 2
@@ -778,6 +786,8 @@ echo "**************************************************************************
 echo -e "\033[1mPhase 10:\033[0m Pack and deliver."
 echo "********************************************************************************"
 #do a final compare
+[ "$DO_FINAL_KDIFF3_2" = "y" ] && kdiff3 "${SPDIR}/../SPDIR" "${TEMPDIR}"
+[ "$DO_FINAL_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}/../SPDIR" "${FBDIR_2}" "${TEMPDIR}"
 [ "$DO_FINAL_DIFF" = "y" ] && ./0diff "${SPDIR}" "${TEMPDIR}" "./logFINALtoAVM"
 [ "$DO_FINAL_DIFF_SRC2" = "y" ] && ./0diff "${SPDIR}" "${FBDIR_2}" "./logFINALto3"
 [ "$DO_STOP_ON_ERROR" = "y" ] && exec 2>"${HOMEDIR}/${ERR_LOGFILE}"

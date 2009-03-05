@@ -1461,6 +1461,11 @@ config SET_FREETZ_REVISION
 	    help
 		This is the revision number used if freetz is started via
 		start-freetz.sh.
-		 
+
+comment " "
+comment "--------------------------------------------------------------------"
+
+comment "If you save or load the configuration with a different name, you must"
+comment "save with name 'Firmware.conf' again, only this File name is in use!"		  
 #( dont remove the following line)
 ### FILE_ENDE ###
