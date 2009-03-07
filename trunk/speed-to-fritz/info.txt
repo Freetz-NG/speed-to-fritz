@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090307-1350-r-201
+    - Config.in some unusable firmware combinations removed.
 20090305-1720-r-200
     - Sinus 500: Dect on of enabled again.
 20090305-0455-r-199
