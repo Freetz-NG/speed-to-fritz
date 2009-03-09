@@ -3,7 +3,7 @@ export PATH=$PATH:/sbin
 #dont change names of variables because some of the names are used in other files as well!
 ##########################################################################
 # Date of current version:                                          
-Tag="07"; Monat="03"; Jahr="09"
+Tag="09"; Monat="03"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -632,7 +632,7 @@ sed -i -e 's|export |EXPORT_|' $HOMEDIR/${firmwareconf_file_name}
 # make sure Annex is set to A or B (muli uses B as default)
 [ "$ANNEX" != "B" ] && [ "$ANNEX" != "A" ] && echo "Commandline annex parameter -x is: '$ANNEX' but must be 'A' or 'B'" && exit 0  
 kernel_args="annex=${ANNEX}" 
-#export kernel_args="${kernel_args} idle=4"
+export kernel_args="${kernel_args} idle=4"
 export CONFIG_ANNEX="${ANNEX}"
 # set above variables according to your hardware                    
 set_model "$SPMOD"
@@ -773,9 +773,6 @@ else
  $sh_DIR/patch_tools.sh "${DST}"	
 fi
 #dont set kernel annex args, if it is a multi annex firmware
-readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
-[ "$DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
-echo "export kernel_args=\"${kernel_args}\"" >> incl_var
 #make firmware insallable via GUI
 $sh_DIR/patch_install.sh "${SPDIR}"
 . $inc_DIR/testerror
@@ -801,12 +798,15 @@ fi
 PANNEX="_annex${ANNEX}"
 [ "$DSL_MULTI_ANNEX" == "y" ] && PANNEX=""
 readConfig "MULTI_LANGUAGE" "MULTI_LANGUAGE" "${SRC}/etc/init.d"
+readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
+[ "$DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
 #Language="_${FORCE_LANGUAGE}"
 Language="_${avm_Lang}"
 [ "$MULTI_LANGUAGE" == "y" ] && Language=""
 [ "$ORI" != "y" ] && export NEWIMG="fw_${CLASS}_W${SPNUM}V_${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}${PANNEX}${Language}.image"
 [ "$ORI" == "y" ] && export NEWIMG="${SPIMG}_OriginalTcomAdjusted${PANNEX}${Language}.image"
 [ "$ATA_ONLY" = "y" ] && export NEWIMG="fw_${CLASS}_W${SPNUM}V_${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}_ATA-ONLY${Language}.image"
+echo "export kernel_args=\"${kernel_args}\"" >> incl_var
 echo "export NEWIMG=\"${NEWIMG}\"" >> incl_var
 # print some info on screen
 . $inc_DIR/print_settings

@@ -22,6 +22,14 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+
+20090309-1726-r-202
+    - Sinus 500: Annenx option fixed again, if uptate via webinterface is in used.
+    - W721: ins now usable with Vdsl und Adsl, 7170 .59 Firmware must be used.
+      Annex A can be used but PPPoA is not usable.
+      If Annex A is used a 3rd Firmware 7570 is needed for the missing 
+      Annex A adsl Vinax driver.
+      VPI and VCI can be setup via GUI, but not the PPPoA Options.
 20090307-1350-r-201
     - Config.in some unusable firmware combinations removed.
 20090305-1720-r-200
