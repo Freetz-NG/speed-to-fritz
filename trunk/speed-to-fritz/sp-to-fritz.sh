@@ -3,7 +3,7 @@ export PATH=$PATH:/sbin
 #dont change names of variables because some of the names are used in other files as well!
 ##########################################################################
 # Date of current version:                                          
-Tag="09"; Monat="03"; Jahr="09"
+Tag="10"; Monat="03"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -633,6 +633,7 @@ sed -i -e 's|export |EXPORT_|' $HOMEDIR/${firmwareconf_file_name}
 [ "$ANNEX" != "B" ] && [ "$ANNEX" != "A" ] && echo "Commandline annex parameter -x is: '$ANNEX' but must be 'A' or 'B'" && exit 0  
 kernel_args="annex=${ANNEX}" 
 export kernel_args="${kernel_args} idle=4"
+[ "$CONFIG_DSL_MULTI_ANNEX" == "y" ] && export kernel_args="idle=4"
 export CONFIG_ANNEX="${ANNEX}"
 # set above variables according to your hardware                    
 set_model "$SPMOD"

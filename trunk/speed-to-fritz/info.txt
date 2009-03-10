@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090310-1435-r-203
+    - W721: Option add t-com kdslmod driver added.
 
 20090309-1726-r-202
     - Sinus 500: Annenx option fixed again, if uptate via webinterface is in used.

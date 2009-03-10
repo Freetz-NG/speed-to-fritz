@@ -776,7 +776,7 @@ config EXPORT_DO_LOOKUP_PATCH
 	help
 		Add reverse lookup patch for Germany.
 config EXPORT_ADD_ONLINECOUNTER
-	depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM )
+	depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM )
 	bool "Onlinecounter volume patch"
 	default n if  ( TYPE_DSL )
 	default y if  ! ( TYPE_DSL )
@@ -1019,7 +1019,7 @@ if ! EXPORT_ATA_ONLY
 		Use this additional option if new dsl-menupages from alternative firmware-images are used.
     config FORCE_TCOM_KDSLDMOD
 	bool "Use t-com ksldmod driver"
-	depends on TYPE_SPEEDPORT_W920V
+	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default n
 	help
 		Use KSLDMOD from t-com firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
@@ -1032,7 +1032,7 @@ if ! EXPORT_ATA_ONLY
 		Use PCMLINK from t-com firmware.
     config FORCE_SRC2_KDSLDMOD
 	bool "Use source 3 ksldmod driver"
-	depends on TYPE_SPEEDPORT_W920V
+	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default n
 	help
 		Use KSLDMOD from source 3 firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
@@ -1055,6 +1055,7 @@ if ! EXPORT_ATA_ONLY
 		Use DSL DRIVER from local directory ./addon/tmp/modules.
     config FORCE_TCOM_DSL
 	bool "Force T-com DSL driver"
+	depends on ! TYPE_SPEEDPORT_W721V  
 	default n if ! TYPE_SPEEDPORT_W920V
 	default y if TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V  
 	help
@@ -1067,7 +1068,7 @@ if ! EXPORT_ATA_ONLY
 		Save DSL DRIVER from AVM source 3 to ./addon/tmp/modules.
     config SAVE_AVM_DSL
 	bool "Save AVM DSL driver"
-	depends on ! TYPE_SPEEDPORT_W920V
+	depends on ! TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default n
 	help
 		Save DSL DRIVER from AVM source to ./addon/tmp/modules.
@@ -1177,7 +1178,7 @@ config FORCE_TCOM_PIGLET
 
 config FORCE_TCOM_LEDDRIVER
 	bool "Force use of t-com LED driver"
-	depends on TYPE_SPEEDPORT_W920V
+	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default y
 	help
 		For normal this is "n", but you my use the tcom driver, definition of LEDs differ, not all LEDS are usable.
