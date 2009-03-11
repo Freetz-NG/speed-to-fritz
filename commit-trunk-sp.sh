@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="W920: Addon of Option sr3 kdsldmod.co, by: abraXxl"
+comment="push config kernel_args idle=4 removed"
 
 
 
@@ -44,7 +44,6 @@ cd trunk
 #svn delete --force ./speed-to-fritz/info.txt.r131
 #svn delete --force ./speed-to-fritz/conf-920-freetz
 #svn delete --force ./speed-to-fritz/start-920
-
 
 #svn delete --force ./speed-to-fritz/alien/add_dect_7150.inc
 #svn delete --force ./speed-to-fritz/alien/subscripts/500.init
