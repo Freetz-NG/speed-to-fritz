@@ -11,7 +11,7 @@ echo "#! /bin/sh" >"${1}"/var/post_install
 echo "/var/install" >>"${1}"/var/post_install
 chmod +x "${1}"/var/post_install
 
-[ "${kernel_args}" != "console=ttyS0,38400" ] && kernel_args="${kernel_args} console=ttyS0,38400"
+[ "${kernel_args}" != "console=ttyS0,38400" ] && kernel_args="${kernel_args} idle=4 console=ttyS0,38400"
 
 sed -i -e "/echo \"echo language > \/proc\/sys\/urlader\/environment\"/a \
 echo \"echo kernel_args ${kernel_args} > \/proc\/sys\/urlader\/environment\" >>\/var\/post_install \n\

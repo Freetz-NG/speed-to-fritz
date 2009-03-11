@@ -243,7 +243,7 @@ case "$1" in
 	export CONFIG_ATA_FULL="y"
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA="n"  
-	  export CONFIG_DSL="n"
+#	  export CONFIG_DSL="n"
 	  export CONFIG_DSL_MULTI_ANNEX="n"
 	  export CONFIG_VDSL="n"
 	  export CONFIG_LABOR_DSL="n"
@@ -287,7 +287,7 @@ case "$1" in
 	  export CONFIG_AB_COUNT="0"
 	  export CONFIG_Pots="0"
 	  export CONFIG_ATA_FULL="y"
-	  export CONFIG_DSL="n"
+#	  export CONFIG_DSL="n"
 	  export CONFIG_DSL_MULTI_ANNEX="n"
 	  export CONFIG_VDSL="n"
 	  export CONFIG_LABOR_DSL="n"
@@ -356,7 +356,7 @@ case "$1" in
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA="n"  
 	  export CONFIG_ATA_FULL="y"
-	  export CONFIG_DSL="n"
+#	  export CONFIG_DSL="n"
 	  export CONFIG_DSL_MULTI_ANNEX="n"
 	  export CONFIG_VDSL="n"
 	  export CONFIG_LABOR_DSL="n"
@@ -418,9 +418,9 @@ case "$1" in
 	export CONFIG_WLAN_MADWIFI="n"
 	export CONFIG_WLAN_OPENWIFI="n"
 	if [ "$ATA_ONLY" = "y" ]; then
-	  export CONFIG_ATA="n"  
+	  export CONFIG_ATA="y"  
 	  export CONFIG_ATA_FULL="y"
-	  export CONFIG_DSL="n"
+#	  export CONFIG_DSL="n" # removes internet via LAN1 
 	  export CONFIG_DSL_MULTI_ANNEX="n"
 	  export CONFIG_VDSL="n"
 	  export CONFIG_LABOR_DSL="n"
@@ -498,7 +498,7 @@ case "$1" in
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA="n"  
 	  export CONFIG_ATA_FULL="y"
-	  export CONFIG_DSL="n"
+#	  export CONFIG_DSL="n"
 	  export CONFIG_DSL_MULTI_ANNEX="n"
 	  export CONFIG_VDSL="n"
 	  export CONFIG_LABOR_DSL="n"
@@ -540,7 +540,7 @@ case "$1" in
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA="n"  
 	  export CONFIG_ATA_FULL="y"
-	  export CONFIG_DSL="n"
+#	  export CONFIG_DSL="n"
 	  export CONFIG_DSL_MULTI_ANNEX="n"
 	  export CONFIG_VDSL="n"
 	  export CONFIG_LABOR_DSL="n"
@@ -580,7 +580,7 @@ case "$1" in
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA="n"  
 	  export CONFIG_ATA_FULL="y"
-	  export CONFIG_DSL="n"
+#	  export CONFIG_DSL="n"
 	  export CONFIG_DSL_MULTI_ANNEX="n"
 	  export CONFIG_VDSL="n"
 	  export CONFIG_LABOR_DSL="n"
@@ -631,9 +631,8 @@ echo "Firmware configuration taken from: ${firmwareconf_file_name}"
 sed -i -e 's|export |EXPORT_|' $HOMEDIR/${firmwareconf_file_name}
 # make sure Annex is set to A or B (muli uses B as default)
 [ "$ANNEX" != "B" ] && [ "$ANNEX" != "A" ] && echo "Commandline annex parameter -x is: '$ANNEX' but must be 'A' or 'B'" && exit 0  
-kernel_args="annex=${ANNEX}" 
-export kernel_args="${kernel_args} idle=4"
-[ "$CONFIG_DSL_MULTI_ANNEX" == "y" ] && export kernel_args="idle=4"
+export kernel_args="annex=${ANNEX}" 
+[ "$CONFIG_DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
 export CONFIG_ANNEX="${ANNEX}"
 # set above variables according to your hardware                    
 set_model "$SPMOD"

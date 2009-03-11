@@ -12,6 +12,7 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
     rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
+
 #ATA only--->
 if [ ${ATA_ONLY} = "n" ]; then
 #add DSL driver depending on the settings made
@@ -85,7 +86,9 @@ if [ ${USE_SRC2_DSL} = "y" ]; then
     echo "  -- DSL Driver was taken from the original t-com firmware!"
 fi
 [ "${FORCE_SRC2_KDSLDMOD}" = "y" ] && cp -a "${SRC_2}"/lib/modules/$KernelVersion2/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
+#[ "${FORCE_TIATM}" = "y" ] && cp -a "${DST}"/lib/modules/$KernelVersion2/kernel/drivers/atm/avm_atm/tiatm.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/atm/avm_atm
 
+CPYPSEC="y"
 #copy all modules
 #cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel
 # --> add rc.S
@@ -104,7 +107,6 @@ alias symbol:pcmlink_ul_openslots pcmlink' "${SRC}"/lib/modules/$KernelVersion/m
 #cp -fdpr  "${DST}"/etc/init.d/rc.S  --target-directory="${SRC}"/etc/init.d
 
 sed -i -e '/modprobe ${pcm_link} ${pcm_link_params}/d' "${SRC}/etc/init.d/rc.S" 
-rm -fdr "${SRC}"/lib/modules/c55fw.hex
 
 #DSL skripts--->
 #copy VDSL Skript
@@ -118,6 +120,7 @@ if [ "${USE_SRC2_VINAX_ADSLFW}" = "y" ] || [ "${ANNEX}" = "A" ]; then
   sleep 20
   exit 0
  else
+  rm -fdr "${SRC}"/lib/modules/vinax_fw_adsl_*.bin
   cp "${SRC_2}"/lib/modules/vinax_fw_adsl_${ANNEX}.bin "${SRC}"/lib/modules/vinax_fw_adsl.bin 
  fi
 fi
@@ -186,12 +189,18 @@ echo "MODE = vdsl" > \/dev\/avm_power' "${SRC}/etc/init.d/rc.dsl.sh"
 sed -i -e '/CONFIG_VDSL=/a\
 export CONFIG_VINAX="y"' "${SRC}/etc/init.d/rc.conf" 
 #<---DSL skripts
-else
+#else
 #remove ADSL
-#dont start dsl
-sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
+#dont start dsl (not usable - tiatm is not starting)
+#sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
+#rm -f "${SRC}"/lib/modules/microvoip-dsl.bin
 #<-- ATA only
 fi
+#remove somne uused files
+rm -fdr "${SRC}"/lib/modules/c55fw.hex
+rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/usb
+rm -fdr "${SRC}"/lib/acgenusb*
+
 #workaround for HWRevision
 if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
 sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/i\
@@ -220,9 +229,10 @@ if [ ${FORCE_TCOM_PIGLET} = "y" ]; then
 fi
 
 #xilix W721 Driver must be for the hardware in use
+rm -fdr "${SRC}"/lib/modules/microvoip_isdn_top.bit1
 cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules
 # dont add if rc.S is coppyed
-if [ "CPYPSEC" == "y" ]; then
+if [ "$CPYPSEC" == "y" ]; then
 #adapt parameters for Piglet bitfile it it is 7170 firmware
 $sh_DIR/patch_pigletsection.sh "${SRC}" "${DST}"
 #if section was not set correct it must be 7113 firmware, not needed becaus 7113 firmware is also not the clue
@@ -245,8 +255,8 @@ fi\
 modprobe Piglet piglet_bitfile=$piglet_bitfile $piglet_load_params' "${SRC}/etc/init.d/rc.S"
 
 sed -i -e '/modprobe Piglet_noemif piglet_bitfile=$piglet_bitfile piglet_potsbitfile=$piglet_potsbitfile $piglet_load_params/d' "${SRC}/etc/init.d/rc.S"
-echo "--------------------------------------------------------------------------------------------------------------------------------------------------"
-sleep 10
+#echo "--------------------------------------------------------------------------------------------------------------------------------------------------"
+#sleep 10
 fi
 #enable button
 sed -i -e 's/piglet_enable_button=2/piglet_enable_button=3/' "${SRC}/etc/init.d/rc.S" 
