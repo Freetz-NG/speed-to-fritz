@@ -990,7 +990,7 @@ config EXPORT_USE_SOURCE2_WEBMNUE
 comment "DSL Options --------------------------------------------------------"
 config EXPORT_ATA_ONLY
 	bool "Remove ADSL - ATA only"
-	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V
+	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V
 	default n 
 #	default y if ( TYPE_SPEEDPORT_W920V )
  
