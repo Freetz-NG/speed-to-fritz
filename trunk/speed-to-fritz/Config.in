@@ -71,9 +71,6 @@ config AVM_7150_56
 config AVM_7150_57 
     string 
     default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.fon.7150/fritz.fon_7150.38.04.57.image"
-config AVM_7170_59
-    string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image"
 config AVM_7113_61
     string 
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch/FRITZ.Box_Fon_WLAN_7113.60.04.61.image"
@@ -446,14 +443,10 @@ choice
 #	config TYPE_SRC3_AVM_MINI_7170_67
 #		bool "AVM_MINI_7170_67"
 
-#	config TYPE_SRC3_AVM_7270_57
-#		bool "AVM_7270_57"
 	config TYPE_SRC3_AVM_7270_58
 		bool "AVM_7270_58"
 	config TYPE_SRC3_AVM_7270_59
 		bool "AVM_7270_59_ANNEX_A_B"
-#	config TYPE_SRC3_AVM_7270_A59
-#		bool "AVM_7270_59_ANNEX_A"
 	config TYPE_SRC3_AVM_7270_67
 		bool "AVM_7270_67"
 	config TYPE_SRC3_AVM_7270_70
@@ -527,7 +520,6 @@ config AVM_IMG
 	default "$AVM_7170_67en" 			if TYPE_LANG_EN && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_7170_67" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7150_57" 				if TYPE_57 &&  TYPE_SINUS_W500V 
-	default "$AVM_7170_59" 				if TYPE_59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_7170_A59" 			if ( TYPE_A59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)) || ( TYPE_SPEEDPORT_W721V && ! TYPE_LABOR )
 	default "$AVM_7170_67" 				if TYPE_67 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_DSL_7170_12562"			if TYPE_DSL && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
@@ -580,7 +572,6 @@ config SRC2_IMG
 	default "$AVM_7150_56" 			if TYPE_SRC3_AVM_7150_56
 	default "$AVM_7150_57" 			if TYPE_SRC3_AVM_7150_57
 	default "$AVM_7170_58" 			if TYPE_SRC3_AVM_7170_58
-	default "$AVM_7170_59" 			if TYPE_SRC3_AVM_7170_59
 	default "$AVM_7170_A59" 		if TYPE_SRC3_AVM_7170_A59
 	default "$AVM_7113_61" 			if TYPE_SRC3_AVM_7113_61
 	default "$AVM_7170_67" 			if TYPE_SRC3_AVM_7170_67
@@ -618,6 +609,7 @@ config TYPE_LABOR_TYPE
 	string
         default "58" 		if TYPE_58
         default "59" 		if TYPE_59
+        default "A59" 		if TYPE_A59
         default "61" 		if TYPE_61
         default "67" 		if TYPE_67
         default "67m" 		if TYPE_67m
