@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090312-0520-r-207
+    - device table: Add /dev/sde and /dev/sdf
 20090311-1252-r-205
     - push config kernel_args idle=4 removed
 20090311-0712-r-204
