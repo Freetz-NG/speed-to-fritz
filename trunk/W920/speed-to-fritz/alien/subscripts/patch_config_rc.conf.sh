@@ -38,9 +38,11 @@ sed -i -e "s|CONFIG_SERVICEPORTAL_URL=\".*$|CONFIG_SERVICEPORTAL_URL=\"${CONFIG_
 [ "$CONFIG_VLYNQ0" ] &&  sed -i -e "s/CONFIG_VLYNQ0=\".*$/CONFIG_VLYNQ0=\"${CONFIG_VLYNQ0}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_VLYNQ1" ] &&  sed -i -e "s/CONFIG_VLYNQ1=\".*$/CONFIG_VLYNQ1=\"${CONFIG_VLYNQ1}\"/g" "${1}/etc/init.d/rc.conf"
 #W920
-if  ! `grep -q 'CONFIG_VINAX_TRACE' "${1}/etc/init.d/rc.conf"`; then
-sed -i -e "/CONFIG_VINAX/a\
+if [ "$CONFIG_VINAX_TRACE" ]; then
+ if  ! `grep -q 'CONFIG_VINAX_TRACE' "${1}/etc/init.d/rc.conf"`; then
+ sed -i -e "/CONFIG_VINAX/a\
 export CONFIG_VINAX_TRACE=\"${CONFIG_VINAX_TRACE}\"/" "${1}/etc/init.d/rc.conf"
+ fi
 fi
 [ "$CONFIG_VINAX_TRACE" ] &&  sed -i -e "s/CONFIG_VINAX_TRACE=\".*$/CONFIG_VINAX_TRACE=\"${CONFIG_VINAX_TRACE}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_LIBZ" ] &&  sed -i -e "s/CONFIG_LIBZ=\".*$/CONFIG_LIBZ=\"${CONFIG_LIBZ}\"/g" "${1}/etc/init.d/rc.conf"
