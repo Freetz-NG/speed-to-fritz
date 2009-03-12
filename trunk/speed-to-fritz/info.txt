@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090312-0757-r-211
+    - W920: 65.04.72-13571 added
 20090312-0711-r-210
     - Variable VINAX_TRACE only set for W920
 20090312-0652-r-209

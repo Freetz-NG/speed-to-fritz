@@ -55,6 +55,9 @@ config TCOM_W920_71
 config TCOM_W920_13048
     string 
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.63-13048.zip mirror http://www.hostarea.de/server-01/Januar-25c121e202.zip"
+config TCOM_W920_13571
+    string 
+    default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.72-13571.zip mirror http://www.hostarea.de/server-03/Maerz-fd7292707f.zip
 ###------------------------------------------------------------------------------------------------------------
 ### AVM firmware
 ### AVM firmware
@@ -235,6 +238,8 @@ choice
 		bool "TCOM_BETA_71"
 	config TYPE_TCOM_BETA_13048
 		bool "TCOM_BETA_13048"
+	config TYPE_TCOM_BETA_13571
+		bool "TCOM_BETA_13571"
 	config TYPE_TCOM_7570_70
 		bool "AVM_7570_70 used as t-com Firmware"
 endchoice
@@ -415,6 +420,8 @@ choice
 		bool "TCOM_W920_71"
 	config TYPE_SRC3_TCOM_W920_13048
 		bool "TCOM_W920_13048"
+	config TYPE_SRC3_TCOM_W920_13571
+		bool "TCOM_W920_13571"
 
 	config TYPE_SRC3_AVM_7150_32
 		bool "AVM_7150_32"
@@ -508,6 +515,7 @@ config TCOM_IMG
 	default "$TCOM_W920_70" 		if TYPE_TCOM_BETA_70 && ( TYPE_SPEEDPORT_W920V && ! TYPE_AVM_7570_70 )
 	default "$TCOM_W920_71" 		if TYPE_TCOM_BETA_71 && ( TYPE_SPEEDPORT_W920V && ! TYPE_AVM_7570_70 )
 	default "$TCOM_W920_13048" 		if TYPE_TCOM_BETA_13048 && ( TYPE_SPEEDPORT_W920V && ! TYPE_AVM_7570_70 )
+	default "$TCOM_W920_13571" 		if TYPE_TCOM_BETA_13571 && ( TYPE_SPEEDPORT_W920V && ! TYPE_AVM_7570_70 )
 	default "$AVM_7570_70" 			if TYPE_AVM_7570_70 || ( TYPE_TCOM_7570_70 && TYPE_SPEEDPORT_W920V )
 
 	default "$TCOM_LOCAL"	 		if TYPE_LOCAL_TCOM
@@ -563,6 +571,7 @@ config SRC2_IMG
 	default "$TCOM_W920_70" 		if TYPE_SRC3_TCOM_W920_70
 	default "$TCOM_W920_71" 		if TYPE_SRC3_TCOM_W920_71
 	default "$TCOM_W920_13048" 		if TYPE_SRC3_TCOM_W920_13048
+	default "$TCOM_W920_13571" 		if TYPE_SRC3_TCOM_W920_13571
 	default "$TCOM_LOCAL"			if TYPE_LOCAL_TCOM_IMAGE
 
 	default "$AVM_7150_32" 			if TYPE_SRC3_AVM_7150_32
