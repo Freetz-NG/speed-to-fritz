@@ -55,6 +55,9 @@ config TCOM_W920_71
 config TCOM_W920_13048
     string 
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.63-13048.zip mirror http://www.hostarea.de/server-01/Januar-25c121e202.zip"
+config TCOM_W920_13571
+    string 
+    default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.72-13571.zip mirror http://www.hostarea.de/server-03/Maerz-fd7292707f.zip
 ###------------------------------------------------------------------------------------------------------------
 ### AVM firmware
 ### AVM firmware
@@ -71,9 +74,6 @@ config AVM_7150_56
 config AVM_7150_57 
     string 
     default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.fon.7150/fritz.fon_7150.38.04.57.image"
-config AVM_7170_59
-    string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image"
 config AVM_7113_61
     string 
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch/FRITZ.Box_Fon_WLAN_7113.60.04.61.image"
@@ -147,7 +147,7 @@ config AVM_WLANX_7270_13783
 ### 7570
 config AVM_7570_70
     string 
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7570/firmware/english/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.zip mirror http://www.hostarea.de/server-02/Februar-24ac2a1ab1.zip"
+    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.image"
 ##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #( dont remove the following line)
 ### FIRMWARE_CONFIG_ENDE ###
@@ -238,6 +238,8 @@ choice
 		bool "TCOM_BETA_71"
 	config TYPE_TCOM_BETA_13048
 		bool "TCOM_BETA_13048"
+	config TYPE_TCOM_BETA_13571
+		bool "TCOM_BETA_13571"
 	config TYPE_TCOM_7570_70
 		bool "AVM_7570_70 used as t-com Firmware"
 endchoice
@@ -392,7 +394,7 @@ choice
 
 	prompt "All possible firmware"
 		depends on SOURCE2
-		default TYPE_SRC3_AVM_70
+		default TYPE_SRC3_AVM_7570_70
 
 	config TYPE_SRC3_TCOM_W500_27
 		bool "TCOM_W500_27"
@@ -418,6 +420,8 @@ choice
 		bool "TCOM_W920_71"
 	config TYPE_SRC3_TCOM_W920_13048
 		bool "TCOM_W920_13048"
+	config TYPE_SRC3_TCOM_W920_13571
+		bool "TCOM_W920_13571"
 
 	config TYPE_SRC3_AVM_7150_32
 		bool "AVM_7150_32"
@@ -446,14 +450,10 @@ choice
 #	config TYPE_SRC3_AVM_MINI_7170_67
 #		bool "AVM_MINI_7170_67"
 
-#	config TYPE_SRC3_AVM_7270_57
-#		bool "AVM_7270_57"
 	config TYPE_SRC3_AVM_7270_58
 		bool "AVM_7270_58"
 	config TYPE_SRC3_AVM_7270_59
 		bool "AVM_7270_59_ANNEX_A_B"
-#	config TYPE_SRC3_AVM_7270_A59
-#		bool "AVM_7270_59_ANNEX_A"
 	config TYPE_SRC3_AVM_7270_67
 		bool "AVM_7270_67"
 	config TYPE_SRC3_AVM_7270_70
@@ -515,6 +515,7 @@ config TCOM_IMG
 	default "$TCOM_W920_70" 		if TYPE_TCOM_BETA_70 && ( TYPE_SPEEDPORT_W920V && ! TYPE_AVM_7570_70 )
 	default "$TCOM_W920_71" 		if TYPE_TCOM_BETA_71 && ( TYPE_SPEEDPORT_W920V && ! TYPE_AVM_7570_70 )
 	default "$TCOM_W920_13048" 		if TYPE_TCOM_BETA_13048 && ( TYPE_SPEEDPORT_W920V && ! TYPE_AVM_7570_70 )
+	default "$TCOM_W920_13571" 		if TYPE_TCOM_BETA_13571 && ( TYPE_SPEEDPORT_W920V && ! TYPE_AVM_7570_70 )
 	default "$AVM_7570_70" 			if TYPE_AVM_7570_70 || ( TYPE_TCOM_7570_70 && TYPE_SPEEDPORT_W920V )
 
 	default "$TCOM_LOCAL"	 		if TYPE_LOCAL_TCOM
@@ -523,13 +524,11 @@ config TCOM_IMG
 config AVM_IMG
 	string
 	default "$AVM_7140_43"				if TYPE_SPEEDPORT_W501V
-	default "$AVM_7150_56" 				if TYPE_SINUS_W500V &&  ! TYPE_57 
-	default "$AVM_7113_61" 				if (TYPE_SPEEDPORT_W721V && ! TYPE_LABOR ) || (TYPE_61 && ( TYPE_SPEEDPORT_W721V))
+	default "$AVM_7150_56" 				if TYPE_SINUS_W500V &&  ! TYPE_57
 	default "$AVM_7170_67en" 			if TYPE_LANG_EN && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
-	default "$AVM_7170_67" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V ) && ! TYPE_LABOR && TYPE_LANG_DE
+	default "$AVM_7170_67" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7150_57" 				if TYPE_57 &&  TYPE_SINUS_W500V 
-	default "$AVM_7170_59" 				if TYPE_59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
-	default "$AVM_7170_A59" 			if TYPE_A59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_7170_A59" 			if ( TYPE_A59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)) || ( TYPE_SPEEDPORT_W721V && ! TYPE_LABOR )
 	default "$AVM_7170_67" 				if TYPE_67 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_DSL_7170_12562"			if TYPE_DSL && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_AIO_7170_13679"			if TYPE_AIO && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
@@ -572,6 +571,7 @@ config SRC2_IMG
 	default "$TCOM_W920_70" 		if TYPE_SRC3_TCOM_W920_70
 	default "$TCOM_W920_71" 		if TYPE_SRC3_TCOM_W920_71
 	default "$TCOM_W920_13048" 		if TYPE_SRC3_TCOM_W920_13048
+	default "$TCOM_W920_13571" 		if TYPE_SRC3_TCOM_W920_13571
 	default "$TCOM_LOCAL"			if TYPE_LOCAL_TCOM_IMAGE
 
 	default "$AVM_7150_32" 			if TYPE_SRC3_AVM_7150_32
@@ -581,7 +581,6 @@ config SRC2_IMG
 	default "$AVM_7150_56" 			if TYPE_SRC3_AVM_7150_56
 	default "$AVM_7150_57" 			if TYPE_SRC3_AVM_7150_57
 	default "$AVM_7170_58" 			if TYPE_SRC3_AVM_7170_58
-	default "$AVM_7170_59" 			if TYPE_SRC3_AVM_7170_59
 	default "$AVM_7170_A59" 		if TYPE_SRC3_AVM_7170_A59
 	default "$AVM_7113_61" 			if TYPE_SRC3_AVM_7113_61
 	default "$AVM_7170_67" 			if TYPE_SRC3_AVM_7170_67
@@ -619,6 +618,7 @@ config TYPE_LABOR_TYPE
 	string
         default "58" 		if TYPE_58
         default "59" 		if TYPE_59
+        default "A59" 		if TYPE_A59
         default "61" 		if TYPE_61
         default "67" 		if TYPE_67
         default "67m" 		if TYPE_67m
@@ -777,7 +777,7 @@ config EXPORT_DO_LOOKUP_PATCH
 	help
 		Add reverse lookup patch for Germany.
 config EXPORT_ADD_ONLINECOUNTER
-	depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM )
+	depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM )
 	bool "Onlinecounter volume patch"
 	default n if  ( TYPE_DSL )
 	default y if  ! ( TYPE_DSL )
@@ -991,7 +991,7 @@ config EXPORT_USE_SOURCE2_WEBMNUE
 comment "DSL Options --------------------------------------------------------"
 config EXPORT_ATA_ONLY
 	bool "Remove ADSL - ATA only"
-	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V
+	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V
 	default n 
 #	default y if ( TYPE_SPEEDPORT_W920V )
  
@@ -1004,10 +1004,10 @@ config EXPORT_ATA_ONLY
 ####
 if ! EXPORT_ATA_ONLY
     config EXPORT_ADD_DSL_EXPERT_MNUE
-	depends on ! TYPE_TCOM_7570_70
+	depends on ! TYPE_TCOM_7570_70 && ! TYPE_SPEEDPORT_W920V && ! TYPE_SPEEDPORT_W721V
 	bool "Add dsl expert pages"
-	default n if  ( TYPE_DSL )
-	default y if  ! ( TYPE_DSL )
+	default n if  TYPE_DSL 
+	default y if  ! TYPE_DSL 
 
 	help
 		Use this additional option to add expert-pages for dsl settings,
@@ -1020,7 +1020,7 @@ if ! EXPORT_ATA_ONLY
 		Use this additional option if new dsl-menupages from alternative firmware-images are used.
     config FORCE_TCOM_KDSLDMOD
 	bool "Use t-com ksldmod driver"
-	depends on TYPE_SPEEDPORT_W920V
+	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default n
 	help
 		Use KSLDMOD from t-com firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
@@ -1033,10 +1033,16 @@ if ! EXPORT_ATA_ONLY
 		Use PCMLINK from t-com firmware.
     config FORCE_SRC2_KDSLDMOD
 	bool "Use source 3 ksldmod driver"
-	depends on TYPE_SPEEDPORT_W920V
+	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default n
 	help
 		Use KSLDMOD from source 3 firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
+    config USE_SRC2_VINAX_ADSLFW
+	bool "Use source 3 DSL driver"
+	depends on TYPE_SPEEDPORT_W721V
+	default n
+	help
+		Use ADSL VINAX DRIVER from second source firmware specified in SRC2_IMG.
     config USE_SRC2_DSL
 	bool "Use source 3 DSL driver"
 	depends on SOURCE2
@@ -1050,6 +1056,7 @@ if ! EXPORT_ATA_ONLY
 		Use DSL DRIVER from local directory ./addon/tmp/modules.
     config FORCE_TCOM_DSL
 	bool "Force T-com DSL driver"
+	depends on ! TYPE_SPEEDPORT_W721V  
 	default n if ! TYPE_SPEEDPORT_W920V
 	default y if TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V  
 	help
@@ -1062,7 +1069,7 @@ if ! EXPORT_ATA_ONLY
 		Save DSL DRIVER from AVM source 3 to ./addon/tmp/modules.
     config SAVE_AVM_DSL
 	bool "Save AVM DSL driver"
-	depends on ! TYPE_SPEEDPORT_W920V
+	depends on ! TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default n
 	help
 		Save DSL DRIVER from AVM source to ./addon/tmp/modules.
@@ -1080,7 +1087,7 @@ endif
 #	help
 #	    ATM should be left as it is, but if needed you may specify your own! Default is VPI 1 VCI 32
 #	    This otion is only in use with W920 and W721, webmenu is not usable. 
-# 	config  EXPORT_VPI
+#	config  EXPORT_VPI
 #	    depends on EXPORT_SETATM
 #	    string "VPI value"
 #		    default "8"
@@ -1172,7 +1179,7 @@ config FORCE_TCOM_PIGLET
 
 config FORCE_TCOM_LEDDRIVER
 	bool "Force use of t-com LED driver"
-	depends on TYPE_SPEEDPORT_W920V
+	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default y
 	help
 		For normal this is "n", but you my use the tcom driver, definition of LEDs differ, not all LEDS are usable.

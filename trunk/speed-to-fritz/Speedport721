@@ -13,6 +13,7 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
     rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
 
+
 #ATA only--->
 if [ ${ATA_ONLY} = "n" ]; then
 #add DSL driver depending on the settings made
@@ -87,14 +88,34 @@ if [ ${USE_SRC2_DSL} = "y" ]; then
 fi
 [ "${FORCE_SRC2_KDSLDMOD}" = "y" ] && cp -a "${SRC_2}"/lib/modules/$KernelVersion2/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
 #[ "${FORCE_TIATM}" = "y" ] && cp -a "${DST}"/lib/modules/$KernelVersion2/kernel/drivers/atm/avm_atm/tiatm.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/atm/avm_atm
-
 CPYPSEC="y"
+if [ "${COPY_TCOM_BIN}" = "y" ]; then
+    cp -fdrp "${DST}"/usr/bin --target-directory="${SRC}"/usr
+    cp -fdrp "${DST}"/usr/sbin --target-directory="${SRC}"/usr
+#    cp -fdrp "${DST}"/usr/www/cgi-bin --target-directory="${SRC}"/usr/www
+#    cp -fdrp "${DST}"/usr/share --target-directory="${SRC}"/usr
+#libuser.so
+# for file in libfon.so libmini.so libtamconf.so libtelcfg.so libtr064.so libtr069.so  libvdsl.so libvpnstat.so libwlan.so ; do
+#	file="${DST}"/usr/share/ctlmgr/$file
+#	if [ -f "$file" ]; then
+#        cp -fdrp "$file" --target-directory="${SRC}"/usr/share/ctlmgr
+#	fi 
+# done
+    cp -fdrp "${DST}"/bin --target-directory="${SRC}"
+    cp -fdrp "${DST}"/sbin --target-directory="${SRC}"
+    cp -fdrp "${DST}"/lib --target-directory="${SRC}"
+    cp -fdrp "${DST}"/dev --target-directory="${SRC}"
+#    cp -fdpr  "${DST}"/etc/init.d/rc.S  --target-directory="${SRC}"/etc/init.d
 #copy all modules
 #cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel
 # --> add rc.S
 #cp -fdpr  ${HOMEDIR}/addon/tmp/squashfs-root/*  --target-directory="${SRC}"
-#CPYPSEC="n"
+CPYPSEC="n"
 # <-- 
+fi
+
+sed -i -e '/rc.dsl.sh start/a\
+. /etc/init.d/rc.vdsl.sh' "${SRC}/etc/init.d/rc.S"
 [ ${USE_OWN_DSL} = "y" ] && cp -fdrp ${HOMEDIR}/addon/tmp/W721/squashfs-root/* --target-directory="${SRC}" &&\
 echo "  -- DSL Driver was taken from local directory ./addon/tmp/W721!"
 
@@ -104,7 +125,6 @@ alias symbol:pcmlink_ul_closeslots pcmlink\
 alias symbol:pcmlink_ul_linkhandle_to_handle pcmlink\
 alias symbol:pcmlink_ul_openslots pcmlink' "${SRC}"/lib/modules/$KernelVersion/modules.symbols
 
-#cp -fdpr  "${DST}"/etc/init.d/rc.S  --target-directory="${SRC}"/etc/init.d
 
 sed -i -e '/modprobe ${pcm_link} ${pcm_link_params}/d' "${SRC}/etc/init.d/rc.S" 
 
@@ -128,8 +148,6 @@ fi
 sed -i -e '/modprobe tiatm/a\
 echo "MODE = vdsl" > \/dev\/avm_power' "${SRC}/etc/init.d/rc.dsl.sh"
 
-sed -i -e '/rc.dsl.sh start/a\
-. /etc/init.d/rc.vdsl.sh' "${SRC}/etc/init.d/rc.S"
 
 #Annex A not working up to now  
 sed -i -e "s/DSL_Mode=\"VB\"/DSL_Mode=\"V$ANNEX\"/" "${SRC}/etc/init.d/rc.vdsl.sh" 
@@ -210,6 +228,7 @@ sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/a\
 fi
 sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
 
+
 #tests 
 sed -i -e '/export ANNEX_TEST/a\
 if [ "$STATUS_TEST" != "0" ]; then\
@@ -269,12 +288,12 @@ sed -i -e 's/piglet_enable_button=2/piglet_enable_button=3/' "${SRC}/etc/init.d/
 #cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/userman --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
 #cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
 #cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsl --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
- # cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
+#cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
  #  cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
 # wlan bracht t-com kernel
 #[ ${XCHANGE_KERNEL} = "y" ] && 
 
- # cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/net --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
+#cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/net --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
 # &&\
 #echo "  -- Wlan driver was taken from t-com Firmware!" 
 ###cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/usb --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
@@ -319,5 +338,6 @@ $sh_DIR/patch_fonbuch.sh "${SRC}"
 # skripts for startig ftp on USB
 #cp -fdpr  ./addon/tmp/jp   --target-directory="${SRC}"
 
-
 echo "********************************************************************************"
+#if this is not corrected no webintaface is present with most firmwares
+sed -i -e "s|HWRevision_ATA=0|HWRevision_ATA=1|" "${SRC}/etc/init.d/rc.conf"

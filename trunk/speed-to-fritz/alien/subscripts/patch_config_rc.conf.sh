@@ -32,14 +32,40 @@ sed -i -e "s|CONFIG_SERVICEPORTAL_URL=\".*$|CONFIG_SERVICEPORTAL_URL=\"${CONFIG_
 [ "$CONFIG_DSL_MULTI_ANNEX" ] &&  sed -i -e "s/CONFIG_DSL_MULTI_ANNEX=\".*$/CONFIG_DSL_MULTI_ANNEX=\"${CONFIG_DSL_MULTI_ANNEX}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_ATA_FULL" ] &&  sed -i -e "s/CONFIG_ATA_FULL=\".*$/CONFIG_ATA_FULL=\"${CONFIG_ATA_FULL}\"/g" "${1}/etc/init.d/rc.conf"
 #W721
+if [ "$CONFIG_VINAX" ]; then
+ if  ! `grep -q 'CONFIG_VINAX=' "${1}/etc/init.d/rc.conf"`; then
+ sed -i -e "/CONFIG_DSL/a\
+export CONFIG_VINAX=\"${CONFIG_VINAX}\"/" "${1}/etc/init.d/rc.conf"
+ fi
+fi
 [ "$CONFIG_VINAX" ] &&  sed -i -e "s/CONFIG_VINAX=\".*$/CONFIG_VINAX=\"${CONFIG_VINAX}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_VLYNQ_PARAMS" ] &&  sed -i -e "s/CONFIG_VLYNQ_PARAMS=\".*$/CONFIG_VLYNQ_PARAMS=\"${CONFIG_VLYNQ_PARAMS}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_VLYNQ" ] &&  sed -i -e "s/CONFIG_VLYNQ=\".*$/CONFIG_VLYNQ=\"${CONFIG_VLYNQ}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_VLYNQ0" ] &&  sed -i -e "s/CONFIG_VLYNQ0=\".*$/CONFIG_VLYNQ0=\"${CONFIG_VLYNQ0}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_VLYNQ1" ] &&  sed -i -e "s/CONFIG_VLYNQ1=\".*$/CONFIG_VLYNQ1=\"${CONFIG_VLYNQ1}\"/g" "${1}/etc/init.d/rc.conf"
+
+#[ "$CONFIG_FONBOOK2" ] &&  sed -i -e "s/CONFIG_FONBOOK2=\".*$/CONFIG_FONBOOK2=\"${CONFIG_FONBOOK2}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$CONFIG_T38" ] &&  sed -i -e "s/CONFIG_T38=\".*$/CONFIG_T38=\"${CONFIG_T38}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$CONFIG_AURA" ] &&  sed -i -e "s/CONFIG_AURA=\".*$/CONFIG_AURA=\"${CONFIG_AURA}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$CONFIG_AUDIO" ] &&  sed -i -e "s/CONFIG_AUDIO=\".*$/CONFIG_AUDIO=\"${CONFIG_AUDIO}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$CONFIG_WLAN_TCOM_PRIO" ] &&  sed -i -e "s/CONFIG_WLAN_TCOM_PRIO=\".*$/CONFIG_WLAN_TCOM_PRIO=\"${CONFIG_WLAN_TCOM_PRIO}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$CONFIG_MEDIACLI" ] &&  sed -i -e "s/CONFIG_MEDIACLI=\".*$/CONFIG_MEDIACLI=\"${CONFIG_MEDIACLI}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$CONFIG_FAXSUPPORT" ] &&  sed -i -e "s/CONFIG_FAXSUPPORT=\".*$/CONFIG_FAXSUPPORT=\"${CONFIG_FAXSUPPORT}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$CONFIG_SAMBA" ] &&  sed -i -e "s/CONFIG_SAMBA=\".*$/CONFIG_SAMBA=\"${CONFIG_SAMBA}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$CONFIG_JFFS2" ] &&  sed -i -e "s/CONFIG_JFFS2=\".*$/CONFIG_JFFS2=\"${CONFIG_JFFS2}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$CONFIG_FAX2MAIL" ] &&  sed -i -e "s/CONFIG_FAX2MAIL=\".*$/CONFIG_FAX2MAIL=\"${CONFIG_FAX2MAIL}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$CONFIG_TAM_MODE" ] &&  sed -i -e "s/CONFIG_TAM_MODE=\".*$/CONFIG_TAM_MODE=\"${CONFIG_TAM_MODE}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$CONFIG_IGD" ] &&  sed -i -e "s/CONFIG_IGD=\".*$/CONFIG_IGD=\"${CONFIG_IGD}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$CONFIG_UPNP" ] &&  sed -i -e "s/CONFIG_UPNP=\".*$/CONFIG_UPNP=\"${CONFIG_UPNP}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$CONFIG_MAILER2" ] &&  sed -i -e "s/CONFIG_MAILER2=\".*$/CONFIG_MAILER2=\"${CONFIG_MAILER2}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$CONFIG_ECO" ] &&  sed -i -e "s/CONFIG_ECO=\".*$/CONFIG_ECO=\"${CONFIG_ECO}\"/g" "${1}/etc/init.d/rc.conf"
+##[ "$CONFIG_STOREUSRCFG" ] &&  sed -i -e "s/CONFIG_STOREUSRCFG=\".*$/CONFIG_STOREUSRCFG=\"${CONFIG_STOREUSRCFG}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$CONFIG_TAM" ] &&  sed -i -e "s/CONFIG_TAM=\".*$/CONFIG_TAM=\"${CONFIG_TAM}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$CONFIG_ACCESSORY_URL" ] &&  sed -i -e "s/CONFIG_ACCESSORY_URL=\".*$/CONFIG_ACCESSORY_URL=\"${CONFIG_ACCESSORY_URL}\"/g" "${1}/etc/init.d/rc.conf"
+
 #W920
 if [ "$CONFIG_VINAX_TRACE" ]; then
- if  ! `grep -q 'CONFIG_VINAX_TRACE' "${1}/etc/init.d/rc.conf"`; then
+ if  ! `grep -q 'CONFIG_VINAX_TRACE=' "${1}/etc/init.d/rc.conf"`; then
  sed -i -e "/CONFIG_VINAX/a\
 export CONFIG_VINAX_TRACE=\"${CONFIG_VINAX_TRACE}\"/" "${1}/etc/init.d/rc.conf"
  fi
