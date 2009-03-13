@@ -1149,6 +1149,12 @@ config XCHANGE_KERNEL
 		but it can be used in combination with the option restore original firmware as well.
 		It is mainly added for testing W920, W920 original firmware does not log to the console
 		but if the kernel is replaced with AVM kernel the log is present.
+config COPY_TCOM_BIN
+	bool "Keep tcom libs and binary files"
+	depends on TYPE_SPEEDPORT_W721V && XCHANGE_KERNEL
+	default y
+	help
+		For normal this is "n", but for testing this may be used, webmenu is with errors.
 config SRC2_KERNEL
 	bool "Take kernel from source 3"
 	depends on SOURCE2
@@ -1158,12 +1164,6 @@ config SRC2_KERNEL
 		but it can be used in combination with the option restore original firmware as well.
 		It is mainly added for testing W920, W920 original firmware does not log to the console
 		but if the kernel is replaced with AVM kernel the log is present.
-#config COPY_TCOM_BIN
-#	bool "Keep 3 tcom libs to enable adsl2"
-#	depends on TYPE_SPEEDPORT_W920V
-#	default n
-#	help
-#		For normal this is "n", but for testing this may be used, webmenu is with errors.
 #config COPY_TCOM_BIN2
 #	bool "Keep all TCOM bin, sbin, lib"
 #	depends on TYPE_SPEEDPORT_W920V
@@ -1246,7 +1246,8 @@ config EXPORT_CONFIG_TR069
 		
 config EXPORT_CONFIG_TR064
 	bool "Enable LAN autoconfiguration TR064"
-	default n
+	default n if ! TYPE_SPEEDPORT_W920V
+	default y if TYPE_SPEEDPORT_W920V
 	help
 		Set this to "y" if you want TR64 turned on, in most cases 
 		your box will function normal again, so don't use this option 
@@ -1316,11 +1317,11 @@ config DO_KDIFF3_2
 		Set this to 'y' to make a kdiff3 between AVM and TCOM
 		Diff result is shown in kdiff3 gui.
 config DO_KDIFF3_3
-	bool "Do KDIFF3, show AVM source, source 2 and TCOM"
+	bool "Do KDIFF3, show AVM source, source 3 and TCOM"
 	depends on SOURCE2
 	default n
 	help
-		Set this to 'y' to make a kdiff3 between AVM source, and source 2 and TCOM
+		Set this to 'y' to make a kdiff3 between AVM source, and source 3 and TCOM
 		Diff result is shown in kdiff3 gui.
 config DO_FINAL_KDIFF3_2
 	bool "Do final KDIFF3, show changed AVM and orignal AVM"
@@ -1330,11 +1331,11 @@ config DO_FINAL_KDIFF3_2
 		Set this to 'y' to make a kdiff3 between changed AVM and original AVM source
 		Diff result is shown in kdiff3 gui.
 config DO_FINAL_KDIFF3_3
-	bool "Do final KDIFF3, show changed AVM, original AVM and source 2"
+	bool "Do final KDIFF3, show changed AVM, original AVM and source 3"
 	depends on SOURCE2
 	default n
 	help
-		Set this to 'y' to make a kdiff3 show changed AVM, orignal AVM source, and source 2
+		Set this to 'y' to make a kdiff3 show changed AVM, orignal AVM source, and source 3
 		Diff result is shown in kdiff3 gui.
 
 comment "Netcard Options ----------------------------------------------------"

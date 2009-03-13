@@ -3,7 +3,7 @@ export PATH=$PATH:/sbin
 #dont change names of variables because some of the names are used in other files as well!
 ##########################################################################
 # Date of current version:                                          
-Tag="12"; Monat="03"; Jahr="09"
+Tag="13"; Monat="03"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -167,7 +167,7 @@ export USBH="n"
 export ATA="y"
 export CONFIG_ATA="${ATA}"
 export CONFIG_ATA_FULL="n"
-export ANNEX="B"
+#export ANNEX="B"
 export CONFIG_LED_NO_DSL_LED="n"
 export CONFIG_DECT_ONOFF="n"
 export CONFIG_VOL_COUNTER="y"
@@ -590,8 +590,8 @@ case "$1" in
 	export CONFIG_jffs2_size="132"
 	export CONFIG_RAMSIZE="64"
 	export CONFIG_ROMSIZE="16"
-#	export CONFIG_DIAGNOSE_LEVEL="1"
-	export CONFIG_DIAGNOSE_LEVEL="0"
+	export CONFIG_DIAGNOSE_LEVEL="1"
+#	export CONFIG_DIAGNOSE_LEVEL="0"
 	#----dsl menu selection
 	export CONFIG_ATA_FULL="n"
 	export CONFIG_DSL_UR8="n"
@@ -599,18 +599,19 @@ case "$1" in
 	export CONFIG_LABOR_DSL="y"
 	export CONFIG_VDSL="y"
 	export CONFIG_VINAX="y"
+# 	export CONFIG_VLYNQ0="3"
 	export CONFIG_VINAX_TRACE="n"
-	export CONFIG_LIBZ="y"
-	#export CONFIG_LIBZ="n"
-	export CONFIG_VOL_COUNTER="y"
-	#export CONFIG_VOL_COUNTER="n"
+#	export CONFIG_LIBZ="y"
+	export CONFIG_LIBZ="n"
+#	export CONFIG_VOL_COUNTER="y"
+	export CONFIG_VOL_COUNTER="n"
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA="n"  
 	  export CONFIG_ATA_FULL="y"
 #	  export CONFIG_DSL="n"
 	  export CONFIG_DSL_MULTI_ANNEX="n"
 	  export CONFIG_VDSL="n"
-	  export CONFIG_LABOR_DSL="n"
+ 	  export CONFIG_LABOR_DSL="n"
 	fi 
 	#----
 	export CONFIG_LED_NO_DSL_LED="y"
@@ -659,7 +660,7 @@ sed -i -e 's|export |EXPORT_|' $HOMEDIR/${firmwareconf_file_name}
 # make sure Annex is set to A or B (muli uses B as default)
 [ "$ANNEX" != "B" ] && [ "$ANNEX" != "A" ] && echo "Commandline annex parameter -x is: '$ANNEX' but must be 'A' or 'B'" && exit 0  
 export kernel_args="annex=${ANNEX}" 
-[ "$CONFIG_DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
+#[ "$CONFIG_DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
 export CONFIG_ANNEX="${ANNEX}"
 # set above variables according to your hardware                    
 set_model "$SPMOD"
@@ -738,6 +739,8 @@ if [ "$ORI" != "y" ]; then
  if [ "$SPMOD" = "503" ]; then
  . Speedport503
  fi
+ #add missing files for tr064
+ [ "$CONFIG_TR064" = "y" ] && $sh2_DIR/copy_tr064_files
  #remove help 
  [ "$REMOVE_HELP" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
  #Add modinfo
@@ -801,6 +804,8 @@ else
 fi
 #dont set kernel annex args, if it is a multi annex firmware
 #make firmware insallable via GUI
+readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
+[ "$DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
 $sh_DIR/patch_install.sh "${SPDIR}"
 . $inc_DIR/testerror
 [ ${FAKEROOT_ON} = "n" ] && chmod -R 777 "${FBDIR}"
@@ -825,8 +830,6 @@ fi
 PANNEX="_annex${ANNEX}"
 [ "$DSL_MULTI_ANNEX" == "y" ] && PANNEX=""
 readConfig "MULTI_LANGUAGE" "MULTI_LANGUAGE" "${SRC}/etc/init.d"
-readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
-[ "$DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
 #Language="_${FORCE_LANGUAGE}"
 Language="_${avm_Lang}"
 [ "$MULTI_LANGUAGE" == "y" ] && Language=""
