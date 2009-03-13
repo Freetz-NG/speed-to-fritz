@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090313-1535-r-214
+    - push_FTP.bat update version of ncftp had changed.
 20090313-0832-r-213
     - W920: fix tr064 Option, and set it default to on.
 20090312-1847-r-212
