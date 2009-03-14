@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090314-1536-r-215
+    - W920: TR064 page added, for 7570/AVM firmware combinations.
 20090313-1535-r-214
     - push_FTP.bat update version of ncftp had changed.
 20090313-0832-r-213
