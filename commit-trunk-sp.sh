@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="push config kernel_args idle=4 removed"
+comment="W920: TR064 page added, for 7570/AVM firmware combinations."
 
 
 
@@ -55,6 +55,7 @@ cd trunk
 #svn delete --force ./speed-to-fritz/alien/subscripts/add_settings.sh
 #svn delete --force ./speed-to-fritz/alien/patches/add_tam_en.47.patch
 #svn delete --force ./speed-to-fritz/alien/patches/add_tamhelp_en.47.patch
+svn delete --force ./speed-to-fritz/subscripts2/copy_tr064_files
 
 #svn revert 
 svn add * --force
