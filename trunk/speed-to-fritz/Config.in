@@ -1143,7 +1143,8 @@ endif
 comment "SYSTEM Options -----------------------------------------------------"
 config XCHANGE_KERNEL
 	bool "Xchange kernel between tcom and avm source"
-	default n
+	default n if ! TYPE_SPEEDPORT_W721V
+	default y if TYPE_SPEEDPORT_W721V
 	help
 		For normal this is "n", but for testing this may be used, this option is dangerous,
 		but it can be used in combination with the option restore original firmware as well.

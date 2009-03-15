@@ -3,7 +3,7 @@ export PATH=$PATH:/sbin
 #dont change names of variables because some of the names are used in other files as well!
 ##########################################################################
 # Date of current version:                                          
-Tag="14"; Monat="03"; Jahr="09"
+Tag="15"; Monat="03"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -739,7 +739,9 @@ if [ "$ORI" != "y" ]; then
  if [ "$SPMOD" = "503" ]; then
  . Speedport503
  fi
- #add missing files for tr064
+  #bug in home.js, courses mailfunction with tcom firmware, status page is emty  
+ $sh_DIR/fix_homebug.sh
+  #add missing files for tr064
  [ "$CONFIG_TR064" = "y" ] && $sh_DIR/copy_tr064_files.sh
  #remove help 
  [ "$REMOVE_HELP" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
