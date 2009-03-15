@@ -22,7 +22,9 @@ TR064TXT1="Automatische Einrichtung aus dem lokalen Netzwerk zulassen (TR-064)"
 TR064TXT2="Diese Einstellung ermoeglicht es vom PC aus, mit kompatiblen Programmen in der FRITZ!Box eine Verbindung zum Konfigurationssystem fuer die automatische Einrichtung durch den Dienstanbieter einzurichten."
 fi
 
+if [ -f "${SRC}/usr/www/avm/html/de/system/net.html" ]; then
 if ! [ $(grep -q 'Tr064' "${SRC}/usr/www/avm/html/de/system/net.html" ) ]; then 
+echo "-- Adding TR064 setup pages..."
 sed -i -e '/FWChange/a\
 <\/div><\/div><\/div><\/div><\/div><\/div>\
 \` ?>\
@@ -80,6 +82,7 @@ jslSetValue("uiPostGetPage", "\.\.\/html\/reboot.html");\
 }\
 \` ?>/}' "${SRC}/usr/www/avm/html/de/system/net.js"
 
+fi
 fi
 #only for tests
 #cp -fdrp "${SRC_2}/usr/www/avme" "${SRC_2}/usr/www/avm"

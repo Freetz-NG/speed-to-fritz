@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090315-1426-r-218
+    - W920: cinfig.in, added possobility to combind tcom and 7570 firmware.
 20090315-1150-r-217
     - W721: AVM bug in home.js fixed.
 20090314-1536-r-215

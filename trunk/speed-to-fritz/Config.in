@@ -57,7 +57,7 @@ config TCOM_W920_13048
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.63-13048.zip mirror http://www.hostarea.de/server-01/Januar-25c121e202.zip"
 config TCOM_W920_13571
     string 
-    default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.72-13571.zip mirror http://www.hostarea.de/server-03/Maerz-fd7292707f.zip
+    default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.72-13571.zip mirror http://www.hostarea.de/server-03/Maerz-fd7292707f.zip"
 ###------------------------------------------------------------------------------------------------------------
 ### AVM firmware
 ### AVM firmware
@@ -509,14 +509,14 @@ config TCOM_IMG
 	default "$TCOM_W503_66" 		if TYPE_SPEEDPORT_W503V
 	default "$TCOM_W721_60" 		if TYPE_SPEEDPORT_W721V
 	default "$TCOM_W900_57" 		if TYPE_SPEEDPORT_W900V
-	default "$TCOM_W920_58" 		if TYPE_58 && ( TYPE_SPEEDPORT_W920V && ! TYPE_AVM_7570_70) 
-	default "$TCOM_W920_71" 		if ( ! TYPE_TCOMBETA ) && ( TYPE_SPEEDPORT_W920V && ! TYPE_AVM_7570_70 )
-	default "$TCOM_W920_63" 		if TYPE_TCOM_BETA_63 && ( TYPE_SPEEDPORT_W920V && ! TYPE_AVM_7570_70 )
-	default "$TCOM_W920_70" 		if TYPE_TCOM_BETA_70 && ( TYPE_SPEEDPORT_W920V && ! TYPE_AVM_7570_70 )
-	default "$TCOM_W920_71" 		if TYPE_TCOM_BETA_71 && ( TYPE_SPEEDPORT_W920V && ! TYPE_AVM_7570_70 )
-	default "$TCOM_W920_13048" 		if TYPE_TCOM_BETA_13048 && ( TYPE_SPEEDPORT_W920V && ! TYPE_AVM_7570_70 )
-	default "$TCOM_W920_13571" 		if TYPE_TCOM_BETA_13571 && ( TYPE_SPEEDPORT_W920V && ! TYPE_AVM_7570_70 )
-	default "$AVM_7570_70" 			if TYPE_AVM_7570_70 || ( TYPE_TCOM_7570_70 && TYPE_SPEEDPORT_W920V )
+	default "$TCOM_W920_58" 		if TYPE_58 && ( TYPE_SPEEDPORT_W920V ) 
+	default "$TCOM_W920_71" 		if ( ! TYPE_TCOMBETA ) && ( TYPE_SPEEDPORT_W920V )
+	default "$TCOM_W920_63" 		if TYPE_TCOM_BETA_63 && ( TYPE_SPEEDPORT_W920V )
+	default "$TCOM_W920_70" 		if TYPE_TCOM_BETA_70 && ( TYPE_SPEEDPORT_W920V )
+	default "$TCOM_W920_71" 		if TYPE_TCOM_BETA_71 && ( TYPE_SPEEDPORT_W920V )
+	default "$TCOM_W920_13048" 		if TYPE_TCOM_BETA_13048 && ( TYPE_SPEEDPORT_W920V )
+	default "$TCOM_W920_13571" 		if TYPE_TCOM_BETA_13571 && ( TYPE_SPEEDPORT_W920V )
+	default "$AVM_7570_70" 			if TYPE_TCOM_7570_70 && ( TYPE_SPEEDPORT_W920V )
 
 	default "$TCOM_LOCAL"	 		if TYPE_LOCAL_TCOM
 
