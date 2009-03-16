@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090316-1112-r-220
+    - Config.in: add FRITZ.Box_Fon_WLAN_7170.29.04.70.image
 20090316-0451-r-219
     - W920: if AVM firmware is 7570 then now only vinax* files are taken from altenative T-com source.
 20090315-1426-r-218
