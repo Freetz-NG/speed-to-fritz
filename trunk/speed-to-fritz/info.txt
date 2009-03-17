@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090317-1530-r-224
+    - fix 7570 config.in link
 20090317-1152-r-223
     - restart added, this starts sp-to-fritz.sh with an existing Firmware.conf
 20090317-0901-r-222
