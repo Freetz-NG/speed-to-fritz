@@ -962,7 +962,7 @@ config EXPORT_FBHWRevision
 		HWR 142 = Speedport W721VK
 		HWR 143 = Speedport W101 Bridge
 		HWR 144 = FB Fon WLAN 7240
-		HWR 145 = FB Fon WLAN 7270 (andere Version als HWR139?)
+		HWR 145 = Fritz_Box_7270plus
 		HWR 146 = FB Fon WLAN 7570 vDSL
 		HWR 147 = DSL-EasyBox A802-R
 		HWR 148 = DSL-EasyBox A602
