@@ -150,7 +150,7 @@ config AVM_WLANX_7270_13783
 ### 7570
 config AVM_7570_70
     string 
-    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.image"
+#    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.image"
 ##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #( dont remove the following line)
 ### FIRMWARE_CONFIG_ENDE ###
@@ -363,6 +363,7 @@ choice
 	config TYPE_13486
 		bool "7270_13486"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
+		select SET_FREETZ_REVISION
 	config TYPE_67m
 		bool "67 multilingual german english italian spanish"
 		depends on TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM
@@ -1448,8 +1449,8 @@ comment "Options only in use with start-freetz.sh ---------------------------"
 
 config SET_FREETZ_REVISION
 	bool "Set a freetz revision (setup)"
-	default n if ! TYPE_SPEEDPORT_W920V
-	default y if TYPE_58  && TYPE_SPEEDPORT_W920V
+	default n if ! ( ( TYPE_58  && TYPE_SPEEDPORT_W920V ) || TYPE_13486 )
+	default y if   ( ( TYPE_58  && TYPE_SPEEDPORT_W920V ) || TYPE_13486 )
 	help
 	    normaly this is not set, but in specail cases new revisions of freetz
 	    can't be used in combination with the firmware on wants to use.

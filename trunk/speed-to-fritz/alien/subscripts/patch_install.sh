@@ -27,6 +27,9 @@ sed -i -e "s|# Versioninfo:.*$|${SP_Vesioninfo}|" "${1}"/var/install
 sed -i -e "s|# Checkpoint:.*$|${SP_Checkpoint}|" "${1}"/var/install
 sed -i -e "s|kernel_size=.*$|${SP_kernel_size}|" "${1}"/var/install
 
+[ ${kernel_start} ] && sed -i -e "s|kernel_start=.*$|kernel_start=${kernel_start}|" "${1}"/var/install
+[ ${urlader_size} ] && sed -i -e "s|urlader_size=.*$|urlader_size=${urlader_size}|" "${1}"/var/install
+
 [ "$FORCE_CLEAR_FLASH" = "y" ] && sed -i -e "s|force_update=n|force_update=y|" "${1}"/var/install
 
 chmod -R 777 "${1}"/var

@@ -3,7 +3,7 @@ export PATH=$PATH:/sbin
 #dont change names of variables because some of the names are used in other files as well!
 ##########################################################################
 # Date of current version:                                          
-Tag="16"; Monat="03"; Jahr="09"
+Tag="17"; Monat="03"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -25,7 +25,8 @@ export COPY_HEADER="n"
 export REMOVE_HELP="n"
 export REMOVE_KIDS="n"
 export ATA_ONLY="n"
-export FREETZ_REVISION=""
+export FREETZ_REVISION="" # this is the real revision used
+export FREETZREVISION="" # this is selectet via mene
 ENABLE_EXT2="n"
 MOVE_ALL_to_OEM="n"
 # normal no second image
@@ -630,7 +631,15 @@ case "$1" in
 	export CONFIG_UsbHost="1" 
 	export CONFIG_UsbStorage="1"
 	export CONFIG_UsbPrint="1"
+#	export kernel_start="0x90010000"
+	export kernel_start="0x90020000"
 	export kernel_size="16121856"
+#	export filesystem_start="0x90000000"
+#	export filesystem_size="0"
+	export urlader_start="0x90000000"
+#	export urlader_size="65536"
+	export urlader_size="131072"
+
 	# nees diffent tool
 	export MKSQUASHFS_TOOL="mksquashfs3-lzma"
 	export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
@@ -839,6 +848,7 @@ Language="_${avm_Lang}"
 [ "$ORI" != "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}_W${SPNUM}V_${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}${PANNEX}${Language}.image"
 [ "$ORI" == "y" ] && export NEWIMG="${SPIMG}_OriginalTcomAdjusted${PANNEX}${Language}.image"
 [ "$ATA_ONLY" = "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}_W${SPNUM}V_${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}_ATA-ONLY${Language}.image"
+echo "export MULTI_LANGUAGE=\"${MULTI_LANGUAGE}\"" >> incl_var
 echo "export kernel_args=\"${kernel_args}\"" >> incl_var
 echo "export NEWIMG=\"${NEWIMG}\"" >> incl_var
 # print some info on screen

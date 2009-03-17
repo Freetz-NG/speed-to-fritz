@@ -1,8 +1,7 @@
 #!/bin/bash
-export SVN_VERSION="XXXX"
 #This skript should do the complete thing, no extra preparation should be needed if it runs within Ubuntu, andLinux or other 
 #debian derivates. 
-#It is recommended to run speed-to-fritz (./707 or any other) prior to this skript with the wanted firmware combinations
+#It is recommended to run speed-to-fritz prior to this skript with the wanted firmware combinations
 #so the firmware-versions in use will be downloaded and can be used by freetz later without copying them by hand.
 #---------------------
 #here you can change the folder name of freetz
@@ -11,6 +10,7 @@ export FREETZ_DIR="freetz-trunk"
 export HOMEDIR="`pwd`"
 #include variables from last run of speed-to-fritz
 . ./incl_var
+export SVN_VERSION="X${FREETZREVISION}"
 if [ "$FIRST_RUN" = "y" ]; then  
 echo "" 
 echo "" 
@@ -61,7 +61,7 @@ echo "invoking 'speed-to-freetz'"
 #echo
 #echo "You must setup the proper fritz type in menuconfig later when menuconfig is started!"
 #echo "This must be the same as used before with speed-to-fritz"
-#echo "Usually it is the latest version of a 7170 firmware or a LABOR version."
+#echo "Usually it is the latest version of a 7170 or 7270 firmware or a LABOR version."
 #echo "For Sinus W500V it must be a 7150 Firmware."   
 #echo "For W920V it must be a 7270 Firmware."   
 #echo "With W501 it is only possible to use an older firmware version."
@@ -81,7 +81,8 @@ while [ "$KEY" != "y" ]; do
  [ "$YESNO" = "y" ] || [ "$YESNO" = "n" ] &&  KEY="y"
  [ "$KEY" = "x" ] && echo "wrong key!"
  [ "$YESNO" = "n" ] && ./start
-
+    #include variables from last run of speed-to-fritz
+ [ "$YESNO" = "n" ] &&. ./incl_var
 done
 
 echo
@@ -182,9 +183,9 @@ echo "--Image files present in '$DL_DIR_ABS/fw':"
 ls -l $DL_DIR_ABS/fw/*.image 2>&1 | grep -v 'No such file' 
 echo
 echo "Now you can run 'make menuconfig', at the first time a lot of warnings will be displayed!"
-echo "Select '7170' or '7150' suitable for your speedporttype 'W900, W701 or Sinus 500'"
+echo "Select '7270', '7170' or '7150' suitable for your speedporttype 'W920, W900, W701 or Sinus 500'"
 echo "As next step run 'make'"
-echo "But the used firmware has to be copied to the '$DL_DIR_ABS' directory first,"
+echo "The used firmware has to be copied to the '$DL_DIR_ABS' directory first,"
 echo "if it is not present in ./speed-to-fritz/Firmware.orig at the time of starting this script."
 echo "If you did invoke speed-to-fritz before with the same firmwares in use, all should be present in:"
 echo " '$DL_DIR_ABS/fw' directory without copying the files after this script did run!"
@@ -219,28 +220,34 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
               
 #echo "LABORTYPE: $TYPE_LABOR_TYPE  LANGUAGE:$avm_Lang  FBMOD:${FBMOD}"
 #sleep 5
-  sed -i -e "s/default FREETZ_TYPE_LABOR_MI.*/default FREETZ_TYPE_LABOR_$TYPE_LABOR_TYPE/" "./Config.in" 2> /dev/null
-  [ "$avm_Lang" = "en" ] && sed -i -e "s/default FREETZ_TYPE_LANG_DE/default FREETZ_TYPE_LANG_EN/" "./Config.in" 2> /dev/null
-
-   #sed -i -e '/is not set/d' "./.config" 2> /dev/null
-   #sed -i -e '/ # /d' "./.config" 2> /dev/null
+    [ "$avm_Lang" = "en" ] && sed -i -e "s/default FREETZ_TYPE_LANG_DE/default FREETZ_TYPE_LANG_EN/" "./Config.in" 2> /dev/null
+    [ "$avm_Lang" = "de" ] && sed -i -e "s/default FREETZ_TYPE_LANG_EN/default FREETZ_TYPE_LANG_DE/" "./Config.in" 2> /dev/null
    sed -i -e '/FREETZ_TYPE/d' "./.config" 2> /dev/null
-   #sed -i -e '/#/d' "./.config" 2> /dev/null
-   #sed -i -e '/FREETZ_TYPE.*=y/d' "./.config" 2> /dev/null
-  [ "$SPNUM" = "500" ] && echo "FREETZ_TYPE_WLAN_${FBMOD}=y" >> "./.config" 2> /dev/null
-  [ "$SPNUM" = "500" ] || echo "FREETZ_TYPE_FON_WLAN_${FBMOD}=y" >> "./.config" 2> /dev/null
-  [ "$avm_Lang" = "de" ] && sed -i -e 's/# FREETZ_TYPE_LANG_DE.*/FREETZ_TYPE_LANG_DE=y/' "./.config" 2> /dev/null
-  [ "$avm_Lang" = "de" ] && sed -i -e 's/FREETZ_TYPE_LANG_EN=.*/# FREETZ_TYPE_LANG_DE is not set/' "./.config" 2> /dev/null
+  #[ "$avm_Lang" = "de" ] && sed -i -e 's/# FREETZ_TYPE_LANG_DE.*/FREETZ_TYPE_LANG_DE=y/' "./.config" 2> /dev/null
+  #[ "$avm_Lang" = "de" ] && sed -i -e 's/FREETZ_TYPE_LANG_EN=.*/# FREETZ_TYPE_LANG_DE is not set/' "./.config" 2> /dev/null
 
-  sed -i -e 's/# FREETZ_TYPE_LANG_EN.*/FREETZ_TYPE_LANG_EN=y/' "./.config" 2> /dev/null
-  [ "$avm_Lang" = "en" ] && sed -i -e 's/# FREETZ_TYPE_ANNEX_A.*/FREETZ_TYPE_ANNEX_A=y/' "./.config" 2> /dev/null
-  [ "$avm_Lang" = "en" ] && sed -i -e 's/FREETZ_TYPE_LANG_DE=.*/# FREETZ_TYPE_LANG_EN is not set/' "./.config" 2> /dev/null
-  [ "$avm_Lang" = "en" ] && sed -i -e 's/FREETZ_TYPE_ANNEX_B=.*/# FREETZ_TYPE_ANNEX_A is not set/' "./.config" 2> /dev/null
+  #sed -i -e 's/# FREETZ_TYPE_LANG_EN.*/FREETZ_TYPE_LANG_EN=y/' "./.config" 2> /dev/null
+  #[ "$avm_Lang" = "en" ] && sed -i -e 's/# FREETZ_TYPE_ANNEX_A.*/FREETZ_TYPE_ANNEX_A=y/' "./.config" 2> /dev/null
+  #[ "$avm_Lang" = "en" ] && sed -i -e 's/FREETZ_TYPE_LANG_DE=.*/# FREETZ_TYPE_LANG_EN is not set/' "./.config" 2> /dev/null
+  #[ "$avm_Lang" = "en" ] && sed -i -e 's/FREETZ_TYPE_ANNEX_B=.*/# FREETZ_TYPE_ANNEX_A is not set/' "./.config" 2> /dev/null
 
-
-  [ "$TYPE_LABOR" = "y" ] && echo "FREETZ_TYPE_LABOR=y" >> "./.config" 2> /dev/null
-  [ "$TYPE_LABOR" = "y" ] && echo "FREETZ_TYPE_LABOR_$TYPE_LABOR_TYPE=y" >> "./.config" 2> /dev/null
-
+  #7570 -->
+  if [ "$TYPE_LABOR_TYPE" = "7570_70" ]; then
+    [ "$MULTI_LANGUAGE" = "y" ] && sed -i -e "s/default FREETZ_TYPE_LANG_DE/default FREETZ_TYPE_LANG_EN/" "./Config.in" 2> /dev/null
+    [ "$MULTI_LANGUAGE" = "y" ] && sed -i -e "s/default FREETZ_LANG_EN/default FREETZ_LANG_DE/" "./Config.in" 2> /dev/null
+    sed -i -e 's|HTML_LANG_MOD_DIR="${HTML_MOD_DIR}/avme/en|HTML_LANG_MOD_DIR="${HTML_MOD_DIR}/avme|' "./fwmod" 2> /dev/null
+    echo "FREETZ_TYPE_FON_WLAN_7270=y" >> "./.config" 2> /dev/null
+  #7570 <--
+  else
+    [ "$SPNUM" = "500" ] && echo "FREETZ_TYPE_WLAN_${FBMOD}=y" >> "./.config" 2> /dev/null
+    [ "$SPNUM" = "500" ] || echo "FREETZ_TYPE_FON_WLAN_${FBMOD}=y" >> "./.config" 2> /dev/null
+    #woraround if Final was selected as Labor
+    if [ "$TYPE_LABOR_TYPE" != "7270_13486" ] && [ "$TYPE_LABOR_TYPE" != "58" ] && [ "$TYPE_LABOR_TYPE" != "59" ] && [ "$TYPE_LABOR_TYPE" != "67" ] && [ "$TYPE_LABOR_TYPE" != "70" ]; then
+     sed -i -e "s/default FREETZ_TYPE_LABOR_MI.*/default FREETZ_TYPE_LABOR_$TYPE_LABOR_TYPE/" "./Config.in" 2> /dev/null
+     [ "$TYPE_LABOR" = "y" ] && echo "FREETZ_TYPE_LABOR=y" >> "./.config" 2> /dev/null
+     [ "$TYPE_LABOR" = "y" ] && echo "FREETZ_TYPE_LABOR_$TYPE_LABOR_TYPE=y" >> "./.config" 2> /dev/null
+    fi  
+  fi    
   make menuconfig
 
   sed -i -e 's/.*FREETZ_DL_OVERRIDE=.*$/FREETZ_DL_OVERRIDE=y/' "./.config" 2> /dev/null
@@ -286,13 +293,13 @@ done
 echo "---------------------------------------------------------------------------------------------------------------"
 echo "modimage=${modimage}"
 if ! [ -f "./images/${modimage}" ]; then
+echo "_______________________________________________________________________________________________________________"
  echo "Something went wrong, Freetzfirmware not found!" 
 echo "_______________________________________________________________________________________________________________"
  echo
  echo "If Firmware was created, you may copy the freetz image yourself to:"
  echo "$FWBASE"
- echo "Rename the image to: freetz.image"
- echo "Then start speed-to-fretz setup (./start) again and select freetz.image as AVM LABOR source"
+ echo "Then start speed-to-fretz setup (./start) again and select freetz image as AVM LABOR source"
 echo "_______________________________________________________________________________________________________________"
 else
  rm -fdr $HOMEDIR/Firmware.orig/${FREETZ_TYPE_STRING}_freetz.image
