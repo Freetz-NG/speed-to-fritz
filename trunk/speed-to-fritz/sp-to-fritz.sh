@@ -387,7 +387,8 @@ case "$1" in
 	export CONFIG_TAM="y"
 	export CONFIG_TAM_MODE="1"
 	export CONFIG_MAILER2="y"
-	export CONFIG_IsdnNT="1"
+	#is TE Terminal Equipt
+	export CONFIG_IsdnTE="1"
 	export CONFIG_Pots="1"
 	export kernel_size="7798784"
 #aditional not in use on W701 but on 7170	

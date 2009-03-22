@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090322-1756-r-227
+    - W721: fix TE <-> NT was mixed up, no isdn was possibe.
 20090322-1654-r-226
     - W721: Add tcom config, to be able to use tcom as brandig.
 20090317-1809-r-225

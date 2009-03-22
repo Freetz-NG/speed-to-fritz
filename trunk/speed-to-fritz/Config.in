@@ -1223,6 +1223,7 @@ config COPY_ADDON_TMP_to_ORI
 config MOVE_ALL_to_OEM
 	bool "MOVE ALL to OEM"
 	default y
+	depends on ! TYPE_SPEEDPORT_W721V
 	help
 		Set this to "y" if Freetz 7170 Firmwares are used instead of original AVM Firmware, 
 		WWW "all" directory is moved to "$OEM"
