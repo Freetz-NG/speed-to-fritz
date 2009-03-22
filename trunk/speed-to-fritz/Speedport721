@@ -12,6 +12,9 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
     rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
+#tcom 
+ cp -fdrp "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}" "${SRC}/etc/default.${CONFIG_PRODUKT}/tcom"
+ cp -fdrp "${DST}/etc/default.${CONFIG_PRODUKT}/tcom" --target-directory="${SRC}/etc/default.${CONFIG_PRODUKT}"
 
 
 #ATA only--->
