@@ -706,7 +706,7 @@ config ANNEX
 
 config EXPORT_OEM
 	string
-	default "tcom" if ORI
+	default "tcom" if ORI || TYPE_SPEEDPORT_W721V 
 	default "avm" if ( TYPE_LANG_DE && ! TYPE_67m && ! TYPE_AVM_7570_70 && ! EXPORT_CONFIG_MULTI_LANGUAGE )
 	#default "avm" if TYPE_LANG_A_CH
 	default "avme" if ( TYPE_LANG_EN  || TYPE_67m || TYPE_AVM_7570_70 ) && ! EXPORT_CONFIG_MULTI_LANGUAGE   

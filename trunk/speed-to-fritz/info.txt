@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090324-0612-r-229
+    - W721: OEM set default to tcom, strings.tab is now taken from AVM firmware.
 20090323-1226-r-228
     - fakeroot downloadlink changed.
 20090322-1756-r-227
