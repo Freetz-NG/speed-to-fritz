@@ -118,7 +118,12 @@ sed -i -e '/## /d' "${SRC}/etc/init.d/rc.S"
 echo2 "Removing files for further image size reduction:"
 
 $sh_DIR/remove_files_501.sh ${SRC}
-
+#remove programme menu entry  
+DIRI="${SRC}/usr/www/avm/html/de/menus" 
+for FILE in `ls "${DIRI}"/*`; do  
+    sed -i -e "/'software','extern'/d" $FILE
+done
+    
 
 ##########################################################################################
 echo "********************************************************************************"

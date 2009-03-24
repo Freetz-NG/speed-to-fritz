@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090324-0930-r-231
+    - W501 removed 'programme' from speedport menu.
 20090324-0707-r-230
     - fakeroot pump to 1.12.2
 20090324-0612-r-229
