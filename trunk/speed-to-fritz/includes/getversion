@@ -4,19 +4,21 @@
 #########################################################################
 echo2 "--------------------------------------------------------------------------------"
 echo2 "Verifying version of TCOM and AVM firmware images ..."
+readConfig "VERSION_MAJOR" "TCOM_VERSION_MAJOR" "${DST}/etc/init.d"
 export TCOM_VERSION=`cat ${DST}/etc/.version`
 export TCOM_V_MINOR=${TCOM_VERSION##*.}
 export TCOM_SUBVERSION=`cat ${DST}/etc/.subversion`
 export TCOM_SUBVERSION=`echo ${TCOM_SUBVERSION##*-} | tr -d '[:alpha:]'`
 [ "$TCOM_SUBVERSION" = "" ] &&  export TCOM_SUBVERSION="0"
-echo2 "-- TCOM firmware image version is: $TCOM_VERSION-$TCOM_SUBVERSION"
+echo2 "-- TCOM firmware image version is: $TCOM_VERSION_MAJOR.$TCOM_VERSION-$TCOM_SUBVERSION"
 
+readConfig "VERSION_MAJOR" "AVM_VERSION_MAJOR" "${SRC}/etc/init.d"
 export AVM_VERSION=`cat ${SRC}/etc/.version`
 export AVM_V_MINOR=${AVM_VERSION##*.}
 export AVM_SUBVERSION=`cat ${SRC}/etc/.subversion`
 export AVM_SUBVERSION=`echo ${AVM_SUBVERSION##*-} | tr -d '[:alpha:]'`
 [ "$AVM_SUBVERSION" = "" ] && export AVM_SUBVERSION="0"
-echo2 "-- AVM  firmware image version is: $AVM_VERSION-$AVM_SUBVERSION"
+echo2 "-- AVM  firmware image version is: $AVM_VERSION_MAJOR.$AVM_VERSION-$AVM_SUBVERSION"
 
 
 if [  -e "${SPDIR}/var/install" ]; then
@@ -25,7 +27,7 @@ export SP_Checkpoint=`cat "${SPDIR}"/var/install | grep Checkpoint: | tr , ' '`
 #export SP_kernel_size=`cat "${SPDIR}"/var/install | grep kernel_size= | tr , ' '`
 
 else
-export SP_Vesioninfo="# Versioninfo:	33.$TCOM_VERSION"
+export SP_Vesioninfo="# Versioninfo:	$TCOM_VERSION_MAJOR.$TCOM_VERSION"
 export SP_Checkpoint="# Checkpoint:	r0000"
 #export SP_kernel_size="kernel_size=7798784"
 fi
