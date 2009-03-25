@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090325-1825-r-233
+    - Versioninfo in firmware name extended by major version.
 20090324-1259-r-232
     - W721: disable all AVM firmwares exept .59 no other is usable.
 20090324-0930-r-231
