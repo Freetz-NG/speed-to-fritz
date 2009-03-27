@@ -24,18 +24,28 @@ echo2 "-- AVM  firmware image version is: $AVM_VERSION_MAJOR.$AVM_VERSION-$AVM_S
 if [  -e "${SPDIR}/var/install" ]; then
 export SP_Vesioninfo=`cat "${SPDIR}"/var/install | grep Versioninfo: | tr , ' '`
 export SP_Checkpoint=`cat "${SPDIR}"/var/install | grep Checkpoint: | tr , ' '`
-#export SP_kernel_size=`cat "${SPDIR}"/var/install | grep kernel_size= | tr , ' '`
-
+export SP_kernel_sizeR=`cat "${SPDIR}"/var/install | grep kernel_size=[[:digit:]] | tr , ' ' | sed 's/kernel_size=//'`
 else
 export SP_Vesioninfo="# Versioninfo:	$TCOM_VERSION_MAJOR.$TCOM_VERSION"
 export SP_Checkpoint="# Checkpoint:	r0000"
-#export SP_kernel_size="kernel_size=7798784"
 fi
-#Now taken as constant from speed-to-fritz.sh
+#Now taken as constant from sp-to-fritz.sh
 export SP_kernel_size="kernel_size=${kernel_size}"
 
+if [  -e "${FBDIR}/var/install" ]; then
+export FB_Vesioninfo=`cat "${FBDIR}"/var/install | grep Versioninfo: | tr , ' '`
+export FB_Checkpoint=`cat "${FBDIR}"/var/install | grep Checkpoint: | tr , ' '`
+export FB_kernel_sizeR=`cat "${FBDIR}"/var/install | grep kernel_size=[[:digit:]] | tr , ' ' | sed 's/kernel_size=//'`
+else
+export FB_Vesioninfo="# Versioninfo:	$AVM_VERSION_MAJOR.$AVM_VERSION"
+export FB_Checkpoint="# Checkpoint:	r0000"
+fi
 [ -n "$SP_Vesioninfo" ] && echo2 "-- TCOM  $SP_Vesioninfo"
+[ -n "$FB_Vesioninfo" ] && echo2 "-- AVM   $FB_Vesioninfo"
 [ -n "$SP_Checkpoint" ] && echo2 "-- TCOM  $SP_Checkpoint"
+[ -n "$FB_Checkpoint" ] && echo2 "-- AVM   $FB_Checkpoint"
+[ -n "$SP_kernel_sizeR" ] && echo2 "-- TCOM  # Kernelsize:	$SP_kernel_sizeR"
+[ -n "$FB_kernel_sizeR" ] && echo2 "-- AVM   # Kernelsize:	$FB_kernel_sizeR"
 
 ## Für Language den Default der Firmware auflösen
 ## (es wird immer die Sprache der FW genommen)
