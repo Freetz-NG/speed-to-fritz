@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090330-0547-r-236
+    - Added intltool to be instlled in start-freetz.sh
 20090327-0532-r-235
     - Added skript checkpontinfo for AVM firmware, changes nothing else.
 20090325-1825-r-233

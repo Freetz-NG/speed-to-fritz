@@ -116,6 +116,7 @@ if [ "$YESNO" = "y" ]; then
  sudo apt-get -y install tofrodos gettext jam pkg-config jikes fastjar realpath perl
  sudo apt-get -y update && sudo apt-get -y upgrade &&\
  sudo apt-get -y install libstring-crc32-perl ruby ruby1.8 gawk python subversion bzip2
+ sudo apt-get -y install intltool
  echo "End update <-----"
  fi
 done
