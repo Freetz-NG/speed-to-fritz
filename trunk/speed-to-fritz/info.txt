@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090331-0335-r-237
+    - W920: Pump /Labor/7270_IPv6/fritz_box-labor-13988.zip 
 20090330-0547-r-236
     - Added intltool to be instlled in start-freetz.sh
 20090327-0532-r-235
