@@ -21,5 +21,6 @@ sudo apt-get -qqyf install automake
 sudo apt-get -qqyf install patch
 sudo apt-get -qqyf install subversion
 sudo apt-get -qqyf install ftp
+sudo apt-get -qqyf install kdiff3
 echo "----------------------------------------------------------------------------------------------"
 . ./start
