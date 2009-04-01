@@ -83,6 +83,9 @@ config AVM_7170_67
 config AVM_7170_70
     string
     default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.70.image"
+config AVM_7170_71
+    string
+    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.71-13948.image"
 config AVM_7170_A59
     string 
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image"
@@ -336,6 +339,9 @@ choice
 	config TYPE_70
 		bool "70"
 		depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
+	config TYPE_71
+		bool "71"
+		depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
 	config TYPE_AIO
 		bool "AiO - Alles in einem prerelease"
 		depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
@@ -449,6 +455,8 @@ choice
 #		bool "AVM_7170_67"
 	config TYPE_SRC3_AVM_7170_70
 		bool "AVM_7170_70"
+	config TYPE_SRC3_AVM_7170_71
+		bool "AVM_7170_71"
 	config TYPE_SRC3_AVM_7170_67en
 		bool "AVM_7170_67en"
 	config TYPE_SRC3_AVM_AIO_7170_13679
@@ -544,6 +552,7 @@ config AVM_IMG
 	default "$AVM_7170_A59" 			if ( TYPE_A59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)) || ( TYPE_SPEEDPORT_W721V && ! TYPE_LABOR )
 	default "$AVM_7170_67" 				if TYPE_67 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_7170_70" 				if TYPE_70 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_7170_71" 				if TYPE_71 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_DSL_7170_12562"			if TYPE_DSL && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_AIO_7170_13679"			if TYPE_AIO && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_GAMING_7170_11435"		if TYPE_GAMING && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
@@ -600,6 +609,7 @@ config SRC2_IMG
 	default "$AVM_7113_61" 			if TYPE_SRC3_AVM_7113_61
 	default "$AVM_7170_67" 			if TYPE_SRC3_AVM_7170_67
 	default "$AVM_7170_70" 			if TYPE_SRC3_AVM_7170_70
+	default "$AVM_7170_71" 			if TYPE_SRC3_AVM_7170_71
 	default "$AVM_BETA_7170_13679"		if TYPE_SRC3_AVM_BETA_7170_13679
 	default "$AVM_DSL_7170_12562"		if TYPE_SRC3_AVM_DSL_7170_12562
 	default "$AVM_AIO_7170_13679"		if TYPE_SRC3_AVM_AIO_7170_13679
@@ -640,6 +650,7 @@ config TYPE_LABOR_TYPE
         default "67" 		if TYPE_67
         default "67m" 		if TYPE_67m
         default "70" 		if TYPE_70
+        default "71" 		if TYPE_71
         default "13486" 	if TYPE_13486
         default "BETA" 		if TYPE_BETA
         default "DSL" 		if TYPE_DSL
