@@ -16,11 +16,12 @@ echo "-- Set expert Ansicht ..."
 
 
 FILELIST="/html/de/system/sitemap.html \
+/html/de/home/sitemap.html \
 /html/de/menus/menu2_system.html"
 
 for FILE in $FILELIST; do
   if [ -f "${SRC}/usr/www/${OEMLINK}/$FILE" ]; then 
-    sed -i -e "/'system', 'extended'/d" "${SRC}/usr/www/${OEMLINK}/$FILE"
+    sed -i -e "/'extended'/d" "${SRC}/usr/www/${OEMLINK}/$FILE"
     echo2 "  /usr/www/${OEMLINK}/$FILE"
   fi
 done

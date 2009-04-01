@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090401-0723-r-242
+    - Option expert, GUI menu removed if option is set to expert.
 20090401-0630-r-241
     - pump to /Labor/7270_IPv6/fritz_box-labor-13992.zip (13988?)
 20090401-0546-r-240
