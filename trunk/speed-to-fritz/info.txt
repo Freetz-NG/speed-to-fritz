@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090401-0755-r-243
+    - W920 IPV6 13988 added as local firmware.
 20090401-0723-r-242
     - Option expert, GUI menu removed if option is set to expert.
 20090401-0630-r-241
