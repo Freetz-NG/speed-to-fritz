@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090401-0542-r-239
+    - Option set expert added, default is set to no! (not testet jet.)
 20090401-0537-r-238
     - kdiff3 added to install-start
 20090331-0335-r-237

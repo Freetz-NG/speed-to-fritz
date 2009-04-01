@@ -773,6 +773,8 @@ if [ "$ORI" != "y" ]; then
  $sh_DIR/patch_tam.sh "${SRC}"
  #gsm page    
  [ "$DO_GSM_PATCH" = "y" ] && $sh_DIR/disply_gsm.sh "${SRC}" "${OEMLIST}"
+ #set expert Ansicht    
+ [ "$SET_EXPERT" = "y" ] && $sh_DIR/set_expertansicht.sh
  # reverse phonebook lookup
  [ "$DO_LOOKUP_PATCH" = "y" ] && $sh2_DIR/patch_fc "${SRC}"
  # remove tcom and some other oem dirs and add link instead to enable other brands.

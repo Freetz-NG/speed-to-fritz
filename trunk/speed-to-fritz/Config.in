@@ -1420,6 +1420,18 @@ config EXPORT_IPADDRESS
 	default "192.168.2.1" if TYPE_IP_2
 
 endmenu
+
+comment "Set GUI default ------------------------------------------"
+
+menu "Preset some GUI settings"
+
+config SET_EXPERT
+	bool "Set expert Ansicht as default"
+	default n
+	help
+	    This is usual set to no, within the AVM GUI. 
+endmenu
+
 comment "Addons for Speed-to-fritz ------------------------------------------"
 
 menu "Addon"
