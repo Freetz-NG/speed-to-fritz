@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090402-1316-r-248
+    - Config.in: change USB to AURA, to be conform with freetz.
 20090402-1246-r-247
     - Add in Config.in /Labor/7270_usb/fritz_box-labor-14047.zip
 20090402-0258-r-246
