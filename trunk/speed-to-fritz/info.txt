@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090402-0258-r-246
+    - Config.in FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.71-13948.image, removed again because not avalabel publicly
 20090401-1230-r-245
     - Config.in added local image: FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.71-13948.image
 20090401-1210-r-244
