@@ -2,7 +2,7 @@
 
 if [ $$ -ne 1 ]; then
 	echo "$0: check /proc/sys/urlader/environment "
-	echo "    for entry kernel_args and kernel_args1 to run this."
+	echo "	for entry kernel_args and kernel_args1 to run this."
 	echo
 	echo "# echo kernel_args1 init=$0 > /proc/sys/urlader/environment"
 	echo
@@ -37,35 +37,64 @@ fi
 	}
 
 
+	cmdLineToEnv() {
+		local __i=
+		local __name=
+		local __value=
+	
+		if [ -n "$1" ]; then
+			eval "$1=''"
+		fi
+		for __i in $(cat /proc/cmdline 2> /dev/null) ""; do
+			[ -z "$__i" ] && continue
+			__name="${__i%%=*}"
+			__value="${__i#*=}"
+			if [ -n "$1" ]; then
+				if [ "$1" = "$__name" ]; then
+					eval "$__name='$__value'"
+					break
+				fi
+			else
+				eval "$__name='$__value'"
+			fi
+		done
+	}
+
+
 my="- usb-root-init -"
 echo "$my"
 
 
-echo "$my init drivers ..."
+echo -n "$my init drivers ..."
 	mount -t proc proc /proc
 	echo "" > /proc/sys/kernel/hotplug
+	cmdLineToEnv fstype
 	if [ -n "$mods" ]; then
-		for m in $mods; do 
-			(
-				set -x
-				insmod $m 2> /dev/null
-			)
+		for m in $mods $fstype; do 
+			insmod $m 2> /dev/null && echo -n " $m"
 		done
 	fi
+	echo "."
+	echo "$my fstype=${fstype:-auto}."
+	[ -n "$fstype" ] && fstype="-t $fstype"
+
 
 
 echo -n "$my search for the external storage with the new rootfs ..."
 	rootfs_found=no
 	olddev=
-	while [ 0 -lt $sleep ]; do 
-		[ $$ = 1 ] && sleep 1
+	skip=
+	while [ 0 -lt $sleep ]; do
+		echo
+		read -t 1 skip
+		[ -n "$skip" ] && break
 		echo -n " $sleep ."
 		for dev in /dev/sd[a-z][1-9]*; do
 			olddev="$dev"
 			[ -b "$dev" ] || continue
 			dd if=$dev bs=1 count=1 1>/dev/null 2>&1 || continue
 			while umount $mnt 2> /dev/null; do :; done
-			mount -o ro $dev $mnt 2> /dev/null || continue
+			mount -o ro ${fstype} $dev $mnt 2> /dev/null || continue
 			echo -n " $dev "
 			[ -d "$rootfs" ] || continue
 			[ -x "$rootfs/etc/preinit" ] || continue
@@ -85,7 +114,7 @@ echo " go"
 
 
 echo "$my preparing new filesystem"
-	mount -o ro,noatime,nodiratime $dev $mnt
+	mount -o ro,noatime,nodiratime ${fstype} $dev $mnt
 
 	m_inode="`ls -di $mnt/. | awk '{print $1}'`" 
 	r_inode="`ls -di $rootfs/. | awk '{print $1}'`"

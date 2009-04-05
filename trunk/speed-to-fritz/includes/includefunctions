@@ -556,6 +556,7 @@ fw_pack()
     KERNEL_MOD="${FIRMWARE_MOD_DIR}/var/tmp/kernel.image"
     RAW_KERNEL_MOD="${KERNEL_MOD_DIR}/${RAW_KERNEL_FILE}"
     RAW_HIDDEN_MOD="${KERNEL_MOD_DIR}/${RAW_HIDDEN_FILE}"
+    ROOTFS_TAR="${NEWDIR}/${3}.rootfs.tar"
     # Do we have the tool ?
     if [ ! -x "$FAKEROOT" ]; then
 	echo  "cannot find the tool $FAKEROOT_TOOL"
@@ -610,6 +611,8 @@ fw_pack()
 	# This can take an instant, so wait if necessary.
 	until [ -r fakechroot.save ]; do sleep 0.1; done
 	"$FAKEROOT" -i fakechroot.save -- $MKSQUASHFS $FILESYSTEM_MOD_DIR/* $RAW_HIDDEN_MOD $MKSQUASHFS_OPTIONS -b $FILESYSTEM_BLOCKSIZE > $DIR/filesystem.log 2>&1
+	[ "$ADD_USBROOT" = "y" ] && "$FAKEROOT" -i fakechroot.save -- "$TAR" cf "${ROOTFS_TAR}" --owner=0 --group=0 -C $FILESYSTEM_MOD_DIR/. . 2> $DIR/filesystem.log 2>&1
+	[ -f "${ROOTFS_TAR}" ] && echo "USBROOT file: ${ROOTFS_TAR}"
 	rm -f fakechroot.save
     else
 	[ "$MAKE_DEV" = "y" ] && $MAKEDEVS -d $MAKEDEVS_FILE $FILESYSTEM_MOD_DIR > $MOD_DIR/mkdev.log 2>&1

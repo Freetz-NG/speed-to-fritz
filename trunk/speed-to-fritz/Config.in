@@ -1487,6 +1487,14 @@ config EXPORT_ADD_NTFS
 		With new AVM Versions in most cases ntfs is part of the Firmware.
 		Or you can select a 3rd Firmware from where the driver will be taken.
 
+config EXPORT_ADD_USBROOT
+	bool "Add USBROOT"
+	select EXPORT_ENABLE_EXT2
+	depends on TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM
+	default n
+	help
+		Generate a USB rot file for use on a USB stick.
+
 endmenu
 
 comment "Options only in use with start-freetz.sh ---------------------------"

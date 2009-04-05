@@ -1,2 +1,3 @@
-#!/bin/bash
-echo init=/jp/init-usb-root.sh > /proc/sys/urlader/environment
+#!/bin/sh
+set -v
+echo kernel_args1 init=/jp/init-usb-root.sh > /proc/sys/urlader/environment
