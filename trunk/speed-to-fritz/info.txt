@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090408-1429-r-250
+    - Config.in: pump to /7270_dsl/fritz_box-labor-1400.zip
 20090405-1106-r-249
     - Config.in: Addon option added to generate, usbroot.tar file.
 20090402-1316-r-248
