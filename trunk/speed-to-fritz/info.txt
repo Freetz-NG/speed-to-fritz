@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090408-1446-r-251
+    - Config.in: pump to /Labor/MT-D_7270/fritz_box-labor-7270-14067.image
 20090408-1429-r-250
     - Config.in: pump to /7270_dsl/fritz_box-labor-1400.zip
 20090405-1106-r-249
