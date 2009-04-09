@@ -128,7 +128,7 @@ config AVM_7270_59
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.59.image"
 config AVM_7270_67
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_wlan/fritz_box-labor-13783.zip ./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
+    default "./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
 config AVM_7270_67m
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image"    
@@ -143,7 +143,7 @@ config AVM_7270_13486
     default "http://www.hostarea.de/server-02/Februar-3257971088.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.70-13486.image"
 config AVM_PHONE_7270_13806
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-13806.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7270/fritz_box-labor-7270-14067.image"
 config AVM_AURA_7270_14047
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_usb/fritz_box-labor-14047.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabAURA.AnnexB.54.04.95-14047.image"
@@ -153,12 +153,9 @@ config AVM_IPV6_7270_13988
 config AVM_IPV6_7270_13992
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_IPv6/fritz_box-labor-13992.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabIPV6.AnnexB.54.04.94-13992.image"
-config AVM_WLANX_7270_13783
+config AVM_WLANX_7270_14080
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_wlan/fritz_box-labor-13783.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_WLAN_Labor_54.04.98-13783.image"
-config AVM_MTD_7270_14067
-    string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7270/fritz_box-labor-7270-14067.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_wlan/fritz_box-labor-14080.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_WLAN_Labor_54.04.98-14080.image"    
 ### 7570
 config AVM_7570_70
     string 
@@ -363,9 +360,9 @@ choice
 	config TYPE_IPV6_13988
 		bool "IPV6_13988"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
-	config TYPE_MTD
-		bool "MTD"
-		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
+#	config TYPE_MTD
+#		bool "MTD"
+#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
 	config TYPE_IPV6
 		bool "IPV6"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
@@ -492,12 +489,12 @@ choice
 		bool "AVM_DSL_7270_14000"
 	config TYPE_SRC3_AVM_AIO_7270_13679 
 		bool "AVM_AIO_7270_13679"
-	config TYPE_SRC3_AVM_WLANX_7270_13783
-		bool "AVM_WLANX_7270_13783"
+	config TYPE_SRC3_AVM_WLANX_7270_14080
+		bool "AVM_WLANX_7270_14080"
 	config TYPE_SRC3_AVM_AURA_7270_14047
 		bool "AVM_AURA_7270_14047"
-	config TYPE_SRC3_AVM_MTD_7270_14067
-		bool "AVM_MTD_7270_14067"
+#	config TYPE_SRC3_AVM_MTD_7270_14067
+#		bool "AVM_MTD_7270_14067"
 	config TYPE_SRC3_AVM_IPV6_7270_13988
 		bool "AVM_IPV6_7270_13988"
 	config TYPE_SRC3_AVM_IPV6_7270_13992
@@ -585,7 +582,7 @@ config AVM_IMG
 	default "$AVM_7270_13486"			if ( TYPE_13486 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_DSL_7270_14000"			if ( TYPE_DSL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_AIO_7270_13679"			if ( TYPE_AIO ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-	default "$AVM_WLANX_7270_13783"			if ( TYPE_WLAN ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+	default "$AVM_WLANX_7270_14080"			if ( TYPE_WLAN ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_AURA_7270_14047"			if ( TYPE_AURA_14047 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )	
 	default "$AVM_IPV6_7270_13988"			if ( TYPE_IPV6_13988 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )	
 	default "$AVM_IPV6_7270_13992"			if ( TYPE_IPV6 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )	
@@ -644,7 +641,7 @@ config SRC2_IMG
 	default "$AVM_7270_67m"	 		if TYPE_SRC3_AVM_7270_67m
 	default "$AVM_7270_13486"		if TYPE_SRC3_AVM_7270_13486
 	default "$AVM_AIO_7270_13679"		if TYPE_SRC3_AVM_AIO_7270_13679
-	default "$AVM_WLANX_7270_13783"		if TYPE_SRC3_AVM_WLANX_7270_13783
+	default "$AVM_WLANX_7270_14080"		if TYPE_SRC3_AVM_WLANX_7270_14080
 	default "$AVM_AURA_7270_14047"		if TYPE_SRC3_AVM_AURA_7270_14047	
 	default "$AVM_IPV6_7270_13988"		if TYPE_SRC3_AVM_IPV6_7270_13988	
 	default "$AVM_IPV6_7270_13992"		if TYPE_SRC3_AVM_IPV6_7270_13992	

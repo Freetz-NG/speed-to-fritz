@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090409-1100-r-252
+    - Config.in: pump to /Labor/7270_wlan/fritz_box-labor-14080.zip, MT-D changed to phone
 20090408-1446-r-251
     - Config.in: pump to /Labor/MT-D_7270/fritz_box-labor-7270-14067.image
 20090408-1429-r-250
