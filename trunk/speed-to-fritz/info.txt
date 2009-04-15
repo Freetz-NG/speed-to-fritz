@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090415-1606-r-254
+    - W920: Wrapper option for dsld added, but not tested!
 20090410-0259-r-253
     - Expert vew enabeled again, is now set via ar7.cfg
 20090409-1636-r-253

@@ -1126,6 +1126,13 @@ if ! EXPORT_ATA_ONLY
 	default n
 	help
 		Save DSL DRIVER from TCOM source to ./addon/tmp/modules.
+    config WRAP_DSLD
+	bool "Wrap dsld and ar7cfg "
+	depends on TYPE_SPEEDPORT_W920V
+	default n
+	help
+		wrap dsld, ...
+
 endif
 #config EXPORT_SETATM
 #
