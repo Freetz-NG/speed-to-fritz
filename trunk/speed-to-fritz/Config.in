@@ -1081,7 +1081,7 @@ if ! EXPORT_ATA_ONLY
 		Use PCMLINK from t-com firmware.
     config FORCE_SRC2_KDSLDMOD
 	bool "Use source 3 ksldmod driver"
-	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
+	depends on SOURCE2 && TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V 
 	default n
 	help
 		Use KSLDMOD from source 3 firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
