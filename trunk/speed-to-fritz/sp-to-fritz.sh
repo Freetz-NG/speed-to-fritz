@@ -3,6 +3,7 @@ export PATH=$PATH:/sbin
 #dont change names of variables because some of the names are used in other files as well!
 ##########################################################################
 # Date of current version:                                          
+# TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 Tag="15"; Monat="04"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
@@ -682,6 +683,8 @@ echo
 echo "********************************************************************************"
 echo -e "\033[1mSpeed-to-Fritz version: ${MODVER}\033[0m"
 echo "--------------------------------------------------------------------------------"
+# ensure that scripts in sh_DIR, sh2_dir are executable because svn does not store unix metadata ;(
+chmod +x "$sh_DIR"/* "$sh2_DIR"/*
 #START
 # delete privias Firmware of 11500 if needed
 $sh2_DIR/del_zip "${AVM_DSL_7170_11500}" "${AVM_DSL_7270_11500}" "13014" 

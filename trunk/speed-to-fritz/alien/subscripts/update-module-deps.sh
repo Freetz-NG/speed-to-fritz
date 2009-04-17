@@ -5,4 +5,3 @@ if [ -x /sbin/depmod ]; then
 	/sbin/depmod -b "$1" "$2"
 fi
 
-
