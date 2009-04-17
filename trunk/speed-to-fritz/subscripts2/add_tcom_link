@@ -1,7 +1,7 @@
 #!/bin/bash
  . $include_modpatch
 	
-echo "-- Make link's..."
+echo "-- Make links..."
 [ ! -L "${1}/etc/default.${CONFIG_PRODUKT}/tcom" ] && ln -s /etc/default.${CONFIG_PRODUKT}/${OEMLINK} "${1}/etc/default.${CONFIG_PRODUKT}/tcom"
 #add avme
 #[ ! -L "${1}/etc/default.${CONFIG_PRODUKT}/avme" ] && ln -s /etc/default.${CONFIG_PRODUKT}/${OEMLINK} "${1}/etc/default.${CONFIG_PRODUKT}/avme"

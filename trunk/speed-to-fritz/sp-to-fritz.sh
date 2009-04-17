@@ -795,8 +795,15 @@ if [ "$ORI" != "y" ]; then
  #add kaid for xbox 
  [ "$ADD_KAID" = "y" ] && $sh2_DIR/add_kaid
  #exchange kernel 
- [ "$XCHANGE_KERNEL" = "y" ] && cp -rfv "${SPDIR}/kernel.raw" "${FBDIR}/kernel.raw"
- [ "$SRC2_KERNEL" = "y" ] && cp -rfv "${FBDIR_2}/kernel.raw" "${FBDIR}/kernel.raw"
+ if [ "$XCHANGE_KERNEL" = "y" ]; then 
+ 	echo "-- Take Speedport kernel for new image"
+ 	cp -rfv "${SPDIR}/kernel.raw" "${FBDIR}/kernel.raw"
+ elif [ "$SRC2_KERNEL" = "y" ]; then
+ 	echo "-- Take kernel from source 3 for new image"
+	cp -rfv "${FBDIR_2}/kernel.raw" "${FBDIR}/kernel.raw"
+ else
+ 	echo "-- Take Source 2 kernel for new image"
+ fi
  #remove signature
  $sh_DIR/rmv_signatur.sh "${SRC}"
  #remove autoupdate tab
