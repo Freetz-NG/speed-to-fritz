@@ -1253,7 +1253,6 @@ config USE_SRC2_FON
 	default n
 	help
 		Use FON DRIVER from second source Firmware specified in SRC2_IMG.
-
 config COPY_ADDON_TMP
 	bool "Copy addon/tmp"
 	depends on !ORI
@@ -1268,6 +1267,13 @@ config COPY_ADDON_TMP_to_ORI
 		Set this to 'y' if you like to include all files within the directory 
 		./addon/tmp/squashfs-root in combination with Option -u.
 
+config UPDATE_DEPMOD
+	bool "Update module dependency information"
+	depends on !ORI
+	default n
+	help
+		Update module dependency information in generated image. Useful if deploy modules 
+		via addon directories.
 config MOVE_ALL_to_OEM
 	bool "MOVE ALL to OEM"
 	default y

@@ -760,7 +760,15 @@ if [ "$ORI" != "y" ]; then
  #relace banner
  [ $COPY_HEADER = "y" ] && $sh_DIR/rpl_header.sh "${SRC}"
  #add addons
- [ "$COPY_ADDON_TMP" = "y" ] &&  cp -fdpr  ./addon/tmp/squashfs-root/*  --target-directory="${SRC}"
+ 
+ if [ "$COPY_ADDON_TMP" = "y" ]; then
+ 	find ./addon/tmp/squashfs-root/ | while read file; do
+		file="${file##./addon/tmp/squashfs-root/}"
+		file="${SRC}"/"$file"
+		[ -d "$file" ] || rm -f "$file"
+	done
+ 	cp -fdpr  ./addon/tmp/squashfs-root/*  --target-directory="${SRC}"
+ fi
  #patch download url and add menuitem support
  [ "$ADD_SUPPORT" = "y" ] && $sh2_DIR/patch_url "${SRC}" "${OEMLIST}"
  #add dsl expert pages support
@@ -790,6 +798,8 @@ if [ "$ORI" != "y" ]; then
  $sh_DIR/remove_autoupdatetab.sh "${SRC}"
  # patch update pages 
  $sh_DIR/patch_tools.sh "${SRC}"
+ # update modules dependencies
+ [ "$UPDATE_DEPMOD" = y ] && $sh_DIR/update-module-deps.sh "${SRC}" "${KernelVersion}"
  #export download links
  $HOMEDIR/extract_rpllist.sh	
  #packing takes place on SPDIR
