@@ -685,6 +685,8 @@ echo -e "\033[1mSpeed-to-Fritz version: ${MODVER}\033[0m"
 echo "--------------------------------------------------------------------------------"
 # ensure that scripts in sh_DIR, sh2_dir are executable because svn does not store unix metadata ;(
 chmod +x "$sh_DIR"/* "$sh2_DIR"/*
+# ensure that certain directories are in place
+mkdir -p "$FWNEWDIR" "$FWORIGDIR"
 #START
 # delete privias Firmware of 11500 if needed
 $sh2_DIR/del_zip "${AVM_DSL_7170_11500}" "${AVM_DSL_7270_11500}" "13014" 
