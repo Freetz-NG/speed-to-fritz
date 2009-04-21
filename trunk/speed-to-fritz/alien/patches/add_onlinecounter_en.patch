@@ -674,7 +674,7 @@
 +}
 +//var g_Kilo = 1024;
 +var g_Kilo = 1000;
-+//var g_Mega = 1048576; 024*1024;
++//var g_Mega = 1048576; //1024*1024;
 +var g_Mega = 1000000;
 +var g_Shift32 = 4294967296;
 +function mb2byte(mb){ return Math.floor(g_Mega*mb); }
