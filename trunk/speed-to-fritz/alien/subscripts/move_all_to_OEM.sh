@@ -9,6 +9,9 @@ for DIR in ${OEMLIST}; do
     fi
     [ -L "$1"/usr/www/$DIR ] && [ "$DIR" != "$OEM" ] && rm -fd -R "$1"/usr/www/${DIR} && echo2 "-- Removed link: www/'$DIR'"
 done
+#add link for all, should solve freetz OPenVPN Problem
+[ -d "$1"/usr/www/$OEMLINK ] && ln -sf /usr/www/$OEMLINK "$1/usr/www/all"
+
 exit 0
 
 
