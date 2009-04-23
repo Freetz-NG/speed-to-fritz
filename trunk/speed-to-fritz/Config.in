@@ -144,9 +144,10 @@ config AVM_7270_13486
 config AVM_PHONE_7270_13806
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7270/fritz_box-labor-7270-14067.image"
-config AVM_AURA_7270_14047
+config AVM_AURA_7270_14142
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_usb/fritz_box-labor-14047.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabAURA.AnnexB.54.04.95-14047.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_usb/fritz_box-labor-14142.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabAURA.AnnexB.54.04.95-14142.image"
+#    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_usb/fritz_box-labor-14142.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabAURA.AnnexB.54.04.95-14142.image"
 config AVM_IPV6_7270_13988
     string
     default "http://mgr.kilu.de/downloads/FRITZ.Box_Fon_WLAN_7270_LabIPV6.AnnexB.54.04.94-13988.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabIPV6.AnnexB.54.04.94-13988.image"
@@ -354,8 +355,8 @@ choice
 	config TYPE_WLAN
 		bool "WLAN"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
-	config TYPE_AURA_14047
-		bool "USB_14047 (AURA)"
+	config TYPE_AURA_14142
+		bool "USB_14142 (AURA)"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
 	config TYPE_IPV6_13988
 		bool "IPV6_13988"
@@ -491,8 +492,8 @@ choice
 		bool "AVM_AIO_7270_13679"
 	config TYPE_SRC3_AVM_WLANX_7270_14080
 		bool "AVM_WLANX_7270_14080"
-	config TYPE_SRC3_AVM_AURA_7270_14047
-		bool "AVM_AURA_7270_14047"
+	config TYPE_SRC3_AVM_AURA_7270_14142
+		bool "AVM_AURA_7270_14142"
 #	config TYPE_SRC3_AVM_MTD_7270_14067
 #		bool "AVM_MTD_7270_14067"
 	config TYPE_SRC3_AVM_IPV6_7270_13988
@@ -583,7 +584,7 @@ config AVM_IMG
 	default "$AVM_DSL_7270_14000"			if ( TYPE_DSL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_AIO_7270_13679"			if ( TYPE_AIO ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_WLANX_7270_14080"			if ( TYPE_WLAN ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-	default "$AVM_AURA_7270_14047"			if ( TYPE_AURA_14047 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )	
+	default "$AVM_AURA_7270_14142"			if ( TYPE_AURA_14142 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )	
 	default "$AVM_IPV6_7270_13988"			if ( TYPE_IPV6_13988 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )	
 	default "$AVM_IPV6_7270_13992"			if ( TYPE_IPV6 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )	
 	default "$AVM_MTD_7270_14067"			if ( TYPE_MTD ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )	
@@ -642,7 +643,7 @@ config SRC2_IMG
 	default "$AVM_7270_13486"		if TYPE_SRC3_AVM_7270_13486
 	default "$AVM_AIO_7270_13679"		if TYPE_SRC3_AVM_AIO_7270_13679
 	default "$AVM_WLANX_7270_14080"		if TYPE_SRC3_AVM_WLANX_7270_14080
-	default "$AVM_AURA_7270_14047"		if TYPE_SRC3_AVM_AURA_7270_14047	
+	default "$AVM_AURA_7270_14142"		if TYPE_SRC3_AVM_AURA_7270_14142	
 	default "$AVM_IPV6_7270_13988"		if TYPE_SRC3_AVM_IPV6_7270_13988	
 	default "$AVM_IPV6_7270_13992"		if TYPE_SRC3_AVM_IPV6_7270_13992	
 	default "$AVM_MTD_7270_14067"		if TYPE_SRC3_AVM_MTD_7270_14067	
@@ -674,7 +675,7 @@ config TYPE_LABOR_TYPE
         default "GAMING" 	if TYPE_GAMING
         default "PHONE" 	if TYPE_PHONE
         default "WLAN" 		if TYPE_WLAN
-        default "AURA_14047" 	if TYPE_AURA_14047
+        default "AURA_14142" 	if TYPE_AURA_14142
         default "IPV6_13988" 	if TYPE_IPV6_13988
         default "IPV6" 		if TYPE_IPV6
         default "MTD" 		if TYPE_MTD
