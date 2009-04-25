@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090425-0258-r-264
+    - Pump to: /Labor/7170_dsl/fritz_box-labor-14119.zip
 20090423-1224-r-263
     - Pump to: /7270_usb/fritz_box-labor-14142.zip (ARA -USB now called NAS by AVM.
 20090421-0445-r-262
