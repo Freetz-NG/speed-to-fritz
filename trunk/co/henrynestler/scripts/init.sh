@@ -94,8 +94,8 @@ chmod 755 /usr/local/sbin/launcher.pl
 echo "#!/bin/sh" > /usr/local/sbin/firstboot.sh
 echo "/usr/local/sbin/launcher.pl" > /etc/winterm
 cat /usr/local/sbin/launcher.pl | grep "windowsPathPrefix ="
-if [ -e /usr/local/sbin/launcher.pl ] && ! grep -qs "8081" /usr/local/sbin/launcher.pl; then
- sed -i -e 's| 81,| 8081,|' "/usr/local/sbin/launcher.pl"
+if [ -e /usr/local/sbin/launcher.pl ] && ! grep -qs "2081" /usr/local/sbin/launcher.pl; then
+ sed -i -e 's| 81,| 2081,|' "/usr/local/sbin/launcher.pl"
  sleep 2
 fi
 if [ -e /etc/sudoers ]; then

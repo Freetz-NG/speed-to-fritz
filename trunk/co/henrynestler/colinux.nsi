@@ -69,7 +69,7 @@
   !define MUI_WELCOMEPAGE_TITLE "Welcome to the freetzLinux ${VERSION} Setup Wizard"
   !define MUI_WELCOMEPAGE_TEXT "This wizard will guide you through the update to freetzLinux, \
   Linux image is not included with this installation! \r\n\r\n \ 
-  The image File base.drv must be placed in advance into the sub directory /Drives. \r\n\r\n \
+  The image File base.vdi must be placed in advance into the sub directory /Drives. \r\n\r\n \
   Any andLinux or coLinux image may be used. \r\n\r\n \
   It is recommended to do a andLinux installation in advance without reboot and start. \r\n\r\n \ 
   This installation is basically a Cooperative Linux ${VERSION} with some adaptions for Vista. \r\n\r\n \
@@ -564,9 +564,9 @@ Section -CreateConfigFile
   FileWrite $0 "#exec1=pulseaudio\pulseaudio.exe $\r$\n"
   FileWrite $0 "# Please do not change unless you understand these settings$\r$\n"
   FileWrite $0 "kernel=vmlinux$\r$\n"
-  FileWrite $0 "#base.drv is the complete compressed ubuntu or any other linux$\r$\n"
-  FileWrite $0 "cobd0=Drives\base.drv$\r$\n"
-  FileWrite $0 "cobd1=Drives\swap.drv$\r$\n"
+  FileWrite $0 "#base.vdi is the complete compressed ubuntu or any other linux$\r$\n"
+  FileWrite $0 "cobd0=Drives\base.vdi$\r$\n"
+  FileWrite $0 "cobd1=Drives\swap.vdi$\r$\n"
   FileWrite $0 "root=/dev/cobd0$\r$\n"
   #FileWrite $0 "ro$\r$\n"
   FileWrite $0 "initrd=initrd.gz$\r$\n"
@@ -600,7 +600,7 @@ Section -CreateConfigFile
   #skip_config:
 
    WriteRegStr HKLM SOFTWARE\andLinux\Launcher "IP" "$NW_LinIP_Value" 
-   WriteRegDWORD HKLM SOFTWARE\andLinux\Launcher "Port" "8081" 
+   WriteRegDWORD HKLM SOFTWARE\andLinux\Launcher "Port" "2081" 
    WriteRegStr HKLM SYSTEM\CurrentControlSet\Control\BackupRestore\FilesNotToBackup "andLinux" "$INSTDIR\Drives\*" 
 
 
@@ -913,35 +913,35 @@ Section -post
   File scripts\mkFile.exe
   CreateDirectory "$INSTDIR\Drives"
 
-  IfFileExists "$INSTDIR\Drives\base.drv" 0 do_initbase
-  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 "You already have a root file.  Do you wish to resize and backup it?$\r$\n$\r$\nRoot file: $INSTDIR\Drives\base.drv$\r$\n$\r$\n (This will take much time dont close windows yourself)" /SD IDNO IDNO root_made
+  IfFileExists "$INSTDIR\Drives\base.vdi" 0 do_initbase
+  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 "You already have a root file.  Do you wish to resize and backup it?$\r$\n$\r$\nRoot file: $INSTDIR\Drives\base.vdi$\r$\n$\r$\n (This will take much time dont close windows yourself)" /SD IDNO IDNO root_made
 
-  IfFileExists "$INSTDIR\Drives\base.drv.old" 0 do_rename
-  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 "You already have a backup root file.  Do you wish to overwrite it?$\r$\n$\r$\nOld root file: $INSTDIR\Drives\base.drv.old" /SD IDNO IDNO do_initbase
-  Delete "$INSTDIR\Drives\base.drv.old"
+  IfFileExists "$INSTDIR\Drives\base.vdi.old" 0 do_rename
+  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 "You already have a backup root file.  Do you wish to overwrite it?$\r$\n$\r$\nOld root file: $INSTDIR\Drives\base.vdi.old" /SD IDNO IDNO do_initbase
+  Delete "$INSTDIR\Drives\base.vdi.old"
   do_rename:
-  rename "$INSTDIR\Drives\base.drv" "$INSTDIR\Drives\base.drv.old"
+  rename "$INSTDIR\Drives\base.vdi" "$INSTDIR\Drives\base.vdi.old"
   do_initbase:
   DetailPrint "Creating root system file"
   StrCpy $FS_FORMATIEREN_Value "y"
-  nsExec::ExecToLog 'mkFile -m Drives\base.drv $FS_ROOT_Value'
+  nsExec::ExecToLog 'mkFile -m Drives\base.vdi $FS_ROOT_Value'
   Pop $R0
   IntCmp $R0 0 root_made
-   MessageBox MB_OK|MB_ICONSTOP "Unable to create the rootfs file.  Are you out of space?$\r$\n$\r$\nSwap file: $INSTDIR\Drives\base.drv"
-   Delete $INSTDIR\Drives\swap.drv
+   MessageBox MB_OK|MB_ICONSTOP "Unable to create the rootfs file.  Are you out of space?$\r$\n$\r$\nSwap file: $INSTDIR\Drives\base.vdi"
+   Delete $INSTDIR\Drives\swap.vdi
    Abort
   root_made:
 
-  IfFileExists "$INSTDIR\Drives\swap.drv" check_swap write_swap
+  IfFileExists "$INSTDIR\Drives\swap.vdi" check_swap write_swap
   check_swap:
-#  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 "You already have a swap file.  Do you wish to resize it?$\r$\n$\r$\nSwap file: $INSTDIR\Drives\swap.drv" /SD IDNO IDNO swap_made
-  Delete "$INSTDIR\Drives\swap.drv"
+#  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 "You already have a swap file.  Do you wish to resize it?$\r$\n$\r$\nSwap file: $INSTDIR\Drives\swap.vdi" /SD IDNO IDNO swap_made
+  Delete "$INSTDIR\Drives\swap.vdi"
   write_swap:
   DetailPrint "Creating swap file"
-  nsExec::ExecToLog 'mkFile -m Drives\swap.drv $FS_SWAP_Value'
+  nsExec::ExecToLog 'mkFile -m Drives\swap.vdi $FS_SWAP_Value'
   Pop $R0
   IntCmp $R0 0 swap_made
-  MessageBox MB_OK|MB_ICONSTOP "Unable to create the swap file file exists!.  Are you out of space?$\r$\n$\r$\nSwap file: $INSTDIR\Drives\swap.drv"
+  MessageBox MB_OK|MB_ICONSTOP "Unable to create the swap file file exists!.  Are you out of space?$\r$\n$\r$\nSwap file: $INSTDIR\Drives\swap.vdi"
   Abort
  swap_made:
 
@@ -974,9 +974,9 @@ Section -post
                          kernel=vmlinux \
                          initrd=initrd.gz \
                          cofs0=. \
-                         cobd0=Drives\base.drv \
-                         cobd1=Drives\swap.drv \
-                         cobd2=Drives\base.drv.old \
+                         cobd0=Drives\base.vdi \
+                         cobd1=Drives\swap.vdi \
+                         cobd2=Drives\base.vdi.old \
                          COLINUX_SETUP=yes \
                          COLINUX_SETUP_FS=cofs0 \
                          COLINUX_SETUP_EXEC=init.sh'
