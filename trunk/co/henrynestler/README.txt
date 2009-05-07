@@ -1,11 +1,12 @@
 
 This Version is adjusted for the use with speed2freetz and freetz.
-There is still a problem with setting passwords, so you must do the manually.
-
-By invoking 'passwd' as root within the black FLTK window after start.
-Default root password is 'root'
 The new user is without password but you must assign a password!
 
+By invoking 'passwd' as root within the black FLTK window after start.
+There is no password set for root.
+
+Some changes since 3.09.2009 base.drv is now called base.vdi
+This was done to be compatible to andLinux beta2
 
 LAN connectivity:
 

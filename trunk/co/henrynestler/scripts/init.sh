@@ -98,6 +98,9 @@ if [ -e /usr/local/sbin/launcher.pl ] && ! grep -qs "2081" /usr/local/sbin/launc
  sed -i -e 's| 81,| 2081,|' "/usr/local/sbin/launcher.pl"
  sleep 2
 fi
+if [ -e /etc/shadow ]; then
+    sed -i -e 's/root:.*/root::12823:0:99999:7:::/' "/etc/shadow"
+fi
 if [ -e /etc/sudoers ]; then
     sed -i -e 's/#.*\%/\%/' "/etc/sudoers"
 fi
@@ -167,10 +170,10 @@ smbpasswd -a -s \${NewUser} << EOF
 \${freetz_pw}
 EOF
 cat <<EOF > /etc/issue
-Password of root is: \${root_pw}
+Password of root is not set!
 set \${NewUser} password to: \${freetz_pw}
 Use 'passwd' \${NewUser} to set \${freetz_pw}.
-Please log in as root, change the password, and then update the /etc/issue file, to remove this info.
+Please log in as root or use 'sudo su', change the password, and then update the /etc/issue file, to remove this info.
 EOF
 cat <<EOF >/setpw
 #!/bin/sh
