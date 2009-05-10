@@ -631,6 +631,7 @@ Section "Shortcuts" Shortcuts
   CreateShortCut "$SMPROGRAMS\andLinux\Service\svr Start.lnk" "net" "start andLinux"
   CreateShortCut "$SMPROGRAMS\andLinux\Service\svr Stop.lnk" "net" "stop andLinux"
   CreateShortCut "$SMPROGRAMS\andLinux\Service\XmingStart.lnk" "$INSTDIR\Xming\Xming.exe" ":0 -dpi 85 -clipboard -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log" ""
+  CreateShortCut "$SMPROGRAMS\andLinux\Service\XmingStartRootless.lnk" "$INSTDIR\Xming\Xming.exe" ":0 -dpi 85 -clipboard -rootless -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log" ""
 
   ; we tell it to use explorer as a direct path link makes the system try
   ; to see if the path exists in the first place
