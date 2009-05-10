@@ -650,7 +650,7 @@ fw_pack()
     # Pack firmware image (use old tar for compatibility)
     echo "Packing ..."
     rm -f "${modimage}"
-    "$TAR" -c --owner=0 --group=0 --mode=0755 --format=oldgnu -C "$FIRMWARE_MOD_DIR" . > "${modimage}" || return 1
+    "$TAR" -c --owner=0 --group=0 --mode=0755 --format=oldgnu -C "$FIRMWARE_MOD_DIR" ./var > "${modimage}" || return 1
     [ -r "${modimage}" ] && [ ${FAKEROOT_ON} != "y" ] && chown -R --reference=$0 "$NEWDIR"
     mv "$FIRMWARE_MOD_DIR/var/tmp/kernel.image" "$NEWDIR/kernel.image"
     #cleanup tempdir
