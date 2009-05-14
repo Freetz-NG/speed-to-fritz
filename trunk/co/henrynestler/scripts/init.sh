@@ -112,29 +112,30 @@ fi
 #######################################################################
 if [ -f /etc/gdm/gdm-cdd.conf ]
 then
-	GDMCONF=/etc/gdm/gdm-cdd.conf
+    # Configure GDM autologin
+    sed -i -e "s/^AutomaticLoginEnable=.*/AutomaticLoginEnable=true/" \\
+    -e "s/^AutomaticLogin=.*/AutomaticLogin=\${NewUser}/" \\
+    -e "s/^TimedLoginEnable=.*/TimedLoginEnable=true/" \\
+    -e "s/^TimedLogin=.*/TimedLogin=\${NewUser}/" \\
+    -e "s/^TimedLoginDelay=.*/TimedLoginDelay=10/" \\
+    -e "s/^Enable=.*/Enable=true/" \\
+    -e "s/^AllowRemoteAutoLogin=.*/AllowRemoteAutoLogin=true/" \\
+    -e "s/^0=Standard.*/0=inactive/" /etc/gdm/gdm-cdd.conf
 else
-	GDMCONF=/etc/gdm/gdm.conf
+ [ -f /usr/share/gdm/defaults.conf ] && cp /usr/share/gdm/defaults.conf /etc/gdm/gdm.conf
+ if [ -f /etc/gdm/gdm.conf ]
+ then
+    # Configure GDM autologin
+    sed -i -e "s/^AutomaticLoginEnable=.*/AutomaticLoginEnable=true/" \\
+    -e "s/^AutomaticLogin=.*/AutomaticLogin=\${NewUser}/" \\
+    -e "s/^TimedLoginEnable=.*/TimedLoginEnable=true/" \\
+    -e "s/^TimedLogin=.*/TimedLogin=\${NewUser}/" \\
+    -e "s/^TimedLoginDelay=.*/TimedLoginDelay=10/" \\
+    -e "s/^Enable=.*/Enable=true/" \\
+    -e "s/^AllowRemoteAutoLogin=.*/AllowRemoteAutoLogin=true/" \\
+    -e "s/^0=Standard.*/0=inactive/" /etc/gdm/gdm.conf
+ fi
 fi
-[ -f /usr/share/gdm/defaults.conf ] && cp /usr/share/gdm/defaults.conf /etc/gdm/gdm.conf
-if [ -f ${GDMCONF} ]
-then
-	# true hack ! -- nohar
-[ -f /usr/share/gdm/defaults.conf ] && cp /usr/share/gdm/defaults.conf /etc/gdm/gdm.conf
-
-	# Configure GDM autologin
-	sed -i -e "s/^AutomaticLoginEnable=.*/AutomaticLoginEnable=true/" \
-	       -e "s/^AutomaticLogin=.*/AutomaticLogin=\${NewUser}/" \
-	       -e "s/^TimedLoginEnable=.*/TimedLoginEnable=true/" \
-	       -e "s/^TimedLogin=.*/TimedLogin=\${NewUser}/" \
-	       -e "s/^TimedLoginDelay=.*/TimedLoginDelay=10/" \
-	       -e "s/^Enable=.*/Enable=true/" \
-	       -e "s/^AllowRemoteAutoLogin=.*/AllowRemoteAutoLogin=true/" \
-	       -e "s/^0=Standard.*/0=inactive/" \
-	${GDMCONF}
-fi
-
-
 #######################################################################
 # X : KDM (KDE)
 # Enable XDMCP , Enable remote autologin , Disable local X server
@@ -149,51 +150,43 @@ EOF
 fi
 if [ -f /etc/kde3/kdm/kdmrc ]
 then
-	# Configure KDM autologin
-	sed -i -r -e "s/^#?AutoLoginEnable=.*/AutoLoginEnable=true/" \
-		  -e "s/^#?AutoLoginUser=.*/AutoLoginUser=\${NewUser}/" \
-		  -e "s/^#?AutoReLogin=.*/AutoReLogin=true/" \
-		  -e "s/^#?AutoLoginDelay=.*/AutoLoginDelay=10/" \
-		  -e "s/^#?AutoLoginAgain=.*/AutoLoginAgain=true/" \
-		  -e "s/^#?Enable=.*/Enable=true/" \
-		  -e "s/^#?LoginMode=.*/LoginMode=DefaultRemote/" \
-		  -e "s/^StaticServers=.*/StaticServers=#:0/" \
-		  -e "s/^ReserveServers=.*/ReserveServers=#:1,:2,:3/" \
-	/etc/kde3/kdm/kdmrc
+    # Configure KDM autologin
+    sed -i -r -e "s/^#?AutoLoginEnable=.*/AutoLoginEnable=true/" \\
+    -e "s/^#?AutoLoginUser=.*/AutoLoginUser=\${NewUser}/" \\
+    -e "s/^#?AutoReLogin=.*/AutoReLogin=true/" \\
+    -e "s/^#?AutoLoginDelay=.*/AutoLoginDelay=10/" \\
+    -e "s/^#?AutoLoginAgain=.*/AutoLoginAgain=true/" \\
+    -e "s/^#?Enable=.*/Enable=true/" \\
+    -e "s/^#?LoginMode=.*/LoginMode=DefaultRemote/" \\
+    -e "s/^StaticServers=.*/StaticServers=#:0/" \\
+    -e "s/^ReserveServers=.*/ReserveServers=#:1,:2,:3/" /etc/kde3/kdm/kdmrc
 elif [ -f /etc/kde4/kdm/kdmrc ]
 then
-	# Configure KDM-KDE4 autologin
-	sed -i -r -e "s/^#?AutoLoginEnable=.*/AutoLoginEnable=true/" \
-		  -e "s/^#?AutoLoginUser=.*/AutoLoginUser=\$NewUser/" \
-		  -e "s/^#?AutoReLogin=.*/AutoReLogin=true/" \
-		  -e "s/^#?AutoLoginDelay=.*/AutoLoginDelay=10/" \
-		  -e "s/^#?AutoLoginAgain=.*/AutoLoginAgain=true/" \
-		  -e "s/^#?Enable=.*/Enable=true/" \
-		  -e "s/^#?LoginMode=.*/LoginMode=DefaultRemote/" \
-	      -e "s/^StaticServers=.*/StaticServers=#:0/" \
-		  -e "s/^ReserveServers=.*/ReserveServers=#:1,:2,:3/" \
-	/etc/kde4/kdm/kdmrc
+    # Configure KDM-KDE4 autologin
+    sed -i -r -e "s/^#?AutoLoginEnable=.*/AutoLoginEnable=true/" \\
+    -e "s/^#?AutoLoginUser=.*/AutoLoginUser=\$NewUser/" \\
+    -e "s/^#?AutoReLogin=.*/AutoReLogin=true/" \\
+    -e "s/^#?AutoLoginDelay=.*/AutoLoginDelay=10/" \\
+    -e "s/^#?AutoLoginAgain=.*/AutoLoginAgain=true/" \\
+    -e "s/^#?Enable=.*/Enable=true/" \\
+    -e "s/^#?LoginMode=.*/LoginMode=DefaultRemote/" \\
+    -e "s/^StaticServers=.*/StaticServers=#:0/" \\
+    -e "s/^ReserveServers=.*/ReserveServers=#:1,:2,:3/" /etc/kde4/kdm/kdmrc
 fi
-
-
 #######################################################################
 # X : KDM (KDE)
 # Enable any host for  XDMCP 
 #######################################################################
 if [ -f /etc/kde3/kdm/Xaccess ]
 then
-	# allow any host XDMCP
-	sed -i -r -e "/window/c \*					#any host can get a login window" \
-	/etc/kde3/kdm/Xaccess
+ # allow any host XDMCP
+ sed -i -r -e "/window/c \*	#any host can get a login window" /etc/kde3/kdm/Xaccess
 fi
-
 if [ -f /etc/kde4/kdm/Xaccess ]
 then
-	# allow any host XDMCP
-	sed -i -r -e "/window/c \*					#any host can get a login window" \
-	/etc/kde4/kdm/Xaccess
+ # allow any host XDMCP
+ sed -i -r -e "/window/c \*	#any host can get a login window" /etc/kde4/kdm/Xaccess
 fi
-
 #######################################################################
 # Network
 # nameserver in resolv.conf  
@@ -201,21 +194,18 @@ fi
 #######################################################################
 if [ -f /etc/resolv.conf ]
 then
-	# pulse audio client  ; default-server =
-    echo "nameserver 203.95.1.2" >>/etc/resolv.conf
+ # pulse audio client  ; default-server =
+ echo "nameserver 203.95.1.2" >>/etc/resolv.conf
 fi
-
 #######################################################################
 # Sound
 # pulseaudio client configuation
 #######################################################################
 if [ -f /etc/pulse/client.conf ]
 then
-	# pulse audio client  ; default-server =
-	sed -i -r -e "/default-server/c \default-server = 192.168.0.1" \
-	/etc/pulse/client.conf
+ # pulse audio client  ; default-server =
+ sed -i -r -e "/default-server/c \default-server = 192.168.0.1" /etc/pulse/client.conf
 fi
-
 #######################################################################
 # Sound
 # pulseaudio support ALSA
@@ -238,10 +228,9 @@ ctl.pulse {
     type pulse
 }
 EOF
-
 #remove root password
 if [ -e /etc/shadow ]; then
-    sed -i -e 's:.*::12823:0:99999:7:::/' "/etc/shadow"
+    sed -i -e 's/root:.*/root::12823:0:99999:7:::/' "/etc/shadow"
 fi
 if [ -e /etc/sudoers ]; then
     sed -i -e 's/#.*\%/\%/' "/etc/sudoers"
@@ -357,7 +346,7 @@ chroot /freetz-colinux-setup /bin/bash /setup.sh
 #chroot /freetz-colinux-setup /bin/bash /setpw
 echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
-rm -f /freetz-colinux-setup/setup.sh
+##rm -f /freetz-colinux-setup/setup.sh
 #umount /mnt/and
 umount /freetz-colinux-setup
 if [ "$CL_FORMATIEREN" = "y" ]; then
