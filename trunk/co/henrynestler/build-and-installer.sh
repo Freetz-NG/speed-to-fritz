@@ -18,7 +18,7 @@ cp ./README.txt ../bfin-colinux/trunk/and/README.txt
 #cp ./initrd.gz ../bfin-colinux/trunk/and/initrd.gz
 #cp colinux-daemon.txt ../bfin-colinux/trunk/and/colinux-daemon.txt
 
-#ln -s $(pwd)/Launcher ../bfin-colinux/trunk/and
+ln -s $(pwd)/Launcher ../bfin-colinux/trunk/and
 sed -i -e 's|MediaStatus,          Default,   0, "0"|MediaStatus,          Default,   0, "1"|g' ../bfin-colinux/trunk/and/netdriver/OemWin2k.inf
 sed -i -e 's|MediaStatus,          Default,   0, "0"|MediaStatus,          Default,   0, "1"|g' ../bfin-colinux/trunk/and/tuntap/OemWin2k.inf
 cp ./getlanid.vbs ../bfin-colinux/trunk/and/getlanid.vbs

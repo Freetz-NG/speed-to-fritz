@@ -1,6 +1,6 @@
 Konsole;konsole.ico;konsole
-Konqueror;khomefolder.ico;konqueror --profile=filemanagement
-Kate;kate.ico;kate --use
+Dolphin;dolphin.ico;dolphin
+Kate;kate.ico;kate
 -
 Konqueror;konqueror.ico;konqueror
 KMail;kmail.ico;kmail
@@ -16,14 +16,10 @@ Karbon;karbon.ico;karbon
 Krita;krita.ico;krita
 KPlato;kplato.ico;kplato
 KChart;kchart.ico;kchart
-KFormula;kformula.ico;kformula
 Kugar;kugar.ico;kugar
 -
 Kile;kile.ico;kile
-KDVI;kdvi.ico;kdvi
-KGhostView;kghostview.ico;kghostview
-KPDF;kpdf.ico;kpdf
 -
-KControl;kcontrol.ico;kcontrol
-Synaptic;synaptic.ico;synaptic
+System Settings;systemsettings.ico;systemsettings
+KSysGuard;ksysguard.ico;ksysguard
 PulseAudio Mixer;volume.ico;pavucontrol
