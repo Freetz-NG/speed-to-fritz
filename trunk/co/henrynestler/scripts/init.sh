@@ -123,7 +123,6 @@ then
 [ -f /usr/share/gdm/defaults.conf ] && cp /usr/share/gdm/defaults.conf /etc/gdm/gdm.conf
 
 	# Configure GDM autologin
-	chroot  \
 	sed -i -e "s/^AutomaticLoginEnable=.*/AutomaticLoginEnable=true/" \
 	       -e "s/^AutomaticLogin=.*/AutomaticLogin=\${NewUser}/" \
 	       -e "s/^TimedLoginEnable=.*/TimedLoginEnable=true/" \
