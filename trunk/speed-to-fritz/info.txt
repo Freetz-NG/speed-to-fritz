@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090515-1358-r-276
+    - W920: 7270 AIO 14331 added
 20090510-1508-r-271
     - Chaned tar startdirecrory to ./var, results in a image that is 512 Bytes smaler, and startcode of file is now as in original firmware. (Ralf Friedl)
 20090430-0210-r-265
