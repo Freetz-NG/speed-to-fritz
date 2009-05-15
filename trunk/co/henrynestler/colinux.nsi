@@ -219,6 +219,7 @@ no_old_linux_sys:
   File "premaid\README.txt"
   #File "premaid\news.txt"
   File "premaid\srvstart.bat"
+  File "premaid\startup.bat"
   File "premaid\srvstop.bat"
   File "premaid\settapip.bat"
   File "premaid\getlanid.vbs"
