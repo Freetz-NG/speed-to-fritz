@@ -324,48 +324,90 @@ choice
 	config TYPE_57
 		bool "57"
 		depends on ( TYPE_SINUS_W500V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE )
+		help
+			FRITZ! release: 57
 	config TYPE_58
 		bool "58"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && TYPE_LANG_DE
+		help
+			FRITZ! release: 58
 	config TYPE_59
 		bool "59"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
+		help
+			FRITZ! release: 59
 	config TYPE_61
 		bool "61"
 		depends on ( TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
+		help
+			FRITZ! release: 61
 	config TYPE_A59
 		bool "ANNEX_A_59"
 		depends on TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM
+		help
+			FRITZ! release: 59 Annex A
 	config TYPE_67
 		bool "67"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
+		help
+			FRITZ! release: 67
 	config TYPE_70
 		bool "70"
 		depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
+		help
+			FRITZ! release: 70
 #	config TYPE_71
 #		bool "71"
 		depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
+		help
+			FRITZ! release: 71
 	config TYPE_AIO
 		bool "AiO - Alles in einem prerelease"
 		depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
+		help
+			FRITZ!Lab AIO: This release combines several software improvements.
+			Therefore AIO means All-In-One. As of now, it contains various
+			fixes for WiFI (Green AP, sources of interference), Facsimile
+			reception and DECT-support and expands NAS functionality.
 	config TYPE_DSL
 		bool "DSL"
 		depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
+		help
+			FRITZ!Lab DSL: This release optimizes the DSL (Digital Subscriber
+			 Line) software and adds related graphs.
 	config TYPE_WLAN
 		bool "WLAN"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
+		help
+			FRITZ!Lab WLAN: This release reduces the power consumption when
+			no more WiFi clients are connected, and avoids channels with
+			interference.
 	config TYPE_AURA_14142
 		bool "USB_14142 (AURA)"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
+		help
+			FRITZ!Lab AURA: Thanks to AVM USB Remote Architecture (AURA),
+			all devices connected to FRITZ!Box behave as if they were connected
+			directly to your PC.
 	config TYPE_IPV6_13988
 		bool "IPV6_13988"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
+		help
+			FRITZ!Lab IPV6: This release adds native IPv6 over PPP
+			(Internet Protocol Version 6) and 6to4 tunnels.
 	config TYPE_IPV6
 		bool "IPV6"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
+		help
+			FRITZ!Lab IPV6: This release adds native IPv6 over PPP
+			(Internet Protocol Version 6) and 6to4 tunnels.
 	config TYPE_PHONE
 		bool "PHONE (MT-D)"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
+		help
+			FRITZ!Lab Phone: This release improves DECT-Repeating, call lists,
+			and fixes various software problems, e.g. answering machine and
+			facsimile reception.
 #	config TYPE_GAMING
 #		bool "GAMING"
 #		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
@@ -381,15 +423,23 @@ choice
 	config TYPE_13486
 		bool "7270_13486"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
-		select SET_FREETZ_REVISION
+		help
+			FRITZ!Labor, is the only one usable with DSL on a W920
+			select SET_FREETZ_REVISION
 	config TYPE_67m
 		bool "67 multilingual german english italian spanish"
 		depends on TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM
+		help
+			FRITZ! : release 67 multilingual
 	config TYPE_AVM_7570_70
 		bool "7570_70 multilingual german english multiannex"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM )
+		help
+			FRITZ! : 7570 release multilingual, for used in combination with W920
 	config TYPE_LOCAL_AVM
 		bool "CUSTOM AVM LOCAL FIRMWARE"
+		help
+			FRITZ! : Any AVM like firmware
 
 endchoice
 
