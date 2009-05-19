@@ -660,14 +660,11 @@ return 0
 }
 # get commandline options to variables
 . $inc_DIR/processcomline
-# menuconfig uses Firmware.conf as Firmwareconfigfile and export must be adjusted
-sed -i -e 's|EXPORT_|export |' $HOMEDIR/${firmwareconf_file_name}
 . $inc_DIR/includefunctions
+# menuconfig uses Firmware.conf as Firmwareconfigfile and export must be adjusted
 # include SET Varabels from Firmware.conf
+eval "$(sed -e 's|EXPORT_|export |' $HOMEDIR/${firmwareconf_file_name})"
 echo "Firmware configuration taken from: ${firmwareconf_file_name}"
-. ${firmwareconf_file_name}
-# restore optionname
-sed -i -e 's|export |EXPORT_|' $HOMEDIR/${firmwareconf_file_name}
 # make sure Annex is set to A or B (muli uses B as default)
 [ "$ANNEX" != "B" ] && [ "$ANNEX" != "A" ] && echo "Commandline annex parameter -x is: '$ANNEX' but must be 'A' or 'B'" && exit 0  
 export kernel_args="annex=${ANNEX}" 

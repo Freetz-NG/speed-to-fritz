@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090519-0951-r-278
+    - Config.in: Extended flexibility of dsld wrapper and made some directories to be ignored by SVN
 20090518-0522-r-277
     - Config.in: Add explanation for Lab firmwares (by reiffert) 
 20090515-1358-r-276
@@ -38,6 +40,8 @@ On some systems you have to add the patch tool (add install patch).
     - Freetz OpenVPN webinterface, fix added 'all' as link.
 20090421-0420-r-261
     - Onlinecounter comment corrected.
+20090420-2359-r-260
+    - from r255 to r260 added dsld wrap, made some changes to svn:ignore property on certain generated files and directories
 20090415-1606-r-254
     - W920: Wrapper option for dsld added, but not tested!
 20090410-0259-r-253

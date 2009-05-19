@@ -228,6 +228,8 @@ if [ ${ATA_ONLY} = "y" ]; then
     rm -fdr "${SRC}"/lib/modules/dsp_ur8
 fi
 #wrap dsld and ar7cfg.lib
-[ "${WRAP_DSLD}" = "y" ] && $sh_DIR/wrap_dsld.sh 
+if [ "${WRAP_DSLD}" = "y" ]; then
+	. $sh_DIR/wrap_dsld.sh 
+fi
 
 echo "********************************************************************************"

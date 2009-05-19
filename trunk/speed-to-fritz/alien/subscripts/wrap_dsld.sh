@@ -4,17 +4,24 @@ echo "-- Wrap dsld ..."
 LIBS=
 
 # these libs are at least neccesary
-LIBS="$LIBS libboxlib.so.0.0.0"
-LIBS="$LIBS libar7cfg.so.1.0.0"
+[ "$WRAP_DSLD_LIBBOXLIB" = y ] && \
+	LIBS="$LIBS libboxlib.so.0.0.0"
+[ "$WRAP_DSLD_LIBAR7CFG" = y ] && \
+	LIBS="$LIBS libar7cfg.so.1.0.0"
+[ "$WRAP_DSLD_LIBAVMCSOCK" = y ] && \
+	LIBS="$LIBS libavmcsock.so.2.0.0"
+[ "$WRAP_DSLD_LIBAVMCIPHER" = y ] && \
+	LIBS="$LIBS libavmcipher.so.0.0.0"
+[ "$WRAP_DSLD_LIBAVMHMAC" = y ] && \
+	LIBS="$LIBS libavmhmac.so.2.0.0"
+[ "$WRAP_DSLD_LIBEWNWLINUX" = y ] && \
+	LIBS="$LIBS libewnwlinux.so.2.0.0"
+[ "$WRAP_DSLD_LIBSLAB" = y ] && \
+	LIBS="$LIBS libslab.so.2.0.0"
 
 # perhaps these are needed later when AVM changes more 
 # undocumented and properitary API
-#LIBS="$LIBS libavmcipher.so.0.0.0"
-#LIBS="$LIBS libavmcsock.so.2.0.0"
-#LIBS="$LIBS libavmhmac.so.2.0.0"
-#LIBS="$LIBS libewnwlinux.so.2.0.0"
-#LIBS="$LIBS libslab.so.2.0.0"
-#LIBS="$LIBS libwdt.so.1.0.0"
+#	LIBS="$LIBS libwdt.so.1.0.0"
 
 # example target layout:
 #

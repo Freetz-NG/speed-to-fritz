@@ -1174,6 +1174,30 @@ if ! EXPORT_ATA_ONLY
 	default n
 	help
 		wrap dsld, ...
+	
+	if WRAP_DSLD
+		config WRAP_DSLD_LIBBOXLIB
+			bool "Add libboxlib to dsld wrapper"
+			default y 
+		config WRAP_DSLD_LIBAR7CFG
+			bool "Add libar7cfg to dsld wrapper"
+			default y 
+		config WRAP_DSLD_LIBAVMCSOCK
+			bool "Add libavmcsock to dsld wrapper"
+			default n
+		config WRAP_DSLD_LIBAVMCIPHER
+			bool "Add libavmcipher to dsld wrapper"
+			default n 
+		config WRAP_DSLD_LIBAVMHMAC
+			bool "Add libavmhmac to dsld wrapper"
+			default n 
+		config WRAP_DSLD_LIBEWNWLINUX
+			bool "Add libewnwlinux to dsld wrapper"
+			default n 
+		config WRAP_DSLD_LIBSLAB
+			bool "Add libslab to dsld wrapper"
+			default n 
+	endif
 
 endif
 #config EXPORT_SETATM
