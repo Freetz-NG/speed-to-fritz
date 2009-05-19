@@ -4,7 +4,6 @@ INDEX="./index"
 LISTING="./listing"
 TMP="./temp"
 rm -f $TMP
-rm -f "$TMP"1
 rm -f "$INDEX"*
 rm -f $LISTING
 wget --no-remove-listing "http://www.henrynestler.com/colinux/autobuild" 
@@ -14,8 +13,7 @@ tac $LISTING > $TMP
 rm -f $LISTING
 read DVERSION < $TMP
 echo "coVersion: $DVERSION"
-sed -i -e "/$DVERSION/d" $TMP
-cp $TMP "$TMP"1 
+rm -f $TMP
 #-----------------------------------------------------
 apt-get install dpkg-dev bison flex
 mkdir ./colinux080
