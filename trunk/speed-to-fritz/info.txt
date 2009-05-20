@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090520-1350-r-282
+    - W920, pump to: /7270_IPv6/fritz_box-labor-14338.zip
 20090519-0951-r-278
     - Config.in: Extended flexibility of dsld wrapper and made some directories to be ignored by SVN
 20090518-0522-r-277
