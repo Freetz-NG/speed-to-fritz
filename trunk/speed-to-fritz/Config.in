@@ -159,8 +159,7 @@ config AVM_WLANX_7270_14080
 ### 7570
 config AVM_7570_70
     string
-#    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.image"
-    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.94-14031M.image"
+    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.image"
 ##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #( dont remove the following line)
 ### FIRMWARE_CONFIG_ENDE ###
