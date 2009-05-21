@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090521-1610-r-286
+    - Patched text of tools/update_not_signed_no_password.html (new file in last firmware)
 20090521-1139-r-285
     - eval in sp-to-fritz.sh reverted to revision 278
 20090521-1110-r-284

@@ -138,9 +138,22 @@ sed -i -e "s|^.*Wenn Sie nicht freigegebene Firmware in der FRITZ!Box installier
 sed -i -e 's|Update abbrechen (empfohlen)|Update abbrechen|' "$1"
 sed -i -e 's|Update fortsetzen|Update fortsetzen (empfohlen)|' "$1"
 
+fi
+#update_not_signed_no_password
+#sed -i -e 's|..tools.update_not_signed_no_password.html:9817..| Update|' u
+sed -i -e 's|..tools.update_not_signed_no_password.html:7014..| Achtung: Während des Firmware-Updates blinkt die INFO-LED permanent. In dieser Zeit darf die Stromversorgung der Anlage nicht ausgeschaltet werden.|' \
+ -e 's|..tools.update_not_signed_no_password.html:8264..| Wenn das Blinken der INFO-LED aufgehört hat, können Sie den Speedport neu booten (Netzstecker ziehen). Normalerweise startet dieser selbständig neu.|' \
+ -e 's|..tools.update_not_signed_no_password.html:6152..| Je nach Firmware sind die Netzwerkeinstellungen am PC anzupassen, oder erneut per DHCP zu beziehen (Restart der Netzwerkeinstellungen).| '\
+ -e 's|..tools.update_not_signed_no_password.html:7001..| Die IP Adresse des Speedports kann entweder 192.168.178.1 oder 192.168.2.1 sein, wenn sich die Adresse geändert hat die Eingabe von "Fritz.Box" ist nicht ausreichend.|' \
+ -e 's|..tools.update_not_signed_no_password.html:4469..| Nach Reboot der Box sollte diese auf WERKSEINSTELLUNG zurück gestellt werden. (Entweder über WebGUI oder angeschlossenem Telefon durch die Eingabe von #991*15901590*). |' \
+ -e 's|..tools.update_not_signed_no_password.html:7578..| Wurde die Option "clear mtd3 und mtd4" verwendet, ist kein erneuter Werksreset erforderlich.|' \
+ -e 's|..tools.update_not_signed_no_password.html:8821..| Der Updatevorgang kann bis zu zehn Minuten dauern.|' "$1"
+#-e 's|..txtNext..|Update fortsetzen|' "$1"
+
 
 #<--avm de
-fi
+
+
 #-->avm en
 
 
@@ -245,10 +258,12 @@ fi
 Lang="${avm_Lang}"
 [ "$ORI" = "y" ] && Lang="tcom"
 
+
+
 for OEMDIR in ${OEMLIST}; do
   export HTML="$OEMDIR/html"
  for html in ${HTML} ${HTML}/de ; do
-  for FILE in flash.html flash2.html update_not_signed.html restart.html; do
+  for FILE in downgrade.html flash.html flash2.html update_not_signed.html update_not_signed_no_password.html restart.html update_result.html; do
       DSTI="${1}"/usr/www/${html}/${FILE}
       if [ -f ${DSTI} ] ; then
        echo2 "      patch update page (${Lang}) ${html}/${FILE}..."
