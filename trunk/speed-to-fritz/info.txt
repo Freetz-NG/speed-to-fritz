@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090521-1139-r-285
+    - eval in sp-to-fritz.sh reverted to revision 278
 20090521-1110-r-284
     - W920, fix ipv6 link and revert mistakes
 20090520-1421-r-283
