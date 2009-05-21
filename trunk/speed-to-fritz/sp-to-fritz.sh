@@ -4,7 +4,7 @@ export PATH=$PATH:/sbin
 ##########################################################################
 # Date of current version:                                          
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
-Tag="20"; Monat="05"; Jahr="09"
+Tag="21"; Monat="05"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -658,13 +658,18 @@ esac
 
 return 0
 }
+# Remove left over Subversion directories
+find "$HOMEDIR" -type d -name .svn | xargs rm -rf
 # get commandline options to variables
 . $inc_DIR/processcomline
-. $inc_DIR/includefunctions
 # menuconfig uses Firmware.conf as Firmwareconfigfile and export must be adjusted
+sed -i -e 's|EXPORT_|export |' $HOMEDIR/${firmwareconf_file_name}
+. $inc_DIR/includefunctions
 # include SET Varabels from Firmware.conf
-eval "$(sed -e 's|EXPORT_|export |' $HOMEDIR/${firmwareconf_file_name})"
 echo "Firmware configuration taken from: ${firmwareconf_file_name}"
+. ${firmwareconf_file_name}
+# restore optionname
+sed -i -e 's|export |EXPORT_|' $HOMEDIR/${firmwareconf_file_name}
 # make sure Annex is set to A or B (muli uses B as default)
 [ "$ANNEX" != "B" ] && [ "$ANNEX" != "A" ] && echo "Commandline annex parameter -x is: '$ANNEX' but must be 'A' or 'B'" && exit 0  
 export kernel_args="annex=${ANNEX}" 

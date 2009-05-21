@@ -18,43 +18,44 @@ fi
 [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
 [ "${FORCE_TCOM_PCMLINK}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2/pcmlink.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2
 
- if [ "${TYPE_AVM_7570_70}" = "y" ]; then
-    cp -fdrp "${DST}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
-    echo "  -- VINAX Driver was taken from the original t-com firmware!"
+if [ "${TYPE_AVM_7570_70}" = "y" ]; then 
  if [ "${SAVE_TCOM_DSL}" = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/vinax* --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
     echo "  -- VINAX Driver saved to: ./addon/tmp/W920!"
  fi
  if [ "${SAVE_SRC2_DSL}" = "y" ]; then
-    cp -fdrp "${SRC_2}"/lib/modules/vinax* --target-directory=./addon/tmp/W920 &&\
+    cp -fdrp "${SRC_2}"/lib/modules/vinax* --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
     echo "  -- VINAX Driver saved to: ./addon/tmp/W920!"
  fi
  if [ "${USE_SRC2_DSL}" = "y" ]; then
     cp -fdrp "${SRC_2}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
+    echo "  -- VINAX Driver was taken from 3. firmware!"
+ elif [ ${USE_OWN_DSL} != "y" ]; then
+    cp -fdrp "${DST}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
     echo "  -- VINAX Driver was taken from the original t-com firmware!"
  fi
 else
-# "vinax_fw_adsl.bin" "vinax_fw_vdsl.bin"
-#remove 7270 DSL 
+ # "vinax_fw_adsl.bin" "vinax_fw_vdsl.bin"
+ #remove 7270 DSL 
 
-rm -fdr "${SRC}"/lib/modules/dsp_ur8
-rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsl
-#/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:
+ rm -fdr "${SRC}"/lib/modules/dsp_ur8
+ rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsl
+ #/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:
 
-# "vinax_driver"  
+ # "vinax_driver"  
 
-[ -d "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax ] || mkdir "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
-cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
-cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory="${SRC}"/lib/modules/$KernelVersion
-#cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.dep --target-directory="${SRC}"/lib/modules/$KernelVersion
-cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.alias --target-directory="${SRC}"/lib/modules/$KernelVersion
-cp -fdrp "${DST}"/usr/sbin --target-directory="${SRC}"/usr
-cp -fdrp "${DST}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
-echo "  -- DSL Driver was taken from the original t-com firmware!"
-[ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
-[ -f "${SRC}"/usr/share/ctlmgr/libtr064.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libtr064.so --target-directory=${SRC}/usr/share/ctlmgr
+ [ -d "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax ] || mkdir "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
+ cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
+ cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory="${SRC}"/lib/modules/$KernelVersion
+ #cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.dep --target-directory="${SRC}"/lib/modules/$KernelVersion
+ cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.alias --target-directory="${SRC}"/lib/modules/$KernelVersion
+ cp -fdrp "${DST}"/usr/sbin --target-directory="${SRC}"/usr
+ cp -fdrp "${DST}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
+ echo "  -- DSL Driver was taken from the original t-com firmware!"
+ [ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
+ [ -f "${SRC}"/usr/share/ctlmgr/libtr064.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libtr064.so --target-directory=${SRC}/usr/share/ctlmgr
 
-if [ ${SAVE_TCOM_DSL} = "y" ]; then
+ if [ ${SAVE_TCOM_DSL} = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/vinax* --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
     echo "  -- TCOM DSL Driver saved to: ./addon/tmp/W920!"
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/vinax
@@ -65,9 +66,9 @@ if [ ${SAVE_TCOM_DSL} = "y" ]; then
     cp -fdrp "${DST}"/usr/sbin --target-directory=./addon/tmp/W920/squashfs-root/usr
     cp -fdrp "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory=./addon/tmp/W920/squashfs-root/usr/share/ctlmgr
     cp -fdrp "${DST}"/usr/share/ctlmgr/libtr064.so --target-directory=./addon/tmp/W920/squashfs-root/usr/share/ctlmgr
-fi
+ fi
 
-if [ ${SAVE_SRC2_DSL} = "y" ]; then
+ if [ ${SAVE_SRC2_DSL} = "y" ]; then
     cp -fdrp "${SRC_2}"/lib/modules/vinax* --target-directory=./addon/tmp/W920 &&\
     echo "  -- AVM DSL Driver saved to: ./addon/tmp/W920!"
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/vinax
@@ -78,9 +79,9 @@ if [ ${SAVE_SRC2_DSL} = "y" ]; then
     cp -fdrp "${SRC_2}"/usr/sbin --target-directory=./addon/tmp/W920/squashfs-root/usr
     cp -fdrp "${SRC_2}"/usr/share/ctlmgr/libvdsl.so --target-directory=./addon/tmp/W920/squashfs-root/usr/share/ctlmgr
     cp -fdrp "${SRC_2}"/usr/share/ctlmgr/libtr064.so --target-directory=./addon/tmp/W920/squashfs-root/usr/share/ctlmgr
-fi
+ fi
 
-if [ ${USE_SRC2_DSL} = "y" ]; then
+ if [ ${USE_SRC2_DSL} = "y" ]; then
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
     [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] || cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.symbols --target-directory="${SRC}"/lib/modules/$KernelVersion
@@ -90,12 +91,11 @@ if [ ${USE_SRC2_DSL} = "y" ]; then
     [ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${SRC_2}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
     [ -f "${SRC}"/usr/share/ctlmgr/libtr064.so ] || cp -fdrp "${SRC_2}"/usr/share/ctlmgr/libtr064.so --target-directory=${SRC}/usr/share/ctlmgr
     cp -fdrp "${SRC_2}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
-    echo "  -- DSL Driver was taken from the original t-com firmware!"
+    echo "  -- DSL Driver was taken from 3. firmware!"
+ fi
 fi
- 
 [ ${USE_OWN_DSL} = "y" ] && cp -fdrp ./addon/tmp/W920/squashfs-root/* --target-directory="${SRC}" &&\
-echo "  -- DSL Driver was taken from local directory ./addon/tmp/W920!"
-fi
+echo "  -- VINAX DSL Driver was taken from local directory ./addon/tmp/W920!"
 [ "${FORCE_SRC2_KDSLDMOD}" = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
 #not 7570 only--->
 if ! [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ]; then 
@@ -228,8 +228,6 @@ if [ ${ATA_ONLY} = "y" ]; then
     rm -fdr "${SRC}"/lib/modules/dsp_ur8
 fi
 #wrap dsld and ar7cfg.lib
-if [ "${WRAP_DSLD}" = "y" ]; then
-	. $sh_DIR/wrap_dsld.sh 
-fi
+[ "${WRAP_DSLD}" = "y" ] && $sh_DIR/wrap_dsld.sh 
 
 echo "********************************************************************************"

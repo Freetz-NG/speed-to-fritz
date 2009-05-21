@@ -150,9 +150,6 @@ config AVM_AURA_7270_14142
 config AVM_IPV6_7270_14338
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_IPv6/fritz_box-labor-14338.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabIPV6.AnnexB.54.04.94-14338.image"
-config AVM_IPV6_7270_13992
-    string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_IPv6/fritz_box-labor-13992.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabIPV6.AnnexB.54.04.94-13992.image"
 config AVM_WLANX_7270_14080
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_wlan/fritz_box-labor-14080.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_WLAN_Labor_54.04.98-14080.image"    
@@ -160,6 +157,15 @@ config AVM_WLANX_7270_14080
 config AVM_7570_70
     string
     default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.image"
+
+### Not avalable only in use by AVM
+#    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.94-14031M.image"
+config AVM_7570_14031
+    string
+    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.94-14031M.image"
+config AVM_7570_14341
+    string
+    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.94-14341M.image"
 ##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #( dont remove the following line)
 ### FIRMWARE_CONFIG_ENDE ###
@@ -395,10 +401,10 @@ choice
 		help
 			FRITZ!Lab IPV6: This release adds native IPv6 over PPP
 			(Internet Protocol Version 6) and 6to4 tunnels.
-	config TYPE_IPV6
-		bool "IPV6"
-		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
-		help
+#	config TYPE_IPV6
+#		bool "IPV6"
+#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
+#		help
 			FRITZ!Lab IPV6: This release adds native IPv6 over PPP
 			(Internet Protocol Version 6) and 6to4 tunnels.
 	config TYPE_PHONE
@@ -542,9 +548,7 @@ choice
 		bool "AVM_AURA_7270_14142"
 	config TYPE_SRC3_AVM_IPV6_7270_14338
 		bool "AVM_IPV6_7270_14338"
-	config TYPE_SRC3_AVM_IPV6_7270_13992
-		bool "AVM_IPV6_7270_13992"
-	config TYPE_SRC3_AVM_PHONE_7270_14138
+#	config TYPE_SRC3_AVM_PHONE_7270_14138
 		bool "AVM_PHONE_7270_14138"
 #	config TYPE_SRC3_AVM_UMTS_7270_13265
 #		bool "AVM_UMTS_7270_13265"
@@ -556,6 +560,10 @@ choice
 		bool "AVM_7270_67 multilingual german english italian spanish"
 	config TYPE_SRC3_AVM_7570_70
 		bool "AVM_7570_70 multilingual german english multiannex"
+	config TYPE_SRC3_AVM_7570_14031
+		bool "AVM_7570_70_14031M multilingual german english multiannex"
+	config TYPE_SRC3_AVM_7570_14341
+		bool "AVM_7570_70_14341M multilingual german english multiannex"
 	config TYPE_LOCAL_AVM_IMAGE
 		bool "AVM_LOCAL_IMAGE"
 	config TYPE_LOCAL_TCOM_IMAGE
@@ -630,12 +638,13 @@ config AVM_IMG
 	default "$AVM_WLANX_7270_14080"			if ( TYPE_WLAN ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_AURA_7270_14142"			if ( TYPE_AURA_14142 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_IPV6_7270_14338"			if ( TYPE_IPV6_14338 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-	default "$AVM_IPV6_7270_13992"			if ( TYPE_IPV6 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_PHONE_7270_14138"			if ( TYPE_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_UMTS_7270_13265"			if ( TYPE_UMTS ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_MINI_7270_67"			if ( TYPE_MINI ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 
 	default "$AVM_7570_70"				if ( TYPE_AVM_7570_70 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+#	default "$AVM_7570_14031"			if ( TYPE_AVM_7570_14031 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+#	default "$AVM_7570_14341"			if ( TYPE_AVM_7570_14341 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 
 	default "$AVM_LOCAL"				if TYPE_LOCAL_AVM && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 
@@ -687,12 +696,13 @@ config SRC2_IMG
 	default "$AVM_WLANX_7270_14080"		if TYPE_SRC3_AVM_WLANX_7270_14080
 	default "$AVM_AURA_7270_14142"		if TYPE_SRC3_AVM_AURA_7270_14142
 	default "$AVM_IPV6_7270_14338"		if TYPE_SRC3_AVM_IPV6_7270_14338
-	default "$AVM_IPV6_7270_13992"		if TYPE_SRC3_AVM_IPV6_7270_13992
 	default "$AVM_DSL_7270_14000"		if TYPE_SRC3_AVM_DSL_7270_14000
 	default "$AVM_PHONE_7270_14138"		if TYPE_SRC3_AVM_PHONE_7270_14138
 	default "$AVM_UMTS_7270_13265"		if TYPE_SRC3_AVM_UMTS_7270_13265
 	default "$AVM_MINI_7270_67"		if TYPE_SRC3_AVM_MINI_7270_67
 	default "$AVM_7570_70" 			if TYPE_SRC3_AVM_7570_70
+	default "$AVM_7570_14031" 		if TYPE_SRC3_AVM_7570_14031
+	default "$AVM_7570_14341" 		if TYPE_SRC3_AVM_7570_14341
 
 	default "$SRC3_LOCAL"			if TYPE_SRC3_LOCAL_IMAGE
 
@@ -1131,49 +1141,83 @@ if ! EXPORT_ATA_ONLY
 	depends on TYPE_SPEEDPORT_W721V
 	default n
 	help
-		Use ADSL VINAX DRIVER from second source firmware specified in SRC2_IMG.
+		Use ADSL VINAX DRIVER from second AVM source firmware specified in SRC2_IMG.
     config USE_SRC2_DSL
-	bool "Use source 3 DSL driver"
+	bool "Use source 3 (V)DSL driver"
 	depends on SOURCE2
 	default n
 	help
-		Use DSL DRIVER from second source firmware specified in SRC2_IMG.
+		Use (V)DSL DRIVER from second AVM source firmware specified in SRC2_IMG.
     config USE_OWN_DSL
-	bool "Use own DSL driver"
+	bool "Use own (V)DSL driver"
 	default n
 	help
-		Use DSL DRIVER from local directory ./addon/tmp/modules.
+		Use (V)DSL DRIVER from local directory ./addon/tmp/WXXX/....
+		WXXX is the respective speedporttype, the files here are from a save DSL Driver before.
+		No files get removed within this directory so if you do more as one save with diffent settings
+		more files my be within this directory as realy wanted.
     config FORCE_TCOM_DSL
-	bool "Force T-com DSL driver"
+	bool "Force T-com (V)DSL driver"
 	depends on ! TYPE_SPEEDPORT_W721V  
 	default n if ! TYPE_SPEEDPORT_W920V
 	default y if TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V  
 	help
 		For normal this is "n", only with some very bad ADSL connections this may be needed.
     config SAVE_SRC2_DSL
-	bool "Save source 3 DSL driver"
+	bool "Save source 3 (V)DSL driver"
 	depends on SOURCE2
 	default n
 	help
-		Save DSL DRIVER from AVM source 3 to ./addon/tmp/modules.
+		Save (V)DSL DRIVER from AVM source 3 to ./addon/tmp/WXXX
+		WXXX is the respective speedporttype.
+		No files get removed within this directory so if you do more as one save with diffent settings
+		more files my be within this directory as realy wanted.
     config SAVE_AVM_DSL
-	bool "Save AVM DSL driver"
+	bool "Save AVM (V)DSL driver"
 	depends on ! TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default n
 	help
-		Save DSL DRIVER from AVM source to ./addon/tmp/modules.
+		WXXX is the respective speedporttype.
+		No files get removed within this directory so if you do more as one save with diffent settings
+		more files my be within this directory as realy wanted.
+		Save (V)DSL DRIVER from AVM source to ./addon/tmp/WXXX.
     config SAVE_TCOM_DSL
-	bool "Save T-com DSL driver"
+	bool "Save T-com (V)DSL driver"
 	default n
 	help
-		Save DSL DRIVER from TCOM source to ./addon/tmp/modules.
+		Save (V)DSL DRIVER from TCOM source to ./addon/tmp/WXXX.
+		WXXX is the respective speedporttype.
+		No files get removed within this directory so if you do more as one save with diffent settings
+		more files my be within this directory as realy wanted.
     config WRAP_DSLD
 	bool "Wrap dsld "
 	depends on TYPE_SPEEDPORT_W920V
 	default n
 	help
 		wrap dsld, ...
-
+	if WRAP_DSLD
+		config WRAP_DSLD_LIBBOXLIB
+			bool "Add libboxlib to dsld wrapper"
+			default y 
+		config WRAP_DSLD_LIBAR7CFG
+			bool "Add libar7cfg to dsld wrapper"
+			default y 
+		config WRAP_DSLD_LIBAVMCSOCK
+			bool "Add libavmcsock to dsld wrapper"
+			default n
+		config WRAP_DSLD_LIBAVMCIPHER
+			bool "Add libavmcipher to dsld wrapper"
+			default n 
+		config WRAP_DSLD_LIBAVMHMAC
+			bool "Add libavmhmac to dsld wrapper"
+			default n 
+		config WRAP_DSLD_LIBEWNWLINUX
+			bool "Add libewnwlinux to dsld wrapper"
+			default n 
+		config WRAP_DSLD_LIBSLAB
+			bool "Add libslab to dsld wrapper"
+			default n 
+	endif
 endif
 #config EXPORT_SETATM
 #
