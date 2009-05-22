@@ -663,6 +663,7 @@ return 0
 # menuconfig uses Firmware.conf as Firmwareconfigfile and export must be adjusted
 eval "$(sed -e 's|EXPORT_|export |' $HOMEDIR/${firmwareconf_file_name})"
 echo "Firmware configuration taken from: ${firmwareconf_file_name}"
+. $inc_DIR/includefunctions
 # make sure Annex is set to A or B (muli uses B as default)
 [ "$ANNEX" != "B" ] && [ "$ANNEX" != "A" ] && echo "Commandline annex parameter -x is: '$ANNEX' but must be 'A' or 'B'" && exit 0  
 export kernel_args="annex=${ANNEX}" 

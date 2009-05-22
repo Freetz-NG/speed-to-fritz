@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090522-1727-r-290
+    - # bug fix agsin ther was still one lin missing.
 20090522-1342-r-288
     - # Remove left over Subversion directories, from sp-to-fritz.sh again.
 20090522-0253-r-287
