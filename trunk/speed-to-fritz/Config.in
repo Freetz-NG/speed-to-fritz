@@ -404,8 +404,8 @@ choice
 #		bool "IPV6"
 #		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
 #		help
-			FRITZ!Lab IPV6: This release adds native IPv6 over PPP
-			(Internet Protocol Version 6) and 6to4 tunnels.
+#			FRITZ!Lab IPV6: This release adds native IPv6 over PPP
+#			(Internet Protocol Version 6) and 6to4 tunnels.
 	config TYPE_PHONE
 		bool "PHONE (MT-D)"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_70 )
