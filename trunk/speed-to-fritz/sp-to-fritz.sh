@@ -658,8 +658,6 @@ esac
 
 return 0
 }
-# Remove left over Subversion directories
-find "$HOMEDIR" -type d -name .svn | xargs rm -rf
 # get commandline options to variables
 . $inc_DIR/processcomline
 # menuconfig uses Firmware.conf as Firmwareconfigfile and export must be adjusted
