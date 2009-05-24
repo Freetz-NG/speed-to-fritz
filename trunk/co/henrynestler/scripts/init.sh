@@ -44,7 +44,7 @@ if [ "$CL_FORMATIEREN" = "y" ]; then
     echo "this again is quite time consuming, nothing is displayed until finished!" 
     cp -af  /freetz-colinux-setup2/* /freetz-colinux-setup/
     # make dev if not existant
-    for i in 0 1 2 3 4
+    for i in 0 1 2 3 4 5 6 7 8 9
     do
 	if ! test -f /freetz-colinux-setup2/dev/cobd$i ; then
     	    mknod /freetz-colinux-setup2/dev/cobd$i b 117 $i 
@@ -53,7 +53,7 @@ if [ "$CL_FORMATIEREN" = "y" ]; then
 
 fi
 # make dev if not existant
-for i in 0 1 2 3 4
+for i in 0 1 2 3 4 5 6 7 8 9
 do
   if ! test -f /freetz-colinux-setup/dev/cobd$i ; then
       mknod /freetz-colinux-setup/dev/cobd$i b 117 $i 
@@ -72,11 +72,15 @@ mountpath=`cat ./colinux.settings | grep CL_COFSPFAD | cut -d = -f 2 | sed -e 's
 cat <<EOSF >/freetz-colinux-setup/setup.sh
 #!/bin/sh
 NewUser="${CL_NEWUSER}"
+launcher=$CL_LAUNCHER
+mounttype=$CL_SAMBA
+mountuser=$CL_SAMBAUSER
+mountpassword=$CL_SAMBAUSERPW
+NewUser_pw=$CL_NEWUSERPW
 #ls
 # Generate ssh keys
 [ -e /etc/ssh/ssh_host_dsa_key ] || ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N ''
 [ -e /etc/ssh/ssh_host_rsa_key ] || ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
-
 # Setup user accounts
 if [ -e /lib/security/pam_smbpass.so ] && [ -e /etc/pam.d/common-password ] &&
    ! grep -qs pam_smbpass.so /etc/pam.d/common-password
@@ -84,20 +88,44 @@ then
 	# have `passwd` update samba passwords as well
 	echo 'password required /lib/security/pam_smbpass.so nullok use_authtok try_first_pass' >> /etc/pam.d/common-password
 fi
-root_pw="root"
-useradd -m \${NewUser} -s /bin/bash -c "\${NewUser} development account,,," -G root
-freetz_pw=\${NewUser}
-#rm -f passwd.exp
-sed -e "s/windowsPathPrefix = .*;/windowsPathPrefix = \\"\\$mountpath\\";/" < /usr/local/sbin/launcher.pl > /tmp/launcher.pl
-mv -f /tmp/launcher.pl /usr/local/sbin/launcher.pl
-chmod 755 /usr/local/sbin/launcher.pl
-echo "#!/bin/sh" > /usr/local/sbin/firstboot.sh
+useradd -m \${NewUser} -s /bin/bash -c "\${NewUser} sudo admin account,,," -G root && echo "---------- added \${NewUser}"
+sleep 1
+if [ -e /etc/rc.local ]; then
+    sed -e "s/mount.*$/mount -t cifs -o credentials=\/etc\/smbpasswd,iocharset=iso8859-1,uid=$CL_NEWUSER,gid=$CL_NEWUSER,dir_mode=0755,file_mode=0755 \/\/$CL_WINIP\/$mountshare \/mnt\/samba/" < /etc/rc.local > /tmp/rc.local
+    mv -f /tmp/rc.local /etc/rc.local
+    chmod 755 /etc/rc.local
+
+    echo "---------- added mount samba via rc.local"
+    sleep 1
+fi
+if [ -e /etc/init.d/launcher ]; then
+    sed -i -e "s| 192.168.11.1|$CL_WINIP|" /etc/init.d/launcher
+    echo "---------- added lancher IP"
+    sleep 1
+fi
+#andlinx old version
+if [ -e /usr/local/sbin/launcher.pl ]; then
+    sed -e "s/windowsPathPrefix = .*;/windowsPathPrefix = \\"\\$mountpath\\";/" < /usr/local/sbin/launcher.pl > /tmp/launcher.pl
+    mv -f /tmp/launcher.pl /usr/local/sbin/launcher.pl
+    chmod 755 /usr/local/sbin/launcher.pl
+    echo "---------- added lancher mount prefix"
+    sleep 1
+fi
 echo "/usr/local/sbin/launcher.pl" > /etc/winterm
 cat /usr/local/sbin/launcher.pl | grep "windowsPathPrefix ="
 if [ -e /usr/local/sbin/launcher.pl ] && ! grep -qs "2081" /usr/local/sbin/launcher.pl; then
- sed -i -e 's| 81,| 2081,|' "/usr/local/sbin/launcher.pl"
- sleep 2
+    sed -i -e 's| 81,| 2081,|' "/usr/local/sbin/launcher.pl"
+    echo "---------- added lancher port 2080"
+    sleep 1
 fi
+echo "#!/bin/sh" > /usr/local/sbin/firstboot.sh
+#overwide andlinux beta 2 final settings
+echo "%pathPrefixes = ( '/mnt/win/' => '$mountpath' );" > /etc/andlinux/launcher-conf.pl
+echo "1; # Perl libraries MUST return 1" >> /etc/andlinux/launcher-conf.pl
+echo "sux - \${NewUser} /usr/local/sbin/launcher.pl" > /etc/andlinux/xsession_cmd
+echo "---------- added /etc/andlinux/launcher-conf.pl"
+echo "---------- added /etc/andlinux/xsession_cmd"
+sleep 1
 if [ -e /etc/ssh/sshd_config ]; then
     sed -i -e 's/PasswordAuthentication.*/PasswordAuthentication yes/' "/etc/ssh/sshd_config"
     sed -i -e 's/PermitEmptyPasswords.*/PermitEmptyPasswords yes/' "/etc/ssh/sshd_config"
@@ -105,6 +133,8 @@ if [ -e /etc/ssh/sshd_config ]; then
     sed -i -e 's/PermitRootLogin.*/PermitRootLogin yes/' "/etc/ssh/sshd_config"
 #    sed -i -e '/X11Forwarding yes/a\
 #X11UseLocalhost yes' "/etc/ssh/sshd_config"
+    echo "---------- added setup sshd_config"
+    sleep 1
 fi
 #######################################################################
 # X : GDM (gnome , xfce)
@@ -164,7 +194,7 @@ elif [ -f /etc/kde4/kdm/kdmrc ]
 then
     # Configure KDM-KDE4 autologin
     sed -i -r -e "s/^#?AutoLoginEnable=.*/AutoLoginEnable=true/" \\
-    -e "s/^#?AutoLoginUser=.*/AutoLoginUser=\$NewUser/" \\
+    -e "s/^#?AutoLoginUser=.*/AutoLoginUser=\${NewUser}/" \\
     -e "s/^#?AutoReLogin=.*/AutoReLogin=true/" \\
     -e "s/^#?AutoLoginDelay=.*/AutoLoginDelay=10/" \\
     -e "s/^#?AutoLoginAgain=.*/AutoLoginAgain=true/" \\
@@ -187,6 +217,8 @@ then
  # allow any host XDMCP
  sed -i -r -e "/window/c \*	#any host can get a login window" /etc/kde4/kdm/Xaccess
 fi
+echo "---------- added kde conf"
+sleep 1
 #######################################################################
 # Network
 # nameserver in resolv.conf  
@@ -194,17 +226,22 @@ fi
 #######################################################################
 if [ -f /etc/resolv.conf ]
 then
- # pulse audio client  ; default-server =
- echo "nameserver 203.95.1.2" >>/etc/resolv.conf
+ # pulse audio client  ; default-server = 203.95.1.2
+ echo "nameserver ${CL_WINIP}" >>/etc/resolv.conf
+    echo "---------- added pulse audio default-server ${CL_WINIP} to /etc/resolv.conf"
+    sleep 1
 fi
+sleep 1
 #######################################################################
 # Sound
 # pulseaudio client configuation
 #######################################################################
 if [ -f /etc/pulse/client.conf ]
 then
- # pulse audio client  ; default-server =
- sed -i -r -e "/default-server/c \default-server = 192.168.0.1" /etc/pulse/client.conf
+ # pulse audio client  ; default-server = 192.168.0.1
+ sed -i -r -e "/default-server/c \default-server = ${CL_WINIP}" /etc/pulse/client.conf
+    echo "---------- added pulse audio clinet default-server to /etc/pulse/client.conf"
+    sleep 1
 fi
 #######################################################################
 # Sound
@@ -231,24 +268,30 @@ EOF
 #remove root password
 if [ -e /etc/shadow ]; then
     sed -i -e 's/root:.*/root::12823:0:99999:7:::/' "/etc/shadow"
+    echo "---------- removed root password!"
+    sleep 1
 fi
 if [ -e /etc/sudoers ]; then
     sed -i -e 's/#.*\%/\%/' "/etc/sudoers"
 fi
 if [ -e /etc/sudoers ] && ! grep -qs "\${NewUser}" /etc/sudoers; then
  echo "\${NewUser} ALL=(ALL) ALL" >> "/etc/sudoers" 
- sleep 2
+    echo "---------- added \${NewUser} to /etc/sudoers"
+    sleep 1
 fi
 if [ -e /usr/bin/startwindowsterminalsession ]; then
     sed -i -e "/sux - /d" "/usr/bin/startwindowsterminalsession"
     echo "sux - \${NewUser} \$(cat /etc/winterm)" >> "/usr/bin/startwindowsterminalsession"
+    echo "---------- added \${NewUser} to /usr/bin/startwindowsterminalsession"
+    sleep 1
 fi
 User_uid=\$(id \${NewUser})
-User_uid="\${User_uid:4:4}" 
-echo "uid=\${User_uid}"
+User_uid="\${User_uid:4:4}"
 if [ -e /etc/fstab ]; then 
     sed -i -e "/mnt.win/d" "/etc/fstab"    
     echo "/dev/cofs0 /mnt/win cofs uid=\${User_uid},gid=0 0 0" >> /etc/fstab 
+    echo "---------- added \${NewUser} with uid=\${User_uid} to cofs mount im /etc/fstab"
+    sleep 1
 #    echo "/dev/cofs0 /mnt/win cofs defaults 0 0" >> /etc/fstab
 fi
 
@@ -256,8 +299,8 @@ fi
 #ACTION=="add", SUBSYSTEM=="net", KERNEL=="eth*|ath*|wlan*|ra*|sta*"
 if [ -e /etc/udev/rules.d/75-persistent-net-generator.rules ]; then 
  sed -i -e 's/eth..//' "/etc/udev/rules.d/75-persistent-net-generator.rules"
- echo " -- removed udev eth"
- sleep 2
+ echo "---------- removed udev eth"
+ sleep 1
 fi
 cat <<EOF > /etc/udev/rules.d/70-persistent-net.rules
 # This file maintains persistent names for network interfaces.
@@ -296,23 +339,22 @@ iface eth2 inet static
 #     gateway 192.168.2.1
 
 EOF
-smbpasswd -a -s \${NewUser} << EOF
-\${root_pw}
-\${freetz_pw}
-EOF
+echo "---------- added /etc/network/interfaces"
+sleep 2
 cat <<EOF > /etc/issue
 Password of root is not set!
-set \${NewUser} password to: \${freetz_pw}
-Use 'passwd' \${NewUser} to set \${freetz_pw}.
+\${NewUser} password is set to: \${NewUser_pw}
+If not, use 'passwd' \${NewUser} to set \${NewUser_pw}.
 Please log in as root or use 'sudo su', change the password, and then update the /etc/issue file, to remove this info.
 EOF
-cat <<EOF >/setpw
+cat <<SETEOF >/setpw
 #!/bin/sh
-root_pw="root"
-/passwd.exp root \${root_pw}
-freetz_pw=\${NewUser}
-/passwd.exp  \${NewUser} \${freetz_pw}
-smbpasswd -a -s \${NewUser} << EOF
+/passwd.exp  \${NewUser} \${NewUser_pw}
+smbpasswd -c /usr/share/samba/smb.conf -x  \${mountuser}
+smbpasswd -c /usr/share/samba/smb.conf -a -s -c /usr/share/samb \${mountuser} << EOF
+\${mountpassword}
+EOF
+SETEOF
 chmod 777 /setpw
 EOSF
 if [ "$CL_FORMATIEREN" = "y" ]; then
@@ -364,7 +406,7 @@ umount /proc
 sync
 
 echo  " * All done, time to exit!"
-sleep 10
+sleep 5
 reboot
 
 

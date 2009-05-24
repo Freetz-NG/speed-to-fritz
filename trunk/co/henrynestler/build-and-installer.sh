@@ -15,6 +15,10 @@ cp ./startup.bat ../bfin-colinux/trunk/and/startup.bat
 cp ./addtap.bat ../bfin-colinux/trunk/and/netdriver/andtap.bat
 cp ./srvstop.bat ../bfin-colinux/trunk/and/srvstop.bat
 cp ./README.txt ../bfin-colinux/trunk/and/README.txt
+cp ./scripts/andlinux.ico ../bfin-colinux/trunk/and/andlinux.ico
+cp ./scripts/colinux.ico ../bfin-colinux/trunk/and/colinux.ico
+cp ./scripts/start.ico ../bfin-colinux/trunk/and/start.ico
+cp ./scripts/stop.ico ../bfin-colinux/trunk/and/stop.ico
 #this files ar from the older firmware
 #cp ./initrd.gz ../bfin-colinux/trunk/and/initrd.gz
 #cp colinux-daemon.txt ../bfin-colinux/trunk/and/colinux-daemon.txt

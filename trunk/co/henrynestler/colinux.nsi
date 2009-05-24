@@ -75,15 +75,16 @@
   This installation is basically a Cooperative Linux ${VERSION} with some adaptions for Vista. \r\n\r\n \
   $_CLICK"
 
-  !insertmacro MUI_PAGE_WELCOME
+;  !insertmacro MUI_PAGE_WELCOME
 
-  !insertmacro MUI_PAGE_LICENSE "..\..\..\..\..\..\COPYING"
+;  !insertmacro MUI_PAGE_LICENSE "..\..\..\..\..\..\COPYING"
   !insertmacro MUI_PAGE_COMPONENTS
   !insertmacro MUI_PAGE_DIRECTORY
 ;  Page custom WinpcapRedir WinpcapRedirLeave
 ;  Page custom StartDlImageFunc EndDlImageFunc
   Page custom PageFileSystem PageFileSystemLeave
   Page custom PageNetworking PageNetworkingLeave
+  Page custom PageShares PageSharesLeave
   !insertmacro MUI_PAGE_INSTFILES
 
   !define MUI_FINISHPAGE_LINK "Visit the freetzLinux website"
@@ -101,12 +102,13 @@
 
 
 ;------------------------------------------------------------------------
+;Variables used to track user choice
+  Var LAUNCHER_Value
 ;------------------------------------------------------------------------
 ;Custom Setup for image download
-
-;Variables used to track user choice
   Var LOCATION
   Var RandomSeed
+
 
 ; StartDlImageFunc down for reference resolution
 
@@ -222,6 +224,10 @@ no_old_linux_sys:
   File "premaid\startup.bat"
   File "premaid\srvstop.bat"
   File "premaid\settapip.bat"
+  File "premaid\andlinux.ico"
+  File "premaid\colinux.ico"
+  File "premaid\start.ico"
+  File "premaid\stop.ico"
   File "premaid\getlanid.vbs"
   File "premaid\colinux-daemon.txt"
   File "premaid\vmlinux"
@@ -257,7 +263,10 @@ Section "Cross-platform Linux Console (FLTK)" SecFLTKConsole
   File "premaid\colinux-console-fltk.exe"
 SectionEnd
 
+
 Section "Install Launcher dirctory" SecLauncher
+  StrCpy $LAUNCHER_Value "yes"
+
   SetOutPath "$INSTDIR\Launcher"
   File "premaid\Launcher\andCmd.exe"
   File "premaid\Launcher\andKChart.exe"
@@ -445,7 +454,9 @@ Function PageFileSystemLeave
   ${NSD_GetText} $FS_ROOT_Text $FS_ROOT_Value
 FunctionEnd
 
+Var Samba
 Var NW_init
+Var NW_init1
 Var NW_Dialog
 Var NW_Label
 Var NW_WinIP_Label
@@ -460,6 +471,15 @@ Var NW_COM_Value
 Var NW_USER_Label
 Var NW_USER_Text
 Var NW_USER_Value
+Var NW_USERPW_Label
+Var NW_USERPW_Text
+Var NW_USERPW_Value
+Var NW_SAMBAUSER_Label
+Var NW_SAMBAUSER_Text
+Var NW_SAMBAUSER_Value
+Var NW_SAMBAUSERPW_Label
+Var NW_SAMBAUSERPW_Text
+Var NW_SAMBAUSERPW_Value
 Var NW_COFSPFAD_Label
 Var NW_COFSPFAD_Text
 Var NW_COFSPFAD_Value
@@ -468,6 +488,50 @@ Var FS_FORMATIEREN_Value
 
 Function PageNetworking
 
+  ${If} $NW_init == ""
+    StrCpy $NW_init "yes"
+    StrCpy $NW_WinIP_Value "192.168.11.1"
+    StrCpy $NW_LinIP_Value "192.168.11.150"
+    StrCpy $NW_COM_Value "COM1"
+  ${EndIf}
+
+  !insertmacro MUI_HEADER_TEXT "Setup Networking and Serial options" "(setup default 'settings.txt')"
+  nsDialogs::Create /NOUNLOAD 1018
+  Pop $NW_Dialog
+  ${If} $NW_Dialog == error
+    Abort
+  ${EndIf}
+
+  ${NSD_CreateLabel} 0 0% 100% 24u "Configure the network settings of the private TAP network tunnel for communication between Windows and freetzLinux.  The default values are fine."
+  Pop $NW_Label
+
+  ${NSD_CreateLabel} 0 20% 50% 12u "Windows IP Address"
+  Pop $NW_WinIP_Label
+  ${NSD_CreateText} 50% 20% 40% 12u $NW_WinIP_Value
+  Pop $NW_WinIP_Text
+
+  ${NSD_CreateLabel} 0 35% 50% 12u "Linux IP Address"
+  Pop $NW_LinIP_Label
+  ${NSD_CreateText} 50% 35% 40% 12u $NW_LinIP_Value
+  Pop $NW_LinIP_Text
+
+
+  ${NSD_CreateLabel} 0 80% 50% 12u "Serial Port Settings (Optional)"
+  Pop $NW_COM_Label
+  ${NSD_CreateText} 50% 80% 40% 12u $NW_COM_Value
+  Pop $NW_COM_Text
+
+  nsDialogs::Show
+
+FunctionEnd
+
+Function PageNetworkingLeave
+  ${NSD_GetText} $NW_WinIP_Text $NW_WinIP_Value
+  ${NSD_GetText} $NW_LinIP_Text $NW_LinIP_Value
+  ${NSD_GetText} $NW_COM_Text $NW_COM_Value
+FunctionEnd
+
+Function PageShares
 ;--------------------------------------------------------------------------------------------
     DetailPrint "Read settings.txt shared directory"
     Push $0 # dir
@@ -491,86 +555,82 @@ Function PageNetworking
     Pop $0
 ;--------------------------------------------------------------------------------------------
 
-  ${If} $NW_init == ""
-    StrCpy $NW_init "yes"
-    StrCpy $NW_WinIP_Value "192.168.11.1"
-    StrCpy $NW_LinIP_Value "192.168.11.150"
-    StrCpy $NW_COM_Value "COM1"
+  ${If} $NW_init1 == ""
+    StrCpy $NW_init1 "yes"
     StrCpy $NW_USER_Value "freetz"
-    StrCpy $FS_FORMATIEREN_Value "n"
+    StrCpy $NW_USERPW_Value "freetz"
+    StrCpy $NW_SAMBAUSER_Value ""
+    StrCpy $NW_SAMBAUSERPW_Value ""
   ${EndIf}
 
-  !insertmacro MUI_HEADER_TEXT "Setup Networking and Serial options" "(setup default 'settings.txt')"
+  !insertmacro MUI_HEADER_TEXT "Setup shared Folder options" "(setup default 'settings.txt')"
   nsDialogs::Create /NOUNLOAD 1018
   Pop $NW_Dialog
   ${If} $NW_Dialog == error
     Abort
   ${EndIf}
 
-  ${NSD_CreateLabel} 0 0% 100% 24u "Configure the network settings of the private TAP network tunnel for communication between Windows and freetzLinux.  The default values are fine."
+  ${NSD_CreateLabel} 0 0% 100% 24u "Configure the settings for communication between Windows and freetzLinux.  The default values are fine."
   Pop $NW_Label
 
-  ${NSD_CreateLabel} 0 20% 50% 12u "Windows IP Address"
-  Pop $NW_WinIP_Label
-  ${NSD_CreateText} 50% 20% 40% 12u $NW_WinIP_Value
-  Pop $NW_WinIP_Text
-
-  ${NSD_CreateLabel} 0 35% 50% 12u "Linux IP Address"
-  Pop $NW_LinIP_Label
-  ${NSD_CreateText} 50% 35% 40% 12u $NW_LinIP_Value
-  Pop $NW_LinIP_Text
-
-  ${NSD_CreateLabel} 0 50% 50% 12u "COFS (DOS8.3 names, eg: C:\)"
+  ${NSD_CreateLabel} 0 20% 50% 12u "Shared Folder (DOS8.3 names, eg: C:\)"
   Pop $NW_COFSPFAD_Label
-  ${NSD_CreateDirRequest} 50% 50% 40% 12u $NW_COFSPFAD_Value
+  ${NSD_CreateDirRequest} 50% 20% 40% 12u $NW_COFSPFAD_Value
   Pop $NW_COFSPFAD_Text
 
   ;; Only looking inside a folder
-  ${NSD_CreateBrowseButton} 90% 50% 25 12u "..."
+  ${NSD_CreateBrowseButton} 90% 20% 25 12u "..."
   Pop $INST_SDAT_BTN1
   nsDialogs::SetUserData /NOUNLOAD $INST_SDAT_BTN1 $NW_COFSPFAD_Value
-		
+
   GetFunctionAddress $0 FolderBrowseButton
   nsDialogs::OnClick /NOUNLOAD $INST_SDAT_BTN1 $0
   #DirRequest
-  ${NSD_CreateText} 50% 50% 40% 12u $NW_COFSPFAD_Value
-  Pop $NW_COFSPFAD_Text
+  ${NSD_CreateText} 50% 20% 40% 12u $NW_COFSPFAD_Value
+  Pop $NW_COFSPFAD_Value
 
-!ifndef BFIN_BASE
-
-  ${NSD_CreateLabel} 0 65% 50% 12u "Linux new user name"
+  ${NSD_CreateLabel} 0 35% 50% 12u "Linux new user name"
   Pop $NW_USER_Label
-  ${NSD_CreateText} 50% 65% 40% 12u $NW_USER_Value
+  ${NSD_CreateText} 50% 35% 40% 12u $NW_USER_Value
   Pop $NW_USER_Text
 
-  ${NSD_CreateLabel} 0 80% 50% 12u "Serial Port Settings (Optional)"
-  Pop $NW_COM_Label
-  ${NSD_CreateText} 50% 80% 40% 12u $NW_COM_Value
-  Pop $NW_COM_Text
+  ${NSD_CreateLabel} 0 50% 50% 12u "Linux new user passwort"
+  Pop $NW_USERPW_Label
+  ${NSD_CreateText} 50% 50% 40% 12u $NW_USERPW_Value
+  Pop $NW_USERPW_Text
 
-!endif
+  ${NSD_CreateLabel} 0 65% 50% 12u "Samba user name"
+  Pop $NW_SAMBAUSER_Label
+  ${NSD_CreateText} 50% 65% 40% 12u $NW_SAMBAUSER_Value
+  Pop $NW_SAMBAUSER_Text
 
+  ${NSD_CreateLabel} 0 80% 50% 12u "Samba user passwort"
+  Pop $NW_SAMBAUSERPW_Label
+  ${NSD_CreateText} 50% 80% 40% 12u $NW_SAMBAUSERPW_Value
+  Pop $NW_SAMBAUSERPW_Text
 
   nsDialogs::Show
 
 FunctionEnd
 
 Function FolderBrowseButton
-  nsDialogs::SelectFolderDialog /NOUNLOAD "Select COFS (DOS8.3 names only, eg: C:\)" $NW_COFSPFAD_Value 
+  nsDialogs::SelectFolderDialog /NOUNLOAD "Select shared folder (DOS8.3 names only, eg: C:\)" $NW_COFSPFAD_Value 
   Pop $2
   ${If} $2 != ""
    SendMessage $NW_COFSPFAD_Text ${WM_SETTEXT} 0 STR:$2
+   SendMessage $NW_COFSPFAD_Value ${WM_SETTEXT} 0 STR:$2
   ${EndIf}
 FunctionEnd
 
 
-Function PageNetworkingLeave
-  ${NSD_GetText} $NW_WinIP_Text $NW_WinIP_Value
-  ${NSD_GetText} $NW_LinIP_Text $NW_LinIP_Value
+Function PageSharesLeave
   ${NSD_GetText} $NW_COFSPFAD_Text $NW_COFSPFAD_Value
-  ${NSD_GetText} $NW_COM_Text $NW_COM_Value
   ${NSD_GetText} $NW_USER_Text $NW_USER_Value
+  ${NSD_GetText} $NW_USERPW_Text $NW_USERPW_Value
+  ${NSD_GetText} $NW_SAMBAUSER_Text $NW_SAMBAUSER_Value
+  ${NSD_GetText} $NW_SAMBAUSERPW_Text $NW_SAMBAUSERPW_Value
 FunctionEnd
+
 
 Section -CreateConfigFile
   SetOutPath -
@@ -624,6 +684,8 @@ Section -CreateConfigFile
   FileWrite $0 "# Serial configuration$\r$\n"
   FileWrite $0 'ttys0=$NW_COM_Value,"baud=38400 parity=N data=8 stop=1 xon=off odsr=off octs=off idsr=off to=on rts=on dtr=on"$\r$\n'
   FileClose $0
+
+
   #skip_config:
 
    WriteRegStr HKLM SOFTWARE\andLinux\Launcher "IP" "$NW_LinIP_Value" 
@@ -973,6 +1035,12 @@ Section -post
   Abort
  swap_made:
 
+    StrCpy $Samba "samba"
+
+  ${If} $$NW_SAMBAUSER_Value != ""
+    StrCpy $Samba "cofs"
+  ${EndIf}
+
   DetailPrint "Passing install settings to coLinux"
   FileOpen $0 "colinux.settings" w
   FileWrite $0 "CL_SWAP=cobd1$\n"
@@ -987,14 +1055,32 @@ Section -post
   FileWrite $0 "CL_COFSPFAD=$NW_COFSPFAD_Value$\n"
   FileWrite $0 "CL_COM=$NW_COM_Value$\n"
   FileWrite $0 "CL_NEWUSER=$NW_USER_Value$\n"
+  FileWrite $0 "CL_SAMBAUSER=$NW_SAMBAUSER_Value$\n"
+  FileWrite $0 "CL_NEWUSERPW=$NW_USERPW_Value$\n"
+  FileWrite $0 "CL_SAMBAUSERPW=$NW_SAMBAUSERPW_Value$\n"
+  FileWrite $0 "CL_LANCHER=$LAUNCHER_Value$\n"
+  FileWrite $0 "CL_SAMBA=$Samba$\n"
   FileClose $0
+
+  DetailPrint "Passing install settings to andLinux"
+  FileOpen $0 "firstboot.txt" w
+  FileWrite $0 'mountpath=$NW_COFSPFAD_Value$\n'
+  FileWrite $0 'mountshare=samba$\n'
+  FileWrite $0 'login=$NW_USER_Value$\n'
+  FileWrite $0 'mountuser=$NW_SAMBAUSER_Value$\n'
+  FileWrite $0 'passwd=$NW_USERPW_Value$\n'
+  FileWrite $0 'mountpassword=$NW_SAMBAUSERPW_Value$\n'
+  FileWrite $0 'launcher=$LAUNCHER_Value$\n'
+  FileWrite $0 'mounttype=$Samba$\n'
+  FileClose $0
+
 
   File tarballs\init.tar
   File tarballs\andlinux-configs.tar
  # File tarballs\andlinux-root.tar
   File scripts\init.sh
   File scripts\passwd.exp
-  Delete $INSTDIR\firstboot.txt
+#  Delete $INSTDIR\firstboot.txt
 
   DetailPrint "Initializing file system images (this may take a bit)"
   nsExec::ExecToLog 'cmd /C set COLINUX_CONSOLE_EXIT_ON_DETACH=1 & \
