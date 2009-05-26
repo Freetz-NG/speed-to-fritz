@@ -1,4 +1,3 @@
-
 #!/bin/sh
 # assumption: $PWD is the colinux install dir
 #clear
@@ -70,13 +69,12 @@ echo " * Configuring files and directories"
 mountpath=`cat ./colinux.settings | grep CL_COFSPFAD | cut -d = -f 2 | sed -e 's/\\\\/\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\/g'`
 #echo "Mountpath: $mountpath"
 cat <<EOSF >/freetz-colinux-setup/setup.sh
-#!/bin/sh
-NewUser="${CL_NEWUSER}"
-launcher=$CL_LAUNCHER
-mounttype=$CL_SAMBA
+#!/bin/bash
+NewUser=$CL_NEWUSER
 mountuser=$CL_SAMBAUSER
 mountpassword=$CL_SAMBAUSERPW
 NewUser_pw=$CL_NEWUSERPW
+mountshare="$(echo $mountpath | sed -e 's|.*\\||')"
 #ls
 # Generate ssh keys
 [ -e /etc/ssh/ssh_host_dsa_key ] || ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N ''
@@ -90,16 +88,40 @@ then
 fi
 useradd -m \${NewUser} -s /bin/bash -c "\${NewUser} sudo admin account,,," -G root && echo "---------- added \${NewUser}"
 sleep 1
-if [ -e /etc/rc.local ]; then
-    sed -e "s/mount.*$/mount -t cifs -o credentials=\/etc\/smbpasswd,iocharset=iso8859-1,uid=$CL_NEWUSER,gid=$CL_NEWUSER,dir_mode=0755,file_mode=0755 \/\/$CL_WINIP\/$mountshare \/mnt\/samba/" < /etc/rc.local > /tmp/rc.local
+User_uid=\$(id \${NewUser})
+#User_uid:4:4 works only with bash
+User_uid="\${User_uid:4:4}"
+if [ "\${mountuser}" != "" ] && [ "\${mountuser}" != ""  ]; then
+ if [ -e /etc/rc.local ]; then
+    sed -e "/mount/d" < /etc/rc.local > /tmp/rc.local
+    echo "mount -t cifs -o credentials=/etc/smbpasswd,iocharset=iso8859-1,uid=\$User_uid,gid=\$User_uid,dir_mode=0777,file_mode=0777 //$CL_WINIP/\$mountshare /mnt/win/" > /tmp/rc.local
     mv -f /tmp/rc.local /etc/rc.local
     chmod 755 /etc/rc.local
-
-    echo "---------- added mount samba via rc.local"
+    echo "username=\$mountuser" > /etc/smbpasswd
+    echo "password=\$mountpassword" >> /etc/smbpasswd
+    echo "---------- added mount '\$mountshare' samba via rc.local"
+    sleep 1
+    sed -i -e "/mnt.win/d" "/etc/fstab"    
+ fi
+else
+ if [ -e /etc/fstab ]; then 
+    sed -i -e "/mnt.win/d" "/etc/fstab"    
+    echo "/dev/cofs0 /mnt/win cofs uid=\${User_uid},gid=\${User_uid} 0 0" >> /etc/fstab 
+    echo "---------- added \${NewUser} with uid=\${User_uid} to cofs mount im /etc/fstab"
+    sed -e "/mount/d" < /etc/rc.local > /tmp/rc.local
+    mv -f /tmp/rc.local /etc/rc.local
+    chmod 755 /etc/rc.local
+    sleep 1
+ #    echo "/dev/cofs0 /mnt/win cofs defaults 0 0" >> /etc/fstab
+ fi
+fi
+if [ -e /etc/hosts ]; then
+    sed -i -e "s|192.168.11.1|$CL_WINIP	windows-host|" /etc/hosts
+    echo "---------- added windows-host IP"
     sleep 1
 fi
 if [ -e /etc/init.d/launcher ]; then
-    sed -i -e "s| 192.168.11.1|$CL_WINIP|" /etc/init.d/launcher
+    sed -i -e "s|192.168.11.1|$CL_WINIP|" /etc/init.d/launcher
     echo "---------- added lancher IP"
     sleep 1
 fi
@@ -112,13 +134,12 @@ if [ -e /usr/local/sbin/launcher.pl ]; then
     sleep 1
 fi
 echo "/usr/local/sbin/launcher.pl" > /etc/winterm
-cat /usr/local/sbin/launcher.pl | grep "windowsPathPrefix ="
+#cat /usr/local/sbin/launcher.pl | grep "windowsPathPrefix ="
 if [ -e /usr/local/sbin/launcher.pl ] && ! grep -qs "2081" /usr/local/sbin/launcher.pl; then
     sed -i -e 's| 81,| 2081,|' "/usr/local/sbin/launcher.pl"
     echo "---------- added lancher port 2080"
     sleep 1
 fi
-echo "#!/bin/sh" > /usr/local/sbin/firstboot.sh
 #overwide andlinux beta 2 final settings
 echo "%pathPrefixes = ( '/mnt/win/' => '$mountpath' );" > /etc/andlinux/launcher-conf.pl
 echo "1; # Perl libraries MUST return 1" >> /etc/andlinux/launcher-conf.pl
@@ -285,16 +306,6 @@ if [ -e /usr/bin/startwindowsterminalsession ]; then
     echo "---------- added \${NewUser} to /usr/bin/startwindowsterminalsession"
     sleep 1
 fi
-User_uid=\$(id \${NewUser})
-User_uid="\${User_uid:4:4}"
-if [ -e /etc/fstab ]; then 
-    sed -i -e "/mnt.win/d" "/etc/fstab"    
-    echo "/dev/cofs0 /mnt/win cofs uid=\${User_uid},gid=0 0 0" >> /etc/fstab 
-    echo "---------- added \${NewUser} with uid=\${User_uid} to cofs mount im /etc/fstab"
-    sleep 1
-#    echo "/dev/cofs0 /mnt/win cofs defaults 0 0" >> /etc/fstab
-fi
-
 #remove entry
 #ACTION=="add", SUBSYSTEM=="net", KERNEL=="eth*|ath*|wlan*|ra*|sta*"
 if [ -e /etc/udev/rules.d/75-persistent-net-generator.rules ]; then 
@@ -342,20 +353,33 @@ EOF
 echo "---------- added /etc/network/interfaces"
 sleep 2
 cat <<EOF > /etc/issue
-Password of root is not set!
-\${NewUser} password is set to: \${NewUser_pw}
-If not, use 'passwd' \${NewUser} to set \${NewUser_pw}.
+
 Please log in as root or use 'sudo su', change the password, and then update the /etc/issue file, to remove this info.
+
 EOF
 cat <<SETEOF >/setpw
 #!/bin/sh
+/passwd.exp  root root
 /passwd.exp  \${NewUser} \${NewUser_pw}
-smbpasswd -c /usr/share/samba/smb.conf -x  \${mountuser}
-smbpasswd -c /usr/share/samba/smb.conf -a -s -c /usr/share/samb \${mountuser} << EOF
-\${mountpassword}
-EOF
 SETEOF
+#if [ "\${mountuser}" != "" ] && [ "\${mountuser}" != ""  ]; then
+#echo "username=$mountuser" > /etc/smbpasswd
+#echo "password=$mountpassword" >> /etc/smbpasswd
+#cat <<SETEOF >>/setpw
+#smbpasswd -c /usr/share/samba/smb.conf -x \${mountuser}
+#smbpasswd -c /usr/share/samba/smb.conf -a -s \${mountuser} << EOF
+#\${mountpassword}
+#EOF
+#SETEOF
+#fi
 chmod 777 /setpw
+#set password via /etc/rc.local
+[ -f /etc/rc.local ] || echo "#!/bin/sh" >> /etc/rc.local
+grep -q '#!.bin.sh' /etc/rc.local || echo "#!/bin/sh" >> /etc/rc.local
+sed -i -e "/#!.bin.sh/a\\
+rm -f \\/mnt\\/and\\/firstboot.txt #####\\n\\
+\\/setpw #####\\n\\
+sed -i -e \\"\\/#####\\/d\\" \/etc\/rc.local" /etc/rc.local
 EOSF
 if [ "$CL_FORMATIEREN" = "y" ]; then
 
@@ -367,7 +391,7 @@ for FILE in `ls /freetz-colinux-setup2/var/log` ; do
 done
 
 cat <<EOSF >/freetz-colinux-setup2/clean.sh
-#!/bin/sh
+#!/bin/bash
 rm -rd /lib/modules/*-co-*
 rm -rd /boot
 rm -f /var/log/*.gz
@@ -385,7 +409,7 @@ EOSF
 fi
 echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 chroot /freetz-colinux-setup /bin/bash /setup.sh
-#chroot /freetz-colinux-setup /bin/bash /setpw
+#chroot /freetz-colinux-setup /bin/bash /setpw #courses an error, do it later via firstboot.sh?
 echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
 ##rm -f /freetz-colinux-setup/setup.sh
@@ -405,8 +429,9 @@ umount -a
 umount /proc
 sync
 
+echo  " * Passwords will be set at first boot."
 echo  " * All done, time to exit!"
-sleep 5
+sleep 10
 reboot
 
 

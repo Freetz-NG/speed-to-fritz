@@ -8,6 +8,7 @@
 ;Modified 12/06/2008 by Johann Pascher
 
   !include "MUI.nsh"
+  !include "MUI2.nsh"
   !include "x64.nsh"
   !include Sections.nsh
   !define ALL_USERS
@@ -57,6 +58,37 @@
   !define MUI_ABORTWARNING
   !define MUI_FINISHPAGE_NOAUTOCLOSE
 
+Var Samba
+Var NW_init
+Var NW_init1
+Var NW_Dialog
+Var NW_Label
+Var NW_WinIP_Label
+Var NW_WinIP_Text
+Var NW_WinIP_Value
+Var NW_LinIP_Label
+Var NW_LinIP_Text
+Var NW_LinIP_Value
+Var NW_COM_Label
+Var NW_COM_Text
+Var NW_COM_Value
+Var NW_USER_Label
+Var NW_USER_Text
+Var NW_USER_Value
+Var NW_USERPW_Label
+Var NW_USERPW_Text
+Var NW_USERPW_Value
+Var NW_SAMBAUSER_Label
+Var NW_SAMBAUSER_Text
+Var NW_SAMBAUSER_Value
+Var NW_SAMBAUSERPW_Label
+Var NW_SAMBAUSERPW_Text
+Var NW_SAMBAUSERPW_Value
+;Var NW_COFSPFAD_Label
+;Var NW_COFSPFAD_Text
+Var NW_COFSPFAD_Value
+;Var INST_SDAT_BTN1
+Var FS_FORMATIEREN_Value
 ;--------------------------------
 ;Pages
 
@@ -75,9 +107,9 @@
   This installation is basically a Cooperative Linux ${VERSION} with some adaptions for Vista. \r\n\r\n \
   $_CLICK"
 
-;  !insertmacro MUI_PAGE_WELCOME
+  !insertmacro MUI_PAGE_WELCOME
 
-;  !insertmacro MUI_PAGE_LICENSE "..\..\..\..\..\..\COPYING"
+  !insertmacro MUI_PAGE_LICENSE "..\..\..\..\..\..\COPYING"
   !insertmacro MUI_PAGE_COMPONENTS
   !insertmacro MUI_PAGE_DIRECTORY
 ;  Page custom WinpcapRedir WinpcapRedirLeave
@@ -85,6 +117,20 @@
   Page custom PageFileSystem PageFileSystemLeave
   Page custom PageNetworking PageNetworkingLeave
   Page custom PageShares PageSharesLeave
+;  Page custom nsDialogsCreateAccountPage nsDialogsCreateAccountPageLeave
+;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+; Use the MUI_HEADER_TEXT macro to set the text on the page header in a page function:
+;LangString PAGE_TITLE ${LANG_ENGLISH} "Title"
+;LangString PAGE_SUBTITLE ${LANG_ENGLISH} "Subtitle"
+
+!define MUI_PAGE_HEADER_TEXT "Setup shared Folder"
+!define MUI_PAGE_HEADER_SUBTEXT "Sets entry in settings.txt for cofs if no windows user was spacified."
+!define MUI_DIRECTORYPAGE_TEXT_DESTINATION "Shared folder secetion, this selection is used for cofs or samba."
+!define MUI_DIRECTORYPAGE_TEXT_TOP "Please select a shared folder 'Freigabe' within windows, you must setup a windows user with password for this folder first!"
+!define MUI_DIRECTORYPAGE_VARIABLE      $NW_COFSPFAD_Value
+!insertmacro MUI_PAGE_DIRECTORY
+;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
   !insertmacro MUI_PAGE_INSTFILES
 
   !define MUI_FINISHPAGE_LINK "Visit the freetzLinux website"
@@ -122,9 +168,29 @@ Function .onInit
 
   !insertmacro MUI_INSTALLOPTIONS_EXTRACT "iDl.ini"
   !insertmacro MUI_INSTALLOPTIONS_EXTRACT "WinpcapRedir.ini"
-
+;--------------------------------------------------------------------------------------------
+    DetailPrint "Read settings.txt shared directory"
+    Push $0 # dir
+    Push $1 #  
+    ClearErrors
+    FileOpen $0 "$INSTDIR\settings.txt" r
+    IfErrors s_fail
+    s_line:
+    FileRead $0 $R0
+    IfErrors s_done
+      StrCpy $1 $R0 6
+      ${IF} $1 == "cofs0="
+      StrCpy $NW_COFSPFAD_Value $R0 -1 6
+     ${ELSE}
+    ${ENDIF}
+    GoTo s_line
+    s_done:
+    FileClose $0
+    s_fail:
+    Pop $1
+    Pop $0
+;--------------------------------------------------------------------------------------------
 FunctionEnd
-
 ;------------------------------------------------------------------------
 ;------------------------------------------------------------------------
 ;Installer Sections
@@ -454,37 +520,6 @@ Function PageFileSystemLeave
   ${NSD_GetText} $FS_ROOT_Text $FS_ROOT_Value
 FunctionEnd
 
-Var Samba
-Var NW_init
-Var NW_init1
-Var NW_Dialog
-Var NW_Label
-Var NW_WinIP_Label
-Var NW_WinIP_Text
-Var NW_WinIP_Value
-Var NW_LinIP_Label
-Var NW_LinIP_Text
-Var NW_LinIP_Value
-Var NW_COM_Label
-Var NW_COM_Text
-Var NW_COM_Value
-Var NW_USER_Label
-Var NW_USER_Text
-Var NW_USER_Value
-Var NW_USERPW_Label
-Var NW_USERPW_Text
-Var NW_USERPW_Value
-Var NW_SAMBAUSER_Label
-Var NW_SAMBAUSER_Text
-Var NW_SAMBAUSER_Value
-Var NW_SAMBAUSERPW_Label
-Var NW_SAMBAUSERPW_Text
-Var NW_SAMBAUSERPW_Value
-Var NW_COFSPFAD_Label
-Var NW_COFSPFAD_Text
-Var NW_COFSPFAD_Value
-Var INST_SDAT_BTN1
-Var FS_FORMATIEREN_Value
 
 Function PageNetworking
 
@@ -531,29 +566,8 @@ Function PageNetworkingLeave
   ${NSD_GetText} $NW_COM_Text $NW_COM_Value
 FunctionEnd
 
+
 Function PageShares
-;--------------------------------------------------------------------------------------------
-    DetailPrint "Read settings.txt shared directory"
-    Push $0 # dir
-    Push $1 #  
-    ClearErrors
-    FileOpen $0 "$INSTDIR\settings.txt" r
-    IfErrors s_fail
-    s_line:
-    FileRead $0 $R0
-    IfErrors s_done
-      StrCpy $1 $R0 6
-      ${IF} $1 == "cofs0="
-      StrCpy $NW_COFSPFAD_Value $R0 -1 6
-     ${ELSE}
-    ${ENDIF}
-    GoTo s_line
-    s_done:
-    FileClose $0
-    s_fail:
-    Pop $1
-    Pop $0
-;--------------------------------------------------------------------------------------------
 
   ${If} $NW_init1 == ""
     StrCpy $NW_init1 "yes"
@@ -563,48 +577,48 @@ Function PageShares
     StrCpy $NW_SAMBAUSERPW_Value ""
   ${EndIf}
 
-  !insertmacro MUI_HEADER_TEXT "Setup shared Folder options" "(setup default 'settings.txt')"
+  !insertmacro MUI_HEADER_TEXT "LINUX and Windows acount" " (Windows 'Freigabe' (Shared) User acount)"
   nsDialogs::Create /NOUNLOAD 1018
   Pop $NW_Dialog
   ${If} $NW_Dialog == error
     Abort
   ${EndIf}
 
-  ${NSD_CreateLabel} 0 0% 100% 24u "Configure the settings for communication between Windows and freetzLinux.  The default values are fine."
+  ${NSD_CreateLabel} 0 0% 100% 24u "Please fill in the following fields, passwords are needed! Windows username and password can be left emty, then instead of SAMBA cofs is in use."
   Pop $NW_Label
 
-  ${NSD_CreateLabel} 0 20% 50% 12u "Shared Folder (DOS8.3 names, eg: C:\)"
-  Pop $NW_COFSPFAD_Label
-  ${NSD_CreateDirRequest} 50% 20% 40% 12u $NW_COFSPFAD_Value
-  Pop $NW_COFSPFAD_Text
+;  ${NSD_CreateLabel} 0 20% 50% 12u "Shared Folder (DOS8.3 names, eg: C:\)"
+;  Pop $NW_COFSPFAD_Label
+;  ${NSD_CreateDirRequest} 50% 20% 40% 12u $NW_COFSPFAD_Value
+;  Pop $NW_COFSPFAD_Text
 
   ;; Only looking inside a folder
-  ${NSD_CreateBrowseButton} 90% 20% 25 12u "..."
-  Pop $INST_SDAT_BTN1
-  nsDialogs::SetUserData /NOUNLOAD $INST_SDAT_BTN1 $NW_COFSPFAD_Value
+;  ${NSD_CreateBrowseButton} 90% 20% 25 12u "..."
+;  Pop $INST_SDAT_BTN1
+;  nsDialogs::SetUserData /NOUNLOAD $INST_SDAT_BTN1 $NW_COFSPFAD_Value
 
-  GetFunctionAddress $0 FolderBrowseButton
-  nsDialogs::OnClick /NOUNLOAD $INST_SDAT_BTN1 $0
+;  GetFunctionAddress $0 FolderBrowseButton
+;  nsDialogs::OnClick /NOUNLOAD $INST_SDAT_BTN1 $0
   #DirRequest
-  ${NSD_CreateText} 50% 20% 40% 12u $NW_COFSPFAD_Value
-  Pop $NW_COFSPFAD_Value
+;  ${NSD_CreateText} 50% 20% 40% 12u $NW_COFSPFAD_Value
+;  Pop $NW_COFSPFAD_Value
 
-  ${NSD_CreateLabel} 0 35% 50% 12u "Linux new user name"
+  ${NSD_CreateLabel} 0 35% 50% 12u "New Linux username:"
   Pop $NW_USER_Label
   ${NSD_CreateText} 50% 35% 40% 12u $NW_USER_Value
   Pop $NW_USER_Text
 
-  ${NSD_CreateLabel} 0 50% 50% 12u "Linux new user passwort"
+  ${NSD_CreateLabel} 0 50% 50% 12u "New Linux user password:"
   Pop $NW_USERPW_Label
   ${NSD_CreateText} 50% 50% 40% 12u $NW_USERPW_Value
   Pop $NW_USERPW_Text
 
-  ${NSD_CreateLabel} 0 65% 50% 12u "Samba user name"
+  ${NSD_CreateLabel} 0 65% 50% 12u "Windows 'Freigabe' username:"
   Pop $NW_SAMBAUSER_Label
   ${NSD_CreateText} 50% 65% 40% 12u $NW_SAMBAUSER_Value
   Pop $NW_SAMBAUSER_Text
 
-  ${NSD_CreateLabel} 0 80% 50% 12u "Samba user passwort"
+  ${NSD_CreateLabel} 0 80% 50% 12u "Windows 'Freigabe' user password:"
   Pop $NW_SAMBAUSERPW_Label
   ${NSD_CreateText} 50% 80% 40% 12u $NW_SAMBAUSERPW_Value
   Pop $NW_SAMBAUSERPW_Text
@@ -613,18 +627,108 @@ Function PageShares
 
 FunctionEnd
 
-Function FolderBrowseButton
-  nsDialogs::SelectFolderDialog /NOUNLOAD "Select shared folder (DOS8.3 names only, eg: C:\)" $NW_COFSPFAD_Value 
-  Pop $2
-  ${If} $2 != ""
-   SendMessage $NW_COFSPFAD_Text ${WM_SETTEXT} 0 STR:$2
-   SendMessage $NW_COFSPFAD_Value ${WM_SETTEXT} 0 STR:$2
+Var UsernameTxt
+Var Password1Txt
+Var Password2Txt
+Var WUsernameTxt
+Var WPassword1Txt
+Var WPassword2Txt
+Var Label
+Var Dialog
+Var W_init
+
+
+Function nsDialogsCreateAccountPage
+  ${If} $W_init == ""
+    StrCpy $W_init "yes"
+    StrCpy $UsernameTxt "freetz"
+    StrCpy $Password1Txt "freetz"
+    StrCpy $Password2Txt "freetz"
+    StrCpy $WUsernameTxt ""
+    StrCpy $WPassword2Txt ""
+    StrCpy $WPassword2Txt ""
   ${EndIf}
+
+;    IntCmp $ShouldCreateAccount 1 createAccount
+;    Abort ; skip this page if create account wasn't chosen
+;    createAccount:
+
+    !insertmacro MUI_HEADER_TEXT "LINUX account and Windows 'Freigabe' (Shared) User acount" "Please fill in the following fields, passwords are needed! Windows Username and Passord can be left emty."
+    nsDialogs::Create /NOUNLOAD 1018
+    Pop $Dialog
+
+    ${If} $Dialog == error
+    Abort
+    ${EndIf}
+
+    ${NSD_CreateLabel}       0 2u 70u 13u "LINUX Username:"
+    Pop $Label
+    ${NSD_CreateText}      70u 0  60% 13u ""
+    Pop $UsernameTxt
+    ${NSD_CreateLabel}      0 20u 70u 13u "LINUX Password:"
+    Pop $Label
+    ${NSD_CreatePassword} 70u 18u 60% 13u ""
+    Pop $Password1Txt
+    ${NSD_CreateLabel}      0 38u 70u 13u "Confirm Password:"
+    Pop $Label
+    ${NSD_CreatePassword} 70u 36u 60% 13u ""
+    Pop $Password2Txt
+
+    ${NSD_CreateLabel}      0 56u 70u 13u "Windows 'Freigabe' Username:"
+    Pop $Label
+    ${NSD_CreateText}     70u 54u 60% 13u ""
+    Pop $WUsernameTxt
+    ${NSD_CreateLabel}      0 74u 70u 13u "Windows 'Freigabe' Password:"
+    Pop $Label
+    ${NSD_CreatePassword} 70u 72u 60% 13u ""
+    Pop $WPassword1Txt
+    ${NSD_CreateLabel}      0 92u 70u 13u "Windows 'Freigabe' Confirm Password:"
+    Pop $Label
+    ${NSD_CreatePassword} 70u 90u 60% 13u ""
+    Pop $WPassword2Txt
+
+    nsDialogs::Show
 FunctionEnd
+
+Var Username
+Var Password1
+Var Password2
+Var WUsername
+Var WPassword1
+Var WPassword2
+
+; called when the create account next button is clicked
+
+Function nsDialogsCreateAccountPageLeave
+     ${NSD_GetText} $UsernameTxt $Username
+     ${NSD_GetText} $Password1Txt $Password1
+     ${NSD_GetText} $Password2Txt $Password2
+     ${NSD_GetText} $WUsernameTxt $WUsername
+     ${NSD_GetText} $WPassword1Txt $WPassword1
+     ${NSD_GetText} $WPassword2Txt $WPassword2
+     StrCmpS $Password1 $Password2 cont badPassword
+      badPassword:
+    MessageBox MB_ICONINFORMATION|MB_OK "The passwords entered do not match. Please try again."
+    Abort
+     StrCmpS $WPassword1 $WPassword2 cont badWPassword
+      badWPassword:
+    MessageBox MB_ICONINFORMATION|MB_OK "The Windoews passwords entered do not match. Please try again."
+    Abort
+cont:
+FunctionEnd
+
+;Function FolderBrowseButton
+;  nsDialogs::SelectFolderDialog /NOUNLOAD "Select shared folder (DOS8.3 names only, eg: C:\)" $NW_COFSPFAD_Value 
+;  Pop $2
+;  ${If} $2 != ""
+;   SendMessage $NW_COFSPFAD_Text ${WM_SETTEXT} 0 STR:$2
+;   SendMessage $NW_COFSPFAD_Value ${WM_SETTEXT} 0 STR:$2
+;  ${EndIf}
+;FunctionEnd
 
 
 Function PageSharesLeave
-  ${NSD_GetText} $NW_COFSPFAD_Text $NW_COFSPFAD_Value
+;  ${NSD_GetText} $NW_COFSPFAD_Text $NW_COFSPFAD_Value
   ${NSD_GetText} $NW_USER_Text $NW_USER_Value
   ${NSD_GetText} $NW_USERPW_Text $NW_USERPW_Value
   ${NSD_GetText} $NW_SAMBAUSER_Text $NW_SAMBAUSER_Value
@@ -1058,20 +1162,31 @@ Section -post
   FileWrite $0 "CL_SAMBAUSER=$NW_SAMBAUSER_Value$\n"
   FileWrite $0 "CL_NEWUSERPW=$NW_USERPW_Value$\n"
   FileWrite $0 "CL_SAMBAUSERPW=$NW_SAMBAUSERPW_Value$\n"
-  FileWrite $0 "CL_LANCHER=$LAUNCHER_Value$\n"
-  FileWrite $0 "CL_SAMBA=$Samba$\n"
   FileClose $0
 
   DetailPrint "Passing install settings to andLinux"
   FileOpen $0 "firstboot.txt" w
+  FileWrite $0 'Renane this file to firstboot.txt if you want that the following seetings are made with the next boot. $\n'
   FileWrite $0 'mountpath=$NW_COFSPFAD_Value$\n'
-  FileWrite $0 'mountshare=samba$\n'
+  FileWrite $0 'mountshare=$\n'
   FileWrite $0 'login=$NW_USER_Value$\n'
   FileWrite $0 'mountuser=$NW_SAMBAUSER_Value$\n'
   FileWrite $0 'passwd=$NW_USERPW_Value$\n'
   FileWrite $0 'mountpassword=$NW_SAMBAUSERPW_Value$\n'
   FileWrite $0 'launcher=$LAUNCHER_Value$\n'
-  FileWrite $0 'mounttype=$Samba$\n'
+  FileWrite $0 'mounttype=cofs$\n'
+  FileClose $0
+  DetailPrint "Passing install settings to andLinux"
+  FileOpen $0 "firstboot.1.txt" w
+  FileWrite $0 'Renane this file to firstboot.txt if you want that the following seetings are made with the next boot. $\n'
+  FileWrite $0 'mountpath=$NW_COFSPFAD_Value$\n'
+  FileWrite $0 'mountshare=$\n'
+  FileWrite $0 'login=$NW_USER_Value$\n'
+  FileWrite $0 'mountuser=$NW_SAMBAUSER_Value$\n'
+  FileWrite $0 'passwd=$NW_USERPW_Value$\n'
+  FileWrite $0 'mountpassword=$NW_SAMBAUSERPW_Value$\n'
+  FileWrite $0 'launcher=$LAUNCHER_Value$\n'
+  FileWrite $0 'mounttype=cofs$\n'
   FileClose $0
 
 
@@ -1080,7 +1195,6 @@ Section -post
  # File tarballs\andlinux-root.tar
   File scripts\init.sh
   File scripts\passwd.exp
-#  Delete $INSTDIR\firstboot.txt
 
   DetailPrint "Initializing file system images (this may take a bit)"
   nsExec::ExecToLog 'cmd /C set COLINUX_CONSOLE_EXIT_ON_DETACH=1 & \
@@ -1117,7 +1231,7 @@ SectionEnd
   LangString DESC_SecGrpcoLinux ${LANG_ENGLISH} "Install or upgrade coLinux. Install coLinux basics, driver, Linux kernel, Linux modules and docs"
   LangString DESC_SecNTConsole ${LANG_ENGLISH} "Native Windows (NT) coLinux console views Linux console in an NT DOS Command-line console"
   LangString DESC_SecFLTKConsole ${LANG_ENGLISH} "FLTK Cross-platform coLinux console to view Linux console and manage coLinux from a GUI program"
-#  LangString DESC_SecLauncher ${LANG_ENGLISH} "Adds Launcher menu Cross-platform coLinux console to view Linux console and manage coLinux from a GUI program"
+  LangString DESC_SecLauncher ${LANG_ENGLISH} "Adds Launcher menu Cross-platform coLinux console to view Linux console and manage coLinux from a GUI program"
   LangString DESC_SeccoLinuxNet ${LANG_ENGLISH} "TAP Virtual Ethernet Driver as private network link between Linux and Windows"
   LangString DESC_SeccoLinuxNetSLiRP ${LANG_ENGLISH} "SLiRP Ethernet Driver as virtual Gateway for outgoings TCP and UDP connections - Simplest to use"
   LangString DESC_SeccoLinuxBridgedNet ${LANG_ENGLISH} "Bridge Ethernet support allows to join the coLinux machine to an existing network via libPcap"
@@ -1130,11 +1244,12 @@ SectionEnd
   LangString DESC_WinPcap ${LANG_ENGLISH} "Allow coLinux to access the network."
   LangString DESC_XMing ${LANG_ENGLISH} "Display graphical programs under coLinux in your Windows environment."
 
+
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
     !insertmacro MUI_DESCRIPTION_TEXT ${SecGrpcoLinux} $(DESC_SecGrpcoLinux)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecNTConsole} $(DESC_SecNTConsole)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecFLTKConsole} $(DESC_SecFLTKConsole)
-#    !insertmacro MUI_DESCRIPTION_TEXT ${SecLauncher} $(DESC_SecLauncher)
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecLauncher} $(DESC_SecLauncher)
     !insertmacro MUI_DESCRIPTION_TEXT ${SeccoLinuxNet} $(DESC_SeccoLinuxNet)
     !insertmacro MUI_DESCRIPTION_TEXT ${SeccoLinuxNetSLiRP} $(DESC_SeccoLinuxNetSLiRP)
     !insertmacro MUI_DESCRIPTION_TEXT ${SeccoLinuxBridgedNet} $(DESC_SeccoLinuxBridgedNet)

@@ -1,5 +1,4 @@
 #!/bin/bash
-
 if [ -f /mnt/and/firstboot.txt ] ; then
 	# move to andLinux filesystem to avoid temporal side effects...
 	cp -f /mnt/and/firstboot.txt /tmp/firstboot.txt

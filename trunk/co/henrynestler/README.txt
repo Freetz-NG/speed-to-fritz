@@ -1,31 +1,24 @@
 
-This Version is adjusted for the use with speed2freetz and freetz.
-The new user is without password but you must assign a password!
-
-By invoking 'passwd' as root within the black FLTK window after start.
-There is no password set for root.
+This Version is adjusted for the use with speed2fritz and freetz.
 
 Some changes since 05.05.2009 base.drv is now called base.vdi
-This was done to be compatible to andLinux beta2
+This was done to be compatible to andLinux beta2 final
 
 LAN connectivity:
 
 You can enable a bridge connection to the Internet if you remove the leading hash sign from  
 the following line within andlinux/settings.txt
 #eth2=ndis-bridge,"LAN1", -> eth2=ndis-bridge,"LAN1",
+This will make eth0 usable with dhcp, and pings via LAN1 will be possible, but not via WLAN if not bridged inside windows.
 
 pcap-bridge needs Win-Pcap installed. ndis-bridge is about the same but does not need Win-Pcap.
-You should update ubuntu and install pump by invoking the following line:
-sudo apt-get -y update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade && apt-get install pump
-
-This will make eth0 usable with dhcp, and pings via LAN1 will be possible, but not via WLAN if not bridged inside windows.
 
 In /etc/network/interfaces
 eth0 is set to: dhcp
 eth2 is set to: 192.168.178.10
 You must rename your Windows physical LAN connection to 'LAN1' if the install script could not do it.
 ATTENTION!
-If eth2 is enable by you, then make sure you already have a physical LAN connection up running with a link to the router, 
+If eth2 is enabeled by you, then make sure you already have a physical LAN connection up running with a link to the router, 
 because there is a bug that blocks all activity if this is not the case.
 
 
