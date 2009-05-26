@@ -117,9 +117,9 @@ config AVM_UMTS_7270_13265
 config AVM_MINI_7270_67
     string
     default "p"
-config AVM_AIO_7270_14331
+config AVM_AIO_7270_14353
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_release_candidate/fritz_box_labor_14331.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.74-14331.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_release_candidate/fritz_box_labor_14353.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.74-14353.image"
 config AVM_7270_58
     string
     default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/Release_FRITZ.Box_Fon_WLAN_7270.54.04.58.zip mirror http://www.hostarea.de/server-01/Januar-4bf414c469.zip"
@@ -539,8 +539,8 @@ choice
 		bool "AVM_7270_70"
 	config TYPE_SRC3_AVM_DSL_7270_14000 
 		bool "AVM_DSL_7270_14000"
-	config TYPE_SRC3_AVM_AIO_7270_14331 
-		bool "AVM_AIO_7270_14331"
+	config TYPE_SRC3_AVM_AIO_7270_14353 
+		bool "AVM_AIO_7270_14353"
 	config TYPE_SRC3_AVM_WLANX_7270_14080
 		bool "AVM_WLANX_7270_14080"
 	config TYPE_SRC3_AVM_AURA_7270_14142
@@ -633,7 +633,7 @@ config AVM_IMG
 	default "$AVM_7270_70"				if ( TYPE_70 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_7270_13486"			if ( TYPE_13486 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_DSL_7270_14000"			if ( TYPE_DSL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-	default "$AVM_AIO_7270_14331"			if ( TYPE_AIO ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+	default "$AVM_AIO_7270_14353"			if ( TYPE_AIO ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_WLANX_7270_14080"			if ( TYPE_WLAN ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_AURA_7270_14142"			if ( TYPE_AURA_14142 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_IPV6_7270_14338"			if ( TYPE_IPV6_14338 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
@@ -691,7 +691,7 @@ config SRC2_IMG
 	default "$AVM_7270_70" 			if TYPE_SRC3_AVM_7270_70
 	default "$AVM_7270_67m"	 		if TYPE_SRC3_AVM_7270_67m
 	default "$AVM_7270_13486"		if TYPE_SRC3_AVM_7270_13486
-	default "$AVM_AIO_7270_14331"		if TYPE_SRC3_AVM_AIO_7270_14331
+	default "$AVM_AIO_7270_14353"		if TYPE_SRC3_AVM_AIO_7270_14353
 	default "$AVM_WLANX_7270_14080"		if TYPE_SRC3_AVM_WLANX_7270_14080
 	default "$AVM_AURA_7270_14142"		if TYPE_SRC3_AVM_AURA_7270_14142
 	default "$AVM_IPV6_7270_14338"		if TYPE_SRC3_AVM_IPV6_7270_14338
