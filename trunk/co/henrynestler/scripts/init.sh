@@ -116,7 +116,7 @@ else
  fi
 fi
 if [ -e /etc/hosts ]; then
-    sed -i -e "s|192.168.11.1|$CL_WINIP	windows-host|" /etc/hosts
+    sed -i -e "s|192.168.11.1|$CL_WINIP|" /etc/hosts
     echo "---------- added windows-host IP"
     sleep 1
 fi
@@ -130,14 +130,14 @@ if [ -e /usr/local/sbin/launcher.pl ]; then
     sed -e "s/windowsPathPrefix = .*;/windowsPathPrefix = \\"\\$mountpath\\";/" < /usr/local/sbin/launcher.pl > /tmp/launcher.pl
     mv -f /tmp/launcher.pl /usr/local/sbin/launcher.pl
     chmod 755 /usr/local/sbin/launcher.pl
-    echo "---------- added lancher mount prefix"
+    echo "---------- added launcher mount prefix"
     sleep 1
 fi
 echo "/usr/local/sbin/launcher.pl" > /etc/winterm
 #cat /usr/local/sbin/launcher.pl | grep "windowsPathPrefix ="
 if [ -e /usr/local/sbin/launcher.pl ] && ! grep -qs "2081" /usr/local/sbin/launcher.pl; then
     sed -i -e 's| 81,| 2081,|' "/usr/local/sbin/launcher.pl"
-    echo "---------- added lancher port 2080"
+    echo "---------- added launcher port 2080"
     sleep 1
 fi
 #overwide andlinux beta 2 final settings

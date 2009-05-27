@@ -125,7 +125,7 @@ Var FS_FORMATIEREN_Value
 
 !define MUI_PAGE_HEADER_TEXT "Setup shared Folder"
 !define MUI_PAGE_HEADER_SUBTEXT "Sets entry in settings.txt for cofs if no windows user was spacified."
-!define MUI_DIRECTORYPAGE_TEXT_DESTINATION "Shared folder secetion, this selection is used for cofs or samba."
+!define MUI_DIRECTORYPAGE_TEXT_DESTINATION "Shared folder selection, this selection is used for cofs or samba."
 !define MUI_DIRECTORYPAGE_TEXT_TOP "Please select a shared folder 'Freigabe' within windows, you must setup a windows user with password for this folder first!"
 !define MUI_DIRECTORYPAGE_VARIABLE      $NW_COFSPFAD_Value
 !insertmacro MUI_PAGE_DIRECTORY
@@ -839,8 +839,8 @@ Section "Shortcuts" Shortcuts
   StrCpy $R0 "C:\Program Files\PuTTY\"
   have_putty:
   DetailPrint "Found PuTTY installed at $R0"
-  CreateShortCut "$SMPROGRAMS\andLinux\PuTTY root@andLinux.lnk" "$R0putty.exe" "-X root@$NW_LinIP_Value"
-  CreateShortCut "$SMPROGRAMS\andLinux\PuTTY freetz@andLinux.lnk" "$R0putty.exe" "-X $NW_USER_Value@$NW_LinIP_Value"
+  CreateShortCut "$SMPROGRAMS\andLinux\PuTTY root@freetzLinux.lnk" "$R0putty.exe" "-X root@$NW_LinIP_Value"
+  CreateShortCut "$SMPROGRAMS\andLinux\PuTTY freetz@freetzLinux.lnk" "$R0putty.exe" "-X $NW_USER_Value@$NW_LinIP_Value"
   Pop $R0
 SectionEnd
 Section "Putty" Putty
@@ -856,9 +856,18 @@ Section "WinPcap" WinPcap
 SectionEnd
 
 Section "XMing" XMing
-  File /oname=Xming-setup.exe upstream\Xming-6*-setup.exe
-  ExecWait Xming-setup.exe
+  File /oname=Xming-setup.exe upstream\Xming-mesa-6*-setup.exe
+  ExecWait '"Xming-setup.exe" "/DIR=$INSTDIR\Xming" "/SILENT"'
   Delete Xming-setup.exe
+
+  DetailPrint "writing Xming hosts file"
+  FileOpen $0 "$INSTDIR\Xming\X0.hosts" w
+  FileWrite $0 'localhost$\n'
+  FileWrite $0 '$NW_LinIP_Value$\n'
+  FileWrite $0 '$NW_WinIP_Value$\n'
+  FileClose $0
+
+
 SectionEnd
 
 # Defines must sync with entries in file iDl.ini

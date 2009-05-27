@@ -89,7 +89,7 @@ echo "New colinux version: $COLINUX_VER"
 cd ../bfin-colinux-ori/trunk/upstream
 [ -f coLinux-0.7.3.exe ] || wget "http://www.henrynestler.com/colinux/releases/0.7.3/coLinux-0.7.3.exe"
 #[ -f coLinux-0.7.3-src.tgz ] || wget "http://www.henrynestler.com/colinux/releases/0.7.3/coLinux-0.7.3-src.tgz"
-[ -f Xming-6-9-0-31-setup.exe ] || wget "http://downloads.sourceforge.net/xming/Xming-6-9-0-31-setup.exe?use_mirror="
+[ -f Xming-mesa-6-9-0-31-setup.exe ] || wget "http://downloads.sourceforge.net/xming/Xming-mesa-6-9-0-31-setup.exe?use_mirror="
 #[ -f Xming-fonts-7-3-0-33-setup.exe ] || wget "http://downloads.sourceforge.net/xming/Xming-fonts-7-3-0-33-setup.exe?use_mirror="
 [ -f WinPcap_4_0_2.exe ] || wget "http://www.winpcap.org/install/bin/WinPcap_4_0_2.exe"
 [ -f putty-0.60-installer.exe ] || wget "http://the.earth.li/~sgtatham/putty/0.60/x86/putty-0.60-installer.exe"
