@@ -165,6 +165,9 @@ config AVM_7570_14031
 config AVM_7570_14341
     string
     default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.94-14341M.image"
+config AVM_7570_14354
+   string
+      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.94-14354M.image"
 ##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #( dont remove the following line)
 ### FIRMWARE_CONFIG_ENDE ###
@@ -561,8 +564,8 @@ choice
 		bool "AVM_7570_70 multilingual german english multiannex"
 	config TYPE_SRC3_AVM_7570_14031
 		bool "AVM_7570_70_14031M multilingual german english multiannex"
-	config TYPE_SRC3_AVM_7570_14341
-		bool "AVM_7570_70_14341M multilingual german english multiannex"
+	config TYPE_SRC3_AVM_7570_14354
+		bool "AVM_7570_70_14354M multilingual german english multiannex"
 	config TYPE_LOCAL_AVM_IMAGE
 		bool "AVM_LOCAL_IMAGE"
 	config TYPE_LOCAL_TCOM_IMAGE

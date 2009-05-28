@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090528-1347-r-295
+    - W920: 7570 14353 only intern for use by AVM
 20090526-1512-r-293
     - W920: pump to /7270_release_candidate/fritz_box_labor_14353.ZIP
 20090522-1727-r-290
