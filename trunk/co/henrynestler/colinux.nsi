@@ -102,7 +102,7 @@ Var FS_FORMATIEREN_Value
   !define MUI_WELCOMEPAGE_TITLE "Welcome to the freetzLinux ${VERSION} Setup Wizard"
   !define MUI_WELCOMEPAGE_TEXT "This wizard will guide you through the update to freetzLinux, \
   Linux image is not included with this installation! \r\n\r\n \ 
-  The image File base.vdi must be placed in advance into the sub directory /Drives. \r\n\r\n \
+  The image File base.vdi must be placed in advance into the sub directory ...\Drives. \r\n\r\n \
   Any andLinux or coLinux image may be used. \r\n\r\n \
   It is recommended to do a andLinux installation in advance without reboot and start. \r\n\r\n \ 
   This installation is basically a Cooperative Linux ${VERSION} with some adaptions for Vista. \r\n\r\n \
@@ -211,7 +211,7 @@ FunctionEnd
 ;------------------------------------------------------------------------
 ;Installer Sections
 
-SectionGroup "andLinux" SecGrpcoLinux
+SectionGroup "coLinux" SecGrpcoLinux
 
 Section
 
@@ -272,6 +272,8 @@ remove_linux_sys:
   Pop $R0 # return value/error/timeout
 
 no_old_linux_sys:
+  nsExec::ExecToLog '"taskkill" /F /IM xming.exe'
+  nsExec::ExecToLog '"taskkill" /F /IM menu.exe'
 
   IfFileExists "$INSTDIR\Drives\base.vdi" uninstall_q
 ;  MessageBox MB_OK|MB_ICONINFORMATION $MYFOLDER
@@ -287,7 +289,7 @@ uninstall_and:
     Rename $INSTDIR\Xming $INSTDIR\Xming1
 
   DetailPrint "andlinux REMOVE"
-  nsExec::ExecToLog '"$INSTDIR\unins000.exe" /SP- /NORESTART'
+  nsExec::ExecToLog '"$INSTDIR\unins000.exe" /SP- /NORESTART /VERYSILENT /SUPPRESSMSGBOXES'
   Pop $R0 # return value/error/timeout
   DetailPrint "Andlinux remove returned: $R0"
 
@@ -300,7 +302,7 @@ procide:
   !define REGUNINSTAL "Software\Microsoft\Windows\CurrentVersion\Uninstall\andLinux"
   !define REGEVENTS "SYSTEM\CurrentControlSet\Services\Eventlog\Application\andLinux"
 
-  WriteRegStr HKLM ${REGUNINSTAL} "DisplayName" "andLinux ${VERSION}"
+  WriteRegStr HKLM ${REGUNINSTAL} "DisplayName" "coLinux ${VERSION}"
   WriteRegStr HKLM ${REGUNINSTAL} "UninstallString" '"$INSTDIR\Uninstall.exe"'
   WriteRegStr HKLM ${REGUNINSTAL} "DisplayIcon" "$INSTDIR\colinux-daemon.exe,0"
   WriteRegDWORD HKLM ${REGUNINSTAL} "NoModify" "1"
@@ -1388,6 +1390,13 @@ Section "Uninstall"
   Delete "$INSTDIR\netdriver\tapcontrol.exe"
   Delete "$INSTDIR\netdriver\tap.cat"
 
+  Delete "$INSTDIR\tuntap\OemWin2k.inf"
+  Delete "$INSTDIR\tuntap\addtap.bat"
+  Delete "$INSTDIR\tuntap\deltapall.bat"
+  Delete "$INSTDIR\tuntap\tap0901.cat"
+  Delete "$INSTDIR\tuntap\tap0901.sys"
+  Delete "$INSTDIR\tuntap\tapinstall.exe"
+
   Delete "$INSTDIR\mkFile.exe"
 
   File "premaid\colinux-daemon.exe"
@@ -1410,9 +1419,120 @@ Section "Uninstall"
   Delete "$INSTDIR\getlanid.vbs"
   Delete "$INSTDIR\colinux-daemon.txt"
 
-  RMDir /r "$SMPROGRAMS\Launcher"
+  Delete "NetCfgInstance1Id.txt"
+  Delete "connection1Name.txt"
+  Delete "firstboot.1.txt"
+  Delete "firstboot.txt"
+  Delete "settings.txt"
+  Delete "linux.sys"
+  Delete "README.txt"
+  Delete "colinux-daemon.exe"
 
+
+  Delete "$INSTDIR\Launcher\andCmd.exe"
+  Delete "$INSTDIR\Launcher\andKChart.exe"
+  Delete "$INSTDIR\Launcher\andKControl.exe"
+  Delete "$INSTDIR\Launcher\andKDVI.exe"
+  Delete "$INSTDIR\Launcher\andKFormula.exe"
+  Delete "$INSTDIR\Launcher\andKGhostView.exe"
+  Delete "$INSTDIR\Launcher\andKHomeFolder.exe"
+  Delete "$INSTDIR\Launcher\andKMail.exe"
+  Delete "$INSTDIR\Launcher\andKOrganizer.exe"
+  Delete "$INSTDIR\Launcher\andKPDF.exe"
+  Delete "$INSTDIR\Launcher\andKPlato.exe"
+  Delete "$INSTDIR\Launcher\andKPresenter.exe"
+  Delete "$INSTDIR\Launcher\andKSpread.exe"
+  Delete "$INSTDIR\Launcher\andKWord.exe"
+  Delete "$INSTDIR\Launcher\andKarbon.exe"
+  Delete "$INSTDIR\Launcher\andKate.exe"
+  Delete "$INSTDIR\Launcher\andKexi.exe"
+  Delete "$INSTDIR\Launcher\andKile.exe"
+  Delete "$INSTDIR\Launcher\andKivio.exe"
+  Delete "$INSTDIR\Launcher\andKonqueror.exe"
+  Delete "$INSTDIR\Launcher\andKonsole.exe"
+  Delete "$INSTDIR\Launcher\andKontact.exe"
+  Delete "$INSTDIR\Launcher\andKrita.exe"
+  Delete "$INSTDIR\Launcher\andKugar.exe"
+  Delete "$INSTDIR\Launcher\karbon.ico"
+  Delete "$INSTDIR\Launcher\kate.ico"
+  Delete "$INSTDIR\Launcher\kchart.ico"
+  Delete "$INSTDIR\Launcher\kcontrol.ico"
+  Delete "$INSTDIR\Launcher\kdvi.ico"
+  Delete "$INSTDIR\Launcher\kexi.ico"
+  Delete "$INSTDIR\Launcher\kformula.ico"
+  Delete "$INSTDIR\Launcher\kghostview.ico"
+  Delete "$INSTDIR\Launcher\khomefolder.ico"
+  Delete "$INSTDIR\Launcher\kile.ico"
+  Delete "$INSTDIR\Launcher\kivio.ico"
+  Delete "$INSTDIR\Launcher\kmail.ico"
+  Delete "$INSTDIR\Launcher\konqueror.ico"
+  Delete "$INSTDIR\Launcher\konsole.ico"
+  Delete "$INSTDIR\Launcher\kontact.ico"
+  Delete "$INSTDIR\Launcher\korganizer.ico"
+  Delete "$INSTDIR\Launcher\kpdf.ico"
+  Delete "$INSTDIR\Launcher\kplato.ico"
+  Delete "$INSTDIR\Launcher\kpresenter.ico"
+  Delete "$INSTDIR\Launcher\krita.ico"
+  Delete "$INSTDIR\Launcher\kspread.ico"
+  Delete "$INSTDIR\Launcher\kugar.ico"
+  Delete "$INSTDIR\Launcher\kword.ico"
+  Delete "$INSTDIR\Launcher\menu.exe"
+  Delete "$INSTDIR\Launcher\menu.txt"
+  Delete "$INSTDIR\Launcher\synaptic.ico"
+  Delete "$INSTDIR\Launcher\volume.ico"
+  Delete "$INSTDIR\Launcher\andApp.exe"
+  Delete "$INSTDIR\Launcher\andDolphin.exe"
+  Delete "$INSTDIR\Launcher\andGwenView.exe"
+  Delete "$INSTDIR\Launcher\andKPlato.exe"
+  Delete "$INSTDIR\Launcher\andKSysGuard.exe"
+  Delete "$INSTDIR\Launcher\andKate.exe"
+  Delete "$INSTDIR\Launcher\andKile.exe"
+  Delete "$INSTDIR\Launcher\andKonsole.exe"
+  Delete "$INSTDIR\Launcher\andKugar.exe"
+  Delete "$INSTDIR\Launcher\andMousepad.exe"
+  Delete "$INSTDIR\Launcher\andOkular.exe"
+  Delete "$INSTDIR\Launcher\andSystemSettings.exe"
+  Delete "$INSTDIR\Launcher\andTerminal.exe"
+  Delete "$INSTDIR\Launcher\andThunar.exe"
+  Delete "$INSTDIR\Launcher\dolphin.ico"
+  Delete "$INSTDIR\Launcher\gwenview.ico"
+  Delete "$INSTDIR\Launcher\kate.ico"
+  Delete "$INSTDIR\Launcher\kile.ico"
+  Delete "$INSTDIR\Launcher\konsole.ico"
+  Delete "$INSTDIR\Launcher\kplato.ico"
+  Delete "$INSTDIR\Launcher\ksysguard.ico"
+  Delete "$INSTDIR\Launcher\kugar.ico"
+  Delete "$INSTDIR\Launcher\menu.txt"
+  Delete "$INSTDIR\Launcher\mousepad.ico"
+  Delete "$INSTDIR\Launcher\okular.ico"
+  Delete "$INSTDIR\Launcher\systemsettings.ico"
+  Delete "$INSTDIR\Launcher\thunar.ico"
+  Delete "$INSTDIR\Launcher\xfce4_terminal.ico"
+
+  RMDir /r "$INSTDIR\tuntap"
+  RMDir /r "$INSTDIR\Launcher"
+
+  Delete "C:\Users\Public\Desktop\startup.lnk"
+  Delete "C:\Users\Public\Desktop\Console (NT).lnk"
+  Delete "C:\Users\Public\Desktop\Console (FLTK).lnk"
+  Delete "C:\Users\Public\Desktop\Konsole.lnk"
+  Delete "C:\Users\Public\Desktop\Thunar.lnk"
+  Delete "C:\Users\Public\Desktop\Terminal.lnk"
+  Delete "C:\Users\Public\Desktop\srvstart.lnk"
+  Delete "C:\Users\Public\Desktop\svrstop.lnk"
+  Delete "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\startup.lnk"
+  Delete "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\Console (NT).lnk"
+  Delete "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\Console (FLTK).lnk"
+  Delete "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\Konsole.lnk"
+  Delete "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\Thunar.lnk"
+  Delete "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\Terminal.lnk"
+  Delete "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\svrstart.lnk"
+  Delete "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\svrstop.lnk"
+
+  RMDir /r "$SMPROGRAMS\Launcher"
+  RMDir /r "$SMPROGRAMS\freetzLinux"
   RMDir /r "$SMPROGRAMS\andLinux"
+  
   MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 \
     "Do you wish to delete your file system images and configuration files as well?" \
     /SD IDNO IDNO no_delete
