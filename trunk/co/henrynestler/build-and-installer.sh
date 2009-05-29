@@ -10,6 +10,10 @@ cp -fr ./scripts/* ../bfin-colinux/trunk/scripts
 [ -d ../bfin-colinux/trunk/patches/1 ] || mkdir ../bfin-colinux/trunk/patches/1
 [ -d ../bfin-colinux/trunk/patches/2 ] || mkdir ../bfin-colinux/trunk/patches/2
 cp -f ./colinux.nsi ../bfin-colinux/trunk/patches/2/colinux.nsi
+cp ./install.txt ../bfin-colinux/trunk/and/install.txt
+cp ./install.bat ../bfin-colinux/trunk/and/install.bat
+cp ./run.bat ../bfin-colinux/trunk/and/run.bat
+cp ./runonce.bat ../bfin-colinux/trunk/and/runonce.bat
 cp ./srvstart.bat ../bfin-colinux/trunk/and/srvstart.bat
 cp ./startup.bat ../bfin-colinux/trunk/and/startup.bat
 cp ./addtap.bat ../bfin-colinux/trunk/and/netdriver/andtap.bat

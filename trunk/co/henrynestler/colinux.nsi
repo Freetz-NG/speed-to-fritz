@@ -15,6 +15,7 @@
   !include WriteEnvStr.nsh
   !include "coLinux_def.inc"
   !define PUBLISHER "freetzlinux.sourceforge.net"
+  !define DOCU "http://wiki.ip-phone-forum.de/skript:installing_freetzlinux"
 
   ;General
   Name "Cooperative Linux ${VERSION}"
@@ -164,8 +165,23 @@ FunctionEnd
 Function WinpcapRedirLeave
 FunctionEnd
 
+Var MYFOLDER
+
+Function "GetMyDocs"
+!define SHELLFOLDERS \
+  "Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders"
+   
+   ReadRegStr $0 HKCU "${SHELLFOLDERS}" AppData
+   StrCmp $0 "" 0 +2
+     ReadRegStr $0 HKLM "${SHELLFOLDERS}" "Common AppData"
+     StrCmp $0 "" 0 +2
+       StrCpy $0 "$WINDIR\Application Data"
+FunctionEnd
+
 Function .onInit
 
+    Call "GetMyDocs"
+    StrCpy $MYFOLDER $0
   !insertmacro MUI_INSTALLOPTIONS_EXTRACT "iDl.ini"
   !insertmacro MUI_INSTALLOPTIONS_EXTRACT "WinpcapRedir.ini"
 ;--------------------------------------------------------------------------------------------
@@ -257,6 +273,27 @@ remove_linux_sys:
 
 no_old_linux_sys:
 
+  IfFileExists "$INSTDIR\Drives\base.vdi" uninstall_q
+;  MessageBox MB_OK|MB_ICONINFORMATION $MYFOLDER
+  MessageBox MB_RETRYCANCEL|MB_ICONEXCLAMATION \
+  "ATTENTION: '$INSTDIR\Drives\base.vdi' is missing. Get first this LINUX Filesystem from a andLinux installation, for other Linux systems please look at http://wiki.ip-phone-forum.de/skript:installing_freetzlinux" \
+  IDRETRY no_old_linux_sys
+  DetailPrint "missing \Drives\base.vdi -> Abort"
+  Abort
+uninstall_q:
+  IfFileExists "$INSTDIR\\unins000.exe" uninstall_and procide
+uninstall_and:
+    Rename $INSTDIR\Drives\base.vdi $INSTDIR\\Drives\base.bak
+    Rename $INSTDIR\Xming $INSTDIR\Xming1
+
+  DetailPrint "andlinux REMOVE"
+  nsExec::ExecToLog '"$INSTDIR\unins000.exe" /SP- /NORESTART'
+  Pop $R0 # return value/error/timeout
+  DetailPrint "Andlinux remove returned: $R0"
+
+    Rename $INSTDIR\Xming1 $INSTDIR\Xming
+    Rename $INSTDIR\Drives\base.bak $INSTDIR\Drives\base.vdi
+procide:
   ;------------------------------------------------------------REGISTRY--
   ;----------------------------------------------------------------------
 
@@ -288,6 +325,10 @@ no_old_linux_sys:
   #File "premaid\news.txt"
   File "premaid\srvstart.bat"
   File "premaid\startup.bat"
+  File "premaid\install.bat"
+  File "premaid\install.txt"
+  File "premaid\runonce.bat"
+  File "premaid\run.bat"
   File "premaid\srvstop.bat"
   File "premaid\settapip.bat"
   File "premaid\andlinux.ico"
@@ -784,7 +825,8 @@ Section -CreateConfigFile
   FileWrite $0 "$\r$\n"
   FileWrite $0 '#Dont touch this, is needed for Xming$\r$\n'
   FileWrite $0 'eth1=tuntap,"XmingTAPBridge",$\r$\n'
-  FileWrite $0 "cocon=120x60$\r$\n"
+  FileWrite $0 "#120x80 my be usabel on NT and FTKL Console$\r$\n"
+  FileWrite $0 "cocon=80x40$\r$\n"
   FileWrite $0 "# Serial configuration$\r$\n"
   FileWrite $0 'ttys0=$NW_COM_Value,"baud=38400 parity=N data=8 stop=1 xon=off odsr=off octs=off idsr=off to=on rts=on dtr=on"$\r$\n'
   FileClose $0
@@ -801,30 +843,53 @@ SectionEnd
 
 Section "Shortcuts" Shortcuts
   SetOutPath -
-  File scripts\stop.ico  
-  CreateShortCut "C:\Users\Public\Desktop\svrstop.lnk" "$INSTDIR\srvstop.bat" "" "$INSTDIR\stop.ico"
-  CreateShortCut "C:\Users\Public\Desktop\startup.lnk" "$INSTDIR\startup.bat" "" "$INSTDIR\andlinux.ico"
+  File scripts\stop.ico
   File scripts\start.ico
-  CreateShortCut "C:\Users\Public\Desktop\srvstart.lnk" "$INSTDIR\srvstart.bat" "" "$INSTDIR\start.ico"
   File scripts\andlinux.ico
   File scripts\colinux.ico
-  CreateDirectory "$SMPROGRAMS\andLinux"
-#  CreateShortCut "$SMPROGRAMS\andLinux\Documentation.lnk" "http://docs.andlinux.uclinux.org/doku.php?id=colinux" "" "$INSTDIR\colinux.ico"
-  CreateShortCut "$SMPROGRAMS\andLinux\Documentation.lnk" "http://wiki.ip-phone-forum.de/skript:andlinux" "" "$INSTDIR\andlinux.ico"
-  CreateShortCut "$SMPROGRAMS\andLinux\andLinux Console (fltk).lnk" "$INSTDIR\colinux-console-fltk.exe" "-a 0"
-  CreateShortCut "$SMPROGRAMS\andLinux\andLinux Console (nt).lnk" "$INSTDIR\colinux-console-nt.exe" "-a 0"
-  CreateShortCut "$SMPROGRAMS\andLinux\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
-#  CreateDirectory "$SMPROGRAMS\andLinux\Non-Service"
-#  CreateShortCut "$SMPROGRAMS\andLinux\Non-Service\andLinux.lnk" "$INSTDIR\colinux-daemon.exe" "@settings.txt" "" "" SW_SHOWMINIMIZED
-#  CreateShortCut "$SMPROGRAMS\andLinux\Non-Service\andLinux (single).lnk" "$INSTDIR\colinux-daemon.exe" "@settings.txt single" "" "" SW_SHOWMINIMIZED
-#  CreateShortCut "$SMPROGRAMS\andLinux\Non-Service\andLinux (rescue).lnk" "$INSTDIR\colinux-daemon.exe" "@settings.txt init=/bin/sh rw" "" "" SW_SHOWMINIMIZED
-#  CreateDirectory "$SMPROGRAMS\andLinux\Service"
-  CreateShortCut "$SMPROGRAMS\andLinux\Service\demon start.lnk" "$INSTDIR\colinux-daemon.exe" "--install-service andLinux @settings.txt"
-  CreateShortCut "$SMPROGRAMS\andLinux\Service\demon stop.lnk" "$INSTDIR\colinux-daemon.exe" "--remove-service andLinux"
-  CreateShortCut "$SMPROGRAMS\andLinux\Service\svr Start.lnk" "net" "start andLinux"
-  CreateShortCut "$SMPROGRAMS\andLinux\Service\svr Stop.lnk" "net" "stop andLinux"
-  CreateShortCut "$SMPROGRAMS\andLinux\Service\XmingStart.lnk" "$INSTDIR\Xming\Xming.exe" ":0 -dpi 85 -clipboard -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log" ""
-  CreateShortCut "$SMPROGRAMS\andLinux\Service\XmingStartRootless.lnk" "$INSTDIR\Xming\Xming.exe" ":0 -dpi 85 -clipboard -rootless -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log" ""
+  CreateShortCut "C:\Users\Public\Desktop\startup.lnk" "$INSTDIR\startup.bat" "" "$INSTDIR\andlinux.ico"
+  CreateShortCut "C:\Users\Public\Desktop\Console (NT).lnk" "$INSTDIR\colinux-console-nt.exe" "" "$INSTDIR\colinux.ico"
+  CreateShortCut "C:\Users\Public\Desktop\Console (FLTK).lnk" "$INSTDIR\colinux-console-fltk.exe" ""
+  CreateShortCut "C:\Users\Public\Desktop\Konsole.lnk" "$INSTDIR\Launcher\andKonsole.exe" "" "$INSTDIR\Launcher\konsole.ico"
+#  CreateShortCut "C:\Users\Public\Desktop\Thunar.lnk" "$INSTDIR\Launcher\Thunar.exe" "" "$INSTDIR\Launcher\Thunar.ico"
+  CreateShortCut "C:\Users\Public\Desktop\Terminal.lnk" "$INSTDIR\Launcher\andTerminal.exe" "" "$INSTDIR\Launcher\xfce4_terminal.ico"
+#  CreateShortCut "C:\Users\Public\Desktop\srvstart.lnk" "$INSTDIR\srvstart.bat" "" "$INSTDIR\start.ico"
+#  CreateShortCut "C:\Users\Public\Desktop\svrstop.lnk" "$INSTDIR\srvstop.bat" "" "$INSTDIR\stop.ico"
+#----
+  CreateShortCut "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\startup.lnk" "$INSTDIR\startup.bat" "" "$INSTDIR\andlinux.ico"
+  CreateShortCut "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\Console (NT).lnk" "$INSTDIR\colinux-console-nt.exe" "" "$INSTDIR\colinux.ico"
+  CreateShortCut "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\Console (FLTK).lnk" "$INSTDIR\colinux-console-fltk.exe" ""
+  CreateShortCut "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\Konsole.lnk" "$INSTDIR\Launcher\andKonsole.exe" "" "$INSTDIR\Launcher\konsole.ico"
+#  CreateShortCut "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\Thunar.lnk" "$INSTDIR\Launcher\Thunar.exe" "" "$INSTDIR\Launcher\Thunar.ico"
+  CreateShortCut "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\Terminal.lnk" "$INSTDIR\Launcher\andTerminal.exe" "" "$INSTDIR\Launcher\xfce4_terminal.ico"
+#  CreateShortCut "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\svrstart.lnk" "$INSTDIR\svrstart.bat" "" "$INSTDIR\start.ico"
+#  CreateShortCut "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\svrstop.lnk" "$INSTDIR\srvstop.bat" "" "$INSTDIR\stop.ico"
+
+
+
+;  MessageBox MB_OK|MB_ICONINFORMATION $MYFOLDER
+
+  CreateShortCut "$SMPROGRAMS\freetzLinux\Start freetzLinux.lnk" "$INSTDIR\colinux-daemon.exe" "--install-service andLinux @settings.txt" "$INSTDIR\start.ico"
+  CreateShortCut "$SMPROGRAMS\freetzLinux\Stop freetzLinux.lnk" "$INSTDIR\colinux-daemon.exe" "--remove-service andLinux" "$INSTDIR\stop.ico"
+#  CreateShortCut "$SMPROGRAMS\freetzLinux\Autostart\PulseAudio.lnk" "$INSTDIR\pulseaudio.exe" "$INSTDIR\pulseaudio.ico"
+  CreateShortCut "$SMPROGRAMS\freetzLinux\Autostart\Menu.lnk" "$INSTDIR\Launcher\Menu.exe" "$INSTDIR\Launcher\Menu.ico"
+#---
+
+  CreateDirectory "$SMPROGRAMS\freetzLinux"
+  CreateShortCut "$SMPROGRAMS\freetzLinux\Console (nt).lnk" "$INSTDIR\colinux-console-nt.exe" "" "$INSTDIR\colinux.ico"
+  CreateShortCut "$SMPROGRAMS\freetzLinux\Console (fltk).lnk" "$INSTDIR\colinux-console-fltk.exe" ""
+  CreateShortCut "$SMPROGRAMS\freetzLinux\Documentation.lnk" "http://wiki.ip-phone-forum.de/skript:andlinux" "" "$INSTDIR\andlinux.ico"
+  CreateShortCut "$SMPROGRAMS\freetzLinux\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
+#  CreateDirectory "$SMPROGRAMS\freetzLinux\Non-Service"
+  CreateDirectory "$SMPROGRAMS\freetzLinux\Service"
+  CreateShortCut "$SMPROGRAMS\freetzLinux\Service\XmingStart.lnk" "$INSTDIR\Xming\Xming.exe" ":0 -dpi 85 -clipboard -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log" ""
+  CreateShortCut "$SMPROGRAMS\freetzLinux\Service\XmingStartRootless.lnk" "$INSTDIR\Xming\Xming.exe" ":0 -dpi 85 -clipboard -rootless -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log" ""
+#  CreateShortCut "$SMPROGRAMS\freetzLinux\Service\demon start.lnk" "$INSTDIR\colinux-daemon.exe" "--install-service freetzLinux @settings.txt"
+#  CreateShortCut "$SMPROGRAMS\freetzLinux\Service\demon stop.lnk" "$INSTDIR\colinux-daemon.exe" "--remove-service freetzLinux"
+#  CreateShortCut "$SMPROGRAMS\freetzLinux\Service\svr Start.lnk" "net" "start freetzLinux"
+#  CreateShortCut "$SMPROGRAMS\freetzLinux\Service\svr Stop.lnk" "net" "stop freetzLinux"
+
+
 
   ; we tell it to use explorer as a direct path link makes the system try
   ; to see if the path exists in the first place
@@ -1117,7 +1182,7 @@ Section -post
   CreateDirectory "$INSTDIR\Drives"
 
   IfFileExists "$INSTDIR\Drives\base.vdi" 0 do_initbase
-  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 "You already have a root file.  Do you wish to resize and backup it?$\r$\n$\r$\nRoot file: $INSTDIR\Drives\base.vdi$\r$\n$\r$\n (This will take much time dont close windows yourself)" /SD IDNO IDNO root_made
+  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 "You already have a root file.  Do you wish to resize and backup it?$\r$\n$\r$\nRoot file: $INSTDIR\Drives\base.vdi$\r$\n$\r$\n (This will take a lot of time depending on the new size.)" /SD IDNO IDNO root_made
 
   IfFileExists "$INSTDIR\Drives\base.vdi.old" 0 do_rename
   MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 "You already have a backup root file.  Do you wish to overwrite it?$\r$\n$\r$\nOld root file: $INSTDIR\Drives\base.vdi.old" /SD IDNO IDNO do_initbase
@@ -1324,10 +1389,29 @@ Section "Uninstall"
   Delete "$INSTDIR\netdriver\tap.cat"
 
   Delete "$INSTDIR\mkFile.exe"
+
+  File "premaid\colinux-daemon.exe"
+  File "premaid\linux.sys"
+  File "premaid\README.txt"
+  #File "premaid\news.txt"
+
+  Delete "$INSTDIR\srvstart.bat"
+  Delete "$INSTDIR\startup.bat"
+  Delete "$INSTDIR\install.bat"
+  Delete "$INSTDIR\install.txt"
+  Delete "$INSTDIR\runonce.bat"
+  Delete "$INSTDIR\run.bat"
+  Delete "$INSTDIR\srvstop.bat"
+  Delete "$INSTDIR\settapip.bat"
   Delete "$INSTDIR\andlinux.ico"
   Delete "$INSTDIR\colinux.ico"
-  Delete "$INSTDIR\stop.ico"
   Delete "$INSTDIR\start.ico"
+  Delete "$INSTDIR\stop.ico"
+  Delete "$INSTDIR\getlanid.vbs"
+  Delete "$INSTDIR\colinux-daemon.txt"
+
+  RMDir /r "$SMPROGRAMS\Launcher"
+
   RMDir /r "$SMPROGRAMS\andLinux"
   MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 \
     "Do you wish to delete your file system images and configuration files as well?" \
