@@ -52,6 +52,9 @@ config TCOM_W920_70
 config TCOM_W920_71
     string
     default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.71.image"
+config TCOM_W920_74
+    string
+    default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.74.image"
 config TCOM_W920_13048
     string
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.63-13048.zip mirror http://www.hostarea.de/server-01/Januar-25c121e202.zip"
@@ -82,7 +85,7 @@ config AVM_7170_67
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.67.image"
 config AVM_7170_70
     string
-    default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.70.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.70.image"
 config AVM_7170_13948
     string
     default "p"
@@ -134,7 +137,7 @@ config AVM_7270_67m
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image"
 config AVM_7270_70
     string
-    default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
 config AVM_DSL_7270_14000
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-1400.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.99-14000.image"
@@ -256,6 +259,8 @@ choice
 		bool "TCOM_BETA_70"
 	config TYPE_TCOM_BETA_71
 		bool "TCOM_BETA_71"
+	config TYPE_TCOM_BETA_74
+		bool "TCOM_BETA_74"
 	config TYPE_TCOM_BETA_13048
 		bool "TCOM_BETA_13048"
 	config TYPE_TCOM_BETA_13571
@@ -498,6 +503,8 @@ choice
 		bool "TCOM_W920_70"
 	config TYPE_SRC3_TCOM_W920_71
 		bool "TCOM_W920_71"
+	config TYPE_SRC3_TCOM_W920_74
+		bool "TCOM_W920_74"
 	config TYPE_SRC3_TCOM_W920_13048
 		bool "TCOM_W920_13048"
 	config TYPE_SRC3_TCOM_W920_13571
@@ -602,6 +609,7 @@ config TCOM_IMG
 	default "$TCOM_W920_63" 		if TYPE_TCOM_BETA_63 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_70" 		if TYPE_TCOM_BETA_70 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_71" 		if TYPE_TCOM_BETA_71 && ( TYPE_SPEEDPORT_W920V )
+	default "$TCOM_W920_74" 		if TYPE_TCOM_BETA_74 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_13048" 		if TYPE_TCOM_BETA_13048 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_13571" 		if TYPE_TCOM_BETA_13571 && ( TYPE_SPEEDPORT_W920V )
 	default "$AVM_7570_70" 			if TYPE_TCOM_7570_70 && ( TYPE_SPEEDPORT_W920V )
@@ -664,6 +672,7 @@ config SRC2_IMG
 	default "$TCOM_W920_63" 		if TYPE_SRC3_TCOM_W920_63
 	default "$TCOM_W920_70" 		if TYPE_SRC3_TCOM_W920_70
 	default "$TCOM_W920_71" 		if TYPE_SRC3_TCOM_W920_71
+	default "$TCOM_W920_74" 		if TYPE_SRC3_TCOM_W920_74
 	default "$TCOM_W920_13048" 		if TYPE_SRC3_TCOM_W920_13048
 	default "$TCOM_W920_13571" 		if TYPE_SRC3_TCOM_W920_13571
 	default "$TCOM_LOCAL"			if TYPE_LOCAL_TCOM_IMAGE

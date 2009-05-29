@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090529-1043-r-298
+    - W920: add new tcom firmware,  http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.74.image
 20090528-1347-r-295
     - W920: 7570 14353 only intern for use by AVM
 20090526-1512-r-293
