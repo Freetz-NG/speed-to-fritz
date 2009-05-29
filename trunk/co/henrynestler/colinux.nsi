@@ -13,6 +13,9 @@
   !include Sections.nsh
   !define ALL_USERS
   !include WriteEnvStr.nsh
+  !define REGKEY "SOFTWARE\$(^Name)"
+;  SetCompressor /SOLID lzma
+;#getcolinux versio
   !include "coLinux_def.inc"
   !define PUBLISHER "freetzlinux.sourceforge.net"
   !define DOCU "http://wiki.ip-phone-forum.de/skript:installing_freetzlinux"
@@ -101,11 +104,9 @@ Var FS_FORMATIEREN_Value
 
   !define MUI_WELCOMEPAGE_TITLE "Welcome to the freetzLinux ${VERSION} Setup Wizard"
   !define MUI_WELCOMEPAGE_TEXT "This wizard will guide you through the update to freetzLinux, \
-  Linux image is not included with this installation! \r\n\r\n \ 
-  The image File base.vdi must be placed in advance into the sub directory ...\Drives. \r\n\r\n \
-  Any andLinux or coLinux image may be used. \r\n\r\n \
+  Linux image is not included with this installation! \r\n\r\n \
   It is recommended to do a andLinux installation in advance without reboot and start. \r\n\r\n \ 
-  This installation is basically a Cooperative Linux ${VERSION} with some adaptions for Vista. \r\n\r\n \
+  This installation is basically a Cooperative Linux ${VERSION}. \r\n\r\n \
   $_CLICK"
 
   !insertmacro MUI_PAGE_WELCOME
@@ -147,6 +148,19 @@ Var FS_FORMATIEREN_Value
  
   !insertmacro MUI_LANGUAGE "English"
 
+# Macro for selecting sections
+;!macro SELECT_UNSECTION SECTION_NAME UNSECTION_ID
+;    Push $R0
+;    ReadRegStr $R0 HKLM "Software\andLinux\Components" "${SECTION_NAME}"
+;    StrCmp $R0 1 0 next${UNSECTION_ID}
+;    !insertmacro SelectSection "${UNSECTION_ID}"
+;    Goto done${UNSECTION_ID}
+;    next${UNSECTION_ID}:
+;    !insertmacro UnselectSection "${UNSECTION_ID}"
+;    done${UNSECTION_ID}:
+;    Pop $R0
+;!macroend
+
 
 ;------------------------------------------------------------------------
 ;Variables used to track user choice
@@ -182,6 +196,9 @@ Function .onInit
 
     Call "GetMyDocs"
     StrCpy $MYFOLDER $0
+;  !insertmacro SELECT_UNSECTION "WinPcap" "WinPcap"
+  !insertmacro UnselectSection "WinPcap"
+
   !insertmacro MUI_INSTALLOPTIONS_EXTRACT "iDl.ini"
   !insertmacro MUI_INSTALLOPTIONS_EXTRACT "WinpcapRedir.ini"
 ;--------------------------------------------------------------------------------------------
@@ -207,10 +224,16 @@ Function .onInit
     Pop $0
 ;--------------------------------------------------------------------------------------------
 FunctionEnd
-;------------------------------------------------------------------------
-;------------------------------------------------------------------------
+;--------------------------------------------------------------------------------------------
+;--------------------------------------------------------------------------------------------
 ;Installer Sections
-
+Section "WinPcap" WinPcap
+  File /oname=WinPcap.exe upstream\WinPcap_*.exe
+  ExecWait "WinPcap.exe"
+  Delete WinPcap.exe
+SectionEnd
+;--------------------------------------------------------------------------------------------
+;--------------------------------------------------------------------------------------------
 SectionGroup "coLinux" SecGrpcoLinux
 
 Section
@@ -501,8 +524,11 @@ Section "Debugging" SeccoLinuxDebug
   File "premaid\colinux-debug-daemon.exe"
   File "premaid\debugging.txt"
 SectionEnd
-
+;--------------------------------------------------------------------------------------------
+;--------------------------------------------------------------------------------------------
 SectionGroupEnd
+;--------------------------------------------------------------------------------------------
+;--------------------------------------------------------------------------------------------
 
 !include nsDialogs.nsh
 !include LogicLib.nsh
@@ -871,13 +897,14 @@ Section "Shortcuts" Shortcuts
 
 ;  MessageBox MB_OK|MB_ICONINFORMATION $MYFOLDER
 
-  CreateShortCut "$SMPROGRAMS\freetzLinux\Start freetzLinux.lnk" "$INSTDIR\colinux-daemon.exe" "--install-service andLinux @settings.txt" "$INSTDIR\start.ico"
-  CreateShortCut "$SMPROGRAMS\freetzLinux\Stop freetzLinux.lnk" "$INSTDIR\colinux-daemon.exe" "--remove-service andLinux" "$INSTDIR\stop.ico"
+#  CreateShortCut "$SMPROGRAMS\freetzLinux\Start freetzLinux.lnk" "$INSTDIR\colinux-daemon.exe" "--install-service andLinux @settings.txt" "$INSTDIR\start.ico"
+#  CreateShortCut "$SMPROGRAMS\freetzLinux\Stop freetzLinux.lnk" "$INSTDIR\colinux-daemon.exe" "--remove-service andLinux" "$INSTDIR\stop.ico"
 #  CreateShortCut "$SMPROGRAMS\freetzLinux\Autostart\PulseAudio.lnk" "$INSTDIR\pulseaudio.exe" "$INSTDIR\pulseaudio.ico"
-  CreateShortCut "$SMPROGRAMS\freetzLinux\Autostart\Menu.lnk" "$INSTDIR\Launcher\Menu.exe" "$INSTDIR\Launcher\Menu.ico"
+#  CreateShortCut "$SMPROGRAMS\freetzLinux\Autostart\Menu.lnk" "$INSTDIR\Launcher\Menu.exe" "$INSTDIR\Launcher\Menu.ico"
 #---
 
   CreateDirectory "$SMPROGRAMS\freetzLinux"
+  CreateShortCut "$SMPROGRAMS\freetzLinux\freetzLinux.lnk" "$INSTDIR\startup.bat" "" "$INSTDIR\andlinux.ico"
   CreateShortCut "$SMPROGRAMS\freetzLinux\Console (nt).lnk" "$INSTDIR\colinux-console-nt.exe" "" "$INSTDIR\colinux.ico"
   CreateShortCut "$SMPROGRAMS\freetzLinux\Console (fltk).lnk" "$INSTDIR\colinux-console-fltk.exe" ""
   CreateShortCut "$SMPROGRAMS\freetzLinux\Documentation.lnk" "http://wiki.ip-phone-forum.de/skript:andlinux" "" "$INSTDIR\andlinux.ico"
@@ -891,13 +918,10 @@ Section "Shortcuts" Shortcuts
 #  CreateShortCut "$SMPROGRAMS\freetzLinux\Service\svr Start.lnk" "net" "start freetzLinux"
 #  CreateShortCut "$SMPROGRAMS\freetzLinux\Service\svr Stop.lnk" "net" "stop freetzLinux"
 
-
-
   ; we tell it to use explorer as a direct path link makes the system try
   ; to see if the path exists in the first place
 #  CreateShortCut "$SMPROGRAMS\andLinux\uclinux home (Samba).lnk" "explorer" "\\$NW_LinIP_Value\$NW_USER_Value"
 
-  
   Push $R0
   ClearErrors
   ReadRegStr $R0 HKLM SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PuTTY_is1 InstallLocation
@@ -906,36 +930,29 @@ Section "Shortcuts" Shortcuts
   StrCpy $R0 "C:\Program Files\PuTTY\"
   have_putty:
   DetailPrint "Found PuTTY installed at $R0"
-  CreateShortCut "$SMPROGRAMS\andLinux\PuTTY root@freetzLinux.lnk" "$R0putty.exe" "-X root@$NW_LinIP_Value"
-  CreateShortCut "$SMPROGRAMS\andLinux\PuTTY freetz@freetzLinux.lnk" "$R0putty.exe" "-X $NW_USER_Value@$NW_LinIP_Value"
+  CreateShortCut "$SMPROGRAMS\freetzLinux\PuTTY root@freetzLinux.lnk" "$R0putty.exe" "-X root@$NW_LinIP_Value"
+  CreateShortCut "$SMPROGRAMS\freetzLinux\PuTTY freetz@freetzLinux.lnk" "$R0putty.exe" "-X $NW_USER_Value@$NW_LinIP_Value"
   Pop $R0
 SectionEnd
+
 Section "Putty" Putty
   File /oname=putty-installer.exe upstream\putty-*-installer.exe
-  ExecWait putty-installer.exe
+  ExecWait '"putty-installer.exe" "/SILENT"'
   Delete putty-installer.exe
-SectionEnd
-
-Section "WinPcap" WinPcap
-  File /oname=WinPcap.exe upstream\WinPcap_*.exe
-  ExecWait WinPcap.exe
-  Delete WinPcap.exe
 SectionEnd
 
 Section "XMing" XMing
   File /oname=Xming-setup.exe upstream\Xming-mesa-6*-setup.exe
   ExecWait '"Xming-setup.exe" "/DIR=$INSTDIR\Xming" "/SILENT"'
   Delete Xming-setup.exe
-
   DetailPrint "writing Xming hosts file"
   FileOpen $0 "$INSTDIR\Xming\X0.hosts" w
   FileWrite $0 'localhost$\n'
   FileWrite $0 '$NW_LinIP_Value$\n'
   FileWrite $0 '$NW_WinIP_Value$\n'
   FileClose $0
-
-
 SectionEnd
+
 
 # Defines must sync with entries in file iDl.ini
 !define IDL_NOTHING 1
@@ -947,8 +964,7 @@ SectionEnd
 !define IDL_LOCATION 7
 
 Section "-Root Filesystem image Download" SeccoLinuxImage
-
-   ;----------------------------------------------------------
+;----------------------------------------------------------
    ; Random sourceforge download
     ;Read a value from an InstallOptions INI file and set the filenames
 

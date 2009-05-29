@@ -61,6 +61,11 @@ COLINUX_INSTALL=${BASE}/coLinux/src/src/colinux/os/winnt/user/install
 cd ${BASE}/coLinux/src
 sh ${COLINUX_INSTALL}/colinux_def.sh
 ln -s ${BASE}/coLinux/bin ${COLINUX_INSTALL}/premaid
+#rm -f ${COLINUX_INSTALL}/header.bmp
+#rm -f ${COLINUX_INSTALL}/startlogo.bmp
+#ln -s ${ALL_BASE}/header.bmp ${COLINUX_INSTALL}/header.bmp
+#ln -s ${ALL_BASE}/startlogo.bmp ${COLINUX_INSTALL}/startlogo.bmp
+
 ln -s ${ALL_BASE}/scripts ${COLINUX_INSTALL}/
 ln -s ${ALL_BASE}/tarballs ${COLINUX_INSTALL}/
 ln -s ${ALL_BASE}/upstream ${COLINUX_INSTALL}/
