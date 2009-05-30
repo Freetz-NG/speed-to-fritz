@@ -167,6 +167,9 @@ config AVM_7570_14031
 config AVM_7570_14341
     string
     default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.94-14341M.image"
+config AVM_7570_14348
+   string
+      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.94-14348M.image"
 config AVM_7570_14354
    string
       default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.94-14354M.image"
@@ -573,6 +576,8 @@ choice
 		bool "AVM_7570_70 multilingual german english multiannex"
 	config TYPE_SRC3_AVM_7570_14031
 		bool "AVM_7570_70_14031M multilingual german english multiannex"
+	config TYPE_SRC3_AVM_7570_14348
+		bool "AVM_7570_70_14348M multilingual german english multiannex"
 	config TYPE_SRC3_AVM_7570_14354
 		bool "AVM_7570_70_14354M multilingual german english multiannex"
 	config TYPE_SRC3_AVM_7570_14375
@@ -718,6 +723,7 @@ config SRC2_IMG
 	default "$AVM_7570_70" 			if TYPE_SRC3_AVM_7570_70
 	default "$AVM_7570_14031" 		if TYPE_SRC3_AVM_7570_14031
 	default "$AVM_7570_14341" 		if TYPE_SRC3_AVM_7570_14341
+	default "$AVM_7570_14348" 		if TYPE_SRC3_AVM_7570_14348
 	default "$AVM_7570_14375" 		if TYPE_SRC3_AVM_7570_14375
 
 	default "$SRC3_LOCAL"			if TYPE_SRC3_LOCAL_IMAGE

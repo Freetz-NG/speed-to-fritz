@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090530-1522-r-304
+    - one more 7570 firmware added 14348
 20090530-1212-r-303
     - SVN: removed some generated files from being tracked by SVN.
 20090530-0327-r-302
