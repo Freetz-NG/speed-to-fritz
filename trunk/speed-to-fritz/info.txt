@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090530-0327-r-302
+    - HWR 152 = Speedport W722V in Config.in added.
 20090530-0256-r-301
     - W920: pump to /Labor/7270_release_candidate/fritz_box_labor_14371.ZIP
 20090529-1043-r-298

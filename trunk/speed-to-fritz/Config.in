@@ -1075,8 +1075,7 @@ config EXPORT_FBHWRevision
 		HWR 147 = DSL-EasyBox A802-R
 		HWR 148 = DSL-EasyBox A602
 		HWR 149 = DSL-EasyBox A402
-		 
-		 
+		HWR 152 = Speedport W722V
 config VERBOSE
 	string
 	default "-v" if VERBOSEETY 
