@@ -96,6 +96,7 @@ export FWNEWDIR="Firmware.new"
 export NEWDIR="$HOMEDIR/$FWNEWDIR"
 export FWORIGDIR="Firmware.orig"
 export FWBASE="$HOMEDIR/$FWORIGDIR"
+mkdir -p "$NEWDIR" "$FWBASE"
 #Set /FWBASE Downloaddirectory to windows partition if existent to free up room needed for working, if andLinux is used 
 WinPartitopn="/mnt/win/Firmware.orig"
 #echo "WinPartitopn:$WinPartitopn"

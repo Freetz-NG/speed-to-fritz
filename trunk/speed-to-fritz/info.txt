@@ -1,27 +1,29 @@
  Shell script to make your Speedport function like a Fritz!Box
- 
+
 Usage: ./sp-to-fritz.sh [OPTIONS] -m MODEL
 
 
 This script uses binaries in subdirectory  /tools, if you use this on other
 LINUX systems as on x86 machines (Intel etc.) compile the tools for your hardware in use.
-Source of the tools:  http://trac.freetz.org/browser/trunk/tools  
+Source of the tools:  http://trac.freetz.org/browser/trunk/tools
 It is known that you will not be able to use the script on all systems without any problems,
 Tested systems are andLinux, Stinkylinux, Debian, SuSe, Knoppix, Ubuntu.
-On some systems you have to add the patch tool (add install patch). 
-          
-                                                                       
+On some systems you have to add the patch tool (add install patch).
+
+
  Call: sudo ./sp-to-fritz.sh to get some info.
- 
+
  OR easy call via single name without parameters.
- 
-                                                                       
- History:                                                              
+
+
+ History:
 
     For older info see older script versions!
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090530-1212-r-303
+    - SVN: removed some generated files from being tracked by SVN.
 20090530-0327-r-302
     - HWR 152 = Speedport W722V in Config.in added.
 20090530-0256-r-301
