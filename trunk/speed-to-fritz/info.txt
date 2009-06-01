@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090601-0730-r-306
+    - Some spelling in Config.in corrected
 20090531-1539-r-305
     - some 3rd Firmwares download links added
 20090530-1522-r-304
