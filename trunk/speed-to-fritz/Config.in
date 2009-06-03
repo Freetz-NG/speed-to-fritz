@@ -88,7 +88,7 @@ config AVM_7113_67
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch/FRITZ.Box_Fon_WLAN_7113.60.04.67.image"
 config AVM_7170_67
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.67.image"
+    default "p"
 config AVM_7170_70
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.70.image"
@@ -912,9 +912,9 @@ config SET_OEM
 	bool "Set Branding"
 	default n
 	help
-	    Branding should be left as it is, but if needed you may specify your own. 
+	    Branding should be left as it is, but if needed you may specify your own.
 	    You can only specify a branding implemented within the AVM firmware used!
-	    1und1, ...
+	    (avm, avme, tcom, 1und1, aol, freenet)
 	    In case of option ORI branding will always set to tcom later through the script.
 
 config EXPORT_OEM

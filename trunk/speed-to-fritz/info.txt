@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090603-1707-r-308
+    - Removed downloadlink for 7170 .67.
 20090601-1620-r-307
     - Config.in added select options for different 7570 Firmwares
 20090601-0730-r-306
