@@ -199,20 +199,27 @@ if [ -f $1/etc/htmltext_de.db ];then
 #replacing text in binary file is rahter problematic!
 let FileSize1="$(wc -c < "$1/etc/htmltext_de.db")"
 sed -i -e '
+s|Wenn Sie Firmware in der FRITZ!Box installieren, die nicht von AVM erstellt und herausgegeben wurde, kann dies zum kompletten Funktionsverlust der FRITZ.Box f..hren.|\
+ Im Ernstfall kann immer noch mit einen gepatchten Recover unter Windows oder per FTP unter Windows und LINUX neu aufgesetzt werden.                                |
+s|Wenn Sie nicht freigegebene Firmware in der FRITZ!Box installieren, kann dies zum kompletten Funktionsverlust der FRITZ!Box f..hren.|\
+Im Ernstfall kann immer noch mit einen gepatchten Recover unter Windows oder per FTP unter Windows und LINUX neu aufgesetzt werden.|
+s| Weiterhin verlieren Sie alle Anspr..che auf Support, Garantie und Gew..hrleistung f..r Ihre FRITZ!Box.|\
+Ausserdem kann entwerder mit Adresse 192.168.178.1 oder 192.168.2.1 auf die Box zugegriffen werden.   |
 s|<br>       Wenn das Blinken der INFO-LED aufgeh..rt hat, k..nnen Sie sich erneut an der Anlage anmelden.|\
 <br> Die Box IP ist danach entweder 192.168.178.1 oder 192.168.2.1. PC Restart kann erforderlich sein. |
 s|Die angegebene Datei enth..lt keine von AVM f..r dieses Ger..t freigegebene Firmware.|\
 Im Ernstfall bei Reboots der Box: PC IP statish, Skriptoption "Clear mtd3 und mtd4"!|
-s|Wenn Sie nicht freigegebene Firmware in der FRITZ!Box installieren, kann dies zum kompletten Funktionsverlust der FRITZ!Box f..hren. Weiterhin verlieren Sie alle Anspr..che auf Support, Garantie und Gew..hrleistung f..r Ihre FRITZ!Box.|\
-Im Ernstfall kann immer noch mit einen gepatchten Recover (Windows) oder per FTP (Windows und LINUX) unter einer der folgenden Adressen auf die Box zugegriffen werden. (192.168.178.1, 192.168.2.1, 192.168.1.1)                          |
-s|Verwenden Sie ausschlie..lich Firmware, die von AVM f..r dieses Ger..t freigegeben ist. Nur daf..r kann AVM die volle Unterst..tzung der Funktionalit..t Ihrer FRITZ!Box sicherstellen.|\
-Je nach Firmware sind die Netzwerkeinstellungen am PC anzupassen, oder erneut per DHCP zu beziehen, -Restart der Netzwerkeinstellungen-. Die Adresse des Speedports kann entwerder   |
 s|Freigegebene Firmware-Dateien f..r Ihre FRITZ!Box sind:|Die IPAdr. der Box ist: 192.168.178.1 oder 192.168.2.1.|
 s|von AVM erstellt und herausgegeben|Nach Reboot ueber GUI die Box auf |
 s|f..r Ihr FRITZ!Box-Modell erstellt|WERKSEINSTELLUNG zurükstellen!   |
 s|mindestens so aktuell, wie die auf der FRITZ!Box installierte Firmware|Oder mit angeschlossenem Telefon durch die Eingabe von #991*15901590*.|
 s|abbrechen (empfohlen)|abbrechen            |
+s|Verwenden Sie ausschlie..lich Firmware, die von AVM f..r dieses Ger..t freigegeben ist. Nur daf..r kann|\
+Je nach Firmware sind die Netzwerkeinstellungen am PC anzupassen, oder erneut per DHCP zu beziehen.   |
+s| AVM die volle Unterst..tzung der Funktionalit..t Ihrer FRITZ!Box sicherstellen.|\
+-Restartder Netzwerkeinstellungen-. Die Adresse des Speedports kann entwerder  |
 ' "$1"/etc/htmltext_de.db
+
 let FileSize2="$(wc -c < "$1/etc/htmltext_de.db")"
 if  [ $FileSize1 -ne $FileSize2 ]; then
 	echo "--------------Patch of htmltext_de.db went wrong!---------------"
