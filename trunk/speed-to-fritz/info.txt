@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090604-1137-r-311
+    - added some help lines in Config.in: HWR 104 = FB VOIP Gateway 5188, HWR 138 = FRITZ! WLAN Repeater N/G, HWR 159 = FB Fon WLAN 7112
 20090604-1110-r-310
     - Download link changd to: http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/fw_SpeedportW920V_v_65.04.74.image
 20090604-0523-r-309

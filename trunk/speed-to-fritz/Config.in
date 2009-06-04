@@ -1112,7 +1112,7 @@ config EXPORT_FBHWRevision
 		HWR 97 = Sinus W500V
 		HWR 101 = Speedport W701V
 		HWR 102 = Speedport W900V
-		HWR 104 = FB Gateway 5188
+		HWR 104 = FB VOIP Gateway 5188
 		HWR 105 = FB Fon WLAN 7540V
 		HWR 106 = Fritz!Fon 7150
 		HWR 107 = FB Fon WLAN 7140 AnnexA
@@ -1144,7 +1144,8 @@ config EXPORT_FBHWRevision
 		HWR 134 = Speedport W721V
 		HWR 135 = Speedport W920V
 		HWR 136 = Speedport W503V
-		HWR 137 = FB WLAN 3270	
+		HWR 137 = FB WLAN 3270
+		HWR 138 = FRITZ! WLAN Repeater N/G
 		HWR 139 = FB Fon WLAN 7270 (16 MB)
 		HWR 140 = FB Fon 5125 AnnexA
 		HWR 141 = FB Fon WLAN 7270 AnnexA
@@ -1157,6 +1158,7 @@ config EXPORT_FBHWRevision
 		HWR 148 = DSL-EasyBox A602
 		HWR 149 = DSL-EasyBox A402
 		HWR 152 = Speedport W722V
+		HWR 159 = FB Fon WLAN 7112
 config VERBOSE
 	string
 	default "-v" if VERBOSEETY 
