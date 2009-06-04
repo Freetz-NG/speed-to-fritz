@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090604-1504-r-313
+    - W701: add adsl one help button on page removed.
 20090604-1453-r-312
     - Pump to: /Labor/7270_release_candidate/fritz_box_labor_14418.ZIP
 20090604-1137-r-311

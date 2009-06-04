@@ -137,7 +137,7 @@ diff -Naur usr/www/avm/html/de/internet/labor_dsl.html usr/www/avm/html/de/inter
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="forebuttons">
 +<input type="button" onclick="uiDoSave()" value="Übernehmen" class="Pushbutton" id="buttonSave">
 +<input type="button" onclick="uiDoCancel()" value="Abbrechen" class="Pushbutton" id="buttonCancel">
-+<input type="button" onclick="uiDoHelp()" value="Hilfe" class="Pushbutton" id="buttonHilfe">
++
 +<input type="button" onclick="uiDoReset()" value="Reset" class="Pushbutton" id="buttonReset">
 +<input type="button" onclick="uiDoHelp()" value="Hilfe" class="Pushbutton" id="buttonHilfe">
 +</div></div></div></div></div></div></div>
