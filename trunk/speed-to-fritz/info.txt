@@ -22,6 +22,10 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090604-0523-r-309
+    - OEM comment added.
+20090604-0512-r-1
+    - Update root files
 20090603-1707-r-308
     - Removed downloadlink for 7170 .67.
 20090601-1620-r-307

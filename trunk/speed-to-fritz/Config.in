@@ -921,10 +921,10 @@ config EXPORT_OEM
 	string "Branding (OEM)"
 	depends on SET_OEM
 	help
-	    Branding should be left as it is, but if needed you may specify your own. 
+	    Branding should be left as it is, but if needed you may specify your own.
 	    You can only specify a branding implemented within the AVM firmware used!
-	    1und1, ...
-	    In case of option ORI branding will always be set to tcom.
+	    (avm, avme, tcom, 1und1, aol, freenet)
+	    In case of option ORI branding will always set to tcom later through the script.
 
 comment "Optional settings for Speed-to-fritz -------------------------------"
 
