@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090605-0439-r-315
+    - W920: set default TYPE_TCOM_BETA_74
 20090605-0426-r-314
     - Added set timeout option to 3600 sec.
 20090604-1504-r-313

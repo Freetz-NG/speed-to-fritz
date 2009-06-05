@@ -132,7 +132,6 @@ config AVM_MINI_7270_67
 config AVM_AIO_7270_14418
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_release_candidate/fritz_box_labor_14418.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.74-14418.image"
-#    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_release_candidate/fritz_box_labor_14371.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.74-14371.image"
 config AVM_7270_58
     string
     default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/Release_FRITZ.Box_Fon_WLAN_7270.54.04.58.zip mirror http://www.hostarea.de/server-01/Januar-4bf414c469.zip"
@@ -267,7 +266,7 @@ config TYPE_TCOMBETA
 choice
 	prompt "T-com alternative firmware"
 		depends on TYPE_TCOMBETA
-		default TYPE_TCOM_BETA_71
+		default TYPE_TCOM_BETA_74
 	config TYPE_TCOM_BETA_63
 		bool "TCOM_BETA_63"
 	config TYPE_TCOM_BETA_70
@@ -968,6 +967,11 @@ config EXPORT_COPY_HEADER
 	help
 		Set this to 'y' if you like to include  fw_header980.gif (new version) fw_header.gif (old version)
 		AVM minor version >= 47 uses the new file, if you don't want to copy both files you can remove one of this files in  ./addon/tmp/images.
+config EXPORT_SET_PMAXTIMEOUT
+	bool "Set Timeout for reconnect to 3600"
+	default n
+	help
+		Set Timeout on Internetsetup page for reconnect from 900 to 3600.
 config EXPORT_DO_LOOKUP_PATCH
 	bool "Include reverse lookup patch"
 	default y
