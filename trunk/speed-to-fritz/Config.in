@@ -40,6 +40,9 @@ config TCOM_W900_57
 config TCOM_W721_60
     string
     default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W721V/fw_Speedport_W_721V_v64.04.60.image"
+config TCOM_W721_74
+    string
+    default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W721V/fw_SpeedportW721V_v_64.04.74.image"
 config TCOM_W920_58
     string
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.58.zip mirror http://www.hostarea.de/server-01/Januar-a98d49e8b1.zip"
@@ -304,7 +307,7 @@ choice
 endchoice
 config TYPE_CONGSTAR
 	bool "Select a special Congstar Firmware --->"
-	depends on TYPE_SPEEDPORT_W701V 
+	depends on TYPE_SPEEDPORT_W701V
 	default n
 	help
 		Enable this to compile the mod based on an special AVM firmware.
@@ -313,6 +316,18 @@ choice
 		depends on TYPE_CONGSTAR
 	config TYPE_CONGSTAR_W701V_58
 		bool "CONGSTAR_W701V_58"
+endchoice
+config TYPE_TCOM_W721SPECIAL
+	bool "Select a special TCOM Firmware --->"
+	depends on TYPE_SPEEDPORT_W721V
+	default n
+	help
+		Enable this to compile the mod based on an special AVM firmware.
+choice
+	prompt "W721 firmware"
+		depends on TYPE_TCOM_W721SPECIAL
+	config TYPE_TCOM_W721V_74
+		bool "TCOM_W721V_74"
 endchoice
 ##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 choice
@@ -387,7 +402,7 @@ choice
 			FRITZ! release: 61
 	config TYPE_A59
 		bool "ANNEX_A_59"
-		depends on TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM
+		depends on ( TYPE_SPEEDPORT_W721V && ! TYPE_TCOM_W721SPECIAL ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM
 		help
 			FRITZ! release: 59 Annex A
 	config TYPE_67
@@ -397,12 +412,12 @@ choice
 			FRITZ! release: 67
 	config TYPE_70
 		bool "70"
-		depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! release: 70
 #	config TYPE_13948
 #		bool "71 13948"
-		depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! release: 13948
 	config TYPE_AIO
@@ -415,7 +430,7 @@ choice
 			reception and DECT-support and expands NAS functionality.
 	config TYPE_DSL
 		bool "DSL"
-		depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab DSL: This release optimise the DSL (Digital Subscriber
 			 Line) software and adds related graphs.
@@ -447,7 +462,7 @@ choice
 #			(Internet Protocol Version 6) and 6to4 tunnels.
 	config TYPE_PHONE
 		bool "PHONE (MT-D)"
-		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( YPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab Phone: This release improves DECT-Repeating, call lists,
 			and fixes various software problems, e.g. answering machine and
@@ -466,7 +481,7 @@ choice
 #		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 	config TYPE_13486
 		bool "7270_13486"
-		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TCOM_W721V_74 || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Labor, is the only one usable with DSL on a W920
 			select SET_FREETZ_REVISION
@@ -552,6 +567,8 @@ choice
 		bool "TCOM_W701_57"
 	config TYPE_SRC3_TCOM_W721_60
 		bool "TCOM_W721_60"
+	config TYPE_SRC3_TCOM_W721_74
+		bool "TCOM_W721_74"
 	config TYPE_SRC3_TCOM_W900_57
 		bool "TCOM_W900_57"
 	config TYPE_SRC3_TCOM_W920_58
@@ -671,7 +688,8 @@ config TCOM_IMG
 	default "$TCOM_W701_57" 		if ( ! TYPE_CONGSTAR ) && ( TYPE_SPEEDPORT_W701V )
 	default "$CONGSTAR_W701_58"		if TYPE_CONGSTAR_W701V_58 && ( TYPE_SPEEDPORT_W701V )
 	default "$TCOM_W503_66" 		if TYPE_SPEEDPORT_W503V
-	default "$TCOM_W721_60" 		if TYPE_SPEEDPORT_W721V
+	default "$TCOM_W721_60" 		if ( ! TYPE_TCOM_W721SPECIAL ) && ( TYPE_SPEEDPORT_W721V )
+	default "$TCOM_W721_74" 		if ( TYPE_TCOM_W721V_74 ) && ( TYPE_SPEEDPORT_W721V )
 	default "$TCOM_W900_57" 		if TYPE_SPEEDPORT_W900V
 	default "$TCOM_W920_58" 		if TYPE_58 && ( TYPE_SPEEDPORT_W920V ) 
 	default "$TCOM_W920_71" 		if ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_SPEEDPORT_W920V )
@@ -743,6 +761,7 @@ config SRC2_IMG
 	default "$TCOM_W503_66" 		if TYPE_SRC3_TCOM_W503_66
 	default "$TCOM_W701_57" 		if TYPE_SRC3_TCOM_W701_57
 	default "$TCOM_W721_60" 		if TYPE_SRC3_TCOM_W721_60
+	default "$TCOM_W721_74" 		if TYPE_SRC3_TCOM_W721_74
 	default "$TCOM_W900_57" 		if TYPE_SRC3_TCOM_W900_57
 	default "$TCOM_W920_58" 		if TYPE_SRC3_TCOM_W920_58
 	default "$TCOM_W920_63" 		if TYPE_SRC3_TCOM_W920_63
