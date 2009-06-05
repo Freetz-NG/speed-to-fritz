@@ -967,6 +967,11 @@ config EXPORT_COPY_HEADER
 	help
 		Set this to 'y' if you like to include  fw_header980.gif (new version) fw_header.gif (old version)
 		AVM minor version >= 47 uses the new file, if you don't want to copy both files you can remove one of this files in  ./addon/tmp/images.
+config EXPORT_ADD_MODINFOICON
+	bool "Add modinfo icon on status page"
+	default y
+	help
+		Add modinfo icon on status page, modinfo buttin is always displayed.
 config EXPORT_SET_PMAXTIMEOUT
 	bool "Set Timeout for reconnect to 3600"
 	default n

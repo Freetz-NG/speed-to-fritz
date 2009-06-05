@@ -21,14 +21,15 @@ for DIR in ${OEMLIST}; do
 #add for .49 AVM
 #popup window is only functional with local help
 if [ -e "${DSTI}"/menus/menu2.html ]; then
+ if [ "$ADD_MODINFOICON" = "y" ]; then
+    echo "-- Adding 'Info' icon on status page..."
     cp -fdpr  $P_DIR/help1.gif  --target-directory="${DSTI}"/images
-
     echo2 "      ${DSS}/menus/menu2.html"
     sed -i -e "/PopHelpEx/i \
 <td title=\"Mod Info\" style=\"width: 20px;\"><a href=\"javascript:jslPopHelp('modinfo')\">\n\ \
 <img src=\"..\/html\/de\/images\/help1.gif\">\n\ \
 <\/a><\/td>" "${DSTI}"/menus/menu2.html
-
+ fi
     sed -i -e 's|var g_HelpPagesOnBox = new Array(|var g_ModHelpPagesOnBox = new Array(\
 "modinfo",\
 "hilfe_fon_anrufbeantworter",\
