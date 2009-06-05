@@ -980,8 +980,9 @@ config EXPORT_DO_LOOKUP_PATCH
 config EXPORT_ADD_ONLINECOUNTER
 	depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V  || TYPE_LOCAL_TCOM ) && ! TYPE_SPEEDPORT_W721V
 	bool "Onlinecounter volume patch"
-	default n if  ( TYPE_DSL )
-	default y if  ! ( TYPE_DSL )
+	default n 
+#	default n if  ( TYPE_DSL )
+#	default y if  ! ( TYPE_DSL )
 	help
 		Patch ONLINECOUNTER for 7270.
 config EXPORT_REMOVE_MENU_ITEM
