@@ -4,7 +4,7 @@ export PATH=$PATH:/sbin
 ##########################################################################
 # Date of current version:                                          
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
-Tag="04"; Monat="06"; Jahr="09"
+Tag="05"; Monat="06"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -771,6 +771,8 @@ if [ "$ORI" != "y" ]; then
 	done
  	cp -fdpr  ./addon/tmp/squashfs-root/*  --target-directory="${SRC}"
  fi
+ #patch p_maxTimeout on Intenetpage
+ [ "$SET_PMAXTIMEOUT" = "y" ] && $sh_DIR/patch_pmaxTimeout.sh "${SRC}" "${OEMLIST}"
  #patch download url and add menuitem support
  [ "$ADD_SUPPORT" = "y" ] && $sh2_DIR/patch_url "${SRC}" "${OEMLIST}"
  #add dsl expert pages support
