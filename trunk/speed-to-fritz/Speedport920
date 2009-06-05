@@ -18,7 +18,7 @@ fi
 [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
 [ "${FORCE_TCOM_PCMLINK}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2/pcmlink.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2
 
-if [ "${TYPE_AVM_7570_70}" = "y" ]; then 
+if [ "${TYPE_AVM_7570_XX}" = "y" ]; then 
  if [ "${SAVE_TCOM_DSL}" = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/vinax* --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
     echo "  -- VINAX Driver saved to: ./addon/tmp/W920!"
