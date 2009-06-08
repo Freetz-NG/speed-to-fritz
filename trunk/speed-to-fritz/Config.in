@@ -189,6 +189,9 @@ config AVM_7570_14354
 config AVM_7570_14375
    string
       default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.94-14375M.image"
+config AVM_7570_14434
+   string
+      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.94-14434M.image"
 ##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #( don't remove the following line)
 ### FIRMWARE_CONFIG_ENDE ###
@@ -230,10 +233,10 @@ choice
 		bool "Speedport W920V"
 #		select SET_FREETZ_REVISION
 
-	config TYPE_LOCAL_TCOM_MODELL
+	config TYPE_LOCAL_TCOM_MODEL
 		bool "Custom model"
 endchoice
-if TYPE_LOCAL_TCOM_MODELL
+if TYPE_LOCAL_TCOM_MODEL
     config SPMOD
         string "Custom Model Type"
 	default "701"	
@@ -241,7 +244,7 @@ if TYPE_LOCAL_TCOM_MODELL
 	    Enter your model type 500, 501, 503, 701, 721, 900 or 920 only for this models patches are installed, 
 	    if you use this patches on other future models it is not sure what the results will be like.
 endif
-if ! TYPE_LOCAL_TCOM_MODELL
+if ! TYPE_LOCAL_TCOM_MODEL
 config SPMOD
 	string
 	default "501"	if TYPE_SPEEDPORT_W501V
@@ -308,6 +311,8 @@ choice
 		bool "AVM_7570_14354 used as T-Home Firmware"
 	config TYPE_TCOM_7570_14375
 		bool "AVM_7570_14375 used as T-Home Firmware"
+	config TYPE_TCOM_7570_14434
+		bool "AVM_7570_14434 used as T-Home Firmware"
 endchoice
 config TYPE_CONGSTAR
 	bool "Select a special Congstar Firmware --->"
@@ -540,6 +545,10 @@ choice
 		bool "7570_14375 multilingual german english multi annex"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
+	config TYPE_AVM_7570_14434
+		bool "7570_14434 multilingual german english multi annex"
+		help
+		FRITZ! : 7570 release multilingual, for used in combination with W920
 endchoice
 
 ###------------------------------------------------------------------------------------------------------------
@@ -662,7 +671,9 @@ choice
 	config TYPE_SRC3_AVM_7570_14354
 		bool "AVM_7570_14354M multilingual german english multi annex"
 	config TYPE_SRC3_AVM_7570_14375
-		bool "AVM_7570_14375M multilingual german english multi annex"
+		bool "AVM_7570_14375 multilingual german english multi annex"
+	config TYPE_SRC3_AVM_7570_14434
+		bool "AVM_7570_14434M multilingual german english multi annex"
 	config TYPE_LOCAL_AVM_IMAGE
 		bool "AVM_LOCAL_IMAGE"
 	config TYPE_LOCAL_TCOM_IMAGE
@@ -708,6 +719,7 @@ config TCOM_IMG
 	default "$AVM_7570_14341" 		if TYPE_TCOM_7570_14341 && ( TYPE_SPEEDPORT_W920V )
 	default "$AVM_7570_14348" 		if TYPE_TCOM_7570_14348 && ( TYPE_SPEEDPORT_W920V )
 	default "$AVM_7570_14375" 		if TYPE_TCOM_7570_14375 && ( TYPE_SPEEDPORT_W920V )
+	default "$AVM_7570_14434" 		if TYPE_TCOM_7570_14434 && ( TYPE_SPEEDPORT_W920V )
 
 	default "$TCOM_LOCAL"	 		if TYPE_LOCAL_TCOM_FIRMWARE
 
@@ -753,6 +765,7 @@ config AVM_IMG
 	default "$AVM_7570_14348"			if ( TYPE_AVM_7570_14348 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_7570_14354"			if ( TYPE_AVM_7570_14354 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_7570_14375"			if ( TYPE_AVM_7570_14375 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+	default "$AVM_7570_14434"			if ( TYPE_AVM_7570_14434 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 
 	default "$AVM_LOCAL"				if TYPE_LOCAL_AVM && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 
@@ -819,6 +832,7 @@ config SRC2_IMG
 	default "$AVM_7570_14341" 		if TYPE_SRC3_AVM_7570_14341
 	default "$AVM_7570_14348" 		if TYPE_SRC3_AVM_7570_14348
 	default "$AVM_7570_14375" 		if TYPE_SRC3_AVM_7570_14375
+	default "$AVM_7570_14434" 		if TYPE_SRC3_AVM_7570_14434
 
 	default "$SRC3_LOCAL"			if TYPE_SRC3_LOCAL_IMAGE
 
@@ -854,6 +868,7 @@ config TYPE_LABOR_TYPE
 	default "7570_14341" 	if TYPE_AVM_7570_14341
 	default "7570_14348" 	if TYPE_AVM_7570_14348
 	default "7570_14375" 	if TYPE_AVM_7570_14375
+	default "7570_14434" 	if TYPE_AVM_7570_14434
 	default "VPN" 		if TYPE_VPN
 	default "LOCAL"		if TYPE_LOCAL_AVM
 ###------------------------------------------------------------------------------------------------------------
