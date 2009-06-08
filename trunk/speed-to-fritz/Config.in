@@ -721,7 +721,7 @@ config TCOM_IMG
 	default "$AVM_7570_14375" 		if TYPE_TCOM_7570_14375 && ( TYPE_SPEEDPORT_W920V )
 	default "$AVM_7570_14434" 		if TYPE_TCOM_7570_14434 && ( TYPE_SPEEDPORT_W920V )
 
-	default "$TCOM_LOCAL"	 		if TYPE_LOCAL_TCOM_FIRMWARE
+	default "$TCOM_LOCAL"	 		if TYPE_LOCAL_TCOM
 
 #--------------------------------------------------------------------------
 config AVM_IMG
