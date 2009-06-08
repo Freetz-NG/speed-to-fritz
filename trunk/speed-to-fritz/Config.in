@@ -13,8 +13,8 @@ mainmenu " Configuration"
 ###------------------------------------------------------------------------------------------------------------
 #( don't remove the following line)
 ### FIRMWARE_CONFIG_START ###
-### TCOM Firmware
-### TCOM Firmware
+### T-Home Firmware
+### T-Home Firmware
 ###------------------------------------------------------------------------------------------------------------
 config TCOM_SINUS_27
     string 
@@ -143,7 +143,7 @@ config AVM_7270_59
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.59.image"
 config AVM_7270_67
     string
-    default "./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
+    default "p"
 config AVM_7270_67m
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image"
@@ -230,18 +230,18 @@ choice
 		bool "Speedport W920V"
 #		select SET_FREETZ_REVISION
 
-	config TYPE_LOCAL_TCOM
+	config TYPE_LOCAL_TCOM_MODELL
 		bool "Custom model"
 endchoice
-if TYPE_LOCAL_TCOM
+if TYPE_LOCAL_TCOM_MODELL
     config SPMOD
-        string "Custom T-Home Type"
+        string "Custom Model Type"
 	default "701"	
 	help 
 	    Enter your model type 500, 501, 503, 701, 721, 900 or 920 only for this models patches are installed, 
 	    if you use this patches on other future models it is not sure what the results will be like.
 endif
-if ! TYPE_LOCAL_TCOM
+if ! TYPE_LOCAL_TCOM_MODELL
 config SPMOD
 	string
 	default "501"	if TYPE_SPEEDPORT_W501V
@@ -253,12 +253,6 @@ config SPMOD
 	default "500"	if TYPE_SINUS_W500V
 endif
 
-config TCOM_LOCAL
-    depends on TYPE_LOCAL_TCOM
-    string "Enter your custom type T-Home like Firmware"
-    default "./Firmware.orig/..."
-    help 
-	Enter your custom type T-Home like Firmware, in the same manner with path/filename as usually.
 
 ###------------------------------------------------------------------------------------------------------------
 config TYPE_TCOMBETA
@@ -283,10 +277,19 @@ choice
 		bool "TCOM_BETA_13048"
 	config TYPE_TCOM_BETA_13571
 		bool "TCOM_BETA_13571"
+	config TYPE_LOCAL_TCOM
+		bool "CUSTOM T-Home FIRMWARE"
 endchoice
-config TYPE_TCOM_7570_XX
+config TCOM_LOCAL
+    depends on TYPE_LOCAL_TCOM
+    string "Enter the name of your custom T-Home like Firmware"
+    default "./Firmware.orig/..."
+    help 
+	Enter the name of your custom type T-Home like Firmware, in the same manner with path/filename as usually.
+
+config TYPE_TCOM_7570_XX 
 	bool "Select a special 7570 Firmware as T-Home Firmware --->"
-	depends on TYPE_SPEEDPORT_W920V 
+	depends on TYPE_SPEEDPORT_W920V && ! TYPE_TCOMBETA
 	default n
 	help
 		Enable this to compile the mod based on an special AVM Firmware.
@@ -496,9 +499,15 @@ choice
 		help
 			FRITZ! : Any AVM like Firmware
 endchoice
+config AVM_LOCAL 
+    depends on TYPE_LOCAL_AVM
+    string "Enter the name of your custom type AVM like Firmware"
+    default "./Firmware.orig/..."
+    help 
+	Enter the name of your custom type AVM like Firmware, in the same manner with path/filename as usually.
 config TYPE_AVM_7570_XX
 		bool "Select a special 7570 AVM Firmware as 2nd Firmware--->"
-		depends on ( TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM )
+		depends on ( TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM ) && ! TYPE_LABOR
 		help
 			Enable this to compile the mod based on an special AVM 7570 Firmware.
 			The actual final release version should not be selected is anyway preselected! 
@@ -533,19 +542,13 @@ choice
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 endchoice
 
-config AVM_LOCAL 
-    depends on TYPE_LOCAL_AVM
-    string "Enter your custom type AVM like Firmware"
-    default "./Firmware.orig/..."
-    help 
-	Enter your custom type AVM like Firmware, in the same manner with path/filename as usually.
 ###------------------------------------------------------------------------------------------------------------
 
 config SOURCE2
 	bool "3rd Firmware (only for experiments!)"
 	default n
 	help
-		Enable this if you need a second AVM or TCOM Firmware, this may be needed with some options.
+		Enable this if you need a second AVM or T-Home Firmware, this may be needed with some options.
 
 ###------------------------------------------------------------------------------------------------------------
 ### if new Firmware was added it could be needed to enter one more entry's into the second source section as well!
@@ -671,10 +674,10 @@ endchoice
 
 config SRC3_LOCAL 
     depends on TYPE_SRC3_LOCAL_IMAGE
-    string "Enter your custom type AVM like Firmware"
+    string "Enter the name of your custom type AVM like Firmware"
     default "./Firmware.orig/..."
     help 
-	Enter your custom type AVM like Firmware, in the same manner with path/filename as usually.
+	Enter the name of your custom type AVM like Firmware, in the same manner with path/filename as usually.
 
 ###------------------------------------------------------------------------------------------------------------
 ###------------------------------------------------------------------------------------------------------------
@@ -706,7 +709,7 @@ config TCOM_IMG
 	default "$AVM_7570_14348" 		if TYPE_TCOM_7570_14348 && ( TYPE_SPEEDPORT_W920V )
 	default "$AVM_7570_14375" 		if TYPE_TCOM_7570_14375 && ( TYPE_SPEEDPORT_W920V )
 
-	default "$TCOM_LOCAL"	 		if TYPE_LOCAL_TCOM
+	default "$TCOM_LOCAL"	 		if TYPE_LOCAL_TCOM_FIRMWARE
 
 #--------------------------------------------------------------------------
 config AVM_IMG
@@ -718,7 +721,7 @@ config AVM_IMG
 	default "$AVM_7170_70" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7150_57" 				if TYPE_57 &&  TYPE_SINUS_W500V 
 	default "$AVM_7170_A59" 			if ( TYPE_A59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)) || ( TYPE_SPEEDPORT_W721V && ! TYPE_LABOR )
-	default "$AVM_7170_67" 				if TYPE_67 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+#	default "$AVM_7170_67" 				if TYPE_67 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_7170_70" 				if TYPE_70 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_7170_13948" 			if TYPE_13948 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_DSL_7170_14119"			if TYPE_DSL && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
@@ -730,7 +733,7 @@ config AVM_IMG
 	default "$AVM_7270_67m" 			if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_EN
 	default "$AVM_7270_59" 				if ( TYPE_59  &&  TYPE_SPEEDPORT_W920V ) || ( TYPE_SPEEDPORT_W503V  && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE )
 	default "$AVM_7270_58"	 			if ( TYPE_58 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
-	default "$AVM_7270_67" 				if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
+#	default "$AVM_7270_67" 				if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
 	default "$AVM_7270_67m" 			if ( TYPE_67m ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
 	default "$AVM_7270_67"				if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_7270_70"				if ( TYPE_70 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
@@ -786,7 +789,7 @@ config SRC2_IMG
 #	default "$AVM_7113_61" 			if TYPE_SRC3_AVM_7113_61
 	default "$AVM_7113_58" 			if TYPE_SRC3_AVM_7113_58
 	default "$AVM_7113_67" 			if TYPE_SRC3_AVM_7113_67
-	default "$AVM_7170_67" 			if TYPE_SRC3_AVM_7170_67
+#	default "$AVM_7170_67" 			if TYPE_SRC3_AVM_7170_67
 	default "$AVM_7170_70" 			if TYPE_SRC3_AVM_7170_70
 	default "$AVM_7170_13948" 		if TYPE_SRC3_AVM_7170_13948
 	default "$AVM_DSL_7170_14119"		if TYPE_SRC3_AVM_DSL_7170_14119
@@ -799,7 +802,7 @@ config SRC2_IMG
 	default "$AVM_7270_58" 			if TYPE_SRC3_AVM_7270_58
 	default "$AVM_7270_59" 			if TYPE_SRC3_AVM_7270_59
 	default "$AVM_7270_A59" 		if TYPE_SRC3_AVM_7270_A59
-	default "$AVM_7270_67" 			if TYPE_SRC3_AVM_7270_67
+#	default "$AVM_7270_67" 			if TYPE_SRC3_AVM_7270_67
 	default "$AVM_7270_70" 			if TYPE_SRC3_AVM_7270_70
 	default "$AVM_7270_67m"	 		if TYPE_SRC3_AVM_7270_67m
 	default "$AVM_7270_13486"		if TYPE_SRC3_AVM_7270_13486

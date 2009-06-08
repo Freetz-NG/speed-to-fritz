@@ -22,6 +22,10 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090608-1013-r-324
+    - Config.in : W920 some combinations disabeld
+20090608-0729-r-324
+    - Config.in : removed 7270 .67
 20090608-0657-r-321
     - Config.in : changed comments firmware with Firmware
 20090608-0701-r-320
