@@ -9,7 +9,7 @@ mainmenu " Configuration"
 ###------------------------------------------------------------------------------------------------------------
 ###------------------------------------------------------------------------------------------------------------
 ###------------------------------------------------------------------------------------------------------------
-### If new firmware must be set up, keep in mind that new SYMBOLS are in use further down in this config file and might be added as well on later sections.
+### If new Firmware must be set up, keep in mind that new SYMBOLS are in use further down in this config file and might be added as well on later sections.
 ###------------------------------------------------------------------------------------------------------------
 #( don't remove the following line)
 ### FIRMWARE_CONFIG_START ###
@@ -65,8 +65,8 @@ config TCOM_W920_13571
     string
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.72-13571.zip mirror http://www.hostarea.de/server-03/Maerz-fd7292707f.zip"
 ###------------------------------------------------------------------------------------------------------------
-### AVM firmware
-### AVM firmware
+### AVM Firmware
+### AVM Firmware
 ###------------------------------------------------------------------------------------------------------------
 config AVM_7150_27
     string
@@ -76,10 +76,10 @@ config AVM_7150_32
     default "./Firmware.orig/fritz.fon_7150.annexb.38.04.32.zip mirror http://www.hostarea.de/server-01/Januar-839fd7d22e.zip"
 config AVM_7140_43
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/deutsch_a-ch/fritz.box_fon_wlan_7140.annexa.39.04.43.zip mirror http://www.hostarea.de/server-01/Januar-de288cff9c.zip"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/Firmware/deutsch_a-ch/fritz.box_fon_wlan_7140.annexa.39.04.43.zip mirror http://www.hostarea.de/server-01/Januar-de288cff9c.zip"
 config AVM_7150_56
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzfon.7150/firmware/FRITZ.Fon_7150.AnnexB.38.04.56.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzfon.7150/Firmware/FRITZ.Fon_7150.AnnexB.38.04.56.image"
 config AVM_7150_57
     string
     default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.fon.7150/fritz.fon_7150.38.04.57.image"
@@ -88,13 +88,13 @@ config AVM_7113_58
     default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7113/fritz.box.fon.wlan.7113_60.04.58.image"
 config AVM_7113_67
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch/FRITZ.Box_Fon_WLAN_7113.60.04.67.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/Firmware/deutsch/FRITZ.Box_Fon_WLAN_7113.60.04.67.image"
 config AVM_7170_67
     string
     default "p"
 config AVM_7170_70
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.70.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/Firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.70.image"
 config AVM_7170_13948
     string
     default "p"
@@ -103,13 +103,13 @@ config AVM_7170_59
     default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7170/FRITZ.Box_Fon_WLAN_7170.29.04.59.image"
 config AVM_7170_A59
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/Firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image"
 config AVM_MINI_7170_67
     string
     default "p"
 config AVM_7170_67en
     string
-     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.67.image"
+     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/Firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.67.image"
 config AVM_DSL_7170_14119
     string
 default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_dsl/fritz_box-labor-14119.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.99-14119.image"
@@ -120,8 +120,8 @@ config AVM_AIO_7170_13679
     string
     default "p"
 ##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-####7270
-####7270
+####7270 AVM Firmware
+####7270 AVM Firmware
 ##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config AVM_VPN_7270_13265
     string
@@ -137,7 +137,7 @@ config AVM_AIO_7270_14418
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_release_candidate/fritz_box_labor_14418.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.74-14418.image"
 config AVM_7270_58
     string
-    default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/Release_FRITZ.Box_Fon_WLAN_7270.54.04.58.zip mirror http://www.hostarea.de/server-01/Januar-4bf414c469.zip"
+    default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/Firmware/deutsch/Release_FRITZ.Box_Fon_WLAN_7270.54.04.58.zip mirror http://www.hostarea.de/server-01/Januar-4bf414c469.zip"
 config AVM_7270_59
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.59.image"
@@ -146,10 +146,10 @@ config AVM_7270_67
     default "./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270.54.04.67.image"
 config AVM_7270_67m
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/Firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image"
 config AVM_7270_70
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/Firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
 config AVM_DSL_7270_14000
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-1400.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.99-14000.image"
@@ -168,7 +168,8 @@ config AVM_IPV6_7270_14338
 config AVM_WLANX_7270_14080
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_wlan/fritz_box-labor-14080.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_WLAN_Labor_54.04.98-14080.image"    
-### 7570
+### 7570 AVM Firmware
+### 7570 AVM Firmware
 config AVM_7570_70
     string
     default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.image"
@@ -193,8 +194,8 @@ config AVM_7570_14375
 ### FIRMWARE_CONFIG_ENDE ###
 ##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### ATTENTION! Most variables set up here are in use by various scripts later, so don't change,
-### except numbers within variable names corresponding to the above firmware names.
-### If a firmware version or subversion changes replace all the partial numbers accuring within this config file.
+### except numbers within variable names corresponding to the above Firmware names.
+### If a Firmware version or subversion changes replace all the partial numbers accuring within this config file.
 ### Example:  _11779 to _XXXXX.  Or _58 to _XX (but be careful because some of the very short numbers may be used on other ocasins)
 choice
 	prompt "Hardware type"
@@ -257,7 +258,7 @@ config TCOM_LOCAL
     string "Enter your custom type T-Home like Firmware"
     default "./Firmware.orig/..."
     help 
-	Enter your custom type T-Home like firmware, in the same manner with path/filename as usually.
+	Enter your custom type T-Home like Firmware, in the same manner with path/filename as usually.
 
 ###------------------------------------------------------------------------------------------------------------
 config TYPE_TCOMBETA
@@ -265,9 +266,9 @@ config TYPE_TCOMBETA
 	depends on TYPE_SPEEDPORT_W920V 
 	default n
 	help
-		Enable this to compile the mod based on an special AVM firmware.
+		Enable this to compile the mod based on an special AVM Firmware.
 choice
-	prompt "T-Home alternative firmware"
+	prompt "T-Home alternative Firmware"
 		depends on TYPE_TCOMBETA
 		default TYPE_TCOM_BETA_74
 	config TYPE_TCOM_BETA_63
@@ -288,9 +289,9 @@ config TYPE_TCOM_7570_XX
 	depends on TYPE_SPEEDPORT_W920V 
 	default n
 	help
-		Enable this to compile the mod based on an special AVM firmware.
+		Enable this to compile the mod based on an special AVM Firmware.
 choice
-	prompt "T-Home 7570 alternative firmware"
+	prompt "T-Home 7570 alternative Firmware"
 	depends on TYPE_TCOM_7570_XX
 	config TYPE_TCOM_7570_70
 		bool "AVM_7570_70 used as T-Home Firmware"
@@ -310,9 +311,9 @@ config TYPE_CONGSTAR
 	depends on TYPE_SPEEDPORT_W701V
 	default n
 	help
-		Enable this to compile the mod based on an special AVM firmware.
+		Enable this to compile the mod based on an special AVM Firmware.
 choice
-	prompt "Congstar alternative firmware"
+	prompt "Congstar alternative Firmware"
 		depends on TYPE_CONGSTAR
 	config TYPE_CONGSTAR_W701V_58
 		bool "CONGSTAR_W701V_58"
@@ -322,9 +323,9 @@ config TYPE_TCOM_W721SPECIAL
 	depends on TYPE_SPEEDPORT_W721V
 	default n
 	help
-		Enable this to compile the mod based on an special AVM firmware.
+		Enable this to compile the mod based on an special AVM Firmware.
 choice
-	prompt "W721 firmware"
+	prompt "W721 Firmware"
 		depends on TYPE_TCOM_W721SPECIAL
 	config TYPE_TCOM_W721V_74
 		bool "TCOM_W721V_74"
@@ -349,9 +350,9 @@ choice
 	depends on TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM 
 #		depends on ! TYPE_LABOR
 	help
-	    The selected firmware language is usual the one used by the AVM firmware.
-	    If 2nd or 3rd Firmware is a multilingual firmware, one of this firmware languages can be forced, but this is possible only with 7270 or 7570 firmwares.
-	    The resulting text within the generated firmware may be not completely in this language, text not found in the selected language will be displayed in german or english"
+	    The selected Firmware language is usual the one used by the AVM Firmware.
+	    If 2nd or 3rd Firmware is a multilingual Firmware, one of this Firmware languages can be forced, but this is possible only with 7270 or 7570 firmwares.
+	    The resulting text within the generated Firmware may be not completely in this language, text not found in the selected language will be displayed in german or english"
 	    
 endchoice
 ##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -363,8 +364,8 @@ endchoice
 #		-------------------------------------------------------------------------
 #		ATTENTION! AVM uses the same Filenames for 7170 and 7270 Labor-Firmwares!
 #		So if you change your settings from W920V (in combination with a 
-#		Labor firmware 11500) back to any other or the other way round then, 
-#		the previously loaded Labor firmware located in /Firmware.org is removed.  
+#		Labor Firmware 11500) back to any other or the other way round then, 
+#		the previously loaded Labor Firmware located in /Firmware.org is removed.  
 #		-------------------------------------------------------------------------
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #### If types are added here the script file /subscripts/settings has to be edited as well to represent the new Labor versions too. 
@@ -373,7 +374,7 @@ config TYPE_LABOR
 	depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM  ) 
 	default n
 	help
-		Enable this to compile the mod based on an special AVM firmware.
+		Enable this to compile the mod based on an special AVM Firmware.
 		The actual final release version should not be selected is anyway preselected! 
 		If you select it here your freetz config is not correct! 
 choice
@@ -493,13 +494,13 @@ choice
 	config TYPE_LOCAL_AVM
 		bool "CUSTOM AVM LOCAL FIRMWARE"
 		help
-			FRITZ! : Any AVM like firmware
+			FRITZ! : Any AVM like Firmware
 endchoice
 config TYPE_AVM_7570_XX
 		bool "Select a special 7570 AVM Firmware as 2nd Firmware--->"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM )
 		help
-			Enable this to compile the mod based on an special AVM 7570 firmware.
+			Enable this to compile the mod based on an special AVM 7570 Firmware.
 			The actual final release version should not be selected is anyway preselected! 
 			If you select it here your freetz config is not correct! 
 choice
@@ -534,10 +535,10 @@ endchoice
 
 config AVM_LOCAL 
     depends on TYPE_LOCAL_AVM
-    string "Enter your custom type AVM like firmware"
+    string "Enter your custom type AVM like Firmware"
     default "./Firmware.orig/..."
     help 
-	Enter your custom type AVM like firmware, in the same manner with path/filename as usually.
+	Enter your custom type AVM like Firmware, in the same manner with path/filename as usually.
 ###------------------------------------------------------------------------------------------------------------
 
 config SOURCE2
@@ -547,11 +548,11 @@ config SOURCE2
 		Enable this if you need a second AVM or TCOM Firmware, this may be needed with some options.
 
 ###------------------------------------------------------------------------------------------------------------
-### if new firmware was added it could be needed to enter one more entry's into the second source section as well!
+### if new Firmware was added it could be needed to enter one more entry's into the second source section as well!
 
 choice
 
-	prompt "All possible firmware"
+	prompt "All possible Firmware"
 		depends on SOURCE2
 		default TYPE_SRC3_AVM_7570_70
 
@@ -670,15 +671,15 @@ endchoice
 
 config SRC3_LOCAL 
     depends on TYPE_SRC3_LOCAL_IMAGE
-    string "Enter your custom type AVM like firmware"
+    string "Enter your custom type AVM like Firmware"
     default "./Firmware.orig/..."
     help 
-	Enter your custom type AVM like firmware, in the same manner with path/filename as usually.
+	Enter your custom type AVM like Firmware, in the same manner with path/filename as usually.
 
 ###------------------------------------------------------------------------------------------------------------
 ###------------------------------------------------------------------------------------------------------------
 ###------------------------------------------------------------------------------------------------------------
-### If new firmware is added in the top section of this file, some of this section may be changed or added in connection
+### If new Firmware is added in the top section of this file, some of this section may be changed or added in connection
 ### Keep in mind if in the top section the  SYMBOL NAME was XXX (example: TCOM_SINUS_27) then a $ sign is added here in front of it.  
 ### Based on the above four menu sections, here the corresponding firmwares are set up with "if"    
 config TCOM_IMG
@@ -858,7 +859,7 @@ config EXPORT_CONFIG_MULTI_LANGUAGE
 	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m )
 	default n
 	help
-	    Don´t use this option if the AVM 1st firmware is a multilingual firmware originally!  
+	    Don´t use this option if the AVM 1st Firmware is a multilingual Firmware originally!  
 	    To make this work you must have a T-Home or 3rd Firmware that supplies the needed feature.
 
 config EXPORT_CONFIG_MULTI_COUNTRY
@@ -866,7 +867,7 @@ config EXPORT_CONFIG_MULTI_COUNTRY
 	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m )
  	default n
 	help
-	    Don´t use this option if the AVM 1st firmware is a multilingual firmware originally!
+	    Don´t use this option if the AVM 1st Firmware is a multilingual Firmware originally!
 	    To make this work you must have a T-Home or 3rd Firmware that supplies the needed feature, some text may be wrong or missing!.
 		
 ###------------------------------------------------------------------------------------------------------------
@@ -891,7 +892,7 @@ choice
 		this is a parameter for DSL and specifies the frequency range of ADSL, POTS lines with 
 		ADLS usually are annex A, ISDN lines usually annex B. 
 		For Speed-to-Fritz, this parameter will be set correctly only if the automatic FTP push
-		option is used in combination or the resulting firmware is transfered via Web interface.
+		option is used in combination or the resulting Firmware is transfered via Web interface.
 		annex A or B. You would have to enter the annex parameter as FTP command line,
 		as 'quote SETENV kernel_args annex=A' but then some telephone settings are not adjusted at the same time.
 	config TYPE_ANNEX_A
@@ -901,7 +902,7 @@ choice
 		this is a parameter for DSL and specifies the frequency range of ADSL, POTS lines with 
 		ADLS usually are annex A, ISDN lines usually annex B. 
 		For Speed-to-Fritz, this parameter will be set correctly only if the automatic FTP push
-		option is used in combination or the resulting firmware is transfered via Web interface.
+		option is used in combination or the resulting Firmware is transfered via Web interface.
 		Using some other tools to transfer the kernel.image to the box will not work for setting
 		annex A or B. You would have to enter the annex parameter as FTP command line,
 		as 'quote SETENV kernel_args annex=A' but then some telephone settings are not adjusted at the same time.
@@ -932,7 +933,7 @@ config SET_OEM
 	default n
 	help
 	    Branding should be left as it is, but if needed you may specify your own.
-	    You can only specify a branding implemented within the AVM firmware used!
+	    You can only specify a branding implemented within the AVM Firmware used!
 	    (avm, avme, tcom, 1und1, aol, freenet)
 	    In case of option ORI branding will always set to T-Home later through the script.
 
@@ -941,7 +942,7 @@ config EXPORT_OEM
 	depends on SET_OEM
 	help
 	    Branding should be left as it is, but if needed you may specify your own.
-	    You can only specify a branding implemented within the AVM firmware used!
+	    You can only specify a branding implemented within the AVM Firmware used!
 	    (avm, avme, tcom, 1und1, aol, freenet)
 	    In case of option ORI branding will always set to T-Home later through the script.
 
@@ -954,7 +955,7 @@ config  ORI
 	default n
 	select EXPORT_FORCE_CLEAR_FLASH
 	help
-		Set this to "y" if you want to flash back to the original firmware.
+		Set this to "y" if you want to flash back to the original Firmware.
 		Speedport my be rebooting, in this case:	
 		If your PC net card is set to DHCP and you did restart the PC you must set the PC net card to:
 		IP 192.168.178.19 
@@ -964,10 +965,10 @@ config  ORI
 		Use IP Option to change this. 
 
 config PUSHCONF
-	bool "Push firmware to box via FTP"
+	bool "Push Firmware to box via FTP"
 	default y
 	help
-		Do an automatic upload after firmware is patched.
+		Do an automatic upload after Firmware is patched.
 config EXPORT_ADD_OLD_DECTMENU
 	bool "DECT menu (add)"
 	depends on TYPE_SPEEDPORT_W900V || TYPE_SINUS_W500V  || TYPE_LOCAL_TCOM
@@ -1212,7 +1213,7 @@ config EXPORT_USE_SOURCE2_WEBMNUE
 	select DO_NOT_STOP_ON_ERROR
 	default n
 	help
-		Use this additional option if new firmware with alternative menus is used, 
+		Use this additional option if new Firmware with alternative menus is used, 
 		with limited functionality but interesting for experiments.
 
 comment "DSL Options --------------------------------------------------------"
@@ -1244,38 +1245,38 @@ if ! EXPORT_ATA_ONLY
 	depends on SOURCE2
 	default n
 	help
-		Use this additional option if new dsl-menu pages from alternative firmware-images are used.
+		Use this additional option if new dsl-menu pages from alternative Firmware-images are used.
     config FORCE_TCOM_KDSLDMOD
 	bool "Use T-Home ksldmod driver"
 	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default n
 	help
-		Use KSLDMOD from T-Home firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
+		Use KSLDMOD from T-Home Firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
     config FORCE_TCOM_PCMLINK
 	bool "Use T-Home pcmlink driver"
 	depends on TYPE_SPEEDPORT_W920V
 	# && TYPE_AVM_7570_XX
 	default n
 	help
-		Use PCMLINK from T-Home firmware.
+		Use PCMLINK from T-Home Firmware.
     config FORCE_SRC2_KDSLDMOD
 	bool "Use source 3 ksldmod driver"
 	depends on SOURCE2 && TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V 
 	default n
 	help
-		Use KSLDMOD from source 3 firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
+		Use KSLDMOD from source 3 Firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
     config USE_SRC2_VINAX_ADSLFW
 	bool "Use source 3 DSL driver"
 	depends on TYPE_SPEEDPORT_W721V
 	default n
 	help
-		Use ADSL VINAX DRIVER from second AVM source firmware specified in SRC2_IMG.
+		Use ADSL VINAX DRIVER from second AVM source Firmware specified in SRC2_IMG.
     config USE_SRC2_DSL
 	bool "Use source 3 (V)DSL driver"
 	depends on SOURCE2
 	default n
 	help
-		Use (V)DSL DRIVER from second AVM source firmware specified in SRC2_IMG.
+		Use (V)DSL DRIVER from second AVM source Firmware specified in SRC2_IMG.
     config USE_OWN_DSL
 	bool "Use own (V)DSL driver"
 	default n
@@ -1415,8 +1416,8 @@ config XCHANGE_KERNEL
 	default y if TYPE_SPEEDPORT_W721V
 	help
 		For normal this is "n", but for testing this may be used, this option is dangerous,
-		but it can be used in combination with the option restore original firmware as well.
-		It is mainly added for testing W920, W920 original firmware does not log to the console
+		but it can be used in combination with the option restore original Firmware as well.
+		It is mainly added for testing W920, W920 original Firmware does not log to the console
 		but if the kernel is replaced with AVM kernel the log is present.
 config COPY_TCOM_BIN
 	bool "Keep T-Home libs and binary files"
@@ -1430,8 +1431,8 @@ config SRC2_KERNEL
 	default n
 	help
 		For normal this is "n", but for testing this may be used, this option is dangerous,
-		but it can be used in combination with the option restore original firmware as well.
-		It is mainly added for testing W920, W920 original firmware does not log to the console
+		but it can be used in combination with the option restore original Firmware as well.
+		It is mainly added for testing W920, W920 original Firmware does not log to the console
 		but if the kernel is replaced with AVM kernel the log is present.
 #config COPY_TCOM_BIN2
 #	bool "Keep all T-Home bin, sbin, lib"
@@ -1512,8 +1513,8 @@ config EXPORT_CONFIG_TR069
 	default n
 	help
 		Set this to "y" if you want that autoconfiguration is turned on, 
-		this may result that in the case that your box is turned back to T-Home firmware
-		automatically if new T-Home firmware is available, if this happens, it is not sure
+		this may result that in the case that your box is turned back to T-Home Firmware
+		automatically if new T-Home Firmware is available, if this happens, it is not sure
 		that your box will funktion normal again, so don't use this option 
 		expect you be aware of this case.
 		You must set OEM to the branding you use.  
@@ -1543,7 +1544,7 @@ config SET_UP
 	bool "Just do a setup run"
 	default n
 	help
-		No output file will be generated! Process stops before packing firmware!.
+		No output file will be generated! Process stops before packing Firmware!.
 
 config EXPORT_REUSECONF
 	bool "Keep configuration"
@@ -1555,7 +1556,7 @@ config DO_NOT_STOP_ON_ERROR
 	bool "Do not STOP on ERROR" 
 	default n
 	help
-		If you set this to 'y' for some reason, you are able to build a firmware with bugs!.
+		If you set this to 'y' for some reason, you are able to build a Firmware with bugs!.
 
 config DO_DIFF
 	bool "Do DIFF between AVM source and source 3"
@@ -1739,7 +1740,7 @@ config SET_FREETZ_REVISION
 	default y if   ( ( TYPE_58  && TYPE_SPEEDPORT_W920V ) || TYPE_13486 )
 	help
 	    normaly this is not set, but in specail cases new revisions of freetz
-	    can't be used in combination with the firmware on wants to use.
+	    can't be used in combination with the Firmware on wants to use.
 	    So type in the revision number, this will be used with start-freetz.sh
 	    script only. 
 
