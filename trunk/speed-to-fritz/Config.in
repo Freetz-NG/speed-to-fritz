@@ -82,10 +82,10 @@ config AVM_7150_56
     default "ftp://ftp.avm.de/fritz.box/fritzfon.7150/firmware/FRITZ.Fon_7150.AnnexB.38.04.56.image"
 config AVM_7150_57
     string
-    default "ftp://ftp.freenet.de/pub/hardware/firmware/AVM/fritz.fon.7150/fritz.fon_7150.38.04.57.image"
+    default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.fon.7150/fritz.fon_7150.38.04.57.image"
 config AVM_7113_58
     string
-    default "ftp://ftp.freenet.de/pub/hardware/firmware/AVM/fritz.box.fon.wlan.7113/fritz.box.fon.wlan.7113_60.04.58.image"
+    default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7113/fritz.box.fon.wlan.7113_60.04.58.image"
 config AVM_7113_67
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch/FRITZ.Box_Fon_WLAN_7113.60.04.67.image"
@@ -100,7 +100,7 @@ config AVM_7170_13948
     default "p"
 config AVM_7170_59
     string
-    default "ftp://ftp.freenet.de/pub/hardware/firmware/AVM/fritz.box.fon.wlan.7170/FRITZ.Box_Fon_WLAN_7170.29.04.59.image"
+    default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7170/FRITZ.Box_Fon_WLAN_7170.29.04.59.image"
 config AVM_7170_A59
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image"
