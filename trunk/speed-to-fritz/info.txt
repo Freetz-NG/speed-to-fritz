@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090608-0701-r-320
+    - Config.in : changed comments tcom to T-home
 20090605-1433-r-319
     - One Variable was not set in Revision 307 correcly.
 20090605-0849-r-318

@@ -234,7 +234,7 @@ choice
 endchoice
 if TYPE_LOCAL_TCOM
     config SPMOD
-        string "Custom TCOM Type"
+        string "Custom T-Home Type"
 	default "701"	
 	help 
 	    Enter your model type 500, 501, 503, 701, 721, 900 or 920 only for this models patches are installed, 
@@ -254,20 +254,20 @@ endif
 
 config TCOM_LOCAL
     depends on TYPE_LOCAL_TCOM
-    string "Enter your custom type TCOM like Firmware"
+    string "Enter your custom type T-Home like Firmware"
     default "./Firmware.orig/..."
     help 
-	Enter your custom type TCOM like firmware, in the same manner with path/filename as usually.
+	Enter your custom type T-Home like firmware, in the same manner with path/filename as usually.
 
 ###------------------------------------------------------------------------------------------------------------
 config TYPE_TCOMBETA
-	bool "Select a special T-com Firmware --->"
+	bool "Select a special T-Home Firmware --->"
 	depends on TYPE_SPEEDPORT_W920V 
 	default n
 	help
 		Enable this to compile the mod based on an special AVM firmware.
 choice
-	prompt "T-com alternative firmware"
+	prompt "T-Home alternative firmware"
 		depends on TYPE_TCOMBETA
 		default TYPE_TCOM_BETA_74
 	config TYPE_TCOM_BETA_63
@@ -284,26 +284,26 @@ choice
 		bool "TCOM_BETA_13571"
 endchoice
 config TYPE_TCOM_7570_XX
-	bool "Select a special 7570 Firmware as T-com Firmware --->"
+	bool "Select a special 7570 Firmware as T-Home Firmware --->"
 	depends on TYPE_SPEEDPORT_W920V 
 	default n
 	help
 		Enable this to compile the mod based on an special AVM firmware.
 choice
-	prompt "T-com 7570 alternative firmware"
+	prompt "T-Home 7570 alternative firmware"
 	depends on TYPE_TCOM_7570_XX
 	config TYPE_TCOM_7570_70
-		bool "AVM_7570_70 used as t-com Firmware"
+		bool "AVM_7570_70 used as T-Home Firmware"
 	config TYPE_TCOM_7570_14031
-		bool "AVM_7570_14031 used as t-com Firmware"
+		bool "AVM_7570_14031 used as T-Home Firmware"
 	config TYPE_TCOM_7570_14341
-		bool "AVM_7570_14341 used as t-com Firmware"
+		bool "AVM_7570_14341 used as T-Home Firmware"
 	config TYPE_TCOM_7570_14348
-		bool "AVM_7570_14348 used as t-com Firmware"
+		bool "AVM_7570_14348 used as T-Home Firmware"
 	config TYPE_TCOM_7570_14354
-		bool "AVM_7570_14354 used as t-com Firmware"
+		bool "AVM_7570_14354 used as T-Home Firmware"
 	config TYPE_TCOM_7570_14375
-		bool "AVM_7570_14375 used as t-com Firmware"
+		bool "AVM_7570_14375 used as T-Home Firmware"
 endchoice
 config TYPE_CONGSTAR
 	bool "Select a special Congstar Firmware --->"
@@ -318,7 +318,7 @@ choice
 		bool "CONGSTAR_W701V_58"
 endchoice
 config TYPE_TCOM_W721SPECIAL
-	bool "Select a special TCOM Firmware --->"
+	bool "Select a special T-Home Firmware --->"
 	depends on TYPE_SPEEDPORT_W721V
 	default n
 	help
@@ -854,20 +854,20 @@ config TYPE_LABOR_TYPE
 	default "LOCAL"		if TYPE_LOCAL_AVM
 ###------------------------------------------------------------------------------------------------------------
 config EXPORT_CONFIG_MULTI_LANGUAGE
-	bool "Use Multilingual from tcom or 3rd Firmware"
+	bool "Use Multilingual from T-Home or 3rd Firmware"
 	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m )
 	default n
 	help
 	    Don´t use this option if the AVM 1st firmware is a multilingual firmware originally!  
-	    To make this work you must have a tcom or 3rd Firmware that supplies the needed feature.
+	    To make this work you must have a T-Home or 3rd Firmware that supplies the needed feature.
 
 config EXPORT_CONFIG_MULTI_COUNTRY
-	bool "Use Multi country from tcom or 3rd Firmware"
+	bool "Use Multi country from T-Home or 3rd Firmware"
 	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m )
  	default n
 	help
 	    Don´t use this option if the AVM 1st firmware is a multilingual firmware originally!
-	    To make this work you must have a tcom or 3rd Firmware that supplies the needed feature, some text may be wrong or missing!.
+	    To make this work you must have a T-Home or 3rd Firmware that supplies the needed feature, some text may be wrong or missing!.
 		
 ###------------------------------------------------------------------------------------------------------------
 
@@ -879,7 +879,7 @@ config EXPORT_CONFIG_DSL_MULTI_ANNEX
 	depends on ( TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM ) && ! TYPE_AVM_7570_XX
 	default n
 	help
-	    To make this work you must have a tcom or 3rd Firmware that supplies the needed feature.
+	    To make this work you must have a T-Home or 3rd Firmware that supplies the needed feature.
 choice
 	depends ! EXPORT_CONFIG_DSL_MULTI_ANNEX && ! TYPE_AVM_7570_XX
 	bool "Annex"
@@ -934,7 +934,7 @@ config SET_OEM
 	    Branding should be left as it is, but if needed you may specify your own.
 	    You can only specify a branding implemented within the AVM firmware used!
 	    (avm, avme, tcom, 1und1, aol, freenet)
-	    In case of option ORI branding will always set to tcom later through the script.
+	    In case of option ORI branding will always set to T-Home later through the script.
 
 config EXPORT_OEM
 	string "Branding (OEM)"
@@ -943,14 +943,14 @@ config EXPORT_OEM
 	    Branding should be left as it is, but if needed you may specify your own.
 	    You can only specify a branding implemented within the AVM firmware used!
 	    (avm, avme, tcom, 1und1, aol, freenet)
-	    In case of option ORI branding will always set to tcom later through the script.
+	    In case of option ORI branding will always set to T-Home later through the script.
 
 comment "Optional settings for Speed-to-fritz -------------------------------"
 
 menu "Options"
 
 config  ORI
-	bool "Restore original TCOM Firmware"
+	bool "Restore original T-Home Firmware"
 	default n
 	select EXPORT_FORCE_CLEAR_FLASH
 	help
@@ -1080,7 +1080,7 @@ config SET_HOSTNAME
 		    default "fritz.box"
 	    help
 		This is the name used instead of the IP address, 
-		tcom uses "speedport.ip" but can be anything you like.
+		T-Home uses "speedport.ip" but can be anything you like.
  
 config SET_FBMOD
 	bool "Box MOD ID (setup)"
@@ -1225,7 +1225,7 @@ config EXPORT_ATA_ONLY
 	help
 		Use this additional option, if VDSL or ADSL is not needed or not 
 		usable with the Firmwares in use.
-		"All In One" or similar firmwares in combination with T-com .58
+		"All In One" or similar firmwares in combination with T-Home .58
 		can only be used in ATA Mode.
 		In Case of W501, no fon will be usable with this option.
 ####
@@ -1246,18 +1246,18 @@ if ! EXPORT_ATA_ONLY
 	help
 		Use this additional option if new dsl-menu pages from alternative firmware-images are used.
     config FORCE_TCOM_KDSLDMOD
-	bool "Use t-com ksldmod driver"
+	bool "Use T-Home ksldmod driver"
 	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default n
 	help
-		Use KSLDMOD from t-com firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
+		Use KSLDMOD from T-Home firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
     config FORCE_TCOM_PCMLINK
-	bool "Use t-com pcmlink driver"
+	bool "Use T-Home pcmlink driver"
 	depends on TYPE_SPEEDPORT_W920V
 	# && TYPE_AVM_7570_XX
 	default n
 	help
-		Use PCMLINK from t-com firmware.
+		Use PCMLINK from T-Home firmware.
     config FORCE_SRC2_KDSLDMOD
 	bool "Use source 3 ksldmod driver"
 	depends on SOURCE2 && TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V 
@@ -1285,7 +1285,7 @@ if ! EXPORT_ATA_ONLY
 		No files get removed within this directory so if you do more as one save with different settings
 		more files my be within this directory as really wanted.
     config FORCE_TCOM_DSL
-	bool "Force T-com (V)DSL driver"
+	bool "Force T-Home (V)DSL driver"
 	depends on ! TYPE_SPEEDPORT_W721V  
 	default n if ! TYPE_SPEEDPORT_W920V
 	default y if TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V  
@@ -1310,10 +1310,10 @@ if ! EXPORT_ATA_ONLY
 		more files my be within this directory as realy wanted.
 		Save (V)DSL DRIVER from AVM source to ./addon/tmp/WXXX.
     config SAVE_TCOM_DSL
-	bool "Save T-com (V)DSL driver"
+	bool "Save T-Home (V)DSL driver"
 	default n
 	help
-		Save (V)DSL DRIVER from TCOM source to ./addon/tmp/WXXX.
+		Save (V)DSL DRIVER from T-Home source to ./addon/tmp/WXXX.
 		WXXX is the respective speedport type.
 		No files get removed within this directory so if you do more as one save with diffent settings
 		more files my be within this directory as realy wanted.
@@ -1361,14 +1361,14 @@ endif
 #		    default "8"
 #	    help
 #		This is the value used instead, 
-#		tcom uses "1" but my be specified by your provider.
+#		T-Home uses "1" but my be specified by your provider.
 # 	config  EXPORT_VCI
 #	    depends on EXPORT_SETATM
 #	    string "VCI value"
 #		    default "48"
 #	    help
 #		This is the value used instead, 
-#		tcom uses "32" but my be specified by your provider.
+#		T-Home uses "32" but my be specified by your provider.
 
 #choice
 #	prompt "ATM Type: "
@@ -1410,7 +1410,7 @@ endif
 
 comment "SYSTEM Options -----------------------------------------------------"
 config XCHANGE_KERNEL
-	bool "Xchange kernel between tcom and avm source"
+	bool "Xchange kernel between T-Home and avm source"
 	default n if ! TYPE_SPEEDPORT_W721V
 	default y if TYPE_SPEEDPORT_W721V
 	help
@@ -1419,7 +1419,7 @@ config XCHANGE_KERNEL
 		It is mainly added for testing W920, W920 original firmware does not log to the console
 		but if the kernel is replaced with AVM kernel the log is present.
 config COPY_TCOM_BIN
-	bool "Keep tcom libs and binary files"
+	bool "Keep T-Home libs and binary files"
 	depends on TYPE_SPEEDPORT_W721V && XCHANGE_KERNEL
 	default y
 	help
@@ -1434,27 +1434,27 @@ config SRC2_KERNEL
 		It is mainly added for testing W920, W920 original firmware does not log to the console
 		but if the kernel is replaced with AVM kernel the log is present.
 #config COPY_TCOM_BIN2
-#	bool "Keep all TCOM bin, sbin, lib"
+#	bool "Keep all T-Home bin, sbin, lib"
 #	depends on TYPE_SPEEDPORT_W920V
 #	default n
 #	help
 #		For normal this is "n", but for testing this may be used, this option is dangerous.
 
 config FORCE_TCOM_PIGLET
-	bool "Force use of t-com piglet driver"
+	bool "Force use of T-Home piglet driver"
 	default n
 	help
 		For normal this is "n", but for firmwares with minor versions less then 50 "y" works better.
 
 config FORCE_TCOM_LEDDRIVER
-	bool "Force use of t-com LED driver"
+	bool "Force use of T-Home LED driver"
 	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default y
 	help
-		For normal this is "n", but you my use the tcom driver, definition of LEDs differ, not all LEDS are usable.
+		For normal this is "n", but you my use the T-Home driver, definition of LEDs differ, not all LEDS are usable.
 
 config FORCE_TCOM_FON
-	bool "Force use of t-com fon driver"
+	bool "Force use of T-Home fon driver"
 	default n  
 	help
 		For normal this is "n", but for firmwares with minor versions less then 50 "y" works better.
@@ -1512,8 +1512,8 @@ config EXPORT_CONFIG_TR069
 	default n
 	help
 		Set this to "y" if you want that autoconfiguration is turned on, 
-		this may result that in the case that your box is turned back to t-com firmware
-		automatically if new t-com firmware is available, if this happens, it is not sure
+		this may result that in the case that your box is turned back to T-Home firmware
+		automatically if new T-Home firmware is available, if this happens, it is not sure
 		that your box will funktion normal again, so don't use this option 
 		expect you be aware of this case.
 		You must set OEM to the branding you use.  
@@ -1565,7 +1565,7 @@ config DO_DIFF
 		Set this to 'y' to make a diff between SRC and SRC_2 (AVM_IMG, SRC2_IMG),
 		diff result is in directory ./LogAVMto3.
 config DO_DIFF_TCOM
-	bool "Do DIFF between TCOM source and source 3"
+	bool "Do DIFF between T-Home source and source 3"
 	depends on SOURCE2
 	default n
 	help
@@ -1586,18 +1586,18 @@ config DO_FINAL_DIFF_SRC2
 		Set this to 'y' to make a diff between DST and SRC2    
 		SRC2_IMG source files must be selected, diff result is in directory ./LogFINALto3.
 config DO_KDIFF3_2
-	bool "Do KDIFF3, show AVM and TCOM"
+	bool "Do KDIFF3, show AVM and T-Home"
 	depends on ! SOURCE2
 	default n
 	help
-		Set this to 'y' to make a kdiff3 between AVM and TCOM
+		Set this to 'y' to make a kdiff3 between AVM and T-Home
 		Diff result is shown in kdiff3 gui.
 config DO_KDIFF3_3
-	bool "Do KDIFF3, show AVM source, source 3 and TCOM"
+	bool "Do KDIFF3, show AVM source, source 3 and T-Home"
 	depends on SOURCE2
 	default n
 	help
-		Set this to 'y' to make a kdiff3 between AVM source, and source 3 and TCOM
+		Set this to 'y' to make a kdiff3 between AVM source, and source 3 and T-Home
 		Diff result is shown in kdiff3 gui.
 config DO_FINAL_KDIFF3_2
 	bool "Do final KDIFF3, show changed AVM and orignal AVM"
@@ -1691,7 +1691,7 @@ endmenu
 menu "Preset some GUI settings"
 
 config SET_EXPERT
-	bool "Set expert Ansicht as default"
+	bool "Set Expertenansicht as default"
 	default y
 	help
 	    This is usual set to no, within the AVM GUI. 
