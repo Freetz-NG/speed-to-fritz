@@ -6,16 +6,15 @@ mainmenu " Configuration"
 ### 3rd definition can be an alternative mirror download link.  
 ### If the mirror link is used a "mirror" as 2nd dummy name or the local filename after extraction.
 ### If alternative download link is a pointer the first filename is needed with .zip extension.
-###------------------------------------------------------------------------------------------------------------
-###------------------------------------------------------------------------------------------------------------
-###------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### If new Firmware must be set up, keep in mind that new SYMBOLS are in use further down in this config file and might be added as well on later sections.
-###------------------------------------------------------------------------------------------------------------
 #( don't remove the following line)
 ### FIRMWARE_CONFIG_START ###
 ### T-Home Firmware
 ### T-Home Firmware
-###------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config TCOM_SINUS_27
     string 
     default "http://hilfe.telekom.de/dlp/eki/downloads/Sinus%20W%20500%20V/fw_SinusW500V_27_04_27.zip ./Firmware.orig/Sinus_W_500V.27.04.27.image"
@@ -64,10 +63,10 @@ config TCOM_W920_13048
 config TCOM_W920_13571
     string
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.72-13571.zip mirror http://www.hostarea.de/server-03/Maerz-fd7292707f.zip"
-###------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM Firmware
 ### AVM Firmware
-###------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config AVM_7150_27
     string
     default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.fon.7150/archiv/FRITZ.Fon_7150.38.04.27.image"
@@ -119,10 +118,10 @@ config AVM_BETA_7170_13679
 config AVM_AIO_7170_13679
     string
     default "p"
-##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-####7270 AVM Firmware
-####7270 AVM Firmware
-##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+### 7270 AVM Firmware
+### 7270 AVM Firmware
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config AVM_VPN_7270_13265
     string
     default "p"
@@ -192,10 +191,10 @@ config AVM_7570_14375
 config AVM_7570_14434
    string
       default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.94-14434M.image"
-##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #( don't remove the following line)
 ### FIRMWARE_CONFIG_ENDE ###
-##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### ATTENTION! Most variables set up here are in use by various scripts later, so don't change,
 ### except numbers within variable names corresponding to the above Firmware names.
 ### If a Firmware version or subversion changes replace all the partial numbers accuring within this config file.
@@ -256,8 +255,7 @@ config SPMOD
 	default "500"	if TYPE_SINUS_W500V
 endif
 
-
-###------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config TYPE_TCOMBETA
 	bool "Select a special T-Home Firmware --->"
 	depends on TYPE_SPEEDPORT_W920V 
@@ -338,7 +336,7 @@ choice
 	config TYPE_TCOM_W721V_74
 		bool "TCOM_W721V_74"
 endchoice
-##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 choice
 	prompt "Select Firmware default language"
 		default TYPE_LANG_DE
@@ -355,15 +353,14 @@ choice
 		depends on TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM
 #	config TYPE_LANG_FR
 #		bool "fr - french"
-	depends on TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM 
+#	depends on TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM 
 #		depends on ! TYPE_LABOR
 	help
 	    The selected Firmware language is usual the one used by the AVM Firmware.
 	    If 2nd or 3rd Firmware is a multilingual Firmware, one of this Firmware languages can be forced, but this is possible only with 7270 or 7570 firmwares.
-	    The resulting text within the generated Firmware may be not completely in this language, text not found in the selected language will be displayed in german or english"
-	    
+	    The resulting text within the generated Firmware may be not completely in this language, text not found in the selected language will be displayed in german or english.
 endchoice
-##--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #config COMMENT
 #	depends on TYPE_LABOR
 #	string "If you change between W920V and back read this help!"
@@ -371,9 +368,9 @@ endchoice
 #	help
 #		-------------------------------------------------------------------------
 #		ATTENTION! AVM uses the same Filenames for 7170 and 7270 Labor-Firmwares!
-#		So if you change your settings from W920V (in combination with a 
-#		Labor Firmware 11500) back to any other or the other way round then, 
-#		the previously loaded Labor Firmware located in /Firmware.org is removed.  
+#		So if you change your settings from W920V (in combination with a
+#		Labor Firmware 11500) back to any other or the other way round then,
+#		the previously loaded Labor Firmware located in /Firmware.org is removed
 #		-------------------------------------------------------------------------
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #### If types are added here the script file /subscripts/settings has to be edited as well to represent the new Labor versions too. 
@@ -426,9 +423,9 @@ choice
 			FRITZ! release: 70
 #	config TYPE_13948
 #		bool "71 13948"
-		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-		help
-			FRITZ! release: 13948
+#		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+#		help
+#			FRITZ! release: 13948
 	config TYPE_AIO
 		bool "AIO - Alles in einem prerelease"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
@@ -550,16 +547,13 @@ choice
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 endchoice
-
-###------------------------------------------------------------------------------------------------------------
-
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config SOURCE2
 	bool "3rd Firmware (only for experiments!)"
 	default n
 	help
 		Enable this if you need a second AVM or T-Home Firmware, this may be needed with some options.
-
-###------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### if new Firmware was added it could be needed to enter one more entry's into the second source section as well!
 
 choice
@@ -689,13 +683,12 @@ config SRC3_LOCAL
     default "./Firmware.orig/..."
     help 
 	Enter the name of your custom type AVM like Firmware, in the same manner with path/filename as usually.
-
-###------------------------------------------------------------------------------------------------------------
-###------------------------------------------------------------------------------------------------------------
-###------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### If new Firmware is added in the top section of this file, some of this section may be changed or added in connection
-### Keep in mind if in the top section the  SYMBOL NAME was XXX (example: TCOM_SINUS_27) then a $ sign is added here in front of it.  
-### Based on the above four menu sections, here the corresponding firmwares are set up with "if"    
+### Keep in mind if in the top section the  SYMBOL NAME was XXX (example: TCOM_SINUS_27) then a $ sign is added here in front of it.
+### Based on the above four menu sections, here the corresponding firmwares are set up with "if"
 config TCOM_IMG
 	string
 	default "$TCOM_SINUS_27" 		if TYPE_SINUS_W500V
@@ -706,7 +699,7 @@ config TCOM_IMG
 	default "$TCOM_W721_60" 		if ( ! TYPE_TCOM_W721SPECIAL ) && ( TYPE_SPEEDPORT_W721V )
 	default "$TCOM_W721_74" 		if ( TYPE_TCOM_W721V_74 ) && ( TYPE_SPEEDPORT_W721V )
 	default "$TCOM_W900_57" 		if TYPE_SPEEDPORT_W900V
-	default "$TCOM_W920_58" 		if TYPE_58 && ( TYPE_SPEEDPORT_W920V ) 
+	default "$TCOM_W920_58" 		if TYPE_58 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_71" 		if ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_63" 		if TYPE_TCOM_BETA_63 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_70" 		if TYPE_TCOM_BETA_70 && ( TYPE_SPEEDPORT_W920V )
@@ -722,8 +715,7 @@ config TCOM_IMG
 	default "$AVM_7570_14434" 		if TYPE_TCOM_7570_14434 && ( TYPE_SPEEDPORT_W920V )
 
 	default "$TCOM_LOCAL"	 		if TYPE_LOCAL_TCOM
-
-#--------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config AVM_IMG
 	string
 	default "$AVM_7140_43"				if TYPE_SPEEDPORT_W501V
@@ -768,8 +760,7 @@ config AVM_IMG
 	default "$AVM_7570_14434"			if ( TYPE_AVM_7570_14434 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 
 	default "$AVM_LOCAL"				if TYPE_LOCAL_AVM && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
-
-#-------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config SRC2_IMG
 	string
 	default "$TCOM_SINUS_27" 		if TYPE_SRC3_TCOM_W500_27
@@ -835,11 +826,9 @@ config SRC2_IMG
 	default "$AVM_7570_14434" 		if TYPE_SRC3_AVM_7570_14434
 
 	default "$SRC3_LOCAL"			if TYPE_SRC3_LOCAL_IMAGE
-
-###------------------------------------------------------------------------------------------------------------
-###------------------------------------------------------------------------------------------------------------
-###------------------------------------------------------------------------------------------------------------
-
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config TYPE_LABOR_TYPE
 	string
         default "58" 		if TYPE_58
@@ -871,7 +860,7 @@ config TYPE_LABOR_TYPE
 	default "7570_14434" 	if TYPE_AVM_7570_14434
 	default "VPN" 		if TYPE_VPN
 	default "LOCAL"		if TYPE_LOCAL_AVM
-###------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_CONFIG_MULTI_LANGUAGE
 	bool "Use Multilingual from T-Home or 3rd Firmware"
 	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m )
@@ -888,11 +877,7 @@ config EXPORT_CONFIG_MULTI_COUNTRY
 	    Don´t use this option if the AVM 1st Firmware is a multilingual Firmware originally!
 	    To make this work you must have a T-Home or 3rd Firmware that supplies the needed feature, some text may be wrong or missing!.
 		
-###------------------------------------------------------------------------------------------------------------
-
-
-
-
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_CONFIG_DSL_MULTI_ANNEX
 	bool "Force Multi annex"
 	depends on ( TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM ) && ! TYPE_AVM_7570_XX
@@ -974,7 +959,7 @@ config  ORI
 	select EXPORT_FORCE_CLEAR_FLASH
 	help
 		Set this to "y" if you want to flash back to the original Firmware.
-		Speedport my be rebooting, in this case:	
+		Speedport my be rebooting, in this case:
 		If your PC net card is set to DHCP and you did restart the PC you must set the PC net card to:
 		IP 192.168.178.19 
 		MASK 255.255.0.0
@@ -1496,7 +1481,7 @@ config COPY_ADDON_TMP_to_ORI
 	depends on ORI
 	default n
 	help
-		Set this to 'y' if you like to include all files within the directory 
+		Set this to 'y' if you like to include all files within the directory
 		./addon/tmp/squashfs-root in combination with Option -u.
 
 config UPDATE_DEPMOD
@@ -1504,25 +1489,25 @@ config UPDATE_DEPMOD
 	depends on !ORI
 	default n
 	help
-		Update module dependency information in generated image. Useful if deploy modules 
+		Update module dependency information in generated image. Useful if deploy modules
 		via addon directories.
 config MOVE_ALL_to_OEM
 	bool "MOVE ALL to OEM"
 	default y
 	depends on ! TYPE_SPEEDPORT_W721V
 	help
-		Set this to "y" if Freetz 7170 Firmwares are used instead of original AVM Firmware, 
+		Set this to "y" if Freetz 7170 Firmwares are used instead of original AVM Firmware,
 		WWW "all" directory is moved to "$OEM"
 		Other OEM WWW directories if present are removed to save space.
 		Always turn this on if freetz Firmware is used!
-		Disable this option if autoconfig is used. 
+		Disable this option if autoconfig is used.
 
 config EXPORT_FORCE_CLEAR_FLASH
 	bool "Clear mtd3 and mtd4"
 	default n
 	help
-		Set this to "y" if Firmwares are used witch are older or much newer as the one installed. 
-		Usual this is also made automatically on base of versionsnumbers but in some cases 
+		Set this to "y" if Firmwares are used witch are older or much newer as the one installed.
+		Usual this is also made automatically on base of versionsnumbers but in some cases
 		versions will not indicate the changes made by the skript. Ths will prevent a reboot loop,
 		coursed by settings incompatibility. 
 
@@ -1530,7 +1515,7 @@ config EXPORT_CONFIG_TR069
 	bool "Enable TR069 disable ATA"
 	default n
 	help
-		Set this to "y" if you want that autoconfiguration is turned on, 
+		Set this to "y" if you want that autoconfiguration is turned on,
 		this may result that in the case that your box is turned back to T-Home Firmware
 		automatically if new T-Home Firmware is available, if this happens, it is not sure
 		that your box will funktion normal again, so don't use this option 
@@ -1544,8 +1529,8 @@ config EXPORT_CONFIG_TR064
 	default n if ! TYPE_SPEEDPORT_W920V
 	default y if TYPE_SPEEDPORT_W920V
 	help
-		Set this to "y" if you want TR64 turned on, in most cases 
-		your box will function normal again, so don't use this option 
+		Set this to "y" if you want TR64 turned on, in most cases
+		your box will function normal again, so don't use this option
 		expect you be aware of this case.
 		Autoconfiguration from within the internal LAN is only 
 		set on if AVM Firmware supports this option!.
@@ -1602,7 +1587,7 @@ config DO_FINAL_DIFF_SRC2
 	depends on SOURCE2
 	default n
 	help
-		Set this to 'y' to make a diff between DST and SRC2    
+		Set this to 'y' to make a diff between DST and SRC2
 		SRC2_IMG source files must be selected, diff result is in directory ./LogFINALto3.
 config DO_KDIFF3_2
 	bool "Do KDIFF3, show AVM and T-Home"
@@ -1783,6 +1768,6 @@ comment "--"
 comment "--------------------------------------------------------------------"
 
 comment "If you save or load the configuration with a different name, you must"
-comment "save with name 'Firmware.conf' again, only this File name is in use!"		  
+comment "save with name 'Firmware.conf' again, only this File name is in use by sp-to-fritz.sh"
 #( dont remove the following line)
 ### FILE_ENDE ###

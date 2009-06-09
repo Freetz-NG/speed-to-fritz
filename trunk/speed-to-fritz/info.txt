@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090609-0541-r-328
+    - Config.in : removeve some emty tabs and changed lenght of some remark lines
 20090609-0341-r-327
     - Config.in : W920  pump to fritz_box_labor_14442.ZIP
 20090608-1343-r-326
