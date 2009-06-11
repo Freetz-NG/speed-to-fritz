@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090611-1417-r-335
+    - Canged move_avm_to_avme to move avm_to_OEM
 20090611-1414-r-334
     - W920 Config.in pump to /7270_release_candidate/fritz_box_labor_14464.ZIP
 20090611-1128-r-333
