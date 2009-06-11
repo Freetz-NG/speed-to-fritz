@@ -691,9 +691,8 @@ $sh2_DIR/del_zip "${AVM_DSL_7170_11500}" "${AVM_DSL_7270_11500}" "13014"
 $sh2_DIR/del_zip "${AVM_AIO_7170_13014}" "${AVM_AIO_7270_13014}" "13014" 
 # extract source
 . $inc_DIR/get_workingbase
-# get version from etc/.version into variables
-# move avm to avme
-[ "$MOVE_AVM_to_AVME" = "y" ] && $sh_DIR/move_avm_to_avme.sh
+# move avm to $OEM
+[ "$MOVE_AVM_to_OEM" = "y" ] && $sh_DIR/move_avm_to_OEM.sh
 # create backup for final compare
 [ "$DO_FINAL_DIFF" = "y" ] || [ "$DO_FINAL_KDIFF3_2" = "y" ] || [ "$DO_FINAL_KDIFF3_3" = "y" ] && mkdir -p "${TEMPDIR}" && cp -fdpr "${FBDIR}"/*  --target-directory="${TEMPDIR}"  
 # do a compare of TCOM and AVM
@@ -706,6 +705,7 @@ $sh2_DIR/del_zip "${AVM_AIO_7170_13014}" "${AVM_AIO_7270_13014}" "13014"
 [ "$DO_DIFF_TCOM" = "y" ] && ./0diff "${SPDIR}" "${FBDIR_2}" "./logTCOMto3"
 #
 [ "$DO_NOT_STOP_ON_ERROR" = "n" ] && exec 2>"${HOMEDIR}/${ERR_LOGFILE}" || rm -f "${HOMEDIR}/${ERR_LOGFILE}"
+# get version from etc/.version into variables
 . $inc_DIR/getversion
 # get produkt from etc/default.F* into variables FBMOD, CONFIG_PRODUKT and CONFIG_SORCE
 . $inc_DIR/getprodukt
