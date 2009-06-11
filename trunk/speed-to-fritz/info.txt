@@ -22,6 +22,13 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090611-0733-r-329
+    - some Text changed from TCOM to T-Home.
+    - Added Option to move www/avm to www/$OEM, some related fixes to make this possible.
+      $OEM is the selected OEM via menue.
+      Building fimwares with missmaching OEM and Language will not stop any more.
+    - Fix Update module dependency information, and set it to default y in Config.in
+    - All this changes should not effect the results, no real improvments are made.
 20090609-0541-r-328
     - Config.in : removeve some emty tabs and changed lenght of some remark lines
 20090609-0341-r-327

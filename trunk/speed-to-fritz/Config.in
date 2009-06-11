@@ -1487,7 +1487,7 @@ config COPY_ADDON_TMP_to_ORI
 config UPDATE_DEPMOD
 	bool "Update module dependency information"
 	depends on !ORI
-	default n
+	default y
 	help
 		Update module dependency information in generated image. Useful if deploy modules
 		via addon directories.
@@ -1501,6 +1501,12 @@ config MOVE_ALL_to_OEM
 		Other OEM WWW directories if present are removed to save space.
 		Always turn this on if freetz Firmware is used!
 		Disable this option if autoconfig is used.
+config MOVE_AVM_to_AVME
+	bool "MOVE avm to avme"
+	default n
+	depends on TYPE_SPEEDPORT_W920V
+	help
+		Set this to "y" if normal 7270 Firmwares in combination with multilingual firmwares are used, but usual this is not needed.
 
 config EXPORT_FORCE_CLEAR_FLASH
 	bool "Clear mtd3 and mtd4"

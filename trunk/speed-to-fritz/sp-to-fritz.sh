@@ -4,7 +4,7 @@ export PATH=$PATH:/sbin
 ##########################################################################
 # Date of current version:                                          
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
-Tag="09"; Monat="06"; Jahr="09"
+Tag="11"; Monat="06"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -605,8 +605,8 @@ case "$1" in
 	export CONFIG_VINAX="y"
 # 	export CONFIG_VLYNQ0="3"
 	export CONFIG_VINAX_TRACE="n"
-#	export CONFIG_LIBZ="y"
-	export CONFIG_LIBZ="n"
+	export CONFIG_LIBZ="y"
+#	export CONFIG_LIBZ="n"
 #	export CONFIG_VOL_COUNTER="y"
 	export CONFIG_VOL_COUNTER="n"
 	if [ "$ATA_ONLY" = "y" ]; then
@@ -670,7 +670,7 @@ echo "Firmware configuration taken from: ${firmwareconf_file_name}"
 export kernel_args="annex=${ANNEX}" 
 #[ "$CONFIG_DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
 export CONFIG_ANNEX="${ANNEX}"
-# set above variables according to your hardware                    
+# set above variables according to your hardware
 set_model "$SPMOD"
 # set service portal url
 export CONFIG_SERVICEPORTAL_URL="http://www.avm.de/de/Service/Service-Portale/Service-Portal/index.php?portal=FRITZ!Box_Fon_WLAN_$FBMOD"
@@ -691,6 +691,9 @@ $sh2_DIR/del_zip "${AVM_DSL_7170_11500}" "${AVM_DSL_7270_11500}" "13014"
 $sh2_DIR/del_zip "${AVM_AIO_7170_13014}" "${AVM_AIO_7270_13014}" "13014" 
 # extract source
 . $inc_DIR/get_workingbase
+# get version from etc/.version into variables
+# move avm to avme
+[ "$MOVE_AVM_to_AVME" = "y" ] && $sh_DIR/move_avm_to_avme.sh
 # create backup for final compare
 [ "$DO_FINAL_DIFF" = "y" ] || [ "$DO_FINAL_KDIFF3_2" = "y" ] || [ "$DO_FINAL_KDIFF3_3" = "y" ] && mkdir -p "${TEMPDIR}" && cp -fdpr "${FBDIR}"/*  --target-directory="${TEMPDIR}"  
 # do a compare of TCOM and AVM
@@ -703,7 +706,6 @@ $sh2_DIR/del_zip "${AVM_AIO_7170_13014}" "${AVM_AIO_7270_13014}" "13014"
 [ "$DO_DIFF_TCOM" = "y" ] && ./0diff "${SPDIR}" "${FBDIR_2}" "./logTCOMto3"
 #
 [ "$DO_NOT_STOP_ON_ERROR" = "n" ] && exec 2>"${HOMEDIR}/${ERR_LOGFILE}" || rm -f "${HOMEDIR}/${ERR_LOGFILE}"
-# get version from etc/.version into variables
 . $inc_DIR/getversion
 # get produkt from etc/default.F* into variables FBMOD, CONFIG_PRODUKT and CONFIG_SORCE
 . $inc_DIR/getprodukt
@@ -725,7 +727,7 @@ if [ "$ORI" != "y" ]; then
     [ "$OEMLINK" == "avme" ] && sed -i -e "s|/avm/|/$OEMLINK/|" $P_DIR/$FILE 
     [ "$OEMLINK" == "avm" ] && sed -i -e "s|/avme/|/$OEMLINK/|" $P_DIR/$FILE 
  done
- #prepare for use of Freetz 7170 Firmware 
+ #prepare for use of Freetz Firmware 
  [ "$MOVE_ALL_to_OEM" = "y" ] && $sh_DIR/move_all_to_OEM.sh "${SRC}" || $sh_DIR/remake_link_avm.sh "${SRC}"
  # Please dont add conditions on models in any external file
  #enable ext2
@@ -762,7 +764,6 @@ if [ "$ORI" != "y" ]; then
  #relace banner
  [ $COPY_HEADER = "y" ] && $sh_DIR/rpl_header.sh "${SRC}"
  #add addons
- 
  if [ "$COPY_ADDON_TMP" = "y" ]; then
  	find ./addon/tmp/squashfs-root/ | while read file; do
 		file="${file##./addon/tmp/squashfs-root/}"
@@ -785,6 +786,8 @@ if [ "$ORI" != "y" ]; then
  $sh_DIR/patch_tam.sh "${SRC}"
  #gsm page    
  [ "$DO_GSM_PATCH" = "y" ] && $sh_DIR/disply_gsm.sh "${SRC}" "${OEMLIST}"
+ #enable all providers
+ [ "$SET_ALLPROVIDERS" = "y" ] && $sh_DIR/set_allproviders.sh
  #set expert Ansicht    
  [ "$SET_EXPERT" = "y" ] && $sh_DIR/set_expertansicht.sh
  # reverse phonebook lookup
