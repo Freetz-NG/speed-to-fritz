@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090611-1128-r-333
+    - One comment # added in Config.in
 20090611-0914-r-331
     - Folder Firmware.orig and Firmware.new added to SVN
 20090611-0740-r-330
