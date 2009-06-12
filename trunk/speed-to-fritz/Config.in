@@ -133,7 +133,7 @@ config AVM_MINI_7270_67
     default "p"
 config AVM_AIO_7270_14464
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_release_candidate/fritz_box_labor_14464.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.74-14464.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_release_candidate/fritz_box_labor_14464.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_Labor.54.04.74-14464.image"
 config AVM_7270_58
     string
     default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/Release_FRITZ.Box_Fon_WLAN_7270.54.04.58.zip mirror http://www.hostarea.de/server-01/Januar-4bf414c469.zip"
@@ -1487,7 +1487,7 @@ config COPY_ADDON_TMP_to_ORI
 config UPDATE_DEPMOD
 	bool "Update module dependency information"
 	depends on !ORI
-	default y
+	default n
 	help
 		Update module dependency information in generated image. Useful if deploy modules
 		via addon directories.

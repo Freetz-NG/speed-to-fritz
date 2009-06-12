@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090612-0251-r-336
+    - Set Update modules depend. default again to n, becaus 14464 unses links to modules downloaded with plugins.
 20090611-1417-r-335
     - Canged move_avm_to_avme to move avm_to_OEM
 20090611-1414-r-334
