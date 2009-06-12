@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090612-1054-r-338
+    - W920, 7570: Comment added M to some firmwares
 20090612-0650-r-337
     - W920, 7570: added FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.72.image
 20090612-0251-r-336

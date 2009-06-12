@@ -532,27 +532,27 @@ choice
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 	config TYPE_AVM_7570_14031
-		bool "7570_14031 multilingual german english multi annex"
+		bool "7570_14031M multilingual german english multi annex"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 	config TYPE_AVM_7570_14341
-		bool "7570_14341 multilingual german english multi annex"
+		bool "7570_14341M multilingual german english multi annex"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 	config TYPE_AVM_7570_14348
-		bool "7570_14348 multilingual german english multi annex"
+		bool "7570_14348M multilingual german english multi annex"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 	config TYPE_AVM_7570_14354
-		bool "7570_14354 multilingual german english multi annex"
+		bool "7570_14354M multilingual german english multi annex"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 	config TYPE_AVM_7570_14375
-		bool "7570_14375 multilingual german english multi annex"
+		bool "7570_14375M multilingual german english multi annex"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 	config TYPE_AVM_7570_14434
-		bool "7570_14434 multilingual german english multi annex"
+		bool "7570_14434M multilingual german english multi annex"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 endchoice
@@ -676,7 +676,7 @@ choice
 	config TYPE_SRC3_AVM_7570_14354
 		bool "AVM_7570_14354M multilingual german english multi annex"
 	config TYPE_SRC3_AVM_7570_14375
-		bool "AVM_7570_14375 multilingual german english multi annex"
+		bool "AVM_7570_14375M multilingual german english multi annex"
 	config TYPE_SRC3_AVM_7570_14434
 		bool "AVM_7570_14434M multilingual german english multi annex"
 	config TYPE_LOCAL_AVM_IMAGE
