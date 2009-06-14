@@ -75,6 +75,12 @@ fi
 [ "$CONFIG_MULTI_LANGUAGE" ] &&  sed -i -e "s/CONFIG_MULTI_LANGUAGE=\".*$/CONFIG_MULTI_LANGUAGE=\"${CONFIG_MULTI_LANGUAGE}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_MULTI_COUNTRY" ] &&  sed -i -e "s/CONFIG_MULTI_COUNTRY=\".*$/CONFIG_MULTI_COUNTRY=\"${CONFIG_MULTI_COUNTRY}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_DIAGNOSE_LEVEL" ] &&  sed -i -e "s/CONFIG_DIAGNOSE_LEVEL=\".*$/CONFIG_DIAGNOSE_LEVEL=\"${CONFIG_DIAGNOSE_LEVEL}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_PROV_DEFAULT" ] &&  sed -i -e "s/CONFIG_PROV_DEFAULT=\".*$/CONFIG_PROV_DEFAULT=\"${CONFIG_PROV_DEFAULT}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_BOX_FEEDBACK" ] &&  sed -i -e "s/CONFIG_BOX_FEEDBACK=\".*$/CONFIG_BOX_FEEDBACK=\"${CONFIG_BOX_FEEDBACK}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_TAM_ONRAM" ] &&  sed -i -e "s/CONFIG_TAM_ONRAM=\".*$/CONFIG_TAM_ONRAM=\"${CONFIG_TAM_ONRAM}\"/g" "${1}/etc/init.d/rc.conf"
+
+
+
 #W503
 [ "$CONFIG_MEDIASRV" ] &&  sed -i -e "s/CONFIG_MEDIASRV=\".*$/CONFIG_MEDIASRV=\"${CONFIG_MEDIASRV}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_CAPI_NT" ] &&  sed -i -e "s/CONFIG_CAPI_NT=\".*$/CONFIG_CAPI_NT=\"${CONFIG_CAPI_NT}\"/g" "${1}/etc/init.d/rc.conf"

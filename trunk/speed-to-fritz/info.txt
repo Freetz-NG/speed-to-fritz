@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090614-1124-r-340
+    - W920: added to variables new in use with 7570 firmwares.
 20090612-1152-r-339
     - W920, pump to: 7270_release_candidate/fritz_box_labor_14480.zip
 20090612-1054-r-338

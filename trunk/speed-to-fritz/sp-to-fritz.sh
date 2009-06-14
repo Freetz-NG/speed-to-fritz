@@ -4,7 +4,7 @@ export PATH=$PATH:/sbin
 ##########################################################################
 # Date of current version:                                          
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
-Tag="12"; Monat="06"; Jahr="09"
+Tag="14"; Monat="06"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -171,6 +171,7 @@ export ATA="y"
 export CONFIG_ATA="${ATA}"
 export CONFIG_ATA_FULL="n"
 #export ANNEX="B"
+export CONFIG_BOX_FEEDBACK="n"
 export CONFIG_LED_NO_DSL_LED="n"
 export CONFIG_DECT_ONOFF="n"
 export CONFIG_VOL_COUNTER="y"
@@ -609,6 +610,8 @@ case "$1" in
 #	export CONFIG_LIBZ="n"
 #	export CONFIG_VOL_COUNTER="y"
 	export CONFIG_VOL_COUNTER="n"
+	export CONFIG_PROV_DEFAULT="y"
+#	export CONFIG_TAM_ONRAM="n"
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA="n"  
 	  export CONFIG_ATA_FULL="y"
