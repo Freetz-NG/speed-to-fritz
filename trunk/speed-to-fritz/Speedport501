@@ -123,7 +123,8 @@ DIRI="${SRC}/usr/www/avm/html/de/menus"
 for FILE in `ls "${DIRI}"/*`; do  
     sed -i -e "/'software','extern'/d" $FILE
 done
-    
-
+#annex A fix
+sed -i -e '/export ANNEX=\$annex_param/a\
+echo annex \$annex_param > \$CONFIG_ENVIRONMENT_PATH/environment' "${SRC}/etc/init.d/rc.conf"
 ##########################################################################################
 echo "********************************************************************************"
