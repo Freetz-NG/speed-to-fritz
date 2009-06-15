@@ -13,8 +13,8 @@ for DIR in ${OEMLIST}; do
 #------------------------------------------------------------------------------
 for DIR in first fon fon_config home internet menus system tools wlan; do
 if [ -d "${DSTI}/${DIR}" ]; then
-
-	for FILE in `ls ${DSTI}/${DIR}/*.html`; do
+	for FILE in `ls ${DSTI}/${DIR}/|grep '\.html$'`; do
+#	for FILE in `ls ${DSTI}/${DIR}/*.html`; do
 	  HTMLFILE="${FILE##*/}"
 		if `cat ${DSTI}/${DIR}/${HTMLFILE} | grep -q 'onclick="uiDoHelp()"'` ; then
 			echo2 "-- Removing help button from: /usr/www/$HTML/de/${DIR}/${HTMLFILE}"
@@ -45,4 +45,3 @@ sed -i -e "/.*jslGoTo('help','home').*/d" ${DSTI}/help/rback.html
 done
 
 exit 0
-

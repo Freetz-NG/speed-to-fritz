@@ -15,18 +15,20 @@ echo2 "      /usr/www/${HTML}/de/internet/internet_expert.js"
 sed -i -e "s/LAN 1/LAN/" "$1"/usr/www/${HTML}/de/internet/internet_expert.js
 sed -i -e "s/LAN 2, LAN 3, LAN 4//" "$1"/usr/www/${HTML}/de/internet/internet_expert.js
 
-echo2 "      /usr/www/${HTML}/de/internet/internet_expert.inc"
-sed -i -e "s/'Internetzugang über LAN 1'/'Internetzugang über LAN'/" "$1"/usr/www/${HTML}/de/internet/internet_expert.inc
-sed -i -e "s/\"Internetzugang über LAN A\"/\"Internetzugang über LAN\"/" "$1"/usr/www/${HTML}/de/internet/internet_expert.inc
+INC_EXT=inc
+[ -f /usr/www/${HTML}/de/internet/internet_expert.${INC_EXT} ] || INC_EXT=html
+echo2 "      /usr/www/${HTML}/de/internet/internet_expert.${INC_EXT}"
+sed -i -e "s/' LAN 1'/' LAN'/" "$1"/usr/www/${HTML}/de/internet/internet_expert.${INC_EXT}
+sed -i -e "s/\" LAN A\"/\" LAN\"/" "$1"/usr/www/${HTML}/de/internet/internet_expert.${INC_EXT}
 
 echo2 "      /usr/www/${HTML}/de/system/netipadr.js"
-sed -i -e "s/\"Internetzugang über LAN 1\"/\"Internetzugang über LAN\"/" "$1"/usr/www/${HTML}/de/system/netipadr.js
-
+sed -i -e "s/\" LAN 1\"/\" LAN\"/" "$1"/usr/www/${HTML}/de/system/netipadr.js
 if  [ -f "$1"/usr/www/${HTML}/de/system/energy.html ]; then
-    echo2 "      /usr/www/${HTML}/de/system/enertgie.html"
+    echo2 "      /usr/www/${HTML}/de/system/energy.html"
     sed -i -e "/eth1/d" "$1"/usr/www/${HTML}/de/system/energy.html
     sed -i -e "/eth2/d" "$1"/usr/www/${HTML}/de/system/energy.html
     sed -i -e "/eth3/d" "$1"/usr/www/${HTML}/de/system/energy.html
-    sed -i -e "s/LAN 1/LAN/" "$1"/usr/www/${HTML}/de/system/energy.inc
+    sed -i -e "s/LAN 1/LAN/" "$1"/usr/www/${HTML}/de/system/energy.${INC_EXT}
 fi
 exit 0
+#

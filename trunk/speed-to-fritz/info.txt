@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090615-1253-r-342
+    - W501, added 67en, but the resultig file is to big! So one has to delete more stuff by hand, to use the en Version.
 20090615-1207-r-341
     - W501, added patch for Annex A looks lik this was still a problem. see: http://pastebin.com/f222582bb
 20090614-1124-r-340
