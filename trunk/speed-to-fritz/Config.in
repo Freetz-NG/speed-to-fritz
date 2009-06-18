@@ -219,7 +219,7 @@ choice
 		bool "Speedport W501V"
 		select TYPE_LANG_DE
 		select FORCE_TCOM_FON
-		select FORCE_TCOM_DSL
+#		select FORCE_TCOM_DSL
 		select FORCE_TCOM_PIGLET
 		
 	config TYPE_SPEEDPORT_W503V
@@ -1530,7 +1530,7 @@ config MOVE_AVM_to_OEM
 
 config EXPORT_FORCE_CLEAR_FLASH
 	bool "Clear mtd3 and mtd4"
-	default n
+	default y
 	help
 		Set this to "y" if Firmwares are used witch are older or much newer as the one installed.
 		Usual this is also made automatically on base of versionsnumbers but in some cases

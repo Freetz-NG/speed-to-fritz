@@ -22,6 +22,10 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090618-0203-r-345
+    - 'Clear mtd3 and mtd4' set to default 'y'
+20090617-1358-r-345
+    - W501, removed selection of t-com dsl driver
 20090616-1538-r-344
     - AIO 14495 added
 20090615-1739-r-343
