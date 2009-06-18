@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090619-0036-r-346
+    - W920: new labor version 7270-54.04.74-14507 added.
 20090618-0203-r-345
     - 'Clear mtd3 and mtd4' set to default 'y'
 20090617-1358-r-345
