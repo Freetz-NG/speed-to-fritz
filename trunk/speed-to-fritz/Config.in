@@ -136,7 +136,7 @@ config AVM_MINI_7270_67
     default "p"
 config AVM_AIO_7270_14543
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_release_candidate/fritz_box_labor_7270_14543.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.75-14543.image"
+    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.75-14543.image"
 config AVM_7270_58
     string
     default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/Release_FRITZ.Box_Fon_WLAN_7270.54.04.58.zip mirror http://www.hostarea.de/server-01/Januar-4bf414c469.zip"
@@ -368,7 +368,7 @@ choice
 #		depends on ! TYPE_LABOR
 	help
 	    The selected Firmware language is usual the one used by the AVM Firmware.
-	    If 2nd or 3rd Firmware is a multilingual Firmware, one of this Firmware languages can be forced, but this is possible only with 7270 or 7570 firmwares.
+	    If 2nd or 3rd Firmware is a multilingual Firmware, one of this Firmware languages can be forced, but this is possible only with 7270 or 7570 Firmwares.
 	    The resulting text within the generated Firmware may be not completely in this language, text not found in the selected language will be displayed in german or english.
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -442,14 +442,14 @@ choice
 #		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 #		help
 #			FRITZ! release: 13948
-	config TYPE_AIO
-		bool "AIO - Alles in einem prerelease"
-		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-		help
-			FRITZ!Lab AIO: This release combines several software improvements.
-			Therefore AIO means All-In-One. As of now, it contains various
-			fixes for Wife (Green AP, sources of interference), Facsimile
-			reception and DECT-support and expands NAS functionality.
+#	config TYPE_AIO
+#		bool "AIO - Alles in einem prerelease"
+#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+#		help
+#			FRITZ!Lab AIO: This release combines several software improvements.
+#			Therefore AIO means All-In-One. As of now, it contains various
+#			fixes for Wife (Green AP, sources of interference), Facsimile
+#			reception and DECT-support and expands NAS functionality.
 	config TYPE_DSL
 		bool "DSL"
 		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
@@ -712,7 +712,7 @@ config SRC3_LOCAL
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### If new Firmware is added in the top section of this file, some of this section may be changed or added in connection
 ### Keep in mind if in the top section the  SYMBOL NAME was XXX (example: TCOM_SINUS_27) then a $ sign is added here in front of it.
-### Based on the above four menu sections, here the corresponding firmwares are set up with "if"
+### Based on the above four menu sections, here the corresponding Firmwares are set up with "if"
 config TCOM_IMG
 	string
 	default "$TCOM_SINUS_27" 		if TYPE_SINUS_W500V
@@ -1262,7 +1262,7 @@ config EXPORT_ATA_ONLY
 	help
 		Use this additional option, if VDSL or ADSL is not needed or not 
 		usable with the Firmwares in use.
-		"All In One" or similar firmwares in combination with T-Home .58
+		"All In One" or similar Firmwares in combination with T-Home .58
 		can only be used in ATA Mode.
 		In Case of W501, no fon will be usable with this option.
 ####
@@ -1275,7 +1275,7 @@ if ! EXPORT_ATA_ONLY
 
 	help
 		Use this additional option to add expert-pages for dsl settings,
-		only usable on "All In One" or similar firmwares.
+		only usable on "All In One" or similar Firmwares.
     config EXPORT_USE_SOURCE2_DSLMNUE
 	bool "Use source 3 DSL web files"
 	depends on SOURCE2
@@ -1481,7 +1481,7 @@ config FORCE_TCOM_PIGLET
 	bool "Force use of T-Home piglet driver"
 	default n
 	help
-		For normal this is "n", but for firmwares with minor versions less then 50 "y" works better.
+		For normal this is "n", but for Firmwares with minor versions less then 50 "y" works better.
 
 config FORCE_TCOM_LEDDRIVER
 	bool "Force use of T-Home LED driver"
@@ -1494,7 +1494,7 @@ config FORCE_TCOM_FON
 	bool "Force use of T-Home fon driver"
 	default n  
 	help
-		For normal this is "n", but for firmwares with minor versions less then 50 "y" works better.
+		For normal this is "n", but for Firmwares with minor versions less then 50 "y" works better.
 
 config USE_SRC2_FON
 	bool "Use source 3 FON driver"
@@ -1539,7 +1539,7 @@ config MOVE_AVM_to_OEM
 	default n
 	depends on TYPE_SPEEDPORT_W920V
 	help
-		Set this to "y" if normal 7270 Firmwares in combination with multilingual firmwares are used, but usual this is not needed.
+		Set this to "y" if normal 7270 Firmwares in combination with multilingual Firmwares are used, but usual this is not needed.
 		WWW "avm" directory is moved to "$OEM"
 
 config EXPORT_FORCE_CLEAR_FLASH

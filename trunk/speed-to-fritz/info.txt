@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090625-1054-r-351
+    - 'W920: removed AIO becaus not avalabel any more.
 20090625-1036-r-350
     - 'W920: reinserted FRITZ.Box_Fon_WLAN_7270.54.04.70.image
 20090625-1017-r-349
