@@ -397,6 +397,29 @@ choice
 	prompt "Labor or any other non default"
 		depends on TYPE_LABOR
 		default TYPE_AIO
+#----MOVED TO PLACE IN ORDER FOR DEFAULTS if is not avalabel 
+#	config TYPE_AIO
+#		bool "AIO - Alles in einem prerelease"
+#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+#		help
+#			FRITZ!Lab AIO: This release combines several software improvements.
+#			Therefore AIO means All-In-One. As of now, it contains various
+#			fixes for Wife (Green AP, sources of interference), Facsimile
+#			reception and DECT-support and expands NAS functionality.
+	config TYPE_DSL
+		bool "DSL"
+		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		help
+			FRITZ!Lab DSL: This release optimise the DSL (Digital Subscriber
+			 Line) software and adds related graphs.
+	config TYPE_WLAN
+		bool "WLAN"
+		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		help
+			FRITZ!Lab WLAN: This release reduces the power consumption when
+			no more Wife clients are connected, and avoids channels with
+			interference.
+#----MOVED
 	config TYPE_57
 		bool "57"
 		depends on ( TYPE_SINUS_W500V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE )
@@ -442,27 +465,6 @@ choice
 #		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 #		help
 #			FRITZ! release: 13948
-#	config TYPE_AIO
-#		bool "AIO - Alles in einem prerelease"
-#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-#		help
-#			FRITZ!Lab AIO: This release combines several software improvements.
-#			Therefore AIO means All-In-One. As of now, it contains various
-#			fixes for Wife (Green AP, sources of interference), Facsimile
-#			reception and DECT-support and expands NAS functionality.
-	config TYPE_DSL
-		bool "DSL"
-		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-		help
-			FRITZ!Lab DSL: This release optimise the DSL (Digital Subscriber
-			 Line) software and adds related graphs.
-	config TYPE_WLAN
-		bool "WLAN"
-		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-		help
-			FRITZ!Lab WLAN: This release reduces the power consumption when
-			no more Wife clients are connected, and avoids channels with
-			interference.
 	config TYPE_AURA_14142
 		bool "USB_14142 (AURA)"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
