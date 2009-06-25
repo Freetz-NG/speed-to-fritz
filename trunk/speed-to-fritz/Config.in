@@ -152,6 +152,9 @@ config AVM_7270_67m
 config AVM_7270_70
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
+config AVM_7270_76
+    string
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.76.image"
 config AVM_DSL_7270_14000
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-1400.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.99-14000.image"
@@ -426,9 +429,14 @@ choice
 			FRITZ! release: 67
 	config TYPE_70
 		bool "70"
-		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! release: 70
+	config TYPE_76
+		bool "76"
+		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		help
+			FRITZ! release: 76
 #	config TYPE_13948
 #		bool "71 13948"
 #		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
@@ -648,6 +656,8 @@ choice
 		bool "AVM_7270_67"
 	config TYPE_SRC3_AVM_7270_70
 		bool "AVM_7270_70"
+	config TYPE_SRC3_AVM_7270_76
+		bool "AVM_7270_76"
 	config TYPE_SRC3_AVM_DSL_7270_14000 
 		bool "AVM_DSL_7270_14000"
 	config TYPE_SRC3_AVM_AIO_7270_14543 
@@ -749,7 +759,8 @@ config AVM_IMG
 	default "$AVM_GAMING_7170_11435"		if TYPE_GAMING && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 	default "$AVM_MINI_7170_67"			if TYPE_MINI && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
 
-	default "$AVM_7270_70" 				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
+#	default "$AVM_7270_70" 				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
+	default "$AVM_7270_76" 				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_67m" 			if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_EN
 	default "$AVM_7270_59" 				if ( TYPE_59  &&  TYPE_SPEEDPORT_W920V ) || ( TYPE_SPEEDPORT_W503V  && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE )
 	default "$AVM_7270_58"	 			if ( TYPE_58 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
@@ -757,6 +768,7 @@ config AVM_IMG
 	default "$AVM_7270_67m" 			if ( TYPE_67m ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
 	default "$AVM_7270_67"				if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_7270_70"				if ( TYPE_70 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+	default "$AVM_7270_76"				if ( TYPE_76 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_7270_13486"			if ( TYPE_13486 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_DSL_7270_14000"			if ( TYPE_DSL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_AIO_7270_14543"			if ( TYPE_AIO ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
@@ -825,6 +837,7 @@ config SRC2_IMG
 	default "$AVM_7270_A59" 		if TYPE_SRC3_AVM_7270_A59
 #	default "$AVM_7270_67" 			if TYPE_SRC3_AVM_7270_67
 	default "$AVM_7270_70" 			if TYPE_SRC3_AVM_7270_70
+	default "$AVM_7270_76" 			if TYPE_SRC3_AVM_7270_76
 	default "$AVM_7270_67m"	 		if TYPE_SRC3_AVM_7270_67m
 	default "$AVM_7270_13486"		if TYPE_SRC3_AVM_7270_13486
 	default "$AVM_AIO_7270_14543"		if TYPE_SRC3_AVM_AIO_7270_14543
@@ -856,6 +869,7 @@ config TYPE_LABOR_TYPE
         default "67" 		if TYPE_67
         default "67m" 		if TYPE_67m
         default "70" 		if TYPE_70
+        default "76" 		if TYPE_76
         default "13948" 	if TYPE_13948
         default "13486" 	if TYPE_13486
         default "BETA" 		if TYPE_BETA

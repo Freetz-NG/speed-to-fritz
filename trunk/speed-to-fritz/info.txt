@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090625-1017-r-349
+    - 'W920: inseted FRITZ.Box_Fon_WLAN_7270.54.04.76.image
 20090623-2027-r-348
     - New laborversion 7270-54.04.75-14543 added
 20090619-2152-r-347
