@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090626-1434-r-353
+    - Some changes in displying HW
 20090625-1108-r-352
     - 'W920: set DSL as default Labor Firmware
 20090625-1054-r-351

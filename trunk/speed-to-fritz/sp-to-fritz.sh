@@ -4,7 +4,7 @@ export PATH=$PATH:/sbin
 ##########################################################################
 # Date of current version:                                          
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
-Tag="25"; Monat="06"; Jahr="09"
+Tag="26"; Monat="06"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -208,10 +208,12 @@ if [ "$SRC2_IMG" ]; then
  export FBIMG_2="$(echo $FBIMG_2_PATH | sed -e "s/.*\///")"
 fi
 #image name may be changed by the skript if zip files are used, see file includefunctions
-export FILENAME_SPIMG_PATH="$(get_item "$TCOM_IMG" "1")" 
-export MIRROR_SPIMG_PATH="$(get_item "$TCOM_IMG" "2")"
-export SPIMG_PATH="$(get_item "$TCOM_IMG" "0")"
-export SPIMG="$(echo $SPIMG_PATH | sed -e "s/.*\///")"
+if [ "$TCOM_IMG" ]; then
+ export FILENAME_SPIMG_PATH="$(get_item "$TCOM_IMG" "1")" 
+ export MIRROR_SPIMG_PATH="$(get_item "$TCOM_IMG" "2")"
+ export SPIMG_PATH="$(get_item "$TCOM_IMG" "0")"
+ export SPIMG="$(echo $SPIMG_PATH | sed -e "s/.*\///")"
+fi
 export FILENAME_FBIMG_PATH="$(get_item "$AVM_IMG" "1")" 
 export MIRROR_FBIMG_PATH="$(get_item "$AVM_IMG" "2")"
 export FBIMG_PATH="$(get_item "$AVM_IMG" "0")"
@@ -651,13 +653,30 @@ case "$1" in
 	export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
 	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
 	;;
-	
-*)
 
-	echo "'$1' is an invalid argument for '-m': Choose '500', '501', '503', '701', '721', '707', '900', '907' or '920'." 
-	sleep 20
-	exit 1
+*)
+	export SPMOD="$1"
+	export CLASS=""
+	export SPNUM=""
+	export PROD="$1" 
+	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
+	[ "$FBMOD" == "" ] && export FBMOD="$1"
+	[ "$FBHWRevision" == "" ] && export FBHWRevision="139"
+	export HWID="139"
+	export HWRevision="${HWID}.1.0.6"
+	PROD2="${PROD:0:2}"
+	if [ "$PROD2" == "72" ]; then
+	    # 72XX firmwares need diffent tool
+	    export MKSQUASHFS_TOOL="mksquashfs3-lzma"
+	    export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
+	    export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
+	fi
 	;;
+	
+#	echo "'$1' is an invalid argument for '-m': Choose '500', '501', '503', '701', '721', '707', '900', '907' or '920'." 
+#	sleep 20
+#	exit 1
+#	;;
 esac
 
 return 0
@@ -723,7 +742,7 @@ echo "**************************************************************************
 echo -e "\033[1mPhase 3:\033[0m Copy sources."
 echo "********************************************************************************"
  echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
-# Flashing original firmware image ...                               
+# Flashing original firmware image ...
 if [ "$ORI" != "y" ]; then
  #international language - fix patches in advance 
  for FILE in `ls $P_DIR`  ; do
@@ -735,27 +754,24 @@ if [ "$ORI" != "y" ]; then
  # Please dont add conditions on models in any external file
  #enable ext2
  [ "$ENABLE_EXT2" = "y" ] && $sh2_DIR/patch_ext2 "${SRC}" "${DST}"
- if [ "$SPMOD" = "920" ]; then
- . Speedport920
- fi
- if [ "$SPMOD" = "907" ]; then
- . Speedport907
- fi
- if [ "$SPMOD" = "707" ]; then
- . Speedport707
- fi
- if [ "$SPMOD" = "721" ]; then
- . Speedport721
- fi
- if [ "$SPMOD" = "500" ]; then
- . Speedport500
- fi
- if [ "$SPMOD" = "501" ]; then
- . Speedport501
- fi
- if [ "$SPMOD" = "503" ]; then
- . Speedport503
- fi
+ case "$SPMOD" in
+ "920")
+ . Speedport920;;
+ "907")
+ . Speedport907;;
+ "707")
+ . Speedport707;;
+ "721")
+ . Speedport721;;
+ "500")
+ . Speedport500;;
+ "501")
+ . Speedport501;;
+ "503")
+ . Speedport503;;
+ *)
+ . SxxxAVM;;
+ esac
   #bug in home.js, courses mailfunction with tcom firmware, status page is emty  
  $sh_DIR/fix_homebug.sh
   #add missing files for tr064

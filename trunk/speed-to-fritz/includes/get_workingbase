@@ -15,17 +15,21 @@ rm -rf "$TEMPDIR"
 #########################################################################
 # Check if images/directories exist or download file
 #get tcom source
-fwselect "$SPIMG_PATH" "$FWBASE" "TCOM_IMG" "SPIMG"  "$MIRROR_SPIMG_PATH" "$FILENAME_SPIMG_PATH"
-if [ -z "$SPIMG" ]; then
+if [ -n "$SPIMG" ]; then
+ fwselect "$SPIMG_PATH" "$FWBASE" "TCOM_IMG" "SPIMG"  "$MIRROR_SPIMG_PATH" "$FILENAME_SPIMG_PATH"
+ if [ -z "$SPIMG" ]; then
 	echo "No image for processing. Exit"
 	sleep 20; exit 1
+ fi
 fi
 #get sorce 1
-fwselect "$FBIMG_PATH" "$FWBASE" "AVM_IMG" "FBIMG" "$MIRROR_FBIMG_PATH" "$FILENAME_FBIMG_PATH"
-if [ -z "$FBIMG" ]; then
+#if [ -n "$FBIMG" ]; then
+ fwselect "$FBIMG_PATH" "$FWBASE" "AVM_IMG" "FBIMG" "$MIRROR_FBIMG_PATH" "$FILENAME_FBIMG_PATH"
+ if [ -z "$FBIMG" ]; then 
 	echo "No image for processing. Exit"
 	sleep 20; exit 1
-fi
+ fi
+#fi
 #get sorce 2
 if [ -n "$FBIMG_2" ]; then
 	fwselect "$FBIMG_2_PATH" "$FWBASE" "SRC2_IMG" "FBIMG_2" "$MIRROR_FBIMG_2_PATH" "$FILENAME_FBIMG_2_PATH"
@@ -37,23 +41,23 @@ fi
 echo "********************************************************************************"
 echo -e "\033[1mPhase 2:\033[0m Unpack and extract files from images."
 echo "********************************************************************************"
-
-echo "Extracting image files to temporary directories ..."
-echo "-- Unpacking $SPIMG to:"
-echo "      $SPDIR"
-fw_unpack "$FWBASE/$SPIMG" "$SPDIR"
-if [ $? -ne 0 ]; then
+if [ -n "$SPIMG" ]; then
+ echo "Extracting image files to temporary directories ..."
+ echo "-- Unpacking $SPIMG to:"
+ echo "      $SPDIR"
+ fw_unpack "$FWBASE/$SPIMG" "$SPDIR"
+ if [ $? -ne 0 ]; then
 	echo "Something went wrong while extracting $SPIMG to $SPDIR"
 	rm -rf "$SPDIR"
 	rm -rf "$FBDIR"
 	rm -rf "$FBDIR_2"
 	sleep 20; exit 1
+ fi
 fi
-
 echo "-- Unpacking $FBIMG to:"
 echo "      $FBDIR"
 #fw_unpack "$FWBASE/$FBIMG" "$FBDIR" "./var/tmp/kernel.image"
-fw_unpack "$FWBASE/$FBIMG" "$FBDIR" 
+fw_unpack "$FWBASE/$FBIMG" "$FBDIR"
 
 if [ $? -ne 0 ]; then
 	echo "Something went wrong while extracting $FBIMG to $FBDIR"
@@ -66,7 +70,8 @@ fi
 if [ -n "$FBIMG_2" ]; then
  echo "-- Unpacking $FBIMG_2 to:"
 	echo "      $FBDIR_2"
-	fw_unpack "$FWBASE/$FBIMG_2" "$FBDIR_2" "./var/tmp/kernel.image"
+#	fw_unpack "$FWBASE/$FBIMG_2" "$FBDIR_2" "./var/tmp/kernel.image"
+	fw_unpack "$FWBASE/$FBIMG_2" "$FBDIR_2"
 	if [ $? -ne 0 ]; then
 		echo "Something went wrong while extracting $FBIMG_2 to $FBDIR_2"
 		rm -rf "$SPDIR"

@@ -31,7 +31,7 @@ function funct_read_config()
 #########################################################################
 # Read values of HW specific variables from config file                 
 #########################################################################
-
+if [  -e "${SPDIR}/var/install" ]; then
 # Speedport/Sinus config
 funct_read_config "DECT" "config_DECT" "${DST}/etc/init.d"
 funct_read_config "USB_HOST_AVM" "config_USB_AVM" "${DST}/etc/init.d"
@@ -40,7 +40,7 @@ funct_read_config "AB_COUNT" "config_AB_COUNT" "${DST}/etc/init.d"
 funct_read_config "ETH_COUNT" "config_ETH_COUNT" "${DST}/etc/init.d"
 funct_read_config "CAPI_NT" "config_CAPI_NT" "${DST}/etc/init.d"
 funct_read_config "CAPI_TE" "config_CAPI_TE" "${DST}/etc/init.d"
-
+fi
 # FRITZ!Box config
 funct_read_config "DECT" "source_DECT" "${SRC}/etc/init.d"
 funct_read_config "USB_HOST_AVM" "source_USB_AVM" "${SRC}/etc/init.d"
@@ -51,41 +51,97 @@ funct_read_config "CAPI_NT" "source_CAPI_NT" "${SRC}/etc/init.d"
 funct_read_config "CAPI_TE" "source_CAPI_TE" "${SRC}/etc/init.d"
 funct_read_config "HOSTNAME" "source_HOSTNAME" "${SRC}/etc/init.d"
 export source_HOSTNAME
+
+if [  -e "${FBDIR_2}/var/install" ]; then
+# FRITZ!Box 2nd config
+funct_read_config "DECT" "source2_DECT" "${SRC_2}/etc/init.d"
+funct_read_config "USB_HOST_AVM" "source2_USB_AVM" "${SRC_2}/etc/init.d"
+funct_read_config "USB_HOST" "source2_USB"  "${SRC_2}/etc/init.d"
+funct_read_config "AB_COUNT" "source2_AB_COUNT" "${SRC_2}/etc/init.d"
+funct_read_config "ETH_COUNT" "source2_ETH_COUNT" "${SRC_2}/etc/init.d"
+funct_read_config "CAPI_NT" "source2_CAPI_NT" "${SRC_2}/etc/init.d"
+funct_read_config "CAPI_TE" "source2_CAPI_TE" "${SRC_2}/etc/init.d"
+funct_read_config "HOSTNAME" "source2_HOSTNAME" "${SRC_2}/etc/init.d"
+export source2_HOSTNAME
+fi
+
+if [  -e "${SPDIR}/var/install" ] && [  -e "${FBDIR}/var/install" ] && [  -e "${FBDIR_2}/var/install" ]; then
 echo "--------------------------------------------------------------------------------"
-echo -e "HW Feature\t ${CLASS} W ${SPNUM}V \t ${SORCE_PRODUKT}"
+echo -e "HW Feature\t${CONFIG_PRODUKT}\t${SORCE_PRODUKT}\t${SORCE_2_PRODUKT}"
+echo "--------------------------------------------------------------------------------"
+elif [  -e "${SPDIR}/var/install" ] && [  -e "${FBDIR}/var/install" ] && ! [  -e "${FBDIR_2}/var/install" ]; then
+echo "--------------------------------------------------------------------------------"
+echo -e "HW Feature\t${CONFIG_PRODUKT}\t${SORCE_PRODUKT}"
+echo "--------------------------------------------------------------------------------"
+elif [  -e "${FBDIR}/var/install" ] && [  -e "${FBDIR_2}/var/install" ] && ! [  -e "${SPDIR}/var/install" ]; then
+echo "--------------------------------------------------------------------------------"
+echo -e "HW Feature\t${SORCE_2_PRODUKT}"
+elif [  -e "${FBDIR}/var/install" ] && ! [  -e "${FBDIR_2}/var/install" ] && ! [  -e "${SPDIR}/var/install" ]; then
+echo "--------------------------------------------------------------------------------"
+echo -e "HW Feature\t${SORCE_PRODUKT}"
+fi
 echo "--------------------------------------------------------------------------------"
 
-echo -n -e "DECT:     \t "
-[ "${config_DECT}" = "y" ] && echo -n -e "detected     \t\t "
-[ "${config_DECT}" = "n" ] && echo -n -e "not detected \t\t "
-[ "${source_DECT}" = "y" ] && echo "detected"
-[ "${source_DECT}" = "n" ] && echo "not detected"
+echo -n -e "DECT:	"
+if [  -e "${SPDIR}/var/install" ]; then
+[ "${config_DECT}" = "y" ] && echo -n -e "	detected    	"
+[ "${config_DECT}" = "n" ] && echo -n -e "	not detected	"
+fi
+[ "${source_DECT}" = "y" ] && echo -n -e "	detected    "
+[ "${source_DECT}" = "n" ] && echo -n -e "	not detected"
+[ "${source2_DECT}" = "y" ] && echo -n -e "	detected    "
+[ "${source2_DECT}" = "n" ] && echo -n -e "	not detected"
+echo -n -e "\nISDN NT:"
+if [  -e "${SPDIR}/var/install" ]; then
+[ "${config_CAPI_NT}" = "y" ] && echo -n -e "	detected    	"
+[ "${config_CAPI_NT}" = "n" ] && echo -n -e "	not detected	"
+fi
+[ "${source_CAPI_NT}" = "y" ] && echo -n -e "	detected    "
+[ "${source_CAPI_NT}" = "n" ] && echo -n -e "	not detected"
+if [  -e "${FBDIR_2}/var/install" ]; then
+[ "${source2_CAPI_NT}" = "y" ] && echo -n -e "	detected    "
+[ "${source2_CAPI_NT}" = "n" ] && echo -n -e "	not detected"
+fi
+echo -n -e "\nISDN TE:"
+if [  -e "${SPDIR}/var/install" ]; then
+[ "${config_CAPI_TE}" = "y" ] && echo -n -e "	detected    	"
+[ "${config_CAPI_TE}" = "n" ] && echo -n -e "	not detected	"
+fi
+[ "${source_CAPI_TE}" = "y" ] && echo -n -e "	detected    "
+[ "${source_CAPI_TE}" = "n" ] && echo -n -e "	not detected"
+if [  -e "${FBDIR_2}/var/install" ]; then
+[ "${source2_CAPI_TE}" = "y" ] && echo -n -e "	detected    "
+[ "${source2_CAPI_TE}" = "n" ] && echo -n -e "	not detected"
+fi
+echo -n -e "\nUSB Port:"
+if [  -e "${SPDIR}/var/install" ]; then
+[ "${config_USB}" = "y" ] &&      echo -n -e "	2.0 detected	"
+ [ "${config_USB_AVM}" = "y" ] && echo -n -e "	1.0 detected	"
+( [ "${config_USB_AVM}" != "y" ] && [ "${config_USB}" != "y" ] ) && echo -n -e "	not detected	"
+fi
+[ "${source_USB}" = "y" ] &&      echo -n -e "	2.0 detected"
+ [ "${source_USB_AVM}" = "y" ] && echo -n -e "	1.0 detected"
+if [  -e "${FBDIR_2}/var/install" ]; then
+( [ "${source2_USB_AVM}" != "y" ] && [ "${source2_USB}" != "y" ] ) && echo -n -e "	not detected"
+[ "${source2_USB}" = "y" ] &&      echo -n -e "	2.0 detected"
+ [ "${source2_USB_AVM}" = "y" ] && echo -n -e "	1.0 detected"
+( [ "${source2_USB_AVM}" != "y" ] && [ "${source2_USB}" != "y" ] ) && echo -n -e "	not detected"
+fi
 
-echo -n -e "ISDN NT:  \t "
-[ "${config_CAPI_NT}" = "y" ] && echo -n -e "detected     \t\t "
-[ "${config_CAPI_NT}" = "n" ] && echo -n -e "not detected \t\t "
-[ "${source_CAPI_NT}" = "y" ] && echo "detected"
-[ "${source_CAPI_NT}" = "n" ] && echo "not detected"
-
-echo -n -e "ISDN TE:  \t "
-[ "${config_CAPI_TE}" = "y" ] && echo -n -e "detected     \t\t "
-[ "${config_CAPI_TE}" = "n" ] && echo -n -e "not detected \t\t "
-[ "${source_CAPI_TE}" = "y" ] && echo "detected"
-[ "${source_CAPI_TE}" = "n" ] && echo "not detected"
-
-echo -n -e "USB Port: \t "
-[ "${config_USB}" = "y" ] && echo -n -e "2.0 detected \t\t "
- [ "${config_USB_AVM}" = "y" ] && echo -n -e    "1.0 detected \t\t "
-( [ "${config_USB_AVM}" != "y" ] && [ "${config_USB}" != "y" ] ) && echo -n -e "not detected \t\t "
-[ "${source_USB}" = "y" ] && echo "2.0 detected"
- [ "${source_USB_AVM}" = "y" ] && echo "1.0 detected"
-( [ "${source_USB_AVM}" != "y" ] && [ "${source_USB}" != "y" ] ) && echo "not detected"
-
-
-echo -e "a/b Ports:\t ${config_AB_COUNT} Port(s) \t\t ${source_AB_COUNT} Port(s)"
-
-echo -e "eth Ports:\t ${config_ETH_COUNT} Port(s) \t\t ${source_ETH_COUNT} Port(s)"
-
+if [  -e "${SPDIR}/var/install" ] && [  -e "${FBDIR}/var/install" ] && [  -e "${FBDIR_2}/var/install" ]; then
+echo -e "\na/b Ports:\t${config_AB_COUNT} Port(s)\t\t${source_AB_COUNT} Port(s)\t${source2_AB_COUNT} Port(s)"
+echo -n -e "eth Ports:\t${config_ETH_COUNT} Port(s)\t\t${source_ETH_COUNT} Port(s)\t${source2_ETH_COUNT} Port(s)"
+elif [  -e "${SPDIR}/var/install" ] && [  -e "${FBDIR}/var/install" ] && ! [  -e "${FBDIR_2}/var/install" ]; then
+echo -e "\na/b Ports:\t${config_AB_COUNT} Port(s)\t\t${source_AB_COUNT} Port(s)"
+echo -n -e "eth Ports:\t${config_ETH_COUNT} Port(s)\t\t${source_ETH_COUNT} Port(s)"
+elif [  -e "${FBDIR}/var/install" ] && [  -e "${FBDIR_2}/var/install" ] && ! [  -e "${SPDIR}/var/install" ]; then
+echo -e "\na/b Ports:\t${source_AB_COUNT} Port(s)\t${source2_AB_COUNT} Port(s)"
+echo -n -e "eth Ports:\t${source_ETH_COUNT} Port(s)\t${source2_ETH_COUNT} Port(s)"
+elif [  -e "${FBDIR}/var/install" ] && ! [  -e "${FBDIR_2}/var/install" ] && ! [  -e "${SPDIR}/var/install" ]; then
+echo -e "\na/b Ports:\t${source_AB_COUNT} Port(s)"
+echo -n -e "eth Ports:\t${source_ETH_COUNT} Port(s)"
+fi
+echo
 echo "--------------------------------------------------------------------------------"
 
 

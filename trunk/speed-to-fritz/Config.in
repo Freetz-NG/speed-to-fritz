@@ -247,7 +247,7 @@ endchoice
 if TYPE_LOCAL_TCOM_MODEL
     config SPMOD
         string "Custom Model Type"
-	default "701"	
+	default "7270"	
 	help 
 	    Enter your model type 500, 501, 503, 701, 721, 900 or 920 only for this models patches are installed, 
 	    if you use this patches on other future models it is not sure what the results will be like.
@@ -267,7 +267,7 @@ endif
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config TYPE_TCOMBETA
 	bool "Select a special T-Home Firmware --->"
-	depends on TYPE_SPEEDPORT_W920V 
+	depends on TYPE_SPEEDPORT_W920V
 	default n
 	help
 		Enable this to compile the mod based on an special AVM Firmware.
@@ -291,11 +291,12 @@ choice
 		bool "CUSTOM T-Home FIRMWARE"
 endchoice
 config TCOM_LOCAL
-    depends on TYPE_LOCAL_TCOM
-    string "Enter the name of your custom T-Home like Firmware"
+    depends on TYPE_LOCAL_TCOM 
+    string "Enter the name of your custom T-Home like Firmware."
     default "./Firmware.orig/..."
     help 
-	Enter the name of your custom type T-Home like Firmware, in the same manner with path/filename as usually.
+	Enter the name of your custom type T-Home like Firmware, in the same manner with path/filename as usually,
+	this is the name of the 1st Fitmware fitting completly to the hardware in use.
 
 config TYPE_TCOM_7570_XX 
 	bool "Select a special 7570 Firmware as T-Home Firmware --->"
@@ -387,7 +388,7 @@ endchoice
 #### If types are added here the script file /subscripts/settings has to be edited as well to represent the new Labor versions too. 
 config TYPE_LABOR
 	bool "Select a special AVM Firmware as 2nd Firmware --->"
-	depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM  ) 
+	depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) 
 	default n
 	help
 		Enable this to compile the mod based on an special AVM Firmware.
@@ -400,7 +401,7 @@ choice
 #----MOVED TO PLACE IN ORDER FOR DEFAULTS if is not avalabel 
 #	config TYPE_AIO
 #		bool "AIO - Alles in einem prerelease"
-#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 #		help
 #			FRITZ!Lab AIO: This release combines several software improvements.
 #			Therefore AIO means All-In-One. As of now, it contains various
@@ -408,13 +409,13 @@ choice
 #			reception and DECT-support and expands NAS functionality.
 	config TYPE_DSL
 		bool "DSL"
-		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab DSL: This release optimise the DSL (Digital Subscriber
 			 Line) software and adds related graphs.
 	config TYPE_WLAN
 		bool "WLAN"
-		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab WLAN: This release reduces the power consumption when
 			no more Wife clients are connected, and avoids channels with
@@ -422,17 +423,17 @@ choice
 #----MOVED
 	config TYPE_57
 		bool "57"
-		depends on ( TYPE_SINUS_W500V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE )
+		depends on ( TYPE_SINUS_W500V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE )
 		help
 			FRITZ! release: 57
 	config TYPE_58
 		bool "58"
-		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && TYPE_LANG_DE
+		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && TYPE_LANG_DE
 		help
 			FRITZ! release: 58
 	config TYPE_59
 		bool "59"
-		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! release: 59
 	config TYPE_61
@@ -442,76 +443,76 @@ choice
 			FRITZ! release: 61
 	config TYPE_A59
 		bool "ANNEX_A_59"
-		depends on ( TYPE_SPEEDPORT_W721V && ! TYPE_TCOM_W721SPECIAL ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM
+		depends on ( TYPE_SPEEDPORT_W721V && ! TYPE_TCOM_W721SPECIAL ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL
 		help
 			FRITZ! release: 59 Annex A
 	config TYPE_67
 		bool "67"
-		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! release: 67
 	config TYPE_70
 		bool "70"
-		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! release: 70
 	config TYPE_76
 		bool "76"
-		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! release: 76
 #	config TYPE_13948
 #		bool "71 13948"
-#		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+#		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 #		help
 #			FRITZ! release: 13948
 	config TYPE_AURA_14142
 		bool "USB_14142 (AURA)"
-		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab AURA: Thanks to AVM USB Remote Architecture (AURA),
 			all devices connected to FRITZ!Box behave as if they were connected
 			directly to your PC.
 	config TYPE_IPV6_14338
 		bool "IPV6_14338"
-		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
 			(Internet Protocol Version 6) and 6to4 tunnels.
 #	config TYPE_IPV6
 #		bool "IPV6"
-#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 #		help
 #			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
 #			(Internet Protocol Version 6) and 6to4 tunnels.
 	config TYPE_PHONE
 		bool "PHONE (MT-D)"
-		depends on ( YPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( YPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab Phone: This release improves DECT-Repeating, call lists,
 			and fixes various software problems, e.g. answering machine and
 			facsimile reception.
 #	config TYPE_GAMING
 #		bool "GAMING"
-#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 #	config TYPE_MINI
 #		bool "MINI"
-#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 #	config TYPE_VPN
 #		bool "VPN"
-#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 #	config TYPE_UMTS
 #		bool "UMTS"
-#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 	config TYPE_13486
 		bool "7270_13486"
-		depends on ( TCOM_W721V_74 || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TCOM_W721V_74 || TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( TYPE_LANG_DE || EXPORT_CONFIG_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Labor, is the only one usable with DSL on a W920
 			select SET_FREETZ_REVISION
 	config TYPE_67m
 		bool "67 multilingual german english italian spanish"
-		depends on TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM
+		depends on TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL
 		help
 			FRITZ! : release 67 multilingual
 	config TYPE_LOCAL_AVM
@@ -527,7 +528,7 @@ config AVM_LOCAL
 	Enter the name of your custom type AVM like Firmware, in the same manner with path/filename as usually.
 config TYPE_AVM_7570_XX
 		bool "Select a special 7570 AVM Firmware as 2nd Firmware--->"
-		depends on ( TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM ) && ! TYPE_LABOR
+		depends on ( TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ! TYPE_LABOR
 		help
 			Enable this to compile the mod based on an special AVM 7570 Firmware.
 			The actual final release version should not be selected is anyway preselected! 
@@ -748,38 +749,38 @@ config AVM_IMG
 	default "$AVM_7140_43"				if TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
 	default "$AVM_7140_67en"			if TYPE_SPEEDPORT_W501V && TYPE_LANG_EN
 	default "$AVM_7150_56" 				if TYPE_SINUS_W500V &&  ! TYPE_57
-	default "$AVM_7170_67en" 			if TYPE_LANG_EN && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_7170_67en" 			if TYPE_LANG_EN && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM_MODEL )
 #	default "$AVM_7170_67" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7170_70" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7150_57" 				if TYPE_57 &&  TYPE_SINUS_W500V 
-	default "$AVM_7170_A59" 			if ( TYPE_A59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)) || ( TYPE_SPEEDPORT_W721V && ! TYPE_LABOR )
-#	default "$AVM_7170_67" 				if TYPE_67 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
-	default "$AVM_7170_70" 				if TYPE_70 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
-	default "$AVM_7170_13948" 			if TYPE_13948 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
-	default "$AVM_DSL_7170_14119"			if TYPE_DSL && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
-	default "$AVM_AIO_7170_13679"			if TYPE_AIO && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
-	default "$AVM_GAMING_7170_11435"		if TYPE_GAMING && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
-	default "$AVM_MINI_7170_67"			if TYPE_MINI && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_7170_A59" 			if ( TYPE_A59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )) || ( TYPE_SPEEDPORT_W721V && ! TYPE_LABOR )
+#	default "$AVM_7170_67" 				if TYPE_67 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM_MODEL )
+	default "$AVM_7170_70" 				if TYPE_70 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM_MODEL )
+	default "$AVM_7170_13948" 			if TYPE_13948 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM_MODEL )
+	default "$AVM_DSL_7170_14119"			if TYPE_DSL && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
+	default "$AVM_AIO_7170_13679"			if TYPE_AIO && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
+	default "$AVM_GAMING_7170_11435"		if TYPE_GAMING && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
+	default "$AVM_MINI_7170_67"			if TYPE_MINI && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
 
 #	default "$AVM_7270_70" 				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_76" 				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_67m" 			if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_EN
 	default "$AVM_7270_59" 				if ( TYPE_59  &&  TYPE_SPEEDPORT_W920V ) || ( TYPE_SPEEDPORT_W503V  && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE )
-	default "$AVM_7270_58"	 			if ( TYPE_58 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
-#	default "$AVM_7270_67" 				if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
-	default "$AVM_7270_67m" 			if ( TYPE_67m ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) 
-	default "$AVM_7270_67"				if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-	default "$AVM_7270_70"				if ( TYPE_70 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-	default "$AVM_7270_76"				if ( TYPE_76 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-	default "$AVM_7270_13486"			if ( TYPE_13486 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-	default "$AVM_DSL_7270_14000"			if ( TYPE_DSL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-	default "$AVM_AIO_7270_14543"			if ( TYPE_AIO ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-	default "$AVM_WLANX_7270_14080"			if ( TYPE_WLAN ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-	default "$AVM_AURA_7270_14142"			if ( TYPE_AURA_14142 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-	default "$AVM_IPV6_7270_14338"			if ( TYPE_IPV6_14338 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-	default "$AVM_PHONE_7270_14138"			if ( TYPE_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-	default "$AVM_UMTS_7270_13265"			if ( TYPE_UMTS ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
-	default "$AVM_MINI_7270_67"			if ( TYPE_MINI ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+	default "$AVM_7270_58"	 			if ( TYPE_58 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL ) 
+#	default "$AVM_7270_67" 				if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL ) 
+	default "$AVM_7270_67m" 			if ( TYPE_67m ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL ) 
+	default "$AVM_7270_67"				if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL )
+	default "$AVM_7270_70"				if ( TYPE_70 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL )
+	default "$AVM_7270_76"				if ( TYPE_76 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL )
+	default "$AVM_7270_13486"			if ( TYPE_13486 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL )
+	default "$AVM_DSL_7270_14000"			if ( TYPE_DSL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL )
+	default "$AVM_AIO_7270_14543"			if ( TYPE_AIO ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL )
+	default "$AVM_WLANX_7270_14080"			if ( TYPE_WLAN ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL )
+	default "$AVM_AURA_7270_14142"			if ( TYPE_AURA_14142 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL )
+	default "$AVM_IPV6_7270_14338"			if ( TYPE_IPV6_14338 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL )
+	default "$AVM_PHONE_7270_14138"			if ( TYPE_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL )
+	default "$AVM_UMTS_7270_13265"			if ( TYPE_UMTS ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL )
+	default "$AVM_MINI_7270_67"			if ( TYPE_MINI ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL )
 
 	default "$AVM_7570_70"				if ( TYPE_AVM_7570_70 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_7570_72"				if ( TYPE_AVM_7570_72 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
@@ -790,7 +791,7 @@ config AVM_IMG
 	default "$AVM_7570_14375"			if ( TYPE_AVM_7570_14375 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_7570_14434"			if ( TYPE_AVM_7570_14434 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 
-	default "$AVM_LOCAL"				if TYPE_LOCAL_AVM && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V)
+	default "$AVM_LOCAL"				if TYPE_LOCAL_AVM && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM_MODEL )
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config SRC2_IMG
 	string
@@ -898,7 +899,7 @@ config TYPE_LABOR_TYPE
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_CONFIG_MULTI_LANGUAGE
 	bool "Use Multilingual from T-Home or 3rd Firmware"
-	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m )
+	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m )
 	default n
 	help
 	    Don´t use this option if the AVM 1st Firmware is a multilingual Firmware originally!  
@@ -906,7 +907,7 @@ config EXPORT_CONFIG_MULTI_LANGUAGE
 
 config EXPORT_CONFIG_MULTI_COUNTRY
 	bool "Use Multi country from T-Home or 3rd Firmware"
-	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m )
+	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m )
  	default n
 	help
 	    Don´t use this option if the AVM 1st Firmware is a multilingual Firmware originally!
@@ -915,7 +916,7 @@ config EXPORT_CONFIG_MULTI_COUNTRY
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_CONFIG_DSL_MULTI_ANNEX
 	bool "Force Multi annex"
-	depends on ( TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM ) && ! TYPE_AVM_7570_XX
+	depends on ( TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ! TYPE_AVM_7570_XX
 	default n
 	help
 	    To make this work you must have a T-Home or 3rd Firmware that supplies the needed feature.
@@ -1009,13 +1010,13 @@ config PUSHCONF
 		Do an automatic upload after Firmware is patched.
 config EXPORT_ADD_OLD_DECTMENU
 	bool "DECT menu (add)"
-	depends on TYPE_SPEEDPORT_W900V || TYPE_SINUS_W500V  || TYPE_LOCAL_TCOM
+	depends on TYPE_SPEEDPORT_W900V || TYPE_SINUS_W500V  || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL
 	default y
 	help
 		Traditional DECT menu gives maximum functionality, both menu's can be used at the same time.
 config EXPORT_ADD_7150_DECTMNUE
 	bool "DECT 7150 menu (add)"
-	depends on TYPE_SPEEDPORT_W900V  || TYPE_LOCAL_TCOM
+	depends on TYPE_SPEEDPORT_W900V  || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL
 	default y
 	help
 		Add some parts of DECT menu pages originating from 7150 .56, this patch is usable with .57 AVM version or similar versions.
@@ -1041,7 +1042,7 @@ config EXPORT_DO_LOOKUP_PATCH
 	help
 		Add reverse lookup patch for Germany.
 config EXPORT_ADD_ONLINECOUNTER
-	depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V  || TYPE_LOCAL_TCOM ) && ! TYPE_SPEEDPORT_W721V
+	depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V  || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ! TYPE_SPEEDPORT_W721V
 	bool "Onlinecounter volume patch"
 	default n 
 #	default n if  ( TYPE_DSL )

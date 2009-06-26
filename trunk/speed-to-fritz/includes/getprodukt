@@ -3,19 +3,23 @@
 #  set variables according to Source                                    #
 ######################################################################### 
 #SORCE_PRODUKT=`ls -d "${SRC}"/etc/default.Fritz* | ##*.`  #so the longer one is taken instead
-DEST_PRODUKT=`ls -d "${DST}"/etc/default.F*` 
-export DEST_PRODUKT=${DEST_PRODUKT##*.}
-SORCE_PRODUKT=`ls -d "${SRC}"/etc/default.F*` 
-export SORCE_PRODUKT=${SORCE_PRODUKT##*.}
-if [ ${CONFIG_PRODUKT} = "" ]; then
+if [ -n "$SPIMG" ]; then
+ DEST_PRODUKT=`ls -d "${DST}"/etc/default.F*` 
+ export DEST_PRODUKT=${DEST_PRODUKT##*.}
+ if [ ${CONFIG_PRODUKT} = "" ]; then
+  echo "Could not find source directory: ${DST}/etc/default.F*"
+    sleep 10
+    exit 1
+ fi
+ fi
+if [ -n "$FBIMG" ]; then
+ SORCE_PRODUKT=`ls -d "${SRC}"/etc/default.F*` 
+ export SORCE_PRODUKT=${SORCE_PRODUKT##*.}
+ if [ ${SORCE_PRODUKT} = "" ]; then
  echo "Could not find source directory: ${SRC}/etc/default.F*"
     sleep 10
     exit 1
-fi
-if [ ${SORCE_PRODUKT} = "" ]; then
- echo "Could not find source directory: ${SRC}/etc/default.F*"
-    sleep 10
-    exit 1
+ fi
 fi
 #only used if a second source source file is needed
 if [ -n "$FBIMG_2" ]; then
