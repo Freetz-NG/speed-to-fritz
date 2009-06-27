@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090627-0820-r-355
+    - Some text changed in Config.in
 20090627-0520-r-354
     - Added support for 7270 (or any other) to replace ADSL driver
 20090626-1434-r-353
