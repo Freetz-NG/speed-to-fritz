@@ -242,15 +242,15 @@ choice
 #		select SET_FREETZ_REVISION
 
 	config TYPE_LOCAL_TCOM_MODEL
-		bool "Custom model"
+		bool "Any AVM Custom Model"
 endchoice
 if TYPE_LOCAL_TCOM_MODEL
     config SPMOD
-        string "Custom Model Type"
+        string "Any AVM Custom Model Type --->"
 	default "7270"	
-	help 
-	    Enter your model type 500, 501, 503, 701, 721, 900 or 920 only for this models patches are installed, 
-	    if you use this patches on other future models it is not sure what the results will be like.
+	    help 
+		    In this case only 2nd and 3rd Firmware is in use, so insert any AVM Model Type and 
+		    then insert the Firmwares names for 2nd and 3rd firmwares.
 endif
 if ! TYPE_LOCAL_TCOM_MODEL
 config SPMOD
@@ -389,15 +389,21 @@ endchoice
 config TYPE_LABOR
 	bool "Select a special AVM Firmware as 2nd Firmware --->"
 	depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) 
-	default n
+	default y if TYPE_LOCAL_TCOM_MODEL
+	default n if ! TYPE_LOCAL_TCOM_MODEL
+
 	help
 		Enable this to compile the mod based on an special AVM Firmware.
 		The actual final release version should not be selected is anyway preselected! 
 		If you select it here your freetz config is not correct! 
+		If Custom Model is selected then this is the 1st firmware in use,
+		normlay you would have to enter Castom Firmware names as well!
 choice
 	prompt "Labor or any other non default"
 		depends on TYPE_LABOR
-		default TYPE_AIO
+		default TYPE_76 if TYPE_LOCAL_TCOM_MODEL
+		default TYPE_AIO if ! TYPE_LOCAL_TCOM_MODEL
+
 #----MOVED TO PLACE IN ORDER FOR DEFAULTS if is not avalabel 
 #	config TYPE_AIO
 #		bool "AIO - Alles in einem prerelease"
@@ -520,6 +526,7 @@ choice
 		help
 			FRITZ! : Any AVM like Firmware
 endchoice
+
 config AVM_LOCAL 
     depends on TYPE_LOCAL_AVM
     string "Enter the name of your custom type AVM like Firmware"
@@ -573,49 +580,19 @@ endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config SOURCE2
 	bool "3rd Firmware (only for experiments!)"
-	default n
+	default y if TYPE_LOCAL_TCOM_MODEL
+	default n if ! TYPE_LOCAL_TCOM_MODEL
 	help
 		Enable this if you need a second AVM or T-Home Firmware, this may be needed with some options.
+		If Custom Model is selected then this is the 2nd firmware in use!
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### if new Firmware was added it could be needed to enter one more entry's into the second source section as well!
-
 choice
 
-	prompt "All possible Firmware"
+	prompt "All possible Firmware's"
 		depends on SOURCE2
-		default TYPE_SRC3_AVM_7570_72
-
-	config TYPE_SRC3_TCOM_W500_27
-		bool "TCOM_W500_27"
-	config TYPE_SRC3_TCOM_W501_38
-		bool "TCOM_W501_38"
-	config TYPE_SRC3_TCOM_W503_65
-		bool "TCOM_W503_65"
-	config TYPE_SRC3_TCOM_W503_66
-		bool "TCOM_W503_66"
-	config TYPE_SRC3_TCOM_W701_57
-		bool "TCOM_W701_57"
-	config TYPE_SRC3_TCOM_W721_60
-		bool "TCOM_W721_60"
-	config TYPE_SRC3_TCOM_W721_74
-		bool "TCOM_W721_74"
-	config TYPE_SRC3_TCOM_W900_57
-		bool "TCOM_W900_57"
-	config TYPE_SRC3_TCOM_W920_58
-		bool "TCOM_W920_58"
-	config TYPE_SRC3_TCOM_W920_63
-		bool "TCOM_W920_63"
-	config TYPE_SRC3_TCOM_W920_70
-		bool "TCOM_W920_70"
-	config TYPE_SRC3_TCOM_W920_71
-		bool "TCOM_W920_71"
-	config TYPE_SRC3_TCOM_W920_74
-		bool "TCOM_W920_74"
-	config TYPE_SRC3_TCOM_W920_13048
-		bool "TCOM_W920_13048"
-	config TYPE_SRC3_TCOM_W920_13571
-		bool "TCOM_W920_13571"
-
+		default TYPE_SRC3_AVM_7570_72 if ! TYPE_LOCAL_TCOM_MODEL
+		default TYPE_SRC3_AVM_7270_67m if TYPE_LOCAL_TCOM_MODEL
 	config TYPE_SRC3_AVM_7150_27
 		bool "AVM_7150_27"
 	config TYPE_SRC3_AVM_7150_32
@@ -699,6 +676,38 @@ choice
 		bool "AVM_LOCAL_IMAGE"
 	config TYPE_LOCAL_TCOM_IMAGE
 		bool "TCOM_LOCAL_IMAGE"
+
+	config TYPE_SRC3_TCOM_W500_27
+		bool "TCOM_W500_27"
+	config TYPE_SRC3_TCOM_W501_38
+		bool "TCOM_W501_38"
+	config TYPE_SRC3_TCOM_W503_65
+		bool "TCOM_W503_65"
+	config TYPE_SRC3_TCOM_W503_66
+		bool "TCOM_W503_66"
+	config TYPE_SRC3_TCOM_W701_57
+		bool "TCOM_W701_57"
+	config TYPE_SRC3_TCOM_W721_60
+		bool "TCOM_W721_60"
+	config TYPE_SRC3_TCOM_W721_74
+		bool "TCOM_W721_74"
+	config TYPE_SRC3_TCOM_W900_57
+		bool "TCOM_W900_57"
+	config TYPE_SRC3_TCOM_W920_58
+		bool "TCOM_W920_58"
+	config TYPE_SRC3_TCOM_W920_63
+		bool "TCOM_W920_63"
+	config TYPE_SRC3_TCOM_W920_70
+		bool "TCOM_W920_70"
+	config TYPE_SRC3_TCOM_W920_71
+		bool "TCOM_W920_71"
+	config TYPE_SRC3_TCOM_W920_74
+		bool "TCOM_W920_74"
+	config TYPE_SRC3_TCOM_W920_13048
+		bool "TCOM_W920_13048"
+	config TYPE_SRC3_TCOM_W920_13571
+		bool "TCOM_W920_13571"
+
 	config TYPE_SRC3_LOCAL_IMAGE
 		bool "CUSTOM SRC3 LOCAL FIRMWARE"
 
@@ -752,7 +761,7 @@ config AVM_IMG
 	default "$AVM_7170_67en" 			if TYPE_LANG_EN && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM_MODEL )
 #	default "$AVM_7170_67" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7170_70" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_DE
-	default "$AVM_7150_57" 				if TYPE_57 &&  TYPE_SINUS_W500V 
+	default "$AVM_7150_57" 				if TYPE_57_AVM_SR2_7150 &&  TYPE_SINUS_W500V 
 	default "$AVM_7170_A59" 			if ( TYPE_A59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )) || ( TYPE_SPEEDPORT_W721V && ! TYPE_LABOR )
 #	default "$AVM_7170_67" 				if TYPE_67 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM_MODEL )
 	default "$AVM_7170_70" 				if TYPE_70 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM_MODEL )
@@ -762,12 +771,10 @@ config AVM_IMG
 	default "$AVM_GAMING_7170_11435"		if TYPE_GAMING && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
 	default "$AVM_MINI_7170_67"			if TYPE_MINI && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
 
-#	default "$AVM_7270_70" 				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_76" 				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_67m" 			if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_EN
 	default "$AVM_7270_59" 				if ( TYPE_59  &&  TYPE_SPEEDPORT_W920V ) || ( TYPE_SPEEDPORT_W503V  && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE )
 	default "$AVM_7270_58"	 			if ( TYPE_58 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL ) 
-#	default "$AVM_7270_67" 				if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL ) 
 	default "$AVM_7270_67m" 			if ( TYPE_67m ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL ) 
 	default "$AVM_7270_67"				if ( TYPE_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL )
 	default "$AVM_7270_70"				if ( TYPE_70 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM_MODEL )
@@ -795,22 +802,6 @@ config AVM_IMG
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config SRC2_IMG
 	string
-	default "$TCOM_SINUS_27" 		if TYPE_SRC3_TCOM_W500_27
-	default "$TCOM_W501_38" 		if TYPE_SRC3_TCOM_W501_38
-	default "$TCOM_W503_65" 		if TYPE_SRC3_TCOM_W503_65
-	default "$TCOM_W503_66" 		if TYPE_SRC3_TCOM_W503_66
-	default "$TCOM_W701_57" 		if TYPE_SRC3_TCOM_W701_57
-	default "$TCOM_W721_60" 		if TYPE_SRC3_TCOM_W721_60
-	default "$TCOM_W721_74" 		if TYPE_SRC3_TCOM_W721_74
-	default "$TCOM_W900_57" 		if TYPE_SRC3_TCOM_W900_57
-	default "$TCOM_W920_58" 		if TYPE_SRC3_TCOM_W920_58
-	default "$TCOM_W920_63" 		if TYPE_SRC3_TCOM_W920_63
-	default "$TCOM_W920_70" 		if TYPE_SRC3_TCOM_W920_70
-	default "$TCOM_W920_71" 		if TYPE_SRC3_TCOM_W920_71
-	default "$TCOM_W920_74" 		if TYPE_SRC3_TCOM_W920_74
-	default "$TCOM_W920_13048" 		if TYPE_SRC3_TCOM_W920_13048
-	default "$TCOM_W920_13571" 		if TYPE_SRC3_TCOM_W920_13571
-	default "$TCOM_LOCAL"			if TYPE_LOCAL_TCOM_IMAGE
 
 	default "$AVM_7150_27" 			if TYPE_SRC3_AVM_7150_27
 	default "$AVM_7150_32" 			if TYPE_SRC3_AVM_7150_32
@@ -858,6 +849,23 @@ config SRC2_IMG
 	default "$AVM_7570_14348" 		if TYPE_SRC3_AVM_7570_14348
 	default "$AVM_7570_14375" 		if TYPE_SRC3_AVM_7570_14375
 	default "$AVM_7570_14434" 		if TYPE_SRC3_AVM_7570_14434
+
+	default "$TCOM_SINUS_27" 		if TYPE_SRC3_TCOM_W500_27
+	default "$TCOM_W501_38" 		if TYPE_SRC3_TCOM_W501_38
+	default "$TCOM_W503_65" 		if TYPE_SRC3_TCOM_W503_65
+	default "$TCOM_W503_66" 		if TYPE_SRC3_TCOM_W503_66
+	default "$TCOM_W701_57" 		if TYPE_SRC3_TCOM_W701_57
+	default "$TCOM_W721_60" 		if TYPE_SRC3_TCOM_W721_60
+	default "$TCOM_W721_74" 		if TYPE_SRC3_TCOM_W721_74
+	default "$TCOM_W900_57" 		if TYPE_SRC3_TCOM_W900_57
+	default "$TCOM_W920_58" 		if TYPE_SRC3_TCOM_W920_58
+	default "$TCOM_W920_63" 		if TYPE_SRC3_TCOM_W920_63
+	default "$TCOM_W920_70" 		if TYPE_SRC3_TCOM_W920_70
+	default "$TCOM_W920_71" 		if TYPE_SRC3_TCOM_W920_71
+	default "$TCOM_W920_74" 		if TYPE_SRC3_TCOM_W920_74
+	default "$TCOM_W920_13048" 		if TYPE_SRC3_TCOM_W920_13048
+	default "$TCOM_W920_13571" 		if TYPE_SRC3_TCOM_W920_13571
+	default "$TCOM_LOCAL"			if TYPE_LOCAL_TCOM_IMAGE
 
 	default "$SRC3_LOCAL"			if TYPE_SRC3_LOCAL_IMAGE
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -988,8 +996,8 @@ config EXPORT_OEM
 comment "Optional settings for Speed-to-fritz -------------------------------"
 
 menu "Options"
-
-config  ORI
+if ! TYPE_LOCAL_TCOM_MODEL
+ config  ORI
 	bool "Restore original T-Home Firmware"
 	default n
 	select EXPORT_FORCE_CLEAR_FLASH
@@ -1002,35 +1010,42 @@ config  ORI
 		Only one net card should be installed, or you specify the IF Option as well.
 		Keep in mind if the speedport is not responding, the speedport my use the alternative IP.
 		Use IP Option to change this. 
-
-config PUSHCONF
+ config PUSHCONF
 	bool "Push Firmware to box via FTP"
 	default y
 	help
 		Do an automatic upload after Firmware is patched.
-config EXPORT_ADD_OLD_DECTMENU
+ config EXPORT_ADD_OLD_DECTMENU
 	bool "DECT menu (add)"
 	depends on TYPE_SPEEDPORT_W900V || TYPE_SINUS_W500V  || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL
 	default y
 	help
 		Traditional DECT menu gives maximum functionality, both menu's can be used at the same time.
-config EXPORT_ADD_7150_DECTMNUE
+ config EXPORT_ADD_7150_DECTMNUE
 	bool "DECT 7150 menu (add)"
 	depends on TYPE_SPEEDPORT_W900V  || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL
 	default y
 	help
 		Add some parts of DECT menu pages originating from 7150 .56, this patch is usable with .57 AVM version or similar versions.
+ config EXPORT_ADD_MODINFOICON
+	bool "Add modinfo icon on status page"
+	default y
+	help
+		Add modinfo icon on status page, modinfo buttin is always displayed.
+ config EXPORT_REMOVE_MENU_ITEM
+	bool "Unusable menu's (remove)"
+	default y
+	help
+		Set this to 'y' if you like to remove Fon3 (or more depending on the type of box) from some menu's. 
+		Both source files must be without leading "#", diff result is in directory ./LogSRC_SRC2
+endif
+
 config EXPORT_COPY_HEADER
 	bool "COPY HEADER"
 	default y
 	help
 		Set this to 'y' if you like to include  fw_header980.gif (new version) fw_header.gif (old version)
 		AVM minor version >= 47 uses the new file, if you don't want to copy both files you can remove one of this files in  ./addon/tmp/images.
-config EXPORT_ADD_MODINFOICON
-	bool "Add modinfo icon on status page"
-	default y
-	help
-		Add modinfo icon on status page, modinfo buttin is always displayed.
 config EXPORT_SET_PMAXTIMEOUT
 	bool "Set Timeout for reconnect to 3600"
 	default n
@@ -1041,20 +1056,6 @@ config EXPORT_DO_LOOKUP_PATCH
 	default y
 	help
 		Add reverse lookup patch for Germany.
-config EXPORT_ADD_ONLINECOUNTER
-	depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V  || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ! TYPE_SPEEDPORT_W721V
-	bool "Onlinecounter volume patch"
-	default n 
-#	default n if  ( TYPE_DSL )
-#	default y if  ! ( TYPE_DSL )
-	help
-		Patch ONLINECOUNTER for 7270.
-config EXPORT_REMOVE_MENU_ITEM
-	bool "Unusable menu's (remove)"
-	default y
-	help
-		Set this to 'y' if you like to remove Fon3 (or more depending on the type of box) from some menu's. 
-		Both source files must be without leading "#", diff result is in directory ./LogSRC_SRC2
 config EXPORT_ADD_SUPPORT
 	bool "Support menu-item (add)"
 	depends on ! TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
@@ -1079,7 +1080,6 @@ config EXPORT_REMOVE_KIDS
 	default n
 	help
 		Set this to 'y' if you like to remove kids pages, to save space, normal this is "n".
-
 config EXPORT_BUGFIX_FONCONFIG
 	bool "Bugfix for fon config ut8"
 	depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V ) && TYPE_LABOR
@@ -1087,14 +1087,24 @@ config EXPORT_BUGFIX_FONCONFIG
 #	default y if TYPE_AIO
 	help
 		Set this to 'y' if you like to correct some wrong letters on the fon config pages, normal this is "n".
-
 config EXPORT_DO_GSM_PATCH
 	depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM )
 	bool "Show GSM Page, if present"
 	default n
 	help
 		Enables GSM page without device plugged in. Usual a GSM modem shows only up if the device is plugged in.
-config SET_NAME
+
+if ! TYPE_LOCAL_TCOM_MODEL
+ config EXPORT_ADD_ONLINECOUNTER
+	depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V  || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) && ! TYPE_SPEEDPORT_W721V
+	bool "Onlinecounter volume patch"
+	default n 
+ #	default n if  ( TYPE_DSL )
+ #	default y if  ! ( TYPE_DSL )
+	help
+		Patch ONLINECOUNTER for 7270.
+
+ config SET_NAME
 	bool "Own product name (setup)"
 	default n
 	help
@@ -1103,13 +1113,13 @@ config SET_NAME
 	    This is not the Host name of your box! This is a string transparent on the net 
 	    to other programs and on the settings page of the Speedport.  
 
-config  EXPORT_NEWNAME
+ config  EXPORT_NEWNAME
 	    depends on SET_NAME
 	    string "product name"
 		    default "FRITZ!Box Fon WLAN 7170"
 	    help
 		Fritz!Fax works with the default value set! Default is the name used by the AVM Firmware. 
-config SET_HOSTNAME
+ config SET_HOSTNAME
 	bool "Box hostname (setup)"
 	default n
 	help
@@ -1122,7 +1132,7 @@ config SET_HOSTNAME
 		This is the name used instead of the IP address, 
 		T-Home uses "speedport.ip" but can be anything you like.
  
-config SET_FBMOD
+ config SET_FBMOD
 	bool "Box MOD ID (setup)"
 	default n
 	help
@@ -1136,13 +1146,13 @@ config SET_FBMOD
 		use "7270, 7170, ...  but can be any valled ID used in download addresses.
 		This ID is used to construct the URLs for "Programme" and for Plugindownload. 
 
-config SET_FBHWRevision
+ config SET_FBHWRevision
 	bool "Box Hardware revision (setup)"
 	default n
 	help
 	    Box Hardware revision should be left as it is, but if needed you may specify your own!.
 
-config EXPORT_FBHWRevision
+ config EXPORT_FBHWRevision
 	string
 	depends on SET_FBHWRevision || TYPE_67m || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_EN )
 	default "145" if TYPE_67m || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_EN )
@@ -1229,11 +1239,12 @@ config EXPORT_FBHWRevision
 		HWR 149 = DSL-EasyBox A402
 		HWR 152 = Speedport W722V
 		HWR 159 = FB Fon WLAN 7112
+endif
+
 config VERBOSE
 	string
 	default "-v" if VERBOSEETY 
 	default "" if ! VERBOSEETY 
-
 config EXPORT_ENABLE_EXT2
 	bool "add ext2 (ext3) driver"
 	default n
@@ -1270,12 +1281,12 @@ config EXPORT_ATA_ONLY
 		In Case of W501, no fon will be usable with this option.
 ####
 if ! EXPORT_ATA_ONLY
+ if ! TYPE_LOCAL_TCOM_MODEL
     config EXPORT_ADD_DSL_EXPERT_MNUE
 	depends on ! TYPE_TCOM_7570_XX && ! TYPE_SPEEDPORT_W920V && ! TYPE_SPEEDPORT_W721V
 	bool "Add dsl expert pages"
 	default n if  TYPE_DSL 
 	default y if  ! TYPE_DSL 
-
 	help
 		Use this additional option to add expert-pages for dsl settings,
 		only usable on "All In One" or similar Firmwares.
@@ -1309,11 +1320,21 @@ if ! EXPORT_ATA_ONLY
 	depends on TYPE_SPEEDPORT_W721V
 	default n
 	help
-		Use ADSL VINAX DRIVER from second AVM source Firmware specified in SRC2_IMG.
+    config FORCE_TCOM_DSL
+	bool "Force T-Home (V)DSL driver"
+	depends on ! TYPE_SPEEDPORT_W721V  
+	default n if ! TYPE_SPEEDPORT_W920V
+	default y if TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V  
+	help
+		For normal this is "n", only with some very bad ADSL connections this may be needed.
+		Use ADSL or VINAX DRIVER from second AVM source Firmware specified in SRC2_IMG.
+ endif
     config USE_SRC2_DSL
 	bool "Use source 3 (V)DSL driver"
 	depends on SOURCE2
-	default n
+	default y if TYPE_LOCAL_TCOM_MODEL
+	default n if ! TYPE_LOCAL_TCOM_MODEL
+	
 	help
 		Use (V)DSL DRIVER from second AVM source Firmware specified in SRC2_IMG.
     config USE_OWN_DSL
@@ -1324,13 +1345,6 @@ if ! EXPORT_ATA_ONLY
 		WXXX is the respective speedport type, the files here are from a save DSL Driver before.
 		No files get removed within this directory so if you do more as one save with different settings
 		more files my be within this directory as really wanted.
-    config FORCE_TCOM_DSL
-	bool "Force T-Home (V)DSL driver"
-	depends on ! TYPE_SPEEDPORT_W721V  
-	default n if ! TYPE_SPEEDPORT_W920V
-	default y if TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V  
-	help
-		For normal this is "n", only with some very bad ADSL connections this may be needed.
     config SAVE_SRC2_DSL
 	bool "Save source 3 (V)DSL driver"
 	depends on SOURCE2
@@ -1349,6 +1363,9 @@ if ! EXPORT_ATA_ONLY
 		No files get removed within this directory so if you do more as one save with diffent settings
 		more files my be within this directory as realy wanted.
 		Save (V)DSL DRIVER from AVM source to ./addon/tmp/WXXX.
+
+ if ! TYPE_LOCAL_TCOM_MODEL
+
     config SAVE_TCOM_DSL
 	bool "Save T-Home (V)DSL driver"
 	default n
@@ -1386,133 +1403,112 @@ if ! EXPORT_ATA_ONLY
 			bool "Add libslab to dsld wrapper"
 			default n 
 	endif
+ endif
 endif
-#config EXPORT_SETATM
-#
-#	depends on   ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W721 ) && ! TYPE_TCOM_7570_XX
-#	bool "ATM - settings"
-#	default n
-#	help
-#	    ATM should be left as it is, but if needed you may specify your own! Default is VPI 1 VCI 32
-#	    This otion is only in use with W920 and W721, webmenu is not usable. 
-#	config  EXPORT_VPI
-#	    depends on EXPORT_SETATM
-#	    string "VPI value"
-#		    default "8"
-#	    help
-#		This is the value used instead, 
-#		T-Home uses "1" but my be specified by your provider.
-# 	config  EXPORT_VCI
-#	    depends on EXPORT_SETATM
-#	    string "VCI value"
-#		    default "48"
-#	    help
-#		This is the value used instead, 
-#		T-Home uses "32" but my be specified by your provider.
 
-#choice
-#	prompt "ATM Type: "
-#	depends on TYPE_TCOM_7570_XX
-#	default VCMUX
-#	config VCMUX
-#		bool "PPPoE"
-#	config PPPLLC
-#		bool "PPPoA LLC"
-#	config PPPoA
-#		bool "PPPoA"
-#endchoice
+if ! TYPE_LOCAL_TCOM_MODEL
+ #config EXPORT_SETATM
+ #
+ #	depends on   ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W721 ) && ! TYPE_TCOM_7570_XX
+ #	bool "ATM - settings"
+ #	default n
+ #	help
+ #	    ATM should be left as it is, but if needed you may specify your own! Default is VPI 1 VCI 32
+ #	    This otion is only in use with W920 and W721, webmenu is not usable. 
+ #	config  EXPORT_VPI
+ #	    depends on EXPORT_SETATM
+ #	    string "VPI value"
+ #		    default "8"
+ #	    help
+ #		This is the value used instead, 
+ #		T-Home uses "1" but my be specified by your provider.
+ # 	config  EXPORT_VCI
+ #	    depends on EXPORT_SETATM
+ #	    string "VCI value"
+ #		    default "48"
+ #	    help
+ #		This is the value used instead, 
+ #		T-Home uses "32" but my be specified by your provider.
 
-#config EXPORT_KAPSELUNG
-#	string
-#	default "0"	if VCMUX
-#	default "1" 	if PPPLLC
-#	default "2" 	if PPPoA
+ #choice
+ #	prompt "ATM Type: "
+ #	depends on TYPE_TCOM_7570_XX
+ #	default VCMUX
+ #	config VCMUX
+ #		bool "PPPoE"
+ #	config PPPLLC
+ #		bool "PPPoA LLC"
+ #	config PPPoA
+ #		bool "PPPoA"
+ #endchoice
 
-#choice
-#	prompt "Select DSL mod: "
-#	depends on TYPE_TCOM_7570_XX
-#	default DSLAUTO
-#		bool "select ADSL/VDSL"
-#	config DSLAUTO
-#		bool "Autoselect"
-#	config VDSL
-#		bool "VDSL"
-#	config ADSL
-#		bool "ADSL"
-#endchoice
+ #config EXPORT_KAPSELUNG
+ #	string
+ #	default "0"	if VCMUX
+ #	default "1" 	if PPPLLC
+ #	default "2" 	if PPPoA
 
-#config EXPORT_DSLMOD
-#	string
-#	default "0"	if DSLAUTO
-#	default "1" 	if VDSL
-#	default "2" 	if ADSL
+ #choice
+ #	prompt "Select DSL mod: "
+ #	depends on TYPE_TCOM_7570_XX
+ #	default DSLAUTO
+ #		bool "select ADSL/VDSL"
+ #	config DSLAUTO
+ #		bool "Autoselect"
+ #	config VDSL
+ #		bool "VDSL"
+ #	config ADSL
+ #		bool "ADSL"
+ #endchoice
+
+ #config EXPORT_DSLMOD
+ #	string
+ #	default "0"	if DSLAUTO
+ #	default "1" 	if VDSL
+ #	default "2" 	if ADSL
 
 
-comment "SYSTEM Options -----------------------------------------------------"
-config XCHANGE_KERNEL
-	bool "Xchange kernel between T-Home and avm source"
-	default n if ! TYPE_SPEEDPORT_W721V
-	default y if TYPE_SPEEDPORT_W721V
-	help
-		For normal this is "n", but for testing this may be used, this option is dangerous,
-		but it can be used in combination with the option restore original Firmware as well.
-		It is mainly added for testing W920, W920 original Firmware does not log to the console
-		but if the kernel is replaced with AVM kernel the log is present.
-config COPY_TCOM_BIN
+ comment "SYSTEM Options -----------------------------------------------------"
+ config COPY_TCOM_BIN
 	bool "Keep T-Home libs and binary files"
 	depends on TYPE_SPEEDPORT_W721V && XCHANGE_KERNEL
 	default y
 	help
 		For normal this is "n", but for testing this may be used, webmenu is with errors.
-config SRC2_KERNEL
-	bool "Take kernel from source 3"
-	depends on SOURCE2 && ! XCHANGE_KERNEL
-	default n
-	help
-		For normal this is "n", but for testing this may be used, this option is dangerous,
-		but it can be used in combination with the option restore original Firmware as well.
-		It is mainly added for testing W920, W920 original Firmware does not log to the console
-		but if the kernel is replaced with AVM kernel the log is present.
-#config COPY_TCOM_BIN2
-#	bool "Keep all T-Home bin, sbin, lib"
-#	depends on TYPE_SPEEDPORT_W920V
-#	default n
-#	help
-#		For normal this is "n", but for testing this may be used, this option is dangerous.
+ #config COPY_TCOM_BIN2
+ #	bool "Keep all T-Home bin, sbin, lib"
+ #	depends on TYPE_SPEEDPORT_W920V
+ #	default n
+ #	help
+ #		For normal this is "n", but for testing this may be used, this option is dangerous.
 
-config FORCE_TCOM_PIGLET
+ config FORCE_TCOM_PIGLET
 	bool "Force use of T-Home piglet driver"
 	default n
 	help
 		For normal this is "n", but for Firmwares with minor versions less then 50 "y" works better.
 
-config FORCE_TCOM_LEDDRIVER
+ config FORCE_TCOM_LEDDRIVER
 	bool "Force use of T-Home LED driver"
 	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default y
 	help
 		For normal this is "n", but you my use the T-Home driver, definition of LEDs differ, not all LEDS are usable.
 
-config FORCE_TCOM_FON
+ config FORCE_TCOM_FON
 	bool "Force use of T-Home fon driver"
 	default n  
 	help
 		For normal this is "n", but for Firmwares with minor versions less then 50 "y" works better.
 
-config USE_SRC2_FON
+ config USE_SRC2_FON
 	bool "Use source 3 FON driver"
 	depends on SOURCE2
 	depends on TYPE_SINUS_W500V
 	default n
 	help
 		Use FON DRIVER from second source Firmware specified in SRC2_IMG.
-config COPY_ADDON_TMP
-	bool "Copy addon/tmp"
-	depends on !ORI
-	default n
-	help
-		Set this to 'y' if you like to include all files within the directory ./addon/tmp/squashfs-root.
-config COPY_ADDON_TMP_to_ORI
+ config COPY_ADDON_TMP_to_ORI
 	bool "Copy addon/tmp with option -u"
 	depends on ORI
 	default n
@@ -1520,14 +1516,14 @@ config COPY_ADDON_TMP_to_ORI
 		Set this to 'y' if you like to include all files within the directory
 		./addon/tmp/squashfs-root in combination with Option -u.
 
-config UPDATE_DEPMOD
+ config UPDATE_DEPMOD
 	bool "Update module dependency information"
 	depends on !ORI
 	default n
 	help
 		Update module dependency information in generated image. Useful if deploy modules
 		via addon directories.
-config MOVE_ALL_to_OEM
+ config MOVE_ALL_to_OEM
 	bool "MOVE ALL to OEM"
 	default y
 	depends on ! TYPE_SPEEDPORT_W721V
@@ -1537,24 +1533,15 @@ config MOVE_ALL_to_OEM
 		Other OEM WWW directories if present are removed to save space.
 		Always turn this on if freetz Firmware is used!
 		Disable this option if autoconfig is used.
-config MOVE_AVM_to_OEM
+ config MOVE_AVM_to_OEM
 	bool "MOVE avm to OEM"
 	default n
 	depends on TYPE_SPEEDPORT_W920V
 	help
 		Set this to "y" if normal 7270 Firmwares in combination with multilingual Firmwares are used, but usual this is not needed.
 		WWW "avm" directory is moved to "$OEM"
-
-config EXPORT_FORCE_CLEAR_FLASH
-	bool "Clear mtd3 and mtd4"
-	default y
-	help
-		Set this to "y" if Firmwares are used witch are older or much newer as the one installed.
-		Usual this is also made automatically on base of versionsnumbers but in some cases
-		versions will not indicate the changes made by the skript. Ths will prevent a reboot loop,
-		coursed by settings incompatibility. 
-
-config EXPORT_CONFIG_TR069
+		
+ config EXPORT_CONFIG_TR069
 	bool "Enable TR069 disable ATA"
 	default n
 	help
@@ -1567,7 +1554,7 @@ config EXPORT_CONFIG_TR069
 		Autoconfiguration is only set on if AVM Firmware suports this option!.
 		ATA is disabled if tr069 is turned on.
 		
-config EXPORT_CONFIG_TR064
+ config EXPORT_CONFIG_TR064
 	bool "Enable LAN autoconfiguration TR064"
 	default n if ! TYPE_SPEEDPORT_W920V
 	default y if TYPE_SPEEDPORT_W920V
@@ -1577,6 +1564,39 @@ config EXPORT_CONFIG_TR064
 		expect you be aware of this case.
 		Autoconfiguration from within the internal LAN is only 
 		set on if AVM Firmware supports this option!.
+ config XCHANGE_KERNEL
+	bool "Xchange kernel between T-Home and avm source"
+	default n if ! TYPE_SPEEDPORT_W721V
+	default y if TYPE_SPEEDPORT_W721V
+	help
+		For normal this is "n", but for testing this may be used, this option is dangerous,
+		but it can be used in combination with the option restore original Firmware as well.
+		It is mainly added for testing W920, W920 original Firmware does not log to the console
+		but if the kernel is replaced with AVM kernel the log is present.
+endif
+ config SRC2_KERNEL
+	bool "Take kernel from source 3"
+	depends on SOURCE2 && ! XCHANGE_KERNEL
+	default n
+	help
+		For normal this is "n", but for testing this may be used, this option is dangerous,
+		but it can be used in combination with the option restore original Firmware as well.
+		It is mainly added for testing W920, W920 original Firmware does not log to the console
+		but if the kernel is replaced with AVM kernel the log is present.
+ config COPY_ADDON_TMP
+	bool "Copy addon/tmp"
+	depends on !ORI
+	default n
+	help
+		Set this to 'y' if you like to include all files within the directory ./addon/tmp/squashfs-root.
+config EXPORT_FORCE_CLEAR_FLASH
+	bool "Clear mtd3 and mtd4"
+	default y
+	help
+		Set this to "y" if Firmwares are used witch are older or much newer as the one installed.
+		Usual this is also made automatically on base of versionsnumbers but in some cases
+		versions will not indicate the changes made by the skript. Ths will prevent a reboot loop,
+		coursed by settings incompatibility. 
 
 comment "TEST Options -------------------------------------------------------"
 

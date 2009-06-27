@@ -9,14 +9,27 @@ echo2 "      /lib/modules"
 
 
 if [ ${ATA_ONLY} = "n" ]; then
-#add DSL driver dependig on the settings made in firmware.conf707
-[ ${SAVE_AVM_DSL} = "y" ] && cp -fdrp "${SRC}"/lib/modules/microvoip-dsl*.bin --target-directory=./addon/tmp/modules &&\
+#add DSL driver dependig on the settings made
+#7170
+if [ -f "${SRC}"/lib/modules/microvoip-dsl.bin ]; then
+ [ ${SAVE_AVM_DSL} = "y" ] && cp -fdrp "${SRC}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+ echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+ [ ${SAVE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+ echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+ [ ${USE_OWN_DSL} = "y" ] && cp -fdrp ./addon/tmp/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+ echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
+ [ ${USE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+ echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!" 
+fi
+#add DSL driver dependig on the settings made in
+#7270
+[ ${SAVE_AVM_DSL} = "y" ] && [ -d "${SRC}/lib/modules/dsp_ur8"  ] && cp -fdrp "${SRC}"/lib/modules/dsp_ur8/* --target-directory=./addon/tmp/modules &&\
 echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
-[ ${SAVE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl*.bin --target-directory=./addon/tmp/modules &&\
+[ ${SAVE_SRC2_DSL} = "y" ] && [ -d "${SRC_2}/lib/modules/dsp_ur8"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/* --target-directory=./addon/tmp/modules &&\
 echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
-[ ${USE_OWN_DSL} = "y" ] && cp -fdrp ./addon/tmp/modules/microvoip-dsl*.bin --target-directory="${SRC}"/lib/modules &&\
+[ ${USE_OWN_DSL} = "y" ] && [ -d "./addon/tmp/modules/dsp_ur8"  ] && cp -fdrp ./addon/tmp/modules/dsp_ur8/* --target-directory="${SRC}"/lib/modules &&\
 echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
-[ ${USE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl*.bin --target-directory="${SRC}"/lib/modules &&\
+[ ${USE_SRC2_DSL} = "y" ] && [ -d "${SRC_2}/lib/modules/dsp_ur8"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/* --target-directory="${SRC}"/lib/modules &&\
 echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!" 
 else
 #remove ADSL
@@ -41,4 +54,4 @@ $sh_DIR/patch_annex.sh "${SRC}"
 
 
 echo "********************************************************************************"
-sleep 10
+sleep 1
