@@ -1278,7 +1278,7 @@ config EXPORT_ENABLE_EXT2
  		Or you can select a 3rd Firmware from which the driver will be taken.
 
 config EXPORT_USE_SOURCE2_WEBMNUE
-	bool "Use source 3 webfiles"
+	bool "Use 2nd AVM source webfiles"
 	depends on SOURCE2
 	select DO_NOT_STOP_ON_ERROR
 	default n
@@ -1311,7 +1311,7 @@ if ! EXPORT_ATA_ONLY
 		Use this additional option to add expert-pages for dsl settings,
 		only usable on "All In One" or similar Firmwares.
     config EXPORT_USE_SOURCE2_DSLMNUE
-	bool "Use source 3 DSL web files"
+	bool "Use 2nd AVM source DSL web files"
 	depends on SOURCE2
 	default n
 	help
@@ -1330,13 +1330,13 @@ if ! EXPORT_ATA_ONLY
 	help
 		Use PCMLINK from T-Home Firmware.
     config FORCE_SRC2_KDSLDMOD
-	bool "Use source 3 ksldmod driver"
+	bool "Use 2nd AVM source ksldmod driver"
 	depends on SOURCE2 && TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V 
 	default n
 	help
-		Use KSLDMOD from source 3 Firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
+		Use KSLDMOD from 2nd AVM source Firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
     config USE_SRC2_VINAX_ADSLFW
-	bool "Use source 3 DSL driver"
+	bool "Use 2nd AVM source DSL driver"
 	depends on TYPE_SPEEDPORT_W721V
 	default n
 	help
@@ -1350,7 +1350,7 @@ if ! EXPORT_ATA_ONLY
 		Use ADSL or VINAX DRIVER from second AVM source Firmware specified in SRC2_IMG.
  endif
     config USE_SRC2_DSL
-	bool "Use source 3 (V)DSL driver"
+	bool "Use 2nd AVM source (V)DSL driver"
 	depends on SOURCE2
 	default y if TYPE_LOCAL_TCOM_MODEL
 	default n if ! TYPE_LOCAL_TCOM_MODEL
@@ -1366,11 +1366,11 @@ if ! EXPORT_ATA_ONLY
 		No files get removed within this directory so if you do more as one save with different settings
 		more files my be within this directory as really wanted.
     config SAVE_SRC2_DSL
-	bool "Save source 3 (V)DSL driver"
+	bool "Save 2nd AVM source (V)DSL driver"
 	depends on SOURCE2
 	default n
 	help
-		Save (V)DSL DRIVER from AVM source 3 to ./addon/tmp/WXXX
+		Save (V)DSL DRIVER from AVM 2nd AVM source  to ./addon/tmp/WXXX
 		WXXX is the respective speedport type.
 		No files get removed within this directory so if you do more as one save with diffent settings
 		more files my be within this directory as realy wanted.
@@ -1522,7 +1522,7 @@ if ! TYPE_LOCAL_TCOM_MODEL
 		For normal this is "n", but for Firmwares with minor versions less then 50 "y" works better.
 
  config USE_SRC2_FON
-	bool "Use source 3 FON driver"
+	bool "Use 2nd AVM source FON driver"
 	depends on SOURCE2
 	depends on TYPE_SINUS_W500V
 	default n
@@ -1595,7 +1595,7 @@ if ! TYPE_LOCAL_TCOM_MODEL
 		but if the kernel is replaced with AVM kernel the log is present.
 endif
  config SRC2_KERNEL
-	bool "Take kernel from source 3"
+	bool "Take kernel from 2nd AVM source"
 	depends on SOURCE2 && ! XCHANGE_KERNEL
 	default n
 	help
