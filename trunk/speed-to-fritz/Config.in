@@ -387,7 +387,7 @@ endchoice
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #### If types are added here the script file /subscripts/settings has to be edited as well to represent the new Labor versions too. 
 config TYPE_LABOR
-	bool "Select a special AVM Firmware as 2nd Firmware --->"
+	bool "Select a special AVM Firmware Firmware --->"
 	depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM || TYPE_LOCAL_TCOM_MODEL ) 
 	default y if TYPE_LOCAL_TCOM_MODEL
 	default n if ! TYPE_LOCAL_TCOM_MODEL
@@ -396,7 +396,7 @@ config TYPE_LABOR
 		Enable this to compile the mod based on an special AVM Firmware.
 		The actual final release version should not be selected is anyway preselected! 
 		If you select it here your freetz config is not correct! 
-		If Custom Model is selected then this is the 1st firmware in use,
+		If Custom Model is selected then this is the main firmware in use,
 		normlay you would have to enter Castom Firmware names as well!
 choice
 	prompt "Labor or any other non default"
@@ -600,7 +600,7 @@ choice
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config SOURCE2
-	bool "3rd Firmware (only for experiments!)"
+	bool "2nd AVM Type Firmware"
 	default y if TYPE_LOCAL_TCOM_MODEL
 	default n if ! TYPE_LOCAL_TCOM_MODEL
 	help
@@ -1645,14 +1645,14 @@ config DO_NOT_STOP_ON_ERROR
 		If you set this to 'y' for some reason, you are able to build a Firmware with bugs!.
 
 config DO_DIFF
-	bool "Do DIFF between AVM source and source 3"
+	bool "Do DIFF between AVM source and 2nd AVM source"
 	depends on SOURCE2
 	default n
 	help
 		Set this to 'y' to make a diff between SRC and SRC_2 (AVM_IMG, SRC2_IMG),
 		diff result is in directory ./LogAVMto3.
 config DO_DIFF_TCOM
-	bool "Do DIFF between T-Home source and source 3"
+	bool "Do DIFF between T-Home source and 2nd AVM source"
 	depends on SOURCE2
 	default n
 	help
@@ -1666,7 +1666,7 @@ config DO_FINAL_DIFF
 		Set this to 'y' to make a diff between DST and SRC (Destination and Source 2)  
 		Diff result is in directory ./LogFINALtoAVM.
 config DO_FINAL_DIFF_SRC2
-	bool "Do final DIFF, show difference to source 3"
+	bool "Do final DIFF, show difference to 2nd AVM source"
 	depends on SOURCE2
 	default n
 	help
@@ -1680,11 +1680,11 @@ config DO_KDIFF3_2
 		Set this to 'y' to make a kdiff3 between AVM and T-Home
 		Diff result is shown in kdiff3 gui.
 config DO_KDIFF3_3
-	bool "Do KDIFF3, show AVM source, source 3 and T-Home"
+	bool "Do KDIFF3, show AVM source, 2nd AVM source and T-Home"
 	depends on SOURCE2
 	default n
 	help
-		Set this to 'y' to make a kdiff3 between AVM source, and source 3 and T-Home
+		Set this to 'y' to make a kdiff3 between AVM source, 2nd AVM source and T-Home
 		Diff result is shown in kdiff3 gui.
 config DO_FINAL_KDIFF3_2
 	bool "Do final KDIFF3, show changed AVM and orignal AVM"
@@ -1694,11 +1694,11 @@ config DO_FINAL_KDIFF3_2
 		Set this to 'y' to make a kdiff3 between changed AVM and original AVM source
 		Diff result is shown in kdiff3 gui.
 config DO_FINAL_KDIFF3_3
-	bool "Do final KDIFF3, show changed AVM, original AVM and source 3"
+	bool "Do final KDIFF3, show changed AVM, original AVM and 2nd AVM source"
 	depends on SOURCE2
 	default n
 	help
-		Set this to 'y' to make a kdiff3 show changed AVM, orignal AVM source, and source 3
+		Set this to 'y' to make a kdiff3 show changed AVM, orignal AVM source and 2nd AVM source
 		Diff result is shown in kdiff3 gui.
 
 comment "Netcard Options ----------------------------------------------------"
