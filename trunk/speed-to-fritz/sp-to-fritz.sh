@@ -894,6 +894,8 @@ Language="_${avm_Lang}"
 [ "$ORI" != "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}_W${SPNUM}V_${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}${PANNEX}${Language}.image"
 [ "$ORI" == "y" ] && export NEWIMG="${SPIMG}_OriginalTcomAdjusted${PANNEX}${Language}.image"
 [ "$ATA_ONLY" = "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}_W${SPNUM}V_${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}_ATA-ONLY${Language}.image"
+#only AVM + 2nd AVM Firmware was in use
+[ "$TYPE_LOCAL_TCOM_MODEL" == "y" ] && export NEWIMG="fw_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_2_VERSION_MAJOR}.${AVM_2_VERSION}-${AVM_2_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}${PANNEX}${Language}.image"
 echo "export MULTI_LANGUAGE=\"${MULTI_LANGUAGE}\"" >> incl_var
 echo "export kernel_args=\"${kernel_args}\"" >> incl_var
 echo "export NEWIMG=\"${NEWIMG}\"" >> incl_var
