@@ -129,7 +129,9 @@ if [  -e "${SPDIR}/var/install" ]; then
   echo "WARNING! uClib version of AVM and T-Home Firmware differ!"
   sleep 2
  fi
-#Now taken as constant from sp-to-fritz.sh
-export SP_kernel_size="kernel_size=${kernel_size}"
+ #Now taken as constant from sp-to-fritz.sh
+ export SP_kernel_size="kernel_size=${kernel_size}"
+else
+export kernel_size="${FB_kernel_sizeR}"
 fi
 
