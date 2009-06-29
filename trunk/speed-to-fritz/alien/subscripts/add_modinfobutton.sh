@@ -135,12 +135,12 @@ FORCE_CLEAR_FLASH
 </ul>
 <p></p>
 <h2>Verwendete Firmware-Versionen</h2>
-<p>Zur Erstellung der Weboberfläche und zur Vervollständigung von Systemfunktionen, wurden folgende Firmware-Images von TCOM und AVM verwendet:</p>
+<p>Zur Erstellung der Weboberfläche und zur Vervollständigung von Systemfunktionen, wurden folgende Firmware-Images verwendet:</p>
 <ul>
-<li><b>TCOM Image:</b> Das Image der Telekom liefert die Hardwaretreiber der Box und ist genau auf die Telekom-Hardware 
+<li><b>Erstes Image:</b> Das erste Image liefert die Hardwaretreiber der Box und ist genau auf die Hardware 
 abgestimmt.	Verwendet wurde das Image-File <b>'IMG0_TCOM'</b>.</li>
 <li><b>AVM Systemimage:</b> Dieses Image wird verwendet, um Systemfunktionen und auch die AVM-Weboberfläche 
-zu ergänzen. Das Image stammt von einer AVM-Hardware, die in der Funktion der Telekom-Hardware ähnlich ist und die 
+zu ergänzen. Das Image stammt von einer AVM-Hardware, die in der Funktion der Hardware ähnlich ist und die 
 dieselbe Kernel-Version verwendet. Verwendet wurde das Image-File <b>'IMG1_AVM'</b>.</li>
 <li><b>AVM WebUI-Image:</b> Verwendet wurde das Image-File <b>'IMG2_AVM'</b>.</li>
 <li><b>Kernel-Update:</b> Der AVM Kernel wurde <b>XCHANGE_KERNEL</b>.</li>
@@ -189,9 +189,9 @@ FORCE_CLEAR_FLASH
 <li></ul>
 <p></p>
 <h2>Used Firmware-Versions</h2>
-<p>Following Firmware Images from TCOM and AVM have been used for the WEB-GUI and to enable system functionality:</p>
+<p>Following Firmware Images have been used for the WEB-GUI and to enable system functionality:</p>
 <ul>
-<li><b>TCOM image:</b> The Telekom Image is used for the basic driver functions as it is designed for Telekom Hardware.	Image-File <b>'IMG0_TCOM'</b> has been used.</li>
+<li><b>1st image:</b> This Image is used for the basic driver functions as it is designed for Telekom Hardware.	Image-File <b>'IMG0_TCOM'</b> has been used.</li>
 <li><b>AVM System Image:</b> This image is used to complete system functions and also the AVM WEB-GUI. The image comes from an AVM Hardware that is common to the Telekom Hardware and uses same Kernel version. <b>'IMG1_AVM'</b>.</li> Image has been used.
 <li><b>AVM WebUI-Image:</b> For Speedport W 900V the WEB-GUI may be copied from a separate Image, that is also supporting the special ISDN functionality of this box. <b>'IMG2_AVM'</b>.</li> image has been used.
 <li><b>Kernel-Update:</b> AVM Firmware kernel has been <b>XCHANGE_KERNEL</b> with t-com kernel.</li>
@@ -215,12 +215,15 @@ readConfig "HOSTNAME" "HOSTNAME" "${1}/etc/init.d"
 
 readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${1}/etc/init.d"
 
-sed -i -e "s/MODEL/${CLASS} W ${SPNUM}V/" "${DSTF}"
+[ "$TYPE_LOCAL_MODEL" != "y" ] && sed -i -e "s/MODEL/${CLASS} W ${SPNUM}V/" "${DSTF}"
+[ "$TYPE_LOCAL_MODEL" == "y" ] && sed -i -e "s/MODEL/${SPMOD}/" "${DSTF}"
 sed -i -e "s/VERSION/${SKRIPT_DATE}/" "${DSTF}"
 sed -i -e "s/OEM/${OEM}/" "${DSTF}"
 sed -i -e "s/HOSTNAME/${HOSTNAME}/" "${DSTF}"
-sed -i -e "s/IMG0_TCOM/${SPIMG}/" "${DSTF}"
-sed -i -e "s/IMG1_AVM/${FBIMG}/" "${DSTF}"
+[ "$TYPE_LOCAL_MODEL" != "y" ] && sed -i -e "s/IMG0_TCOM/${SPIMG}/" "${DSTF}"
+[ "$TYPE_LOCAL_MODEL" != "y" ] && sed -i -e "s/IMG1_AVM/${FBIMG}/" "${DSTF}"
+[ "$TYPE_LOCAL_MODEL" == "y" ] && sed -i -e "s/IMG0_TCOM/${FBIMG}/" "${DSTF}"
+[ "$TYPE_LOCAL_MODEL" == "y" ] && sed -i -e "s/IMG1_AVM/${FBIMG_2}/" "${DSTF}"
 [ "$DSL_MULTI_ANNEX" = "y" ] && sed -i -e "s/ANNEX/Multi/" "${DSTF}"
 [ "$ATA_ONLY" = "n" ] && sed -i -e "s/ANNEX/${ANNEX}/" "${DSTF}"
 

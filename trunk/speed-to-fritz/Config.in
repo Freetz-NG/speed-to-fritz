@@ -1087,6 +1087,7 @@ config EXPORT_SET_PMAXTIMEOUT
 		Set Timeout on Internetsetup page for reconnect from 900 to 3600.
 config EXPORT_DO_LOOKUP_PATCH
 	bool "Include reverse lookup patch"
+	depends on ! EXPORT_TYPE_LOCAL_MODEL
 	default y
 	help
 		Add reverse lookup patch for Germany.
@@ -1687,15 +1688,15 @@ config DO_FINAL_DIFF_SRC2
 		Set this to 'y' to make a diff between DST and SRC2
 		SRC2_IMG source files must be selected, diff result is in directory ./LogFINALto3.
 config DO_KDIFF3_2
-	bool "Do KDIFF3, show AVM and T-Home"
+	bool "Do KDIFF3, show the two selected Firmwares"
 	depends on ! SOURCE2
 	default n
 	help
-		Set this to 'y' to make a kdiff3 between AVM and T-Home
+		Set this to 'y' to make a kdiff3 between AVM and T-Home (or 2nd AVM if TYPE_LOCAL_MODEL was selected).
 		Diff result is shown in kdiff3 gui.
 config DO_KDIFF3_3
-	bool "Do KDIFF3, show AVM source, 2nd AVM source and T-Home"
-	depends on SOURCE2
+	bool "Do KDIFF3, show all selected Firmwares"
+	depends on SOURCE2 
 	default n
 	help
 		Set this to 'y' to make a kdiff3 between AVM source, 2nd AVM source and T-Home
