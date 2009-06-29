@@ -5,6 +5,7 @@ echo "-- Adding multiannex pages ..."
 #annex settings made via GUI
 echo "-- Adding settings timezone pages ..."
 if [ "${CONFIG_MULTI_COUNTRY}" = "y" ]; then
+ sed -i -e 's/CONFIG_MULTI_COUNTRY="n"/CONFIG_MULTI_COUNTRY="y"/' "${SRC}"/etc/init.d/rc.conf
  echo "-- Adding mulicountry pages from source 2 or 3 ..."
  FILELIST="menu2_system.html sitemap.html authform.html vpn.html pppoe.html first_Sip_1.html first_ISP_0.html first_ISP_3.frm"
  rpl_avme_avm()
@@ -29,10 +30,10 @@ if [ "${OEM}" = "avm" ]; then
  rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.frm)" 
 fi
 #copy default country
- cp -fdrp "${DST}"/etc/default.0* --target-directory=${SRC}/etc
+ [ -d "${DST}/etc/default.049" ] &&  cp -fdrp "${DST}"/etc/default.0* --target-directory=${SRC}/etc
  [ -d "${DST}/etc/default.99" ] && cp -fdrp "${DST}"/etc/default.9* --target-directory=${SRC}/etc
  if [ -n "$FBIMG_2" ]; then
-  cp -fdrp "${SRC_2}"/etc/default.0* --target-directory=${SRC}/etc
+  [ -d "${DST}/etc/default.049" ] &&    cp -fdrp "${SRC_2}"/etc/default.0* --target-directory=${SRC}/etc
   [ -d "${SRC_2}/etc/default.99" ] && cp -fdrp "${SRC_2}"/etc/default.9* --target-directory=${SRC}/etc
  fi
  if [ "${OEM}" = "avm" ]; then
@@ -41,6 +42,7 @@ fi
  fi
 fi
 FILELIST="/html/de/internet/vdsl_profile.js \
+/html/de/help/hilfe_internet_dslsnrset.html \
 /html/de/internet/vdsl_profile.html \
 /html/de/internet/vdsl_profile.frm \
 /html/de/internet/dslsnrset.frm \
@@ -99,8 +101,11 @@ else\
 export ANNEX=`cat $CONFIG_ENVIRONMENT_PATH\/annex` \
 fi' "${SRC}"/etc/init.d/rc.conf
  fi
+  sed -i -e 's/CONFIG_DSL_MULTI_ANNEX="n"/CONFIG_DSL_MULTI_ANNEX="y"/' "${SRC}"/etc/init.d/rc.conf
+
 USRWWW="usr/www/${OEMLINK}/html/de"
 if [ "${CONFIG_MULTI_LANGUAGE}" = "y" ]; then
+ sed -i -e 's/CONFIG_MULTI_LANGUAGE="n"/CONFIG_MULTI_LANGUAGE="y"/' "${SRC}"/etc/init.d/rc.conf
  echo "-- Adding mulilingual pages from source 2 or 3 ..."
  #copy language datbase
  LanguageList="de en it es fr" #de dont copy de as well
