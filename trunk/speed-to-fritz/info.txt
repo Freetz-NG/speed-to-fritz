@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090629-1037-r-361
+    - 7270: Config.in 7270v3 added, bugfix for Annex A
 20090628-1507-r-359
     - Canged naming of new firmware if Option 'use castom t-home model' was is use
 20090628-1439-r-358
