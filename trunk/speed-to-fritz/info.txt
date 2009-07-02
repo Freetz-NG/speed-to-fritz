@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090702-0623-r-371
+    - Bugfix Annex A was not set correcly
 20090702-0603-r-370
     - 72XX fix last commit
 20090702-0506-r-369
