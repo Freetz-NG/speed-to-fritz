@@ -1404,7 +1404,7 @@ if ! EXPORT_ATA_ONLY
 		Save (V)DSL DRIVER from AVM source to ./addon/tmp/WXXX.
     config REMOVE_ANNEX_B_DSL_DRIVER
 	bool "Remove Annex B driver on 72XX Firmware"
-	depends on EXPORT_TYPE_LOCAL_MODEL
+	depends on EXPORT_TYPE_LOCAL_MODEL && TYPE_ANNEX_A
 	default n
 	help
 		Annex B driver will be removed if it is a 72XX firmware.
