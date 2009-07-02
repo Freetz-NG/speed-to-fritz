@@ -217,7 +217,7 @@ config AVM_7570_14434
 ### Example:  _11779 to _XXXXX.  Or _58 to _XX (but be careful because some of the very short numbers may be used on other ocasins)
 choice
 	prompt "Hardware type"
-		default TYPE_LOCAL_TCOM_MODEL
+		default TYPE_SPEEDPORT_W920V
 		help
 			Select your box type here.
 
@@ -1402,6 +1402,14 @@ if ! EXPORT_ATA_ONLY
 		No files get removed within this directory so if you do more as one save with diffent settings
 		more files my be within this directory as realy wanted.
 		Save (V)DSL DRIVER from AVM source to ./addon/tmp/WXXX.
+    config REMOVE_ANNEX_B_DSL_DRIVER
+	bool "Remove Annex B driver on 72XX Firmware"
+	depends on EXPORT_TYPE_LOCAL_MODEL
+	default n
+	help
+		Annex B driver will be removed if it is a 72XX firmware.
+		Boxes with 8MB lak of spece, so set this option with older boxes.
+		Aswering machine may have no space left to record if not set.
 
  if ! EXPORT_TYPE_LOCAL_MODEL
 
