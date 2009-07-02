@@ -22,8 +22,10 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090702-0603-r-370
+    - 72XX fix last commit
 20090702-0506-r-369
-    - Added Otion for 72XX to remove annex B driver, set defaut model to W920V
+    - Added Option for 72XX to remove Annex B driver, set defaut model to W920V
 20090701-0856-r-368
     - config.in: some spelling fixed
 20090629-1521-r-367

@@ -40,7 +40,7 @@ rm -f "${SRC}"/lib/modules/microvoip-dsl*.bin
 #<-- ATA only
 fi
 #save space on 8MB boxes specially
-[ ${REMOVE_ANNEX_B_DSL_DRIVER} = "y" ] && [ ${ANNEX} = "A" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin" ] && rm -f "${SRC}"/lib/modules/dsp_ur8/ur8-B-dsl.bin
+[ "${REMOVE_ANNEX_B_DSL_DRIVER}" = "y" ] && [ "${ANNEX}" = "A" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin" ] && rm -f "${SRC}"/lib/modules/dsp_ur8/ur8-B-dsl.bin
 
 #copy second source www dir
 [ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
