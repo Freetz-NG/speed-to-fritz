@@ -78,12 +78,12 @@ if [ "${CONFIG_DSL_MULTI_ANNEX}" = "y" ]; then
   OEML="avm" && [ -d "${DST}"/usr/www/avme ] && OEML="avme"
   OEML2="avm" && [ -d "${SRC_2}"/usr/www/avme ] && OEML2="avme"
   for file in $FILELIST; do
-   if [ -f "${SRC_2}/usr/www/${OEML2}/$file" ]; then
-    cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file" "${SRC}/usr/www/${OEMLINK}/$file" && echo2 "  copy from 3rd FW: $file"
-   fi    
    if [ -f "${DST}/usr/www/${OEML}/$file" ]; then
     cp -fdrp "${DST}/usr/www/${OEML}/$file" "${SRC}/usr/www/${OEMLINK}/$file" && echo2 "  copy from 2nd FW: $file"
    fi
+   if [ -f "${SRC_2}/usr/www/${OEML2}/$file" ]; then
+    cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file" "${SRC}/usr/www/${OEMLINK}/$file" && echo2 "  copy from 3rd FW: $file"
+   fi    
   done
  fi
  if ! `grep -q 'ar7cfg.dslglobalconfig.Annex' "${SRC}"/etc/init.d/rc.conf`; then
@@ -101,26 +101,27 @@ export ANNEX=`cat $CONFIG_ENVIRONMENT_PATH\/annex` \
 fi' "${SRC}"/etc/init.d/rc.conf
  fi
  sed -i -e 's/CONFIG_DSL_MULTI_ANNEX="n"/CONFIG_DSL_MULTI_ANNEX="y"/' "${SRC}"/etc/init.d/rc.conf
-fi
-
+ fi
 USRWWW="usr/www/${OEMLINK}/html/de"
 if [ "${CONFIG_MULTI_LANGUAGE}" = "y" ]; then
  sed -i -e 's/CONFIG_MULTI_LANGUAGE="n"/CONFIG_MULTI_LANGUAGE="y"/' "${SRC}"/etc/init.d/rc.conf
  echo "-- Adding mulilingual pages from source 2 or 3 ..."
  #copy language datbase
- LanguageList="de en it es fr" #de dont copy de as well
+ LanguageList="de en it es fr de"
  for DIR in $LanguageList; do
     if [ -d "${DST}/etc/default.${DEST_PRODUKT}"/${OEML}/$DIR ]; then
-     cp -fdrp "${DST}/etc/default.${DEST_PRODUKT}"/${OEML}/$DIR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  copy directory from 2nd FW: $DIR"
+     cp -fdrp "${DST}/etc/default.${DEST_PRODUKT}"/${OEML}/$DIR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  copy language directory from 2nd FW: $DIR"
     fi 
     if [ -d "${SRC_2}/etc/default.${SORCE_2_PRODUKT}"/${OEML2}/$DIR ]; then
-     cp -fdrp "${SRC_2}/etc/default.${SORCE_2_PRODUKT}"/${OEML2}/$DIR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  copy directory from 3nd FW: $DIR"
+     cp -fdrp "${SRC_2}/etc/default.${SORCE_2_PRODUKT}"/${OEML2}/$DIR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  copy language directory from 3nd FW: $DIR"
     fi 
  done
- LanguageList="en it es fr" #de dont copy de as well
- for DIR in $LanguageList; do
-    [ -f "${DST}"/etc/htmltext_$DIR.db ] && cp -fdrp "${DST}"/etc/htmltext_$DIR.db --target-directory="${SRC}"/etc && echo2 "  copy: database $DIR"
-    [ -f "${SRC_2}"/etc/htmltext_$DIR.db ] && cp -fdrp "${SRC_2}"/etc/htmltext_$DIR.db --target-directory="${SRC}"/etc && echo2 "  copy: database $DIR"
+ LanguageList="en it es fr de"
+ for lang in $LanguageList; do
+    if ! [ -f "${SRC}"/etc/htmltext_$lang.db ];then
+     cp -fdrp "${DST}"/etc/htmltext_$lang.db --target-directory="${SRC}"/etc && echo2 "  copy: use T-Home firmware database $lang"
+     cp -fdrp "${SRC_2}"/etc/htmltext_$lang.db --target-directory="${SRC}"/etc && echo2 "  copy: use 2nd AVM firmware database $lang"
+    fi
  done
 fi
 if [ "${FORCE_LANGUAGE}" != "de" ]; then

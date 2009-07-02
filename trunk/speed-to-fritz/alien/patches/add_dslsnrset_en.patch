@@ -1,38 +1,28 @@
---- usr/www/avm/html/de/internet/dslsnrset.frm	2009-02-19 09:57:20.000000000 -0500
-+++ usr/www/avm/html/de/internet/dslsnrset.frm	2009-01-22 10:31:44.000000000 -0500
-@@ -0,0 +1,6 @@
-+<input type="hidden" name="sar:settings/ControlBitfield" value="<? query sar:settings/ControlBitfield ?>" id="uiPostControlBitfield">
-+<input type="hidden" name="sar:settings/DownstreamMarginOffset" value="<? query sar:settings/DownstreamMarginOffset ?>" id="iPostDownstreamMarginOffset">
-+<? if eq $var:isMultiAnnex 1 `
-+<Input type="hidden" name="sar:settings/Annex" value="<? query sar:settings/Annex ?>" id="uiPostAnnex" disabled>
-+<Input type="hidden" name="sar:settings/DSLMode" value="<? query sar:settings/DSLMode ?>" id="uiPostDSLMode" disabled>
-+` ?>
---- usr/www/avm/html/de/internet/dslsnrset.html	2009-02-19 09:57:18.000000000 -0500
-+++ usr/www/avm/html/de/internet/dslsnrset.html	2009-01-22 10:31:54.000000000 -0500
-@@ -0,0 +1,83 @@
-+﻿<div id="content">
+--- usr/www/avme/html/de/internet/dslsnrset.html	2009-02-19 09:57:18.000000000 -0500
++++ usr/www/avme/html/de/internet/dslsnrset.html	2009-01-22 10:31:54.000000000 -0500
+@@ -0,0 +1,68 @@
++<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
-+{?de.internet.dslsnrset.html:5SNRPage?}
++DSL-Informationen
 +</div></div></div></div></div></div>
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
 +<ul class="tabs">
-+<li><a href="javascript:uiDoOverviewPage()">{?de.internet.dslsnrset.html:10?}</a></li>
-+<li><a href="javascript:uiDoADSLPage()">{?de.internet.dslsnrset.html:15?}</a></li>
-+<li><a href="javascript:uiDoBitsPage()">{?de.internet.dslsnrset.html:20?}</a></li>
-+<li><a href="javascript:uiDoATMPage()">
-+{?de.internet.dslsnrset.html:4183?}
-+</a></li>
-+<li class="tabs_on"><div class="activtab">{?de.internet.dslsnrset.html:35SNRPage?}</div></li>
++<li><a href="javascript:uiDoOverviewPage()">Overview</a></li>
++<li><a href="javascript:uiDoADSLPage()">DSL</a></li>
++<li><a href="javascript:uiDoBitsPage()">Spectrum</a></li>
++<li><a href="javascript:uiDoATMPage()">Statistic</a></li>
++<li class="tabs_on"><div class="activtab">Settings</div></li>
++<li><a href="javascript:uiDoFeedbackPage()">Feedback</a></li>
 +</ul>
 +<? if neq $var:Annex A `
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
-+<p class="mb10">{?de.internet.dslsnrset.html:40?}</p>
++<p class="mb10">Trough this setting you can inhance the stability of your DSL connection.</p>
 +<div class="SlideDiv">
 +<table class="SNRSetTable">
 +<tr>
-+<td style="padding-left:0px;" class="SNR_td_tadio_text" colspan="1">{?de.internet.dslsnrset.html:45?}</td>
++<td style="padding-left:0px;" class="SNR_td_tadio_text" colspan="1">Max. Stability</td>
 +<td style="width:220px;" colspan="8">&nbsp;</td>
-+<td class="SNR_td_tadio_text" colspan="1">{?de.internet.dslsnrset.html:50?}</td>
++<td class="SNR_td_tadio_text" colspan="1">Max. Performance</td>
 +</tr>
 +</table>
 +<table class="SNRSetTable" style="margin-left:20px;">
@@ -50,53 +40,39 @@
 +</table>
 +</div>
 +<p class="mb10">
-+{?de.internet.dslsnrset.html:3442?}<br>
-+{?de.internet.dslsnrset.html:60?}
++At normal condition the Paramerters to set up the connecion between assespoint and router will be set automaticaly. If some certais tuble oure in case of high traffic or thoght radiation of other equiptment within the house, this cant be done well, so in such circumstances you ma set a diffent level of stability to more stabli or less stabile.<br>
++This settings do not work in some cases becaus the accsespoint mut be abel to anderstand this options. If you dont see any effect put the settings to max Performance again.
 +</p>
 +</div></div></div></div></div></div>
 +` ?>
 +<? if eq $var:isMultiAnnex 1 `
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
 +<div>
-+<p class="mb10">{?de.internet.dslsnrset.html:3985?}</p>
-+<p class="mb10">
-+<input id="uiViewDSLModeAuto" type="radio" name="DSLMode" onclick="uiSetDSLMode(0)" />
-+<label for="uiViewDSLModeAuto">{?de.internet.dslsnrset.html:3007?}</label><br>
-+<input id="uiViewDSLModeVDSLOnly" type="radio" name="DSLMode" onclick="uiSetDSLMode(1)" />
-+<label for="uiViewDSLModeVDSLOnly">{?de.internet.dslsnrset.html:1600?}</label>
-+</p>
-+<p class="mt10 mb10"><b>{?de.internet.dslsnrset.html:6539?}</b>&nbsp;{?de.internet.dslsnrset.html:3212?}</p>
-+</div>
-+</div></div></div></div></div></div>
-+` ?>
-+<? if eq $var:isMultiAnnex 1 `
-+<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
-+<div>
-+<p class="mb10" id="uiAnnexHead">{?de.internet.dslsnrset.html:4511?}</p>
++<p class="mb10" id="uiAnnexHead">Annex-Settings</p>
 +<p class="mb10">
 +<input id="uiViewAnnexA" type="radio" name="Annex" onclick="uiSetAnnex(0)" />
-+<label for="uiViewAnnexA" id="uiViewAnnexALabel">{?de.internet.dslsnrset.html:2791?}</label><br>
++<label for="uiViewAnnexA" id="uiViewAnnexALabel">Annex A</label><br>
 +<input id="uiViewAnnexB" type="radio" name="Annex" onclick="uiSetAnnex(1)" />
-+<label for="uiViewAnnexB" id="uiViewAnnexBLabel">{?de.internet.dslsnrset.html:9326?}</label>
++<label for="uiViewAnnexB" id="uiViewAnnexBLabel">Annex B</label>
 +</p>
-+<p>{?de.internet.dslsnrset.html:6245?}</p>
-+<p class="mt10 mb10"><b>{?de.internet.dslsnrset.html:4965?}</b>&nbsp;{?de.internet.dslsnrset.html:9339?}</p>
++<p>Enter the DSL Option you need (Annex) depending on the data you got from your provider.</p>  
++<p class="mt10 mb10"><b>Atantion!</b>&nbsp;Wrong setting lead to the fact that the internet connecition will not be established. After entering the new settings the router will be rebooting so the changes will be put to action.</p>
 +</div>
 +</div></div></div></div></div></div>
 +` ?>
 +<div class="backdialog" id="uiApplyCancelButtons"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="forebuttons">
-+<input type="button" onclick="uiDoSave()" value="{?txtApply?}" class="Pushbutton" id="buttonSave">
-+<input type="button" onclick="uiDoCancel()" value="{?txtCancel?}" class="Pushbutton" id="buttonCancel">
++<input type="button" onclick="uiDoSave()" value="Save" class="Pushbutton" id="buttonSave">
++<input type="button" onclick="uiDoCancel()" value="Cancel" class="Pushbutton" id="buttonCancel">
 +<? if eq $var:isMultiAnnex 1 `
-+<input type="button" onclick="uiDoHelp()" value="{?txtHelp?}" class="Pushbutton" id="buttonHilfe">
++<input type="button" onclick="uiDoHelp()" value="Help" class="Pushbutton" id="buttonHilfe">
 +` ?>
 +</div></div></div></div></div></div>
 +</div></div></div></div></div></div></div>
 +</div>
---- usr/www/avm/html/de/internet/dslsnrset.js	2009-02-19 09:57:20.000000000 -0500
-+++ usr/www/avm/html/de/internet/dslsnrset.js	2009-01-22 10:31:44.000000000 -0500
-@@ -0,0 +1,194 @@
-+﻿<!-- ../internet/dslsnrset.js -->
+--- usr/www/avme/html/de/internet/dslsnrset.js	2009-02-19 09:57:14.000000000 -0500
++++ usr/www/avme/html/de/internet/dslsnrset.js	2009-01-22 10:31:47.000000000 -0500
+@@ -0,0 +1,142 @@
++<!-- ../internet/dslsnrset.js -->
 +<STYLE type = "text/css">
 +<!--
 +.SlideDiv{position:relative;top:0px;left:0px;width: 680px; height: 50px;}
@@ -140,22 +116,17 @@
 +var g_mode=0;
 +var g_oem = "<? query env:status/OEM ?>";
 +<? if eq $var:isMultiAnnex 1 `
-+var g_mldChangeAnnex = "{?de.internet.dslsnrset.js:8335?}";
-+var g_mldChangeOver = "{?de.internet.dslsnrset.js:5311?}";
++var g_mldChangeAnnex = "You did change the DSL wire configuration. A worong setting will lead to a loss off connection. Rooboot is neede that the changes can be but to cation, shold tha tbe done?";
++var g_mldChangeOver = "This box will do a reboot. This takes about one minute, pleas be patient. 
++then klick 'Back to Overvew'. ";
 +g_mldChangeAnnexQuestion=g_mldChangeAnnex;
 +` ?>
-+<? if eq $var:isMultiAnnex 1 `
-+var g_mldChangeDSLMode= "{?de.internet.dslsnrset.js:1460?}";
-+` ?>
 +function uiDoOnLoad() {
-+document.title = "<? print `$var:BoxName` ?>" + " " + "{?de.internet.dslsnrset.js:5SNRPage?}";
++document.title ="Settings";
 +InitMode();
 +jslSetChecked("uiViewDefaultSNR"+g_mode, true);
 +<? if eq $var:isMultiAnnex 1 `
 +InitAnnex();
-+` ?>
-+<? if eq $var:isMultiAnnex 1 `
-+InitDSLMode();
 +` ?>
 +}
 +<? if eq $var:isMultiAnnex 1 `
@@ -173,39 +144,10 @@
 +jslSetChecked("uiViewAnnexB", n==1);
 +}
 +` ?>
-+<? if eq $var:isMultiAnnex 1 `
-+function InitDSLMode()
-+{
-+dslmode = jslGetValue("uiPostDSLMode");
-+if (dslmode=="0")
-+uiSetDSLMode(0);
-+else if (dslmode=="1")
-+uiSetDSLMode(1);
-+}
-+function uiSetDSLMode(n)
-+{
-+jslSetChecked("uiViewDSLModeAuto", n==0);
-+jslSetChecked("uiViewDSLModeVDSLOnly", n==1);
-+<? if eq $var:isMultiAnnex 1 `
-+if(n==0){
-+g_mldChangeAnnexQuestion=g_mldChangeAnnex;
-+jslSetSpanText('uiViewAnnexALabel','{?de.internet.dslsnrset.js:4120?}');
-+jslSetSpanText('uiViewAnnexBLabel','{?de.internet.dslsnrset.js:7359?}');
-+jslSetSpanText('uiAnnexHead','{?de.internet.dslsnrset.js:2588?}');
-+}else if(n==1){
-+g_mldChangeAnnexQuestion=g_mldChangeOver;
-+jslSetSpanText('uiViewAnnexALabel','{?de.internet.dslsnrset.js:7197?}');
-+jslSetSpanText('uiViewAnnexBLabel','{?de.internet.dslsnrset.js:8710?}');
-+jslSetSpanText('uiAnnexHead','{?de.internet.dslsnrset.js:8759?}');
-+}else{
-+}
-+` ?>
-+}
-+` ?>
 +function InitMode(){
 +var ctlbits = jslGetValue("uiPostControlBitfield");
 +if(ctlbits & 4){
-+snrmargin=(jslGetValue("iPostDownstreamMarginOffset")/10).toString(10);
++snrmargin=(jslGetValue("iPostDownstreamMarginOffset"0).toString(10);
 +switch(snrmargin){
 +case "0":g_mode=0;break;
 +case "1":g_mode=1;break;
@@ -246,22 +188,6 @@
 +}
 +}
 +` ?>
-+bDSLModeConfirm=false;
-+dlsmode = jslGetValue("uiPostDSLMode");
-+if (jslGetChecked("uiViewDSLModeAuto") && dlsmode!="0") {
-+if (confirm(g_mldChangeDSLMode)) {
-+jslSetValue("uiPostDSLMode", "0");
-+jslEnable("uiPostDSLMode");
-+bDSLModeConfirm=true;
-+}
-+}
-+if (jslGetChecked("uiViewDSLModeVDSLOnly") && dlsmode!="1") {
-+if (confirm(g_mldChangeDSLMode)) {
-+jslSetValue("uiPostDSLMode", "1");
-+jslEnable("uiPostDSLMode");
-+bDSLModeConfirm=true;
-+}
-+}
 +jslSetValue("iPostDownstreamMarginOffset", g_mode * 10);
 +var ctlbits = jslGetValue("uiPostControlBitfield");
 +ctlbits &= ~6;
@@ -273,10 +199,8 @@
 +if (
 +<? if eq $var:isMultiAnnex 1 `
 +bAnnexConfirm
-+|| bDSLModeConfirm
 +` `
 +0
-+|| bDSLModeConfirm
 +` ?>
 +){
 +jslSetValue("uiPostGetPage", "../html/reboot.html");
@@ -290,43 +214,49 @@
 +jslGoTo("internet", "dslsnrset");
 +}
 +</script>
-
---- usr/www/avm/html/de/first/basic_first_Annex.frm	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/first/basic_first_Annex.frm	2009-01-22 10:31:50.000000000 -0500
+--- usr/www/avme/html/de/internet/dslsnrset.frm	2009-02-19 09:57:20.000000000 -0500
++++ usr/www/avme/html/de/internet/dslsnrset.frm	2009-01-22 10:31:44.000000000 -0500
+@@ -0,0 +1,4 @@
++<input type="hidden" name="sar:settings/ControlBitfield" value="<? query sar:settings/ControlBitfield ?>" id="uiPostControlBitfield">
++<input type="hidden" name="sar:settings/DownstreamMarginOffset" value="<? query sar:settings/DownstreamMarginOffset ?>" id="iPostDownstreamMarginOffset">
++<Input type="hidden" name="sar:settings/Annex" value="<? query sar:settings/Annex ?>" id="uiPostAnnex" disabled>
++<Input type="hidden" name="sar:settings/DSLMode" value="<? query sar:settings/DSLMode ?>" id="uiPostDSLMode" disabled>
+--- usr/www/avme/html/de/first/basic_first_Annex.frm	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/first/basic_first_Annex.frm	2009-01-22 10:31:50.000000000 -0500
 @@ -0,0 +1 @@
 +<? include ../html/de/first/basic_first.frm ?>
---- usr/www/avm/html/de/first/basic_first_Annex.html	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/first/basic_first_Annex.html	2009-01-22 10:31:55.000000000 -0500
+--- usr/www/avme/html/de/first/basic_first_Annex.html	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/first/basic_first_Annex.html	2009-01-22 10:31:55.000000000 -0500
 @@ -0,0 +1,20 @@
-+﻿
 +<div id="content">
 +<div class="backtitelkonfig"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
-+{?de.first.basic_first_Annex.html:6751?}
++Annex-Einstellungen
 +</div></div></div></div></div></div>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
-+<p>{?de.first.basic_first_Annex.html:1094?}</p>
++<p>Enter the DSL Option you need (Annex) depending on the data you got from your provider.</p>  
++<p class="mt10 mb10"><b>Atantion!</b>&nbsp;Wrong setting lead to the fact that the internet connecition will not be established. After entering the new settings the router will be rebooting so the changes will be put to action.</p>
 +<p class="mb10 mt10" id="uiViewAnnex">
 +<input id="uiViewAnnexA" type="radio" name="Annex" onclick="SelectAnnex('A')" />
-+<label for="uiViewAnnexA">{?de.first.basic_first_Annex.html:4218?}</label><br>
++<label for="uiViewAnnexA">Annex A</label><br>
 +<input id="uiViewAnnexB" type="radio" name="Annex" onclick="SelectAnnex('B')" />
-+<label for="uiViewAnnexB">{?de.first.basic_first_Annex.html:7387?}</label>
++<label for="uiViewAnnexB">Annex B</label>
 +</p>
 +</div></div></div></div></div></div>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="forebuttons">
-+<input type="button" onclick="uiDoBack()" value="{?de.first.basic_first_Annex.html:9181?}" class="Pushbutton" style="display:none;" id="uiBackButtonDiv">&nbsp;&nbsp;
-+<input type="button" onclick="uiDoOk()" value="{?de.first.basic_first_Annex.html:2383?}" class="Pushbuttonfett " id="uiBtnOK">
-+<input type="button" onclick="uiDoHelp()" value="{?txtHelp?}" class="Pushbutton" id="buttonHilfe">
++<input type="button" onclick="uiDoBack()" value="Back" class="Pushbutton" style="display:none;" id="uiBackButtonDiv">&nbsp;&nbsp;
++<input type="button" onclick="uiDoOk()" value="Ok" class="Pushbuttonfett " id="uiBtnOK">
++<input type="button" onclick="uiDoHelp()" value="Help" class="Pushbutton" id="buttonHilfe">
 +</div></div></div></div></div></div>
 +</div>
---- usr/www/avm/html/de/first/basic_first_Annex.js	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/first/basic_first_Annex.js	2009-01-22 10:31:49.000000000 -0500
+--- usr/www/avme/html/de/first/basic_first_Annex.js	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/first/basic_first_Annex.js	2009-01-22 10:31:49.000000000 -0500
 @@ -0,0 +1,32 @@
 +<!-- ../first/basic_first_Annex.js -->
 +<script type="text/javascript">
 +<? include ../html/de/js/jsl.js ?>
 +<? include ../html/de/first/basic_first.js ?>
 +function uiDoOnLoad() {
-+document.title = "<? print `$var:BoxName` ?>" + " " + "{?de.first.basic_first_Annex.js:1844?}";
++document.title = "<? print `$var:BoxName` ?>" + " " + "ANNEX ?? ";
 +if(jslGetValue('uiNeedCountrySetting')=="1")
 +jslDisplay('uiBackButtonDiv',true);
 +if(jslGetValue('uiAnnexSetting')!="")
@@ -353,8 +283,8 @@
 +jslPopHelp("hilfe_internet_dslsnrset");
 +}
 +</script>
---- usr/www/avm/html/de/internet/vdsl_profile.html	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/internet/vdsl_profile.html	2009-01-22 10:31:50.000000000 -0500
+--- usr/www/avme/html/de/internet/vdsl_profile.html	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/internet/vdsl_profile.html	2009-01-22 10:31:50.000000000 -0500
 @@ -0,0 +1,65 @@
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -362,18 +292,18 @@
 +</div></div></div></div></div></div>
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
 +<ul class="tabs">
-+<li><a href="javascript:uiDoOverviewPage()">{?de.internet.vdsl_profile.html:10Overview?}</a></li>
-+<li><a href="javascript:uiDoADSLPage()">{?de.internet.vdsl_profile.html:15DSL?}</a></li>
-+<li><a href="javascript:uiDoBitsPage()">{?de.internet.vdsl_profile.html:20Spektrum?}</a></li>
-+<li class="tabs_on"><div class="activtab">{?de.internet.vdsl_profile.html:25VdslProf?}</div></li>
++<li><a href="javascript:uiDoOverviewPage()">Overview</a></li>
++<li><a href="javascript:uiDoADSLPage()">DSL</a></li>
++<li><a href="javascript:uiDoBitsPage()">Spectrum</a></li>
++<li class="tabs_on"><div class="activtab">VdslProf</div></li>
 +<? if eq $var:isMultiAnnex 1 `
 +<? if eq '<? query box:settings/expertmode/activated ?>' '1' `
-+<li><a href="javascript:uiDoSNRPage()">{?de.internet.vdsl_profile.html:30SNRPage?}</a></li>
++<li><a href="javascript:uiDoSNRPage()">Settings</a></li>
 +` ?>
 +` `
 +<? if neq $var:Annex A `
 +<? if eq '<? query box:settings/expertmode/activated ?>' '1' `
-+<li><a href="javascript:uiDoSNRPage()">{?de.internet.vdsl_profile.html:7783?}</a></li>
++<li><a href="javascript:uiDoSNRPage()">Settings</a></li>
 +` ?>
 +` ?>
 +` ?>
@@ -388,16 +318,16 @@
 +<input type="hidden" name="var:menu" value="internet" />
 +{?de.internet.vdsl_profile.html:35Prof?}
 +<select name="vdsl:settings/vdsl_profile" id="vdsl_profile_box">
-+<option value="0">{?de.internet.vdsl_profile.html:40annex17a?}</option>
-+<option value="1">{?de.internet.vdsl_profile.html:45annex8a?}</option>
-+<option value="2">{?de.internet.vdsl_profile.html:50annex8b?}</option>
-+<option value="3">{?de.internet.vdsl_profile.html:55annex8d?}</option>
-+<option value="4">{?de.internet.vdsl_profile.html:60annex12a?}</option>
-+<option value="5">{?de.internet.vdsl_profile.html:65annex12b?}</option>
-+<option value="6">{?de.internet.vdsl_profile.html:70annex17b?}</option>
-+<option value="7">{?de.internet.vdsl_profile.html:75annex30a?}</option>
++<option value="0">annex17a</option>
++<option value="1">annex8a</option>
++<option value="2">annex8b</option>
++<option value="3">annex8d</option>
++<option value="4">annex12a</option>
++<option value="5">annex12b</option>
++<option value="6">annex17b</option>
++<option value="7">annex30a</option>
 +</select>
-+<input type="submit" value="{?de.internet.vdsl_profile.html:4153?}" />
++<input type="submit" value="Uebernehmen" />
 +</p>
 +</form>
 +<br>
@@ -410,19 +340,19 @@
 +<input type="hidden" name="var:menu" value="internet" />
 +{?de.internet.vdsl_profile.html:85Filter?}
 +<select name="vdsl:settings/vdsl_filter" id="vdsl_filter_box">
-+<option value="0">{?de.internet.vdsl_profile.html:90FilterOff?}</option>
-+<option value="1">{?de.internet.vdsl_profile.html:95ISNDFilter?}</option>
-+<option value="2">{?de.internet.vdsl_profile.html:100POTSFilter?}</option>
++<option value="0">Filter Off</option>
++<option value="1">ISND Filter</option>
++<option value="2">POTS Filter</option>
 +</select>
-+<input type="submit" value="{?de.internet.vdsl_profile.html:105Send?}" />
++<input type="submit" value="Uebernehmen" />
 +</p>
 +</form>
 +</div></div></div></div></div></div>
 +<? include ../html/de/home/rbb_refresh.html ?>
 +</div></div></div></div></div></div></div>
 +</div>
---- usr/www/avm/html/de/internet/vdsl_profile.js	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/internet/vdsl_profile.js	2009-01-22 10:31:49.000000000 -0500
+--- usr/www/avme/html/de/internet/vdsl_profile.js	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/internet/vdsl_profile.js	2009-01-22 10:31:49.000000000 -0500
 @@ -0,0 +1,27 @@
 +<!-- ../internet/vdsl_profile.js -->
 +<style type="text/css">
@@ -440,7 +370,7 @@
 +if (obj) obj.selectedIndex = index;
 +}
 +function uiDoOnLoad() {
-+document.title = "<? print `$var:BoxName` ?>" + " " + "{?de.internet.vdsl_profile.js:5DSLInfo?}";
++document.title = "<? print `$var:BoxName` ?>" + " " + "DSL Info";
 +Select('vdsl_profile_box',"<? query vdsl:settings/vdsl_profile ?>");
 +Select('vdsl_filter_box',"<? query vdsl:settings/vdsl_filter ?>");
 +}
