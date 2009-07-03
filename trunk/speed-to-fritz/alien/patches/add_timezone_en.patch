@@ -1,12 +1,12 @@
---- usr/www/avm/html/de/system/timeZone.frm	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/system/timeZone.frm	2009-01-22 10:31:46.000000000 -0500
+--- usr/www/avme/html/de/system/timeZone.frm	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/system/timeZone.frm	2009-01-22 10:31:46.000000000 -0500
 @@ -0,0 +1,4 @@
 +<input type="hidden" name="time:settings/tz_enabled" value="<? query time:settings/tz_enabled ?>" id="uiPostTZ_Enabled" disabled>
 +<input type="hidden" name="time:settings/tz_offset" value="<? query time:settings/tz_offset ?>" id="uiPostTZ_Offset" disabled>
 +<input type="hidden" name="time:settings/tz_offset_minutes" value="<? query time:settings/tz_offset_minutes ?>" id="uiPostTZ_Offset_Minutes" disabled>
 +<input type="hidden" name="time:settings/tz_dst_enabled" value="<? query time:settings/tz_dst_enabled ?>" id="uiPostTZ_DstEnabled" disabled>
---- usr/www/avm/html/de/system/timeZone.html	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/system/timeZone.html	2009-01-22 10:31:57.000000000 -0500
+--- usr/www/avme/html/de/system/timeZone.html	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/system/timeZone.html	2009-01-22 10:31:57.000000000 -0500
 @@ -0,0 +1,52 @@
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -18,50 +18,50 @@
 +<div class="ml25">
 +<p class="mt10">{?de.system.timeZone.html:20LocalZoneToGMT?}&nbsp;
 +<select id="uiViewTZ_GMT_Offset" name="View_TZ_Offset" class="Eingabefeld">
-+<option value=" ">{?de.system.timeZone.html:25Space?}</option>
-+<option value="720" >{?de.system.timeZone.html:30GMTMinus12?}</option>
-+<option value="660" >{?de.system.timeZone.html:35GMTMinus11?}</option>
-+<option value="600" >{?de.system.timeZone.html:40GMTMinus10?}</option>
-+<option value="540" >{?de.system.timeZone.html:45GMTMinus9?}</option>
-+<option value="480" >{?de.system.timeZone.html:50GMTMinus8?}</option>
-+<option value="420" >{?de.system.timeZone.html:55GMTMinus7?}</option>
-+<option value="360" >{?de.system.timeZone.html:60GMTMinus6?}</option>
-+<option value="300" >{?de.system.timeZone.html:65GMTMinus5?}</option>
-+<option value="240" >{?de.system.timeZone.html:70GMTMinus4?}</option>
-+<option value="180" >{?de.system.timeZone.html:75GMTMinus3?}</option>
-+<option value="120" >{?de.system.timeZone.html:80GMTMinus2?}</option>
-+<option value="60" >{?de.system.timeZone.html:85GMTMinus1?}</option>
-+<option value="0" >{?de.system.timeZone.html:90GMT?}</option>
-+<option value="-60" >{?de.system.timeZone.html:95GMTPlus1?}</option>
-+<option value="-120">{?de.system.timeZone.html:100GMTPlus2?}</option>
-+<option value="-180">{?de.system.timeZone.html:105GMTPlus3?}</option>
-+<option value="-210">{?de.system.timeZone.html:9426?}</option>
-+<option value="-240">{?de.system.timeZone.html:110GMTPlus4?}</option>
-+<option value="-270">{?de.system.timeZone.html:5022?}</option>
-+<option value="-300">{?de.system.timeZone.html:115GMTPlus5?}</option>
-+<option value="-330">{?de.system.timeZone.html:355?}</option>
-+<option value="-360">{?de.system.timeZone.html:120GMTPlus6?}</option>
-+<option value="-390">{?de.system.timeZone.html:2819?}</option>
-+<option value="-420">{?de.system.timeZone.html:125GMTPlus7?}</option>
-+<option value="-480">{?de.system.timeZone.html:130GMTPlus9?}</option>
-+<option value="-525">{?de.system.timeZone.html:9628?}</option>
-+<option value="-540">{?de.system.timeZone.html:135GMTPlus9?}</option>
-+<option value="-600">{?de.system.timeZone.html:140GMTPlus10?}</option>
-+<option value="-630">{?de.system.timeZone.html:6549?}</option>
-+<option value="-660">{?de.system.timeZone.html:145GMTPlus11?}</option>
-+<option value="-690">{?de.system.timeZone.html:2495?}</option>
-+<option value="-720">{?de.system.timeZone.html:150GMTPlus12?}</option>
-+<option value="-765">{?de.system.timeZone.html:6497?}</option>
++<option value=" ">  </option>
++<option value="720" >GMT Minus 12</option>
++<option value="660" >GMT Minus 11</option>
++<option value="600" >GMT Minus 10</option>
++<option value="540" >GMT Minus 9</option>
++<option value="480" >GMT Minus 8</option>
++<option value="420" >GMT Minus 7</option>
++<option value="360" >GMT Minus 6</option>
++<option value="300" >GMT Minus 5</option>
++<option value="240" >GMT Minus 4</option>
++<option value="210" >GMT Minus 4,5</option>
++<option value="180" >GMT Minus 3</option>
++<option value="120" >GMT Minus 2</option>
++<option value="60" >GMT Minus 1</option>
++<option value="0" >GMT        </option>
++<option value="-60" >GMT Plus 1</option>
++<option value="-120">GMT Plus 2</option>
++<option value="-180">GMT Plus 3</option>
++<option value="-210">GMT Plus 3,5</option>
++<option value="-240">GMT Plus 4</option>
++<option value="-270">GMT Plus 4,5</option>
++<option value="-300">GMT Plus 5</option>
++<option value="-330">GMT Plus 5,5</option>
++<option value="-360">GMT Plus 6</option>
++<option value="-390">GMT Plus 6,5</option>
++<option value="-420">GMT Plus 7</option>
++<option value="-480">GMT Plus 9</option>
++<option value="-525">GMT Plus 9:45</option>
++<option value="-540">GMT Plus 9</option>
++<option value="-600">GMT Plus 10</option>
++<option value="-630">GMT Plus 10,5</option>
++<option value="-660">GMT Plus 11</option>
++<option value="-690">GMT Plus 11,5</option>
++<option value="-720">GMT Plus 12</option>
++<option value="-765">GMT Plus 12:45</option>
 +</select></p>
 +<p class="mb10"><input type="checkbox" id="uiViewTZ_Dst_Enabled" name="uiViewClickToTZ_DstEnabled" onclick="OnClickTo_DstEnabled()">&nbsp;<label for="uiViewTZ_Dst_Enabled">{?de.system.timeZone.html:155SavingTime?}</label></p>
 +</div>
 +<p class="mt10 mt10"><b>{?de.system.timeZone.html:160Achtung?}</b>&nbsp;{?de.system.timeZone.html:165Restart?}</p>
 +</div></div></div></div></div></div>
 +<? include ../html/de/home/rbb_applycancel.html ?>
-+</div></div></div></div></div></div></div>
-+</div>
---- usr/www/avm/html/de/system/timeZone.js	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/system/timeZone.js	2009-01-22 10:31:50.000000000 -0500
++</div></div></div></div></div></div></div></div>
+--- usr/www/avme/html/de/system/timeZone.js	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avme/html/de/system/timeZone.js	2009-01-22 10:31:50.000000000 -0500
 @@ -0,0 +1,58 @@
 +<!-- ../system/timeZome.js -->
 +<style type="text/css">
