@@ -42,15 +42,14 @@ fi
  fi
 fi
 FILELIST="/html/de/internet/vdsl_profile.js \
-/html/de/help/hilfe_internet_dslsnrset.html \
 /html/de/internet/vdsl_profile.html \
 /html/de/internet/vdsl_profile.frm \
 /html/de/internet/dslsnrset.frm \
 /html/de/internet/dslsnrset.html \
-/html/de/internet/dslsnrset.js \
 /html/de/first/basic_first_Annex.js \
 /html/de/first/basic_first_Annex.frm \
 /html/de/first/basic_first_Annex.html"
+#/html/de/help/hilfe_internet_dslsnrset.html \
  #show settings tub
  #-----------------------------------------------------------------
   for FILE in adsl.html atm.html bits.html overview.html; do
@@ -77,6 +76,7 @@ if [ "${CONFIG_DSL_MULTI_ANNEX}" = "y" ]; then
 /html/de/system/timeZone.html"
   OEML="avm" && [ -d "${DST}"/usr/www/avme ] && OEML="avme"
   OEML2="avm" && [ -d "${SRC_2}"/usr/www/avme ] && OEML2="avme"
+  
   for file in $FILELIST; do
    if [ -f "${DST}/usr/www/${OEML}/$file" ]; then
     cp -fdrp "${DST}/usr/www/${OEML}/$file" "${SRC}/usr/www/${OEMLINK}/$file" && echo2 "  copy from 2nd FW: $file"
@@ -100,8 +100,93 @@ else\
 export ANNEX=`cat $CONFIG_ENVIRONMENT_PATH\/annex` \
 fi' "${SRC}"/etc/init.d/rc.conf
  fi
- sed -i -e 's/CONFIG_DSL_MULTI_ANNEX="n"/CONFIG_DSL_MULTI_ANNEX="y"/' "${SRC}"/etc/init.d/rc.conf
+ # for savety in some Firmwares needed
+  sed -i -e 's/export CONFIG_ANNEX="A"/export CONFIG_ANNEX="B"/' "${SRC}"/etc/init.d/rc.conf
+  sed -i -e 's/CONFIG_DSL_MULTI_ANNEX="n"/CONFIG_DSL_MULTI_ANNEX="y"/' "${SRC}"/etc/init.d/rc.conf
+  if ! `grep -q 'export CONFIG_DSL_MULTI_ANNEX' "${SRC}"/etc/init.d/rc.conf`; then
+      sed -i -e '/export CONFIG_ANNEX="B"/a\
+export CONFIG_DSL_MULTI_ANNEX="y"' "${SRC}"/etc/init.d/rc.conf
+  fi
+  if ! `grep -q 'var.isMultiAnnex' "${SRC}"/etc/init.d/rc.S`; then
+      sed -i -e '/setvariable var:FirmwareVersion/a\
+isMultiAnnex=1\
+echo "<? setvariable var:isMultiAnnex  XcommaX$isMultiAnnexXcommaX  ?>" >>${CONFIG_DEF}' "${SRC}"/etc/init.d/rc.S
+  sed -i -e "s/XcommaX/'/g" "${SRC}"/etc/init.d/rc.S
+  fi
+  # do it this way so it also works with 7170 firmwares
+  if ! `grep -q 'MultiAnnex' "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"`; then
+  sed -i -e '/function uiDoSave/a\
+bAnnexConfirm=false;\
+annex = jslGetValue("uiPostAnnex");\
+if (jslGetChecked("uiViewAnnexA") && annex!="A") {\
+if (confirm(g_mldChangeAnnexQuestion)) {\
+jslSetValue("uiPostAnnex", "A");\
+jslEnable("uiPostAnnex");\
+bAnnexConfirm=true;\
+}\
+}\
+if (jslGetChecked("uiViewAnnexB") && annex!="B") {\
+if (confirm(g_mldChangeAnnexQuestion)) {\
+jslSetValue("uiPostAnnex", "B");\
+jslEnable("uiPostAnnex");\
+bAnnexConfirm=true;\
+}\
+}\
+function uiDoHelp() {\
+jslPopHelp("hilfe_internet_dslsnrset");\
+}'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
+
+  sed -i -e "/jslFormSubmitEx..internet., .dslsnrset..;/d"  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
+  sed -i -e '/jslSetValue..uiPostControlBitfield.. ctlbits/a\
+if (\
+bAnnexConfirm\
+){\
+jslSetValue("uiPostGetPage", "../html/reboot.html");\
+document.getElementById("uiPostForm").submit();\
+}\
+else {\
+jslFormSubmitEx("internet", "dslsnrset");\
+}'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
+  sed -i -e '/function uiDoOnLoad/a\
+InitAnnex();'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
+  sed -i -e '/function InitMode/i\
+var g_oem = "<? query env:status/OEM ?>";\
+var g_mldChangeAnnex = "Change Annex";\
+var g_mldChangeOver = "Annex Changed";\
+g_mldChangeAnnexQuestion=g_mldChangeAnnex;\
+function InitAnnex()\
+{\
+annex = jslGetValue("uiPostAnnex");\
+if (annex=="A")\
+uiSetAnnex(0);\
+else if (annex=="B")\
+uiSetAnnex(1);\
+}\
+function uiSetAnnex(n)\
+{\
+jslSetChecked("uiViewAnnexA", n==0);\
+jslSetChecked("uiViewAnnexB", n==1);\
+}'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
  fi
+ if [ "$avm_Lang" = "de" ]; then
+  sed -i -e 's/Change Annex/Sie haben die ADSL-Leitungskonfiguration geändert. Eine falsche Einstellung kann dazu führen, dass keine DSL-Verbindung mehr zustande kommt. Damit die Änderung wirksam wird muss die Box neugestartet werden. Sind Sie sicher, dass die Änderung vorgenommen werden soll?/' "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
+ else
+  sed -i -e 's/Change Annex/You did change the DSL wire configuration. A worong setting will lead to a loss off connection. Reboot is neede that the changes can be but to ation, shold that be done?/'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
+ fi
+ Unicode_ut8="n"
+ `cat "${SRC}"/usr/www/${OEMLINK}/html/index.html | grep -q 'charset=utf-8' ` && Unicode_ut8="y" 
+FILELIST="/html/de/internet/dslsnrset.html \
+/html/de/first/basic_first_Annex.html \
+/html/de/internet/dslsnrset.js"
+  for file in $FILELIST; do
+    filename="${SRC}/usr/www/${OEMLINK}${file}"
+    if [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ]; then
+     [ -f ${filename} ] && iconv --from-code=ISO-8859-1 --to-code=UTF-8 "${filename}" > ${filename}.ut8
+     rm -f ${filename}
+     [ -f ${filename}.ut8 ] && mv ${filename}.ut8 ${filename} && echo2 "-- $file changed to ut8"
+    fi
+  done
+fi
 USRWWW="usr/www/${OEMLINK}/html/de"
 if [ "${CONFIG_MULTI_LANGUAGE}" = "y" ]; then
  sed -i -e 's/CONFIG_MULTI_LANGUAGE="n"/CONFIG_MULTI_LANGUAGE="y"/' "${SRC}"/etc/init.d/rc.conf

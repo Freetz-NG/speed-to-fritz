@@ -286,6 +286,9 @@ sed -i -e 's/piglet_enable_button=2/piglet_enable_button=3/' "${SRC}/etc/init.d/
 #Annex A is not usable up to now
 #patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
+# add kapselung and annex settings page if missing
+$sh_DIR/add_multi_settings.sh
+
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # set led definition 
 if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ ${FORCE_TCOM_LEDDRIVER} = "y" ]; then

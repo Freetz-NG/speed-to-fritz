@@ -959,12 +959,13 @@ config EXPORT_CONFIG_MULTI_COUNTRY
 	    To make this work you must have a T-Home or 3rd Firmware that supplies the needed feature, some text may be wrong or missing!.
 		
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-config EXPORT_CONFIG_DSL_MULTI_ANNEX
+config EXPORT_CONFIG_DSL_MULTI_ANNEX 
 	bool "Force Multi annex"
-	depends on ( TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ! TYPE_AVM_7570_XX
+#	depends on ( TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ! TYPE_AVM_7570_XX
+	depends on ( ! TYPE_AVM_7570_XX && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
 	default n
 	help
-	    To make this work you must have a T-Home or 3rd Firmware that supplies the needed feature.
+	    To make this work you must have Firmware that supplies the needed feature, firmware with minor version > 70.
 choice
 	depends ! EXPORT_CONFIG_DSL_MULTI_ANNEX && ! TYPE_AVM_7570_XX
 	bool "Annex"
@@ -1322,7 +1323,7 @@ config EXPORT_ATA_ONLY
 if ! EXPORT_ATA_ONLY
  if ! EXPORT_TYPE_LOCAL_MODEL
     config EXPORT_ADD_DSL_EXPERT_MNUE
-	depends on ! TYPE_TCOM_7570_XX && ! TYPE_SPEEDPORT_W920V && ! TYPE_SPEEDPORT_W721V
+	depends on ! TYPE_TCOM_7570_XX && ! TYPE_SPEEDPORT_W920V && ! TYPE_SPEEDPORT_W721V && ! EXPORT_CONFIG_DSL_MULTI_ANNEX
 	bool "Add dsl expert pages"
 	default n if  TYPE_DSL 
 	default y if  ! TYPE_DSL 

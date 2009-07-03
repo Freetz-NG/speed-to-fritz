@@ -79,6 +79,9 @@ fi
 
 #patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
+# add kapselung and annex settings page if missing
+$sh_DIR/add_multi_settings.sh
+
 #set DECT hardwaretype 
 #sed -i -e "s/dect_hw=./dect_hw=2/" "${SRC}/etc/init.d/rc.S" 
 sed -i -e '/isdn_params="${isdn_params} dect_hw=/d' "${SRC}/etc/init.d/rc.S" 
@@ -136,4 +139,5 @@ $sh_DIR/patch_fonbuch.sh "${SRC}"
 cp -fdpr  ./addon/tmp/jp   --target-directory="${SRC}"
 #add ntfs 
 [ "$ADD_NTFS" = "y" ] && $sh2_DIR/add_ntfs_W900 "${SRC}"
+
 echo "********************************************************************************"

@@ -1,5 +1,5 @@
---- usr/www/avme/html/de/internet/dslsnrset.html	2009-02-19 09:57:18.000000000 -0500
-+++ usr/www/avme/html/de/internet/dslsnrset.html	2009-01-22 10:31:54.000000000 -0500
+--- usr/www/avm/html/de/internet/dslsnrset.html	2009-02-19 09:57:18.000000000 -0500
++++ usr/www/avm/html/de/internet/dslsnrset.html	2009-01-22 10:31:54.000000000 -0500
 @@ -0,0 +1,68 @@
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -69,164 +69,19 @@
 +</div></div></div></div></div></div>
 +</div></div></div></div></div></div></div>
 +</div>
---- usr/www/avme/html/de/internet/dslsnrset.js	2009-02-19 09:57:14.000000000 -0500
-+++ usr/www/avme/html/de/internet/dslsnrset.js	2009-01-22 10:31:47.000000000 -0500
-@@ -0,0 +1,142 @@
-+<!-- ../internet/dslsnrset.js -->
-+<STYLE type = "text/css">
-+<!--
-+.SlideDiv{position:relative;top:0px;left:0px;width: 680px; height: 50px;}
-+.SNR_td_tadio{
-+width:20px;
-+}
-+.SNR_td_tadio_text{
-+width:120px;
-+}
-+.SNRRadio{
-+height:12px;
-+}
-+.SNRSetTable{
-+}
-+.RadioConnectStrich{
-+height:1px;
-+width:70px;
-+color:black;
-+background-color:black;
-+margin:0px;
-+padding:0px;
-+font-size:1px;
-+}
-+.RadioConnectStrichTd{
-+height:1px;
-+}
-+.OSNR_td_tadio{
-+width:80px;
-+}
-+.OSNRRadio{
-+height:12px;
-+}
-+.OSNRSetTable{
-+margin-top:0px;
-+}
-+-->
-+</STYLE>
-+<script type="text/javascript">
-+<? include ../html/de/js/jsl.js ?>
-+<? include ../html/de/internet/awatch.js ?>
-+var g_mode=0;
-+var g_oem = "<? query env:status/OEM ?>";
-+<? if eq $var:isMultiAnnex 1 `
-+var g_mldChangeAnnex = "Sie haben die ADSL-Leitungskonfiguration geändert. Eine falsche Einstellung kann dazu führen, dass keine DSL-Verbindung mehr zustande kommt. Damit die Änderung wirksam wird muss die Box neugestartet werden. Sind Sie sicher, dass die Änderung vorgenommen werden soll?";
-+var g_mldChangeOver = "Die Anlage startet sich jetzt neu. Der Neustart dauert ungefähr eine Minute, bitte haben Sie einen Moment Geduld.
-+Klicken Sie dann auf 'Zur Übersicht'. ";
-+g_mldChangeAnnexQuestion=g_mldChangeAnnex;
-+` ?>
-+function uiDoOnLoad() {
-+document.title ="Einstellungen";
-+InitMode();
-+jslSetChecked("uiViewDefaultSNR"+g_mode, true);
-+<? if eq $var:isMultiAnnex 1 `
-+InitAnnex();
-+` ?>
-+}
-+<? if eq $var:isMultiAnnex 1 `
-+function InitAnnex()
-+{
-+annex = jslGetValue("uiPostAnnex");
-+if (annex=="A")
-+uiSetAnnex(0);
-+else if (annex=="B")
-+uiSetAnnex(1);
-+}
-+function uiSetAnnex(n)
-+{
-+jslSetChecked("uiViewAnnexA", n==0);
-+jslSetChecked("uiViewAnnexB", n==1);
-+}
-+` ?>
-+function InitMode(){
-+var ctlbits = jslGetValue("uiPostControlBitfield");
-+if(ctlbits & 4){
-+snrmargin=(jslGetValue("iPostDownstreamMarginOffset"0).toString(10);
-+switch(snrmargin){
-+case "0":g_mode=0;break;
-+case "1":g_mode=1;break;
-+case "2":g_mode=2;break;
-+case "3":g_mode=3;break;
-+case "4":g_mode=4;break;
-+default: g_mode=0;break;
-+}
-+}else{
-+g_mode=0;
-+}
-+}
-+function OnChangeMode(mode){
-+g_mode=mode;
-+}
-+function uiDoRefresh() {
-+jslGoTo("internet","dslsnrset");
-+}
-+function uiDoHelp() {
-+jslPopHelp("hilfe_internet_dslsnrset");
-+}
-+function uiDoSave() {
-+<? if eq $var:isMultiAnnex 1 `
-+bAnnexConfirm=false;
-+annex = jslGetValue("uiPostAnnex");
-+if (jslGetChecked("uiViewAnnexA") && annex!="A") {
-+if (confirm(g_mldChangeAnnexQuestion)) {
-+jslSetValue("uiPostAnnex", "A");
-+jslEnable("uiPostAnnex");
-+bAnnexConfirm=true;
-+}
-+}
-+if (jslGetChecked("uiViewAnnexB") && annex!="B") {
-+if (confirm(g_mldChangeAnnexQuestion)) {
-+jslSetValue("uiPostAnnex", "B");
-+jslEnable("uiPostAnnex");
-+bAnnexConfirm=true;
-+}
-+}
-+` ?>
-+jslSetValue("iPostDownstreamMarginOffset", g_mode * 10);
-+var ctlbits = jslGetValue("uiPostControlBitfield");
-+ctlbits &= ~6;
-+if(g_mode>0)
-+{
-+ctlbits |= 4;
-+}
-+jslSetValue("uiPostControlBitfield", ctlbits);
-+if (
-+<? if eq $var:isMultiAnnex 1 `
-+bAnnexConfirm
-+` `
-+0
-+` ?>
-+){
-+jslSetValue("uiPostGetPage", "../html/reboot.html");
-+document.getElementById("uiPostForm").submit();
-+}
-+else {
-+jslFormSubmitEx("internet", "dslsnrset");
-+}
-+}
-+function uiDoCancel() {
-+jslGoTo("internet", "dslsnrset");
-+}
-+</script>
---- usr/www/avme/html/de/internet/dslsnrset.frm	2009-02-19 09:57:20.000000000 -0500
-+++ usr/www/avme/html/de/internet/dslsnrset.frm	2009-01-22 10:31:44.000000000 -0500
+--- usr/www/avm/html/de/internet/dslsnrset.frm	2009-02-19 09:57:20.000000000 -0500
++++ usr/www/avm/html/de/internet/dslsnrset.frm	2009-01-22 10:31:44.000000000 -0500
 @@ -0,0 +1,4 @@
 +<input type="hidden" name="sar:settings/ControlBitfield" value="<? query sar:settings/ControlBitfield ?>" id="uiPostControlBitfield">
 +<input type="hidden" name="sar:settings/DownstreamMarginOffset" value="<? query sar:settings/DownstreamMarginOffset ?>" id="iPostDownstreamMarginOffset">
 +<Input type="hidden" name="sar:settings/Annex" value="<? query sar:settings/Annex ?>" id="uiPostAnnex" disabled>
 +<Input type="hidden" name="sar:settings/DSLMode" value="<? query sar:settings/DSLMode ?>" id="uiPostDSLMode" disabled>
---- usr/www/avme/html/de/first/basic_first_Annex.frm	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/first/basic_first_Annex.frm	2009-01-22 10:31:50.000000000 -0500
+--- usr/www/avm/html/de/first/basic_first_Annex.frm	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/first/basic_first_Annex.frm	2009-01-22 10:31:50.000000000 -0500
 @@ -0,0 +1 @@
 +<? include ../html/de/first/basic_first.frm ?>
---- usr/www/avme/html/de/first/basic_first_Annex.html	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/first/basic_first_Annex.html	2009-01-22 10:31:55.000000000 -0500
+--- usr/www/avm/html/de/first/basic_first_Annex.html	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/first/basic_first_Annex.html	2009-01-22 10:31:55.000000000 -0500
 @@ -0,0 +1,20 @@
 +<div id="content">
 +<div class="backtitelkonfig"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -248,8 +103,8 @@
 +<input type="button" onclick="uiDoHelp()" value="Hilfe" class="Pushbutton" id="buttonHilfe">
 +</div></div></div></div></div></div>
 +</div>
---- usr/www/avme/html/de/first/basic_first_Annex.js	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/first/basic_first_Annex.js	2009-01-22 10:31:49.000000000 -0500
+--- usr/www/avm/html/de/first/basic_first_Annex.js	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/first/basic_first_Annex.js	2009-01-22 10:31:49.000000000 -0500
 @@ -0,0 +1,32 @@
 +<!-- ../first/basic_first_Annex.js -->
 +<script type="text/javascript">
@@ -283,8 +138,8 @@
 +jslPopHelp("hilfe_internet_dslsnrset");
 +}
 +</script>
---- usr/www/avme/html/de/internet/vdsl_profile.html	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/internet/vdsl_profile.html	2009-01-22 10:31:50.000000000 -0500
+--- usr/www/avm/html/de/internet/vdsl_profile.html	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/internet/vdsl_profile.html	2009-01-22 10:31:50.000000000 -0500
 @@ -0,0 +1,65 @@
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -351,8 +206,8 @@
 +<? include ../html/de/home/rbb_refresh.html ?>
 +</div></div></div></div></div></div></div>
 +</div>
---- usr/www/avme/html/de/internet/vdsl_profile.js	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/internet/vdsl_profile.js	2009-01-22 10:31:49.000000000 -0500
+--- usr/www/avm/html/de/internet/vdsl_profile.js	1969-12-31 19:00:00.000000000 -0500
++++ usr/www/avm/html/de/internet/vdsl_profile.js	2009-01-22 10:31:49.000000000 -0500
 @@ -0,0 +1,27 @@
 +<!-- ../internet/vdsl_profile.js -->
 +<style type="text/css">

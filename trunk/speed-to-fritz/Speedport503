@@ -157,6 +157,8 @@ fi' "${SRC}/etc/init.d/rc.S"
 #Annex A is not usable up to now
 #patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
+# add kapselung and annex settings page if missing
+$sh_DIR/add_multi_settings.sh
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # set led definition 

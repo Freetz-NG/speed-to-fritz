@@ -159,8 +159,6 @@ $sh_DIR/patch_leddef_7270.sh "${SRC}" "${DST}"
 $sh_DIR/patch_annex.sh "${SRC}"
 fi
 #not 7570  only <---
-# add kapselung and annex settings page if missing
-$sh_DIR/add_multi_settings.sh
 $sh_DIR/add_ppp_setting.sh
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -234,5 +232,6 @@ if [ ${ATA_ONLY} = "y" ]; then
 fi
 #wrap dsld and ar7cfg.lib
 [ "${WRAP_DSLD}" = "y" ] && $sh_DIR/wrap_dsld.sh 
-
+# add kapselung and annex settings page if missing
+$sh_DIR/add_multi_settings.sh
 echo "********************************************************************************"

@@ -65,10 +65,9 @@ echo2 "-- copy complete AVM source to destination directory!"
 
 #patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
-#sed -i -e 's/CONFIG_DSL_MULTI_ANNEX="y"/CONFIG_DSL_MULTI_ANNEX="n"/' "${SRC}"/etc/init.d/rc.conf
-
 # add kapselung and annex settings page if missing
 $sh_DIR/add_multi_settings.sh
+
 
 
 echo "********************************************************************************"
