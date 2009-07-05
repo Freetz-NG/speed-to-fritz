@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090705-1233-r-379
+    - Remove W721 multiannex option, cant be used, because it would need more space.
 20090705-1111-r-378
     - fix multiannex commit revision 376
 20090705-0600-r-377

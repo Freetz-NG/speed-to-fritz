@@ -962,7 +962,7 @@ config EXPORT_FORCE_MULTI_COUNTRY
 config EXPORT_FORCE_DSL_MULTI_ANNEX 
 	bool "Force Multi annex"
 #	depends on ( TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ! TYPE_AVM_7570_XX
-	depends on ( ! TYPE_AVM_7570_XX && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
+	depends on ( ! TYPE_AVM_7570_XX && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
 	default n
 	help
 	    To make this work you must have Firmware that supplies the needed feature, firmware with minor version > 70.
@@ -1356,7 +1356,7 @@ if ! EXPORT_ATA_ONLY
 	help
 		Use KSLDMOD from 2nd AVM source Firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
     config USE_SRC2_VINAX_ADSLFW
-	bool "Use 2nd AVM source DSL driver"
+	bool "Use 2nd AVM source DSL vinax driver"
 	depends on TYPE_SPEEDPORT_W721V
 	default n
 	help
