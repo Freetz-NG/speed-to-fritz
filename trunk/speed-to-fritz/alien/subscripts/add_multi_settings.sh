@@ -1,13 +1,6 @@
 #!/bin/bash
 # include modpatch function
 . ${include_modpatch}
-echo "-- Adding multiannex pages ..."
-#annex settings made via GUI
-echo "-- Adding settings timezone pages ..."
-if [ "${CONFIG_MULTI_COUNTRY}" = "y" ]; then
- sed -i -e 's/CONFIG_MULTI_COUNTRY="n"/CONFIG_MULTI_COUNTRY="y"/' "${SRC}"/etc/init.d/rc.conf
- echo "-- Adding mulicountry pages from source 2 or 3 ..."
- FILELIST="menu2_system.html sitemap.html authform.html vpn.html pppoe.html first_Sip_1.html first_ISP_0.html first_ISP_3.frm"
  rpl_avme_avm()
  {
 	for file in $1; do
@@ -25,11 +18,18 @@ if [ "${CONFIG_MULTI_COUNTRY}" = "y" ]; then
 	mv "$file" $IMGN/"$2"
 	done
  }
-if [ "${OEM}" = "avm" ]; then
- rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.html)" 
- rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.frm)" 
-fi
-#copy default country
+echo "-- Adding multiannex pages ..."
+#annex settings made via GUI
+echo "-- Adding settings timezone pages ..."
+if [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
+ sed -i -e 's/CONFIG_MULTI_COUNTRY="n"/CONFIG_MULTI_COUNTRY="y"/' "${SRC}"/etc/init.d/rc.conf
+ echo "-- Adding mulicountry pages from source t-home or 2nd AVM firmware ..."
+ FILELIST="menu2_system.html sitemap.html authform.html vpn.html pppoe.html first_Sip_1.html first_ISP_0.html first_ISP_3.frm"
+ if [ "${OEM}" = "avm" ]; then
+  rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.html)" 
+  rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.frm)" 
+ fi
+ #copy default country
  [ -d "${DST}/etc/default.049" ] &&  cp -fdrp "${DST}"/etc/default.0* --target-directory=${SRC}/etc
  [ -d "${DST}/etc/default.99" ] && cp -fdrp "${DST}"/etc/default.9* --target-directory=${SRC}/etc
  if [ -n "$FBIMG_2" ]; then
@@ -40,7 +40,7 @@ fi
   rn_files "$(find "${SRC}/etc" -name fx_conf.avme)" "fx_conf.${OEMLINK}"
   rn_files "$(find "${SRC}/etc" -name fx_lcr.avme)" "fx_lcr.${OEMLINK}"
  fi
-fi
+fi #<-- multicountry
 FILELIST="/html/de/internet/vdsl_profile.js \
 /html/de/internet/vdsl_profile.html \
 /html/de/internet/vdsl_profile.frm \
@@ -53,43 +53,46 @@ FILELIST="/html/de/internet/vdsl_profile.js \
  #show settings tub
  #-----------------------------------------------------------------
   for FILE in adsl.html atm.html bits.html overview.html; do
-  if [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/$FILE" ]; then 
+   if [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/$FILE" ]; then 
     sed -i -e "s|<? if neq \$var:Annex A|<? if neq \$var:Annex Z|" "${SRC}/usr/www/${OEMLINK}/html/de/internet/$FILE"
     echo2 "  /usr/www/${OEMLINK}/html/de/internet/$FILE"
-  fi
- done
- #-----------------------------------------------------------------
-
-if [ "${CONFIG_DSL_MULTI_ANNEX}" = "y" ]; then
- if [ "${CONFIG_MULTI_LANGUAGE}" != "y" ]; then
- [ "$avm_Lang" = "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}" "$P_DIR/add_timezone_de.patch" )
- [ "$avm_Lang" = "en" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}" "$P_DIR/add_timezone_en.patch" )
- for file in $FILELIST; do
-   rm -f "${SRC}/usr/www/${OEMLINK}/$file"
- done
- [ "$avm_Lang" = "de" ] && modpatch "${SRC}" "$P_DIR/add_dslsnrset_de.patch"
- [ "$avm_Lang" = "en" ] && modpatch "${SRC}" "$P_DIR/add_dslsnrset_en.patch"
+   fi
+  done
+ #---------------------------------------------------------------
+if [ "${FORCE_DSL_MULTI_ANNEX}" = "y" ]; then
+ sed -i -e 's/export CONFIG_ANNEX="A"/export CONFIG_ANNEX="B"/' "${SRC}"/etc/init.d/rc.conf
+ sed -i -e 's/CONFIG_DSL_MULTI_ANNEX="n"/CONFIG_DSL_MULTI_ANNEX="y"/' "${SRC}"/etc/init.d/rc.conf
+ if  `grep -q 'MultiAnnex' "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"`; then
+  echo "-- Multi Annex Option is not forced, but in use becaus 1st firmware is a multiannex fimware."
  else
+  echo "-- Adding timezone pages ..."
+  [ "$avm_Lang" = "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}" "$P_DIR/add_timezone_de.patch" )
+  [ "$avm_Lang" = "en" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}" "$P_DIR/add_timezone_en.patch" )
+  for file in $FILELIST; do
+   [ -f "${SRC}/usr/www/${OEMLINK}/$file" ] && rm -f "${SRC}/usr/www/${OEMLINK}/$file"
+  done
+  echo "-- Adding multiannex pages ..."
+  [ "$avm_Lang" = "de" ] && modpatch "${SRC}" "$P_DIR/add_dslsnrset_de.patch"
+  [ "$avm_Lang" = "en" ] && modpatch "${SRC}" "$P_DIR/add_dslsnrset_en.patch"
   FILELIST="$FILELIST \
 /html/de/system/timeZone.js \
 /html/de/system/timeZone.frm \
 /html/de/system/timeZone.html"
   OEML="avm" && [ -d "${DST}"/usr/www/avme ] && OEML="avme"
   OEML2="avm" && [ -d "${SRC_2}"/usr/www/avme ] && OEML2="avme"
-  
+  #if files exist in 2nd or 3rd firmware use this files instead
   for file in $FILELIST; do
    if [ -f "${DST}/usr/www/${OEML}/$file" ]; then
-    cp -fdrp "${DST}/usr/www/${OEML}/$file" "${SRC}/usr/www/${OEMLINK}/$file" && echo2 "  copy from 2nd FW: $file"
+    cp -fdrp "${DST}/usr/www/${OEML}/$file" "${SRC}/usr/www/${OEMLINK}/$file" && echo2 "  Copy from t-Home firmware: $file"
    fi
    if [ -f "${SRC_2}/usr/www/${OEML2}/$file" ]; then
-    cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file" "${SRC}/usr/www/${OEMLINK}/$file" && echo2 "  copy from 3rd FW: $file"
-   fi    
+    cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file" "${SRC}/usr/www/${OEMLINK}/$file" && echo2 "  Copy from 2nd AVM firmware: $file"
+   fi
   done
- fi
- if ! `grep -q 'ar7cfg.dslglobalconfig.Annex' "${SRC}"/etc/init.d/rc.conf`; then
+  if ! `grep -q 'ar7cfg.dslglobalconfig.Annex' "${SRC}"/etc/init.d/rc.conf`; then
      sed -i -e '/export ANNEX=.cat .CONFIG_ENVIRONMENT_PATH.annex./d' "${SRC}"/etc/init.d/rc.conf
      sed -i -e '/"$annex_param"/a\
-if [ "${CONFIG_DSL_MULTI_ANNEX}" = "y" ] ; then\
+if [ "${FORCE_DSL_MULTI_ANNEX}" = "y" ] ; then\
 LOADANNEX=`echo ar7cfg.dslglobalconfig.Annex | ar7cfgctl -s 2>\/dev\/null | sed s\/\\\\"\/\/g` ; # annex aus userselection?\
 if [ -z "${LOADANNEX}" ] ; then\
 export ANNEX=`cat $CONFIG_ENVIRONMENT_PATH\/annex` ; # annex aus /proc nehmen, nicht von Config!\
@@ -99,10 +102,8 @@ fi\
 else\
 export ANNEX=`cat $CONFIG_ENVIRONMENT_PATH\/annex` \
 fi' "${SRC}"/etc/init.d/rc.conf
- fi
+  fi
  # for savety in some Firmwares needed
-  sed -i -e 's/export CONFIG_ANNEX="A"/export CONFIG_ANNEX="B"/' "${SRC}"/etc/init.d/rc.conf
-  sed -i -e 's/CONFIG_DSL_MULTI_ANNEX="n"/CONFIG_DSL_MULTI_ANNEX="y"/' "${SRC}"/etc/init.d/rc.conf
   if ! `grep -q 'export CONFIG_DSL_MULTI_ANNEX' "${SRC}"/etc/init.d/rc.conf`; then
       sed -i -e '/export CONFIG_ANNEX="B"/a\
 export CONFIG_DSL_MULTI_ANNEX="y"' "${SRC}"/etc/init.d/rc.conf
@@ -167,15 +168,15 @@ function uiSetAnnex(n)\
 jslSetChecked("uiViewAnnexA", n==0);\
 jslSetChecked("uiViewAnnexB", n==1);\
 }'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
- fi
- if [ "$avm_Lang" = "de" ]; then
-  sed -i -e 's/Change Annex/Sie haben die ADSL-Leitungskonfiguration geändert. Eine falsche Einstellung kann dazu führen, dass keine DSL-Verbindung mehr zustande kommt. Damit die Änderung wirksam wird muss die Box neugestartet werden. Sind Sie sicher, dass die Änderung vorgenommen werden soll?/' "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
- else
-  sed -i -e 's/Change Annex/You did change the DSL wire configuration. A worong setting will lead to a loss off connection. Reboot is neede that the changes can be but to ation, shold that be done?/'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
- fi
- Unicode_ut8="n"
- `cat "${SRC}"/usr/www/${OEMLINK}/html/index.html | grep -q 'charset=utf-8' ` && Unicode_ut8="y" 
-FILELIST="/html/de/internet/dslsnrset.html \
+  fi
+  if [ "$avm_Lang" = "de" ]; then
+   sed -i -e 's/Change Annex/Sie haben die ADSL-Leitungskonfiguration geändert. Eine falsche Einstellung kann dazu führen, dass keine DSL-Verbindung mehr zustande kommt. Damit die Änderung wirksam wird muss die Box neugestartet werden. Sind Sie sicher, dass die Änderung vorgenommen werden soll?/' "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
+  else
+   sed -i -e 's/Change Annex/You did change the DSL wire configuration. A worong setting will lead to a loss off connection. Reboot is neede that the changes can be but to ation, shold that be done?/'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
+  fi
+  Unicode_ut8="n"
+  `cat "${SRC}"/usr/www/${OEMLINK}/html/index.html | grep -q 'charset=utf-8' ` && Unicode_ut8="y" 
+  FILELIST="/html/de/internet/dslsnrset.html \
 /html/de/first/basic_first_Annex.html \
 /html/de/internet/dslsnrset.js"
   for file in $FILELIST; do
@@ -186,33 +187,40 @@ FILELIST="/html/de/internet/dslsnrset.html \
      [ -f ${filename}.ut8 ] && mv ${filename}.ut8 ${filename} && echo2 "-- $file changed to ut8"
     fi
   done
-fi
-USRWWW="usr/www/${OEMLINK}/html/de"
-if [ "${CONFIG_MULTI_LANGUAGE}" = "y" ]; then
- sed -i -e 's/CONFIG_MULTI_LANGUAGE="n"/CONFIG_MULTI_LANGUAGE="y"/' "${SRC}"/etc/init.d/rc.conf
- echo "-- Adding mulilingual pages from source 2 or 3 ..."
- #copy language datbase
- LanguageList="de en it es fr de"
- for DIR in $LanguageList; do
+ fi # <-- ? 1st firmware multiannex
+fi # <-- Multiannex 
+#----------------------------------------------------------------------------------------------------
+#else
+  if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
+   [ -f "${SRC}"/etc/htmltext_de.db ] || echo -e "-- \033[1mAttention:\033[0m 1st Firmware is not usabel for multilingual!" && sleep 5
+   sed -i -e 's/CONFIG_MULTI_LANGUAGE="n"/CONFIG_MULTI_LANGUAGE="y"/' "${SRC}"/etc/init.d/rc.conf
+   echo "-- Adding mulilingual pages from t-Home or 2nd AVM firmware ..."
+   #copy language datbase
+   LanguageList="de en it es fr de"
+   for DIR in $LanguageList; do
     if [ -d "${DST}/etc/default.${DEST_PRODUKT}"/${OEML}/$DIR ]; then
-     cp -fdrp "${DST}/etc/default.${DEST_PRODUKT}"/${OEML}/$DIR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  copy language directory from 2nd FW: $DIR"
+     cp -fdrp "${DST}/etc/default.${DEST_PRODUKT}"/${OEML}/$DIR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  Copy language directory from t-Home firmware: $DIR"
     fi 
     if [ -d "${SRC_2}/etc/default.${SORCE_2_PRODUKT}"/${OEML2}/$DIR ]; then
-     cp -fdrp "${SRC_2}/etc/default.${SORCE_2_PRODUKT}"/${OEML2}/$DIR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  copy language directory from 3nd FW: $DIR"
+     cp -fdrp "${SRC_2}/etc/default.${SORCE_2_PRODUKT}"/${OEML2}/$DIR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  Copy language directory from 2nd AVM firmware: $DIR"
     fi 
- done
- LanguageList="en it es fr de"
- for lang in $LanguageList; do
+   done
+   LanguageList="en it es fr de"
+   for lang in $LanguageList; do
     if ! [ -f "${SRC}"/etc/htmltext_$lang.db ];then
-     cp -fdrp "${DST}"/etc/htmltext_$lang.db --target-directory="${SRC}"/etc && echo2 "  copy: use T-Home firmware database $lang"
-     cp -fdrp "${SRC_2}"/etc/htmltext_$lang.db --target-directory="${SRC}"/etc && echo2 "  copy: use 2nd AVM firmware database $lang"
+     [ -f "${SRC}"/etc/htmltext_de.db ] && [ -f "${SRC_2}"/etc/htmltext_$lang.db ] && cp -fdrp "${SRC_2}"/etc/htmltext_$lang.db --target-directory="${SRC}"/etc &&\
+     echo -e "-- \033[1mWarning:\033[0m 2nd AVM firmware database $lang is used, some text may be missing." && sleep 2
+     [ -f "${SRC}"/etc/htmltext_de.db ] && [ -f "${DST}"/etc/htmltext_$lang.db ] && cp -fdrp "${DST}"/etc/htmltext_$lang.db --target-directory="${SRC}"/etc &&\
+     echo -e "-- \033[1mWarning:\033[0m t-Home firmware database $lang is used, some text may be missing." && sleep 2
     fi
- done
-fi
-if [ "${FORCE_LANGUAGE}" != "de" ]; then
- [ "${FORCE_LANGUAGE}" != "" ] && [ -f "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "  copy: database ${FORCE_LANGUAGE}"
- [ "${FORCE_LANGUAGE}" != "" ] && [ -f "${SRC_2}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${SRC_2}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "  copy: database ${FORCE_LANGUAGE}"
-fi
+   done
+  fi
+  if [ "${FORCE_LANGUAGE}" != "de" ]; then
+   [ -f "${SRC}"/etc/htmltext_de.db ] || echo -e "-- \033[1mAttention:\033[0m 1st Firmware is not usabel for force language!" && sleep 7
+   [ "${FORCE_LANGUAGE}" != "" ] && [ -f "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "  copy: database ${FORCE_LANGUAGE}"
+   [ "${FORCE_LANGUAGE}" != "" ] && [ -f "${SRC_2}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${SRC_2}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "  copy: database ${FORCE_LANGUAGE}"
+  fi
+#  fi
 #if ! `grep -q 'id="uiTempLang"' "${SRC}"/usr/www/$OEMLINK/html/de/first/basic_first.frm`; then
 #echo '<input type="hidden" name="var:lang" value="<? echo $var:lang ?>" id="uiTempLang">' >> "${SRC}"/usr/www/$OEMLINK/html/de/first/basic_first.frm
 #fi

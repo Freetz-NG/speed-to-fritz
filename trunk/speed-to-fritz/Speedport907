@@ -77,10 +77,6 @@ fi
    [ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
   cp -fdpr  "${DST}"/usr/share/ctlmgr/libdect.so  --target-directory="${SRC}"/usr/share/ctlmgr
 
-#patch annex parameter
-$sh_DIR/patch_annex.sh "${SRC}"
-# add kapselung and annex settings page if missing
-$sh_DIR/add_multi_settings.sh
 
 #set DECT hardwaretype 
 #sed -i -e "s/dect_hw=./dect_hw=2/" "${SRC}/etc/init.d/rc.S" 
@@ -139,5 +135,9 @@ $sh_DIR/patch_fonbuch.sh "${SRC}"
 cp -fdpr  ./addon/tmp/jp   --target-directory="${SRC}"
 #add ntfs 
 [ "$ADD_NTFS" = "y" ] && $sh2_DIR/add_ntfs_W900 "${SRC}"
+#patch annex parameter
+$sh_DIR/patch_annex.sh "${SRC}"
+# add kapselung and annex settings page if missing
+$sh_DIR/add_multi_settings.sh
 
 echo "********************************************************************************"

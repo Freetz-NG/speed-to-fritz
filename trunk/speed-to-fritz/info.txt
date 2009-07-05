@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090705-0424-r-376
+    - Multilingual Option: Added some warnings, changed some text in Config.in to be mere conform with 7XXX firmwares.
 20090703-1735-r-375
     - UTC minus 4,5 added to timezone patch
 20090703-1718-r-374

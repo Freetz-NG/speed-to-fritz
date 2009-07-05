@@ -154,11 +154,6 @@ fi' "${SRC}/etc/init.d/rc.S"
  echo2 "New WEB GUI will be modified"
 #use scond source web GUI
 [ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
-#Annex A is not usable up to now
-#patch annex parameter
-$sh_DIR/patch_annex.sh "${SRC}"
-# add kapselung and annex settings page if missing
-$sh_DIR/add_multi_settings.sh
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # set led definition 
@@ -179,6 +174,11 @@ $sh_DIR/patch_fonbuch.sh "${SRC}"
 
 # skripts for startig ftp on USB
 cp -fdpr  ./addon/tmp/jp   --target-directory="${SRC}"
+#Annex A is not usable up to now
+#patch annex parameter
+$sh_DIR/patch_annex.sh "${SRC}"
+# add kapselung and annex settings page if missing
+$sh_DIR/add_multi_settings.sh
 
 echo "********************************************************************************"
 
