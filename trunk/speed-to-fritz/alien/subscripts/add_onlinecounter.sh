@@ -15,12 +15,12 @@ for OEMDIR in $2; do
   #echo "ut8: $Unicode_ut8"
     [ "$avm_Lang" = "de" ] && PatchfileName="add_onlinecounter_de"
     [ "$avm_Lang" = "en" ] && PatchfileName="add_onlinecounter_en"
-   [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] && iconv --from-code=UTF-8 --to-code=ISO-8859-1 "$P_DIR/${PatchfileName}_ut8.patch" > "$P_DIR/${PatchfileName}.patch" 
+#   [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] && iconv --from-code=UTF-8 --to-code=ISO-8859-1 "$P_DIR/${PatchfileName}_ut8.patch" > "$P_DIR/${PatchfileName}.patch" 
    [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] || iconv --from-code=ISO-8859-1 --to-code=UTF-8 "$P_DIR/${PatchfileName}.patch" > "$P_DIR/${PatchfileName}_ut8.patch" 
-   [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "de" ] && modpatch "$1" "$P_DIR/${PatchfileName}.patch"
-   [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ] && modpatch "$1" "$P_DIR/${PatchfileName}_ut8.patch"
-   [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "en" ] && modpatch "$1" "$P_DIR/${PatchfileName}.patch"
-   [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "en" ] && modpatch "$1" "$P_DIR/${PatchfileName}_ut8.patch"
+   [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "de" ] && modpatch "$1/${USRWWW}" "$P_DIR/${PatchfileName}.patch"
+   [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ] && modpatch "$1/${USRWWW}" "$P_DIR/${PatchfileName}_ut8.patch"
+   [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "en" ] && modpatch "$1/${USRWWW}" "$P_DIR/${PatchfileName}.patch"
+   [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "en" ] && modpatch "$1/${USRWWW}" "$P_DIR/${PatchfileName}_ut8.patch"
    [ "$avm_Lang" = "de" ] && sed -i -e '/{?de.home.home.js:305?}/a\
 var volBudgetReached = "<? query box:status/hint_volume_budget_reached ?>";\
 if (volBudgetReached == "1")\

@@ -1,5 +1,5 @@
---- usr/www/avme/html/de/fon_config/fon_config_Dect_1.frm	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_1.frm	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_1.frm	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_1.frm	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,8 @@
 +<? include ../html/de/fon_config/fon_config.frm ?>
 +<? repeat [ 0 5 ] `
@@ -9,8 +9,8 @@
 +` ?>
 +<input type="hidden" name="telcfg:settings/DialPort" value="<? query telcfg:settings/DialPort ?>" id="uiPostDialPort" disabled>
 +<input type="hidden" name="telcfg:command/Dial" value="" id="uiPostDial" disabled>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_1.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_1.html	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_1.html	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_1.html	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,29 @@
 +<div id="content">
 +<div class="backtitelkonfig"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -41,8 +41,8 @@
 +</div></div></div></div></div></div>
 +<? include ../html/de/fon_config/rbb_backokcancel.html ?>
 +</div>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_1.inc	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_1.inc	2008-05-21 12:02:00.000000000 -0400
+--- fon_config/fon_config_Dect_1.inc	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_1.inc	2008-05-21 12:02:00.000000000 -0400
 @@ -0,0 +1,13 @@
 +<? include ../html/de/global.inc ?>
 +<? setvariable var:Txt1 "DECT setup" ?>
@@ -57,8 +57,8 @@
 +<? setvariable var:Txt12 "Teh maximal number of devicees ia reached." ?>
 +<? setvariable var:Txt14 "registered DECT devices" ?>
 +<? setvariable var:Txt5 "Typ" ?>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_1.js	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_1.js	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_1.js	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_1.js	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,155 @@
 +<!-- ../fon_config/fc_fon_1.js -->
 +<? include ../html/de/fon_config/fon_config_Dect_1.inc ?>
@@ -215,8 +215,8 @@
 +return null;
 +}
 +</script>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_2.frm	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_2.frm	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_2.frm	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_2.frm	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,24 @@
 +<? include ../html/de/fon_config/fon_config.frm ?>
 +<input type="hidden" name="dect:settings/MSN0/MSN" value="<? query dect:settings/MSN0/MSN ?>" id="uiPostDectMsn0" disabled>
@@ -242,8 +242,8 @@
 +<input type="hidden" name="sip:settings/$1/displayname" value="$2" id="ui$1" disabled>
 +<input type="hidden" name="sip:settings/$1/ID" value="$3" id="ui$1ID" disabled>
 +' ?>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_2.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_2.html	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_2.html	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_2.html	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,29 @@
 +<div id="content">
 +<div class="backtitelkonfig"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -274,8 +274,8 @@
 +</div></div></div></div></div></div>
 +<? include ../html/de/fon_config/rbb_backokcancel.html ?>
 +</div>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_2.inc	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_2.inc	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_2.inc	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_2.inc	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,10 @@
 +<? include ../html/de/global.inc ?>
 +<? setvariable var:Txt1 "Register DECT devicees for incomming calls" ?>
@@ -287,8 +287,8 @@
 +<? setvariable var:Txt5 "Subscriberline" ?>
 +<? setvariable var:Txt6 " " ?>
 +<? setvariable var:Txt7 "Decide witch number is used for outgoing calls." ?>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_2.js	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_2.js	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_2.js	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_2.js	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,271 @@
 +<!-- ../fon_config/fon_config_Dect_2.js -->
 +<? include ../html/de/fon_config/fon_config_Dect_2.inc ?>
@@ -561,8 +561,8 @@
 +}
 +}
 +</script>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_3.frm	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_3.frm	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_3.frm	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_3.frm	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,25 @@
 +<? include ../html/de/fon_config/fon_config.frm ?>
 +<input type="hidden" name="telcfg:settings/MSN/POTS" value="<? query telcfg:settings/MSN/POTS ?>" id="uiPostPots">
@@ -589,8 +589,8 @@
 +<input type="hidden" name="sip:settings/$1/displayname" value="$2" id="uiPost$1" disabled>
 +<input type="hidden" name="sip:settings/$1/ID" value="$3" id="ui$1ID" disabled>
 +` ?>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_3.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_3.html	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_3.html	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_3.html	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,41 @@
 +<div id="content">
 +<div class="backtitelkonfig"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -633,8 +633,8 @@
 +<input type="button" onclick="uiDoCancel()" value="Cancel" class="Pushbutton" id="uiBtnCancel">
 +</div></div></div></div></div></div>
 +</div>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_3.inc	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_3.inc	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_3.inc	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_3.inc	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,20 @@
 +<? include ../html/de/global.inc ?>
 +<? setvariable var:Txt1 "Setup DECT devices for incomming calls " ?>
@@ -656,8 +656,8 @@
 +<? setvariable var:TextAlleAnnehmen "react on all numbers" ?>
 +<? setvariable var:TextInternet "Internet" ?>
 +<? setvariable var:TextFestnetz "fixed subscriberline" ?>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_3.js	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_3.js	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_3.js	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_3.js	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,255 @@
 +<!-- ../fon_config/fon_config_Dect_3.js -->
 +<? include ../html/de/fon_config/fon_config_Dect_3.inc ?>
@@ -914,16 +914,16 @@
 +}
 +}
 +</script>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_check.frm	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_check.frm	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_check.frm	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_check.frm	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,5 @@
 +<? include ../html/de/fon_config/fon_config.frm ?>
 +<input type="hidden" name="telcfg:settings/DialPort" value="<? query telcfg:settings/DialPort ?>" id="uiPostDialPort" disabled>
 +<input type="hidden" name="telcfg:command/Dial" value="" id="uiPostDial" disabled>
 +<input type="hidden" name="telcfg:command/Hangup" value="" id="uiPostHangup" disabled>
 +<input type="hidden" name="telcfg:settings/MSN/Port0/Fax" value="<? query telcfg:settings/MSN/Port0/Fax ?>" id="uiPostPort0Fax" disabled>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_check.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_check.html	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_check.html	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_check.html	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,28 @@
 +<div id="content">
 +<div class="backtitelkonfig"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -953,8 +953,8 @@
 +<input type="button" onclick="uiDoCancel()" value="Cancel" class="Pushbutton" id="uiCancelBtn" style="display: none;">
 +</div></div></div></div></div></div>
 +</div>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_check.inc	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_check.inc	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_check.inc	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_check.inc	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,25 @@
 +<? include ../html/de/global.inc ?>
 +<? if eq $var:FonTestNo '2' `
@@ -981,8 +981,8 @@
 +` ?>
 +<? setvariable var:Txt11 "go to fon-test" ?>
 +<? setvariable var:Txt12 'Mor information can be found within the documentation of the fon.' ?>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_check.js	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_check.js	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_check.js	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_check.js	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,91 @@
 +<!-- ../fon_config/fon_config_Dect_check.js -->
 +<? include ../html/de/fon_config/fon_config_Dect_check.inc ?>
@@ -1075,8 +1075,8 @@
 +return rc;
 +}
 +</script>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_name.frm	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_name.frm	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_name.frm	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_name.frm	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,7 @@
 +<? include ../html/de/fon_config/fon_config.frm ?>
 +<? repeat [ 0 5 ] `
@@ -1085,8 +1085,8 @@
 +<? repeat [ 0 5 ] `
 +<input type="hidden" name="dect:settings/Handset$0/Name" value="<? query dect:settings/Handset$0/Name ?>" id="uiPostHandset$0Notation" disabled>
 +` ?>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_name.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_name.html	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_name.html	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_name.html	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,14 @@
 +<div id="content">
 +<div class="backtitelkonfig"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -1102,14 +1102,14 @@
 +<input type="button" onclick="uiDoCancel()" value="Cancel" class="Pushbutton" id="uiBtnCancel">
 +</div></div></div></div></div></div>
 +</div>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_name.inc	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_name.inc	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_name.inc	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_name.inc	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,3 @@
 +<? include ../html/de/global.inc ?>
 +<? setvariable var:TextHinweis "Enter name of DECT device" ?>
 +<? setvariable var:TextName "Enter a name for the fon:" ?>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_name.js	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_name.js	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_name.js	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_name.js	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,84 @@
 +<!-- ../fon_config/fon_config_Dect_name.js -->
 +<? include ../html/de/fon_config/fon_config_Dect_name.inc ?>
@@ -1195,13 +1195,13 @@
 +return null;
 +}
 +</script>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_register_1.frm	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_register_1.frm	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_register_1.frm	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_register_1.frm	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,2 @@
 +<? include ../html/de/fon_config/fon_config.frm ?>
 +<input type="hidden" name="dect:command/StartSubscription" value="1" id="uiPostStartSubcription" disabled>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_register_1.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_register_1.html	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_register_1.html	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_register_1.html	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,17 @@
 +<div id="content">
 +<div class="backtitelkonfig"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -1220,8 +1220,8 @@
 +<input type="button" onclick="uiDoCancel()" value="Cancel" class="Pushbutton" id="uiCancelBtn" >
 +</div></div></div></div></div></div>
 +</div>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_register_1.inc	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_register_1.inc	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_register_1.inc	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_register_1.inc	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,14 @@
 +<? include ../html/de/global.inc ?>
 +<? setvariable var:Txt1 "Register DECT device" ?>
@@ -1237,8 +1237,8 @@
 +<? setvariable var:Txt12 'documnetation can be found with your DECT Device.' ?>
 +<? setvariable var:Txt13 "You will be promted to enter the DECT ID and the System PIN, this is always 0000 " ?>
 +<? setvariable var:Txt14 'What the exact staps are depends on the DECT device' ?>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_register_1.js	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_register_1.js	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_register_1.js	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_register_1.js	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,57 @@
 +<!-- ../fon_config/fon_config_Dect_register_1.js -->
 +<? include ../html/de/fon_config/fon_config_Dect_register_1.inc ?>
@@ -1297,8 +1297,8 @@
 +}
 +}
 +</script>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_register_2.frm	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_register_2.frm	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_register_2.frm	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_register_2.frm	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,9 @@
 +<? include ../html/de/fon_config/fon_config.frm ?>
 +<input type="hidden" name="var:RegisterRepeat" value="<? echo $var:RegisterRepeat ?>" id="uiRegisterRepeat">
@@ -1309,8 +1309,8 @@
 +<input type="hidden" name="telcfg:settings/DialPort" value="<? query telcfg:settings/DialPort ?>" id="uiPostDialPort" disabled>
 +<input type="hidden" name="telcfg:command/Dial" value="" id="uiPostDial" disabled>
 +<input type="hidden" name="dect:command/StartSubscription" value="0" id="uiPostStartSubcription" disabled>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_register_2.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_register_2.html	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_register_2.html	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_register_2.html	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,23 @@
 +<? setvariable var:picture1 '../html/de/images/wait.gif' ?>
 +<? setvariable var:picture1Text '$var:text21' ?>
@@ -1335,8 +1335,8 @@
 +<input type="button" onclick="uiDoCancel()" value="Cancel" class="Pushbutton" id="uiBtnCancel">
 +</div></div></div></div></div></div>
 +</div>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_register_2.inc	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_register_2.inc	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_register_2.inc	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_register_2.inc	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,6 @@
 +<? include ../html/de/global.inc ?>
 +<? setvariable var:Text1 'DECT registarion is going on' ?>
@@ -1344,8 +1344,8 @@
 +<? setvariable var:Text20 'Registartion of DECT was sucsessfull.' ?>
 +<? setvariable var:Text21 'regisration of DECT is going on ...' ?>
 +<? setvariable var:Text22 'Registartion of DECT was not sucsessfull.' ?>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_register_2.js	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_register_2.js	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_register_2.js	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_register_2.js	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,97 @@
 +<!-- ../first/fon_config_Dect_register_2.js -->
 +<? include ../html/de/fon_config/fon_config_Dect_register_2.inc ?>
@@ -1444,13 +1444,13 @@
 +jslGoToEx("fon_config", "fon_config_Dect_register_2");
 +}
 +</script>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_test.frm	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_test.frm	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_test.frm	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_test.frm	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,2 @@
 +<? include ../html/de/fon_config/fon_config.frm ?>
 +<input type="hidden" name="telcfg:command/Hangup" value="" id="uiPostHangup" disabled>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_test.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_test.html	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_test.html	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_test.html	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,19 @@
 +<div id="content">
 +<div class="backtitelkonfig"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -1471,8 +1471,8 @@
 +<input type="button" onclick="uiDoCancel()" value="Cancel" class="Pushbutton" id="uiCancelBtn" style="display: none;">
 +</div></div></div></div></div></div>
 +</div>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_test.inc	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_test.inc	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_test.inc	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_test.inc	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,14 @@
 +<? include ../html/de/global.inc ?>
 +<? setvariable var:Txt1 "Test DECT connection" ?>
@@ -1488,8 +1488,8 @@
 +<? setvariable var:Txt11 "< Back" ?>
 +<? setvariable var:Txt12 "No" ?>
 +<? setvariable var:Txt13 "Yes" ?>
---- usr/www/avme/html/de/fon_config/fon_config_Dect_test.js	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/fon_config/fon_config_Dect_test.js	2008-05-20 11:50:00.000000000 -0400
+--- fon_config/fon_config_Dect_test.js	2008-01-01 19:00:00.000000000 -0500
++++ fon_config/fon_config_Dect_test.js	2008-05-20 11:50:00.000000000 -0400
 @@ -0,0 +1,57 @@
 +<!-- ../fon_config/fc_fon_1.js -->
 +<? include ../html/de/fon_config/fon_config_Dect_test.inc ?>

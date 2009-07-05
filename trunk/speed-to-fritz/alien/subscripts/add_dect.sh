@@ -47,10 +47,10 @@ for OEMDIR in $OEMLIST; do
   #    done
   if [ "$ADD_OLD_DECTMENU" = "y" ]; then
       PatchfileName="add_dect_de"
-   [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] && iconv --from-code=UTF-8 --to-code=ISO-8859-1 "$P_DIR/${PatchfileName}_ut8.patch" > "$P_DIR/${PatchfileName}.patch" 
+#   [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] && iconv --from-code=UTF-8 --to-code=ISO-8859-1 "$P_DIR/${PatchfileName}_ut8.patch" > "$P_DIR/${PatchfileName}.patch" 
    [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] || iconv --from-code=ISO-8859-1 --to-code=UTF-8 "$P_DIR/${PatchfileName}.patch" > "$P_DIR/${PatchfileName}_ut8.patch" 
-   [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}.patch"
-   [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}_ut8.patch"
+   [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1/${USRWWW}" "$P_DIR/${PatchfileName}.patch"
+   [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1/${USRWWW}" "$P_DIR/${PatchfileName}_ut8.patch"
    [ "$avm_Lang" = "en" ] && modpatch "$SR1" "$P_DIR/add_dect_en.patch"
    #the folowing patch must be after the above line becase it patches a file added by add_dect_**.patch
    sed -i -e "/var bits = (String.fromCharCode(bits + 48));/d" "$SR1"/${USRWWW}/fon/fon1dect.js
@@ -215,11 +215,11 @@ sed -i -e '/DslStateDisplay()/a\
 
  #add missing menue
     PatchfileName="add_dect_on-off_de"
-   [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] && iconv --from-code=UTF-8 --to-code=ISO-8859-1 "$P_DIR/${PatchfileName}_ut8.patch" > "$P_DIR/${PatchfileName}.patch" 
+#   [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] && iconv --from-code=UTF-8 --to-code=ISO-8859-1 "$P_DIR/${PatchfileName}_ut8.patch" > "$P_DIR/${PatchfileName}.patch" 
    [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] || iconv --from-code=ISO-8859-1 --to-code=UTF-8 "$P_DIR/${PatchfileName}.patch" > "$P_DIR/${PatchfileName}_ut8.patch" 
-   [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}.patch"
-   [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}_ut8.patch"
- [ "$avm_Lang" = "en" ] && modpatch "$SR1" "$P_DIR/add_dect_on-off_en.patch"
+   [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1/${USRWWW}" "$P_DIR/${PatchfileName}.patch"
+   [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1/${USRWWW}" "$P_DIR/${PatchfileName}_ut8.patch"
+ [ "$avm_Lang" = "en" ] && modpatch "$SR1/${USRWWW}" "$P_DIR/add_dect_on-off_en.patch"
 # DIRI=$1/${USRWWW}/menus
 # [ -f ${DIRI}/menu2_dect.html ] || cp -fdfp ./addon/tmp/$SPMOD/$avm_Lang/menus/* "${DIRI}"
 # DIRI=$1/${USRWWW}/dect
@@ -293,11 +293,11 @@ jslSubmitFormEx(g_menu, "fon1", "fondevices");\
   
  if [ "$REMOVE_HELP" = "n" ]; then
     PatchfileName="add_decthelp_de"
-   [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] && iconv --from-code=UTF-8 --to-code=ISO-8859-1 "$P_DIR/${PatchfileName}_ut8.patch" > "$P_DIR/${PatchfileName}.patch" 
+#   [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] && iconv --from-code=UTF-8 --to-code=ISO-8859-1 "$P_DIR/${PatchfileName}_ut8.patch" > "$P_DIR/${PatchfileName}.patch" 
    [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] || iconv --from-code=ISO-8859-1 --to-code=UTF-8 "$P_DIR/${PatchfileName}.patch" > "$P_DIR/${PatchfileName}_ut8.patch" 
-   [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}.patch"
-   [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}_ut8.patch"
-     [ "$avm_Lang" = "en" ] && modpatch "$SR1" "$P_DIR/add_decthelp_en.patch"
+   [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1/${USRWWW}" "$P_DIR/${PatchfileName}.patch"
+   [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1/${USRWWW}" "$P_DIR/${PatchfileName}_ut8.patch"
+     [ "$avm_Lang" = "en" ] && modpatch "$SR1/${USRWWW}" "$P_DIR/add_decthelp_en.patch"
 
 
 #    [ -n "$VERBOSITY" ] && echo "      /${USRWWW}/help/hilfe_fon_setupdect.html"

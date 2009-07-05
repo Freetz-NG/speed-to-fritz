@@ -1,5 +1,5 @@
---- usr/www/avm/html/de/internet/budget.frm	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/internet/budget.frm	2008-12-28 06:50:10.000000000 -0500
+--- internet/budget.frm	1969-12-31 19:00:00.000000000 -0500
++++ internet/budget.frm	2008-12-28 06:50:10.000000000 -0500
 @@ -0,0 +1,10 @@
 +<input type="hidden" name="var:tabInetstat" value="<? echo $var:tabInetstat ?>" id="uiPostTab">
 +<input type="hidden" name="box:settings/Statistic/StartOfMonth" value="<? query box:settings/Statistic/StartOfMonth ?>" id="uiPostStartOfMonth">
@@ -11,8 +11,8 @@
 +<input type="hidden" name="connection0:settings/Budget/Period" value="<? query connection0:settings/Budget/Period ?>" id="uiPostBudgetPeriod">
 +<input type="hidden" name="connection0:settings/Budget/VolumeLow" value="<? query connection0:settings/Budget/VolumeLow ?>" id="uiPostBudgetVolumeLow">
 +<input type="hidden" name="connection0:settings/Budget/VolumeHigh" value="<? query connection0:settings/Budget/VolumeHigh ?>" id="uiPostBudgetVolumeHigh">
---- usr/www/avm/html/de/internet/budget.html	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/internet/budget.html	2008-12-28 06:50:10.000000000 -0500
+--- internet/budget.html	1969-12-31 19:00:00.000000000 -0500
++++ internet/budget.html	2008-12-28 06:50:10.000000000 -0500
 @@ -0,0 +1,39 @@
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -53,8 +53,8 @@
 +</div></div></div></div></div></div>
 +<? include ../html/de/home/rbb_applyok.html ?>
 +</div>
---- usr/www/avm/html/de/internet/budget.js	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/internet/budget.js	2008-12-28 06:50:10.000000000 -0500
+--- internet/budget.js	1969-12-31 19:00:00.000000000 -0500
++++ internet/budget.js	2008-12-28 06:50:10.000000000 -0500
 @@ -0,0 +1,182 @@
 +<!-- ../internet/budget.js -->
 +<style type="text/css">
@@ -238,13 +238,13 @@
 +return isAtamode() && type == "pppoe" && caps == "dslencap_ether";
 +}
 +</script>
---- usr/www/avm/html/de/internet/inetstat.frm	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/internet/inetstat.frm	2008-11-24 11:25:33.000000000 -0500
+--- internet/inetstat.frm	1969-12-31 19:00:00.000000000 -0500
++++ internet/inetstat.frm	2008-11-24 11:25:33.000000000 -0500
 @@ -0,0 +1,2 @@
 +<input type="hidden" name="var:tabInetstat" value="<? echo $var:tabInetstat ?>" id="uiPostTab">
 +<input type="hidden" name="box:settings/Statistic/Reset" value="" id="uiPostStatReset" />
---- usr/www/avm/html/de/internet/inetstat.html	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/internet/inetstat.html	2008-12-28 06:50:10.000000000 -0500
+--- internet/inetstat.html	1969-12-31 19:00:00.000000000 -0500
++++ internet/inetstat.html	2008-12-28 06:50:10.000000000 -0500
 @@ -0,0 +1,136 @@
 +<? setvariable var:showBalken 0 ?>
 +<? if eq $var:settimeknown 1 `
@@ -382,8 +382,8 @@
 +<? include ../html/de/home/rbb_refresh.html ?>
 +</div></div></div></div></div></div></div>
 +</div>
---- usr/www/avm/html/de/internet/inetstat.js	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/internet/inetstat.js	2008-12-28 06:50:10.000000000 -0500
+--- internet/inetstat.js	1969-12-31 19:00:00.000000000 -0500
++++ internet/inetstat.js	2008-12-28 06:50:10.000000000 -0500
 @@ -0,0 +1,372 @@
 +<!-- ../internet/inetstat.js -->
 +<style type="text/css">

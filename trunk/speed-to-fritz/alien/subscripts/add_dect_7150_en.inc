@@ -13,7 +13,7 @@ if [ -d "$SR1/usr/www/${OEMDIR}" ]; then
     done
   done
       PatchfileName="add_7150_dect_en"
-   [ "$avm_Lang" = "en" ] && modpatch "$SR1" "$P_DIR/${PatchfileName}.patch"
+   [ "$avm_Lang" = "en" ] && modpatch "$SR1/${USRWWW}" "$P_DIR/${PatchfileName}.patch"
 #-------------------------------------------------------------------------------- 
 FN="$SR1/${USRWWW}/home/fondevices.html"
 sed -i -e "/<div id=\"uiShowFonTable\" style=\"display:none\">/i\

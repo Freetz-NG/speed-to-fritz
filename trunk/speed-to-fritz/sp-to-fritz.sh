@@ -171,6 +171,7 @@ export ATA="y"
 export CONFIG_ATA="${ATA}"
 export CONFIG_ATA_FULL="n"
 #export ANNEX="B"
+export CONFIG_DSL_MULTI_ANNEX="n"
 export CONFIG_BOX_FEEDBACK="n"
 export CONFIG_LED_NO_DSL_LED="n"
 export CONFIG_DECT_ONOFF="n"
@@ -614,6 +615,7 @@ case "$1" in
 	export CONFIG_VOL_COUNTER="n"
 	export CONFIG_PROV_DEFAULT="y"
 #	export CONFIG_TAM_ONRAM="n"
+	  export CONFIG_DSL_MULTI_ANNEX="n"
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA="n"  
 	  export CONFIG_ATA_FULL="y"
@@ -746,11 +748,6 @@ echo "**************************************************************************
  echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
 # Flashing original firmware image ...
 if [ "$ORI" != "y" ]; then
- #international language - fix patches in advance 
- for FILE in `ls $P_DIR`  ; do
-    [ "$OEMLINK" == "avme" ] && sed -i -e "s|/avm/|/$OEMLINK/|" $P_DIR/$FILE 
-    [ "$OEMLINK" == "avm" ] && sed -i -e "s|/avme/|/$OEMLINK/|" $P_DIR/$FILE 
- done
  #prepare for use of Freetz Firmware 
  [ "$MOVE_ALL_to_OEM" = "y" ] && $sh_DIR/move_all_to_OEM.sh "${SRC}" || $sh_DIR/remake_link_avm.sh "${SRC}"
  # Please dont add conditions on models in any external file

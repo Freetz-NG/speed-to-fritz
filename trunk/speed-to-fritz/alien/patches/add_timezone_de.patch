@@ -1,12 +1,12 @@
---- usr/www/avme/html/de/system/timeZone.frm	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/system/timeZone.frm	2009-01-22 10:31:46.000000000 -0500
+--- system/timeZone.frm	1969-12-31 19:00:00.000000000 -0500
++++ system/timeZone.frm	2009-01-22 10:31:46.000000000 -0500
 @@ -0,0 +1,4 @@
 +<input type="hidden" name="time:settings/tz_enabled" value="<? query time:settings/tz_enabled ?>" id="uiPostTZ_Enabled" disabled>
 +<input type="hidden" name="time:settings/tz_offset" value="<? query time:settings/tz_offset ?>" id="uiPostTZ_Offset" disabled>
 +<input type="hidden" name="time:settings/tz_offset_minutes" value="<? query time:settings/tz_offset_minutes ?>" id="uiPostTZ_Offset_Minutes" disabled>
 +<input type="hidden" name="time:settings/tz_dst_enabled" value="<? query time:settings/tz_dst_enabled ?>" id="uiPostTZ_DstEnabled" disabled>
---- usr/www/avme/html/de/system/timeZone.html	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/system/timeZone.html	2009-01-22 10:31:57.000000000 -0500
+--- system/timeZone.html	1969-12-31 19:00:00.000000000 -0500
++++ system/timeZone.html	2009-01-22 10:31:57.000000000 -0500
 @@ -0,0 +1,52 @@
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -60,8 +60,8 @@
 +</div></div></div></div></div></div>
 +<? include ../html/de/home/rbb_applycancel.html ?>
 +</div></div></div></div></div></div></div></div>
---- usr/www/avme/html/de/system/timeZone.js	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/system/timeZone.js	2009-01-22 10:31:50.000000000 -0500
+--- system/timeZone.js	1969-12-31 19:00:00.000000000 -0500
++++ system/timeZone.js	2009-01-22 10:31:50.000000000 -0500
 @@ -0,0 +1,58 @@
 +<!-- ../system/timeZome.js -->
 +<style type="text/css">
@@ -100,7 +100,7 @@
 +jslEnable("uiPostTZ_Enabled");
 +jslEnable("uiPostTZ_Offset_Minutes");
 +jslEnable("uiPostTZ_DstEnabled");
-+jslSetValue("uiPostGetPage", "..usr/www/avme/html/reboot.html");
++jslSetValue("uiPostGetPage", "..usr/www/avm/html/reboot.html");
 +jslFormSubmit("uiPostForm");
 +}
 +}

@@ -1,5 +1,5 @@
---- usr/www/avm/html/de/internet/dslsnrset.html	2009-02-19 09:57:18.000000000 -0500
-+++ usr/www/avm/html/de/internet/dslsnrset.html	2009-01-22 10:31:54.000000000 -0500
+--- internet/dslsnrset.html	2009-02-19 09:57:18.000000000 -0500
++++ internet/dslsnrset.html	2009-01-22 10:31:54.000000000 -0500
 @@ -0,0 +1,68 @@
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -69,19 +69,19 @@
 +</div></div></div></div></div></div>
 +</div></div></div></div></div></div></div>
 +</div>
---- usr/www/avm/html/de/internet/dslsnrset.frm	2009-02-19 09:57:20.000000000 -0500
-+++ usr/www/avm/html/de/internet/dslsnrset.frm	2009-01-22 10:31:44.000000000 -0500
+--- internet/dslsnrset.frm	2009-02-19 09:57:20.000000000 -0500
++++ internet/dslsnrset.frm	2009-01-22 10:31:44.000000000 -0500
 @@ -0,0 +1,4 @@
 +<input type="hidden" name="sar:settings/ControlBitfield" value="<? query sar:settings/ControlBitfield ?>" id="uiPostControlBitfield">
 +<input type="hidden" name="sar:settings/DownstreamMarginOffset" value="<? query sar:settings/DownstreamMarginOffset ?>" id="iPostDownstreamMarginOffset">
 +<Input type="hidden" name="sar:settings/Annex" value="<? query sar:settings/Annex ?>" id="uiPostAnnex" disabled>
 +<Input type="hidden" name="sar:settings/DSLMode" value="<? query sar:settings/DSLMode ?>" id="uiPostDSLMode" disabled>
---- usr/www/avm/html/de/first/basic_first_Annex.frm	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/first/basic_first_Annex.frm	2009-01-22 10:31:50.000000000 -0500
+--- first/basic_first_Annex.frm	1969-12-31 19:00:00.000000000 -0500
++++ first/basic_first_Annex.frm	2009-01-22 10:31:50.000000000 -0500
 @@ -0,0 +1 @@
 +<? include ../html/de/first/basic_first.frm ?>
---- usr/www/avm/html/de/first/basic_first_Annex.html	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/first/basic_first_Annex.html	2009-01-22 10:31:55.000000000 -0500
+--- first/basic_first_Annex.html	1969-12-31 19:00:00.000000000 -0500
++++ first/basic_first_Annex.html	2009-01-22 10:31:55.000000000 -0500
 @@ -0,0 +1,20 @@
 +<div id="content">
 +<div class="backtitelkonfig"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -103,8 +103,8 @@
 +<input type="button" onclick="uiDoHelp()" value="Hilfe" class="Pushbutton" id="buttonHilfe">
 +</div></div></div></div></div></div>
 +</div>
---- usr/www/avm/html/de/first/basic_first_Annex.js	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/first/basic_first_Annex.js	2009-01-22 10:31:49.000000000 -0500
+--- first/basic_first_Annex.js	1969-12-31 19:00:00.000000000 -0500
++++ first/basic_first_Annex.js	2009-01-22 10:31:49.000000000 -0500
 @@ -0,0 +1,32 @@
 +<!-- ../first/basic_first_Annex.js -->
 +<script type="text/javascript">
@@ -138,8 +138,8 @@
 +jslPopHelp("hilfe_internet_dslsnrset");
 +}
 +</script>
---- usr/www/avm/html/de/internet/vdsl_profile.html	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/internet/vdsl_profile.html	2009-01-22 10:31:50.000000000 -0500
+--- internet/vdsl_profile.html	1969-12-31 19:00:00.000000000 -0500
++++ internet/vdsl_profile.html	2009-01-22 10:31:50.000000000 -0500
 @@ -0,0 +1,65 @@
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
@@ -206,8 +206,8 @@
 +<? include ../html/de/home/rbb_refresh.html ?>
 +</div></div></div></div></div></div></div>
 +</div>
---- usr/www/avm/html/de/internet/vdsl_profile.js	1969-12-31 19:00:00.000000000 -0500
-+++ usr/www/avm/html/de/internet/vdsl_profile.js	2009-01-22 10:31:49.000000000 -0500
+--- internet/vdsl_profile.js	1969-12-31 19:00:00.000000000 -0500
++++ internet/vdsl_profile.js	2009-01-22 10:31:49.000000000 -0500
 @@ -0,0 +1,27 @@
 +<!-- ../internet/vdsl_profile.js -->
 +<style type="text/css">

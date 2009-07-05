@@ -24,13 +24,13 @@ echo2 "      ${DST}/help/hilfe_fon_anrufbeantworter.html"
 # remove must be becaue of the following add trough modpatch add_tamhelp_en.47.patch
 rm -f "${DSTI}"/help/hilfe_fon_anrufbeantworter.html
 #cp -fp ./addon/$avm_Lang/help/hilfe_fon_anrufbeantworter.html "${DSTI}"/help/hilfe_fon_anrufbeantworter.html
-[ "$avm_Lang" = "en" ] && modpatch "$SR1" "$P_DIR/add_tamhelp_en.47.patch"
-[ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/add_tamhelp_de.47.patch"
+[ "$avm_Lang" = "en" ] && modpatch "$DSTI" "$P_DIR/add_tamhelp_en.47.patch"
+[ "$avm_Lang" = "de" ] && modpatch "$DSTI" "$P_DIR/add_tamhelp_de.47.patch"
 #original line
 #cp -fp ./addon/$avm_Lang/help/hilfe_fon_anrufbeantworter.html "${DSTI}"/help/hilfe_fon_anrufbeantworter.html
 echo2 "   -- Copying 'fonab.*' and 'tam.*' files:"
-[ "$avm_Lang" = "en" ] && modpatch "$SR1" "$P_DIR/add_tam_en.47.patch"
-[ "$avm_Lang" = "de" ] && modpatch "$SR1" "$P_DIR/add_tam_de.47.patch"
+[ "$avm_Lang" = "en" ] && modpatch "$DSTI" "$P_DIR/add_tam_en.47.patch"
+[ "$avm_Lang" = "de" ] && modpatch "$DSTI" "$P_DIR/add_tam_de.47.patch"
 # cp fonab.* tam.*
 #original lines
 #for FILE in `ls ./addon/$avm_Lang/fon`; do

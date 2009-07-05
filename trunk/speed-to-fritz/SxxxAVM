@@ -22,7 +22,6 @@ if [ ${ATA_ONLY} = "n" ]; then
  #add DSL driver dependig on the settings made in
  #7270 
  #annex B driver
- #[ -d "./addon/tmp/modules/dsp_ur8"  ] || 
  mkdir -p ./addon/tmp/modules/dsp_ur8
  if [ -d "${SRC}/lib/modules/dsp_ur8"  ]; then
   [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp "${SRC}"/lib/modules/dsp_ur8/ur8-B-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\

@@ -1,5 +1,5 @@
---- usr/www/avme/html/de/dect/setting.frm	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/dect/setting.frm	2007-12-22 14:35:10.000000000 -0500
+--- dect/setting.frm	2008-01-01 19:00:00.000000000 -0500
++++ dect/setting.frm	2007-12-22 14:35:10.000000000 -0500
 @@ -0,0 +1,7 @@
 +<input type="hidden" name="dect:settings/enabled" value="<? query dect:settings/enabled ?>" id="uiPost_DectActivated">
 +<input type="hidden" name="dect:command/Unsubscribe" value="0" id="uiPostUnsubscribe" disabled>
@@ -8,8 +8,8 @@
 +<input type="hidden" name="var:DeviceType" value="<? echo $var:DeviceType ?>" id="uiDeviceType">
 +<input type="hidden" name="var:TechType" value="<? echo $var:TechType ?>" id="uiTechType">
 +<input type="hidden" id="uiPostVarName" name="">
---- usr/www/avme/html/de/dect/setting.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/dect/setting.html	2007-12-22 16:25:48.000000000 -0500
+--- dect/setting.html	2008-01-01 19:00:00.000000000 -0500
++++ dect/setting.html	2007-12-22 16:25:48.000000000 -0500
 @@ -0,0 +1,29 @@
 +<? include ../html/de/dect/setting.js ?>
 +<div id="content">
@@ -40,8 +40,8 @@
 +<p class="ac"><input type="button" onclick="uiReboot()" value="<? echo $var:TextBoxNeuStart ?>" class=Pushbutton style="width: 360px"></p>
 +</div></div></div></div></div></div>
 +</div>
---- usr/www/avme/html/de/dect/setting.inc	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/dect/setting.inc	2008-02-04 10:55:22.000000000 -0500
+--- dect/setting.inc	2008-01-01 19:00:00.000000000 -0500
++++ dect/setting.inc	2008-02-04 10:55:22.000000000 -0500
 @@ -0,0 +1,7 @@
 +<? include ../html/de/global.inc ?>
 +<? setvariable var:TextDectEinstellungen "DECT-Einstellungen" ?>
@@ -50,8 +50,8 @@
 +<? setvariable var:TextDectPin 'PIN:' ?>
 +<? setvariable var:TextDectSetPin 'Set PIN' ?>
 +<? setvariable var:TextBoxNeuStart "$var:BoxName neu starten" ?>
---- usr/www/avme/html/de/dect/setting.js	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/dect/setting.js	2008-02-04 10:54:56.000000000 -0500
+--- dect/setting.js	2008-01-01 19:00:00.000000000 -0500
++++ dect/setting.js	2008-02-04 10:54:56.000000000 -0500
 @@ -0,0 +1,53 @@
 +<!-- ../dect/setting.js -->
 +<? include ../html/de/dect/setting.inc ?>
@@ -106,8 +106,8 @@
 +document.getElementById("uiPostForm").submit();
 +}
 +</script>
---- usr/www/avme/html/de/menus/menu2_dect.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/menus/menu2_dect.html	2007-12-22 16:27:45.000000000 -0500
+--- menus/menu2_dect.html	2008-01-01 19:00:00.000000000 -0500
++++ menus/menu2_dect.html	2007-12-22 16:27:45.000000000 -0500
 @@ -0,0 +1,15 @@
 +<? include ../html/de/menus/menu2_$var:menu.inc ?>
 +<li class="LMenuitem"><img class="LMenuPfeil" src="<? echo $var:aktivpfeil ?>"><a href="javascript:jslGoTo('dect','setting')"><? echo $var:TextMenuDECT ?></a><span class="PTextOnly"><? echo $var:TextMenuDECT ?></span></li>
@@ -124,8 +124,8 @@
 +` `
 +<li class="$var:classsetting"><img class="LMenuPfeil" src="$var:subpfeil"><a href="javascript:jslGoTo('dect','setting')"><? echo '$var:TextDectEinstellungen' ?></a><span class="PTextOnly"><? echo '$var:TextDectEinstellungen' ?></span></li>
 +` ?>
---- usr/www/avme/html/de/menus/menu2_dect.inc	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/menus/menu2_dect.inc	2008-02-03 16:27:00.000000000 -0500
+--- menus/menu2_dect.inc	2008-01-01 19:00:00.000000000 -0500
++++ menus/menu2_dect.inc	2008-02-03 16:27:00.000000000 -0500
 @@ -0,0 +1,2 @@
 +<? setvariable var:TextDectEinstellungen "DECT-Configuration" ?>
 +<? setvariable var:TextDectHandset "DECT-Devices" ?>

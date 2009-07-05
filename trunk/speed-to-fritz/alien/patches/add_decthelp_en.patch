@@ -1,5 +1,5 @@
---- usr/www/avme/html/de/help/hilfe_fon_dect.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/help/hilfe_fon_dect.html	2008-02-14 03:48:13.000000000 -0500
+--- help/hilfe_fon_dect.html	2008-01-01 19:00:00.000000000 -0500
++++ help/hilfe_fon_dect.html	2008-02-14 03:48:13.000000000 -0500
 @@ -0,0 +1,23 @@
 +<div class="Hilfe">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">DECT-mobile</div></div></div></div></div></div>
@@ -24,8 +24,8 @@
 +</div></div></div></div></div></div>
 +<? include ../html/de/help/rback.html ?>
 +</div>
---- usr/www/avme/html/de/help/hilfe_fon_dect_festnetzrufnummer.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/help/hilfe_fon_dect_festnetzrufnummer.html	2008-02-14 03:48:13.000000000 -0500
+--- help/hilfe_fon_dect_festnetzrufnummer.html	2008-01-01 19:00:00.000000000 -0500
++++ help/hilfe_fon_dect_festnetzrufnummer.html	2008-02-14 03:48:13.000000000 -0500
 @@ -0,0 +1,12 @@
 +<div class="Hilfe">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Festnetzrufnummern</div></div></div></div></div></div>
@@ -39,8 +39,8 @@
 +</div></div></div></div></div></div>
 +<? include ../html/de/help/rback.html ?>
 +</div>
---- usr/www/avme/html/de/help/hilfe_fon_dect_fon1isdn.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/help/hilfe_fon_dect_fon1isdn.html	2008-02-14 03:48:13.000000000 -0500
+--- help/hilfe_fon_dect_fon1isdn.html	2008-01-01 19:00:00.000000000 -0500
++++ help/hilfe_fon_dect_fon1isdn.html	2008-02-14 03:48:13.000000000 -0500
 @@ -0,0 +1,15 @@
 +<div class="Hilfe">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Interne Nummer</div></div></div></div></div></div>
@@ -57,8 +57,8 @@
 +</div></div></div></div></div></div>
 +<? include ../html/de/help/rback.html ?>
 +</div>
---- usr/www/avme/html/de/help/hilfe_fon_editdect.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/help/hilfe_fon_editdect.html	2008-02-14 03:48:13.000000000 -0500
+--- help/hilfe_fon_editdect.html	2008-01-01 19:00:00.000000000 -0500
++++ help/hilfe_fon_editdect.html	2008-02-14 03:48:13.000000000 -0500
 @@ -0,0 +1,15 @@
 +<div class="Hilfe">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Mobilteile</div></div></div></div></div></div>
@@ -75,8 +75,8 @@
 +</div></div></div></div></div></div>
 +<? include ../html/de/help/rback.html ?>
 +</div>
---- usr/www/avme/html/de/help/hilfe_fon_fon1dect.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/help/hilfe_fon_fon1dect.html	2008-02-14 03:48:13.000000000 -0500
+--- help/hilfe_fon_fon1dect.html	2008-01-01 19:00:00.000000000 -0500
++++ help/hilfe_fon_fon1dect.html	2008-02-14 03:48:13.000000000 -0500
 @@ -0,0 +1,15 @@
 +<div class="Hilfe">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Mobilteile</div></div></div></div></div></div>
@@ -93,8 +93,8 @@
 +</div></div></div></div></div></div>
 +<? include ../html/de/help/rback.html ?>
 +</div>
---- usr/www/avme/html/de/help/hilfe_fon_listdect.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/help/hilfe_fon_listdect.html	2008-02-14 03:48:13.000000000 -0500
+--- help/hilfe_fon_listdect.html	2008-01-01 19:00:00.000000000 -0500
++++ help/hilfe_fon_listdect.html	2008-02-14 03:48:13.000000000 -0500
 @@ -0,0 +1,19 @@
 +<div class="Hilfe">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Interne Nummern</div></div></div></div></div></div>
@@ -115,8 +115,8 @@
 +</div></div></div></div></div></div>
 +<? include ../html/de/help/rback.html ?>
 +</div>
---- usr/www/avme/html/de/help/hilfe_fon_setupdect.html	2008-01-01 19:00:00.000000000 -0500
-+++ usr/www/avme/html/de/help/hilfe_fon_setupdect.html	2008-02-14 03:48:13.000000000 -0500
+--- help/hilfe_fon_setupdect.html	2008-01-01 19:00:00.000000000 -0500
++++ help/hilfe_fon_setupdect.html	2008-02-14 03:48:13.000000000 -0500
 @@ -0,0 +1,19 @@
 +<div class="Hilfe">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Assigning Numbers</div></div></div></div></div></div>
