@@ -22,8 +22,10 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090707-1719-r-386
+    - W920: fix change Option in Config.in to reflect add Vdsl profile tab
 20090707-1455-r-385
-    - W920: cahnge Option in Config.in to reflect add Vdsl profile tab
+    - W920: change Option in Config.in to reflect add Vdsl profile tab
 20090707-1450-r-384
     - W920: add Vdsl profile tab
 20090707-1138-r-383
@@ -49,7 +51,7 @@ On some systems you have to add the patch tool (add install patch).
 20090703-1718-r-374
     - Update of multiannex patch to support 7170 with minor version > 70
 20090702-1546-r-373
-    - update of multiligual patch, (text chnaged)
+    - update of multiligual patch, (text changed)
 20090702-1003-r-372
     - 71XX Bugfix mutiannex
 20090702-0623-r-371

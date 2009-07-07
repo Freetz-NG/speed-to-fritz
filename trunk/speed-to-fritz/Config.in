@@ -729,7 +729,7 @@ choice
 	config TYPE_SRC3_AVM_7570_14434
 		bool "AVM_7570_14434M multilingual german english multi annex"
 	config TYPE_SRC3_AVM_7570_14685
-		bool "AVM_7570_75_14685M multilingual german english france multi annex"
+		bool "AVM_7570_75_14685M german english france multi annex"
 	config TYPE_LOCAL_AVM_IMAGE
 		bool "AVM_LOCAL_IMAGE"
 	config TYPE_LOCAL_TCOM_IMAGE
@@ -991,7 +991,7 @@ config EXPORT_FORCE_MULTI_COUNTRY
 config EXPORT_FORCE_DSL_MULTI_ANNEX 
 	bool "Force Multi annex"
 #	depends on ( TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ! TYPE_AVM_7570_XX
-	depends on ( ! TYPE_AVM_7570_XX && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
+	depends on ( ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
 	default n
 	help
 	    To make this work you must have Firmware that supplies the needed feature, firmware with minor version > 70.
@@ -1361,7 +1361,7 @@ if ! EXPORT_ATA_ONLY
 		only usable on "All In One" or similar Firmwares.
     config EXPORT_ADD_VDSL_PROFILE
 	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
-	bool "add tab with vdsl profil settings pages"
+	bool "Replace feedback tab with vdsl profil settings pages"
 	default y
 	help
 		Use this additional option to enable profile settings pages for vdsl.

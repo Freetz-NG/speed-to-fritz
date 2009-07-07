@@ -80,6 +80,7 @@ if [ "${FORCE_DSL_MULTI_ANNEX}" = "y" ]; then
   done
  sed -i -e 's/export CONFIG_ANNEX="A"/export CONFIG_ANNEX="B"/' "${SRC}"/etc/init.d/rc.conf
  sed -i -e 's/CONFIG_DSL_MULTI_ANNEX="n"/CONFIG_DSL_MULTI_ANNEX="y"/' "${SRC}"/etc/init.d/rc.conf
+ sed -i -e "s/isMultiAnnex=0/isMultiAnnex=1/g" "${SRC}"/etc/init.d/rc.S
  if  `grep -q 'MultiAnnex' "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"`; then
   echo "-- Multi Annex Option is not forced, but in use becaus 1st firmware is a multiannex fimware."
  else
