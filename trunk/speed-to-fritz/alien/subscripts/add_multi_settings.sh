@@ -54,6 +54,11 @@ if [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
   `cat "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html" | grep -q 'isMultiCountry' ` ||\
   sed -i -e "/.fon., .routing./a\
 <p class=\"ml10\"><a href=\"javascript:jslGoTo('fon', 'laender');\">{?de.home.sitemap.html:225FonLaendereinstellung?}<\/a><\/p>" "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html"
+  `cat "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_fon.html" | grep -q 'isMultiCountry' ` ||\
+  sed -i -e "/pagename 'laender'/a\
+<li class=\"<? echo \$var:classname ?>\"><img class=\"LMenuPfeil\" src=\"<? echo \$var:subpfeil ?>\"><a href=\"javascript:jslGoTo('fon','laender')\">{?de.menus.menu2_fon.html:105FonLaendereinstellung?}<\/a><span class=\"PTextOnly\">{?de.menus.menu2_fon.html:110FonLaendereinstellung?}<\/span><\/li>" "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_fon.html"
+  `cat "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_fon.html" | grep -q 'isMultiCountry' ` ||\
+  sed -i -e "s/pagename 'laender'/pagename laender/" "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_fon.html"
 fi #<-- multicountry
 file_nLIST="/html/de/internet/vdsl_profile.js \
 /html/de/internet/vdsl_profile.html \
@@ -63,7 +68,6 @@ file_nLIST="/html/de/internet/vdsl_profile.js \
 /html/de/first/basic_first_Annex.js \
 /html/de/first/basic_first_Annex.frm \
 /html/de/first/basic_first_Annex.html"
-#/html/de/help/hilfe_internet_dslsnrset.html \
  #show settings tub
  #-----------------------------------------------------------------
   for file_n in adsl.html atm.html bits.html overview.html; do
@@ -75,7 +79,7 @@ file_nLIST="/html/de/internet/vdsl_profile.js \
  #---------------------------------------------------------------
  USRWWW="usr/www/${OEMLINK}/html/de"
 if [ "${FORCE_DSL_MULTI_ANNEX}" = "y" ]; then
-  for file_n in /html/de/first/basic_first.js /html/de/first/basic_first.frm; do
+  for file_n in /html/de/first/basic_first.js /html/de/first/basic_first.frm /html/de/help/hilfe_internet_dslsnrset.html; do
     if [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ] && ! [ -f "${SRC}/usr/www/${OEMLINK}/$file_n" ]; then
      cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "  Copy from 2nd AVM firmware: $file_n"
     fi
@@ -155,18 +159,19 @@ bAnnexConfirm=true;\
 function uiDoHelp() {\
 jslPopHelp("hilfe_internet_dslsnrset");\
 }'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
+  sed -i -e "s/^0$/bAnnexConfirm/"  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
 
-  sed -i -e "/jslFormSubmitEx..internet., .dslsnrset..;/d"  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
-  sed -i -e '/jslSetValue..uiPostControlBitfield.. ctlbits/a\
-if (\
-bAnnexConfirm\
-){\
-jslSetValue("uiPostGetPage", "../html/reboot.html");\
-document.getElementById("uiPostForm").submit();\
-}\
-else {\
-jslFormSubmitEx("internet", "dslsnrset");\
-}'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
+#  sed -i -e "/jslFormSubmitEx..internet., .dslsnrset..;/d"  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
+#  sed -i -e '/jslSetValue..uiPostControlBitfield.. ctlbits/a\
+#if (\
+#bAnnexConfirm\
+#){\
+#jslSetValue("uiPostGetPage", "../html/reboot.html");\
+#document.getElementById("uiPostForm").submit();\
+#}\
+#else {\
+#jslFormSubmitEx("internet", "dslsnrset");\
+#}'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
   sed -i -e '/function uiDoOnLoad/a\
 InitAnnex();'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
   sed -i -e '/function InitMode/i\
@@ -210,6 +215,11 @@ jslSetChecked("uiViewAnnexB", n==1);\
   `cat "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html" | grep -q 'isMultiLanguage' ` ||\
   sed -i -e "/.system., .timeZone./a\
 <p class=\"ml10\"><a href=\"javascript:jslGoTo('system', 'language');\">{?de.home.sitemap.html:6446?}<\/a><\/p>" "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html"
+  `cat "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_system.html" | grep -q 'isMultiLanguage' ` ||\
+  sed -i -e "/'system','timeZone'/a\
+<? setvariable var:classname 'LSubitem' ?>\n\
+<? if eq \$var:pagename language \`<? setvariable var:classname 'LSubitemaktiv' ?>\` ?>\n\
+<li class=\"<? echo \$var:classname ?>\"><img class=\"LMenuPfeil\" src=\"<? echo \$var:subpfeil ?>\"><a href=\"javascript:jslGoTo('system','language')\">{?de.menus.menu2_system.html:8896?}<\/a><span class=\"PTextOnly\">{?de.menus.menu2_system.html:6462?}<\/span><\/li>" "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_system.html"
 fi # <-- Multiannex 
 #----------------------------------------------------------------------------------------------------
   if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then

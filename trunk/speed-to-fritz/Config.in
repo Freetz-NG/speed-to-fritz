@@ -956,16 +956,16 @@ config TYPE_LABOR_TYPE
 	default "LOCAL"		if TYPE_LOCAL_AVM
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_FORCE_MULTI_LANGUAGE
-	bool "Use Multilingual from T-Home or 2nd AVM Firmware"
-	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m )
+	bool "Use Multilingual from 2nd AVM Firmware"
+	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m ) && SOURCE2
 	default n
 	help
 	    Do not use this option if the AVM 1st Firmware is a multilingual Firmware originally!  
 	    To make this work you must have a T-Home or 2nd AVM Firmware that supplies the needed feature.
 
 config EXPORT_FORCE_MULTI_COUNTRY
-	bool "Use Multi country from T-Home or 2nd AVM Firmware"
-	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m )
+	bool "Use Multi country from 2nd AVM Firmware"
+	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m ) && SOURCE2
  	default n
 	help
 	    Do not use this option if the AVM 1st Firmware is a multilingual Firmware originally!
@@ -1343,6 +1343,12 @@ if ! EXPORT_ATA_ONLY
 	help
 		Use this additional option to add expert-pages for dsl settings,
 		only usable on "All In One" or similar Firmwares.
+    config EXPORT_ADD_VDSL_PROFILE
+	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
+	bool "Replace feedback tab with vdsl profil settings pages"
+	default y
+	help
+		Use this additional option to enable profile settings pages for vdsl.
     config EXPORT_USE_SOURCE2_DSLMNUE
 	bool "Use 2nd AVM source DSL web files"
 	depends on SOURCE2
@@ -1420,8 +1426,8 @@ if ! EXPORT_ATA_ONLY
 		Save (V)DSL DRIVER from AVM source to ./addon/tmp/WXXX.
     config REMOVE_ANNEX_B_DSL_DRIVER
 	bool "Remove Annex B driver on 72XX Firmware"
-#	depends on EXPORT_TYPE_LOCAL_MODEL && TYPE_ANNEX_A
-	depends on EXPORT_TYPE_LOCAL_MODEL
+	depends on EXPORT_TYPE_LOCAL_MODEL && TYPE_ANNEX_A
+#	depends on EXPORT_TYPE_LOCAL_MODEL
 	default n
 	help
 		Annex B driver will be removed if it is a 72XX firmware.

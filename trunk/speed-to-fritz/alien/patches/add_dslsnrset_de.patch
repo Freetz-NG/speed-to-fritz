@@ -147,21 +147,21 @@
 +</div></div></div></div></div></div>
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
 +<ul class="tabs">
-+<li><a href="javascript:uiDoOverviewPage()">Overview</a></li>
++<li><a href="javascript:uiDoOverviewPage()">Übersiccht" </a></li>
 +<li><a href="javascript:uiDoADSLPage()">DSL</a></li>
 +<li><a href="javascript:uiDoBitsPage()">Spektrum</a></li>
-+<li class="tabs_on"><div class="activtab">VdslProf</div></li>
-+<? if eq $var:isMultiAnnex 1 `
-+<? if eq '<? query box:settings/expertmode/activated ?>' '1' `
++<li><a href="javascript:uiDoATMPage()">Statistik</a></li>
 +<li><a href="javascript:uiDoSNRPage()">Einstellungen</a></li>
-+` ?>
-+` `
-+<? if neq $var:Annex A `
-+<? if eq '<? query box:settings/expertmode/activated ?>' '1' `
-+<li><a href="javascript:uiDoSNRPage()">Einstellungen</a></li>
-+` ?>
-+` ?>
-+` ?>
++<li class="tabs_on"><div class="activtab">Vdsl Profile</div></li>
++
++
++
++
++
++
++
++
++
 +</ul>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
 +<form method="post" action="/cgi-bin/webcm">

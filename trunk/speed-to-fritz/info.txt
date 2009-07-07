@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090707-1018-r-381
+    - More changes on multilannex Option for 7240.
 20090707-0511-r-380
     - More changes on multilannex Option: 7240 added.
 20090705-1504-r-380
