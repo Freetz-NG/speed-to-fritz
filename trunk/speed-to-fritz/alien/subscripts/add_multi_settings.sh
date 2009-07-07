@@ -4,10 +4,10 @@
  rpl_avme_avm()
  {
 	for file_n in $1; do
-	if [ -f "$file" ]; then
+	if [ -f "$file_n" ]; then
 	 grep -q '<? if eq $var:OEM avme `' "$file_n" && echo2 "  'avme' chanaged to 'avm' in file: ${file_n##*/}"
 	 sed -i -e 's/<? if eq $var:OEM avme `/<? if eq 1 1 `/' "$file_n"
-	fi 
+	fi
 	done
  }
  rn_files()
@@ -18,9 +18,6 @@
 	mv "$file_n" $IMGN/"$2"
 	done
  }
-echo "-- Adding multiannex pages ..."
-#annex settings made via GUI
-echo "-- Adding settings timezone pages ..."
 OEML="avm" && [ -d "${DST}"/usr/www/avme ] && OEML="avme"
 OEML2="avm" && [ -d "${SRC_2}"/usr/www/avme ] && OEML2="avme"
 if [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
