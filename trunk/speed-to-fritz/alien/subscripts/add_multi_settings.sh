@@ -3,28 +3,39 @@
 . ${include_modpatch}
  rpl_avme_avm()
  {
-	for file in $1; do
+	for file_n in $1; do
 	if [ -f "$file" ]; then
-	 grep -q '<? if eq $var:OEM avme `' "$file" && echo2 "  'avme' chanaged to 'avm' in File: ${file##*/}"
-	 sed -i -e 's/<? if eq $var:OEM avme `/<? if eq 1 1 `/' "$file"
+	 grep -q '<? if eq $var:OEM avme `' "$file_n" && echo2 "  'avme' chanaged to 'avm' in file: ${file_n##*/}"
+	 sed -i -e 's/<? if eq $var:OEM avme `/<? if eq 1 1 `/' "$file_n"
 	fi 
 	done
  }
  rn_files()
  {
-	for file in $1; do
-	IMGN="${file%/*}"
+	for file_n in $1; do
+	IMGN="${file_n%/*}"
 	#echo "$file" $IMGN/"$2"
-	mv "$file" $IMGN/"$2"
+	mv "$file_n" $IMGN/"$2"
 	done
  }
 echo "-- Adding multiannex pages ..."
 #annex settings made via GUI
 echo "-- Adding settings timezone pages ..."
+OEML="avm" && [ -d "${DST}"/usr/www/avme ] && OEML="avme"
+OEML2="avm" && [ -d "${SRC_2}"/usr/www/avme ] && OEML2="avme"
 if [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
+  for file_n in /html/de/first/basic_first.js /html/de/first/basic_first.frm; do
+    if [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ] && ! [ -f "${SRC}/usr/www/${OEMLINK}/$file_n" ]; then
+     cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "  Copy from 2nd AVM firmware: $file_n"
+    fi
+  done
+ for file_n in basic_first_Country.js basic_first_Country.frm basic_first_Country.html; do
+   file_n="/html/de/first/${file_n}"
+   [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ] && cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "  Copy from 2nd AVM firmware: $file_n"
+ done
  sed -i -e 's/CONFIG_MULTI_COUNTRY="n"/CONFIG_MULTI_COUNTRY="y"/' "${SRC}"/etc/init.d/rc.conf
  echo "-- Adding mulicountry pages from source t-home or 2nd AVM firmware ..."
- FILELIST="menu2_system.html sitemap.html authform.html vpn.html pppoe.html first_Sip_1.html first_ISP_0.html first_ISP_3.frm"
+ file_nLIST="menu2_system.html sitemap.html authform.html vpn.html pppoe.html first_Sip_1.html first_ISP_0.html first_ISP_3.frm"
  if [ "${OEM}" = "avm" ]; then
   rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.html)" 
   rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.frm)" 
@@ -40,8 +51,11 @@ if [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
   rn_files "$(find "${SRC}/etc" -name fx_conf.avme)" "fx_conf.${OEMLINK}"
   rn_files "$(find "${SRC}/etc" -name fx_lcr.avme)" "fx_lcr.${OEMLINK}"
  fi
+  `cat "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html" | grep -q 'isMultiCountry' ` ||\
+  sed -i -e "/.fon., .routing./a\
+<p class=\"ml10\"><a href=\"javascript:jslGoTo('fon', 'laender');\">{?de.home.sitemap.html:225FonLaendereinstellung?}<\/a><\/p>" "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html"
 fi #<-- multicountry
-FILELIST="/html/de/internet/vdsl_profile.js \
+file_nLIST="/html/de/internet/vdsl_profile.js \
 /html/de/internet/vdsl_profile.html \
 /html/de/internet/vdsl_profile.frm \
 /html/de/internet/dslsnrset.frm \
@@ -52,15 +66,20 @@ FILELIST="/html/de/internet/vdsl_profile.js \
 #/html/de/help/hilfe_internet_dslsnrset.html \
  #show settings tub
  #-----------------------------------------------------------------
-  for FILE in adsl.html atm.html bits.html overview.html; do
-   if [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/$FILE" ]; then 
-    sed -i -e "s|<? if neq \$var:Annex A|<? if neq \$var:Annex Z|" "${SRC}/usr/www/${OEMLINK}/html/de/internet/$FILE"
-    echo2 "  /usr/www/${OEMLINK}/html/de/internet/$FILE"
+  for file_n in adsl.html atm.html bits.html overview.html; do
+   if [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n" ]; then 
+    sed -i -e "s|<? if neq \$var:Annex A|<? if neq \$var:Annex Z|" "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n"
+    echo2 "  /usr/www/${OEMLINK}/html/de/internet/$file_n"
    fi
   done
  #---------------------------------------------------------------
  USRWWW="usr/www/${OEMLINK}/html/de"
 if [ "${FORCE_DSL_MULTI_ANNEX}" = "y" ]; then
+  for file_n in /html/de/first/basic_first.js /html/de/first/basic_first.frm; do
+    if [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ] && ! [ -f "${SRC}/usr/www/${OEMLINK}/$file_n" ]; then
+     cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "  Copy from 2nd AVM firmware: $file_n"
+    fi
+  done
  sed -i -e 's/export CONFIG_ANNEX="A"/export CONFIG_ANNEX="B"/' "${SRC}"/etc/init.d/rc.conf
  sed -i -e 's/CONFIG_DSL_MULTI_ANNEX="n"/CONFIG_DSL_MULTI_ANNEX="y"/' "${SRC}"/etc/init.d/rc.conf
  if  `grep -q 'MultiAnnex' "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"`; then
@@ -69,27 +88,26 @@ if [ "${FORCE_DSL_MULTI_ANNEX}" = "y" ]; then
   echo "-- Adding timezone pages ..."
   [ "$avm_Lang" = "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_de.patch" )
   [ "$avm_Lang" = "en" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_en.patch" )
-  for file in $FILELIST; do
-   [ -f "${SRC}/usr/www/${OEMLINK}/$file" ] && rm -f "${SRC}/usr/www/${OEMLINK}/$file"
+  for file_n in $file_nLIST; do
+   [ -f "${SRC}/usr/www/${OEMLINK}/$file_n" ] && rm -f "${SRC}/usr/www/${OEMLINK}/$file_n"
   done
   echo "-- Adding multiannex pages ..."
   [ "$avm_Lang" = "de" ] && modpatch "${SRC}/${USRWWW}" "$P_DIR/add_dslsnrset_de.patch"
   [ "$avm_Lang" = "en" ] && modpatch "${SRC}/${USRWWW}" "$P_DIR/add_dslsnrset_en.patch"
-  FILELIST="$FILELIST \
+  file_nLIST="$file_nLIST \
 /html/de/system/timeZone.js \
 /html/de/system/timeZone.frm \
 /html/de/system/timeZone.html"
-  OEML="avm" && [ -d "${DST}"/usr/www/avme ] && OEML="avme"
-  OEML2="avm" && [ -d "${SRC_2}"/usr/www/avme ] && OEML2="avme"
-  #if files exist in 2nd or 3rd firmware use this files instead
-  for file in $FILELIST; do
-   if [ -f "${DST}/usr/www/${OEML}/$file" ]; then
-    cp -fdrp "${DST}/usr/www/${OEML}/$file" "${SRC}/usr/www/${OEMLINK}/$file" && echo2 "  Copy from t-Home firmware: $file"
-   fi
-   if [ -f "${SRC_2}/usr/www/${OEML2}/$file" ]; then
-    cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file" "${SRC}/usr/www/${OEMLINK}/$file" && echo2 "  Copy from 2nd AVM firmware: $file"
-   fi
-  done
+  #if file exist in 2nd or 3rd firmware use this file instead
+#  for file_n in $file_nLIST; do
+#   if [ -f "${DST}/usr/www/${OEML}/$file_n" ]; then
+#    cp -fdrp "${DST}/usr/www/${OEML}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "  Copy from t-Home firmware: $file_n"
+#   fi
+#   if [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ]; then
+#    cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "  Copy from 2nd AVM firmware: $file_n"
+#   fi
+#  done
+
   if ! `grep -q 'ar7cfg.dslglobalconfig.Annex' "${SRC}"/etc/init.d/rc.conf`; then
      sed -i -e '/export ANNEX=.cat .CONFIG_ENVIRONMENT_PATH.annex./d' "${SRC}"/etc/init.d/rc.conf
      sed -i -e '/"$annex_param"/a\
@@ -177,22 +195,34 @@ jslSetChecked("uiViewAnnexB", n==1);\
   fi
   Unicode_ut8="n"
   `cat "${SRC}"/usr/www/${OEMLINK}/html/index.html | grep -q 'charset=utf-8' ` && Unicode_ut8="y" 
-  FILELIST="/html/de/internet/dslsnrset.html \
+  file_nLIST="/html/de/internet/dslsnrset.html \
 /html/de/first/basic_first_Annex.html \
 /html/de/internet/dslsnrset.js"
-  for file in $FILELIST; do
-    filename="${SRC}/usr/www/${OEMLINK}${file}"
+  for file_n in $file_nLIST; do
+    file_nname="${SRC}/usr/www/${OEMLINK}${file_n}"
     if [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ]; then
-     [ -f ${filename} ] && iconv --from-code=ISO-8859-1 --to-code=UTF-8 "${filename}" > ${filename}.ut8
-     rm -f ${filename}
-     [ -f ${filename}.ut8 ] && mv ${filename}.ut8 ${filename} && echo2 "-- $file changed to ut8"
+     [ -f ${file_nname} ] && iconv --from-code=ISO-8859-1 --to-code=UTF-8 "${file_nname}" > ${file_nname}.ut8
+     rm -f ${file_nname}
+     [ -f ${file_nname}.ut8 ] && mv ${file_nname}.ut8 ${file_nname} && echo2 "-- $file_n changed to ut8"
     fi
   done
  fi # <-- ? 1st firmware multiannex
+  `cat "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html" | grep -q 'isMultiLanguage' ` ||\
+  sed -i -e "/.system., .timeZone./a\
+<p class=\"ml10\"><a href=\"javascript:jslGoTo('system', 'language');\">{?de.home.sitemap.html:6446?}<\/a><\/p>" "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html"
 fi # <-- Multiannex 
 #----------------------------------------------------------------------------------------------------
-#else
   if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
+  #if file exist in 2nd or 3rd firmware use this file instead
+   for file_n in /html/de/first/basic_first.js /html/de/first/basic_first.frm; do
+    if [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ] && ! [ -f "${SRC}/usr/www/${OEMLINK}/$file_n" ]; then
+     cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "  Copy from 2nd AVM firmware: $file_n"
+    fi
+   done
+   for file_n in basic_first_Language.js basic_first_Language.frm basic_first_Language.html; do
+   file_n="/html/de/first/${file_n}"
+    [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ] && cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "  Copy from 2nd AVM firmware: $file_n"
+   done
    [ -f "${SRC}"/etc/htmltext_de.db ] || echo -e "-- \033[1mAttention:\033[0m 1st Firmware is not usabel for multilingual!" && sleep 5
    sed -i -e 's/CONFIG_MULTI_LANGUAGE="n"/CONFIG_MULTI_LANGUAGE="y"/' "${SRC}"/etc/init.d/rc.conf
    echo "-- Adding mulilingual pages from t-Home or 2nd AVM firmware ..."
@@ -221,9 +251,4 @@ fi # <-- Multiannex
    [ "${FORCE_LANGUAGE}" != "" ] && [ -f "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "  copy: database ${FORCE_LANGUAGE}"
    [ "${FORCE_LANGUAGE}" != "" ] && [ -f "${SRC_2}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${SRC_2}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "  copy: database ${FORCE_LANGUAGE}"
   fi
-#  fi
-#if ! `grep -q 'id="uiTempLang"' "${SRC}"/usr/www/$OEMLINK/html/de/first/basic_first.frm`; then
-#echo '<input type="hidden" name="var:lang" value="<? echo $var:lang ?>" id="uiTempLang">' >> "${SRC}"/usr/www/$OEMLINK/html/de/first/basic_first.frm
-#fi
-
 exit 0

@@ -122,8 +122,8 @@ config AVM_AIO_7170_13679
     string
     default "p"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-### AVM 7270 Firmware
-### AVM 7270 Firmware
+### AVM 72XX Firmware
+### AVM 72XX Firmware
 ### ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config AVM_VPN_7270_13265
     string
@@ -153,6 +153,9 @@ config AVM_7270_70
     string
 #    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_IPv6/fritz_box-labor-14338.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
+config AVM_7240_76
+    string
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7240/firmware/deutsch/FRITZ.Box_Fon_WLAN_7240.73.04.76.image"
 config AVM_7270_76
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.76.image"
@@ -181,6 +184,7 @@ config AVM_WLANX_7270_14080
 ### 7570 AVM Firmware
 ### 7570 AVM Firmware
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 config AVM_7570_70
     string
     default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.image"
@@ -490,6 +494,11 @@ choice
 		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! release: 70
+	config TYPE_7240_76
+		bool "7240_76"
+		depends on ( EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		help
+			FRITZ! release: 76
 	config TYPE_76
 		bool "7270_76"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
@@ -671,6 +680,8 @@ choice
 		bool "AVM_7270_70"
 	config TYPE_SRC3_AVM_7270_76
 		bool "AVM_7270_76"
+	config TYPE_SRC3_AVM_7240_76
+		bool "AVM_7240_76"
 	config TYPE_SRC3_AVM_V3_7270_76
 		bool "AVM_7270v3_76"
 	config TYPE_SRC3_AVM_DSL_7270_14000 
@@ -806,6 +817,7 @@ config AVM_IMG
 	default "$AVM_GAMING_7170_11435"		if TYPE_7170_GAMING && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
 	default "$AVM_MINI_7170_67"			if TYPE_7170_MINI && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
 
+	default "$AVM_7240_76"				if ( TYPE_7240_76 ) && ( EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_76" 				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_67m" 			if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_EN
 	default "$AVM_7270_59" 				if ( TYPE_59  &&  TYPE_SPEEDPORT_W920V ) || ( TYPE_SPEEDPORT_W503V  && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE )
@@ -867,6 +879,7 @@ config SRC2_IMG
 	default "$AVM_7270_A59" 		if TYPE_SRC3_AVM_7270_A59
 #	default "$AVM_7270_67" 			if TYPE_SRC3_AVM_7270_67
 	default "$AVM_7270_70" 			if TYPE_SRC3_AVM_7270_70
+	default "$AVM_7240_76" 			if TYPE_SRC3_AVM_7240_76
 	default "$AVM_7270_76" 			if TYPE_SRC3_AVM_7270_76
 	default "$AVM_V3_7270_76" 		if TYPE_SRC3_AVM_V3_7270_76
 	default "$AVM_7270_67m"	 		if TYPE_SRC3_AVM_7270_67m
@@ -1339,7 +1352,9 @@ if ! EXPORT_ATA_ONLY
     config FORCE_TCOM_KDSLDMOD
 	bool "Use T-Home ksldmod driver"
 	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
-	default n
+	default n if ! TYPE_ANNEX_A && ! EXPORT_FORCE_MULTI_LANGUAGE
+	default y if TYPE_ANNEX_A || EXPORT_FORCE_MULTI_LANGUAGE
+
 	help
 		Use KSLDMOD from T-Home Firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
     config FORCE_TCOM_PCMLINK
@@ -1405,7 +1420,8 @@ if ! EXPORT_ATA_ONLY
 		Save (V)DSL DRIVER from AVM source to ./addon/tmp/WXXX.
     config REMOVE_ANNEX_B_DSL_DRIVER
 	bool "Remove Annex B driver on 72XX Firmware"
-	depends on EXPORT_TYPE_LOCAL_MODEL && TYPE_ANNEX_A
+#	depends on EXPORT_TYPE_LOCAL_MODEL && TYPE_ANNEX_A
+	depends on EXPORT_TYPE_LOCAL_MODEL
 	default n
 	help
 		Annex B driver will be removed if it is a 72XX firmware.

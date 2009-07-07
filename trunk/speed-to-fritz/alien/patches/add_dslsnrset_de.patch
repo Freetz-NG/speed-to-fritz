@@ -143,7 +143,7 @@
 @@ -0,0 +1,65 @@
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
-+{?de.internet.vdsl_profile.html:5DSLInfo?}
++Einstellungen
 +</div></div></div></div></div></div>
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
 +<ul class="tabs">
@@ -171,7 +171,7 @@
 +<input type="hidden" name="var:pagename" value="vdsl_profile" />
 +<input type="hidden" name="var:errorpagename" value="vdsl_profile" />
 +<input type="hidden" name="var:menu" value="internet" />
-+{?de.internet.vdsl_profile.html:35Prof?}
++VDSL Profiel auswaehlen
 +<select name="vdsl:settings/vdsl_profile" id="vdsl_profile_box">
 +<option value="0">annex17a</option>
 +<option value="1">annex8a</option>
@@ -182,7 +182,7 @@
 +<option value="6">annex17b</option>
 +<option value="7">annex30a</option>
 +</select>
-+<input type="submit" value="Uebernehmen" />
++<input type="submit" value="Übernehmen" />
 +</p>
 +</form>
 +<br>
@@ -193,7 +193,7 @@
 +<input type="hidden" name="var:pagename" value="vdsl_profile" />
 +<input type="hidden" name="var:errorpagename" value="vdsl_profile" />
 +<input type="hidden" name="var:menu" value="internet" />
-+{?de.internet.vdsl_profile.html:85Filter?}
++Filter Auswahl:
 +<select name="vdsl:settings/vdsl_filter" id="vdsl_filter_box">
 +<option value="0">Filter Off</option>
 +<option value="1">ISND Filter</option>
