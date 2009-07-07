@@ -57,10 +57,7 @@ if [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
   `cat "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_fon.html" | grep -q 'isMultiCountry' ` ||\
   sed -i -e "s/pagename 'laender'/pagename laender/" "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_fon.html"
 fi #<-- multicountry
-file_nLIST="/html/de/internet/vdsl_profile.js \
-/html/de/internet/vdsl_profile.html \
-/html/de/internet/vdsl_profile.frm \
-/html/de/internet/dslsnrset.frm \
+file_nLIST="/html/de/internet/dslsnrset.frm \
 /html/de/internet/dslsnrset.html \
 /html/de/first/basic_first_Annex.js \
 /html/de/first/basic_first_Annex.frm \
@@ -88,27 +85,17 @@ if [ "${FORCE_DSL_MULTI_ANNEX}" = "y" ]; then
  else
   echo "-- Adding timezone pages ..."
   [ "$avm_Lang" = "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_de.patch" )
-  [ "$avm_Lang" = "en" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_en.patch" )
+  [ "$avm_Lang" != "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_en.patch" )
   for file_n in $file_nLIST; do
    [ -f "${SRC}/usr/www/${OEMLINK}/$file_n" ] && rm -f "${SRC}/usr/www/${OEMLINK}/$file_n"
   done
   echo "-- Adding multiannex pages ..."
   [ "$avm_Lang" = "de" ] && modpatch "${SRC}/${USRWWW}" "$P_DIR/add_dslsnrset_de.patch"
-  [ "$avm_Lang" = "en" ] && modpatch "${SRC}/${USRWWW}" "$P_DIR/add_dslsnrset_en.patch"
+  [ "$avm_Lang" != "de" ] && modpatch "${SRC}/${USRWWW}" "$P_DIR/add_dslsnrset_en.patch"
   file_nLIST="$file_nLIST \
 /html/de/system/timeZone.js \
 /html/de/system/timeZone.frm \
 /html/de/system/timeZone.html"
-  #if file exist in 2nd or 3rd firmware use this file instead
-#  for file_n in $file_nLIST; do
-#   if [ -f "${DST}/usr/www/${OEML}/$file_n" ]; then
-#    cp -fdrp "${DST}/usr/www/${OEML}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "  Copy from t-Home firmware: $file_n"
-#   fi
-#   if [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ]; then
-#    cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "  Copy from 2nd AVM firmware: $file_n"
-#   fi
-#  done
-
   if ! `grep -q 'ar7cfg.dslglobalconfig.Annex' "${SRC}"/etc/init.d/rc.conf`; then
      sed -i -e '/export ANNEX=.cat .CONFIG_ENVIRONMENT_PATH.annex./d' "${SRC}"/etc/init.d/rc.conf
      sed -i -e '/"$annex_param"/a\
@@ -157,18 +144,6 @@ function uiDoHelp() {\
 jslPopHelp("hilfe_internet_dslsnrset");\
 }'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
   sed -i -e "s/^0$/bAnnexConfirm/"  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
-
-#  sed -i -e "/jslFormSubmitEx..internet., .dslsnrset..;/d"  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
-#  sed -i -e '/jslSetValue..uiPostControlBitfield.. ctlbits/a\
-#if (\
-#bAnnexConfirm\
-#){\
-#jslSetValue("uiPostGetPage", "../html/reboot.html");\
-#document.getElementById("uiPostForm").submit();\
-#}\
-#else {\
-#jslFormSubmitEx("internet", "dslsnrset");\
-#}'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
   sed -i -e '/function uiDoOnLoad/a\
 InitAnnex();'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
   sed -i -e '/function InitMode/i\
