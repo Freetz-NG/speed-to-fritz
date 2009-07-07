@@ -1361,7 +1361,7 @@ if ! EXPORT_ATA_ONLY
 		only usable on "All In One" or similar Firmwares.
     config EXPORT_ADD_VDSL_PROFILE
 	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
-	bool "Replace feedback tab with vdsl profil settings pages"
+	bool "add tab with vdsl profil settings pages"
 	default y
 	help
 		Use this additional option to enable profile settings pages for vdsl.
