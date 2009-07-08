@@ -511,9 +511,8 @@ choice
 		help
 			FRITZ! release: 76
 	config TYPE_76_V3
-		bool "7270v3_76"
-#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-		depends on ( EXPORT_TYPE_LOCAL_MODEL ) && ( EXPORT_FORCE_DSL_MULTI_ANNEX )
+		bool "7270v3_76 media no plugins"
+		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! release: 76
 #	config TYPE_13948
@@ -831,8 +830,8 @@ config AVM_IMG
 	default "$AVM_GAMING_7170_11435"		if TYPE_7170_GAMING && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
 	default "$AVM_MINI_7170_67"			if TYPE_7170_MINI && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
 
-#	default "$AVM_7240_76"				if ( TYPE_7240_76 ) && ( EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_7240_76"				if ( TYPE_7240_76 )
+	default "$AVM_7240_76"				if ( TYPE_7240_76 ) && ( EXPORT_TYPE_LOCAL_MODEL )
+#	default "$AVM_7240_76"				if ( TYPE_7240_76 )
 	default "$AVM_7270_76" 				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_67m" 			if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_EN
 	default "$AVM_7270_59" 				if ( TYPE_59  &&  TYPE_SPEEDPORT_W920V ) || ( TYPE_SPEEDPORT_W503V  && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE )
@@ -1351,7 +1350,7 @@ config EXPORT_USE_SOURCE2_WEBMNUE
 		Use dect driver from local directory ./addon/tmp/WXXX/.....
 		V3 Firmware dectdriver cant be used with W920 
     config SAVE_SRC2_DECTDRIVER
-	bool "Save 2nd AVM Firmware dect driver to ./addon/tmp/W920/"
+	bool "Save 2nd AVM source dect driver to ./addon/tmp/W920/"
 	depends on TYPE_SPEEDPORT_W920V
 	default n
 	help

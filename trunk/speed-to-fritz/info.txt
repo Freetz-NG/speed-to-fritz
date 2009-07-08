@@ -22,8 +22,15 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090708-1427-r-388
+    - W920: Added - 7270v3 is now usabel, but DECT driver must be taken form other firmware.
+      7270v3 Firmware comes with all modules included, plugins are not needed.
+      Exept ths fact, 7270v2 and 7270v3 Firmware is absolutly equal.
+      To be able to use 7270v3 Firmware you must selct at the Options 
+      'use DECT driver from 2nd AVM source' or any other source.  
 20090708-1027-r-387
-    - W920: Added Option to xchange DECT Firmware, added more kdsldmod Options, adds - to be able to use 7270v3 Firmware but still not usabel
+    - W920: Added Option to xchange DECT Firmware, added more kdsldmod Options, 
+      adds - to be able to use 7270v3 Firmware but still not usabel
 20090707-1719-r-386
     - W920: fix change Option in Config.in to reflect add Vdsl profile tab
 20090707-1455-r-385
