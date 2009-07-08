@@ -502,7 +502,7 @@ choice
 			FRITZ! release: 70
 	config TYPE_7240_76
 		bool "7240_76"
-		depends on ( EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_SPEEDPORT_W920V || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! release: 76
 	config TYPE_76
@@ -512,7 +512,8 @@ choice
 			FRITZ! release: 76
 	config TYPE_76_V3
 		bool "7270v3_76"
-		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+#		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( EXPORT_TYPE_LOCAL_MODEL ) && ( EXPORT_FORCE_DSL_MULTI_ANNEX )
 		help
 			FRITZ! release: 76
 #	config TYPE_13948
@@ -830,7 +831,8 @@ config AVM_IMG
 	default "$AVM_GAMING_7170_11435"		if TYPE_7170_GAMING && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
 	default "$AVM_MINI_7170_67"			if TYPE_7170_MINI && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
 
-	default "$AVM_7240_76"				if ( TYPE_7240_76 ) && ( EXPORT_TYPE_LOCAL_MODEL )
+#	default "$AVM_7240_76"				if ( TYPE_7240_76 ) && ( EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7240_76"				if ( TYPE_7240_76 )
 	default "$AVM_7270_76" 				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_67m" 			if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_EN
 	default "$AVM_7270_59" 				if ( TYPE_59  &&  TYPE_SPEEDPORT_W920V ) || ( TYPE_SPEEDPORT_W503V  && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE )
@@ -1334,6 +1336,27 @@ config EXPORT_USE_SOURCE2_WEBMNUE
 	help
 		Use this additional option if new Firmware with alternative menus is used, 
 		with limited functionality but interesting for experiments.
+    config FORCE_SRC2_DECTDRIVER
+	bool "Use dect driver from 2nd AVM Firmware"
+	depends on TYPE_SPEEDPORT_W920V
+	default n
+	help
+		Use dect driver from 2nd AVM source.
+		V3 Firmware dectdriver cant be used with W920 
+    config FORCE_OWN_DECTDRIVER
+	bool "Use own dect driver from ./addon/tmp/W920/"
+	depends on TYPE_SPEEDPORT_W920V
+	default n
+	help
+		Use dect driver from local directory ./addon/tmp/WXXX/.....
+		V3 Firmware dectdriver cant be used with W920 
+    config SAVE_SRC2_DECTDRIVER
+	bool "Save 2nd AVM Firmware dect driver to ./addon/tmp/W920/"
+	depends on TYPE_SPEEDPORT_W920V
+	default n
+	help
+		Save dect to local directory ./addon/tmp/WXXX/.....
+		V3 Firmware dectdriver cant be used with W920 
 
 comment "DSL Options --------------------------------------------------------"
 config EXPORT_ATA_ONLY
@@ -1371,14 +1394,6 @@ if ! EXPORT_ATA_ONLY
 	default n
 	help
 		Use this additional option if new dsl-menu pages from alternative Firmware-images are used.
-    config FORCE_TCOM_KDSLDMOD
-	bool "Use T-Home ksldmod driver"
-	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
-	default n if ! TYPE_ANNEX_A && ! EXPORT_FORCE_MULTI_LANGUAGE
-	default y if TYPE_ANNEX_A || EXPORT_FORCE_MULTI_LANGUAGE
-
-	help
-		Use KSLDMOD from T-Home Firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
     config FORCE_TCOM_PCMLINK
 	bool "Use T-Home pcmlink driver"
 	depends on TYPE_SPEEDPORT_W920V
@@ -1386,12 +1401,32 @@ if ! EXPORT_ATA_ONLY
 	default n
 	help
 		Use PCMLINK from T-Home Firmware.
+    config FORCE_TCOM_KDSLDMOD
+	bool "Use T-Home kdsldmod driver"
+	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
+	default n if ! TYPE_ANNEX_A && ! EXPORT_FORCE_MULTI_LANGUAGE
+	default y if TYPE_ANNEX_A || EXPORT_FORCE_MULTI_LANGUAGE
+	help
+		Use KSLDMOD from T-Home Firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
     config FORCE_SRC2_KDSLDMOD
-	bool "Use 2nd AVM source ksldmod driver"
+	bool "Use 2nd AVM source kdsldmod driver"
 	depends on SOURCE2 && TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V 
 	default n
 	help
 		Use KSLDMOD from 2nd AVM source Firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
+    config FORCE_OWN_KDSLDMOD
+	bool "Use own kdsldmod driver from ./addon/tmp/WXXX/"
+	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
+	default n
+	help
+		Use KSLDMOD from local directory ./addon/tmp/WXXX/.....
+    config SAVE_SRC2_KDSLDMOD
+	bool "Save 2nd AVM source kdsldmod driver to ./addon/tmp/WXXX/"
+	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
+	default n
+	help
+		Save KSLDMOD to local directory ./addon/tmp/WXXX/.....
+		At present time only older kdsldmod.ko modules are usable with Annex A and Adsl.
     config USE_SRC2_VINAX_ADSLFW
 	bool "Use 2nd AVM source DSL vinax driver"
 	depends on TYPE_SPEEDPORT_W721V

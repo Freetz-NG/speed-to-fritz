@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090708-1027-r-387
+    - W920: Added Option to xchange DECT Firmware, added more kdsldmod Options, adds - to be able to use 7270v3 Firmware but still not usabel
 20090707-1719-r-386
     - W920: fix change Option in Config.in to reflect add Vdsl profile tab
 20090707-1455-r-385
