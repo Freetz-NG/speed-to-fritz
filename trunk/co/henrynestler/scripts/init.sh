@@ -125,23 +125,23 @@ if [ -e /etc/init.d/launcher ]; then
     echo "---------- added lancher IP"
     sleep 1
 fi
-if [ -e /etc/profile ]; then
-    sed -i -e "/export DISPLAY=/d" /etc/profile
-    sed -i -e "/export ESPEAKER=/d" /etc/profile
-    sed -i -e "/export PULSE_SERVER=/d" /etc/profile
-    sed -i -e "/umask 022/d" /etc/profile
-fi
-    cat >> /etc/profile << EOF
+# set X Server IPs
+sed -i -e "/# set DISPLAY/d" \
+    -e "/export DISPLAY=/d" \
+    -e "/export ESPEAKER=/d" \
+    -e "/export PULSE_SERVER=/d" \
+    -e "/umask 022/d" /etc/profile
+cat >> /etc/profile << EOF
 # set DISPLAY env variable
 export DISPLAY=192.168.11.1:0.0
 export ESPEAKER=192.168.11.1:16001
 export PULSE_SERVER=192.168.11.1
 umask 022
 EOF
-    sed -i -e "s|192.168.11.1|$CL_WINIP|" /etc/profile
-    echo "---------- added X Server IPs to /etc/profile"
-    sleep 1
-#andlinx old version
+sed -i -e "s|192.168.11.1|$CL_WINIP|g" /etc/profile
+echo "---------- added X Server IPs to /etc/profile"
+sleep 1
+# andlinx old version
 if [ -e /usr/local/sbin/launcher.pl ]; then
     sed -e "s/windowsPathPrefix = .*;/windowsPathPrefix = \\"\\$mountpath\\";/" < /usr/local/sbin/launcher.pl > /tmp/launcher.pl
     mv -f /tmp/launcher.pl /usr/local/sbin/launcher.pl
