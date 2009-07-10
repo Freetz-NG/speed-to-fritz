@@ -22,23 +22,23 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
-20090710-0635-r-391
+20090710-0640-r-392
     - W920: tiping corrected in info.txt by:Gizmo_Ger
 20090708-1427-r-388
-    - W920: Added - 7270v3 is now usabel, but DECT driver must be taken form other firmware.
+    - W920: Added - 7270v3 is now usable, but DECT driver must be taken form other firmware.
       7270v3 Firmware comes with all modules included, plugins are not needed.
-      Exept ths fact, 7270v2 and 7270v3 Firmware is absolutly equal.
+      Except this fact, 7270v2 and 7270v3 Firmware are absolutely equal.
       To be able to use 7270v3 Firmware you must selct at the Options 
       'use DECT driver from 2nd AVM source' or any other source.  
 20090708-1027-r-387
-    - W920: Added Option to xchange DECT Firmware, added more kdsldmod Options, 
-      adds - to be able to use 7270v3 Firmware but still not usabel
+    - W920: Added Option to xchange DECT Firmware, added more kdsldmod options, 
+      adds - to be able to use 7270v3 Firmware but still not usable
 20090707-1719-r-386
-    - W920: fix change Option in Config.in to reflect add Vdsl profile tab
+    - W920: fix change Option in Config.in to reflect add VDSL profile tab
 20090707-1455-r-385
-    - W920: change Option in Config.in to reflect add Vdsl profile tab
+    - W920: change Option in Config.in to reflect add VDSL profile tab
 20090707-1450-r-384
-    - W920: add Vdsl profile tab
+    - W920: add VDSL profile tab
 20090707-1138-r-383
     - bug fix commit 381
 20090707-1124-r-382
@@ -48,15 +48,15 @@ On some systems you have to add the patch tool (add install patch).
 20090707-0511-r-380
     - More changes on multilannex Option: 7240 added.
 20090705-1504-r-380
-    - More changes on multilannex Option, pages are added even the do exist.
+    - More changes on multilannex Option: pages are added, even they do exist.
 20090705-1233-r-379
     - Remove W721 multiannex option, cant be used, because it would need more space.
 20090705-1111-r-378
     - fix multiannex commit revision 376
 20090705-0600-r-377
-    - Selfmodification of patches pelaced with alternativ mehtode.
+    - Selfmodification of patches replaced with alternativ method.
 20090705-0424-r-376
-    - Multilingual Option: Added some warnings, changed some text in Config.in to be mere conform with 7XXX firmwares.
+    - Multilingual Option: Added some warnings, changed some text in Config.in to be more conform with 7XXX firmwares.
 20090703-1735-r-375
     - UTC minus 4,5 added to timezone patch
 20090703-1718-r-374
@@ -66,7 +66,7 @@ On some systems you have to add the patch tool (add install patch).
 20090702-1003-r-372
     - 71XX Bugfix mutiannex
 20090702-0623-r-371
-    - Bugfix Annex A was not set correcly
+    - Bugfix Annex A was not set correctly
 20090702-0603-r-370
     - 72XX fix last commit
 20090702-0506-r-369
@@ -84,13 +84,13 @@ On some systems you have to add the patch tool (add install patch).
 20090629-1117-r-363
     - 7270: Config.in some more Text changes.
 20090629-1039-r-362
-    - 7270: Config.in 7270v3 added, bugfix for Annex A, (one mor file)
+    - 7270: Config.in 7270v3 added, bugfix for Annex A, (one more file)
 20090629-1037-r-361
     - 7270: Config.in 7270v3 added, bugfix for Annex A
 20090628-1507-r-359
-    - Canged naming of new firmware if Option 'use castom t-home model' was is use
+    - Changed naming of new firmware if option 'use custom t-home model' was in use
 20090628-1439-r-358
-    - Config.in Text 3rd Firmware changed to 2nd AVM Firmware, becaus it coursed confusion if only two AVM Firmwares ware in use.
+    - Config.in Text 3rd Firmware changed to 2nd AVM Firmware, because it caused confusion if only two AVM Firmwares were in use.
 20090628-1423-r-357
     - Added Firmware.orig directory to SVN
 20090627-0820-r-355
@@ -98,19 +98,19 @@ On some systems you have to add the patch tool (add install patch).
 20090627-0520-r-354
     - Added support for 7270 (or any other) to replace ADSL driver
 20090626-1434-r-353
-    - Some changes in displying HW
+    - Some changes in displaying HW
 20090625-1108-r-352
     - 'W920: set DSL as default Labor Firmware
 20090625-1054-r-351
-    - 'W920: removed AIO becaus not avalabel any more.
+    - 'W920: removed AIO because it is not available any more.
 20090625-1036-r-350
     - 'W920: reinserted FRITZ.Box_Fon_WLAN_7270.54.04.70.image
 20090625-1017-r-349
-    - 'W920: inseted FRITZ.Box_Fon_WLAN_7270.54.04.76.image
+    - 'W920: inserted FRITZ.Box_Fon_WLAN_7270.54.04.76.image
 20090623-2027-r-348
-    - New laborversion 7270-54.04.75-14543 added
+    - New labor version 7270-54.04.75-14543 added
 20090619-2152-r-347
-    - New laborversion 7270-54.04.74-14518 added.
+    - New labor version 7270-54.04.74-14518 added.
 20090619-0036-r-346
     - W920: new labor version 7270-54.04.74-14507 added.
 20090618-0203-r-345
@@ -120,11 +120,11 @@ On some systems you have to add the patch tool (add install patch).
 20090616-1538-r-344
     - AIO 14495 added
 20090615-1739-r-343
-    - W501, fix las commit, remove backslash
+    - W501, fix last commit, remove backslash
 20090615-1253-r-342
-    - W501, added 67en, but the resultig file is to big! So one has to delete more stuff by hand, to use the en Version.
+    - W501, added 67en, but the resulting file is too big! So one has to delete more stuff by hand, to use the EN Version.
 20090615-1207-r-341
-    - W501, added patch for Annex A looks lik this was still a problem. see: http://pastebin.com/f222582bb
+    - W501, added patch for Annex A looks like this was still a problem. see: http://pastebin.com/f222582bb
 20090614-1124-r-340
     - W920: added to variables new in use with 7570 firmwares.
 20090612-1152-r-339
@@ -134,9 +134,9 @@ On some systems you have to add the patch tool (add install patch).
 20090612-0650-r-337
     - W920, 7570: added FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.72.image
 20090612-0251-r-336
-    - Set Update modules depend. default again to n, becaus 14464 unses links to modules downloaded with plugins.
+    - Set Update modules dependency. default again to n, because 14464 uses links to modules downloaded with plugins.
 20090611-1417-r-335
-    - Canged move_avm_to_avme to move avm_to_OEM
+    - Changed move_avm_to_avme to move avm_to_OEM
 20090611-1414-r-334
     - W920 Config.in pump to /7270_release_candidate/fritz_box_labor_14464.ZIP
 20090611-1128-r-333
@@ -146,23 +146,23 @@ On some systems you have to add the patch tool (add install patch).
 20090611-0740-r-330
     - changed some comment in Config.in
 20090611-0733-r-329
-    - Devicetabe: added some more devices, invented by AVM!
+    - Devicetable: added some more devices, invented by AVM!
     - some Text changed from TCOM to T-Home.
     - Added Option to move www/avm to www/$OEM, some related fixes to make this possible.
       $OEM is the selected OEM via menue.
-      Building fimwares with missmaching OEM and Language will not stop any more.
+      Building fimwares with missmatching OEM and Language will not stop any more.
     - Fix Update module dependency information, and set it to default y in Config.in
-    - All this changes should not effect the results, no real improvments are made.
+    - All this changes should not effect the results, no real improvements are made.
 20090609-0541-r-328
-    - Config.in : removeve some emty tabs and changed lenght of some remark lines
+    - Config.in : removed some empty tabs and changed length of some remark lines
 20090609-0341-r-327
     - Config.in : W920  pump to fritz_box_labor_14442.ZIP
 20090608-1343-r-326
     - Config.in : fix t-home local entry
 20090608-1214-r-325
-    - Config.in : W920 +config AVM_7570_14434
+    - Config.in : W920 + config AVM_7570_14434
 20090608-1013-r-324
-    - Config.in : W920 some combinations disabeld
+    - Config.in : W920 some combinations disabled
 20090608-0729-r-324
     - Config.in : removed 7270 .67
 20090608-0657-r-321
@@ -170,13 +170,13 @@ On some systems you have to add the patch tool (add install patch).
 20090608-0701-r-320
     - Config.in : changed comments tcom to T-home
 20090605-1433-r-319
-    - One Variable was not set in Revision 307 correcly.
+    - One Variable was not set in Revision 307 correctly.
 20090605-0849-r-318
     - W721: added fw_SpeedportW721V_v_64.04.74.image
 20090605-0544-r-317
     - Add option to remove modinfo icon on status page.
 20090605-0445-r-316
-    - Set Onlincounter pach to default n
+    - Set Onlincounter patch to default n
 20090605-0439-r-315
     - W920: set default TYPE_TCOM_BETA_74
 20090605-0426-r-314
@@ -188,13 +188,13 @@ On some systems you have to add the patch tool (add install patch).
 20090604-1137-r-311
     - added some help lines in Config.in: HWR 104 = FB VOIP Gateway 5188, HWR 138 = FRITZ! WLAN Repeater N/G, HWR 159 = FB Fon WLAN 7112
 20090604-1110-r-310
-    - Download link changd to: http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/fw_SpeedportW920V_v_65.04.74.image
+    - Download link changed to: http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/fw_SpeedportW920V_v_65.04.74.image
 20090604-0523-r-309
     - OEM comment added.
 20090604-0512-r-1
     - Update root files
 20090603-1707-r-308
-    - Removed downloadlink for 7170 .67.
+    - Removed download link for 7170 .67.
 20090601-1620-r-307
     - Config.in added select options for different 7570 Firmwares
 20090601-0730-r-306
@@ -216,9 +216,9 @@ On some systems you have to add the patch tool (add install patch).
 20090526-1512-r-293
     - W920: pump to /7270_release_candidate/fritz_box_labor_14353.ZIP
 20090522-1727-r-290
-    - # bug fix agsin ther was still one lin missing.
+    - # bug fix again there was still one line missing.
 20090522-1342-r-288
-    - # Remove left over Subversion directories, from sp-to-fritz.sh again.
+    - # Removed leftover Subversion directories, from sp-to-fritz.sh again.
 20090522-0253-r-287
     - bug fix in Config.in, menu starts again
 20090521-1610-r-286
@@ -234,11 +234,11 @@ On some systems you have to add the patch tool (add install patch).
 20090519-0951-r-278
     - Config.in: Extended flexibility of dsld wrapper and made some directories to be ignored by SVN
 20090518-0522-r-277
-    - Config.in: Add explanation for Lab firmwares (by reiffert) 
+    - Config.in: Add explaination for Lab firmwares (by reiffert) 
 20090515-1358-r-276
     - W920: 7270 AIO 14331 added
 20090510-1508-r-271
-    - Chaned tar startdirecrory to ./var, results in a image that is 512 Bytes smaler, and startcode of file is now as in original firmware. (Ralf Friedl)
+    - Changed tar start directory to ./var, results in a image that is 512 Bytes smaller, and startcode of file is now as in original firmware. (Ralf Friedl)
 20090430-0210-r-265
     - Pump to: /MT-D_7270/fritz_box-labor-7270-14138.zip
 20090425-0258-r-264
@@ -246,17 +246,17 @@ On some systems you have to add the patch tool (add install patch).
 20090423-1224-r-263
     - Pump to: /7270_usb/fritz_box-labor-14142.zip (ARA -USB now called NAS by AVM.
 20090421-0445-r-262
-    - Freetz OpenVPN webinterface, fix added 'all' as link.
+    - Freetz OpenVPN web interface, fix added 'all' as link.
 20090421-0420-r-261
     - Onlinecounter comment corrected.
 20090420-2359-r-260
-    - from r255 to r260 added dsld wrap, made some changes to svn:ignore property on certain generated files and directories
+    - from r255 to r260 added dsld wrap, made some changes to svn: ignore property on certain generated files and directories
 20090415-1606-r-254
     - W920: Wrapper option for dsld added, but not tested!
 20090410-0259-r-253
-    - Expert vew enabeled again, is now set via ar7.cfg
+    - Expert view enabled again, is now set via ar7.cfg
 20090409-1636-r-253
-    - Expert vew disabled again, becaus there is a problem not solved until now.
+    - Expert view disabled again, because there is a problem not solved until now.
 20090409-1100-r-252
     - Config.in: pump to /Labor/7270_wlan/fritz_box-labor-14080.zip, MT-D changed to phone
 20090408-1446-r-251
@@ -270,7 +270,7 @@ On some systems you have to add the patch tool (add install patch).
 20090402-1246-r-247
     - Add in Config.in /Labor/7270_usb/fritz_box-labor-14047.zip
 20090402-0258-r-246
-    - Config.in FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.71-13948.image, removed again because not avalabel publicly
+    - Config.in FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.71-13948.image, removed again because not available to public
 20090401-1230-r-245
     - Config.in added local image: FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.71-13948.image
 20090401-1210-r-244
@@ -284,19 +284,19 @@ On some systems you have to add the patch tool (add install patch).
 20090401-0546-r-240
     - pump to /Labor/7270_IPv6/fritz_box-labor-13992.zip
 20090401-0542-r-239
-    - Option set expert added, default is set to no! (not testet jet.)
+    - Option set expert added, default is set to no! (not testet yet)
 20090401-0537-r-238
     - kdiff3 added to install-start
 20090331-0335-r-237
     - W920: Pump /Labor/7270_IPv6/fritz_box-labor-13988.zip 
 20090330-0547-r-236
-    - Added intltool to be instlled in start-freetz.sh
+    - Added intltool to be installed in start-freetz.sh
 20090327-0532-r-235
-    - Added skript checkpontinfo for AVM firmware, changes nothing else.
+    - Added skript checkpoint info for AVM firmware, changes nothing else.
 20090325-1825-r-233
-    - Versioninfo in firmware name extended by major version.
+    - Version info in firmware name extended by major version.
 20090324-1259-r-232
-    - W721: disable all AVM firmwares exept .59 no other is usable.
+    - W721: disable all AVM firmwares except .59 no other is usable.
 20090324-0930-r-231
     - W501 removed 'programme' from speedport menu.
 20090324-0707-r-230
@@ -314,17 +314,17 @@ On some systems you have to add the patch tool (add install patch).
 20090317-1530-r-224
     - fix 7570 config.in link
 20090317-1152-r-223
-    - restart added, this starts sp-to-fritz.sh with an existing Firmware.conf
+    - restart added, this starts sp-to-fritz.sh with an excisting Firmware.conf
 20090317-0901-r-222
     - W920: Start-freetz for 7570 Firmware adjusted.
 20090316-1309-r-221
-    - W920: bug fix changes made with revision 219 corsed problems, with some selections.
+    - W920: bug fix changes made with revision 219 caused problems, with some selections.
 20090316-1112-r-220
     - Config.in: add FRITZ.Box_Fon_WLAN_7170.29.04.70.image
 20090316-0451-r-219
-    - W920: if AVM firmware is 7570 then now only vinax* files are taken from altenative T-com source.
+    - W920: if AVM firmware is 7570 then now only vinax* files are taken from alternative T-com source.
 20090315-1426-r-218
-    - W920: cinfig.in, added possobility to combind tcom and 7570 firmware.
+    - W920: config.in, added possibility to combine tcom and 7570 firmware.
 20090315-1150-r-217
     - W721: AVM bug in home.js fixed.
 20090314-1536-r-215
@@ -353,7 +353,7 @@ On some systems you have to add the patch tool (add install patch).
     - W721: Option add t-com kdslmod driver added.
 
 20090309-1726-r-202
-    - Sinus 500: Annenx option fixed again, if uptate via webinterface is in used.
+    - Sinus 500: Annex option fixed again, if update via webinterface is used.
     - W721: ins now usable with Vdsl und Adsl, 7170 .59 Firmware must be used.
       Annex A can be used but PPPoA is not usable.
       If Annex A is used a 3rd Firmware 7570 is needed for the missing 
@@ -362,9 +362,9 @@ On some systems you have to add the patch tool (add install patch).
 20090307-1350-r-201
     - Config.in some unusable firmware combinations removed.
 20090305-1720-r-200
-    - Sinus 500: Dect on of enabled again.
+    - Sinus 500: DECT on/off enabled again.
 20090305-0455-r-199
-    - Comment for saving configfile in Config.in entered
+    - Comment for saving config file in Config.in entered
 20090304-1747-r-198
     - show kdiff3 Option added, 'apt-get install kadiff3' may be needed to install kadiff3 first.
 20090303-1706-r-187
@@ -372,50 +372,50 @@ On some systems you have to add the patch tool (add install patch).
 20090303-1640-r-186
     - Changed some of the structure of sp-to-fritz.sh to be able to reflect multi settings in the filename.
 20090303-1232-r-185
-    - Config.in: 7170 .70 Option for W900, W701 removed becase we dont have this .70 firmware
+    - Config.in: 7170 .70 Option for W900, W701 removed because we dont have this .70 firmware
 20090303-1126-r-184
-    - Config.in:7270 .67 added again becaus it is part of wlanlabor.zip
+    - Config.in:7270 .67 added again because it is part of wlanlabor.zip
 20090303-1101-r-182
-    - Config.in:7270 .67 removed becaus is not avalabe any more
+    - Config.in:7270 .67 removed because is not available anymore
 20090303-1048-r-181
-    - Inserted neue PHONE 7270 in Config.in:  fritz_box-labor-7270-13806.image
+    - Inserted neue PHONE 7270 in Config.in: fritz_box-labor-7270-13806.image
 20090303-0903-r-178
-    - Addon of usbroot by: abraXxl
+    - Addon of usbroot, by abraXxl
 20090303-0656-r-177
-    - mini 7170 source2 comment hesh added
+    - mini 7170 source2 comment hash added
 20090303-0619-r-176
     - config.in missing ' '' ' added.
 20090303-0508-r-175
-    - Added Option Xchange kernel with 3rd firmmware.
+    - Added Option exchange kernel with 3rd firmmware.
 20090302-1035-r-174
-    - UT8 Option removed, some variabels removed from: /subscripts/settings and replaced through dynamic setting
+    - UT8 Option removed, some variables removed from: /subscripts/settings and replaced through dynamic setting
 20090302-1033-r-174
-    - UT8 Otion removed, some varabels removed from: /subscripts/settings and replacede through dynamic setting
+    - UT8 Otion removed, some variables removed from: /subscripts/settings and replaced through dynamic setting
 20090302-1001-r-172
-    - W920: TCOM/AVM..13468 telfon bug fix
+    - W920: TCOM/AVM..13468 telephone bug fix
 20090301-1746-r-169
-    - typing corrected
+    - typo corrected
 20090301-1604-r-166
     - Added replace_link.sh and extract_rpllist.sh
 20090301-0140-r-164
-    - fimwars in Config.in fix WLAN --> wlan 
+    - firmwares in Config.in fix WLAN --> wlan 
 20090228-1704-r-163
-    - fimwars in Config.in a bit set into order
+    - firmwares in Config.in a bit set into order
 20090228-1409-r-162
     - W920: IPV6- and WLAN-Labor-Versions added
 20090228-1029-r-160
-    - Took back changes from last Revision
+    - Took back changes from last revision
 20090228-0946-r-159
-    - Config.in: IPV6- and WLAN-Labor-Versions added
+    - Config.in: IPV6- and WLAN labor versions added
 20090227-0940-r-158
-    - Commit revisionnumber in info.txt fixed
+    - Commit revision number in info.txt fixed
 ------------------------------------------------------------------------------
 20090227-0735-r-155
     - W920: multilingual token 'es' for spanish corrected
 20090227-0727-r-154
     - W920: AIO option disabled
 20090227-0658-r-152
-    - W920: new releas added FRITZ.Box_Fon_WLAN_7270.54.04.70.image
+    - W920: new release added FRITZ.Box_Fon_WLAN_7270.54.04.70.image
 20090226-1858-r-151
     - W920 fix tr069 option
 20090226-1622-r-150
@@ -423,29 +423,29 @@ On some systems you have to add the patch tool (add install patch).
 20090226-1753-r-148
     - Fixed some typing errors in Config.in and info.txt
 20090226-0555-r-147
-    - W920 -pump to  FRITZ.Box_Fon_WLAN_7240.Labor.73.04.97-13715.image
+    - W920 - pump to  FRITZ.Box_Fon_WLAN_7240.Labor.73.04.97-13715.image
 20090226-0444-r-146
     - W920 - bugfix 3: svn Speedport920 was not up to date with local file
 20090226-0428-r-145
-    - minir changes to Config.in and add_muli options
+    - minor changes to Config.in and add_multi options
 20090225-1806-r-144
     - Config.in multi options set to default n
 20090225-1717-r-143
     - Config.in order of options changed
 20090225-1715-r-143
-    - W920: fix again cp: Aufruf von stat /speed-to-fritz/SPDIR/squashfs-root/etc/default.9*? nicht mglich: No such file or directory
+    - W920: fix again cp: call of stat /speed-to-fritz/SPDIR/squashfs-root/etc/default.9*? nicht mglich: No such file or directory
 20090225-1546-r-142
-    - W920: fix cp: Aufruf von stat /speed-to-fritz/SPDIR/squashfs-root/etc/default.9*? nicht mglich: No such file or directory
+    - W920: fix cp: call of stat /speed-to-fritz/SPDIR/squashfs-root/etc/default.9*? nicht mglich: No such file or directory
 20090225-1519-r-140
-    - W920: multilingual adaptionens
+    - W920: multilingual options
 20090225-0257-r-136
-    - fix tr069 modinfo display entry 
+    - fix tr069 modinfo: display entry 
 20090224-1202-r-135
     - multilingual und multicountry option added, not fully usable yet.
 20090224-1147-r-134
-    - Config.in: Fixes for firmwares downloadlinks concerning MINI and 'en versions', 
+    - Config.in: Fixes for firmwares download links concerning MINI and 'en versions', 
       some changes concerning multilingual and ATM Options removed
-    - W900: tabproblem fixed
+    - W900: tab problem fixed
 20090223-1737-r-132
     - W900/W701: update config.in to fritz_box-labor-13679.zip 
 20090223-1935
@@ -458,13 +458,13 @@ On some systems you have to add the patch tool (add install patch).
     - Some corrections concerning W920 - 7570/7570, 
       'en' or 'de' language is forced for addon pages depending on the selection made. 
       Default language is set to the selection made.
-      'en' version in generell, addon 7150 dect pages are added in 'en' 
+      'en' version in general, addon 7150 dect pages are added in 'en' 
       language but the text within 
-      alian/patches/add_7150_dect_en.patch would need corrections.
+      alien/patches/add_7150_dect_en.patch would need corrections.
 20090215-1355
     - AVM 7570: 7570 entered into filename if 7570 firmware is used.
 20090215-0535
-    - AVM 7570: downloadlink entfernt!
+    - AVM 7570: download link entfernt!
 20090215-0345
     - 7270 multilingual downloadlink fixed AVM did change name. W920: Options kdsldmod pcmlink changed. AVM 7570 defaults changed.
 20090215-0343
@@ -476,7 +476,7 @@ On some systems you have to add the patch tool (add install patch).
 20090214-0727
     - Remove 'software' in rem_usb_menu.sh corrected because link is functional.
 20090214-0556
-    - Menue option for setting HWRevision and model in plugin URL, added.
+    - Menu option for setting HWRevision and model in plugin URL, added.
 20090214-0031
     - W920: Firmware 13640 inserted into config.in
 20090213-1650
@@ -484,11 +484,11 @@ On some systems you have to add the patch tool (add install patch).
 20090213-1250
     - W501: some variables fixed.
 20090210-1444
-    - en Version 'buchentryinfo' in patch reverselookup fixed.
+    - en Version 'buchentryinfo' in patch reverse lookup fixed.
 20090210-1402
-    - W920: Option use Tcom pclink driver, added
+    - W920: added option to use Tcom pclink driver
 20090210-1332
-    - Directory naming for diffresults changed.
+    - Directory naming for diff results changed.
 20090210-1317
     - Compare option between TCOM and source 3 added.
 20090210-1121
@@ -500,35 +500,35 @@ On some systems you have to add the patch tool (add install patch).
 20090208-0922
     - Added subversion install 'apt-get install subversion' to install-start
 20090206-1240
-    - W920 fix plugin, the was a bug in the script since the changes for multilingual were made.
+    - W920 fix plugin, there was a bug in the script since the changes for multilingual were made.
 20090206-1238
-    - FTP Downloadlink for english versions fixed.
+    - FTP download link for english versions fixed.
 20090206-1149
     - W900: add 7170 fritz_box-labor-13531.zip
 20090206-0623
     - W920: add 7270 PHONE, fritz_box-labor-7270-13537.zip
 20090206-0545
-    - W900: en Version Dect some typing corrections, some more to come.
+    - W900: en version DECT some typing corrections, some more to come.
 20090206-0353
-    - W920: 7270 PHONE Firmware removed, because is not available any more.
+    - W920: 7270 PHONE Firmware removed, because is not available anymore.
 20090206-0344
-    - W920: AiO 7270 changed to fritz_box-labor-13538.ZIP
+    - W920: AIO 7270 changed to fritz_box-labor-13538.ZIP
 20090205-0741
     - Freetz: fix rtc again, tools/device_tabel.txt
 20090205-0030
     - 701 - fix Add menu Programme in W701, by Hawcline
 20090204-1644
-    - fix URL again, Software download url fixed, by Hawcline
+    - fix URL again, software download url fixed, by Hawcline
 20090204-1551
     - Major script changes to get conform to AVM en and multilingual versions, but they should not have an effect on other firmwares
 20090203-2259
-    - Korrektur Software download url fixed, by Hawcline
+    - software download url fixed, by Hawcline
 20090203-1548
-    - W920: 7270, added multilingual version to config in, FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it.54.04.67.image, not tested script needs adaptions!
+    - W920: 7270, added multilingual version to config in, FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it.54.04.67.image, not tested, script needs adaptions!
 20090203-1517
-    - Software download url fixed, by Hawcline
+    - software download url fixed, by Hawcline
 20090203-1500
-    - 7170 en version added to config.in FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.67.image, DECT otions not jet fixed
+    - 7170 en version added to config.in FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.67.image, DECT options not yet fixed
 20090201-1503
     - W920: .../usr/share/ctlmgr/libvdsl.so..., line entered into Speedport920.
 20090201-1217
@@ -550,7 +550,7 @@ On some systems you have to add the patch tool (add install patch).
 20090130-0358
     - Added menu option 'src3 local image'
 20090129-1620
-    - Some changes on onlinecounterpage
+    - Some changes on online counter page
 20090129-1507
     - Freetz: LABOR_TYPE_PHONE defined in Config.in 
 20090129-1457
@@ -564,23 +564,23 @@ On some systems you have to add the patch tool (add install patch).
 20090129-1017
     - Congstar: added congstar directory in file ./Speedport707
 20090129-1005
-    - Congstar: Workaround with filename containing Space
+    - Congstar: Workaround with filename containing space
 20090129-0615
     - 7170 download links fixed
 20090129-0602
-    - All instances of ALL change to AIO becaus freetz changed the namming
+    - All instances of ALL change to AIO because freetz changed the namming
 20090128-1708
     - 7170 AiO added to config.in. fritz_box-labor-13475.zip
 20090128-1638
     - W920: 7270 menuoption AIO used for prerelease. Update LED changed. W503: additional kernel_args argument console added
 20090127-0749
-    - W920: 7270 menuoption PHONE used for prerelease, to be compatible with freetz
+    - W920: 7270 menu option PHONE used for prerelease, to be compatible with freetz
 20090127-0710
-    - W920: 7270 ALL changed in config.in to fritz_box-labor-13486.ZIP, removed UMTS, and  PHONE
+    - W920: 7270 ALL changed in config.in to fritz_box-labor-13486.ZIP, removed UMTS, and PHONE
 20090127-0604
     - W920: 7270 PHONE changed in config.in to fritz_box-labor-13486.ZIP
 20090125-1420
-    - W920: VPN Problem fixed, by seventy7, (added option to use t-com kdsldmod for compatibiliy within testing periode)
+    - W920: VPN Problem fixed, by seventy7, (added option to use t-com kdsldmod for compatibiliy within testing period)
 20090124-1753
     - Added ftp178 and ftp002 for push ftp to 192.168.178.1 or 192.168.2.1
 20090124-0441
@@ -592,9 +592,9 @@ On some systems you have to add the patch tool (add install patch).
 20090123-0957
     - W503: config.in added, fw_Speedport_W503V_v66.04.66.image
 20090121-1620
-    - W503: first useable version, with major limitations
+    - W503: first usable version, with major limitations
 20090120-0729
-    - Altenativen mirror download eingetragen in config.in
+    - added altenative mirror in config.in
 20090119-0231
     - W920:changed addon ntfs in config.in
 20090118-0235
@@ -604,7 +604,7 @@ On some systems you have to add the patch tool (add install patch).
 20090116-0401
     - W501: fw_Speedport_W501V_v_28.04.38.image, fixed download link 
 20090115-1537
-    - W900: fw_Speedport_W900V_v34.04.57.image download link angepsst
+    - W900: fw_Speedport_W900V_v34.04.57.image download link adjusted
 20090115-1421
     - W900: ext2 Option fix, Hawcline's addon of ntfs
 20090115-0509
@@ -614,13 +614,13 @@ On some systems you have to add the patch tool (add install patch).
 Jan. 12, 2009
     - 7270 config.in adjusted to LABOR fritz_box-labor-7270-13362.zip
     - In ./includes/icludefunctions -function fileselect unzip option j added, because AVM added 
-      path inside zipfile with fritz_box-labor-7270-13362.zip
+      path inside zip file with fritz_box-labor-7270-13362.zip
 Jan. 10, 2009
     - svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk/speed-to-fritz speed-to-fritz
       can now be used to checkout the latest revision of "speed-to-fritz"
 Jan.  5, 2009
     - GSM display set to always, if GSM firmware is used.
-    - Bugfix a workaround for freetz in and W920
+    - Bugfix a workaround for freetz and W920
     - Busybox version again set to the one used with freetz. Hopefully this time all
     - firmware will work, if not stay with version 1.1.2008, Not tested.
 Jan.  1, 2009
@@ -649,10 +649,10 @@ Dez.  26, 2008
     - Add: FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image 
 Dez.  25, 2008
     - W503 tcom firmware link, entered:
-http://hilfe.telekom.de/dlp/eki/downloads/503_66.04.65.image
+      http://hilfe.telekom.de/dlp/eki/downloads/503_66.04.65.image
     - W503 more adaptions, not tested. 
 Dez.  23, 2008
-    - W920 Bug fix in combination with fonmenu and Labor Firmware. 
+    - W920 Bug fix in combination with fon menu and Labor Firmware. 
     - Option copy t-com LED driver now copies libled's and led-crtl as well. 
     - config.in adjusted to: 7270_telefonie/fritz_box-labor-13286.zip
     - ext2 menu option not usable any more. 
