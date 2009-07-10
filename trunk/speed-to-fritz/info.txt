@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090710-0859-r-393
+    - exclude Kdiff3 warnings from 'stop on error' (andLinux in combination with xming produces warnigs if kdiff3 is run)
 20090710-0640-r-392
     - W920: tiping corrected in info.txt by:Gizmo_Ger
 20090708-1427-r-388

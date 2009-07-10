@@ -819,10 +819,10 @@ if [ "$ORI" != "y" ]; then
  	echo "-- Take Speedport kernel for new image"
  	cp -rfv "${SPDIR}/kernel.raw" "${FBDIR}/kernel.raw"
  elif [ "$SRC2_KERNEL" = "y" ]; then
- 	echo "-- Take kernel from source 3 for new image"
+ 	echo "-- Take kernel from 2nd AVM source for new image"
 	cp -rfv "${FBDIR_2}/kernel.raw" "${FBDIR}/kernel.raw"
- else
- 	echo "-- Take Source 2 kernel for new image"
+ #else
+ #	echo "-- Take AVM kernel for new image"
  fi
  #remove signature
  $sh_DIR/rmv_signatur.sh "${SRC}"
@@ -869,12 +869,13 @@ echo "**************************************************************************
 echo -e "\033[1mPhase 10:\033[0m Pack and deliver."
 echo "********************************************************************************"
 #do a final compare
+exec 2> /dev/null
 [ "$DO_FINAL_DIFF" = "y" ] && ./0diff "${SPDIR}" "${TEMPDIR}" "./logFINALtoAVM"
 [ "$DO_FINAL_DIFF_SRC2" = "y" ] && ./0diff "${SPDIR}" "${FBDIR_2}" "./logFINALto3"
 [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$DO_FINAL_KDIFF3_2" = "y" ] && kdiff3 "${SPDIR}" "${TEMPDIR}"
 [ "$DO_FINAL_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${FBDIR_2}" "${TEMPDIR}"
 #[ "$TYPE_LOCAL_MODEL" == "y" ] && [ "$DO_FINAL_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${TEMPDIR}"
-[ "$DO_STOP_ON_ERROR" = "y" ] && exec 2>"${HOMEDIR}/${ERR_LOGFILE}"
+[ "$DO_NOT_STOP_ON_ERROR" = "n" ] && exec 2>"${HOMEDIR}/${ERR_LOGFILE}"
 # compose Filename for new .tar ended File
 if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
  [ "${SVN_VERSION:0:6}" == "export" ] && SVN_VERSION=""
