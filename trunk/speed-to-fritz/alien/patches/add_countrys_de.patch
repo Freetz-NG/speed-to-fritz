@@ -1,0 +1,56 @@
+--- fon/laender.frm	1969-12-31 19:00:00.000000000 -0500
++++ fon/laender.frm	2009-06-24 11:54:35.000000000 -0400
+@@ -0,0 +1 @@
++<input type="hidden" name="box:settings/country" value="<? query box:settings/country ?>" id="uiPostCountry" disabled>
+--- fon/laender.html	1969-12-31 19:00:00.000000000 -0500
++++ fon/laender.html	2009-06-24 11:54:50.000000000 -0400
+@@ -0,0 +1,15 @@
++<div id="content">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
++Ländereinstellungen
++</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class="mb10">Mit Hilfe der folgenden Einstellung wird die Telefoniefunktionalität an das nationale Festnetz angepasst. (With this settings phonefunctionality will be set to the national standart.)</p>
++<p style="text-align: center; margin-bottom: 15px">Land (Country):&nbsp;
++<select onchange="OnChangeCountry( value);" id="uiViewCountry" class="Eingabefeld">
++<script type="text/javascript">writeOptions()</script>
++</select>
++</p>
++<p class="mt10"><b>Achtung (Attention)!</b>&nbsp;Nach der Änderung der Spracheinstellung startet die FRITZ!Box automatisch neu, damit die Änderungen wirksam werden. (Box will be restarted so changes take place.)</p>
++</div></div></div></div></div></div>
++<? include ../html/de/home/rbb_applycancel.html ?>
++</div>
+--- fon/laender.js	1969-12-31 19:00:00.000000000 -0500
++++ fon/laender.js	2009-06-24 11:54:29.000000000 -0400
+@@ -0,0 +1,31 @@
++<!-- ../internet/laender.js -->
++<script type="text/javascript">
++<? include ../html/de/js/val.js ?>
++<? include ../html/de/js/jsl.js ?>
++<? include ../html/de/js/country.js ?>
++var g_Country = "<? query box:settings/country ?>";
++var g_CountryOld = "<? query box:settings/country ?>";
++function uiDoOnLoad() {
++document.title = "Ländereinstellungen";
++jslSetSelection( "uiViewCountry", g_Country);
++}
++function uiDoSave() {
++if ( g_Country != g_CountryOld) {
++jslEnable( "uiPostCountry");
++jslSetValue( "uiPostCountry", g_Country);
++jslSetValue("uiPostGetPage", "../html/reboot.html");
++jslFormSubmit("uiPostForm");
++} else {
++jslGoTo("fon", "laender");
++}
++}
++function uiDoCancel() {
++jslGoTo("fon", "laender");
++}
++function uiDoHelp() {
++jslPopHelp("hilfe_fon_laender");
++}
++function OnChangeCountry (countryID) {
++g_Country = countryID;
++}
++</script>

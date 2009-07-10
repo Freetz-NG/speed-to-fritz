@@ -1,0 +1,94 @@
+--- system/language.frm	1969-12-31 19:00:00.000000000 -0500
++++ system/language.frm	2009-06-24 11:54:34.000000000 -0400
+@@ -0,0 +1 @@
++<input type="hidden" name="box:settings/language" value="<? query box:settings/language ?>" id="uiPostLanguage" disabled>
+--- system/language.html	1969-12-31 19:00:00.000000000 -0500
++++ system/language.html	2009-06-24 11:54:42.000000000 -0400
+@@ -0,0 +1,27 @@
++
++<div id="content">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
++Spracheinstellung
++</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class="mb5">Wählen Sie die gewünschte Sprache aus. (Select Language)</p>
++<table>
++<tr>
++<td style="width :150px;">Sprache (Language):
++</td>
++<td style="width: 300px;">
++<select onchange="OnChangeLanguage( value);" id="uiViewLanguage" class="Eingabefeld">
++<? multiquery language:settings/language/list(id,LocalName) `
++<script>InsertOption("$2","$3");</script>
++` ?>
++</select>
++</td>
++</tr>
++</table>
++<p class="mt10"><b>Achtung (Attention)!</b>&nbsp;Nach der Änderung der Spracheinstellung startet die FRITZ!Box automatisch neu, damit die Änderungen wirksam werden. (Box will be restarted so changes take place.)</p>
++</div></div></div></div></div></div>
++<div class="backdialog" id="uiApplyCancelButtons"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="forebuttons">
++<input type="button" onclick="uiDoSave()" value="{?txtApply?}" class="Pushbutton" id="buttonSave">
++<input type="button" onclick="uiDoCancel()" value="{?txtCancel?}" class="Pushbutton" id="buttonCancel">
++</div></div></div></div></div></div>
++</div>
+--- system/language.js	1969-12-31 19:00:00.000000000 -0500
++++ system/language.js	2009-06-24 11:54:28.000000000 -0400
+@@ -0,0 +1,57 @@
++<!-- ../system/language.js -->
++<script type="text/javascript">
++<? include ../html/de/js/jsl.js ?>
++g_oldLanguage="<? query box:settings/language ?>";
++g_Language="<? query box:settings/language ?>";
++function uiDoOnLoad() {
++document.title = "Spracheinstellung";
++OnChangeLanguage(jslGetValue("uiPostLanguage"));
++}
++function uiDoSave() {
++if(g_Language!=g_oldLanguage){
++jslSetValue("uiPostLanguage",g_Language);
++jslEnable("uiPostLanguage");
++jslSetValue("uiPostGetPage", "../html/reboot.html");
++jslFormSubmit("uiPostForm");
++}else{
++jslFormSubmitEx("system", "language");
++}
++}
++function uiDoCancel() {
++jslGoTo("system", "language");
++}
++function OnChangeLanguage(n) {
++g_Language=n;
++jslSetSelection("uiViewLanguage", n);
++}
++function InsertOption(id,name){
++LanguageName="";
++LanguageName=GetLanguageName(id);
++document.write("<option value='"+id+"'>"+LanguageName+"</option>");
++}
++function GetLanguageName(LangId){
++LanguageName="";
++if(LangId=="de"){
++LanguageName="German";
++}else if(LangId=="en"){
++LanguageName="English";
++}else if(LangId=="fr"){
++LanguageName="French";
++}else if(LangId=="el"){
++LanguageName="Greek";
++}else if(LangId=="it"){
++LanguageName="Italian";
++}else if(LangId=="nl"){
++LanguageName="Netherlands";
++}else if(LangId=="pt"){
++LanguageName="Portuguese";
++}else if(LangId=="sp" || LangId=="es"){
++LanguageName="Spanish";
++}else if(LangId=="tr"){
++LanguageName="Turkish";
++}else{
++LanguageName="Not specified";
++}
++return LanguageName;
++}
++</script>

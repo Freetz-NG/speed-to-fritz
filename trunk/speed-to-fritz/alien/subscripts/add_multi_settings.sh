@@ -20,6 +20,7 @@
  }
 OEML="avm" && [ -d "${DST}"/usr/www/avme ] && OEML="avme"
 OEML2="avm" && [ -d "${SRC_2}"/usr/www/avme ] && OEML2="avme"
+ USRWWW="usr/www/${OEMLINK}/html/de"
 if [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
   for file_n in /html/de/first/basic_first.js /html/de/first/basic_first.frm; do
     if [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ] && ! [ -f "${SRC}/usr/www/${OEMLINK}/$file_n" ]; then
@@ -48,12 +49,15 @@ if [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
   rn_files "$(find "${SRC}/etc" -name fx_conf.avme)" "fx_conf.${OEMLINK}"
   rn_files "$(find "${SRC}/etc" -name fx_lcr.avme)" "fx_lcr.${OEMLINK}"
  fi
+ # on 7240 Firmware some pages are missing
+  `cat "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html" | grep -q 'isMultiCountry' ` ||\
+   modpatch "${SRC}/${USRWWW}" "$P_DIR/add_countrys_de.patch"
   `cat "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html" | grep -q 'isMultiCountry' ` ||\
   sed -i -e "/.fon., .routing./a\
-<p class=\"ml10\"><a href=\"javascript:jslGoTo('fon', 'laender');\">{?de.home.sitemap.html:225FonLaendereinstellung?}<\/a><\/p>" "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html"
+<p class=\"ml10\"><a href=\"javascript:jslGoTo('fon', 'laender');\">LÃ¤ndereinstellung<\/a><\/p>" "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html"
   `cat "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_fon.html" | grep -q 'isMultiCountry' ` ||\
   sed -i -e "/pagename 'laender'/a\
-<li class=\"<? echo \$var:classname ?>\"><img class=\"LMenuPfeil\" src=\"<? echo \$var:subpfeil ?>\"><a href=\"javascript:jslGoTo('fon','laender')\">{?de.menus.menu2_fon.html:105FonLaendereinstellung?}<\/a><span class=\"PTextOnly\">{?de.menus.menu2_fon.html:110FonLaendereinstellung?}<\/span><\/li>" "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_fon.html"
+<li class=\"<? echo \$var:classname ?>\"><img class=\"LMenuPfeil\" src=\"<? echo \$var:subpfeil ?>\"><a href=\"javascript:jslGoTo('fon','laender')\">LÃ¤ndereinstellung<\/a><span class=\"PTextOnly\">LÃ¤ndereinstellung<\/span><\/li>" "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_fon.html"
   `cat "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_fon.html" | grep -q 'isMultiCountry' ` ||\
   sed -i -e "s/pagename 'laender'/pagename laender/" "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_fon.html"
 fi #<-- multicountry
@@ -71,7 +75,6 @@ file_nLIST="/html/de/internet/dslsnrset.frm \
    fi
   done
  #---------------------------------------------------------------
- USRWWW="usr/www/${OEMLINK}/html/de"
 if [ "${FORCE_DSL_MULTI_ANNEX}" = "y" ]; then
   for file_n in /html/de/first/basic_first.js /html/de/first/basic_first.frm /html/de/help/hilfe_internet_dslsnrset.html; do
     if [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ] && ! [ -f "${SRC}/usr/www/${OEMLINK}/$file_n" ]; then
@@ -167,7 +170,7 @@ jslSetChecked("uiViewAnnexB", n==1);\
 }'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
   fi
   if [ "$avm_Lang" = "de" ]; then
-   sed -i -e 's/Change Annex/Sie haben die ADSL-Leitungskonfiguration geändert. Eine falsche Einstellung kann dazu führen, dass keine DSL-Verbindung mehr zustande kommt. Damit die Änderung wirksam wird muss die Box neugestartet werden. Sind Sie sicher, dass die Änderung vorgenommen werden soll?/' "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
+   sed -i -e 's/Change Annex/Sie haben die ADSL-Leitungskonfiguration geÃ¤ndert. Eine falsche Einstellung kann dazu fÃ¼hren, dass keine DSL-Verbindung mehr zustande kommt. Damit die Ã„nderung wirksam wird muss die Box neugestartet werden. Sind Sie sicher, dass die Ã„nderung vorgenommen werden soll?/' "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
   else
    sed -i -e 's/Change Annex/You did change the DSL wire configuration. A worong setting will lead to a loss off connection. Reboot is neede that the changes can be but to ation, shold that be done?/'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
   fi
@@ -185,14 +188,17 @@ jslSetChecked("uiViewAnnexB", n==1);\
     fi
   done
  fi # <-- ? 1st firmware multiannex
+ # on 7240 Firmware some pages are missing
+  `cat "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html" | grep -q 'isMultiLanguage' ` ||\
+   modpatch "${SRC}/${USRWWW}" "$P_DIR/add_language_de.patch"
   `cat "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html" | grep -q 'isMultiLanguage' ` ||\
   sed -i -e "/.system., .timeZone./a\
-<p class=\"ml10\"><a href=\"javascript:jslGoTo('system', 'language');\">{?de.home.sitemap.html:6446?}<\/a><\/p>" "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html"
+<p class=\"ml10\"><a href=\"javascript:jslGoTo('system', 'language');\">Sprache<\/a><\/p>" "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html"
   `cat "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_system.html" | grep -q 'isMultiLanguage' ` ||\
   sed -i -e "/'system','timeZone'/a\
 <? setvariable var:classname 'LSubitem' ?>\n\
 <? if eq \$var:pagename language \`<? setvariable var:classname 'LSubitemaktiv' ?>\` ?>\n\
-<li class=\"<? echo \$var:classname ?>\"><img class=\"LMenuPfeil\" src=\"<? echo \$var:subpfeil ?>\"><a href=\"javascript:jslGoTo('system','language')\">{?de.menus.menu2_system.html:8896?}<\/a><span class=\"PTextOnly\">{?de.menus.menu2_system.html:6462?}<\/span><\/li>" "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_system.html"
+<li class=\"<? echo \$var:classname ?>\"><img class=\"LMenuPfeil\" src=\"<? echo \$var:subpfeil ?>\"><a href=\"javascript:jslGoTo('system','language')\">Sprache<\/a><span class=\"PTextOnly\">Sprache<\/span><\/li>" "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_system.html"
 fi # <-- Multiannex 
 #----------------------------------------------------------------------------------------------------
   if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
