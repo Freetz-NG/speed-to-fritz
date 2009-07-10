@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090710-0635-r-391
+    - W920: tiping corrected in info.txt by:Gizmo_Ger
 20090708-1427-r-388
     - W920: Added - 7270v3 is now usabel, but DECT driver must be taken form other firmware.
       7270v3 Firmware comes with all modules included, plugins are not needed.
