@@ -22,19 +22,15 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
-20090710-1341-r-395
-    - 7270: added to Config.in /Labor/MT-D_7270/fritz_box-labor-7270-14712.zip
-20090710-1320-r-394
-    - 7240: added missing language and country pages for multilingual option, only in use if this pages are not part of the firmware.
 20090710-0859-r-393
-    - exclude Kdiff3 warnings from 'stop on error' (andLinux in combination with xming produces warnigs if kdiff3 is run)
+    - exclude Kdiff3 warnings from 'stop on error' (andLinux in combination with xming produces warnigs if kdiff3 is running)
 20090710-0640-r-392
-    - W920: tiping corrected in info.txt by:Gizmo_Ger
+    - W920: typing/spelling corrected in info.txt by:Gizmo_Ger
 20090708-1427-r-388
     - W920: Added - 7270v3 is now usable, but DECT driver must be taken form other firmware.
       7270v3 Firmware comes with all modules included, plugins are not needed.
       Except this fact, 7270v2 and 7270v3 Firmware are absolutely equal.
-      To be able to use 7270v3 Firmware you must selct at the Options 
+      To be able to use 7270v3 Firmware you must select the option
       'use DECT driver from 2nd AVM source' or any other source.  
 20090708-1027-r-387
     - W920: Added Option to xchange DECT Firmware, added more kdsldmod options, 
