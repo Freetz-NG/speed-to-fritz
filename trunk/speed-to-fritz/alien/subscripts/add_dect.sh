@@ -39,19 +39,19 @@ for OEMDIR in $OEMLIST; do
     mkdir  "$SR1/${USRWWW}/dect"
   fi
   [ "$ADD_7150_DECTMNUE" = "y" ] && [ "$avm_Lang" = "de" ] && . "$sh_DIR/add_dect_7150.inc"
-  [ "$ADD_7150_DECTMNUE" = "y" ] && [ "$avm_Lang" = "en" ] && . "$sh_DIR/add_dect_7150_en.inc"
+  [ "$ADD_7150_DECTMNUE" = "y" ] && [ "$avm_Lang" != "de" ] && . "$sh_DIR/add_dect_7150_en.inc"
   ##add dect menue pages
   #    for FILE in `ls ./addon/$avm_Lang/fon_dect`; do
   #	[ -n "$VERBOSITY" ] && echo "      /${USRWWW}/fon/$FILE"
   #	cp -p ./addon/$avm_Lang/fon_dect/$FILE "$SR1"/${USRWWW}/fon/$FILE
   #    done
   if [ "$ADD_OLD_DECTMENU" = "y" ]; then
-      PatchfileName="add_dect_de"
+    [ "$avm_Lang" = "de" ] && PatchfileName="add_dect_de"
+    [ "$avm_Lang" != "de" ] && PatchfileName="add_dect_en"
 #   [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] && iconv --from-code=UTF-8 --to-code=ISO-8859-1 "$P_DIR/${PatchfileName}_ut8.patch" > "$P_DIR/${PatchfileName}.patch" 
    [ -f "$P_DIR/${PatchfileName}_ut8.patch" ] || iconv --from-code=ISO-8859-1 --to-code=UTF-8 "$P_DIR/${PatchfileName}.patch" > "$P_DIR/${PatchfileName}_ut8.patch" 
-   [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1/${USRWWW}" "$P_DIR/${PatchfileName}.patch"
-   [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ] && modpatch "$SR1/${USRWWW}" "$P_DIR/${PatchfileName}_ut8.patch"
-   [ "$avm_Lang" = "en" ] && modpatch "$SR1" "$P_DIR/add_dect_en.patch"
+   [ "$Unicode_ut8" = "n" ] && modpatch "$SR1/${USRWWW}" "$P_DIR/${PatchfileName}.patch"
+   [ "$Unicode_ut8" = "y" ] && modpatch "$SR1/${USRWWW}" "$P_DIR/${PatchfileName}_ut8.patch"
    #the folowing patch must be after the above line becase it patches a file added by add_dect_**.patch
    sed -i -e "/var bits = (String.fromCharCode(bits + 48));/d" "$SR1"/${USRWWW}/fon/fon1dect.js
    [ -f "$SR1/${USRWWW}/fon/fon1dect.js" ] && [ "$ADD_OLD_DECTMENU" = "y" ] || echo "worong firmware combinations!" >"${HOMEDIR}/${ERR_LOGFILE}"

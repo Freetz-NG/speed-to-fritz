@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090713-0513-r-397
+    - W900: Dect menu english version bug fix, some spelling should still be fixed in file: /alian/patches/add_dect_en.patch
 20090710-0859-r-393
     - exclude Kdiff3 warnings from 'stop on error' (andLinux in combination with xming produces warnigs if kdiff3 is running)
 20090710-0640-r-392
