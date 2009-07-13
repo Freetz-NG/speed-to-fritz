@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090713-1540-r-400
+    - Bug fix in last commit
 20090713-1447-r-398
     - 7240 and 7270v3 added as Hardwaretypes.
     - Two models have been added to be able to use Laborfirmware on 7270v3 and 7240 Models.

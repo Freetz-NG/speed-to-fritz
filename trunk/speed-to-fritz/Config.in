@@ -1501,6 +1501,15 @@ if ! EXPORT_ATA_ONLY
 		Annex B driver will be removed if it is a 72XX firmware.
 		Boxes with 8MB lak of spece, so set this option with older boxes.
 		Aswering machine may have no space left to record if not set.
+    config REMOVE_ANNEX_A_DSL_DRIVER
+	bool "Remove Annex A driver on 72XX Firmware"
+	depends on EXPORT_TYPE_LOCAL_MODEL && TYPE_ANNEX_B
+#	depends on EXPORT_TYPE_LOCAL_MODEL
+	default n
+	help
+		Annex A driver will be removed if it is a 72XX firmware.
+		Boxes with 8MB lak of spece, so set this option with older boxes.
+		Aswering machine may have no space left to record if not set.
 
  if ! EXPORT_TYPE_LOCAL_MODEL
 
