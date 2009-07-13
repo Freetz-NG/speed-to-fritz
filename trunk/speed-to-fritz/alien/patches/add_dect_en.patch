@@ -50,22 +50,22 @@
 @@ -0,0 +1,47 @@
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
-+DECT-Devices
++DECT handsets
 +</div></div></div></div></div></div>
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
 +<ul class="tabs">
 +<li class="tabs_on"><a href="javascript:uiDoRefresh()">Overview</a></li>
 +<li><a href="javascript:uiDoListDect()">Internal phonenumbers</a></li>
 +<li><a href="javascript:uiDoSetupDect()">Phonenumber mappings</a></li>
-+<li><a href="javascript:uiDoEditDect()">Additional devices</a></li>
++<li><a href="javascript:uiDoEditDect()">Handset registration</a></li>
 +</ul>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
-+<p class="mb10">DECT-Devices without MSN assinged place calls via the main phonenumber and take all incoming calls.</p>
-+<p class="ml25 mb5">Main Phonenumber</p>
++<p class="mb10">DECT handsets without MSN assigned place calls via the main phonenumber and take all incoming calls.</p>
++<p class="ml25 mb5">Main phonenumber</p>
 +<table id="t0" class="ml50 tborder" style="width: 300px">
 +<td><select size="1" id="uiViewNr" class="Eingabefeld" style="width:300px"></select></td>
 +</table>
-+<p class="mb10">If you like you can configure the following MSN to your DECT devices. Details can be found in the manual of your DECT device.</p>
++<p class="mb10">If you like you can configure the following MSN to your DECT handsets. Please refer to the manual of your DECT handsets.</p>
 +<p class="ml25 mb5">Phonenumbers</p>
 +<p class="mb5">&nbsp;</p>
 +<table id="t1" class="ml50 tborder" style="width: 300px">
@@ -73,19 +73,19 @@
 +<tr id="uiSip$0" style="display:none"><td class="c1">Internet:</td><td class="c2">$2</td></tr>
 +` ?>
 +<? repeat [ 0 9 ] `
-+<tr id="uiMsn$0" style="display:none"><td class="c1">Fixed subsriber line:</td><td class="c2"><? query telcfg:settings/MSN/MSN$0 ?></td></tr>
++<tr id="uiMsn$0" style="display:none"><td class="c1">Fixed subscriber line:</td><td class="c2"><? query telcfg:settings/MSN/MSN$0 ?></td></tr>
 +` ?>
-+<tr id="uiPots" style="display:none"><td class="c1">Fixed subsriber line:</td><td class="c2"><? query telcfg:settings/MSN/POTS ?></td></tr>
++<tr id="uiPots" style="display:none"><td class="c1">Fixed subscriber line:</td><td class="c2"><? query telcfg:settings/MSN/POTS ?></td></tr>
 +<tr id="uiNichts" style="display:none"><td colspan=2 class="ac">No phonenumber configured</td></tr>
 +</table>
 +</div></div></div></div></div></div>
 +
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
-+<p class="mb5">With the Paging-Function you can locate your mobile devices. At the push of a Button you can also set Time and Date of the DECT devices</p>
++<p class="mb5">With the paging key you can locate your DECT handsets. You can also set date and time of your DECT handsets</p>
 +<div style="text-align: right;">
-+<input type="button" value="Page mobile device" id="uiViewPage" onclick="uiDoPage()" class="Pushbutton" style="width:180px;">
++<input type="button" value="Page DECT handsets" id="uiViewPage" onclick="uiDoPage()" class="Pushbutton" style="width:180px;">
 +<input type="button" value="Set date and time" id="uiViewDateTime" onclick="uiDoDateTime()" class="Pushbutton" style="width:180px;">
-+<input type="button" value="Send Phonebook" id="uiSendBook" onclick="uiDoSendBook()" class="Pushbutton" style="width:180px;">
++<input type="button" value="Send directory" id="uiSendBook" onclick="uiDoSendBook()" class="Pushbutton" style="width:180px;">
 +</div>
 +</div></div></div></div></div></div>
 +
@@ -118,8 +118,8 @@
 +<? include ../html/de/js/val.js ?>
 +<? include ../html/de/js/jsl.js ?>
 +var g_txtInternettyp	= "Internet: ";
-+var g_txtFestnetztyp	= "Fixed subsriber line: ";
-+var g_mldDigit			= "You should use numbers as Dailnumber, no letters.";
++var g_txtFestnetztyp	= "Fixed subscriber line: ";
++var g_mldDigit			= "The phonenumber must not contain letters.";
 +<? multiquery sip:settings/sip/list '
 +var g_$1;
 +' ?>
@@ -242,13 +242,13 @@
 +jslSetValue("uiPostPageHandsets", "0");
 +jslEnable("uiPostPageHandsets");
 +jslSubmitFormEx("fon", "", "");
-+alert("All registered DECT-Devices will ring now for one minute!");
++alert("All registered DECT handsets should ring now!");
 +}
 +function uiDoDateTime () {
 +jslSetValue("uiPostHandsetsTime", "0");
 +jslEnable("uiPostHandsetsTime");
 +jslSubmitFormEx("fon", "", "");
-+alert("Clock time will be set only on registered Swiss-Voice comaptible devices!");
++alert("Time will be only set on registered Swiss-Voice compatible handsets!");
 +}
 +</script>
 --- fon/fon1dect.frm	2008-01-01 19:00:00.000000000 -0500
@@ -298,8 +298,8 @@
 +
 +<table>
 +<tr>
-+<td style="{text-align: left; width: 150px;"><input type="checkbox" name="uiViewCLIR" id="uiViewCLIR0">&nbsp;<label for="uiViewCLIR">Call anonymous</label></td>
-+<td style="{text-align: left; width: 150px;"><input type="checkbox" name="uiViewCallWaiting" id="uiViewCallWaiting">&nbsp;<label for="uiViewCallWaiting">knocking</label></td>
++<td style="{text-align: left; width: 150px;"><input type="checkbox" name="uiViewCLIR" id="uiViewCLIR0">&nbsp;<label for="uiViewCLIR">Disable CallerID</label></td>
++<td style="{text-align: left; width: 150px;"><input type="checkbox" name="uiViewCallWaiting" id="uiViewCallWaiting">&nbsp;<label for="uiViewCallWaiting">Call waiting</label></td>
 +<td style="{text-align: left; width: 150px;"><input type="checkbox" name="uiViewBusyOnBusy" id="uiViewBusyOnBusy">&nbsp;<label for="uiViewBusyOnBusy">MSN busy</label></td>
 +</tr>
 +</table>
@@ -314,7 +314,7 @@
 +' ?>
 +</table>
 +<table>
-+<tr id="uiNichts" style="{text-align: center;"><td colspan=5 class="ac">No mobile devices assigned</td></tr>
++<tr id="uiNichts" style="{text-align: center;"><td colspan=5 class="ac">No DECT handsets registered</td></tr>
 +</table>
 +</div></div></div></div></div></div>
 +<div class="backdialog" id="uiApplyCancelButtons"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="forebuttons">
@@ -368,8 +368,8 @@
 +var g_Handsets;
 +var g_MsnNr;
 +var g_OptsCount = 0;
-+var g_mldNoNummer = "Please enter a Phonenumber.";
-+var g_mldNoHandset = "Please select a mobile device.";
++var g_mldNoNummer = "Please enter a phonenumber.";
++var g_mldNoHandset = "Please select at least one DECT handset.";
 +var g_mldNoOpts = "All phonenumbers are already assigned.";
 +function uiDoOnLoad() {
 +g_Handsets = 0;
@@ -513,7 +513,7 @@
 +
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
-+DECT-Devices
++DECT handsets
 +</div></div></div></div></div></div>
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
 +<ul class="tabs">
@@ -523,12 +523,12 @@
 +<li class="tabs_on"><a href="javascript:uiDoCancel()">Additional devices</a></li>
 +</ul>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
-+<p class="mb10">You can assign and unassign mobile devices to your FRITZ!Box. To assign a DECT device you need to enter the PIN (0000 - default) in you mobile device.</p>
++<p class="mb10">You can register and de-register DECT handsets to your SPEED!Box. To register a DECT device you need to enter the PIN (0000 - default).</p>
 +<table id="tHandsets" class="tborder">
 +<tr>
 +<th class="c1">Number</th>
-+<th class="c2">Name of DECT-device</th>
-+<th class="c1">Assigned</th>
++<th class="c2">Name of DECT handset</th>
++<th class="c1">Registration</th>
 +<th class="c3">Swissvoice/GAP</th>
 +<th class="c4"></th>
 +<th class="c5"></th>
@@ -542,24 +542,24 @@
 + <td class="c4"></td>
 +
 + <td class="c5">
-+  <button type="button" id="uiViewDelete$0" onclick="uiDoDelete($0)" title="Unassign mobile devices" style="width: 30px">
++  <button type="button" id="uiViewDelete$0" onclick="uiDoDelete($0)" title="De-register DECT handset" style="width: 30px">
 +  <img src="../html/de/images/loeschen.gif" align="bottom" width="16" height="16" hspace="4">
 +  </button>
 + </td>
 +</tr>
 +' ?>
-+<tr id="uiNichts" style="display:none"><td colspan=5 class="ac">No mobile devices assigned</td></tr>
++<tr id="uiNichts" style="display:none"><td colspan=5 class="ac">No DECT handsets registered.</td></tr>
 +</table>
 +
-+<p class="mt10 ar"><input type="button" value="Assign mobile devices" id="uiViewNew" onclick="uiDoNew()" class="Pushbutton" style="width:180px;"></p>		
++<p class="mt10 ar"><input type="button" value="Register DECT handsets" id="uiViewNew" onclick="uiDoNew()" class="Pushbutton" style="width:180px;"></p>		
 +</div></div></div></div></div></div>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
 +
-+<p class="mb5">With the Paging-Function you can locate your mobile devices. At the push of a Button you can also set Time and Date of the DECT devices.</p>
++<p class="mb5">With the paging key you can locate your DECT handsets. You can also set date and time of your DECT handsets.</p>
 +<div style="text-align: right;">
-+<input type="button" value="Page mobile device" id="uiViewPage" onclick="uiDoPage()" class="Pushbutton" style="width:180px;">
++<input type="button" value="Page DECT handsets" id="uiViewPage" onclick="uiDoPage()" class="Pushbutton" style="width:180px;">
 +<input type="button" value="Set date and time" id="uiViewDateTime" onclick="uiDoDateTime()" class="Pushbutton" style="width:180px;">
-+<input type="button" value="Send phonebook" id="uiSendBook" onclick="uiDoSendBook()" class="Pushbutton" style="width:180px;">
++<input type="button" value="Send directory" id="uiSendBook" onclick="uiDoSendBook()" class="Pushbutton" style="width:180px;">
 +</div>
 +</div></div></div></div></div></div>
 +
@@ -677,7 +677,7 @@
 +
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
-+DECT-Devices
++DECT handsets
 +</div></div></div></div></div></div>
 +<? if eq '$var:usePSTN' 1 `
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
@@ -735,7 +735,7 @@
 +<? include ../html/de/fon/fonlistdect.inc ?>
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
-+DECT-Devices
++DECT handsets
 +</div></div></div></div></div></div>
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
 +<ul class="tabs">
@@ -862,20 +862,20 @@
 +<li><a href="javascript:uiDoDect()">Overview</a></li>
 +<li><a href="javascript:uiDoListDect()">Internal phonenumbers</a></li>
 +<li class="tabs_on"><a href="javascript:uiDoCancel()">Phonenumber mappings</a></li>
-+<li><a href="javascript:uiDoEditDect()">Additional devices</a></li>
++<li><a href="javascript:uiDoEditDect()">Handset registration</a></li>
 +</ul>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
-+<p class="mb10">Mobile devices can be setup to recognize all incoming calls. If setting this option all assigned numbers will be lost.</p>
-+<p class="mb10"><input type="checkbox" id="uiViewRingOnAllMSNs" onclick="uiRingOnAllMSNs()">&nbsp;<label for="uiViewRingOnAllMSNs">React on all numbers</label></p>
++<p class="mb10">DECT handsets can be set up to take all incoming calls. If setting this option all assigned numbers will be lost.</p>
++<p class="mb10"><input type="checkbox" id="uiViewRingOnAllMSNs" onclick="uiRingOnAllMSNs()">&nbsp;<label for="uiViewRingOnAllMSNs">Take calls on all numbers</label></p>
 +</div></div></div></div></div></div>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
-+<p class="mb10">Assign up to 5 numbers to the mobile devices, calls can be taken and calls can be placed on.</p>
++<p class="mb10">Assign up to 5 numbers to the DECT handsets for outgoing calls.</p>
 +<table id="tMSN" class="tborder">
 +<tr>
 +<th class="c1">MSN</th>
 +<th class="c2">Phonenumber</th>
-+<th class="c3">Anonymous</th>
-+<th class="c4">Knock</th>
++<th class="c3">Disable CallerID</th>
++<th class="c4">Call waiting</th>
 +<th class="c5">MSN busy</th>
 +<th class="c6">DECT Assignment</th>
 +<th class="c7"></th>
@@ -930,8 +930,8 @@
 +</style>
 +<script type="text/javascript">
 +<? include ../html/de/js/jsl.js ?>
-+var g_mldDelete	= "Delete assignment ?";
-+var g_mldAllOn	= "Delete all assignments ?";
++var g_mldDelete	= "Are you sure to delete assignment?";
++var g_mldAllOn	= "Are you sure to delete all assignments?";
 +var g_New = -1;
 +var g_Index = new Array("A", "B", "C", "D", "E");
 +var g_Handsets;
