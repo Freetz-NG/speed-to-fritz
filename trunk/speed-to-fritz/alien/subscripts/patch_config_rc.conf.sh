@@ -9,20 +9,20 @@ echo2 "-- Changing product to ${CONFIG_PRODUKT}"
 # Changing product, is important becaus is used for directorys
 sed -i -e "s/PRODUKT=\".*$/PRODUKT=\"${CONFIG_PRODUKT}\"/g" "${1}/etc/init.d/rc.conf"
 #_____________________________________________________________________________________________________________________#
-sed -i -e "s/CONFIG_INSTALL_TYPE=\".*$/CONFIG_INSTALL_TYPE=\"${CONFIG_INSTALL_TYPE}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_INSTALL_TYPE" ] &&  sed -i -e "s/CONFIG_INSTALL_TYPE=\".*$/CONFIG_INSTALL_TYPE=\"${CONFIG_INSTALL_TYPE}\"/g" "${1}/etc/init.d/rc.conf"
 #sed -i -e "s/CONFIG_XILINX=\".*$/CONFIG_XILINX=\"${CONFIG_XILINX}\"/g" "${1}/etc/init.d/rc.conf"
-sed -i -e "s/CONFIG_DECT=\".*$/CONFIG_DECT=\"${CONFIG_DECT}\"/g" "${1}/etc/init.d/rc.conf"
-sed -i -e "s/CONFIG_ROMSIZE=\".*$/CONFIG_ROMSIZE=\"${CONFIG_ROMSIZE}\"/g" "${1}/etc/init.d/rc.conf"
-sed -i -e "s/CONFIG_RAMSIZE=\".*$/CONFIG_RAMSIZE=\"${CONFIG_RAMSIZE}\"/g" "${1}/etc/init.d/rc.conf"
-sed -i -e "s/CONFIG_ETH_COUNT=\".$/CONFIG_ETH_COUNT=\"${CONFIG_ETH_COUNT}\"/g" "${1}/etc/init.d/rc.conf"
-sed -i -e "s/CONFIG_AB_COUNT=\".*$/CONFIG_AB_COUNT=\"${CONFIG_AB_COUNT}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_DECT" ] &&  sed -i -e "s/CONFIG_DECT=\".*$/CONFIG_DECT=\"${CONFIG_DECT}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_ROMSIZE" ] &&  sed -i -e "s/CONFIG_ROMSIZE=\".*$/CONFIG_ROMSIZE=\"${CONFIG_ROMSIZE}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_RAMSIZE" ] &&  sed -i -e "s/CONFIG_RAMSIZE=\".*$/CONFIG_RAMSIZE=\"${CONFIG_RAMSIZE}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_ETH_COUNT" ] &&  sed -i -e "s/CONFIG_ETH_COUNT=\".$/CONFIG_ETH_COUNT=\"${CONFIG_ETH_COUNT}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_AB_COUNT" ] &&  sed -i -e "s/CONFIG_AB_COUNT=\".*$/CONFIG_AB_COUNT=\"${CONFIG_AB_COUNT}\"/g" "${1}/etc/init.d/rc.conf"
 # if Tr069 is enablt then AtA must be disabelt
 [ "$CONFIG_TR069" ] ||  sed -i -e "s/CONFIG_ATA=\".*$/CONFIG_ATA=\"${CONFIG_ATA}\"/g" "${1}/etc/init.d/rc.conf"
 #sed -i -e "s/CONFIG_ONLINEHELP=\".*$/CONFIG_ONLINEHELP=\"${CONFIG_ONLINEHELP}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_TR069" ] &&  sed -i -e "s/TR069=\".*$/TR069=\"${CONFIG_TR069}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_TR064" ] &&  sed -i -e "s/CONFIG_TR064=\".*$/CONFIG_TR064=\"${CONFIG_TR064}\"/g" "${1}/etc/init.d/rc.conf"
-sed -i -e "s/CONFIG_DECT_ONOFF=\".*$/CONFIG_DECT_ONOFF=\"${CONFIG_DECT_ONOFF}\"/g" "${1}/etc/init.d/rc.conf"
-sed -i -e "s/CONFIG_LED_NO_DSL_LED=\".*$/CONFIG_LED_NO_DSL_LED=\"${CONFIG_LED_NO_DSL_LED}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_DECT_ONOFF" ] &&  sed -i -e "s/CONFIG_DECT_ONOFF=\".*$/CONFIG_DECT_ONOFF=\"${CONFIG_DECT_ONOFF}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_LED_NO_DSL_LED" ] &&  sed -i -e "s/CONFIG_LED_NO_DSL_LED=\".*$/CONFIG_LED_NO_DSL_LED=\"${CONFIG_LED_NO_DSL_LED}\"/g" "${1}/etc/init.d/rc.conf"
 #----
 sed -i -e "s|CONFIG_SERVICEPORTAL_URL=\".*$|CONFIG_SERVICEPORTAL_URL=\"${CONFIG_SERVICEPORTAL_URL}\"|g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_DSL" ] &&  sed -i -e "s/CONFIG_DSL=\".*$/CONFIG_DSL=\"${CONFIG_DSL}\"/g" "${1}/etc/init.d/rc.conf"
@@ -32,12 +32,9 @@ sed -i -e "s|CONFIG_SERVICEPORTAL_URL=\".*$|CONFIG_SERVICEPORTAL_URL=\"${CONFIG_
 [ "$CONFIG_DSL_MULTI_ANNEX" ] &&  sed -i -e "s/CONFIG_DSL_MULTI_ANNEX=\".*$/CONFIG_DSL_MULTI_ANNEX=\"${CONFIG_DSL_MULTI_ANNEX}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_ATA_FULL" ] &&  sed -i -e "s/CONFIG_ATA_FULL=\".*$/CONFIG_ATA_FULL=\"${CONFIG_ATA_FULL}\"/g" "${1}/etc/init.d/rc.conf"
 #W721
-if [ "$CONFIG_VINAX" ]; then
- if  ! `grep -q 'CONFIG_VINAX=' "${1}/etc/init.d/rc.conf"`; then
- sed -i -e "/CONFIG_DSL/a\
-export CONFIG_VINAX=\"${CONFIG_VINAX}\"/" "${1}/etc/init.d/rc.conf"
- fi
-fi
+[ "$CONFIG_VINAX" ] && ! `grep -q 'CONFIG_VINAX=' "${1}/etc/init.d/rc.conf"` &&
+sed -i -e "/CONFIG_DSL/a\
+export CONFIG_VINAX=\"${CONFIG_VINAX}\"" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_VINAX" ] &&  sed -i -e "s/CONFIG_VINAX=\".*$/CONFIG_VINAX=\"${CONFIG_VINAX}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_VLYNQ_PARAMS" ] &&  sed -i -e "s/CONFIG_VLYNQ_PARAMS=\".*$/CONFIG_VLYNQ_PARAMS=\"${CONFIG_VLYNQ_PARAMS}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_VLYNQ" ] &&  sed -i -e "s/CONFIG_VLYNQ=\".*$/CONFIG_VLYNQ=\"${CONFIG_VLYNQ}\"/g" "${1}/etc/init.d/rc.conf"
@@ -64,12 +61,9 @@ fi
 #[ "$CONFIG_ACCESSORY_URL" ] &&  sed -i -e "s/CONFIG_ACCESSORY_URL=\".*$/CONFIG_ACCESSORY_URL=\"${CONFIG_ACCESSORY_URL}\"/g" "${1}/etc/init.d/rc.conf"
 
 #W920
-if [ "$CONFIG_VINAX_TRACE" ]; then
- if  ! `grep -q 'CONFIG_VINAX_TRACE=' "${1}/etc/init.d/rc.conf"`; then
- sed -i -e "/CONFIG_VINAX/a\
-export CONFIG_VINAX_TRACE=\"${CONFIG_VINAX_TRACE}\"/" "${1}/etc/init.d/rc.conf"
- fi
-fi
+[ "$CONFIG_VINAX_TRACE" ] && ! `grep -q 'CONFIG_VINAX_TRACE=' "${1}/etc/init.d/rc.conf"` &&\
+sed -i -e "/CONFIG_VINAX/a\
+export CONFIG_VINAX_TRACE=\"${CONFIG_VINAX_TRACE}\"" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_VINAX_TRACE" ] &&  sed -i -e "s/CONFIG_VINAX_TRACE=\".*$/CONFIG_VINAX_TRACE=\"${CONFIG_VINAX_TRACE}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_LIBZ" ] &&  sed -i -e "s/CONFIG_LIBZ=\".*$/CONFIG_LIBZ=\"${CONFIG_LIBZ}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_MULTI_LANGUAGE" ] &&  sed -i -e "s/CONFIG_MULTI_LANGUAGE=\".*$/CONFIG_MULTI_LANGUAGE=\"${CONFIG_MULTI_LANGUAGE}\"/g" "${1}/etc/init.d/rc.conf"
@@ -78,9 +72,6 @@ fi
 [ "$CONFIG_PROV_DEFAULT" ] &&  sed -i -e "s/CONFIG_PROV_DEFAULT=\".*$/CONFIG_PROV_DEFAULT=\"${CONFIG_PROV_DEFAULT}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_BOX_FEEDBACK" ] &&  sed -i -e "s/CONFIG_BOX_FEEDBACK=\".*$/CONFIG_BOX_FEEDBACK=\"${CONFIG_BOX_FEEDBACK}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_TAM_ONRAM" ] &&  sed -i -e "s/CONFIG_TAM_ONRAM=\".*$/CONFIG_TAM_ONRAM=\"${CONFIG_TAM_ONRAM}\"/g" "${1}/etc/init.d/rc.conf"
-
-
-
 #W503
 [ "$CONFIG_MEDIASRV" ] &&  sed -i -e "s/CONFIG_MEDIASRV=\".*$/CONFIG_MEDIASRV=\"${CONFIG_MEDIASRV}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_CAPI_NT" ] &&  sed -i -e "s/CONFIG_CAPI_NT=\".*$/CONFIG_CAPI_NT=\"${CONFIG_CAPI_NT}\"/g" "${1}/etc/init.d/rc.conf"
@@ -104,7 +95,28 @@ fi
 [ "$CONFIG_USB_HOST_AVM" ] &&  sed -i -e "s/CONFIG_USB_HOST_AVM=\".*$/CONFIG_USB_HOST_AVM=\"${CONFIG_USB_HOST_AVM}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_WLAN_WMM" ] &&  sed -i -e "s/CONFIG_WLAN_WMM=\".*$/CONFIG_WLAN_WMM=\"${CONFIG_WLAN_WMM}\"/g" "${1}/etc/init.d/rc.conf"
 [ "$CONFIG_WLAN_WPS" ] &&  sed -i -e "s/CONFIG_WLAN_WPS=\".*$/CONFIG_WLAN_WPS=\"${CONFIG_WLAN_WPS}\"/g" "${1}/etc/init.d/rc.conf"
+#7270v3
+[ "$CONFIG_DECT_14488" ] &&  sed -i -e "s/CONFIG_DECT_14488=\".*$/CONFIG_DECT_14488=\"${CONFIG_DECT_14488}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_CAPI_POTS" ] &&  sed -i -e "s/CONFIG_CAPI_POTS=\".*$/CONFIG_CAPI_POTS=\"${CONFIG_CAPI_POTS}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_PLUGIN" ] &&  sed -i -e "s/CONFIG_PLUGIN=\".*$/CONFIG_PLUGIN=\"${CONFIG_PLUGIN}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_PROV_DEFAULT" ] &&  sed -i -e "s/CONFIG_PROV_DEFAULT=\".*$/CONFIG_PROV_DEFAULT=\"${CONFIG_PROV_DEFAULT}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_FON_IPPHONE" ] &&  sed -i -e "s/CONFIG_FON_IPPHONE=\".*$/CONFIG_FON_IPPHONE=\"${CONFIG_FON_IPPHONE}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_VERSION_MAJOR" ] &&  sed -i -e "s/CONFIG_VERSION_MAJOR=\".*$/CONFIG_VERSION_MAJOR=\"${CONFIG_VERSION_MAJOR}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_ATA_NOPASSTHROUGH" ] &&  sed -i -e "s/CONFIG_ATA_NOPASSTHROUGH=\".*$/CONFIG_ATA_NOPASSTHROUGH=\"${CONFIG_ATA_NOPASSTHROUGH}\"/g" "${1}/etc/init.d/rc.conf"
 
+[ "$CONFIG_DECT_14488" ] &&  ! `grep -q 'CONFIG_DECT_14488=' "${1}/etc/init.d/rc.conf"` && sed -i -e "/CONFIG_MAILER2/i\
+export CONFIG_DECT_14488=\"${CONFIG_DECT_14488}\"" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_CAPI_POTS" ] &&  ! `grep -q 'CONFIG_CAPI_POTS=' "${1}/etc/init.d/rc.conf"` && sed -i -e "/CONFIG_MAILER2/i\
+export CONFIG_CAPI_POTS=\"${CONFIG_CAPI_POTS}\"" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_PLUGIN" ] &&  ! `grep -q 'CONFIG_PLUGIN=' "${1}/etc/init.d/rc.conf"` && sed -i -e "/CONFIG_MAILER2/i\
+export CONFIG_PLUGIN=\"${CONFIG_PLUGIN}\"" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_PROV_DEFAULT" ] &&  ! `grep -q 'CONFIG_PROV_DEFAULT=' "${1}/etc/init.d/rc.conf"` && sed -i -e "/CONFIG_MAILER2/i\
+export CONFIG_PROV_DEFAULT=\"${CONFIG_PROV_DEFAULT}\"" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_FON_IPPHONE" ] &&  ! `grep -q 'CONFIG_FON_IPPHONE=' "${1}/etc/init.d/rc.conf"` && sed -i -e "/CONFIG_MAILER2/i\
+export CONFIG_FON_IPPHONE=\"${CONFIG_FON_IPPHONE}\"" "${1}/etc/init.d/rc.conf"
+
+#[ "$" ] &&  ! `grep -q '=' "${1}/etc/init.d/rc.conf"` && sed -i -e "/CONFIG_DSL/a\
+#export =\"${}\"/" "${1}/etc/init.d/rc.conf"
 #[ "$" ] &&  sed -i -e "s/=\".*$/=\"${}\"/g" "${1}/etc/init.d/rc.conf"
 
 # set hostname

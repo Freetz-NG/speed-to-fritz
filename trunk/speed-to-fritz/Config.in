@@ -256,27 +256,43 @@ choice
 		bool "Speedport W920V"
 #		select SET_FREETZ_REVISION
 
-	config EXPORT_TYPE_LOCAL_MODEL
+	config TYPE_7270v3
+		bool "AVM 7270v3"
+
+	config TYPE_7240v2
+		bool "AVM 7240"
+
+	config LOCAL_X_MODEL
 		bool "Any AVM Custom Model"
+
 endchoice
-if EXPORT_TYPE_LOCAL_MODEL
-    config SPMOD
-        string "Any AVM Custom Model Type --->"
-	default "7270"	
+if LOCAL_X_MODEL
+ config SPMOD
+	    string "Any AVM Custom Model Type --->"
+	    default "7270"	
 	    help 
 		    In this case only 1st AVM and 2nd AVM Firmware is in use, so insert any AVM Model Type and 
 		    then insert the Firmwares names for 1st AVM and 2nd AVM Firmware.
 endif
-if ! EXPORT_TYPE_LOCAL_MODEL
-config SPMOD
+
+if  TYPE_7270v3 || TYPE_7240v2 || LOCAL_X_MODEL
+    config EXPORT_TYPE_LOCAL_MODEL
+	bool
+	default y
+endif
+
+if ! LOCAL_X_MODEL
+    config SPMOD
 	string
-	default "501"	if TYPE_SPEEDPORT_W501V
-	default "503"	if TYPE_SPEEDPORT_W503V
-	default "701"	if TYPE_SPEEDPORT_W701V
-	default "721"	if TYPE_SPEEDPORT_W721V
-	default "900"	if TYPE_SPEEDPORT_W900V
-	default "920"	if TYPE_SPEEDPORT_W920V
-	default "500"	if TYPE_SINUS_W500V
+	default "501"		if TYPE_SPEEDPORT_W501V
+	default "503"		if TYPE_SPEEDPORT_W503V
+	default "701"		if TYPE_SPEEDPORT_W701V
+	default "721"		if TYPE_SPEEDPORT_W721V
+	default "900"		if TYPE_SPEEDPORT_W900V
+	default "920"		if TYPE_SPEEDPORT_W920V
+	default "500"		if TYPE_SINUS_W500V
+	default "7270v3"	if TYPE_7270v3
+	default "7240v2"	if TYPE_7240v2
 endif
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -404,19 +420,16 @@ endchoice
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #### If types are added here the script file /subscripts/settings has to be edited as well to represent the new Labor versions too. 
 config TYPE_LABOR
-	bool "Select a special AVM Firmware Firmware --->"
+	bool "Select a special AVM Firmware  --->"
 	depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) 
 	default y if EXPORT_TYPE_LOCAL_MODEL
 	default n if ! EXPORT_TYPE_LOCAL_MODEL
-
 	help
 		Enable this to compile the mod based on an special AVM Firmware.
 		The actual final release version should not be selected is anyway preselected! 
 		If you select it here your freetz config is not correct! 
-		If Custom Model is selected then this is the main firmware in use,
-		normlay you would have to enter Castom Firmware names as well!
 choice
-	prompt "Labor or any other non default"
+	prompt "Select Labor or any other non default Firmware."
 		depends on TYPE_LABOR
 		default TYPE_76 if EXPORT_TYPE_LOCAL_MODEL
 		default TYPE_AIO if ! EXPORT_TYPE_LOCAL_MODEL
@@ -636,7 +649,10 @@ config SOURCE2
 	default n if ! EXPORT_TYPE_LOCAL_MODEL
 	help
 		Enable this if you need a second AVM or T-Home Firmware, this may be needed with some options.
-		If Custom Model is selected then this is the 2nd Firmware in use!
+		Not all listed Firmwares are usabel. 
+		If the orignal firmare was selected as first Firmware then this may be a other fitting Firmware
+		to supply missing modules.
+		
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### if new Firmware was added it could be needed to enter one more entry's into the second source section as well!
 choice
@@ -645,6 +661,7 @@ choice
 		depends on SOURCE2
 		default TYPE_SRC3_AVM_7570_72 if ! EXPORT_TYPE_LOCAL_MODEL
 		default TYPE_SRC3_AVM_V3_7270_76 if EXPORT_TYPE_LOCAL_MODEL
+		
 	config TYPE_SRC3_AVM_7150_27
 		bool "AVM_7150_27"
 	config TYPE_SRC3_AVM_7150_32
@@ -809,6 +826,8 @@ config TCOM_IMG
 	default "$AVM_7570_14375" 		if TYPE_TCOM_7570_14375 && ( TYPE_SPEEDPORT_W920V )
 	default "$AVM_7570_14434" 		if TYPE_TCOM_7570_14434 && ( TYPE_SPEEDPORT_W920V )
 	default "$AVM_7570_14685" 		if TYPE_TCOM_7570_14685 && ( TYPE_SPEEDPORT_W920V )
+	default "$AVM_7240_76"			if TYPE_7240v2
+	default "$AVM_V3_7270_76"		if TYPE_7270v3
 
 	default "$TCOM_LOCAL"	 		if TYPE_LOCAL_TCOM
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1163,6 +1182,27 @@ config EXPORT_DO_GSM_PATCH
 	default n
 	help
 		Enables GSM page without device plugged in. Usual a GSM modem shows only up if the device is plugged in.
+config FORCE_SRC2_DECTDRIVER
+	bool "Use dect driver from 2nd AVM Firmware"
+	depends on TYPE_SPEEDPORT_W920V || EXPORT_TYPE_LOCAL_MODEL
+	default n
+	help
+		Use dect driver from 2nd AVM source.
+		V3 Firmware dectdriver cant be used with W920 
+config FORCE_OWN_DECTDRIVER
+	bool "Use own dect driver from ./addon/tmp/XXXX/"
+	depends on TYPE_SPEEDPORT_W920V || EXPORT_TYPE_LOCAL_MODEL
+	default n
+	help
+		Use dect driver from local directory ./addon/tmp/WXXX/.....
+		V3 Firmware dectdriver cant be used with W920, ... 
+config SAVE_SRC2_DECTDRIVER
+	bool "Save 2nd AVM source dect driver to ./addon/tmp/XXXX/"
+	depends on TYPE_SPEEDPORT_W920V || EXPORT_TYPE_LOCAL_MODEL
+	default n
+	help
+		Save dect to local directory ./addon/tmp/XXXX/.....
+		V3 Firmware dectdriver cant be used with W920, ...
 
 if ! EXPORT_TYPE_LOCAL_MODEL
  config EXPORT_ADD_ONLINECOUNTER
@@ -1335,28 +1375,6 @@ config EXPORT_USE_SOURCE2_WEBMNUE
 	help
 		Use this additional option if new Firmware with alternative menus is used, 
 		with limited functionality but interesting for experiments.
-    config FORCE_SRC2_DECTDRIVER
-	bool "Use dect driver from 2nd AVM Firmware"
-	depends on TYPE_SPEEDPORT_W920V
-	default n
-	help
-		Use dect driver from 2nd AVM source.
-		V3 Firmware dectdriver cant be used with W920 
-    config FORCE_OWN_DECTDRIVER
-	bool "Use own dect driver from ./addon/tmp/W920/"
-	depends on TYPE_SPEEDPORT_W920V
-	default n
-	help
-		Use dect driver from local directory ./addon/tmp/WXXX/.....
-		V3 Firmware dectdriver cant be used with W920 
-    config SAVE_SRC2_DECTDRIVER
-	bool "Save 2nd AVM source dect driver to ./addon/tmp/W920/"
-	depends on TYPE_SPEEDPORT_W920V
-	default n
-	help
-		Save dect to local directory ./addon/tmp/WXXX/.....
-		V3 Firmware dectdriver cant be used with W920 
-
 comment "DSL Options --------------------------------------------------------"
 config EXPORT_ATA_ONLY
 	bool "Remove ADSL - ATA only"

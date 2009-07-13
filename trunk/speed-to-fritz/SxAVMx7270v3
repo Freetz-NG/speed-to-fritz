@@ -3,6 +3,15 @@ echo "**************************************************************************
 echo -e "\033[1mPhase 4:\033[0m Apply changes."
 echo "********************************************************************************"
 echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $AVM_2_VERSION-$AVM_2_SUBVERSION"
+# only executed if productname is changed
+if [ ! -e "${SRC}"/etc/default.${CONFIG_PRODUKT} ]; then
+echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
+ echo2 "-- Move contents of OEM directory:"
+ echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
+    mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
+   "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
+    rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
+fi
 echo "Replacing hardware related files of AVM firmware images ..."
 echo2 "-- Copy original AVM module:"
 echo2 "      /lib/modules"
@@ -66,13 +75,59 @@ echo "  -- DSL Annex A Driver was removed from ${SORCE_PRODUKT}!"
 [ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
 
 echo2 "-- copy complete AVM source to destination directory!"
-
+# correct setings to fit hardware
+$sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 7270
 #patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
 # add kapselung and annex settings page if missing
 $sh_DIR/add_multi_settings.sh
 
+if [ "${SAVE_SRC2_DECTDRIVER}" = "y" ]; then
+    mkdir -p ./addon/tmp/W920/squashfs-root/lib/modules
+    cp -fdrp "${SRC_2}"/lib/modules/dectfw_firstlevel_488.hex --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
+    cp -fdrp "${SRC_2}"/lib/modules/dectfw_secondlevel_488.hex --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
+    echo "  -- 2nd AVM Firmware DECT Driver saved to: ./addon/tmp/W920"
+fi
+[ "${FORCE_SRC2_DECTDRIVER}" = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/dectfw_firstlevel_488.hex --target-directory="${SRC}"/lib/modules &&\
+cp -fdrp "${SRC_2}"/lib/modules/dectfw_secondlevel_488.hex --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DECT Driver was taken from 2nd AVM source."
+[ "${FORCE_OWN_DECTDRIVER}" = "y" ] && cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/dectfw_firstlevel_488.hex --target-directory="${SRC}"/lib/modules &&\
+cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/dectfw_secondlevel_488.hex --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DECT Driver was taken from local directory ./addon/tmp/W920"
+if `cat "${SRC}/etc/init.d/rc.S" | grep -q 'level.hex' ` && ! [ -f "${SRC}"/lib/modules/dectfw_firstlevel_488.hex ]; then
+ echo "You must use dect driver form 2nd AVM source or one that was saved before" && sleep 10 && exit 1
+fi
 
+
+#v3 dect fix
+sed -i -e 's|level.hex|level_488.hex|' "${SRC}/etc/init.d/rc.S" 
+sed -i -e '/piglet_bitfile=\//a\
+if [ -z $piglet_bitfilemode ] ; then piglet_bitfilemode=0 ; fi\
+echo PigletMode: $piglet_bitfilemode\
+' "${SRC}/etc/init.d/rc.S" 
+
+sed -i -e '/piglet_enable_button=2 \\/i\
+piglet_potsbitfile=$piglet_potsbitfile \\\
+' "${SRC}/etc/init.d/rc.S" 
+sed -i -e '/piglet_enable_button=2 \\/a\
+piglet_bitfilemode=$piglet_bitfilemode \\\
+piglet_use_pll3_clk=1 \\\
+' "${SRC}/etc/init.d/rc.S" 
+
+#xilinx driver must be for the hardware in use
+rm -f "${SRC}"/lib/modules/microvoip_isdn_top.bit
+rm -f "${SRC}"/lib/modules/bitfile.bit
+sed -i -e 's|microvoip_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
+# 7240
+rm -f "${SRC}"/lib/modules/bitfile_pots.bit 
+rm -f "${SRC}"/lib/modules/bitfile_isdn.bit 
+[ -e "${DST}"/lib/modules/bitfile_pots.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile_pots.bit --target-directory="${SRC}"/lib/modules &&\
+echo "  -- Xilinx bitfile was taken from the original t-home firmware"
+[ -e "${DST}"/lib/modules/bitfile_isdn.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile_isdn.bit --target-directory="${SRC}"/lib/modules &&\
+[ -e "${DST}"/lib/modules/bitfile_isdn.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile_isdn.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
+echo "  -- Xilinx bitfile was taken from the original t-home firmware"
+[ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
+echo "  -- Xilinx bitfile was taken from the original t-home firmware"
 
 echo "********************************************************************************"
 sleep 1

@@ -22,10 +22,20 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090713-1447-r-398
+    - 7240 and 7270v3 added as Hardwaretypes.
+    - Two models have been added to be able to use Laborfirmware on 7270v3 and 7240 Models.
+      Funktionality of the script is in the same way as with T-home models.
+    - Multi setings for any AVM model can be done by entering the model type as "Any other AVM type Model"
+      Select two Firmwares one for the model and the orher supplying the missing files.
+      Best way would be to use posted Firmware.conf with the settings allready set up and 
+      then restrating the script by invoking ./restart.
 20090713-0513-r-397
-    - W900: Dect menu english version bug fix, some spelling should still be fixed in file: /alian/patches/add_dect_en.patch
+    - W900: Dect menu english version bug fix, some spelling should still be fixed in 
+      file: /alian/patches/add_dect_en.patch
 20090710-0859-r-393
-    - exclude Kdiff3 warnings from 'stop on error' (andLinux in combination with xming produces warnigs if kdiff3 is running)
+    - exclude Kdiff3 warnings from 'stop on error' (andLinux in combination with xming 
+      produces warnigs if kdiff3 is running)
 20090710-0640-r-392
     - W920: typing/spelling corrected in info.txt by:Gizmo_Ger
 20090708-1427-r-388

@@ -194,7 +194,11 @@ $sh_DIR/patch_leddef_7270.sh "${SRC}" "${DST}"
 #xilix W920 Driver must be for the hardware in use
 rm -f "${SRC}"/lib/modules/microvoip_isdn_top.bit
 rm -f "${SRC}"/lib/modules/bitfile.bit
-sed -i -e 's|bitfile.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
+sed -i -e 's|microvoip_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
+# 7240
+rm -f "${SRC}"/lib/modules/bitfile_pots.bit 
+rm -f "${SRC}"/lib/modules/bitfile_isdn.bit 
+sed -i -e 's|bitfile_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
 [ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules &&\
 echo "  -- Xilinx bitfile was taken from the original t-home firmware"
 [ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
