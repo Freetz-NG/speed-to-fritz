@@ -2,16 +2,16 @@
 export PATH=$PATH:/sbin
 #dont change names of variables because some of the names are used in other files as well!
 ##########################################################################
-# Date of current version:                                          
+# Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
-Tag="13"; Monat="07"; Jahr="09"
+Tag="14"; Monat="07"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
 export MODVER="${SKRIPT_DATE}-multi"
 ##########################################################################
 # Set this to "y" if you run the skript within CYGWIN, only used with -p option
-# For more info, look into file includefunction    
+# For more info, look into file includefunction
 export CYGWIN=""
 ERR_LOGFILE="0_error.log"
 # only used with push option
@@ -60,7 +60,7 @@ SET_UP="n"
 export MAKE_DEV="y"
 #pack expanded directory /var.tar > /squashfs-root/usr/var.tar, normally not needed 
 export PACK_VARTAR="y"
-# My Tools:                                                         
+# My Tools:
 #---->
 export HOMEDIR="`pwd`"
 TOOLS_SUBDIR="tools"
@@ -117,7 +117,7 @@ export P_DIR="$HOMEDIR/alien/patches"
 export sh_DIR="$HOMEDIR/alien/subscripts"
 export inc_DIR="$HOMEDIR/includes"
 export sh2_DIR="$HOMEDIR/subscripts2"
-# Temporary directories for unpacked/modified images                
+# Temporary directories for unpacked/modified images
 export TEMPDIR="${HOMEDIR}/FBDIRori"
 export SPDIR="${HOMEDIR}/SPDIR"
 export FBDIR="${HOMEDIR}/FBDIR"
@@ -127,7 +127,7 @@ export FBDIR_2="${HOMEDIR}/FBDIR2"
 export SRC_2="${FBDIR_2}/$SQUASHFSROOT"
 # Set default values for output directory 
 export	FWNEWDIR="Firmware.new"
-# Set default values for use within this script if no options are given via commandline 
+# Set default values if no options are given 
 export firmwareconf_file_name="Firmware.conf"
 export ORI="n"
 export SPMOD="701"
@@ -144,11 +144,11 @@ export KAPSELUNG="1"
 # Commandline
 export cml="$0"
 export Options="$*"
-# Don't change any parameters below here                            
-# This parameters are used in the resulting Speedport image          
+# Don't change any parameters below here
+# This parameters are used in the resulting Speedport image
 export CONFIG_ACCESSORY_URL=""
 export CONFIG_FIRMWARE_URL="http://www.t-com.de/downloads"
-# Set defaults for branding ('avm') and hostname ('fritz.box')     
+# Set defaults for branding ('avm') and hostname ('fritz.box')
 export OEMLIST="avme avm aol 1und1 freenet tcom all congstar"
 export OEMLINKS="aol 1und1 freenet tcom congstar"
 export OEM="avm"
@@ -159,32 +159,31 @@ export FBHWRevision=""
 # Not all variables are used later on.
 # It is a bit wirred how the information is carried on to the resulting image,
 # usually this information is overwritten by other settings made later on.
-# If patch_config_rc.conf is used, the settings from the original rc.init will be used
-# but some are set again depending on settings made in 
-# ./xxx.init (xxx is the configtype ig. 907) ./xxx.init is called from patch_config_rc.conf  
+# Some are set again depending on settings made later.
 # Some variabels are rewritten in patch_config_rc.conf from globals to rc.conf
 # see patch_config_rc_conf for more details
 # At the moment i don't know what variables are really in use by AVM Firmware
-# This is just an approach to keep as much information as possible, to be on the safe side    
+# This is just an approach to keep as much information as possible, to be on the safe side
 export USBH="n"
 export ATA="y"
 export CONFIG_ATA="${ATA}"
 export CONFIG_ATA_FULL="n"
 #export ANNEX="B"
 ##########################################################################
-# function set_model()                                               
-# Sets the model dependent parameters                                
+# function set_model()
+# Sets the model dependent parameters
 # SPMOD ist the only parameter to be changed according to your hardware 
-# Values for SPMOD: "500" (for SI W500V)                            
-#                   "501" (for SP W501V)                            
-#                   "503" (for SP W503V)                            
-#                   "701" (for SP W701V)                            
-#                   "721" (for SP W721V)                            
-#                   "900" (for SP W900V)                            
-#                   "920" (for SP W920V)                            
+# Values for SPMOD: "500" (for SI W500V)
+#                   "501" (for SP W501V)
+#                   "503" (for SP W503V)
+#                   "701" (for SP W701V)
+#                   "721" (for SP W721V)
+#                   "900" (for SP W900V)
+#                  "7240" (for AVM 7270)
+#                "7270v3" (for AVM 7270v3)
+#                     "*" (for for Any user TYPE)
 ##########################################################################
-
-function set_model() 
+function set_model()
 {
 if [ "$SRC2_IMG" ]; then
  export FILENAME_FBIMG_2_PATH="$(get_item "$SRC2_IMG" "1")"
@@ -471,33 +470,6 @@ case "$1" in
 	  export CONFIG_VDSL="n"
 	  export CONFIG_LABOR_DSL="n"
 	fi 
-#export CONFIG_FONBOOK2="n"
-#export CONFIG_T38="n"
-#export CONFIG_MEDIASRV="n"
-#export CONFIG_AURA="n"
-#export CONFIG_AUDIO="n"
-#export CONFIG_WLAN_TCOM_PRIO="y"
-#export CONFIG_MEDIACLI="n"
-#export CONFIG_FAXSUPPORT="n"
-#export CONFIG_VPN="n"
-#export CONFIG_SAMBA="n"
-#export CONFIG_JFFS2="n"
-#export CONFIG_ONLINEHELP="n"
-#export CONFIG_FAX2MAIL="n"
-#export CONFIG_FON_HD="n"
-#export CONFIG_TAM_MODE="0"
-#export CONFIG_IGD="n"
-#export CONFIG_UPNP="n"
-#export CONFIG_MAILER2="n"
-#export CONFIG_ECO="n"
-#export CONFIG_USB_WLAN_AUTH="n"
-#export CONFIG_CAPI_NT="n"
-#export CONFIG_STOREUSRCFG="n"
-#export CONFIG_TAM="n"
-#export CONFIG_REMOTE_HTTPS="n"
-#export CONFIG_REMOTE_HTTPS="n"
-#export CONFIG_ACCESSORY_URL="none"
-#export CONFIG_TR064="n"
     ;;
     
 "503")
@@ -782,7 +754,7 @@ case "$1" in
 	export CONFIG_PROV_DEFAULT="y"
 	export CONFIG_FON_IPPHONE="y"
 	export CONFIG_CAPI_NT="y"
-	export CONFIG_VERSION_MAJOR="74"
+	export CONFIG_VERSION_MAJOR="73"
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA="n"  
 	  export CONFIG_ATA_FULL="y"
