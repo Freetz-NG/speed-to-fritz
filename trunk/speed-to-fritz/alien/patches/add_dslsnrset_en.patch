@@ -89,7 +89,7 @@
 +</div></div></div></div></div></div>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
 +<p>Enter the DSL Option you need (Annex) depending on the data you got from your provider.</p>  
-+<p class="mt10 mb10"><b>Atantion!</b>&nbsp;Wrong setting lead to the fact that the internet connecition will not be established. After entering the new settings the router will be rebooting so the changes will be put to action.</p>
++<p class="mt10 mb10"><b>Attention!</b>&nbsp;Wrong setting lead to the fact that the internet connecition will not be established. After entering the new settings the router will be rebooting so the changes will be put to action.</p>
 +<p class="mb10 mt10" id="uiViewAnnex">
 +<input id="uiViewAnnexA" type="radio" name="Annex" onclick="SelectAnnex('A')" />
 +<label for="uiViewAnnexA">Annex A</label><br>

@@ -181,7 +181,7 @@ export CONFIG_ATA_FULL="n"
 #                   "900" (for SP W900V)
 #                  "7240" (for AVM 7270)
 #                "7270v3" (for AVM 7270v3)
-#                     "*" (for for Any user TYPE)
+#                     "*" (for Any user TYPE)
 ##########################################################################
 function set_model()
 {

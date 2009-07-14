@@ -188,6 +188,9 @@ jslSetChecked("uiViewAnnexB", n==1);\
     fi
   done
  fi # <-- ? 1st firmware multiannex
+fi # <-- Multiannex 
+#----------------------------------------------------------------------------------------------------
+  if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
  # on 7240 Firmware some pages are missing
   `cat "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html" | grep -q 'isMultiLanguage' ` ||\
    modpatch "${SRC}/${USRWWW}" "$P_DIR/add_language_de.patch"
@@ -199,9 +202,6 @@ jslSetChecked("uiViewAnnexB", n==1);\
 <? setvariable var:classname 'LSubitem' ?>\n\
 <? if eq \$var:pagename language \`<? setvariable var:classname 'LSubitemaktiv' ?>\` ?>\n\
 <li class=\"<? echo \$var:classname ?>\"><img class=\"LMenuPfeil\" src=\"<? echo \$var:subpfeil ?>\"><a href=\"javascript:jslGoTo('system','language')\">Sprache<\/a><span class=\"PTextOnly\">Sprache<\/span><\/li>" "${SRC}/usr/www/${OEMLINK}/html/de/menus/menu2_system.html"
-fi # <-- Multiannex 
-#----------------------------------------------------------------------------------------------------
-  if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
   #if file exist in 2nd or 3rd firmware use this file instead
    for file_n in /html/de/first/basic_first.js /html/de/first/basic_first.frm; do
     if [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ] && ! [ -f "${SRC}/usr/www/${OEMLINK}/$file_n" ]; then

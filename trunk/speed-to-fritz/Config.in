@@ -1147,13 +1147,13 @@ config EXPORT_DO_LOOKUP_PATCH
 		Add reverse lookup patch for Germany.
 config EXPORT_ADD_SUPPORT
 	bool "Support menu-item (add)"
-	depends on ! TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
+	depends on ! TYPE_SPEEDPORT_W501V
 	default y
 	help
 		Set this to 'y' if you like to add url and hidden support page. 
 config EXPORT_RPL_ASSIST
 	bool "Assistant menu-item (replace)"
-	depends on ! TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
+	depends on ! TYPE_SPEEDPORT_W501V
 	default y
 	help
 		Set this to 'y' if you like to replace the assistant menu-item with enhanced settings. 

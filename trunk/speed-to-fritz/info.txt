@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090714-0512-r-403
+    - W900: english version enabled support menuitem option
 20090714-0320-r-402
     - 7240: major version corrected
 20090713-1714-r-401
