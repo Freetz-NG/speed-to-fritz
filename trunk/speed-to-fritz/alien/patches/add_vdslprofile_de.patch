@@ -31,7 +31,7 @@
 +<input type="hidden" name="var:pagename" value="vdsl_profile" />
 +<input type="hidden" name="var:errorpagename" value="vdsl_profile" />
 +<input type="hidden" name="var:menu" value="internet" />
-+VDSL Profiel auswaehlen
++VDSL Profil auswaehlen
 +<select name="vdsl:settings/vdsl_profile" id="vdsl_profile_box">
 +<option value="0">annex17a</option>
 +<option value="1">annex8a</option>

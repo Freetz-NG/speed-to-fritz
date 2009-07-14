@@ -121,8 +121,8 @@ sed -i -e 's/7270/7240/' "${SRC}/etc/init.d/rc.S"
 sed -i -e '/xx=.cat \/proc\/mtd | grep ."jffs2."./i\
 dect_firstlevelfile=/lib/modules/dectfw_firstlevel_488.hex\
 dect_secondlevelfile=/lib/modules/dectfw_secondlevel_488.hex\
-piglet_bitfile=/lib/modules/microvoip_isdn_top.bit${HWRevision_BitFileCount}\
-piglet_potsbitfile=/lib/modules/bitfile_pots.bit${HWRevision_BitFileCount}\
+piglet_bitfile=/lib/modules/microvoip_isdn_top.bit\
+piglet_potsbitfile=/lib/modules/bitfile_pots.bit\
 piglet_bitfilemode=`/bin/testvalue /var/flash/telefon_misc 4 2638`\
 if [ -z $piglet_bitfilemode ] ; then piglet_bitfilemode=0 ; fi\
 echo PigletMode: $piglet_bitfilemode\

@@ -22,6 +22,8 @@ On some systems you have to add the patch tool (add install patch).
 ------------------------------------------------------------------------------
 (Dont remove or edit the following line, because it is used for autoinserting)
 ### --- START --- ###
+20090714-1445-r-405
+    - W900: tiping 'profil' corrected
 20090714-0831-r-404
     - 7270v3 und 7240 fix to do some substitutions to be more secure
 20090714-0512-r-403

@@ -125,6 +125,8 @@ export CONFIG_FON_IPPHONE=\"${CONFIG_FON_IPPHONE}\"" "${1}/etc/init.d/rc.conf"
 # Changing productname
 [ "$NEWNAME" ] &&  echo2 "-- Change Productname to: ${NEWNAME}"
 [ "$NEWNAME" ] &&  sed -i -e "s/PRODUKT_NAME=\".*$/PRODUKT_NAME=\"${NEWNAME}\"/g" "${1}/etc/init.d/rc.conf"
+# override environment settings for Hardwardware ID
+#sed -i -e "s/HWRevision=\$i/HWRevision=${HWID}/" "${SRC}/etc/init.d/rc.conf"
 #---------------
 cat "${1}/etc/init.d/rc.conf" | grep 'export CONFIG_.*=' | sort > 2_init.log
 diff 1_init.log 2_init.log | grep 'export CONFIG_.*=' > 0_init.diff
