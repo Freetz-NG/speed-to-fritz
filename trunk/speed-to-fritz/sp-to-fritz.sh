@@ -705,7 +705,6 @@ case "$1" in
 	export CONFIG_ATA_NOPASSTHROUGH="y"
 	export CONFIG_PROV_DEFAULT="y"
 	export CONFIG_FON_IPPHONE="y"
-	export CONFIG_CAPI_NT="y"
 	export CONFIG_VERSION_MAJOR="74"
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA="n"  
@@ -748,12 +747,12 @@ case "$1" in
 	export CONFIG_jffs2_size="132"
 	export CONFIG_RAMSIZE="64"
 	export CONFIG_ROMSIZE="16"
-	export CONFIG_DIAGNOSE_LEVEL="1"
+#	export CONFIG_DIAGNOSE_LEVEL="1"
 	export CONFIG_DECT_14488="y"
 	export CONFIG_ATA_NOPASSTHROUGH="y"
 	export CONFIG_PROV_DEFAULT="y"
 	export CONFIG_FON_IPPHONE="y"
-	export CONFIG_CAPI_NT="y"
+	export CONFIG_CAPI_NT="n"
 	export CONFIG_VERSION_MAJOR="73"
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA="n"  

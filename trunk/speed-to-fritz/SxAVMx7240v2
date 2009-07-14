@@ -101,29 +101,45 @@ if `cat "${SRC}/etc/init.d/rc.S" | grep -q 'level.hex' ` && ! [ -f "${SRC}"/lib/
  echo "You must use dect driver form 2nd AVM source or one that was saved before" && sleep 10 && exit 1
 fi
 
+! `cat "${SRC}/etc/init.d/rc.S" | grep -q 'xx=.cat /proc/mtd | grep ."jffs2.".' ` &&\
+[ "$DO_NOT_STOP_ON_ERROR" != "y" ] && echo "could not reinsert pigletsectio into rc.S" >> "${HOMEDIR}/${ERR_LOGFILE}"
 
-#7240
-sed -i -e 's|level.hex|level_488.hex|' "${SRC}/etc/init.d/rc.S" 
-sed -i -e '/piglet_bitfile=\//a\
+# delete section 
+sed -i -e "/piglet_bitfile=\//,/modprobe/d" "${SRC}/etc/init.d/rc.S"
+sed -i -e '/piglet_bitfile=$piglet_bitfile \\/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/piglet_enable_button=2 \\/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/dect_firstlevelfile=$dect_firstlevelfile \\/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/dect_secondlevelfile=$dect_secondlevelfile \\/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/dect_firstlevelfile=\/lib\/modules\/dectfw_firstlevel_488.hex/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/dect_secondlevelfile=\/lib\/modules\/dectfw_secondlevel_488.hex/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/$piglet_load_params/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/## DECT-Anlage braucht/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e 's/7270/7240/' "${SRC}/etc/init.d/rc.S"
+
+
+# add section 
+sed -i -e '/xx=.cat \/proc\/mtd | grep ."jffs2."./i\
+dect_firstlevelfile=/lib/modules/dectfw_firstlevel_488.hex\
+dect_secondlevelfile=/lib/modules/dectfw_secondlevel_488.hex\
+piglet_bitfile=/lib/modules/microvoip_isdn_top.bit${HWRevision_BitFileCount}\
 piglet_potsbitfile=/lib/modules/bitfile_pots.bit${HWRevision_BitFileCount}\
 piglet_bitfilemode=`/bin/testvalue /var/flash/telefon_misc 4 2638`\
 if [ -z $piglet_bitfilemode ] ; then piglet_bitfilemode=0 ; fi\
 echo PigletMode: $piglet_bitfilemode\
-' "${SRC}/etc/init.d/rc.S"
-
-
-sed -i -e '/piglet_enable_button=2 \\/i\
-piglet_potsbitfile=$piglet_potsbitfile \\\
-' "${SRC}/etc/init.d/rc.S" 
-sed -i -e '/piglet_enable_button=2 \\/a\
+piglet_load_params="\\\
+piglet_enable_button=2 \\\
 piglet_bitfilemode=$piglet_bitfilemode \\\
 piglet_use_pll3_clk=1 \\\
-' "${SRC}/etc/init.d/rc.S" 
-
+dect_firstlevelfile=$dect_firstlevelfile \\\
+dect_secondlevelfile=$dect_secondlevelfile \\\
+"\
+modprobe Piglet_noemif piglet_bitfile=$piglet_bitfile piglet_potsbitfile=$piglet_potsbitfile $piglet_load_params' "${SRC}/etc/init.d/rc.S"
+#remove 7270 DECT driver
+rm -f "${SRC}"/lib/modules/dectfw_firstlevel.hex
+rm -f "${SRC}"/lib/modules/dectfw_secondlevel.hex
 #xilinx driver must be for the hardware in use
 rm -f "${SRC}"/lib/modules/microvoip_isdn_top.bit
 rm -f "${SRC}"/lib/modules/bitfile.bit
-sed -i -e 's|microvoip_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
 # 7240
 rm -f "${SRC}"/lib/modules/bitfile_pots.bit 
 rm -f "${SRC}"/lib/modules/bitfile_isdn.bit 
