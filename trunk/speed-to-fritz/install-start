@@ -22,7 +22,7 @@ if [ -x /usr/bin/dpkg-architecture ]; then
 	eval "$(/usr/bin/dpkg-architecture)"
 fi
 case "$DEB_HOST_ARCH" in
-	amd64) ARCHPKG="lib32gcc1 lib32ncurses5 lib32nss-mdns lib32stdc++6 lib32z1" ;;
+	amd64) ARCHPKG="libc6-i386 lib32gcc1 lib32ncurses5 lib32stdc++6 lib32z1" ;;
 esac
 
 sudo apt-get -y install \
