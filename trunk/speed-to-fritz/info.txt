@@ -1,0 +1,2706 @@
+------------------------------------------------------------------------
+r411 | jpascher | 2009-07-16 13:02:17 -0400 (Thu, 16 Jul 2009) | 1 line
+
+20090716-1301 - fritz_box-labor-7240-14744.zip added to Config.in
+------------------------------------------------------------------------
+r410 | jpascher | 2009-07-16 10:46:29 -0400 (Thu, 16 Jul 2009) | 1 line
+
+20090716-1044 - download_speedto-fritz.sh deleted and replaced by AbraXxels download_sp2fr.sh
+------------------------------------------------------------------------
+r409 | jo-ju | 2009-07-15 18:48:43 -0400 (Wed, 15 Jul 2009) | 2 lines
+
+ * added a package for Ubuntu64 and Debian64 to install-start
+
+------------------------------------------------------------------------
+r408 | jo-ju | 2009-07-15 18:35:07 -0400 (Wed, 15 Jul 2009) | 3 lines
+
+ * kleiner bugfix im install-start skript
+
+
+------------------------------------------------------------------------
+r407 | jo-ju | 2009-07-15 18:08:20 -0400 (Wed, 15 Jul 2009) | 3 lines
+
+ * added some awareness for ubuntu and debian 64bit user
+
+
+------------------------------------------------------------------------
+r406 | jpascher | 2009-07-15 16:09:24 -0400 (Wed, 15 Jul 2009) | 1 line
+
+20090715-1611 - 7170: added .67 english annex B firmware to Config.in
+------------------------------------------------------------------------
+r405 | jpascher | 2009-07-14 14:47:10 -0400 (Tue, 14 Jul 2009) | 1 line
+
+20090714-1445 - W900: tiping 'profil' corrected
+------------------------------------------------------------------------
+r404 | jpascher | 2009-07-14 08:32:44 -0400 (Tue, 14 Jul 2009) | 1 line
+
+20090714-0831 - 7270v3 und 7240 fix to do some substitutions to be more secure
+------------------------------------------------------------------------
+r403 | jpascher | 2009-07-14 05:15:42 -0400 (Tue, 14 Jul 2009) | 1 line
+
+20090714-0514 - W900: english version enabled support menuitem option
+------------------------------------------------------------------------
+r402 | jpascher | 2009-07-14 03:18:41 -0400 (Tue, 14 Jul 2009) | 1 line
+
+20090714-0320 - 7240: major version corrected
+------------------------------------------------------------------------
+r401 | jpascher | 2009-07-13 17:15:34 -0400 (Mon, 13 Jul 2009) | 1 line
+
+20090713-1714 - W900: English dect text improved by Gizmo_Ger
+------------------------------------------------------------------------
+r400 | jpascher | 2009-07-13 15:42:07 -0400 (Mon, 13 Jul 2009) | 1 line
+
+20090713-1540 - Bug fix in last commit
+------------------------------------------------------------------------
+r399 | jo-ju | 2009-07-13 15:22:41 -0400 (Mon, 13 Jul 2009) | 2 lines
+
+ * make dsld_wrap work again
+
+------------------------------------------------------------------------
+r398 | jpascher | 2009-07-13 14:49:24 -0400 (Mon, 13 Jul 2009) | 1 line
+
+20090713-1447 - 7240 and 7270v3 added as Hardwaretypes.
+------------------------------------------------------------------------
+r397 | jpascher | 2009-07-13 04:49:43 -0400 (Mon, 13 Jul 2009) | 1 line
+
+20090713-0513 - W900: Dect menu english version bug fix, some spelling should still be fixed in file: /alian/patches/add_dect_en.patch
+------------------------------------------------------------------------
+r396 | jpascher | 2009-07-11 07:44:27 -0400 (Sat, 11 Jul 2009) | 1 line
+
+20090711-0756 - typing/spelling corrected in info.txt by:Gizmo_Ger
+------------------------------------------------------------------------
+r395 | jpascher | 2009-07-10 13:42:03 -0400 (Fri, 10 Jul 2009) | 1 line
+
+20090710-1341 - 7270: added to Config.in /Labor/MT-D_7270/fritz_box-labor-7270-14712.zip
+------------------------------------------------------------------------
+r394 | jpascher | 2009-07-10 13:21:15 -0400 (Fri, 10 Jul 2009) | 1 line
+
+20090710-1320 - 7240: added missing language and country pages for multilingual option, only in use if this pages are not part of the firmware.
+------------------------------------------------------------------------
+r393 | jpascher | 2009-07-10 08:56:51 -0400 (Fri, 10 Jul 2009) | 1 line
+
+20090710-0859 - exclude Kdiff3 warnings from 'stop on error' (andLinux in combination with xming produces warnigs if kdiff3 is run)
+------------------------------------------------------------------------
+r392 | jpascher | 2009-07-10 06:37:23 -0400 (Fri, 10 Jul 2009) | 1 line
+
+20090710-0640 - W920: tiping corrected in info.txt by:Gizmo_Ger
+------------------------------------------------------------------------
+r391 | jpascher | 2009-07-10 06:32:11 -0400 (Fri, 10 Jul 2009) | 1 line
+
+20090710-0635 - W920: tiping corrected in info.txt by:Gizmo_Ger
+------------------------------------------------------------------------
+r388 | jpascher | 2009-07-08 14:28:25 -0400 (Wed, 08 Jul 2009) | 1 line
+
+20090708-1427 - W920: Added - 7270v3 is now usabel, but DECT driver must be taken form other firmware.
+------------------------------------------------------------------------
+r387 | jpascher | 2009-07-08 10:29:24 -0400 (Wed, 08 Jul 2009) | 1 line
+
+20090708-1027 - W920: Added Option to xchange DECT Firmware, added more kdsldmod Options, adds - to be able to use 7270v3 Firmware but still not usabel
+------------------------------------------------------------------------
+r386 | jpascher | 2009-07-07 17:20:54 -0400 (Tue, 07 Jul 2009) | 1 line
+
+20090707-1719 - W920: fix change Option in Config.in to reflect add Vdsl profile tab
+------------------------------------------------------------------------
+r385 | jpascher | 2009-07-07 14:56:41 -0400 (Tue, 07 Jul 2009) | 1 line
+
+20090707-1455 - W920: cahnge Option in Config.in to reflect add Vdsl profile tab
+------------------------------------------------------------------------
+r384 | jpascher | 2009-07-07 14:52:37 -0400 (Tue, 07 Jul 2009) | 1 line
+
+20090707-1450 - W920: add Vdsl profile tab
+------------------------------------------------------------------------
+r383 | jpascher | 2009-07-07 11:39:25 -0400 (Tue, 07 Jul 2009) | 1 line
+
+20090707-1138 - bug fix commit 381
+------------------------------------------------------------------------
+r382 | jpascher | 2009-07-07 11:24:55 -0400 (Tue, 07 Jul 2009) | 1 line
+
+20090707-1124 - added 75.04.76-14685.image
+------------------------------------------------------------------------
+r381 | jpascher | 2009-07-07 10:20:21 -0400 (Tue, 07 Jul 2009) | 1 line
+
+20090707-1018 - More changes on multilannex Option for 7240.
+------------------------------------------------------------------------
+r380 | jpascher | 2009-07-07 05:12:49 -0400 (Tue, 07 Jul 2009) | 1 line
+
+20090707-0511 - More changes on multilannex Option: 7240 added.
+------------------------------------------------------------------------
+r379 | jpascher | 2009-07-05 12:33:52 -0400 (Sun, 05 Jul 2009) | 1 line
+
+20090705-1233 - Remove W721 multiannex option, cant be used, because it would need more space.
+------------------------------------------------------------------------
+r378 | jpascher | 2009-07-05 11:12:21 -0400 (Sun, 05 Jul 2009) | 1 line
+
+20090705-1111 - fix multiannex commit revision 376
+------------------------------------------------------------------------
+r377 | jpascher | 2009-07-05 05:57:10 -0400 (Sun, 05 Jul 2009) | 1 line
+
+20090705-0600 - Selfmodification of patches pelaced with alternativ mehtode.
+------------------------------------------------------------------------
+r376 | jpascher | 2009-07-05 04:19:39 -0400 (Sun, 05 Jul 2009) | 1 line
+
+20090705-0424 - Multilingual Option: Added some warnings, changed some text in Config.in to be mere conform with 7XXX firmwares.
+------------------------------------------------------------------------
+r375 | jpascher | 2009-07-03 17:39:03 -0400 (Fri, 03 Jul 2009) | 1 line
+
+20090703-1737 - UTC minus 4,5 added to timezone patch
+------------------------------------------------------------------------
+r374 | jpascher | 2009-07-03 17:21:23 -0400 (Fri, 03 Jul 2009) | 1 line
+
+20090703-1718 - Update of multiannex patch to support 7170 with minor version > 70
+------------------------------------------------------------------------
+r373 | jpascher | 2009-07-02 15:47:22 -0400 (Thu, 02 Jul 2009) | 1 line
+
+20090702-1546 - update of multiligual patch, (text chnaged)
+------------------------------------------------------------------------
+r372 | jpascher | 2009-07-02 10:04:38 -0400 (Thu, 02 Jul 2009) | 1 line
+
+20090702-1003 - 71XX Bugfix mutiannex
+------------------------------------------------------------------------
+r371 | jpascher | 2009-07-02 06:24:17 -0400 (Thu, 02 Jul 2009) | 1 line
+
+20090702-0623 - Bugfix Annex A was not set correcly
+------------------------------------------------------------------------
+r370 | jpascher | 2009-07-02 06:04:27 -0400 (Thu, 02 Jul 2009) | 1 line
+
+20090702-0603 - 72XX fix last commit
+------------------------------------------------------------------------
+r369 | jpascher | 2009-07-02 05:08:28 -0400 (Thu, 02 Jul 2009) | 1 line
+
+20090702-0507 - Added Otion for 72XX to remove annex B driver, set defaut model to W920V
+------------------------------------------------------------------------
+r368 | jpascher | 2009-07-01 08:58:05 -0400 (Wed, 01 Jul 2009) | 1 line
+
+20090701-0856 - config.in: some spelling fixed
+------------------------------------------------------------------------
+r367 | jpascher | 2009-06-29 15:05:10 -0400 (Mon, 29 Jun 2009) | 1 line
+
+20090629-1523 - 7270:  fix kernel_size
+------------------------------------------------------------------------
+r366 | jpascher | 2009-06-29 12:51:28 -0400 (Mon, 29 Jun 2009) | 1 line
+
+20090629-1309 - 7270:  some more corrections for multiannex
+------------------------------------------------------------------------
+r365 | jpascher | 2009-06-29 12:48:02 -0400 (Mon, 29 Jun 2009) | 1 line
+
+20090629-1306 - 7270: some more corrections for multiannex
+------------------------------------------------------------------------
+r364 | jpascher | 2009-06-29 12:00:37 -0400 (Mon, 29 Jun 2009) | 1 line
+
+20090629-1219 - 7270: some corrections for multiannex
+------------------------------------------------------------------------
+r363 | jpascher | 2009-06-29 10:58:44 -0400 (Mon, 29 Jun 2009) | 1 line
+
+20090629-1117 - 7270: Config.in some more Text changes.
+------------------------------------------------------------------------
+r362 | jpascher | 2009-06-29 10:20:31 -0400 (Mon, 29 Jun 2009) | 1 line
+
+20090629-1039 - 7270: Config.in 7270v3 added, bugfix for Annex A, (one mor file)
+------------------------------------------------------------------------
+r361 | jpascher | 2009-06-29 10:18:25 -0400 (Mon, 29 Jun 2009) | 1 line
+
+20090629-1037 - 7270: Config.in 7270v3 added, bugfix for Annex A
+------------------------------------------------------------------------
+r360 | jpascher | 2009-06-28 15:29:38 -0400 (Sun, 28 Jun 2009) | 1 line
+
+20090628-1538 - Canged naming of new firmware if Option 'use castom t-home model' was is use
+------------------------------------------------------------------------
+r359 | jpascher | 2009-06-28 14:58:45 -0400 (Sun, 28 Jun 2009) | 1 line
+
+20090628-1507 - Canged naming of new firmware if Option 'use castom t-home model' was is use
+------------------------------------------------------------------------
+r358 | jpascher | 2009-06-28 14:31:18 -0400 (Sun, 28 Jun 2009) | 1 line
+
+20090628-1439 - Config.in Text 3rd Firmware changed to 2nd AVM Firmware, becaus it coursed confusion if only two AVM Firmwares ware in use.
+------------------------------------------------------------------------
+r357 | jpascher | 2009-06-28 14:15:14 -0400 (Sun, 28 Jun 2009) | 1 line
+
+20090628-1423 - Added Firmware.orig directory to SVN
+------------------------------------------------------------------------
+r356 | jpascher | 2009-06-28 14:10:55 -0400 (Sun, 28 Jun 2009) | 1 line
+
+20090628-1419 - Some text changed in Config.in
+------------------------------------------------------------------------
+r355 | jpascher | 2009-06-27 08:21:51 -0400 (Sat, 27 Jun 2009) | 1 line
+
+20090627-0820 - Some text changed in Config.in
+------------------------------------------------------------------------
+r354 | jpascher | 2009-06-27 05:21:41 -0400 (Sat, 27 Jun 2009) | 1 line
+
+20090627-0520 - Added support for 7270 (or any other) to replace ADSL driver
+------------------------------------------------------------------------
+r353 | jpascher | 2009-06-26 14:36:29 -0400 (Fri, 26 Jun 2009) | 1 line
+
+20090626-1434 - Some changes in displying HW
+------------------------------------------------------------------------
+r352 | jpascher | 2009-06-25 11:05:24 -0400 (Thu, 25 Jun 2009) | 1 line
+
+20090625-1108 - 'W920: set DSL as default Labor Firmware
+------------------------------------------------------------------------
+r351 | jpascher | 2009-06-25 10:51:34 -0400 (Thu, 25 Jun 2009) | 1 line
+
+20090625-1054 - 'W920: removed AIO becaus not avalabel any more.
+------------------------------------------------------------------------
+r350 | jpascher | 2009-06-25 10:33:37 -0400 (Thu, 25 Jun 2009) | 1 line
+
+20090625-1036 - 'W920: reinserted FRITZ.Box_Fon_WLAN_7270.54.04.70.image
+------------------------------------------------------------------------
+r349 | jpascher | 2009-06-25 10:14:34 -0400 (Thu, 25 Jun 2009) | 1 line
+
+20090625-1017 - 'W920: inseted FRITZ.Box_Fon_WLAN_7270.54.04.76.image
+------------------------------------------------------------------------
+r348 | ernest015 | 2009-06-23 14:28:34 -0400 (Tue, 23 Jun 2009) | 1 line
+
+20090623-2027 - New laborversion 7270-54.04.75-14543 added
+------------------------------------------------------------------------
+r347 | ernest015 | 2009-06-19 15:53:25 -0400 (Fri, 19 Jun 2009) | 1 line
+
+20090619-2152 - New laborversion 7270-54.04.74-14518 added.
+------------------------------------------------------------------------
+r346 | Ernest015 | 2009-06-18 18:44:16 -0400 (Thu, 18 Jun 2009) | 1 line
+
+20090619-0040 - W920: new labor version 7270-54.04.74-14507 added.
+------------------------------------------------------------------------
+r345 | jpascher | 2009-06-18 02:04:46 -0400 (Thu, 18 Jun 2009) | 1 line
+
+20090618-0203 - 'Clear mtd3 and mtd4' set to default 'y'
+------------------------------------------------------------------------
+r344 | jpascher | 2009-06-16 15:39:44 -0400 (Tue, 16 Jun 2009) | 1 line
+
+20090616-1538 - AIO 14495 added
+------------------------------------------------------------------------
+r343 | jpascher | 2009-06-15 17:41:54 -0400 (Mon, 15 Jun 2009) | 1 line
+
+20090615-1739 - W501, fix las commit, remove backslash
+------------------------------------------------------------------------
+r342 | jpascher | 2009-06-15 12:48:34 -0400 (Mon, 15 Jun 2009) | 1 line
+
+20090615-1253 - W501, added 67en, but the resultig file is to big! So one has to delete more stuff by hand, to use the en Version.
+------------------------------------------------------------------------
+r341 | jpascher | 2009-06-15 12:02:08 -0400 (Mon, 15 Jun 2009) | 1 line
+
+20090615-1207 - W501, added patch for Annex A looks lik this was still a problem. see: http://pastebin.com/f222582bb
+------------------------------------------------------------------------
+r340 | jpascher | 2009-06-14 11:27:32 -0400 (Sun, 14 Jun 2009) | 1 line
+
+20090614-1126 - W920: added to variables new in use with 7570 firmwares.
+------------------------------------------------------------------------
+r339 | jpascher | 2009-06-12 11:53:46 -0400 (Fri, 12 Jun 2009) | 1 line
+
+20090612-1152 - W920, pump to: 7270_release_candidate/fritz_box_labor_14480.zip
+------------------------------------------------------------------------
+r338 | jpascher | 2009-06-12 10:56:11 -0400 (Fri, 12 Jun 2009) | 1 line
+
+20090612-1054 - W920, 7570: Comment added M to some firmwares
+------------------------------------------------------------------------
+r337 | jpascher | 2009-06-12 06:51:54 -0400 (Fri, 12 Jun 2009) | 1 line
+
+20090612-0650 - W920, 7570: added FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.72.image
+------------------------------------------------------------------------
+r336 | jpascher | 2009-06-12 02:45:09 -0400 (Fri, 12 Jun 2009) | 1 line
+
+20090612-0251 - Set Update modules depend. default again to n, becaus 14464 unses links to modules downloaded with plugins.
+------------------------------------------------------------------------
+r335 | jpascher | 2009-06-11 14:18:40 -0400 (Thu, 11 Jun 2009) | 1 line
+
+20090611-1417 - Canged move_avm_to_avme to move avm_to_OEM
+------------------------------------------------------------------------
+r334 | jpascher | 2009-06-11 14:15:28 -0400 (Thu, 11 Jun 2009) | 1 line
+
+20090611-1414 - W920 Config.in pump to /7270_release_candidate/fritz_box_labor_14464.ZIP
+------------------------------------------------------------------------
+r333 | jpascher | 2009-06-11 11:28:16 -0400 (Thu, 11 Jun 2009) | 1 line
+
+20090611-1128 - One comment # added in Config.in
+------------------------------------------------------------------------
+r332 | jpascher | 2009-06-11 09:24:23 -0400 (Thu, 11 Jun 2009) | 1 line
+
+20090611-0924 - Folder Firmware.orig and Firmware.new added to SVN
+------------------------------------------------------------------------
+r331 | jpascher | 2009-06-11 09:13:47 -0400 (Thu, 11 Jun 2009) | 1 line
+
+20090611-0914 - Folder Firmware.orig and Firmware.new added to SVN
+------------------------------------------------------------------------
+r330 | jpascher | 2009-06-11 07:41:43 -0400 (Thu, 11 Jun 2009) | 1 line
+
+20090611-0740 - changed some comment in Config.in
+------------------------------------------------------------------------
+r329 | jpascher | 2009-06-11 07:35:44 -0400 (Thu, 11 Jun 2009) | 1 line
+
+20090611-0733 - some Text changed from TCOM to T-Home.
+------------------------------------------------------------------------
+r328 | jpascher | 2009-06-09 05:38:29 -0400 (Tue, 09 Jun 2009) | 1 line
+
+20090609-0543 - Config.in : removeve some emty tabs and changed lenght of some remark lines
+------------------------------------------------------------------------
+r327 | jpascher | 2009-06-09 03:37:03 -0400 (Tue, 09 Jun 2009) | 1 line
+
+20090609-0341 - Config.in : W920  pump to fritz_box_labor_14442.ZIP
+------------------------------------------------------------------------
+r326 | jpascher | 2009-06-08 13:44:35 -0400 (Mon, 08 Jun 2009) | 1 line
+
+20090608-1343 - Config.in : fix t-home local entry
+------------------------------------------------------------------------
+r325 | jpascher | 2009-06-08 12:15:48 -0400 (Mon, 08 Jun 2009) | 1 line
+
+20090608-1214 - Config.in : W920 +config AVM_7570_14434
+------------------------------------------------------------------------
+r324 | jpascher | 2009-06-08 10:14:29 -0400 (Mon, 08 Jun 2009) | 1 line
+
+20090608-1013 - Config.in : W920 some combinations disabeld
+------------------------------------------------------------------------
+r323 | jpascher | 2009-06-08 07:13:35 -0400 (Mon, 08 Jun 2009) | 1 line
+
+20090608-0712 - Config.in : changed comments firmware with Firmware
+------------------------------------------------------------------------
+r322 | jpascher | 2009-06-08 07:07:32 -0400 (Mon, 08 Jun 2009) | 1 line
+
+20090608-0706 - Config.in : changed comments firmware with Firmware
+------------------------------------------------------------------------
+r321 | jpascher | 2009-06-08 06:58:32 -0400 (Mon, 08 Jun 2009) | 1 line
+
+20090608-0657 - Config.in : changed comments firmware with Firmware
+------------------------------------------------------------------------
+r320 | jpascher | 2009-06-08 06:50:54 -0400 (Mon, 08 Jun 2009) | 1 line
+
+20090608-0650 - Config.in : changed comments tcom to T-home
+------------------------------------------------------------------------
+r319 | jpascher | 2009-06-05 14:27:31 -0400 (Fri, 05 Jun 2009) | 1 line
+
+20090605-1433 - One Variable was not set in Revision 307 correcly.
+------------------------------------------------------------------------
+r318 | jpascher | 2009-06-05 08:43:28 -0400 (Fri, 05 Jun 2009) | 1 line
+
+20090605-0849 - W721: added fw_SpeedportW721V_v_64.04.74.image
+------------------------------------------------------------------------
+r317 | jpascher | 2009-06-05 05:38:52 -0400 (Fri, 05 Jun 2009) | 1 line
+
+20090605-0544 - Add option to remove modinfo icon on status page.
+------------------------------------------------------------------------
+r316 | jpascher | 2009-06-05 04:39:18 -0400 (Fri, 05 Jun 2009) | 1 line
+
+20090605-0445 - Set Onlincounter pach to default n
+------------------------------------------------------------------------
+r315 | jpascher | 2009-06-05 04:33:44 -0400 (Fri, 05 Jun 2009) | 1 line
+
+20090605-0439 - W920: set default TYPE_TCOM_BETA_74
+------------------------------------------------------------------------
+r314 | jpascher | 2009-06-05 04:26:14 -0400 (Fri, 05 Jun 2009) | 1 line
+
+20090605-0431 - Added set timeout option to 3600 sec.
+------------------------------------------------------------------------
+r313 | jpascher | 2009-06-04 15:05:21 -0400 (Thu, 04 Jun 2009) | 1 line
+
+20090604-1504 - W701: add adsl one help button on page removed.
+------------------------------------------------------------------------
+r312 | jpascher | 2009-06-04 14:54:58 -0400 (Thu, 04 Jun 2009) | 1 line
+
+20090604-1453 - Pump to: /Labor/7270_release_candidate/fritz_box_labor_14418.ZIP
+------------------------------------------------------------------------
+r311 | jpascher | 2009-06-04 11:38:41 -0400 (Thu, 04 Jun 2009) | 1 line
+
+20090604-1137 - added some help lines in Config.in: HWR 104 = FB VOIP Gateway 5188, HWR 138 = FRITZ! WLAN Repeater N/G, HWR 159 = FB Fon WLAN 7112
+------------------------------------------------------------------------
+r310 | jpascher | 2009-06-04 11:11:37 -0400 (Thu, 04 Jun 2009) | 1 line
+
+20090604-1110 - Download link changd to: http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/fw_SpeedportW920V_v_65.04.74.image
+------------------------------------------------------------------------
+r309 | jpascher | 2009-06-04 05:20:29 -0400 (Thu, 04 Jun 2009) | 1 line
+
+20090604-0523 - OEM comment added.
+------------------------------------------------------------------------
+r308 | jpascher | 2009-06-03 16:51:51 -0400 (Wed, 03 Jun 2009) | 1 line
+
+20090603-1707 - Removed downloadlink for 7170 .67.
+------------------------------------------------------------------------
+r307 | jpascher | 2009-06-01 16:18:18 -0400 (Mon, 01 Jun 2009) | 1 line
+
+20090601-1620 - Config.in added select options for different 7570 Firmwares
+------------------------------------------------------------------------
+r306 | jpascher | 2009-06-01 07:31:50 -0400 (Mon, 01 Jun 2009) | 1 line
+
+20090601-0730 - Some spelling in Config.in corrected
+------------------------------------------------------------------------
+r305 | jpascher | 2009-05-31 15:41:09 -0400 (Sun, 31 May 2009) | 1 line
+
+20090531-1539 - some 3rd Firmwares download links added
+------------------------------------------------------------------------
+r304 | jpascher | 2009-05-30 15:19:29 -0400 (Sat, 30 May 2009) | 1 line
+
+20090530-1522 - one more 7570 firmware added 14348
+------------------------------------------------------------------------
+r303 | jo-ju | 2009-05-30 06:29:01 -0400 (Sat, 30 May 2009) | 2 lines
+
+ * SVN: removed some generated files from being tracked by SVN.
+
+------------------------------------------------------------------------
+r302 | jpascher | 2009-05-30 03:24:29 -0400 (Sat, 30 May 2009) | 1 line
+
+20090530-0327 - HWR 152 = Speedport W722V in Config.in added.
+------------------------------------------------------------------------
+r301 | jpascher | 2009-05-30 02:53:45 -0400 (Sat, 30 May 2009) | 1 line
+
+20090530-0256 - W920: pump to /Labor/7270_release_candidate/fritz_box_labor_14371.ZIP
+------------------------------------------------------------------------
+r300 | jpascher | 2009-05-29 16:56:41 -0400 (Fri, 29 May 2009) | 1 line
+
+20090529-1655 - W920: TR064 page added, for 7570/AVM firmware combinations.
+------------------------------------------------------------------------
+r298 | jpascher | 2009-05-29 10:44:47 -0400 (Fri, 29 May 2009) | 1 line
+
+20090529-1043 - W920: add new tcom firmware,  http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.74.image
+------------------------------------------------------------------------
+r295 | jpascher | 2009-05-28 13:48:27 -0400 (Thu, 28 May 2009) | 1 line
+
+20090528-1347 - W920: 7570 14353 only intern for use by AVM
+------------------------------------------------------------------------
+r293 | jpascher | 2009-05-26 15:13:10 -0400 (Tue, 26 May 2009) | 1 line
+
+20090526-1512 - W920: pump to /7270_release_candidate/fritz_box_labor_14353.ZIP
+------------------------------------------------------------------------
+r290 | jpascher | 2009-05-22 17:28:44 -0400 (Fri, 22 May 2009) | 1 line
+
+20090522-1727 - # bug fix agsin ther was still one lin missing.
+------------------------------------------------------------------------
+r289 | jpascher | 2009-05-22 13:49:35 -0400 (Fri, 22 May 2009) | 1 line
+
+20090522-1348 - # Remove left over Subversion directories, from sp-to-fritz.sh again.
+------------------------------------------------------------------------
+r288 | jpascher | 2009-05-22 13:46:41 -0400 (Fri, 22 May 2009) | 1 line
+
+20090522-1345 - # Remove left over Subversion directories, from sp-to-fritz.sh again.
+------------------------------------------------------------------------
+r287 | jpascher | 2009-05-22 02:54:46 -0400 (Fri, 22 May 2009) | 1 line
+
+20090522-0253 - bug fix in Config.in, menu starts again
+------------------------------------------------------------------------
+r286 | jpascher | 2009-05-21 16:11:20 -0400 (Thu, 21 May 2009) | 1 line
+
+20090521-1610 - Patched text of tools/update_not_signed_no_password.html (new file in last firmware)
+------------------------------------------------------------------------
+r285 | jpascher | 2009-05-21 11:42:21 -0400 (Thu, 21 May 2009) | 1 line
+
+20090521-1141 - eval in sp-to-fritz.sh reverted to revision 278
+------------------------------------------------------------------------
+r284 | jpascher | 2009-05-21 11:11:53 -0400 (Thu, 21 May 2009) | 1 line
+
+20090521-1110 - W920, fix ipv6 link and revert mistakes
+------------------------------------------------------------------------
+r283 | jpascher | 2009-05-20 14:22:17 -0400 (Wed, 20 May 2009) | 1 line
+
+20090520-1421 - W920, fix 7570 firmware link in config.in
+------------------------------------------------------------------------
+r282 | jpascher | 2009-05-20 13:50:43 -0400 (Wed, 20 May 2009) | 1 line
+
+20090520-1350 - W920, pump to: /7270_IPv6/fritz_box-labor-14338.zip
+------------------------------------------------------------------------
+r278 | jo-ju | 2009-05-19 06:07:42 -0400 (Tue, 19 May 2009) | 17 lines
+
+ * Updated info.txt for r255 to r260 and now / sorry for that
+ * added some more flexibility for dsld wrapper to test it with newer firmwares
+    Config.in
+    alien/subscripts/wrap_dsld.sh
+    Speedport920
+ * changed behavior for reading the config Firmware.conf, don't modify the file, as this is not expected
+	sp-to-fritz.sh
+ * set svn:ignore property on certain generate non upstream files and directories
+    .
+    addon/tmp/squashfs-root
+    addon/tmp/squashfs-root/lib
+    addon/tmp/squashfs-root/bin
+    addon/tmp/squashfs-root/var
+    addon/tmp/squashfs-root/usr
+    addon/tmp/squashfs-root/sbin
+    Firmware.new
+
+------------------------------------------------------------------------
+r277 | jpascher | 2009-05-18 05:23:14 -0400 (Mon, 18 May 2009) | 1 line
+
+20090518-0522 - Config.in: Add explanation for Lab firmwares (by reiffert) 
+------------------------------------------------------------------------
+r276 | jpascher | 2009-05-15 14:01:07 -0400 (Fri, 15 May 2009) | 1 line
+
+20090515-1358 - W920: 7270 AIO 14331 added
+------------------------------------------------------------------------
+r271 | jpascher | 2009-05-10 15:09:00 -0400 (Sun, 10 May 2009) | 1 line
+
+20090510-1508 - Chaned tar startdirecrory to ./var, results in a image that is 512 Bytes smaler, and startcode of file is now as in original firmware. (Ralf Friedl)
+------------------------------------------------------------------------
+r270 | jpascher | 2009-05-10 15:04:40 -0400 (Sun, 10 May 2009) | 1 line
+
+20090510-1503 - Chaned tar sartdirecrory to ./var, results is a image that is 512 Bytes samler, and startcode of file is now as in original firmware. (Ralf Friedl)
+------------------------------------------------------------------------
+r269 | jpascher | 2009-05-10 14:56:41 -0400 (Sun, 10 May 2009) | 1 line
+
+ - enabe root as ssh user, set ssh forwarding
+------------------------------------------------------------------------
+r265 | jpascher | 2009-04-30 02:11:20 -0400 (Thu, 30 Apr 2009) | 1 line
+
+20090430-0210 - Pump to: /MT-D_7270/fritz_box-labor-7270-14138.zip
+------------------------------------------------------------------------
+r264 | jpascher | 2009-04-25 02:58:57 -0400 (Sat, 25 Apr 2009) | 1 line
+
+20090425-0258 - Pump to: /Labor/7170_dsl/fritz_box-labor-14119.zip
+------------------------------------------------------------------------
+r263 | jpascher | 2009-04-23 12:25:20 -0400 (Thu, 23 Apr 2009) | 1 line
+
+20090423-1224 - Pump to: /7270_usb/fritz_box-labor-14142.zip (ARA -USB now called NAS by AVM.
+------------------------------------------------------------------------
+r262 | jpascher | 2009-04-21 04:47:49 -0400 (Tue, 21 Apr 2009) | 1 line
+
+20090421-0446 - Freetz OpenVPN webinterface, fix added 'all' as link.
+------------------------------------------------------------------------
+r261 | jpascher | 2009-04-21 04:21:14 -0400 (Tue, 21 Apr 2009) | 1 line
+
+20090421-0420 - Onlinecounter comment corrected.
+------------------------------------------------------------------------
+r260 | jo-ju | 2009-04-17 10:52:26 -0400 (Fri, 17 Apr 2009) | 6 lines
+
+ * fixed some typos
+ * made wrap_dsld option more flexible for future properit?\195?\164ry 
+   API changes by AVM
+ * Choosing "XCHANGE Kernel" and "Take Kernel from Source 3" makes no sense. 
+   Changed Config.in for this
+
+------------------------------------------------------------------------
+r259 | jo-ju | 2009-04-17 05:27:32 -0400 (Fri, 17 Apr 2009) | 3 lines
+
+ * Config.in/make menuconfig:
+   - Take kdsldmod from source 3 should only be avaiable if source 3 is choosen
+
+------------------------------------------------------------------------
+r258 | jo-ju | 2009-04-17 05:14:13 -0400 (Fri, 17 Apr 2009) | 3 lines
+
+ + sp-to-fritz.sh: ensure that certain directories exist
+ * told svn to ignore certain user specific files
+
+------------------------------------------------------------------------
+r257 | jo-ju | 2009-04-17 04:38:12 -0400 (Fri, 17 Apr 2009) | 12 lines
+
+ * wrap_dsld 
+   - added libboxlib to compatibility clue for dsld
+   + added a more generic way to handle library links
+   - made the path for dsld sandbox configurable in the
+     script alien/subscripts/wrap_dsld.sh. It does not need to be variable 
+	 in the SquashFS readonly rootfs.
+ * sp-to-fritz.sh
+   + added some vim TODO: markers
+   + ensure the scripts in $sh_DIR and $sh2_DIR to be executable
+     (SVN does not store unix metadata)
+
+
+------------------------------------------------------------------------
+r256 | jo-ju | 2009-04-17 03:09:25 -0400 (Fri, 17 Apr 2009) | 4 lines
+
+ + added a new option do allow rebuilding the module depencies file (for Kernel 2.6)
+ + added some code do allow files in users ./addon/tmp/squashfs-root folder with
+	dangling symlinks in the target rom filesystem.
+
+------------------------------------------------------------------------
+r255 | jo-ju | 2009-04-16 01:23:54 -0400 (Thu, 16 Apr 2009) | 4 lines
+
+ * quick fix for http://www.ip-phone-forum.de/showpost.php?p=1313871&postcount=691
+ * wrapper beautifying
+
+
+------------------------------------------------------------------------
+r254 | jpascher | 2009-04-15 16:16:44 -0400 (Wed, 15 Apr 2009) | 1 line
+
+20090415-1620 - W920: Wrapper option for dsld added, but not tested!
+------------------------------------------------------------------------
+r253 | jpascher | 2009-04-10 03:00:56 -0400 (Fri, 10 Apr 2009) | 1 line
+
+20090410-0259 - Expert vew enabeled again, is now set via ar7.cfg
+------------------------------------------------------------------------
+r252 | jpascher | 2009-04-09 11:02:15 -0400 (Thu, 09 Apr 2009) | 1 line
+
+20090409-1100 - Config.in: pump to /Labor/7270_wlan/fritz_box-labor-14080.zip, MT-D changed to phone
+------------------------------------------------------------------------
+r251 | jpascher | 2009-04-08 14:31:02 -0400 (Wed, 08 Apr 2009) | 1 line
+
+20090408-1446 - Config.in: pump to /Labor/MT-D_7270/fritz_box-labor-7270-14067.image
+------------------------------------------------------------------------
+r250 | jpascher | 2009-04-08 14:17:06 -0400 (Wed, 08 Apr 2009) | 1 line
+
+20090408-1429 - Config.in: pump to /7270_dsl/fritz_box-labor-1400.zip
+------------------------------------------------------------------------
+r249 | jpascher | 2009-04-05 11:09:32 -0400 (Sun, 05 Apr 2009) | 1 line
+
+20090405-1107 - Config.in: Addon option added to generate, usbroot.tar file.
+------------------------------------------------------------------------
+r248 | jpascher | 2009-04-02 13:10:26 -0400 (Thu, 02 Apr 2009) | 1 line
+
+20090402-1316 - Config.in: change USB to AURA, to be conform with freetz.
+------------------------------------------------------------------------
+r247 | jpascher | 2009-04-02 12:39:33 -0400 (Thu, 02 Apr 2009) | 1 line
+
+20090402-1246 - Add in Config.in /Labor/7270_usb/fritz_box-labor-14047.zip
+------------------------------------------------------------------------
+r246 | jpascher | 2009-04-02 12:04:26 -0400 (Thu, 02 Apr 2009) | 1 line
+
+20090402-0258 - Config.in FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.71-13948.image, removed again because not avalabel publicly
+------------------------------------------------------------------------
+r245 | jpascher | 2009-04-01 12:31:14 -0400 (Wed, 01 Apr 2009) | 1 line
+
+20090401-1230 - Config.in added local image: FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.71-13948.image
+------------------------------------------------------------------------
+r244 | jpascher | 2009-04-01 12:11:37 -0400 (Wed, 01 Apr 2009) | 1 line
+
+20090401-1210 - Config.in changed name a litle bit:  HWR 145 = FB Fon WLAN 7270 plus
+------------------------------------------------------------------------
+r243 | jpascher | 2009-04-01 07:56:44 -0400 (Wed, 01 Apr 2009) | 1 line
+
+20090401-0755 - W920 IPV6 13988 added as local firmware.
+------------------------------------------------------------------------
+r242 | jpascher | 2009-04-01 07:25:35 -0400 (Wed, 01 Apr 2009) | 1 line
+
+20090401-0723 - Option expert, GUI menu removed if option is set to expert.
+------------------------------------------------------------------------
+r241 | jpascher | 2009-04-01 06:31:25 -0400 (Wed, 01 Apr 2009) | 1 line
+
+20090401-0630 - pump to /Labor/7270_IPv6/fritz_box-labor-13992.zip (13988?)
+------------------------------------------------------------------------
+r240 | jpascher | 2009-04-01 06:01:01 -0400 (Wed, 01 Apr 2009) | 1 line
+
+20090401-0546 - pump to /Labor/7270_IPv6/fritz_box-labor-13992.zip
+------------------------------------------------------------------------
+r239 | jpascher | 2009-04-01 05:45:28 -0400 (Wed, 01 Apr 2009) | 1 line
+
+20090401-0542 - Option set expert added, default is set to no! (not testet jet.)
+------------------------------------------------------------------------
+r238 | jpascher | 2009-04-01 05:39:01 -0400 (Wed, 01 Apr 2009) | 1 line
+
+20090401-0537 - kdiff3 added to install-start
+------------------------------------------------------------------------
+r237 | jpascher | 2009-03-31 02:21:32 -0400 (Tue, 31 Mar 2009) | 1 line
+
+20090331-0335 - W920: Pump /Labor/7270_IPv6/fritz_box-labor-13988.zip 
+------------------------------------------------------------------------
+r236 | jpascher | 2009-03-30 04:41:02 -0400 (Mon, 30 Mar 2009) | 1 line
+
+20090330-0547 - Added intltool to be instlled in start-freetz.sh
+------------------------------------------------------------------------
+r235 | jpascher | 2009-03-27 05:23:11 -0400 (Fri, 27 Mar 2009) | 1 line
+
+20090327-0532 - Added skript checkpontinfo for AVM firmware, changes nothing else.
+------------------------------------------------------------------------
+r234 | jpascher | 2009-03-25 18:24:12 -0400 (Wed, 25 Mar 2009) | 1 line
+
+20090325-1827 - Versioninfo in firmware name extended by major version.
+------------------------------------------------------------------------
+r233 | jpascher | 2009-03-25 18:22:08 -0400 (Wed, 25 Mar 2009) | 1 line
+
+20090325-1825 - Versioninfo in firmware name extended by major version.
+------------------------------------------------------------------------
+r232 | jpascher | 2009-03-24 13:00:42 -0400 (Tue, 24 Mar 2009) | 1 line
+
+20090324-1259 - W721: disable all AVM firmwares exept .59 no other is usable.
+------------------------------------------------------------------------
+r231 | jpascher | 2009-03-24 08:50:17 -0400 (Tue, 24 Mar 2009) | 1 line
+
+20090324-0930 - W501 removed 'programme' from speedport menu.
+------------------------------------------------------------------------
+r230 | jpascher | 2009-03-24 06:27:57 -0400 (Tue, 24 Mar 2009) | 1 line
+
+20090324-0707 - fakeroot pump to 1.12.2
+------------------------------------------------------------------------
+r229 | jpascher | 2009-03-24 05:32:52 -0400 (Tue, 24 Mar 2009) | 1 line
+
+20090324-0612 - W721: OEM set default to tcom, strings.tab is now taken from AVM firmware.
+------------------------------------------------------------------------
+r228 | jpascher | 2009-03-23 12:13:27 -0400 (Mon, 23 Mar 2009) | 1 line
+
+20090323-1226 - fakeroot downloadlink changed.
+------------------------------------------------------------------------
+r227 | jpascher | 2009-03-22 18:01:34 -0400 (Sun, 22 Mar 2009) | 1 line
+
+20090322-1759 - W721: fix TE <-> NT was mixed up, no isdn was possibe.
+------------------------------------------------------------------------
+r226 | jpascher | 2009-03-22 16:55:56 -0400 (Sun, 22 Mar 2009) | 1 line
+
+20090322-1654 - W721: Add tcom config, to be able to use tcom as brandig.
+------------------------------------------------------------------------
+r225 | jpascher | 2009-03-17 18:10:12 -0400 (Tue, 17 Mar 2009) | 1 line
+
+20090317-1809 - HWRevision  145  = Fritz_Box_7270plus, added as comment.
+------------------------------------------------------------------------
+r224 | jpascher | 2009-03-17 15:31:52 -0400 (Tue, 17 Mar 2009) | 1 line
+
+20090317-1530 - fix 7570 config.in link
+------------------------------------------------------------------------
+r223 | jpascher | 2009-03-17 11:53:22 -0400 (Tue, 17 Mar 2009) | 1 line
+
+20090317-1152 - restart added, this starts sp-to-fritz.sh with an existing Firmware.conf
+------------------------------------------------------------------------
+r222 | jpascher | 2009-03-17 09:03:46 -0400 (Tue, 17 Mar 2009) | 1 line
+
+20090317-0901 - W920: Start-freetz for 7570 Firmware adjusted.
+------------------------------------------------------------------------
+r221 | jpascher | 2009-03-16 13:10:49 -0400 (Mon, 16 Mar 2009) | 1 line
+
+20090316-1309 - W920: bug fix changes made with revision 219 corsed problems, with some selections.
+------------------------------------------------------------------------
+r220 | jpascher | 2009-03-16 11:14:50 -0400 (Mon, 16 Mar 2009) | 1 line
+
+20090316-1114 - Config.in: add FRITZ.Box_Fon_WLAN_7170.29.04.70.image
+------------------------------------------------------------------------
+r219 | jpascher | 2009-03-16 04:50:13 -0400 (Mon, 16 Mar 2009) | 1 line
+
+20090316-0451 - W920: if AVM firmware is 7570 then now only vinax* files are taken from altenative T-com source.
+------------------------------------------------------------------------
+r218 | jpascher | 2009-03-15 14:28:28 -0400 (Sun, 15 Mar 2009) | 1 line
+
+20090315-1426 - W920: cinfig.in, added possobility to combind tcom and 7570 firmware.
+------------------------------------------------------------------------
+r217 | jpascher | 2009-03-15 11:51:53 -0400 (Sun, 15 Mar 2009) | 1 line
+
+20090315-1150 - W721: AVM bug in home.js fixed.
+------------------------------------------------------------------------
+r215 | jpascher | 2009-03-14 15:36:11 -0400 (Sat, 14 Mar 2009) | 1 line
+
+20090314-1536 - W920: TR064 page added, for 7570/AVM firmware combinations.
+------------------------------------------------------------------------
+r214 | jpascher | 2009-03-13 15:36:06 -0400 (Fri, 13 Mar 2009) | 1 line
+
+20090313-1535 - push_FTP.bat update version of ncftp had changed.
+------------------------------------------------------------------------
+r213 | jpascher | 2009-03-13 08:32:15 -0400 (Fri, 13 Mar 2009) | 1 line
+
+20090313-0832 - W920: fix tr064 Option, and set it default to on.
+------------------------------------------------------------------------
+r212 | jpascher | 2009-03-12 18:48:34 -0400 (Thu, 12 Mar 2009) | 1 line
+
+20090312-1847 - W721: ATA disabed
+------------------------------------------------------------------------
+r211 | jpascher | 2009-03-12 07:58:17 -0400 (Thu, 12 Mar 2009) | 1 line
+
+20090312-0757 - W920: 65.04.72-13571 added
+------------------------------------------------------------------------
+r210 | jpascher | 2009-03-12 07:12:32 -0400 (Thu, 12 Mar 2009) | 1 line
+
+20090312-0711 - Variable VINAX_TRACE only set for W920
+------------------------------------------------------------------------
+r209 | jpascher | 2009-03-12 06:53:05 -0400 (Thu, 12 Mar 2009) | 1 line
+
+20090312-0652 - 7170 .59 removed from Config.in 
+------------------------------------------------------------------------
+r207 | jpascher | 2009-03-12 05:22:31 -0400 (Thu, 12 Mar 2009) | 1 line
+
+20090312-0520 - device table: Add /dev/sde and /dev/sdf
+------------------------------------------------------------------------
+r205 | jpascher | 2009-03-11 12:54:07 -0400 (Wed, 11 Mar 2009) | 1 line
+
+20090311-1253 - push config kernel_args idle=4 removed
+------------------------------------------------------------------------
+r204 | jpascher | 2009-03-11 06:59:00 -0400 (Wed, 11 Mar 2009) | 1 line
+
+20090311-0712 - W721: Option ATA - ONLY inder Config.in activiert.
+------------------------------------------------------------------------
+r203 | jpascher | 2009-03-10 14:25:30 -0400 (Tue, 10 Mar 2009) | 1 line
+
+20090310-1435 - W721: Option add t-com kdslmod driver added.
+------------------------------------------------------------------------
+r202 | jpascher | 2009-03-09 17:35:15 -0400 (Mon, 09 Mar 2009) | 1 line
+
+20090309-1733 - Sinus 500: Annenx option fixed again, if uptate via webinterface is in used.
+------------------------------------------------------------------------
+r201 | jpascher | 2009-03-07 13:40:36 -0500 (Sat, 07 Mar 2009) | 1 line
+
+20090307-1350 - Config.in some unusable firmware combinations removed.
+------------------------------------------------------------------------
+r200 | jpascher | 2009-03-05 17:19:52 -0500 (Thu, 05 Mar 2009) | 1 line
+
+20090305-1720 - Sinus 500: Dect on of enabled again.
+------------------------------------------------------------------------
+r199 | jpascher | 2009-03-05 04:48:35 -0500 (Thu, 05 Mar 2009) | 1 line
+
+20090305-0455 - Comment for saving configfile in Config.in entered
+------------------------------------------------------------------------
+r198 | jpascher | 2009-03-04 18:34:28 -0500 (Wed, 04 Mar 2009) | 1 line
+
+20090304-1838 - show kdiff3 Option added, 'apt-get install kadiff3' may be needed to install kadiff3 first.
+------------------------------------------------------------------------
+r192 | jpascher | 2009-03-04 09:39:03 -0500 (Wed, 04 Mar 2009) | 1 line
+
+20090304-0942 - W920: Addon of Option sr3 kdsldmod.co, by: abraXxl
+------------------------------------------------------------------------
+r191 | jpascher | 2009-03-04 09:36:47 -0500 (Wed, 04 Mar 2009) | 1 line
+
+20090304-0940 - W920: Addon of Option sr3 kdsldmod.co, by: abraXxl
+------------------------------------------------------------------------
+r188 | jpascher | 2009-03-04 03:11:22 -0500 (Wed, 04 Mar 2009) | 1 line
+
+ - commit all
+------------------------------------------------------------------------
+r187 | jpascher | 2009-03-03 17:11:33 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-1706 - W920: Addon of Option sr3 kdsldmod.co, by: abraXxl
+------------------------------------------------------------------------
+r186 | jpascher | 2009-03-03 16:49:11 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-1640 - Changed some of the sructure of sp-to-fritz.sh to be able to reflect multi settings in the filename.
+------------------------------------------------------------------------
+r185 | jpascher | 2009-03-03 12:33:36 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-1232 - Config.in: 7170 .70 Option for W900, W701 removed becase we dont have this .70 firmware
+------------------------------------------------------------------------
+r184 | jpascher | 2009-03-03 11:29:32 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-1128 - Config.in:7270 .67 added again becaus it is part of wlanlabor.zip
+------------------------------------------------------------------------
+r183 | jpascher | 2009-03-03 11:08:06 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-1107 - Config.in:7270 .67 removed becaus is not avalabe any more
+------------------------------------------------------------------------
+r182 | jpascher | 2009-03-03 11:02:36 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-1101 - Config.in:7270 .67 removed becaus is not avalabe any more
+------------------------------------------------------------------------
+r181 | jpascher | 2009-03-03 10:49:59 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-1048 - Inserted neue PHONE 7270 in Config.in:  fritz_box-labor-7270-13806.image
+------------------------------------------------------------------------
+r178 | jpascher | 2009-03-03 09:05:29 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-0904 - Addon of usbroot by: abraXxl
+------------------------------------------------------------------------
+r177 | jpascher | 2009-03-03 06:57:47 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-0656 - mini 7170 source2 commente hesh added
+------------------------------------------------------------------------
+r176 | jpascher | 2009-03-03 06:21:05 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-0619 - config.in missing ' '' ' added.
+------------------------------------------------------------------------
+r175 | jpascher | 2009-03-03 05:10:42 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-0509 - Added Option Xchange kernel with 3rd firmmware.
+------------------------------------------------------------------------
+r174 | jpascher | 2009-03-02 10:23:32 -0500 (Mon, 02 Mar 2009) | 1 line
+
+20090302-1035 - UT8 Option removed, some variabels removed from: /subscripts/settings and replaced through dynamic setting
+------------------------------------------------------------------------
+r173 | jpascher | 2009-03-02 09:57:05 -0500 (Mon, 02 Mar 2009) | 1 line
+
+20090302-1009 - W920: TCOM/AVM..13468 telfon bug fix
+------------------------------------------------------------------------
+r172 | jpascher | 2009-03-02 09:50:32 -0500 (Mon, 02 Mar 2009) | 1 line
+
+20090302-1001 - W920: TCOM/AVM..13468 telfon bug fix
+------------------------------------------------------------------------
+r171 | jpascher | 2009-03-02 03:24:23 -0500 (Mon, 02 Mar 2009) | 1 line
+
+20090302-0336 - typing corrected
+------------------------------------------------------------------------
+r170 | jpascher | 2009-03-01 17:38:38 -0500 (Sun, 01 Mar 2009) | 1 line
+
+20090301-1748 - typing corrected
+------------------------------------------------------------------------
+r169 | jpascher | 2009-03-01 17:37:08 -0500 (Sun, 01 Mar 2009) | 1 line
+
+20090301-1746 - typing corrected
+------------------------------------------------------------------------
+r168 | jpascher | 2009-03-01 16:34:26 -0500 (Sun, 01 Mar 2009) | 1 line
+
+20090301-1644 - Added replace_link.sh and extract_rpllist.sh
+------------------------------------------------------------------------
+r167 | jpascher | 2009-03-01 16:23:19 -0500 (Sun, 01 Mar 2009) | 1 line
+
+20090301-1633 - Added replace_link.sh and extract_rpllist.sh
+------------------------------------------------------------------------
+r166 | jpascher | 2009-03-01 16:21:28 -0500 (Sun, 01 Mar 2009) | 1 line
+
+20090301-1631 - Added replace_link.sh and extract_rpllist.sh
+------------------------------------------------------------------------
+r165 | jpascher | 2009-03-01 15:55:11 -0500 (Sun, 01 Mar 2009) | 1 line
+
+20090301-1604 - Added replace_link.sh and extract_rpllist.sh
+------------------------------------------------------------------------
+r164 | jpascher | 2009-03-01 01:31:45 -0500 (Sun, 01 Mar 2009) | 1 line
+
+20090301-0140 - fimwars in Config.in fix WLAN --> wlan 
+------------------------------------------------------------------------
+r163 | jpascher | 2009-02-28 17:00:00 -0500 (Sat, 28 Feb 2009) | 1 line
+
+20090228-1704 - fimwars in Config.in a bit set into order
+------------------------------------------------------------------------
+r162 | jpascher | 2009-02-28 14:04:09 -0500 (Sat, 28 Feb 2009) | 1 line
+
+20090228-1409 - W920: IPV6- and WLAN-Labor-Versions added
+------------------------------------------------------------------------
+r161 | Ernest015 | 2009-02-28 04:34:52 -0500 (Sat, 28 Feb 2009) | 1 line
+
+20090228-1034 - Took back changes from last Revision
+------------------------------------------------------------------------
+r160 | Ernest015 | 2009-02-28 04:29:57 -0500 (Sat, 28 Feb 2009) | 1 line
+
+20090228-1029 - Took back changes from last Revision
+------------------------------------------------------------------------
+r159 | Ernest015 | 2009-02-28 03:47:50 -0500 (Sat, 28 Feb 2009) | 1 line
+
+20090228-0947 - Config.in: IPV6- and WLAN-Labor-Versions added
+------------------------------------------------------------------------
+r158 | jpascher | 2009-02-27 09:41:08 -0500 (Fri, 27 Feb 2009) | 1 line
+
+20090227-0940 - Commit revisionnumber in info.txt fixed
+------------------------------------------------------------------------
+r157 | jpascher | 2009-02-27 09:39:02 -0500 (Fri, 27 Feb 2009) | 1 line
+
+ - commit all
+------------------------------------------------------------------------
+r155 | jpascher | 2009-02-27 07:36:53 -0500 (Fri, 27 Feb 2009) | 1 line
+
+20090227-0735 - W920: multilingual token 'es' for spanish corrected
+------------------------------------------------------------------------
+r154 | jpascher | 2009-02-27 07:28:21 -0500 (Fri, 27 Feb 2009) | 1 line
+
+20090227-0727 - W920: AIO option disabled
+------------------------------------------------------------------------
+r153 | jpascher | 2009-02-27 07:07:35 -0500 (Fri, 27 Feb 2009) | 1 line
+
+20090227-0706 - W920: new releas added FRITZ.Box_Fon_WLAN_7270.54.04.70.image
+------------------------------------------------------------------------
+r152 | jpascher | 2009-02-27 06:58:59 -0500 (Fri, 27 Feb 2009) | 1 line
+
+20090227-0658 - W920: new releas added FRITZ.Box_Fon_WLAN_7270.54.04.70.image
+------------------------------------------------------------------------
+r151 | jpascher | 2009-02-26 18:59:36 -0500 (Thu, 26 Feb 2009) | 1 line
+
+20090226-1858 - W920 fix tr069 option
+------------------------------------------------------------------------
+r150 | jpascher | 2009-02-26 16:25:43 -0500 (Thu, 26 Feb 2009) | 1 line
+
+20090226-1624 - W920 fix missing text 7570/7270
+------------------------------------------------------------------------
+r148 | Ernest015 | 2009-02-26 11:59:01 -0500 (Thu, 26 Feb 2009) | 1 line
+
+20090226-1757 - Fixed some typing errors in Config.in and info.txt
+------------------------------------------------------------------------
+r147 | jpascher | 2009-02-26 05:55:29 -0500 (Thu, 26 Feb 2009) | 1 line
+
+20090226-0555 - W920 -pump to  FRITZ.Box_Fon_WLAN_7240.Labor.73.04.97-13715.image
+------------------------------------------------------------------------
+r146 | jpascher | 2009-02-26 04:44:58 -0500 (Thu, 26 Feb 2009) | 1 line
+
+20090226-0444 - W920 - bugfix 3: svn Speedport920 was not up to date with local file
+------------------------------------------------------------------------
+r145 | jpascher | 2009-02-26 04:29:43 -0500 (Thu, 26 Feb 2009) | 1 line
+
+20090226-0428 - minir changes to Config.in and add_muli options
+------------------------------------------------------------------------
+r144 | jpascher | 2009-02-25 18:07:29 -0500 (Wed, 25 Feb 2009) | 1 line
+
+20090225-1806 - Config.in multi options set to default n
+------------------------------------------------------------------------
+r143 | jpascher | 2009-02-25 17:18:50 -0500 (Wed, 25 Feb 2009) | 1 line
+
+20090225-1717 - Config.in order of options changed
+------------------------------------------------------------------------
+r142 | jpascher | 2009-02-25 15:43:43 -0500 (Wed, 25 Feb 2009) | 1 line
+
+20090225-1546 - W920: fix cp: Aufruf von stat /speed-to-fritz/SPDIR/squashfs-root/etc/default.9*? nicht mglich: No such file or directory
+------------------------------------------------------------------------
+r140 | jpascher | 2009-02-25 15:17:39 -0500 (Wed, 25 Feb 2009) | 1 line
+
+20090225-1519 - W920: multilingual adaptionens
+------------------------------------------------------------------------
+r139 | Ernest015 | 2009-02-25 15:06:52 -0500 (Wed, 25 Feb 2009) | 1 line
+
+20090225-2105 - Config.in: minor changes 
+------------------------------------------------------------------------
+r138 | Ernest015 | 2009-02-25 14:55:21 -0500 (Wed, 25 Feb 2009) | 1 line
+
+20090225-2054 - W900/W701: update config.in to fritz_box-labor-13679.zip 
+------------------------------------------------------------------------
+r137 | jpascher | 2009-02-25 14:22:39 -0500 (Wed, 25 Feb 2009) | 1 line
+
+20090225-1423 - W920: multilingual adaptionens
+------------------------------------------------------------------------
+r136 | jpascher | 2009-02-25 02:57:13 -0500 (Wed, 25 Feb 2009) | 1 line
+
+20090225-0257 - fix tr069 modinfo disply entry 
+------------------------------------------------------------------------
+r135 | jpascher | 2009-02-24 12:02:49 -0500 (Tue, 24 Feb 2009) | 1 line
+
+20090224-1202 - multilingual und multicountry optiom added, not fully usable yet.
+------------------------------------------------------------------------
+r134 | jpascher | 2009-02-24 11:47:50 -0500 (Tue, 24 Feb 2009) | 1 line
+
+20090224-1147 - Config.in: Fixes for firmwares downloadlinks concerning MINI and 'en versions', some changes concerning multilingual, and ATM Options removed
+------------------------------------------------------------------------
+r132 | jpascher | 2009-02-23 17:46:52 -0500 (Mon, 23 Feb 2009) | 1 line
+
+20090223-1745 - W900/W701: update config.in to fritz_box-labor-13679.zip 
+------------------------------------------------------------------------
+r131 | hawcline | 2009-02-23 13:35:43 -0500 (Mon, 23 Feb 2009) | 1 line
+
+20090223-1935 - 7170 AIO config.in changed: fritz_box-labor-13679.zip
+------------------------------------------------------------------------
+r130 | jpascher | 2009-02-23 10:44:05 -0500 (Mon, 23 Feb 2009) | 1 line
+
+20090223-1041 - typing 'Firmware' corrected
+------------------------------------------------------------------------
+r129 | jpascher | 2009-02-22 02:59:16 -0500 (Sun, 22 Feb 2009) | 1 line
+
+20090222-0302 - 7270 PHONE config.in changed: fritz_box-labor-7270-13682.zip
+------------------------------------------------------------------------
+r128 | jpascher | 2009-02-22 02:51:50 -0500 (Sun, 22 Feb 2009) | 1 line
+
+20090222-0251 - 7270 PHONE config.in changed: fritz_box-labor-7270-13682.zip
+------------------------------------------------------------------------
+r127 | Ernest015 | 2009-02-20 08:01:48 -0500 (Fri, 20 Feb 2009) | 1 line
+
+20090220-1401 - en Version 'buchentryinfo' in patch rverselookup fixed.
+------------------------------------------------------------------------
+r126 | jpascher | 2009-02-15 13:48:38 -0500 (Sun, 15 Feb 2009) | 1 line
+
+20090215-1355 - AVM 7570: 7570 entered into filename if 7570 firmware is used.
+------------------------------------------------------------------------
+r125 | jpascher | 2009-02-15 05:31:56 -0500 (Sun, 15 Feb 2009) | 1 line
+
+20090215-0535 - AVM 7570: downloadlink entfernt!
+------------------------------------------------------------------------
+r124 | jpascher | 2009-02-15 04:47:09 -0500 (Sun, 15 Feb 2009) | 1 line
+
+20090215-0451 - 7270 multilingual downloadlink fixed AVM did change name. W920: Options kdsldmod pcmlink changed. AVM 7570 defaults changed.
+------------------------------------------------------------------------
+r123 | jpascher | 2009-02-15 03:41:29 -0500 (Sun, 15 Feb 2009) | 1 line
+
+20090215-0345 - 7270 multilingual downloadlink fixed AVM did change name. W920: Options kdsldmod pcmlink changed. AVM 7570 defaults changed.
+------------------------------------------------------------------------
+r122 | jpascher | 2009-02-14 18:33:44 -0500 (Sat, 14 Feb 2009) | 1 line
+
+20090214-1832 - 7570 Firmware inserted, can be used instead of AVM and TCOM
+------------------------------------------------------------------------
+r121 | jpascher | 2009-02-14 07:38:55 -0500 (Sat, 14 Feb 2009) | 1 line
+
+20090214-0745 - Sinus 500 some variablels fixed by comparing with script dated 19.07.2008, one diffence remains usb menu is removeable now.
+------------------------------------------------------------------------
+r120 | jpascher | 2009-02-14 07:19:45 -0500 (Sat, 14 Feb 2009) | 1 line
+
+20090214-0727 - Remove 'software' in rem_usb_menu.sh corrected becaus liks is funktional.
+------------------------------------------------------------------------
+r119 | jpascher | 2009-02-14 05:49:05 -0500 (Sat, 14 Feb 2009) | 1 line
+
+20090214-0556 - Menue option for setting HWRevision and modedel in plugin URL, added.
+------------------------------------------------------------------------
+r118 | jpascher | 2009-02-14 00:23:39 -0500 (Sat, 14 Feb 2009) | 1 line
+
+20090214-0031 - W920: Firmware 13640 inserted into config.in
+------------------------------------------------------------------------
+r117 | jpascher | 2009-02-13 16:43:43 -0500 (Fri, 13 Feb 2009) | 1 line
+
+20090213-1650 - W920: Firmware 13486 insertete as option for special firmware,
+------------------------------------------------------------------------
+r116 | jpascher | 2009-02-13 12:52:09 -0500 (Fri, 13 Feb 2009) | 1 line
+
+20090213-1250 - W501: some variables fixed.
+------------------------------------------------------------------------
+r115 | jpascher | 2009-02-12 07:38:44 -0500 (Thu, 12 Feb 2009) | 1 line
+
+20090212-0738 - en Version 'buchentryinfo' in patch rverselookup fixed.
+------------------------------------------------------------------------
+r107 | Ernest015 | 2009-02-11 13:00:55 -0500 (Wed, 11 Feb 2009) | 1 line
+
+20090211-1900 - W920: 7270 menuoption PHONE used for prerelaese, to be compatibel with freetz
+------------------------------------------------------------------------
+r104 | Ernest015 | 2009-02-10 15:11:03 -0500 (Tue, 10 Feb 2009) | 1 line
+
+20090210-2110 - W920: 7270 menuoption PHONE used for prerelaese, to be compatibel with freetz
+------------------------------------------------------------------------
+r103 | jpascher | 2009-02-10 14:39:13 -0500 (Tue, 10 Feb 2009) | 1 line
+
+20090210-1444 - en Version 'buchentryinfo' in patch rverselookup fixed.
+------------------------------------------------------------------------
+r102 | jpascher | 2009-02-10 14:13:46 -0500 (Tue, 10 Feb 2009) | 1 line
+
+20090210-1418 - W920: Option use Tcom pclink driver, added
+------------------------------------------------------------------------
+r101 | jpascher | 2009-02-10 13:59:21 -0500 (Tue, 10 Feb 2009) | 1 line
+
+20090210-1403 - W920: Option use Tcom pclink driver, added
+------------------------------------------------------------------------
+r100 | jpascher | 2009-02-10 13:28:22 -0500 (Tue, 10 Feb 2009) | 1 line
+
+20090210-1332 - Directory namming for diffresults changed.
+------------------------------------------------------------------------
+r99 | jpascher | 2009-02-10 13:12:58 -0500 (Tue, 10 Feb 2009) | 1 line
+
+20090210-1317 - Compare option between TCOM and source 3, added.
+------------------------------------------------------------------------
+r98 | jpascher | 2009-02-10 11:16:16 -0500 (Tue, 10 Feb 2009) | 1 line
+
+20090210-1121 - W920: added Speedport_W_920V.AnnexB.65.04.71.image
+------------------------------------------------------------------------
+r96 | jpascher | 2009-02-09 14:34:09 -0500 (Mon, 09 Feb 2009) | 1 line
+
+ - README.txt converted to DOS format.
+------------------------------------------------------------------------
+r94 | jpascher | 2009-02-08 16:06:25 -0500 (Sun, 08 Feb 2009) | 1 line
+
+20090208-1605 - Added path export PATH=/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/sbin to settings
+------------------------------------------------------------------------
+r93 | jpascher | 2009-02-08 15:58:27 -0500 (Sun, 08 Feb 2009) | 1 line
+
+20090208-1557 - Added ftp install 'apt-get install ftp' to install-start
+------------------------------------------------------------------------
+r92 | jpascher | 2009-02-08 15:56:01 -0500 (Sun, 08 Feb 2009) | 1 line
+
+ - coLinux update to 20090205 some settings changed
+------------------------------------------------------------------------
+r91 | jpascher | 2009-02-08 09:23:19 -0500 (Sun, 08 Feb 2009) | 1 line
+
+20090208-0922 - Added subversion install 'apt-get install subversion' to install-start
+------------------------------------------------------------------------
+r89 | jpascher | 2009-02-06 12:26:27 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-1240 - W920 fix plugin, the was a bug in the script since the changes for multlingual ware made.
+------------------------------------------------------------------------
+r88 | jpascher | 2009-02-06 12:24:32 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-1238 - FTP Downloadlink for english versions fixed.
+------------------------------------------------------------------------
+r87 | jpascher | 2009-02-06 07:04:28 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-0718 - W920: add 7270 PHONE, fritz_box-labor-7270-13537.zip
+------------------------------------------------------------------------
+r86 | jpascher | 2009-02-06 06:58:53 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-0712 - W920: add 7270 PHONE, fritz_box-labor-7270-13537.zip
+------------------------------------------------------------------------
+r85 | jpascher | 2009-02-06 06:10:11 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-0623 - W920: add 7270 PHONE, fritz_box-labor-7270-13537.zip
+------------------------------------------------------------------------
+r84 | jpascher | 2009-02-06 05:33:54 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-0547 - W900: en Version Dect some typing correcions, some more to come.
+------------------------------------------------------------------------
+r83 | jpascher | 2009-02-06 05:31:57 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-0545 - W900: en Version Dect some typing correcions, some more to come.
+------------------------------------------------------------------------
+r82 | jpascher | 2009-02-06 03:39:47 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-0353 - W920: 7270 PHONE Firmware removed, because is not avalable any more.
+------------------------------------------------------------------------
+r81 | jpascher | 2009-02-06 03:31:15 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-0344 - W920: AiO 7270 changed to fritz_box-labor-13538.ZIP
+------------------------------------------------------------------------
+r80 | jpascher | 2009-02-05 07:35:41 -0500 (Thu, 05 Feb 2009) | 1 line
+
+20090205-0745 - Freetz: fix rtc again, tools/device_tabel.txt
+------------------------------------------------------------------------
+r79 | hawcline | 2009-02-04 18:30:51 -0500 (Wed, 04 Feb 2009) | 2 lines
+
+20090205-0030 - 701 - fix Add menu Programme in W701, by Hawcline
+
+------------------------------------------------------------------------
+r78 | jpascher | 2009-02-04 17:06:47 -0500 (Wed, 04 Feb 2009) | 1 line
+
+20090204-1715 - fix URL again, Software download url fixed, by Hawcline
+------------------------------------------------------------------------
+r77 | jpascher | 2009-02-04 16:36:34 -0500 (Wed, 04 Feb 2009) | 1 line
+
+20090204-1644 - fix URL again, Software download url fixed, by Hawcline
+------------------------------------------------------------------------
+r76 | jpascher | 2009-02-04 15:46:58 -0500 (Wed, 04 Feb 2009) | 1 line
+
+20090204-1553 - Major script changes to get conform to AVM en and multilingual versions, but the should not have an effect on other firmwares
+------------------------------------------------------------------------
+r75 | hawcline | 2009-02-03 16:59:46 -0500 (Tue, 03 Feb 2009) | 1 line
+
+20090203-2259 - Korrektur Software download url fixed, by Hawcline
+------------------------------------------------------------------------
+r74 | jpascher | 2009-02-03 15:44:47 -0500 (Tue, 03 Feb 2009) | 1 line
+
+20090203-1548 - W920: 7270, added multilingual version to config in, FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it.54.04.67.image, not tested scrit needs adaptions!
+------------------------------------------------------------------------
+r73 | jpascher | 2009-02-03 15:14:39 -0500 (Tue, 03 Feb 2009) | 1 line
+
+20090203-1517 - Software download url fixed, by Hawcline
+------------------------------------------------------------------------
+r72 | jpascher | 2009-02-03 14:57:00 -0500 (Tue, 03 Feb 2009) | 1 line
+
+20090203-1500 - 7170 en version added to config.in FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.67.image, DECT otions not jet fixed
+------------------------------------------------------------------------
+r70 | jpascher | 2009-02-01 15:02:34 -0500 (Sun, 01 Feb 2009) | 1 line
+
+20090201-1503 - W920: .../usr/share/ctlmgr/libvdsl.so..., line entered into Speedport920.
+------------------------------------------------------------------------
+r69 | jpascher | 2009-01-31 13:15:12 -0500 (Sat, 31 Jan 2009) | 1 line
+
+20090131-1320 - /tools/device-table.txt replaced with the one used in freetz, rtc device entry is changed again
+------------------------------------------------------------------------
+r68 | jpascher | 2009-01-31 12:58:03 -0500 (Sat, 31 Jan 2009) | 1 line
+
+20090131-1303 - Revision number included into Filename and modinfo page
+------------------------------------------------------------------------
+r67 | jpascher | 2009-01-31 06:44:48 -0500 (Sat, 31 Jan 2009) | 1 line
+
+20090131-0650 - W920: config.in add, /fw_Speedport_W_920V_v_65.04.70.image 
+------------------------------------------------------------------------
+r66 | jpascher | 2009-01-30 17:39:03 -0500 (Fri, 30 Jan 2009) | 1 line
+
+20090130-1739 - W900:  Speedport907, plugin HWRevision woarkaround inserted.
+------------------------------------------------------------------------
+r65 | jpascher | 2009-01-30 17:22:04 -0500 (Fri, 30 Jan 2009) | 1 line
+
+20090130-1722 - W900:  USE_SOURCE2_WEBMNUE in Speedport907 fixed 
+------------------------------------------------------------------------
+r64 | jpascher | 2009-01-30 17:18:07 -0500 (Fri, 30 Jan 2009) | 1 line
+
+20090130-1718 - W900:  USE_SOURCE2_WEBMNUE in Speedport907 fixed 
+------------------------------------------------------------------------
+r63 | jpascher | 2009-01-30 13:20:16 -0500 (Fri, 30 Jan 2009) | 1 line
+
+20090130-1320 - W900: 13475 ntfs_patch fixed, mini_fo removed
+------------------------------------------------------------------------
+r62 | jpascher | 2009-01-30 12:00:11 -0500 (Fri, 30 Jan 2009) | 1 line
+
+20090130-1200 - W920: 13486 online and DSL statusdisplay on statuspage fixed.
+------------------------------------------------------------------------
+r61 | jpascher | 2009-01-29 16:20:17 -0500 (Thu, 29 Jan 2009) | 1 line
+
+20090129-1620 - Some changes on onlinecounterpage
+------------------------------------------------------------------------
+r411 | jpascher | 2009-07-16 13:02:17 -0400 (Thu, 16 Jul 2009) | 1 line
+
+20090716-1301 - fritz_box-labor-7240-14744.zip added to Config.in
+------------------------------------------------------------------------
+r410 | jpascher | 2009-07-16 10:46:29 -0400 (Thu, 16 Jul 2009) | 1 line
+
+20090716-1044 - download_speedto-fritz.sh deleted and replaced by AbraXxels download_sp2fr.sh
+------------------------------------------------------------------------
+r409 | jo-ju | 2009-07-15 18:48:43 -0400 (Wed, 15 Jul 2009) | 2 lines
+
+ * added a package for Ubuntu64 and Debian64 to install-start
+
+------------------------------------------------------------------------
+r408 | jo-ju | 2009-07-15 18:35:07 -0400 (Wed, 15 Jul 2009) | 3 lines
+
+ * kleiner bugfix im install-start skript
+
+
+------------------------------------------------------------------------
+r407 | jo-ju | 2009-07-15 18:08:20 -0400 (Wed, 15 Jul 2009) | 3 lines
+
+ * added some awareness for ubuntu and debian 64bit user
+
+
+------------------------------------------------------------------------
+r406 | jpascher | 2009-07-15 16:09:24 -0400 (Wed, 15 Jul 2009) | 1 line
+
+20090715-1611 - 7170: added .67 english annex B firmware to Config.in
+------------------------------------------------------------------------
+r405 | jpascher | 2009-07-14 14:47:10 -0400 (Tue, 14 Jul 2009) | 1 line
+
+20090714-1445 - W900: tiping 'profil' corrected
+------------------------------------------------------------------------
+r404 | jpascher | 2009-07-14 08:32:44 -0400 (Tue, 14 Jul 2009) | 1 line
+
+20090714-0831 - 7270v3 und 7240 fix to do some substitutions to be more secure
+------------------------------------------------------------------------
+r403 | jpascher | 2009-07-14 05:15:42 -0400 (Tue, 14 Jul 2009) | 1 line
+
+20090714-0514 - W900: english version enabled support menuitem option
+------------------------------------------------------------------------
+r402 | jpascher | 2009-07-14 03:18:41 -0400 (Tue, 14 Jul 2009) | 1 line
+
+20090714-0320 - 7240: major version corrected
+------------------------------------------------------------------------
+r401 | jpascher | 2009-07-13 17:15:34 -0400 (Mon, 13 Jul 2009) | 1 line
+
+20090713-1714 - W900: English dect text improved by Gizmo_Ger
+------------------------------------------------------------------------
+r400 | jpascher | 2009-07-13 15:42:07 -0400 (Mon, 13 Jul 2009) | 1 line
+
+20090713-1540 - Bug fix in last commit
+------------------------------------------------------------------------
+r399 | jo-ju | 2009-07-13 15:22:41 -0400 (Mon, 13 Jul 2009) | 2 lines
+
+ * make dsld_wrap work again
+
+------------------------------------------------------------------------
+r398 | jpascher | 2009-07-13 14:49:24 -0400 (Mon, 13 Jul 2009) | 1 line
+
+20090713-1447 - 7240 and 7270v3 added as Hardwaretypes.
+------------------------------------------------------------------------
+r397 | jpascher | 2009-07-13 04:49:43 -0400 (Mon, 13 Jul 2009) | 1 line
+
+20090713-0513 - W900: Dect menu english version bug fix, some spelling should still be fixed in file: /alian/patches/add_dect_en.patch
+------------------------------------------------------------------------
+r396 | jpascher | 2009-07-11 07:44:27 -0400 (Sat, 11 Jul 2009) | 1 line
+
+20090711-0756 - typing/spelling corrected in info.txt by:Gizmo_Ger
+------------------------------------------------------------------------
+r395 | jpascher | 2009-07-10 13:42:03 -0400 (Fri, 10 Jul 2009) | 1 line
+
+20090710-1341 - 7270: added to Config.in /Labor/MT-D_7270/fritz_box-labor-7270-14712.zip
+------------------------------------------------------------------------
+r394 | jpascher | 2009-07-10 13:21:15 -0400 (Fri, 10 Jul 2009) | 1 line
+
+20090710-1320 - 7240: added missing language and country pages for multilingual option, only in use if this pages are not part of the firmware.
+------------------------------------------------------------------------
+r393 | jpascher | 2009-07-10 08:56:51 -0400 (Fri, 10 Jul 2009) | 1 line
+
+20090710-0859 - exclude Kdiff3 warnings from 'stop on error' (andLinux in combination with xming produces warnigs if kdiff3 is run)
+------------------------------------------------------------------------
+r392 | jpascher | 2009-07-10 06:37:23 -0400 (Fri, 10 Jul 2009) | 1 line
+
+20090710-0640 - W920: tiping corrected in info.txt by:Gizmo_Ger
+------------------------------------------------------------------------
+r391 | jpascher | 2009-07-10 06:32:11 -0400 (Fri, 10 Jul 2009) | 1 line
+
+20090710-0635 - W920: tiping corrected in info.txt by:Gizmo_Ger
+------------------------------------------------------------------------
+r388 | jpascher | 2009-07-08 14:28:25 -0400 (Wed, 08 Jul 2009) | 1 line
+
+20090708-1427 - W920: Added - 7270v3 is now usabel, but DECT driver must be taken form other firmware.
+------------------------------------------------------------------------
+r387 | jpascher | 2009-07-08 10:29:24 -0400 (Wed, 08 Jul 2009) | 1 line
+
+20090708-1027 - W920: Added Option to xchange DECT Firmware, added more kdsldmod Options, adds - to be able to use 7270v3 Firmware but still not usabel
+------------------------------------------------------------------------
+r386 | jpascher | 2009-07-07 17:20:54 -0400 (Tue, 07 Jul 2009) | 1 line
+
+20090707-1719 - W920: fix change Option in Config.in to reflect add Vdsl profile tab
+------------------------------------------------------------------------
+r385 | jpascher | 2009-07-07 14:56:41 -0400 (Tue, 07 Jul 2009) | 1 line
+
+20090707-1455 - W920: cahnge Option in Config.in to reflect add Vdsl profile tab
+------------------------------------------------------------------------
+r384 | jpascher | 2009-07-07 14:52:37 -0400 (Tue, 07 Jul 2009) | 1 line
+
+20090707-1450 - W920: add Vdsl profile tab
+------------------------------------------------------------------------
+r383 | jpascher | 2009-07-07 11:39:25 -0400 (Tue, 07 Jul 2009) | 1 line
+
+20090707-1138 - bug fix commit 381
+------------------------------------------------------------------------
+r382 | jpascher | 2009-07-07 11:24:55 -0400 (Tue, 07 Jul 2009) | 1 line
+
+20090707-1124 - added 75.04.76-14685.image
+------------------------------------------------------------------------
+r381 | jpascher | 2009-07-07 10:20:21 -0400 (Tue, 07 Jul 2009) | 1 line
+
+20090707-1018 - More changes on multilannex Option for 7240.
+------------------------------------------------------------------------
+r380 | jpascher | 2009-07-07 05:12:49 -0400 (Tue, 07 Jul 2009) | 1 line
+
+20090707-0511 - More changes on multilannex Option: 7240 added.
+------------------------------------------------------------------------
+r379 | jpascher | 2009-07-05 12:33:52 -0400 (Sun, 05 Jul 2009) | 1 line
+
+20090705-1233 - Remove W721 multiannex option, cant be used, because it would need more space.
+------------------------------------------------------------------------
+r378 | jpascher | 2009-07-05 11:12:21 -0400 (Sun, 05 Jul 2009) | 1 line
+
+20090705-1111 - fix multiannex commit revision 376
+------------------------------------------------------------------------
+r377 | jpascher | 2009-07-05 05:57:10 -0400 (Sun, 05 Jul 2009) | 1 line
+
+20090705-0600 - Selfmodification of patches pelaced with alternativ mehtode.
+------------------------------------------------------------------------
+r376 | jpascher | 2009-07-05 04:19:39 -0400 (Sun, 05 Jul 2009) | 1 line
+
+20090705-0424 - Multilingual Option: Added some warnings, changed some text in Config.in to be mere conform with 7XXX firmwares.
+------------------------------------------------------------------------
+r375 | jpascher | 2009-07-03 17:39:03 -0400 (Fri, 03 Jul 2009) | 1 line
+
+20090703-1737 - UTC minus 4,5 added to timezone patch
+------------------------------------------------------------------------
+r374 | jpascher | 2009-07-03 17:21:23 -0400 (Fri, 03 Jul 2009) | 1 line
+
+20090703-1718 - Update of multiannex patch to support 7170 with minor version > 70
+------------------------------------------------------------------------
+r373 | jpascher | 2009-07-02 15:47:22 -0400 (Thu, 02 Jul 2009) | 1 line
+
+20090702-1546 - update of multiligual patch, (text chnaged)
+------------------------------------------------------------------------
+r372 | jpascher | 2009-07-02 10:04:38 -0400 (Thu, 02 Jul 2009) | 1 line
+
+20090702-1003 - 71XX Bugfix mutiannex
+------------------------------------------------------------------------
+r371 | jpascher | 2009-07-02 06:24:17 -0400 (Thu, 02 Jul 2009) | 1 line
+
+20090702-0623 - Bugfix Annex A was not set correcly
+------------------------------------------------------------------------
+r370 | jpascher | 2009-07-02 06:04:27 -0400 (Thu, 02 Jul 2009) | 1 line
+
+20090702-0603 - 72XX fix last commit
+------------------------------------------------------------------------
+r369 | jpascher | 2009-07-02 05:08:28 -0400 (Thu, 02 Jul 2009) | 1 line
+
+20090702-0507 - Added Otion for 72XX to remove annex B driver, set defaut model to W920V
+------------------------------------------------------------------------
+r368 | jpascher | 2009-07-01 08:58:05 -0400 (Wed, 01 Jul 2009) | 1 line
+
+20090701-0856 - config.in: some spelling fixed
+------------------------------------------------------------------------
+r367 | jpascher | 2009-06-29 15:05:10 -0400 (Mon, 29 Jun 2009) | 1 line
+
+20090629-1523 - 7270:  fix kernel_size
+------------------------------------------------------------------------
+r366 | jpascher | 2009-06-29 12:51:28 -0400 (Mon, 29 Jun 2009) | 1 line
+
+20090629-1309 - 7270:  some more corrections for multiannex
+------------------------------------------------------------------------
+r365 | jpascher | 2009-06-29 12:48:02 -0400 (Mon, 29 Jun 2009) | 1 line
+
+20090629-1306 - 7270: some more corrections for multiannex
+------------------------------------------------------------------------
+r364 | jpascher | 2009-06-29 12:00:37 -0400 (Mon, 29 Jun 2009) | 1 line
+
+20090629-1219 - 7270: some corrections for multiannex
+------------------------------------------------------------------------
+r363 | jpascher | 2009-06-29 10:58:44 -0400 (Mon, 29 Jun 2009) | 1 line
+
+20090629-1117 - 7270: Config.in some more Text changes.
+------------------------------------------------------------------------
+r362 | jpascher | 2009-06-29 10:20:31 -0400 (Mon, 29 Jun 2009) | 1 line
+
+20090629-1039 - 7270: Config.in 7270v3 added, bugfix for Annex A, (one mor file)
+------------------------------------------------------------------------
+r361 | jpascher | 2009-06-29 10:18:25 -0400 (Mon, 29 Jun 2009) | 1 line
+
+20090629-1037 - 7270: Config.in 7270v3 added, bugfix for Annex A
+------------------------------------------------------------------------
+r360 | jpascher | 2009-06-28 15:29:38 -0400 (Sun, 28 Jun 2009) | 1 line
+
+20090628-1538 - Canged naming of new firmware if Option 'use castom t-home model' was is use
+------------------------------------------------------------------------
+r359 | jpascher | 2009-06-28 14:58:45 -0400 (Sun, 28 Jun 2009) | 1 line
+
+20090628-1507 - Canged naming of new firmware if Option 'use castom t-home model' was is use
+------------------------------------------------------------------------
+r358 | jpascher | 2009-06-28 14:31:18 -0400 (Sun, 28 Jun 2009) | 1 line
+
+20090628-1439 - Config.in Text 3rd Firmware changed to 2nd AVM Firmware, becaus it coursed confusion if only two AVM Firmwares ware in use.
+------------------------------------------------------------------------
+r357 | jpascher | 2009-06-28 14:15:14 -0400 (Sun, 28 Jun 2009) | 1 line
+
+20090628-1423 - Added Firmware.orig directory to SVN
+------------------------------------------------------------------------
+r356 | jpascher | 2009-06-28 14:10:55 -0400 (Sun, 28 Jun 2009) | 1 line
+
+20090628-1419 - Some text changed in Config.in
+------------------------------------------------------------------------
+r355 | jpascher | 2009-06-27 08:21:51 -0400 (Sat, 27 Jun 2009) | 1 line
+
+20090627-0820 - Some text changed in Config.in
+------------------------------------------------------------------------
+r354 | jpascher | 2009-06-27 05:21:41 -0400 (Sat, 27 Jun 2009) | 1 line
+
+20090627-0520 - Added support for 7270 (or any other) to replace ADSL driver
+------------------------------------------------------------------------
+r353 | jpascher | 2009-06-26 14:36:29 -0400 (Fri, 26 Jun 2009) | 1 line
+
+20090626-1434 - Some changes in displying HW
+------------------------------------------------------------------------
+r352 | jpascher | 2009-06-25 11:05:24 -0400 (Thu, 25 Jun 2009) | 1 line
+
+20090625-1108 - 'W920: set DSL as default Labor Firmware
+------------------------------------------------------------------------
+r351 | jpascher | 2009-06-25 10:51:34 -0400 (Thu, 25 Jun 2009) | 1 line
+
+20090625-1054 - 'W920: removed AIO becaus not avalabel any more.
+------------------------------------------------------------------------
+r350 | jpascher | 2009-06-25 10:33:37 -0400 (Thu, 25 Jun 2009) | 1 line
+
+20090625-1036 - 'W920: reinserted FRITZ.Box_Fon_WLAN_7270.54.04.70.image
+------------------------------------------------------------------------
+r349 | jpascher | 2009-06-25 10:14:34 -0400 (Thu, 25 Jun 2009) | 1 line
+
+20090625-1017 - 'W920: inseted FRITZ.Box_Fon_WLAN_7270.54.04.76.image
+------------------------------------------------------------------------
+r348 | ernest015 | 2009-06-23 14:28:34 -0400 (Tue, 23 Jun 2009) | 1 line
+
+20090623-2027 - New laborversion 7270-54.04.75-14543 added
+------------------------------------------------------------------------
+r347 | ernest015 | 2009-06-19 15:53:25 -0400 (Fri, 19 Jun 2009) | 1 line
+
+20090619-2152 - New laborversion 7270-54.04.74-14518 added.
+------------------------------------------------------------------------
+r346 | Ernest015 | 2009-06-18 18:44:16 -0400 (Thu, 18 Jun 2009) | 1 line
+
+20090619-0040 - W920: new labor version 7270-54.04.74-14507 added.
+------------------------------------------------------------------------
+r345 | jpascher | 2009-06-18 02:04:46 -0400 (Thu, 18 Jun 2009) | 1 line
+
+20090618-0203 - 'Clear mtd3 and mtd4' set to default 'y'
+------------------------------------------------------------------------
+r344 | jpascher | 2009-06-16 15:39:44 -0400 (Tue, 16 Jun 2009) | 1 line
+
+20090616-1538 - AIO 14495 added
+------------------------------------------------------------------------
+r343 | jpascher | 2009-06-15 17:41:54 -0400 (Mon, 15 Jun 2009) | 1 line
+
+20090615-1739 - W501, fix las commit, remove backslash
+------------------------------------------------------------------------
+r342 | jpascher | 2009-06-15 12:48:34 -0400 (Mon, 15 Jun 2009) | 1 line
+
+20090615-1253 - W501, added 67en, but the resultig file is to big! So one has to delete more stuff by hand, to use the en Version.
+------------------------------------------------------------------------
+r341 | jpascher | 2009-06-15 12:02:08 -0400 (Mon, 15 Jun 2009) | 1 line
+
+20090615-1207 - W501, added patch for Annex A looks lik this was still a problem. see: http://pastebin.com/f222582bb
+------------------------------------------------------------------------
+r340 | jpascher | 2009-06-14 11:27:32 -0400 (Sun, 14 Jun 2009) | 1 line
+
+20090614-1126 - W920: added to variables new in use with 7570 firmwares.
+------------------------------------------------------------------------
+r339 | jpascher | 2009-06-12 11:53:46 -0400 (Fri, 12 Jun 2009) | 1 line
+
+20090612-1152 - W920, pump to: 7270_release_candidate/fritz_box_labor_14480.zip
+------------------------------------------------------------------------
+r338 | jpascher | 2009-06-12 10:56:11 -0400 (Fri, 12 Jun 2009) | 1 line
+
+20090612-1054 - W920, 7570: Comment added M to some firmwares
+------------------------------------------------------------------------
+r337 | jpascher | 2009-06-12 06:51:54 -0400 (Fri, 12 Jun 2009) | 1 line
+
+20090612-0650 - W920, 7570: added FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.72.image
+------------------------------------------------------------------------
+r336 | jpascher | 2009-06-12 02:45:09 -0400 (Fri, 12 Jun 2009) | 1 line
+
+20090612-0251 - Set Update modules depend. default again to n, becaus 14464 unses links to modules downloaded with plugins.
+------------------------------------------------------------------------
+r335 | jpascher | 2009-06-11 14:18:40 -0400 (Thu, 11 Jun 2009) | 1 line
+
+20090611-1417 - Canged move_avm_to_avme to move avm_to_OEM
+------------------------------------------------------------------------
+r334 | jpascher | 2009-06-11 14:15:28 -0400 (Thu, 11 Jun 2009) | 1 line
+
+20090611-1414 - W920 Config.in pump to /7270_release_candidate/fritz_box_labor_14464.ZIP
+------------------------------------------------------------------------
+r333 | jpascher | 2009-06-11 11:28:16 -0400 (Thu, 11 Jun 2009) | 1 line
+
+20090611-1128 - One comment # added in Config.in
+------------------------------------------------------------------------
+r332 | jpascher | 2009-06-11 09:24:23 -0400 (Thu, 11 Jun 2009) | 1 line
+
+20090611-0924 - Folder Firmware.orig and Firmware.new added to SVN
+------------------------------------------------------------------------
+r331 | jpascher | 2009-06-11 09:13:47 -0400 (Thu, 11 Jun 2009) | 1 line
+
+20090611-0914 - Folder Firmware.orig and Firmware.new added to SVN
+------------------------------------------------------------------------
+r330 | jpascher | 2009-06-11 07:41:43 -0400 (Thu, 11 Jun 2009) | 1 line
+
+20090611-0740 - changed some comment in Config.in
+------------------------------------------------------------------------
+r329 | jpascher | 2009-06-11 07:35:44 -0400 (Thu, 11 Jun 2009) | 1 line
+
+20090611-0733 - some Text changed from TCOM to T-Home.
+------------------------------------------------------------------------
+r328 | jpascher | 2009-06-09 05:38:29 -0400 (Tue, 09 Jun 2009) | 1 line
+
+20090609-0543 - Config.in : removeve some emty tabs and changed lenght of some remark lines
+------------------------------------------------------------------------
+r327 | jpascher | 2009-06-09 03:37:03 -0400 (Tue, 09 Jun 2009) | 1 line
+
+20090609-0341 - Config.in : W920  pump to fritz_box_labor_14442.ZIP
+------------------------------------------------------------------------
+r326 | jpascher | 2009-06-08 13:44:35 -0400 (Mon, 08 Jun 2009) | 1 line
+
+20090608-1343 - Config.in : fix t-home local entry
+------------------------------------------------------------------------
+r325 | jpascher | 2009-06-08 12:15:48 -0400 (Mon, 08 Jun 2009) | 1 line
+
+20090608-1214 - Config.in : W920 +config AVM_7570_14434
+------------------------------------------------------------------------
+r324 | jpascher | 2009-06-08 10:14:29 -0400 (Mon, 08 Jun 2009) | 1 line
+
+20090608-1013 - Config.in : W920 some combinations disabeld
+------------------------------------------------------------------------
+r323 | jpascher | 2009-06-08 07:13:35 -0400 (Mon, 08 Jun 2009) | 1 line
+
+20090608-0712 - Config.in : changed comments firmware with Firmware
+------------------------------------------------------------------------
+r322 | jpascher | 2009-06-08 07:07:32 -0400 (Mon, 08 Jun 2009) | 1 line
+
+20090608-0706 - Config.in : changed comments firmware with Firmware
+------------------------------------------------------------------------
+r321 | jpascher | 2009-06-08 06:58:32 -0400 (Mon, 08 Jun 2009) | 1 line
+
+20090608-0657 - Config.in : changed comments firmware with Firmware
+------------------------------------------------------------------------
+r320 | jpascher | 2009-06-08 06:50:54 -0400 (Mon, 08 Jun 2009) | 1 line
+
+20090608-0650 - Config.in : changed comments tcom to T-home
+------------------------------------------------------------------------
+r319 | jpascher | 2009-06-05 14:27:31 -0400 (Fri, 05 Jun 2009) | 1 line
+
+20090605-1433 - One Variable was not set in Revision 307 correcly.
+------------------------------------------------------------------------
+r318 | jpascher | 2009-06-05 08:43:28 -0400 (Fri, 05 Jun 2009) | 1 line
+
+20090605-0849 - W721: added fw_SpeedportW721V_v_64.04.74.image
+------------------------------------------------------------------------
+r317 | jpascher | 2009-06-05 05:38:52 -0400 (Fri, 05 Jun 2009) | 1 line
+
+20090605-0544 - Add option to remove modinfo icon on status page.
+------------------------------------------------------------------------
+r316 | jpascher | 2009-06-05 04:39:18 -0400 (Fri, 05 Jun 2009) | 1 line
+
+20090605-0445 - Set Onlincounter pach to default n
+------------------------------------------------------------------------
+r315 | jpascher | 2009-06-05 04:33:44 -0400 (Fri, 05 Jun 2009) | 1 line
+
+20090605-0439 - W920: set default TYPE_TCOM_BETA_74
+------------------------------------------------------------------------
+r314 | jpascher | 2009-06-05 04:26:14 -0400 (Fri, 05 Jun 2009) | 1 line
+
+20090605-0431 - Added set timeout option to 3600 sec.
+------------------------------------------------------------------------
+r313 | jpascher | 2009-06-04 15:05:21 -0400 (Thu, 04 Jun 2009) | 1 line
+
+20090604-1504 - W701: add adsl one help button on page removed.
+------------------------------------------------------------------------
+r312 | jpascher | 2009-06-04 14:54:58 -0400 (Thu, 04 Jun 2009) | 1 line
+
+20090604-1453 - Pump to: /Labor/7270_release_candidate/fritz_box_labor_14418.ZIP
+------------------------------------------------------------------------
+r311 | jpascher | 2009-06-04 11:38:41 -0400 (Thu, 04 Jun 2009) | 1 line
+
+20090604-1137 - added some help lines in Config.in: HWR 104 = FB VOIP Gateway 5188, HWR 138 = FRITZ! WLAN Repeater N/G, HWR 159 = FB Fon WLAN 7112
+------------------------------------------------------------------------
+r310 | jpascher | 2009-06-04 11:11:37 -0400 (Thu, 04 Jun 2009) | 1 line
+
+20090604-1110 - Download link changd to: http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/fw_SpeedportW920V_v_65.04.74.image
+------------------------------------------------------------------------
+r309 | jpascher | 2009-06-04 05:20:29 -0400 (Thu, 04 Jun 2009) | 1 line
+
+20090604-0523 - OEM comment added.
+------------------------------------------------------------------------
+r308 | jpascher | 2009-06-03 16:51:51 -0400 (Wed, 03 Jun 2009) | 1 line
+
+20090603-1707 - Removed downloadlink for 7170 .67.
+------------------------------------------------------------------------
+r307 | jpascher | 2009-06-01 16:18:18 -0400 (Mon, 01 Jun 2009) | 1 line
+
+20090601-1620 - Config.in added select options for different 7570 Firmwares
+------------------------------------------------------------------------
+r306 | jpascher | 2009-06-01 07:31:50 -0400 (Mon, 01 Jun 2009) | 1 line
+
+20090601-0730 - Some spelling in Config.in corrected
+------------------------------------------------------------------------
+r305 | jpascher | 2009-05-31 15:41:09 -0400 (Sun, 31 May 2009) | 1 line
+
+20090531-1539 - some 3rd Firmwares download links added
+------------------------------------------------------------------------
+r304 | jpascher | 2009-05-30 15:19:29 -0400 (Sat, 30 May 2009) | 1 line
+
+20090530-1522 - one more 7570 firmware added 14348
+------------------------------------------------------------------------
+r303 | jo-ju | 2009-05-30 06:29:01 -0400 (Sat, 30 May 2009) | 2 lines
+
+ * SVN: removed some generated files from being tracked by SVN.
+
+------------------------------------------------------------------------
+r302 | jpascher | 2009-05-30 03:24:29 -0400 (Sat, 30 May 2009) | 1 line
+
+20090530-0327 - HWR 152 = Speedport W722V in Config.in added.
+------------------------------------------------------------------------
+r301 | jpascher | 2009-05-30 02:53:45 -0400 (Sat, 30 May 2009) | 1 line
+
+20090530-0256 - W920: pump to /Labor/7270_release_candidate/fritz_box_labor_14371.ZIP
+------------------------------------------------------------------------
+r300 | jpascher | 2009-05-29 16:56:41 -0400 (Fri, 29 May 2009) | 1 line
+
+20090529-1655 - W920: TR064 page added, for 7570/AVM firmware combinations.
+------------------------------------------------------------------------
+r298 | jpascher | 2009-05-29 10:44:47 -0400 (Fri, 29 May 2009) | 1 line
+
+20090529-1043 - W920: add new tcom firmware,  http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.74.image
+------------------------------------------------------------------------
+r295 | jpascher | 2009-05-28 13:48:27 -0400 (Thu, 28 May 2009) | 1 line
+
+20090528-1347 - W920: 7570 14353 only intern for use by AVM
+------------------------------------------------------------------------
+r293 | jpascher | 2009-05-26 15:13:10 -0400 (Tue, 26 May 2009) | 1 line
+
+20090526-1512 - W920: pump to /7270_release_candidate/fritz_box_labor_14353.ZIP
+------------------------------------------------------------------------
+r290 | jpascher | 2009-05-22 17:28:44 -0400 (Fri, 22 May 2009) | 1 line
+
+20090522-1727 - # bug fix agsin ther was still one lin missing.
+------------------------------------------------------------------------
+r289 | jpascher | 2009-05-22 13:49:35 -0400 (Fri, 22 May 2009) | 1 line
+
+20090522-1348 - # Remove left over Subversion directories, from sp-to-fritz.sh again.
+------------------------------------------------------------------------
+r288 | jpascher | 2009-05-22 13:46:41 -0400 (Fri, 22 May 2009) | 1 line
+
+20090522-1345 - # Remove left over Subversion directories, from sp-to-fritz.sh again.
+------------------------------------------------------------------------
+r287 | jpascher | 2009-05-22 02:54:46 -0400 (Fri, 22 May 2009) | 1 line
+
+20090522-0253 - bug fix in Config.in, menu starts again
+------------------------------------------------------------------------
+r286 | jpascher | 2009-05-21 16:11:20 -0400 (Thu, 21 May 2009) | 1 line
+
+20090521-1610 - Patched text of tools/update_not_signed_no_password.html (new file in last firmware)
+------------------------------------------------------------------------
+r285 | jpascher | 2009-05-21 11:42:21 -0400 (Thu, 21 May 2009) | 1 line
+
+20090521-1141 - eval in sp-to-fritz.sh reverted to revision 278
+------------------------------------------------------------------------
+r284 | jpascher | 2009-05-21 11:11:53 -0400 (Thu, 21 May 2009) | 1 line
+
+20090521-1110 - W920, fix ipv6 link and revert mistakes
+------------------------------------------------------------------------
+r283 | jpascher | 2009-05-20 14:22:17 -0400 (Wed, 20 May 2009) | 1 line
+
+20090520-1421 - W920, fix 7570 firmware link in config.in
+------------------------------------------------------------------------
+r282 | jpascher | 2009-05-20 13:50:43 -0400 (Wed, 20 May 2009) | 1 line
+
+20090520-1350 - W920, pump to: /7270_IPv6/fritz_box-labor-14338.zip
+------------------------------------------------------------------------
+r278 | jo-ju | 2009-05-19 06:07:42 -0400 (Tue, 19 May 2009) | 17 lines
+
+ * Updated info.txt for r255 to r260 and now / sorry for that
+ * added some more flexibility for dsld wrapper to test it with newer firmwares
+    Config.in
+    alien/subscripts/wrap_dsld.sh
+    Speedport920
+ * changed behavior for reading the config Firmware.conf, don't modify the file, as this is not expected
+	sp-to-fritz.sh
+ * set svn:ignore property on certain generate non upstream files and directories
+    .
+    addon/tmp/squashfs-root
+    addon/tmp/squashfs-root/lib
+    addon/tmp/squashfs-root/bin
+    addon/tmp/squashfs-root/var
+    addon/tmp/squashfs-root/usr
+    addon/tmp/squashfs-root/sbin
+    Firmware.new
+
+------------------------------------------------------------------------
+r277 | jpascher | 2009-05-18 05:23:14 -0400 (Mon, 18 May 2009) | 1 line
+
+20090518-0522 - Config.in: Add explanation for Lab firmwares (by reiffert) 
+------------------------------------------------------------------------
+r276 | jpascher | 2009-05-15 14:01:07 -0400 (Fri, 15 May 2009) | 1 line
+
+20090515-1358 - W920: 7270 AIO 14331 added
+------------------------------------------------------------------------
+r271 | jpascher | 2009-05-10 15:09:00 -0400 (Sun, 10 May 2009) | 1 line
+
+20090510-1508 - Chaned tar startdirecrory to ./var, results in a image that is 512 Bytes smaler, and startcode of file is now as in original firmware. (Ralf Friedl)
+------------------------------------------------------------------------
+r270 | jpascher | 2009-05-10 15:04:40 -0400 (Sun, 10 May 2009) | 1 line
+
+20090510-1503 - Chaned tar sartdirecrory to ./var, results is a image that is 512 Bytes samler, and startcode of file is now as in original firmware. (Ralf Friedl)
+------------------------------------------------------------------------
+r269 | jpascher | 2009-05-10 14:56:41 -0400 (Sun, 10 May 2009) | 1 line
+
+ - enabe root as ssh user, set ssh forwarding
+------------------------------------------------------------------------
+r265 | jpascher | 2009-04-30 02:11:20 -0400 (Thu, 30 Apr 2009) | 1 line
+
+20090430-0210 - Pump to: /MT-D_7270/fritz_box-labor-7270-14138.zip
+------------------------------------------------------------------------
+r264 | jpascher | 2009-04-25 02:58:57 -0400 (Sat, 25 Apr 2009) | 1 line
+
+20090425-0258 - Pump to: /Labor/7170_dsl/fritz_box-labor-14119.zip
+------------------------------------------------------------------------
+r263 | jpascher | 2009-04-23 12:25:20 -0400 (Thu, 23 Apr 2009) | 1 line
+
+20090423-1224 - Pump to: /7270_usb/fritz_box-labor-14142.zip (ARA -USB now called NAS by AVM.
+------------------------------------------------------------------------
+r262 | jpascher | 2009-04-21 04:47:49 -0400 (Tue, 21 Apr 2009) | 1 line
+
+20090421-0446 - Freetz OpenVPN webinterface, fix added 'all' as link.
+------------------------------------------------------------------------
+r261 | jpascher | 2009-04-21 04:21:14 -0400 (Tue, 21 Apr 2009) | 1 line
+
+20090421-0420 - Onlinecounter comment corrected.
+------------------------------------------------------------------------
+r260 | jo-ju | 2009-04-17 10:52:26 -0400 (Fri, 17 Apr 2009) | 6 lines
+
+ * fixed some typos
+ * made wrap_dsld option more flexible for future properit?\195?\164ry 
+   API changes by AVM
+ * Choosing "XCHANGE Kernel" and "Take Kernel from Source 3" makes no sense. 
+   Changed Config.in for this
+
+------------------------------------------------------------------------
+r259 | jo-ju | 2009-04-17 05:27:32 -0400 (Fri, 17 Apr 2009) | 3 lines
+
+ * Config.in/make menuconfig:
+   - Take kdsldmod from source 3 should only be avaiable if source 3 is choosen
+
+------------------------------------------------------------------------
+r258 | jo-ju | 2009-04-17 05:14:13 -0400 (Fri, 17 Apr 2009) | 3 lines
+
+ + sp-to-fritz.sh: ensure that certain directories exist
+ * told svn to ignore certain user specific files
+
+------------------------------------------------------------------------
+r257 | jo-ju | 2009-04-17 04:38:12 -0400 (Fri, 17 Apr 2009) | 12 lines
+
+ * wrap_dsld 
+   - added libboxlib to compatibility clue for dsld
+   + added a more generic way to handle library links
+   - made the path for dsld sandbox configurable in the
+     script alien/subscripts/wrap_dsld.sh. It does not need to be variable 
+	 in the SquashFS readonly rootfs.
+ * sp-to-fritz.sh
+   + added some vim TODO: markers
+   + ensure the scripts in $sh_DIR and $sh2_DIR to be executable
+     (SVN does not store unix metadata)
+
+
+------------------------------------------------------------------------
+r256 | jo-ju | 2009-04-17 03:09:25 -0400 (Fri, 17 Apr 2009) | 4 lines
+
+ + added a new option do allow rebuilding the module depencies file (for Kernel 2.6)
+ + added some code do allow files in users ./addon/tmp/squashfs-root folder with
+	dangling symlinks in the target rom filesystem.
+
+------------------------------------------------------------------------
+r255 | jo-ju | 2009-04-16 01:23:54 -0400 (Thu, 16 Apr 2009) | 4 lines
+
+ * quick fix for http://www.ip-phone-forum.de/showpost.php?p=1313871&postcount=691
+ * wrapper beautifying
+
+
+------------------------------------------------------------------------
+r254 | jpascher | 2009-04-15 16:16:44 -0400 (Wed, 15 Apr 2009) | 1 line
+
+20090415-1620 - W920: Wrapper option for dsld added, but not tested!
+------------------------------------------------------------------------
+r253 | jpascher | 2009-04-10 03:00:56 -0400 (Fri, 10 Apr 2009) | 1 line
+
+20090410-0259 - Expert vew enabeled again, is now set via ar7.cfg
+------------------------------------------------------------------------
+r252 | jpascher | 2009-04-09 11:02:15 -0400 (Thu, 09 Apr 2009) | 1 line
+
+20090409-1100 - Config.in: pump to /Labor/7270_wlan/fritz_box-labor-14080.zip, MT-D changed to phone
+------------------------------------------------------------------------
+r251 | jpascher | 2009-04-08 14:31:02 -0400 (Wed, 08 Apr 2009) | 1 line
+
+20090408-1446 - Config.in: pump to /Labor/MT-D_7270/fritz_box-labor-7270-14067.image
+------------------------------------------------------------------------
+r250 | jpascher | 2009-04-08 14:17:06 -0400 (Wed, 08 Apr 2009) | 1 line
+
+20090408-1429 - Config.in: pump to /7270_dsl/fritz_box-labor-1400.zip
+------------------------------------------------------------------------
+r249 | jpascher | 2009-04-05 11:09:32 -0400 (Sun, 05 Apr 2009) | 1 line
+
+20090405-1107 - Config.in: Addon option added to generate, usbroot.tar file.
+------------------------------------------------------------------------
+r248 | jpascher | 2009-04-02 13:10:26 -0400 (Thu, 02 Apr 2009) | 1 line
+
+20090402-1316 - Config.in: change USB to AURA, to be conform with freetz.
+------------------------------------------------------------------------
+r247 | jpascher | 2009-04-02 12:39:33 -0400 (Thu, 02 Apr 2009) | 1 line
+
+20090402-1246 - Add in Config.in /Labor/7270_usb/fritz_box-labor-14047.zip
+------------------------------------------------------------------------
+r246 | jpascher | 2009-04-02 12:04:26 -0400 (Thu, 02 Apr 2009) | 1 line
+
+20090402-0258 - Config.in FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.71-13948.image, removed again because not avalabel publicly
+------------------------------------------------------------------------
+r245 | jpascher | 2009-04-01 12:31:14 -0400 (Wed, 01 Apr 2009) | 1 line
+
+20090401-1230 - Config.in added local image: FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.71-13948.image
+------------------------------------------------------------------------
+r244 | jpascher | 2009-04-01 12:11:37 -0400 (Wed, 01 Apr 2009) | 1 line
+
+20090401-1210 - Config.in changed name a litle bit:  HWR 145 = FB Fon WLAN 7270 plus
+------------------------------------------------------------------------
+r243 | jpascher | 2009-04-01 07:56:44 -0400 (Wed, 01 Apr 2009) | 1 line
+
+20090401-0755 - W920 IPV6 13988 added as local firmware.
+------------------------------------------------------------------------
+r242 | jpascher | 2009-04-01 07:25:35 -0400 (Wed, 01 Apr 2009) | 1 line
+
+20090401-0723 - Option expert, GUI menu removed if option is set to expert.
+------------------------------------------------------------------------
+r241 | jpascher | 2009-04-01 06:31:25 -0400 (Wed, 01 Apr 2009) | 1 line
+
+20090401-0630 - pump to /Labor/7270_IPv6/fritz_box-labor-13992.zip (13988?)
+------------------------------------------------------------------------
+r240 | jpascher | 2009-04-01 06:01:01 -0400 (Wed, 01 Apr 2009) | 1 line
+
+20090401-0546 - pump to /Labor/7270_IPv6/fritz_box-labor-13992.zip
+------------------------------------------------------------------------
+r239 | jpascher | 2009-04-01 05:45:28 -0400 (Wed, 01 Apr 2009) | 1 line
+
+20090401-0542 - Option set expert added, default is set to no! (not testet jet.)
+------------------------------------------------------------------------
+r238 | jpascher | 2009-04-01 05:39:01 -0400 (Wed, 01 Apr 2009) | 1 line
+
+20090401-0537 - kdiff3 added to install-start
+------------------------------------------------------------------------
+r237 | jpascher | 2009-03-31 02:21:32 -0400 (Tue, 31 Mar 2009) | 1 line
+
+20090331-0335 - W920: Pump /Labor/7270_IPv6/fritz_box-labor-13988.zip 
+------------------------------------------------------------------------
+r236 | jpascher | 2009-03-30 04:41:02 -0400 (Mon, 30 Mar 2009) | 1 line
+
+20090330-0547 - Added intltool to be instlled in start-freetz.sh
+------------------------------------------------------------------------
+r235 | jpascher | 2009-03-27 05:23:11 -0400 (Fri, 27 Mar 2009) | 1 line
+
+20090327-0532 - Added skript checkpontinfo for AVM firmware, changes nothing else.
+------------------------------------------------------------------------
+r234 | jpascher | 2009-03-25 18:24:12 -0400 (Wed, 25 Mar 2009) | 1 line
+
+20090325-1827 - Versioninfo in firmware name extended by major version.
+------------------------------------------------------------------------
+r233 | jpascher | 2009-03-25 18:22:08 -0400 (Wed, 25 Mar 2009) | 1 line
+
+20090325-1825 - Versioninfo in firmware name extended by major version.
+------------------------------------------------------------------------
+r232 | jpascher | 2009-03-24 13:00:42 -0400 (Tue, 24 Mar 2009) | 1 line
+
+20090324-1259 - W721: disable all AVM firmwares exept .59 no other is usable.
+------------------------------------------------------------------------
+r231 | jpascher | 2009-03-24 08:50:17 -0400 (Tue, 24 Mar 2009) | 1 line
+
+20090324-0930 - W501 removed 'programme' from speedport menu.
+------------------------------------------------------------------------
+r230 | jpascher | 2009-03-24 06:27:57 -0400 (Tue, 24 Mar 2009) | 1 line
+
+20090324-0707 - fakeroot pump to 1.12.2
+------------------------------------------------------------------------
+r229 | jpascher | 2009-03-24 05:32:52 -0400 (Tue, 24 Mar 2009) | 1 line
+
+20090324-0612 - W721: OEM set default to tcom, strings.tab is now taken from AVM firmware.
+------------------------------------------------------------------------
+r228 | jpascher | 2009-03-23 12:13:27 -0400 (Mon, 23 Mar 2009) | 1 line
+
+20090323-1226 - fakeroot downloadlink changed.
+------------------------------------------------------------------------
+r227 | jpascher | 2009-03-22 18:01:34 -0400 (Sun, 22 Mar 2009) | 1 line
+
+20090322-1759 - W721: fix TE <-> NT was mixed up, no isdn was possibe.
+------------------------------------------------------------------------
+r226 | jpascher | 2009-03-22 16:55:56 -0400 (Sun, 22 Mar 2009) | 1 line
+
+20090322-1654 - W721: Add tcom config, to be able to use tcom as brandig.
+------------------------------------------------------------------------
+r225 | jpascher | 2009-03-17 18:10:12 -0400 (Tue, 17 Mar 2009) | 1 line
+
+20090317-1809 - HWRevision  145  = Fritz_Box_7270plus, added as comment.
+------------------------------------------------------------------------
+r224 | jpascher | 2009-03-17 15:31:52 -0400 (Tue, 17 Mar 2009) | 1 line
+
+20090317-1530 - fix 7570 config.in link
+------------------------------------------------------------------------
+r223 | jpascher | 2009-03-17 11:53:22 -0400 (Tue, 17 Mar 2009) | 1 line
+
+20090317-1152 - restart added, this starts sp-to-fritz.sh with an existing Firmware.conf
+------------------------------------------------------------------------
+r222 | jpascher | 2009-03-17 09:03:46 -0400 (Tue, 17 Mar 2009) | 1 line
+
+20090317-0901 - W920: Start-freetz for 7570 Firmware adjusted.
+------------------------------------------------------------------------
+r221 | jpascher | 2009-03-16 13:10:49 -0400 (Mon, 16 Mar 2009) | 1 line
+
+20090316-1309 - W920: bug fix changes made with revision 219 corsed problems, with some selections.
+------------------------------------------------------------------------
+r220 | jpascher | 2009-03-16 11:14:50 -0400 (Mon, 16 Mar 2009) | 1 line
+
+20090316-1114 - Config.in: add FRITZ.Box_Fon_WLAN_7170.29.04.70.image
+------------------------------------------------------------------------
+r219 | jpascher | 2009-03-16 04:50:13 -0400 (Mon, 16 Mar 2009) | 1 line
+
+20090316-0451 - W920: if AVM firmware is 7570 then now only vinax* files are taken from altenative T-com source.
+------------------------------------------------------------------------
+r218 | jpascher | 2009-03-15 14:28:28 -0400 (Sun, 15 Mar 2009) | 1 line
+
+20090315-1426 - W920: cinfig.in, added possobility to combind tcom and 7570 firmware.
+------------------------------------------------------------------------
+r217 | jpascher | 2009-03-15 11:51:53 -0400 (Sun, 15 Mar 2009) | 1 line
+
+20090315-1150 - W721: AVM bug in home.js fixed.
+------------------------------------------------------------------------
+r215 | jpascher | 2009-03-14 15:36:11 -0400 (Sat, 14 Mar 2009) | 1 line
+
+20090314-1536 - W920: TR064 page added, for 7570/AVM firmware combinations.
+------------------------------------------------------------------------
+r214 | jpascher | 2009-03-13 15:36:06 -0400 (Fri, 13 Mar 2009) | 1 line
+
+20090313-1535 - push_FTP.bat update version of ncftp had changed.
+------------------------------------------------------------------------
+r213 | jpascher | 2009-03-13 08:32:15 -0400 (Fri, 13 Mar 2009) | 1 line
+
+20090313-0832 - W920: fix tr064 Option, and set it default to on.
+------------------------------------------------------------------------
+r212 | jpascher | 2009-03-12 18:48:34 -0400 (Thu, 12 Mar 2009) | 1 line
+
+20090312-1847 - W721: ATA disabed
+------------------------------------------------------------------------
+r211 | jpascher | 2009-03-12 07:58:17 -0400 (Thu, 12 Mar 2009) | 1 line
+
+20090312-0757 - W920: 65.04.72-13571 added
+------------------------------------------------------------------------
+r210 | jpascher | 2009-03-12 07:12:32 -0400 (Thu, 12 Mar 2009) | 1 line
+
+20090312-0711 - Variable VINAX_TRACE only set for W920
+------------------------------------------------------------------------
+r209 | jpascher | 2009-03-12 06:53:05 -0400 (Thu, 12 Mar 2009) | 1 line
+
+20090312-0652 - 7170 .59 removed from Config.in 
+------------------------------------------------------------------------
+r207 | jpascher | 2009-03-12 05:22:31 -0400 (Thu, 12 Mar 2009) | 1 line
+
+20090312-0520 - device table: Add /dev/sde and /dev/sdf
+------------------------------------------------------------------------
+r205 | jpascher | 2009-03-11 12:54:07 -0400 (Wed, 11 Mar 2009) | 1 line
+
+20090311-1253 - push config kernel_args idle=4 removed
+------------------------------------------------------------------------
+r204 | jpascher | 2009-03-11 06:59:00 -0400 (Wed, 11 Mar 2009) | 1 line
+
+20090311-0712 - W721: Option ATA - ONLY inder Config.in activiert.
+------------------------------------------------------------------------
+r203 | jpascher | 2009-03-10 14:25:30 -0400 (Tue, 10 Mar 2009) | 1 line
+
+20090310-1435 - W721: Option add t-com kdslmod driver added.
+------------------------------------------------------------------------
+r202 | jpascher | 2009-03-09 17:35:15 -0400 (Mon, 09 Mar 2009) | 1 line
+
+20090309-1733 - Sinus 500: Annenx option fixed again, if uptate via webinterface is in used.
+------------------------------------------------------------------------
+r201 | jpascher | 2009-03-07 13:40:36 -0500 (Sat, 07 Mar 2009) | 1 line
+
+20090307-1350 - Config.in some unusable firmware combinations removed.
+------------------------------------------------------------------------
+r200 | jpascher | 2009-03-05 17:19:52 -0500 (Thu, 05 Mar 2009) | 1 line
+
+20090305-1720 - Sinus 500: Dect on of enabled again.
+------------------------------------------------------------------------
+r199 | jpascher | 2009-03-05 04:48:35 -0500 (Thu, 05 Mar 2009) | 1 line
+
+20090305-0455 - Comment for saving configfile in Config.in entered
+------------------------------------------------------------------------
+r198 | jpascher | 2009-03-04 18:34:28 -0500 (Wed, 04 Mar 2009) | 1 line
+
+20090304-1838 - show kdiff3 Option added, 'apt-get install kadiff3' may be needed to install kadiff3 first.
+------------------------------------------------------------------------
+r192 | jpascher | 2009-03-04 09:39:03 -0500 (Wed, 04 Mar 2009) | 1 line
+
+20090304-0942 - W920: Addon of Option sr3 kdsldmod.co, by: abraXxl
+------------------------------------------------------------------------
+r191 | jpascher | 2009-03-04 09:36:47 -0500 (Wed, 04 Mar 2009) | 1 line
+
+20090304-0940 - W920: Addon of Option sr3 kdsldmod.co, by: abraXxl
+------------------------------------------------------------------------
+r188 | jpascher | 2009-03-04 03:11:22 -0500 (Wed, 04 Mar 2009) | 1 line
+
+ - commit all
+------------------------------------------------------------------------
+r187 | jpascher | 2009-03-03 17:11:33 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-1706 - W920: Addon of Option sr3 kdsldmod.co, by: abraXxl
+------------------------------------------------------------------------
+r186 | jpascher | 2009-03-03 16:49:11 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-1640 - Changed some of the sructure of sp-to-fritz.sh to be able to reflect multi settings in the filename.
+------------------------------------------------------------------------
+r185 | jpascher | 2009-03-03 12:33:36 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-1232 - Config.in: 7170 .70 Option for W900, W701 removed becase we dont have this .70 firmware
+------------------------------------------------------------------------
+r184 | jpascher | 2009-03-03 11:29:32 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-1128 - Config.in:7270 .67 added again becaus it is part of wlanlabor.zip
+------------------------------------------------------------------------
+r183 | jpascher | 2009-03-03 11:08:06 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-1107 - Config.in:7270 .67 removed becaus is not avalabe any more
+------------------------------------------------------------------------
+r182 | jpascher | 2009-03-03 11:02:36 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-1101 - Config.in:7270 .67 removed becaus is not avalabe any more
+------------------------------------------------------------------------
+r181 | jpascher | 2009-03-03 10:49:59 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-1048 - Inserted neue PHONE 7270 in Config.in:  fritz_box-labor-7270-13806.image
+------------------------------------------------------------------------
+r178 | jpascher | 2009-03-03 09:05:29 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-0904 - Addon of usbroot by: abraXxl
+------------------------------------------------------------------------
+r177 | jpascher | 2009-03-03 06:57:47 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-0656 - mini 7170 source2 commente hesh added
+------------------------------------------------------------------------
+r176 | jpascher | 2009-03-03 06:21:05 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-0619 - config.in missing ' '' ' added.
+------------------------------------------------------------------------
+r175 | jpascher | 2009-03-03 05:10:42 -0500 (Tue, 03 Mar 2009) | 1 line
+
+20090303-0509 - Added Option Xchange kernel with 3rd firmmware.
+------------------------------------------------------------------------
+r174 | jpascher | 2009-03-02 10:23:32 -0500 (Mon, 02 Mar 2009) | 1 line
+
+20090302-1035 - UT8 Option removed, some variabels removed from: /subscripts/settings and replaced through dynamic setting
+------------------------------------------------------------------------
+r173 | jpascher | 2009-03-02 09:57:05 -0500 (Mon, 02 Mar 2009) | 1 line
+
+20090302-1009 - W920: TCOM/AVM..13468 telfon bug fix
+------------------------------------------------------------------------
+r172 | jpascher | 2009-03-02 09:50:32 -0500 (Mon, 02 Mar 2009) | 1 line
+
+20090302-1001 - W920: TCOM/AVM..13468 telfon bug fix
+------------------------------------------------------------------------
+r171 | jpascher | 2009-03-02 03:24:23 -0500 (Mon, 02 Mar 2009) | 1 line
+
+20090302-0336 - typing corrected
+------------------------------------------------------------------------
+r170 | jpascher | 2009-03-01 17:38:38 -0500 (Sun, 01 Mar 2009) | 1 line
+
+20090301-1748 - typing corrected
+------------------------------------------------------------------------
+r169 | jpascher | 2009-03-01 17:37:08 -0500 (Sun, 01 Mar 2009) | 1 line
+
+20090301-1746 - typing corrected
+------------------------------------------------------------------------
+r168 | jpascher | 2009-03-01 16:34:26 -0500 (Sun, 01 Mar 2009) | 1 line
+
+20090301-1644 - Added replace_link.sh and extract_rpllist.sh
+------------------------------------------------------------------------
+r167 | jpascher | 2009-03-01 16:23:19 -0500 (Sun, 01 Mar 2009) | 1 line
+
+20090301-1633 - Added replace_link.sh and extract_rpllist.sh
+------------------------------------------------------------------------
+r166 | jpascher | 2009-03-01 16:21:28 -0500 (Sun, 01 Mar 2009) | 1 line
+
+20090301-1631 - Added replace_link.sh and extract_rpllist.sh
+------------------------------------------------------------------------
+r165 | jpascher | 2009-03-01 15:55:11 -0500 (Sun, 01 Mar 2009) | 1 line
+
+20090301-1604 - Added replace_link.sh and extract_rpllist.sh
+------------------------------------------------------------------------
+r164 | jpascher | 2009-03-01 01:31:45 -0500 (Sun, 01 Mar 2009) | 1 line
+
+20090301-0140 - fimwars in Config.in fix WLAN --> wlan 
+------------------------------------------------------------------------
+r163 | jpascher | 2009-02-28 17:00:00 -0500 (Sat, 28 Feb 2009) | 1 line
+
+20090228-1704 - fimwars in Config.in a bit set into order
+------------------------------------------------------------------------
+r162 | jpascher | 2009-02-28 14:04:09 -0500 (Sat, 28 Feb 2009) | 1 line
+
+20090228-1409 - W920: IPV6- and WLAN-Labor-Versions added
+------------------------------------------------------------------------
+r161 | Ernest015 | 2009-02-28 04:34:52 -0500 (Sat, 28 Feb 2009) | 1 line
+
+20090228-1034 - Took back changes from last Revision
+------------------------------------------------------------------------
+r160 | Ernest015 | 2009-02-28 04:29:57 -0500 (Sat, 28 Feb 2009) | 1 line
+
+20090228-1029 - Took back changes from last Revision
+------------------------------------------------------------------------
+r159 | Ernest015 | 2009-02-28 03:47:50 -0500 (Sat, 28 Feb 2009) | 1 line
+
+20090228-0947 - Config.in: IPV6- and WLAN-Labor-Versions added
+------------------------------------------------------------------------
+r158 | jpascher | 2009-02-27 09:41:08 -0500 (Fri, 27 Feb 2009) | 1 line
+
+20090227-0940 - Commit revisionnumber in info.txt fixed
+------------------------------------------------------------------------
+r157 | jpascher | 2009-02-27 09:39:02 -0500 (Fri, 27 Feb 2009) | 1 line
+
+ - commit all
+------------------------------------------------------------------------
+r155 | jpascher | 2009-02-27 07:36:53 -0500 (Fri, 27 Feb 2009) | 1 line
+
+20090227-0735 - W920: multilingual token 'es' for spanish corrected
+------------------------------------------------------------------------
+r154 | jpascher | 2009-02-27 07:28:21 -0500 (Fri, 27 Feb 2009) | 1 line
+
+20090227-0727 - W920: AIO option disabled
+------------------------------------------------------------------------
+r153 | jpascher | 2009-02-27 07:07:35 -0500 (Fri, 27 Feb 2009) | 1 line
+
+20090227-0706 - W920: new releas added FRITZ.Box_Fon_WLAN_7270.54.04.70.image
+------------------------------------------------------------------------
+r152 | jpascher | 2009-02-27 06:58:59 -0500 (Fri, 27 Feb 2009) | 1 line
+
+20090227-0658 - W920: new releas added FRITZ.Box_Fon_WLAN_7270.54.04.70.image
+------------------------------------------------------------------------
+r151 | jpascher | 2009-02-26 18:59:36 -0500 (Thu, 26 Feb 2009) | 1 line
+
+20090226-1858 - W920 fix tr069 option
+------------------------------------------------------------------------
+r150 | jpascher | 2009-02-26 16:25:43 -0500 (Thu, 26 Feb 2009) | 1 line
+
+20090226-1624 - W920 fix missing text 7570/7270
+------------------------------------------------------------------------
+r148 | Ernest015 | 2009-02-26 11:59:01 -0500 (Thu, 26 Feb 2009) | 1 line
+
+20090226-1757 - Fixed some typing errors in Config.in and info.txt
+------------------------------------------------------------------------
+r147 | jpascher | 2009-02-26 05:55:29 -0500 (Thu, 26 Feb 2009) | 1 line
+
+20090226-0555 - W920 -pump to  FRITZ.Box_Fon_WLAN_7240.Labor.73.04.97-13715.image
+------------------------------------------------------------------------
+r146 | jpascher | 2009-02-26 04:44:58 -0500 (Thu, 26 Feb 2009) | 1 line
+
+20090226-0444 - W920 - bugfix 3: svn Speedport920 was not up to date with local file
+------------------------------------------------------------------------
+r145 | jpascher | 2009-02-26 04:29:43 -0500 (Thu, 26 Feb 2009) | 1 line
+
+20090226-0428 - minir changes to Config.in and add_muli options
+------------------------------------------------------------------------
+r144 | jpascher | 2009-02-25 18:07:29 -0500 (Wed, 25 Feb 2009) | 1 line
+
+20090225-1806 - Config.in multi options set to default n
+------------------------------------------------------------------------
+r143 | jpascher | 2009-02-25 17:18:50 -0500 (Wed, 25 Feb 2009) | 1 line
+
+20090225-1717 - Config.in order of options changed
+------------------------------------------------------------------------
+r142 | jpascher | 2009-02-25 15:43:43 -0500 (Wed, 25 Feb 2009) | 1 line
+
+20090225-1546 - W920: fix cp: Aufruf von stat /speed-to-fritz/SPDIR/squashfs-root/etc/default.9*? nicht mglich: No such file or directory
+------------------------------------------------------------------------
+r140 | jpascher | 2009-02-25 15:17:39 -0500 (Wed, 25 Feb 2009) | 1 line
+
+20090225-1519 - W920: multilingual adaptionens
+------------------------------------------------------------------------
+r139 | Ernest015 | 2009-02-25 15:06:52 -0500 (Wed, 25 Feb 2009) | 1 line
+
+20090225-2105 - Config.in: minor changes 
+------------------------------------------------------------------------
+r138 | Ernest015 | 2009-02-25 14:55:21 -0500 (Wed, 25 Feb 2009) | 1 line
+
+20090225-2054 - W900/W701: update config.in to fritz_box-labor-13679.zip 
+------------------------------------------------------------------------
+r137 | jpascher | 2009-02-25 14:22:39 -0500 (Wed, 25 Feb 2009) | 1 line
+
+20090225-1423 - W920: multilingual adaptionens
+------------------------------------------------------------------------
+r136 | jpascher | 2009-02-25 02:57:13 -0500 (Wed, 25 Feb 2009) | 1 line
+
+20090225-0257 - fix tr069 modinfo disply entry 
+------------------------------------------------------------------------
+r135 | jpascher | 2009-02-24 12:02:49 -0500 (Tue, 24 Feb 2009) | 1 line
+
+20090224-1202 - multilingual und multicountry optiom added, not fully usable yet.
+------------------------------------------------------------------------
+r134 | jpascher | 2009-02-24 11:47:50 -0500 (Tue, 24 Feb 2009) | 1 line
+
+20090224-1147 - Config.in: Fixes for firmwares downloadlinks concerning MINI and 'en versions', some changes concerning multilingual, and ATM Options removed
+------------------------------------------------------------------------
+r132 | jpascher | 2009-02-23 17:46:52 -0500 (Mon, 23 Feb 2009) | 1 line
+
+20090223-1745 - W900/W701: update config.in to fritz_box-labor-13679.zip 
+------------------------------------------------------------------------
+r131 | hawcline | 2009-02-23 13:35:43 -0500 (Mon, 23 Feb 2009) | 1 line
+
+20090223-1935 - 7170 AIO config.in changed: fritz_box-labor-13679.zip
+------------------------------------------------------------------------
+r130 | jpascher | 2009-02-23 10:44:05 -0500 (Mon, 23 Feb 2009) | 1 line
+
+20090223-1041 - typing 'Firmware' corrected
+------------------------------------------------------------------------
+r129 | jpascher | 2009-02-22 02:59:16 -0500 (Sun, 22 Feb 2009) | 1 line
+
+20090222-0302 - 7270 PHONE config.in changed: fritz_box-labor-7270-13682.zip
+------------------------------------------------------------------------
+r128 | jpascher | 2009-02-22 02:51:50 -0500 (Sun, 22 Feb 2009) | 1 line
+
+20090222-0251 - 7270 PHONE config.in changed: fritz_box-labor-7270-13682.zip
+------------------------------------------------------------------------
+r127 | Ernest015 | 2009-02-20 08:01:48 -0500 (Fri, 20 Feb 2009) | 1 line
+
+20090220-1401 - en Version 'buchentryinfo' in patch rverselookup fixed.
+------------------------------------------------------------------------
+r126 | jpascher | 2009-02-15 13:48:38 -0500 (Sun, 15 Feb 2009) | 1 line
+
+20090215-1355 - AVM 7570: 7570 entered into filename if 7570 firmware is used.
+------------------------------------------------------------------------
+r125 | jpascher | 2009-02-15 05:31:56 -0500 (Sun, 15 Feb 2009) | 1 line
+
+20090215-0535 - AVM 7570: downloadlink entfernt!
+------------------------------------------------------------------------
+r124 | jpascher | 2009-02-15 04:47:09 -0500 (Sun, 15 Feb 2009) | 1 line
+
+20090215-0451 - 7270 multilingual downloadlink fixed AVM did change name. W920: Options kdsldmod pcmlink changed. AVM 7570 defaults changed.
+------------------------------------------------------------------------
+r123 | jpascher | 2009-02-15 03:41:29 -0500 (Sun, 15 Feb 2009) | 1 line
+
+20090215-0345 - 7270 multilingual downloadlink fixed AVM did change name. W920: Options kdsldmod pcmlink changed. AVM 7570 defaults changed.
+------------------------------------------------------------------------
+r122 | jpascher | 2009-02-14 18:33:44 -0500 (Sat, 14 Feb 2009) | 1 line
+
+20090214-1832 - 7570 Firmware inserted, can be used instead of AVM and TCOM
+------------------------------------------------------------------------
+r121 | jpascher | 2009-02-14 07:38:55 -0500 (Sat, 14 Feb 2009) | 1 line
+
+20090214-0745 - Sinus 500 some variablels fixed by comparing with script dated 19.07.2008, one diffence remains usb menu is removeable now.
+------------------------------------------------------------------------
+r120 | jpascher | 2009-02-14 07:19:45 -0500 (Sat, 14 Feb 2009) | 1 line
+
+20090214-0727 - Remove 'software' in rem_usb_menu.sh corrected becaus liks is funktional.
+------------------------------------------------------------------------
+r119 | jpascher | 2009-02-14 05:49:05 -0500 (Sat, 14 Feb 2009) | 1 line
+
+20090214-0556 - Menue option for setting HWRevision and modedel in plugin URL, added.
+------------------------------------------------------------------------
+r118 | jpascher | 2009-02-14 00:23:39 -0500 (Sat, 14 Feb 2009) | 1 line
+
+20090214-0031 - W920: Firmware 13640 inserted into config.in
+------------------------------------------------------------------------
+r117 | jpascher | 2009-02-13 16:43:43 -0500 (Fri, 13 Feb 2009) | 1 line
+
+20090213-1650 - W920: Firmware 13486 insertete as option for special firmware,
+------------------------------------------------------------------------
+r116 | jpascher | 2009-02-13 12:52:09 -0500 (Fri, 13 Feb 2009) | 1 line
+
+20090213-1250 - W501: some variables fixed.
+------------------------------------------------------------------------
+r115 | jpascher | 2009-02-12 07:38:44 -0500 (Thu, 12 Feb 2009) | 1 line
+
+20090212-0738 - en Version 'buchentryinfo' in patch rverselookup fixed.
+------------------------------------------------------------------------
+r107 | Ernest015 | 2009-02-11 13:00:55 -0500 (Wed, 11 Feb 2009) | 1 line
+
+20090211-1900 - W920: 7270 menuoption PHONE used for prerelaese, to be compatibel with freetz
+------------------------------------------------------------------------
+r104 | Ernest015 | 2009-02-10 15:11:03 -0500 (Tue, 10 Feb 2009) | 1 line
+
+20090210-2110 - W920: 7270 menuoption PHONE used for prerelaese, to be compatibel with freetz
+------------------------------------------------------------------------
+r103 | jpascher | 2009-02-10 14:39:13 -0500 (Tue, 10 Feb 2009) | 1 line
+
+20090210-1444 - en Version 'buchentryinfo' in patch rverselookup fixed.
+------------------------------------------------------------------------
+r102 | jpascher | 2009-02-10 14:13:46 -0500 (Tue, 10 Feb 2009) | 1 line
+
+20090210-1418 - W920: Option use Tcom pclink driver, added
+------------------------------------------------------------------------
+r101 | jpascher | 2009-02-10 13:59:21 -0500 (Tue, 10 Feb 2009) | 1 line
+
+20090210-1403 - W920: Option use Tcom pclink driver, added
+------------------------------------------------------------------------
+r100 | jpascher | 2009-02-10 13:28:22 -0500 (Tue, 10 Feb 2009) | 1 line
+
+20090210-1332 - Directory namming for diffresults changed.
+------------------------------------------------------------------------
+r99 | jpascher | 2009-02-10 13:12:58 -0500 (Tue, 10 Feb 2009) | 1 line
+
+20090210-1317 - Compare option between TCOM and source 3, added.
+------------------------------------------------------------------------
+r98 | jpascher | 2009-02-10 11:16:16 -0500 (Tue, 10 Feb 2009) | 1 line
+
+20090210-1121 - W920: added Speedport_W_920V.AnnexB.65.04.71.image
+------------------------------------------------------------------------
+r96 | jpascher | 2009-02-09 14:34:09 -0500 (Mon, 09 Feb 2009) | 1 line
+
+ - README.txt converted to DOS format.
+------------------------------------------------------------------------
+r94 | jpascher | 2009-02-08 16:06:25 -0500 (Sun, 08 Feb 2009) | 1 line
+
+20090208-1605 - Added path export PATH=/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/sbin to settings
+------------------------------------------------------------------------
+r93 | jpascher | 2009-02-08 15:58:27 -0500 (Sun, 08 Feb 2009) | 1 line
+
+20090208-1557 - Added ftp install 'apt-get install ftp' to install-start
+------------------------------------------------------------------------
+r92 | jpascher | 2009-02-08 15:56:01 -0500 (Sun, 08 Feb 2009) | 1 line
+
+ - coLinux update to 20090205 some settings changed
+------------------------------------------------------------------------
+r91 | jpascher | 2009-02-08 09:23:19 -0500 (Sun, 08 Feb 2009) | 1 line
+
+20090208-0922 - Added subversion install 'apt-get install subversion' to install-start
+------------------------------------------------------------------------
+r89 | jpascher | 2009-02-06 12:26:27 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-1240 - W920 fix plugin, the was a bug in the script since the changes for multlingual ware made.
+------------------------------------------------------------------------
+r88 | jpascher | 2009-02-06 12:24:32 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-1238 - FTP Downloadlink for english versions fixed.
+------------------------------------------------------------------------
+r87 | jpascher | 2009-02-06 07:04:28 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-0718 - W920: add 7270 PHONE, fritz_box-labor-7270-13537.zip
+------------------------------------------------------------------------
+r86 | jpascher | 2009-02-06 06:58:53 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-0712 - W920: add 7270 PHONE, fritz_box-labor-7270-13537.zip
+------------------------------------------------------------------------
+r85 | jpascher | 2009-02-06 06:10:11 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-0623 - W920: add 7270 PHONE, fritz_box-labor-7270-13537.zip
+------------------------------------------------------------------------
+r84 | jpascher | 2009-02-06 05:33:54 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-0547 - W900: en Version Dect some typing correcions, some more to come.
+------------------------------------------------------------------------
+r83 | jpascher | 2009-02-06 05:31:57 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-0545 - W900: en Version Dect some typing correcions, some more to come.
+------------------------------------------------------------------------
+r82 | jpascher | 2009-02-06 03:39:47 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-0353 - W920: 7270 PHONE Firmware removed, because is not avalable any more.
+------------------------------------------------------------------------
+r81 | jpascher | 2009-02-06 03:31:15 -0500 (Fri, 06 Feb 2009) | 1 line
+
+20090206-0344 - W920: AiO 7270 changed to fritz_box-labor-13538.ZIP
+------------------------------------------------------------------------
+r80 | jpascher | 2009-02-05 07:35:41 -0500 (Thu, 05 Feb 2009) | 1 line
+
+20090205-0745 - Freetz: fix rtc again, tools/device_tabel.txt
+------------------------------------------------------------------------
+r79 | hawcline | 2009-02-04 18:30:51 -0500 (Wed, 04 Feb 2009) | 2 lines
+
+20090205-0030 - 701 - fix Add menu Programme in W701, by Hawcline
+
+------------------------------------------------------------------------
+r78 | jpascher | 2009-02-04 17:06:47 -0500 (Wed, 04 Feb 2009) | 1 line
+
+20090204-1715 - fix URL again, Software download url fixed, by Hawcline
+------------------------------------------------------------------------
+r77 | jpascher | 2009-02-04 16:36:34 -0500 (Wed, 04 Feb 2009) | 1 line
+
+20090204-1644 - fix URL again, Software download url fixed, by Hawcline
+------------------------------------------------------------------------
+r76 | jpascher | 2009-02-04 15:46:58 -0500 (Wed, 04 Feb 2009) | 1 line
+
+20090204-1553 - Major script changes to get conform to AVM en and multilingual versions, but the should not have an effect on other firmwares
+------------------------------------------------------------------------
+r75 | hawcline | 2009-02-03 16:59:46 -0500 (Tue, 03 Feb 2009) | 1 line
+
+20090203-2259 - Korrektur Software download url fixed, by Hawcline
+------------------------------------------------------------------------
+r74 | jpascher | 2009-02-03 15:44:47 -0500 (Tue, 03 Feb 2009) | 1 line
+
+20090203-1548 - W920: 7270, added multilingual version to config in, FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it.54.04.67.image, not tested scrit needs adaptions!
+------------------------------------------------------------------------
+r73 | jpascher | 2009-02-03 15:14:39 -0500 (Tue, 03 Feb 2009) | 1 line
+
+20090203-1517 - Software download url fixed, by Hawcline
+------------------------------------------------------------------------
+r72 | jpascher | 2009-02-03 14:57:00 -0500 (Tue, 03 Feb 2009) | 1 line
+
+20090203-1500 - 7170 en version added to config.in FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.67.image, DECT otions not jet fixed
+------------------------------------------------------------------------
+r70 | jpascher | 2009-02-01 15:02:34 -0500 (Sun, 01 Feb 2009) | 1 line
+
+20090201-1503 - W920: .../usr/share/ctlmgr/libvdsl.so..., line entered into Speedport920.
+------------------------------------------------------------------------
+r69 | jpascher | 2009-01-31 13:15:12 -0500 (Sat, 31 Jan 2009) | 1 line
+
+20090131-1320 - /tools/device-table.txt replaced with the one used in freetz, rtc device entry is changed again
+------------------------------------------------------------------------
+r68 | jpascher | 2009-01-31 12:58:03 -0500 (Sat, 31 Jan 2009) | 1 line
+
+20090131-1303 - Revision number included into Filename and modinfo page
+------------------------------------------------------------------------
+r67 | jpascher | 2009-01-31 06:44:48 -0500 (Sat, 31 Jan 2009) | 1 line
+
+20090131-0650 - W920: config.in add, /fw_Speedport_W_920V_v_65.04.70.image 
+------------------------------------------------------------------------
+r66 | jpascher | 2009-01-30 17:39:03 -0500 (Fri, 30 Jan 2009) | 1 line
+
+20090130-1739 - W900:  Speedport907, plugin HWRevision woarkaround inserted.
+------------------------------------------------------------------------
+r65 | jpascher | 2009-01-30 17:22:04 -0500 (Fri, 30 Jan 2009) | 1 line
+
+20090130-1722 - W900:  USE_SOURCE2_WEBMNUE in Speedport907 fixed 
+------------------------------------------------------------------------
+r64 | jpascher | 2009-01-30 17:18:07 -0500 (Fri, 30 Jan 2009) | 1 line
+
+20090130-1718 - W900:  USE_SOURCE2_WEBMNUE in Speedport907 fixed 
+------------------------------------------------------------------------
+r63 | jpascher | 2009-01-30 13:20:16 -0500 (Fri, 30 Jan 2009) | 1 line
+
+20090130-1320 - W900: 13475 ntfs_patch fixed, mini_fo removed
+------------------------------------------------------------------------
+r62 | jpascher | 2009-01-30 12:00:11 -0500 (Fri, 30 Jan 2009) | 1 line
+
+20090130-1200 - W920: 13486 online and DSL statusdisplay on statuspage fixed.
+------------------------------------------------------------------------
+r61 | jpascher | 2009-01-29 16:20:17 -0500 (Thu, 29 Jan 2009) | 1 line
+
+20090129-1620 - Some changes on onlinecounterpage
+------------------------------------------------------------------------
+r60 | jpascher | 2009-01-29 15:07:15 -0500 (Thu, 29 Jan 2009) | 1 line
+
+20090129-1507 - Freetz: LABOR_TYPE_PHONE defined in Cinfig.in 
+------------------------------------------------------------------------
+r59 | jpascher | 2009-01-29 14:58:50 -0500 (Thu, 29 Jan 2009) | 1 line
+
+20090129-1457 - Revert
+------------------------------------------------------------------------
+r58 | jpascher | 2009-01-29 13:11:30 -0500 (Thu, 29 Jan 2009) | 1 line
+
+20090129-1310 - Set freetz revision default to 2600 if .58 firmware is selected 
+------------------------------------------------------------------------
+r57 | jpascher | 2009-01-29 13:03:10 -0500 (Thu, 29 Jan 2009) | 1 line
+
+20090129-1302 - Some outdated commentents removed
+------------------------------------------------------------------------
+r56 | jpascher | 2009-01-29 10:36:04 -0500 (Thu, 29 Jan 2009) | 1 line
+
+20090129-1035 - Start-freetz: ./freetz_var error fixed, but was not a real Problem
+------------------------------------------------------------------------
+r55 | jpascher | 2009-01-29 10:17:18 -0500 (Thu, 29 Jan 2009) | 1 line
+
+20090129-1017 - Congstar: added congstar directory in file ./Speedport707
+------------------------------------------------------------------------
+r54 | jpascher | 2009-01-29 10:08:34 -0500 (Thu, 29 Jan 2009) | 1 line
+
+20090129-1008 - Congstar: Woraround with filename contining Space
+------------------------------------------------------------------------
+r53 | jpascher | 2009-01-29 10:06:44 -0500 (Thu, 29 Jan 2009) | 1 line
+
+20090129-1006 - Congstar: Woraround with filename contining Space
+------------------------------------------------------------------------
+r52 | jpascher | 2009-01-29 06:16:01 -0500 (Thu, 29 Jan 2009) | 1 line
+
+20090129-0615 - 7170 download links fixed
+------------------------------------------------------------------------
+r51 | jpascher | 2009-01-28 17:09:06 -0500 (Wed, 28 Jan 2009) | 1 line
+
+20090128-1708 - 7170 AiO added to config.in. fritz_box-labor-13475.zip
+------------------------------------------------------------------------
+r50 | jpascher | 2009-01-28 16:39:24 -0500 (Wed, 28 Jan 2009) | 1 line
+
+20090128-1638 - W920: 7270 menuoption AIO used for prerelaese. Updateled changed. W503: aditional kernel_args argument console added
+------------------------------------------------------------------------
+r47 | jpascher | 2009-01-28 07:16:23 -0500 (Wed, 28 Jan 2009) | 1 line
+
+20090128-0735 - W920: 7270 menuoption PHONE used for prerelaese, to be compatibel with freetz
+------------------------------------------------------------------------
+r46 | jpascher | 2009-01-28 07:06:48 -0500 (Wed, 28 Jan 2009) | 1 line
+
+ - commit all
+------------------------------------------------------------------------
+r45 | jpascher | 2009-01-27 07:32:00 -0500 (Tue, 27 Jan 2009) | 1 line
+
+20090127-0749 - W920: 7270 menuoption PHONE used for prerelaese, to be compatibel with freetz
+------------------------------------------------------------------------
+r43 | jpascher | 2009-01-27 06:54:13 -0500 (Tue, 27 Jan 2009) | 1 line
+
+20090127-0712 - W920: 7270 ALL changed in config.in to fritz_box-labor-13486.ZIP, removed UMTS, and  PHONE
+------------------------------------------------------------------------
+r41 | jpascher | 2009-01-27 05:54:02 -0500 (Tue, 27 Jan 2009) | 1 line
+
+20090127-0612 - W920: 7270 PHONE changed in config.in to fritz_box-labor-13486.ZIP
+------------------------------------------------------------------------
+r40 | jpascher | 2009-01-27 03:42:34 -0500 (Tue, 27 Jan 2009) | 1 line
+
+20090127-0400 - W920: VPN Problem fixed, by seventy7, (added option to use t-com kdsldmod for compatibiliy within testing periode)
+------------------------------------------------------------------------
+r39 | jpascher | 2009-01-25 14:10:06 -0500 (Sun, 25 Jan 2009) | 1 line
+
+20090125-1421 - W920: VPN Problem fixed, by seventy7, (added option to use t-com kdsldmod for compatibiliy within testing periode)
+------------------------------------------------------------------------
+r36 | jpascher | 2009-01-24 17:53:56 -0500 (Sat, 24 Jan 2009) | 1 line
+
+20090124-1753 - Added ftp178 and ftp002 for push ftp to 192.168.178.1 or 192.168.2.1
+------------------------------------------------------------------------
+r35 | jpascher | 2009-01-24 04:44:57 -0500 (Sat, 24 Jan 2009) | 1 line
+
+20090124-0444 - congstar: added W701, fixed problem with filnames including spc
+------------------------------------------------------------------------
+r34 | jpascher | 2009-01-23 09:52:36 -0500 (Fri, 23 Jan 2009) | 1 line
+
+20090123-0958 - W503: config.in added, fw_Speedport_W503V_v66.04.66.image
+------------------------------------------------------------------------
+r33 | jpascher | 2009-01-21 16:23:24 -0500 (Wed, 21 Jan 2009) | 1 line
+
+20090121-1623 - W503: first useable version, with major limitaitons
+------------------------------------------------------------------------
+r32 | jpascher | 2009-01-20 07:15:18 -0500 (Tue, 20 Jan 2009) | 1 line
+
+20090120-0730 - Altenativen mirror download eingetragen in config.in
+------------------------------------------------------------------------
+r31 | jpascher | 2009-01-19 02:36:32 -0500 (Mon, 19 Jan 2009) | 1 line
+
+20090119-0243 - W920:changed addon ntfs in config.in
+------------------------------------------------------------------------
+r29 | jpascher | 2009-01-18 02:20:55 -0500 (Sun, 18 Jan 2009) | 1 line
+
+20090118-0236 - W920: AVM 72770 .67 download link fixed, did not work sinse last change
+------------------------------------------------------------------------
+r27 | jpascher | 2009-01-16 13:02:36 -0500 (Fri, 16 Jan 2009) | 1 line
+
+20090116-1302 - W920: download link adjasted for: fritz_box-labor-7270-13422.zip 
+------------------------------------------------------------------------
+r26 | jpascher | 2009-01-16 12:58:12 -0500 (Fri, 16 Jan 2009) | 1 line
+
+20090116-1257 - W920: download link adjasted for: fritz_box-labor-7270-13422.zip 
+------------------------------------------------------------------------
+r21 | jpascher | 2009-01-16 03:38:58 -0500 (Fri, 16 Jan 2009) | 1 line
+
+20090116-0401 - W501: fw_Speedport_W501V_v_28.04.38.image, fixed download link 
+------------------------------------------------------------------------
+r20 | jpascher | 2009-01-15 15:21:35 -0500 (Thu, 15 Jan 2009) | 1 line
+
+20090115-1537 - W900: fw_Speedport_W900V_v34.04.57.image download link angepsst
+------------------------------------------------------------------------
+r19 | jpascher | 2009-01-15 14:06:32 -0500 (Thu, 15 Jan 2009) | 1 line
+
+20090115-1421 - W900: ext2 Option fix, Hawcline's addon of ntfs
+------------------------------------------------------------------------
+r18 | jpascher | 2009-01-15 04:54:02 -0500 (Thu, 15 Jan 2009) | 1 line
+
+20090115-0509 - tools/busybox: bump to 1.12.4
+------------------------------------------------------------------------
+r17 | jpascher | 2009-01-14 12:37:04 -0500 (Wed, 14 Jan 2009) | 1 line
+
+20090114-1247 - start-freetz.sh: disable some patches so the are not applied twice.
+------------------------------------------------------------------------
+r16 | jpascher | 2009-01-14 12:33:35 -0500 (Wed, 14 Jan 2009) | 1 line
+
+20090114-1244 - revert
+------------------------------------------------------------------------
+r15 | jpascher | 2009-01-14 12:31:36 -0500 (Wed, 14 Jan 2009) | 1 line
+
+20090114-1242 - revert
+------------------------------------------------------------------------
+r14 | jpascher | 2009-01-14 12:29:02 -0500 (Wed, 14 Jan 2009) | 2 lines
+
+20090114-1239 - start-freetz: Disable some patches within speed-to-fritz, /n/
+      if the are already included with freetz.
+------------------------------------------------------------------------
+r13 | jpascher | 2009-01-14 05:08:07 -0500 (Wed, 14 Jan 2009) | 1 line
+
+20090114-0518 - Tipping misstakes in patch_ext2 replaced.
+------------------------------------------------------------------------
+r10 | jpascher | 2009-01-13 16:45:31 -0500 (Tue, 13 Jan 2009) | 1 line
+
+20090113-1649 - Tipping misstakes in patch_ext2 replaced.
+------------------------------------------------------------------------
+r8 | jpascher | 2009-01-13 07:58:38 -0500 (Tue, 13 Jan 2009) | 1 line
+
+20090113-0802 - remove menu entry LABOR .67
+------------------------------------------------------------------------
+r7 | jpascher | 2009-01-13 05:02:40 -0500 (Tue, 13 Jan 2009) | 1 line
+
+20090113-0506 - Pump up to fritz_box-labor-7270-13362.zip
+------------------------------------------------------------------------
+r6 | jpascher | 2009-01-13 04:42:14 -0500 (Tue, 13 Jan 2009) | 1 line
+
+20090113-044605 - Pump up to fritz_box-labor-7270-13362.zip
+------------------------------------------------------------------------
+r5 | jpascher | 2009-01-13 03:49:48 -0500 (Tue, 13 Jan 2009) | 1 line
+
+Pump up to fritz_box-labor-7270-13362.zip
+------------------------------------------------------------------------
+r4 | jpascher | 2009-01-12 13:42:34 -0500 (Mon, 12 Jan 2009) | 1 line
+
+Add info text for SVN
+------------------------------------------------------------------------
+r3 | jpascher | 2009-01-12 13:29:44 -0500 (Mon, 12 Jan 2009) | 1 line
+
+Add speed-to-fritz
+------------------------------------------------------------------------
