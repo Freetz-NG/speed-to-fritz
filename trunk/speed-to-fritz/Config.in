@@ -176,7 +176,7 @@ config AVM_DSL_7270_14000
 config AVM_7270_13486
     string
     default "http://www.hostarea.de/server-02/Februar-3257971088.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.70-13486.image"
-config AVM_PHONE_7270_14712
+config AVM_PHONE_7270_14744
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7270/fritz_box-labor-7270-14744.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabPHONE.AnnexB.54.04.97-14744.image"
 config AVM_AURA_7270_14142
@@ -850,8 +850,8 @@ config TCOM_IMG
 	default "$TCOM_W721_60" 		if ( ! TYPE_TCOM_W721SPECIAL ) && ( TYPE_SPEEDPORT_W721V )
 	default "$TCOM_W721_74" 		if ( TYPE_TCOM_W721V_74 ) && ( TYPE_SPEEDPORT_W721V )
 	default "$TCOM_W900_57" 		if TYPE_SPEEDPORT_W900V
+	default "$TCOM_W920_74" 		if ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_58" 		if TYPE_58 && ( TYPE_SPEEDPORT_W920V )
-	default "$TCOM_W920_71" 		if ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_63" 		if TYPE_TCOM_BETA_63 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_70" 		if TYPE_TCOM_BETA_70 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_71" 		if TYPE_TCOM_BETA_71 && ( TYPE_SPEEDPORT_W920V )
