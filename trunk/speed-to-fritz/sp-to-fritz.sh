@@ -4,7 +4,7 @@ export PATH=$PATH:/sbin
 ##########################################################################
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
-Tag="16"; Monat="07"; Jahr="09"
+Tag="17"; Monat="07"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -753,7 +753,7 @@ case "$1" in
 	export CONFIG_PROV_DEFAULT="y"
 	export CONFIG_FON_IPPHONE="y"
 	export CONFIG_CAPI_NT="n"
-	export CONFIG_VERSION_MAJOR="73"
+	export CONFIG_VERSION_MAJOR="40"
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA="n"  
 	  export CONFIG_ATA_FULL="y"
@@ -780,6 +780,47 @@ case "$1" in
 	export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
 	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
 	;;
+"7141")
+	export SPMOD="$1"
+	export CLASS=""
+	export SPNUM=""
+	export PROD="7141"
+	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
+	[ "$NEWNAME" == "" ] && export NEWNAME="FRITZ!Box Fon WLAN 7141"
+	[ "$FBMOD" == "" ] && export FBMOD="7170"
+	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
+	export HWID="108"
+	export HWRevision="${HWID}.1.0.6"
+	export CONFIG_INSTALL_TYPE="ar7_8MB_xilinx_1eth_2ab_isdn_te_pots_wlan_usb_host_49780"
+	export CONFIG_jffs2_size="32"
+	export CONFIG_RAMSIZE="32"
+	export CONFIG_ROMSIZE="8"
+	export CONFIG_ATA_NOPASSTHROUGH="n"
+	export CONFIG_FON_IPPHONE="y"
+	export CONFIG_CAPI="y"
+	export CONFIG_CAPI_NT="n"
+	export CONFIG_CAPI_POTS="y"
+	export CONFIG_CAPI_TE="y"
+	export CONFIG_VERSION_MAJOR="40"
+	if [ "$ATA_ONLY" = "y" ]; then
+	  export CONFIG_ATA="n"  
+	  export CONFIG_ATA_FULL="y"
+	  export CONFIG_VDSL="n"
+ 	  export CONFIG_LABOR_DSL="n"
+	fi 
+	#----
+	export CONFIG_AB_COUNT="2"
+	export CONFIG_ETH_COUNT="1"
+	export CONFIG_Pots="1"
+	export CONFIG_IsdnNT="0"
+	export CONFIG_IsdnTE="0"
+	export CONFIG_Usb="0" 
+	export CONFIG_UsbHost="1" 
+	export CONFIG_UsbStorage="1"
+	export CONFIG_UsbPrint="1"
+	export kernel_size="7798784"
+	;;
+
 *)
 	export SPMOD="$1"
 	export CLASS=""
@@ -796,7 +837,6 @@ case "$1" in
 	    export MKSQUASHFS_TOOL="mksquashfs3-lzma"
 	    export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
 	    export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
-	    export kernel_size="16121856"
 	fi
 	;;
 	
@@ -889,6 +929,8 @@ if [ "$ORI" != "y" ]; then
  . Speedport501;;
  "503")
  . Speedport503;;
+ "7141")
+ . SxAVMx7141;;
  "7240v2")
  . SxAVMx7240v2;;
  "7270v3")

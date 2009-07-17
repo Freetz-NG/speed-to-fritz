@@ -71,8 +71,8 @@ echo2 "-- copy complete AVM source to destination directory!"
 $sh_DIR/patch_annex.sh "${SRC}"
 # add kapselung and annex settings page if missing
 $sh_DIR/add_multi_settings.sh
-
-
+# add buchsend button to fon bookpage
+$sh_DIR/patch_fonbuch.sh "${SRC}"
 
 echo "********************************************************************************"
 sleep 1

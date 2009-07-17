@@ -1,0 +1,85 @@
+#!/bin/bash
+echo "********************************************************************************"
+echo -e "\033[1mPhase 4:\033[0m Apply changes."
+echo "********************************************************************************"
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# only executed if productname is changed
+if [ ! -e "${SRC}"/etc/default.${CONFIG_PRODUKT} ]; then
+    echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
+    echo2 "-- Move contents of OEM directory:"
+    echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
+    mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
+    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
+    rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
+fi
+if [ ${ATA_ONLY} = "n" ]; then
+#add DSL driver depending on the settings made in $firmware.conf
+[ ${FORCE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DSL Driver was taken from the original firmware!"
+[ ${SAVE_AVM_DSL} = "y" ] && cp -fdrp "${SRC}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+[ ${SAVE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+[ ${SAVE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
+echo "  -- TCOM DSL Driver saved to: ./addon/tmp/modules!"
+[ ${USE_OWN_DSL} = "y" ] && cp -fdrp ./addon/tmp/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
+[ ${USE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!" 
+else
+#remove ADSL
+sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
+rm -fdr "${SRC}"/lib/modules/dsp_ur8
+rm -f "${SRC}"/lib/modules/microvoip-dsl.bin
+#<-- ATA only
+fi
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
+rm -f "${SRC}"/lib/modules/microvoip_top.bit
+rm -f "${SRC}"/lib/modules/microvoip_isdn_top.bit
+rm -f "${SRC}"/lib/modules/microvoip_isdn_top.bit1
+if  [ -e "${DST}"/lib/modules/microvoip_top.bit ]; then
+    cp -fdrp "${DST}"/lib/modules/microvoip_top.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit
+else
+    cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules
+fi
+ln -sf  /lib/modules/microvoip_isdn_top.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit1
+
+#patch pigletseciton
+sed -i -e 's|piglet_bitfile_offset=0|piglet_bitfile_offset=0x4b|' "${SRC}/etc/init.d/rc.S" 
+
+
+echo2 "New WEB GUI will be modified"
+#use scond source web GUI
+if [ ${USE_SOURCE2_WEBMNUE} = "y" ]; then
+    #copy second source www dir
+    $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
+    . $inc_DIR/get_SRC2_ver 
+fi
+#copy second source internet dsl menue
+[ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
+#But pluginsupport needs AVM HWrevision to setup the download URL for plugins 
+#workaround for HWRevision
+if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
+sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/i\
+	export HWRevision=\"$FBHWRevision\"" "${SRC}/sbin/start_plugin.sh"
+sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/a\
+	export HWRevision=\"$HWID\"" "${SRC}/sbin/start_plugin.sh"
+fi
+sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# patch INI files acording to the setting made in the main skript sp-to-fritz.sh 
+$sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}"
+# remove menus
+[ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
+# add buchsend button to fon bookpage
+$sh_DIR/patch_fonbuch.sh "${SRC}"
+# add ntfs 
+[ "$ADD_NTFS" = "y" ] && $sh2_DIR/add_ntfs_W900 "${SRC}"
+# patch annex parameter
+$sh_DIR/patch_annex.sh "${SRC}"
+# annex settings page if missing
+$sh_DIR/add_multi_settings.sh
+echo "********************************************************************************"

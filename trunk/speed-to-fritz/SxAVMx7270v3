@@ -147,5 +147,8 @@ echo "  -- Xilinx bitfile was taken from the original t-home firmware"
 [ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
 echo "  -- Xilinx bitfile was taken from the original t-home firmware"
 
+# add buchsend button to fon bookpage
+$sh_DIR/patch_fonbuch.sh "${SRC}"
+
 echo "********************************************************************************"
 sleep 1
