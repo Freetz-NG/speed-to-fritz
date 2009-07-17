@@ -832,6 +832,7 @@ case "$1" in
 	export HWID="139"
 	export HWRevision="${HWID}.1.0.6"
 	PROD2="${PROD:0:2}"
+	export kernel_size="7798784"
 	if [ "$PROD2" == "72" ]; then
 	    # 72XX firmwares needs differnet tool
 	    export MKSQUASHFS_TOOL="mksquashfs3-lzma"
