@@ -753,7 +753,7 @@ case "$1" in
 	export CONFIG_PROV_DEFAULT="y"
 	export CONFIG_FON_IPPHONE="y"
 	export CONFIG_CAPI_NT="n"
-	export CONFIG_VERSION_MAJOR="40"
+	export CONFIG_VERSION_MAJOR="73"
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA="n"  
 	  export CONFIG_ATA_FULL="y"
@@ -837,6 +837,7 @@ case "$1" in
 	    export MKSQUASHFS_TOOL="mksquashfs3-lzma"
 	    export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
 	    export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
+	    export kernel_size="16121856"
 	fi
 	;;
 	
