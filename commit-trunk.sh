@@ -1,6 +1,7 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="./diff.sh exluded"
+comment="./download_speed-to-fritz.sh added again, becaus doku would\
+    need to be to changed if the name is changed"
 
 
 
