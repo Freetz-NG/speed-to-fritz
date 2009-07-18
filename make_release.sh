@@ -3,10 +3,19 @@
 # and this file must be started at the root off ./trunk
 echo "---------------------------------------------------------------------------------------------------------------"
 echo "---------------------------------------------------------------------------------------------------------------"
+HOMEDIR="pwd"
 TMP_DIR="./tmp"
 UPSTREAM_DIR="/mnt/win/upstream"
 SVN_TRUNK_DIR="./trunk"
+([ -d $SVN_TRUNK_DIR/speed-to-fritz ] && cd $SVN_TRUNK_DIR/speed-to-fritz && svn log >> info.txt)
 VER=$(date +%Y_%m_%d)
+date=$(date +%Y%m%d-%H%M)
+DSTI="./trunk/speed-to-fritz/sp-to-fritz.sh"
+Year=$(date +%y)
+Month=$(date +%m)
+Day=$(date +%d) 
+sed -i -e "s/Tag=\"..\"; Monat=\"..\"; Jahr=\"..\"/Tag=\"${Day}\"; Monat=\"${Month}\"; Jahr=\"${Year}\"/" "${DSTI}"
+echo "---------------------------------------------------------------------------------------------------------------"
 mkdir -p $TMP_DIR
 mkdir -p $UPSTREAM_DIR
 cp -fdrp $SVN_TRUNK_DIR/speed-to-fritz --target-directory="$TMP_DIR"

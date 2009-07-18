@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="W920: TR064 page added, for 7570/AVM firmware combinations."
+comment="remove download_speed-to-fritz.sh and replace by download_sp2fr.sh"
 
 
 
@@ -22,9 +22,9 @@ if SVN_VERSION="$(svnversion . )"; then
  #echo "Subversion=$SVN_VERSION"
 fi
 date=$(date +%Y%m%d-%H%M)
-DSTI="./trunk/speed-to-fritz/info.txt"
-grep -q "${comment}" ${DSTI} || sed -i -e "/### --- START --- ###/a\
-${date}-r-$SVN_VERSION\n    - ${comment}" "${DSTI}"
+#DSTI="./trunk/speed-to-fritz/info.txt"
+#grep -q "${comment}" ${DSTI} || sed -i -e "/### --- START --- ###/a\
+#${date}-r-$SVN_VERSION\n    - ${comment}" "${DSTI}"
 DSTI="./trunk/speed-to-fritz/sp-to-fritz.sh"
 Year=$(date +%y)
 Month=$(date +%m)
@@ -34,10 +34,13 @@ echo "--------------------------------------------------------------------------
 sleep 2
 #exit
 
-
-cd trunk
-#svn delete --force ./speed-to-fritz/ftp192
-#svn delete --force ./speed-to-fritz/info.txt.r77
+svn delete --force ./download_speed-to-fritz.sh
+svn delete --force ./patch.diff
+svn add * --force
+#svn propedit svn:ignore trunk
+#cd trunk
+#sleep 20
+#svn delete --force ./speed-to-fritz/info.txt
 #svn delete --force ./speed-to-fritz/info.txt.r79
 #svn delete --force ./speed-to-fritz/info.txt.mine
 #svn delete --force ./speed-to-fritz/info.txt.r130
@@ -55,7 +58,7 @@ cd trunk
 #svn delete --force ./speed-to-fritz/alien/subscripts/add_settings.sh
 #svn delete --force ./speed-to-fritz/alien/patches/add_tam_en.47.patch
 #svn delete --force ./speed-to-fritz/alien/patches/add_tamhelp_en.47.patch
-svn delete --force ./speed-to-fritz/subscripts2/copy_tr064_files
+#svn delete --force ./speed-to-fritz/subscripts2/copy_tr064_files
 
 #svn revert 
 svn add * --force

@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="added ./s.sh for starting without su."
+comment="freetzlinux Intaller: fix IP settings in /etc/profile (cleanup)"
 
 
 
