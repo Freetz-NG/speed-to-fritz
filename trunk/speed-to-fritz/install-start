@@ -26,6 +26,8 @@ case "$DEB_HOST_ARCH" in
 esac
 
 sudo apt-get -y install \
+	fakeroot \
+	make \
 	build-essential \
 	libncurses5-dev \
 	automake \

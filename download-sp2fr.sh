@@ -14,7 +14,7 @@ if [ `id -u` -eq 0 ]; then
 fi
 
 if [ -r /etc/debian_version ]; then # Debian und Ubuntu-Derivate
-		sudo apt-get -y install subversion fakeroot
+		sudo apt-get -y install subversion
 # elif RedHat
 # elif Suse
 # elif ...
