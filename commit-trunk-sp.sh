@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="remove download_speed-to-fritz.sh and replace by download_sp2fr.sh"
+comment=""
 
 
 
@@ -34,11 +34,11 @@ echo "--------------------------------------------------------------------------
 sleep 2
 #exit
 
-svn delete --force ./download_speed-to-fritz.sh
-svn delete --force ./patch.diff
-svn add * --force
+#svn delete --force ./download_speed-to-fritz.sh
+#svn delete --force ./patch.diff
+#svn add * --force
 #svn propedit svn:ignore trunk
-#cd trunk
+cd trunk
 #sleep 20
 #svn delete --force ./speed-to-fritz/info.txt
 #svn delete --force ./speed-to-fritz/info.txt.r79
