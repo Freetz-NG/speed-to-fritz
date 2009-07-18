@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="romove directory pwd because it should have not been added"
+comment="./diff.sh exluded"
 
 
 
@@ -23,9 +23,10 @@ fi
 date=$(date +%Y%m%d-%H%M)
 
 #svn delete --force ./download_speed-to-fritz.sh
-svn delete --force ./pwd
-svn add * --force
+svn delete --force ./diff.sh
+#svn add * --force
 #svn propedit svn:ignore trunk
+#svn propedit svn:ignore .
 
 #svn revert 
 svn add * --force
