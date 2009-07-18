@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="Inserted one info textline into download-sp2fr.sh"
+comment="Inserted one info textline into commit-sp.sh"
 
 
 

@@ -16,7 +16,7 @@ if [ `id -u` -eq 0 ]; then
   exit 0
 fi
 echo "-------------------------------------------------------------------------------------------------------------"
-
+echo "Looking for new trunk version, wait ..."
 svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
 cd trunk
 #svn delete --force ./co/henrynestler/upload-file.sh

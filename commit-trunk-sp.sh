@@ -14,6 +14,7 @@ if [ `id -u` -eq 0 ]; then
   sleep 10
   exit 0
 fi
+echo "Looking for new speed-to-fritz version, wait ..."
 svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
 echo "-------------------------------------------------------------------------------------------------------------"
 #insert comment into "info.txt"
@@ -34,9 +35,9 @@ sed -i -e "s/Tag=\"..\"; Monat=\"..\"; Jahr=\"..\"/Tag=\"${Day}\"; Monat=\"${Mon
 echo "-------------------------------------------------------------------------------------------------------------"
 sleep 2
 #exit
-sed -i -e "/Subversion Log:/,/ENDE/d" "$DSTISP2FR/info.txt"
+sed -i -e '/ Subversion Log:/,$d' "$DSTISP2FR/info.txt"
 echo " Subversion Log:" >>"$DSTISP2FR/info.txt"
-echo "------------------------------------------------------------------------" >>"$DSTISP2FR/info.txt"
+echo "------------------------------------------------------------------" >>"$DSTISP2FR/info.txt"
 
 
 #svn delete --force ./download_speed-to-fritz.sh
