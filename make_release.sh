@@ -7,6 +7,11 @@ HOMEDIR="pwd"
 TMP_DIR="./tmp"
 UPSTREAM_DIR="/mnt/win/upstream"
 SVN_TRUNK_DIR="./trunk"
+[ -f ./download-sp2fr.sh ] && cp -f ./download-sp2fr.sh ./download_speed-to-fritz.sh
+chmod 555 ./download_speed-to-fritz.sh
+tar -zcf download_speed-to-fritz.sh.tar.gz ./download_speed-to-fritz.sh
+rm -f ./download_speed-to-fritz.sh
+cp $SVN_TRUNK_DIR/speed-to-fritz/info.txt ./info.txt
 ([ -d $SVN_TRUNK_DIR/speed-to-fritz ] && cd $SVN_TRUNK_DIR/speed-to-fritz && svn log >> info.txt)
 VER=$(date +%Y_%m_%d)
 date=$(date +%Y%m%d-%H%M)
@@ -48,5 +53,7 @@ bye
 EOT
 EOF
 chmod 777 $UPSTREAM_DIR/upload_files_${VER}.sh
+rm -f $SVN_TRUNK_DIR/speed-to-fritz/info.txt
+mv ./info.txt $SVN_TRUNK_DIR/speed-to-fritz/info.txt
 
 

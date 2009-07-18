@@ -1,7 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="./download_speed-to-fritz.sh added again, becaus doku would\
-    need to be to changed if the name is changed"
+comment="autogenaeration of download_speed-to-fritz.sh.tar.gz added to make_release.sh"
 
 
 
@@ -15,15 +14,11 @@ if [ `id -u` -eq 0 ]; then
   sleep 10
   exit 0
 fi
+svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
 echo "-------------------------------------------------------------------------------------------------------------"
-#insert comment into "info.txt"
-if SVN_VERSION="$(svnversion . )"; then
- let "SVN_VERSION=$(echo ${SVN_VERSION##*:} | tr -d '[:alpha:]') + 1"
- #echo "Subversion=$SVN_VERSION"
-fi
 date=$(date +%Y%m%d-%H%M)
 
-#svn delete --force ./download_speed-to-fritz.sh
+svn delete --force ./download_speed-to-fritz.sh
 svn delete --force ./diff.sh
 #svn add * --force
 #svn propedit svn:ignore trunk
