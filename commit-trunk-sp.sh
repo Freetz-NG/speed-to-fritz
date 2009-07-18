@@ -25,7 +25,8 @@ date=$(date +%Y%m%d-%H%M)
 #DSTI="./trunk/speed-to-fritz/info.txt"
 #grep -q "${comment}" ${DSTI} || sed -i -e "/### --- START --- ###/a\
 #${date}-r-$SVN_VERSION\n    - ${comment}" "${DSTI}"
-DSTI="./trunk/speed-to-fritz/sp-to-fritz.sh"
+DSTISP2FR="./trunk/speed-to-fritz"
+DSTI="$DSTISP2FR/sp-to-fritz.sh"
 Year=$(date +%y)
 Month=$(date +%m)
 Day=$(date +%d) 
@@ -33,6 +34,10 @@ sed -i -e "s/Tag=\"..\"; Monat=\"..\"; Jahr=\"..\"/Tag=\"${Day}\"; Monat=\"${Mon
 echo "-------------------------------------------------------------------------------------------------------------"
 sleep 2
 #exit
+sed -i -e "/Subversion Log:/,/ENDE/d" "$DSTISP2FR/info.txt"
+echo " Subversion Log:" >>"$DSTISP2FR/info.txt"
+echo "------------------------------------------------------------------------" >>"$DSTISP2FR/info.txt"
+
 
 #svn delete --force ./download_speed-to-fritz.sh
 #svn delete --force ./patch.diff

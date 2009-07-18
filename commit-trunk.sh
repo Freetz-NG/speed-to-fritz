@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="autogenaeration of download_speed-to-fritz.sh.tar.gz added to make_release.sh"
+comment="Inserted one info textline into download-sp2fr.sh"
 
 
 
@@ -20,6 +20,7 @@ date=$(date +%Y%m%d-%H%M)
 
 svn delete --force ./download_speed-to-fritz.sh
 svn delete --force ./diff.sh
+svn delete --force ./patch.diff
 #svn add * --force
 #svn propedit svn:ignore trunk
 #svn propedit svn:ignore .

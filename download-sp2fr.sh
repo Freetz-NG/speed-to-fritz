@@ -29,7 +29,7 @@ else
 		exit 1
 		) >&2
 fi
-
+echo "Looking for new speed-to-fritz version, wait ..."
 set -e
 svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk/speed-to-fritz speed-to-fritz
 
