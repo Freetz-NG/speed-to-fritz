@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="Inserted one info textline into commit-sp.sh"
+comment="README changed"
 
 
 

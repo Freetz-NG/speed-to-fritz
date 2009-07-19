@@ -1,20 +1,23 @@
-INFO für Leute mit Schreibrechten!
+trunk : Hauptverzeichnis
 
-commit-trunk-co.sh : Aktualisiert  ./trunk/co.
-commit-trunk-sp.sh : Aktualisiert  ./trunk/speed-to-fritz.
-    
- !!!Wichtig dieses beiden Files müssen editiert werden!!! 
- 
+commit-trunk-co.sh : Aktualisiert  ./trunk/co
+commit-trunk-sp.sh : Aktualisiert  ./trunk/speed-to-fritz
+
+ !!!Wichtig: Kommentare in dieses beiden Files müssen editiert werden!!! 
+
  Also den Bedürfnissen anpassen. 
  Add SVN wird alle zusätzlichen Files hochladen, 
  jedoch löschbar sind Files und Verzeichnisse nur einzeln!
 
 
-diff.sh : Erstellt ein patch.diff zur zuletzt hochladen Version.
 download_co.sh : Ladet das co Verzeichnis neu.
-download_speed-to-fritz.sh : Ladet das Speed-to-fritz Verzeichnis neu, das alte wird vorher gelöscht.
-add_patch.sh : Fügt einen fremden patch mit Filenamen 'patch.diff' zum speed-to-fritz Zweig hinzu. 
-make_release.sh : Packt speed-to-fritz Verzeichnis für den Upload ins Forum, Das Ergebnis: ist im Verzeichnis: /mnt/win/upload (dieses Verzeichnis muss vorhanden sein).  
-patch.diff : Wird immer neu erstellt wenn commit-trunk-co.sh oder commit-trunk-sh.sh verwendet wird. 
-XXX-to-local.diff : Wird immer neu erstellt wenn diff.sh verwendet wird. 
-trunk : Hauptverzeichnis
+download_speed-to-fritz.sh : Ladet das speed-to-fritz Verzeichnis neu.
+add_patch.sh : Fügt einen fremden patch mit Filenamen 'patch.diff' zum trunk.
+make_release.sh : Packt speed-to-fritz Verzeichnis für den Upload ins Forum, 
+das Ergebnis ist im Verzeichnis: /mnt/win/upload (dieses Verzeichnis muss vorhanden sein).
+patch.diff : Wird immer neu erstellt wenn commit-trunk-co.sh oder commit-trunk-sh.sh verwendet wird.
+
+Wird commit-trunk-[xx].sh ausgefhrt erfolgt eine Sicherheitsabfrage ob wirklich 
+ein commit erfolgen soll, wird das verneint wird ebenfalls ein patch.diff
+erstellt das an eine admin versandt werden kann um es einzuchecken oder
+das generierte patch.diff kann mit einen Ticket im trac hochgeldaen werden.

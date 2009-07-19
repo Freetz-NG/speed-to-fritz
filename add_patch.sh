@@ -5,8 +5,11 @@ export VERBOSE="-v"
 
 . ${include_modpatch}
 
-DIR="trunk"
+DIR="trunk/speed-to-fritz"
 PATCH="patch.diff"
+#PATCH="Config.in.diff"
+#PATCH="sp-to-fritz.sh.diff"
+#PATCH="patch_dect.sh.diff"
 modpatch "${HOME}/${DIR}" "${HOME}/${PATCH}"
 #patch -d "$FILE" -p0 --no-backup-if-mismatch < "$PATCH" 2>&1
 echo -n "   All done' ? "; read -n 1 -s YESNO; echo
