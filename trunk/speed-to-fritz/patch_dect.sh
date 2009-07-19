@@ -67,7 +67,7 @@ if [ -z "$DECTIMG" ]; then
 	echo "No image for processing. Exit"
 	sleep 20; exit 1
 fi
-# exrtact pseudo update 
+# extract pseudo update 
 tar -xf "$FWBASE/$DECTIMG" -C "$DECTDIR" .
 if [ "$IMG2" ]; then
  echo "Looking for DECT update firmware file '$DECTIMG2'."
@@ -78,7 +78,7 @@ if [ "$IMG2" ]; then
 	echo "No image for processing. Exit"
 	sleep 20; exit 1
  fi
- # Removing privias sources if still in existant
+ # Removing privias sources if still exist
  rm -fdr ${DECTDIR2}
  # Create temporary directories 
  mkdir  ${DECTDIR2}

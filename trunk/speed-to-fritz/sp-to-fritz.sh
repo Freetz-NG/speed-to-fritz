@@ -4,7 +4,7 @@ export PATH=$PATH:/sbin
 ##########################################################################
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
-Tag="18"; Monat="07"; Jahr="09"
+Tag="19"; Monat="07"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -157,13 +157,13 @@ export HOSTNAME=""
 export NEWNAME=""
 export FBHWRevision=""
 # Not all variables are used later on.
-# It is a bit wirred how the information is carried on to the resulting image,
+# It is a bit wiered how the information is carried on to the resulting image,
 # usually this information is overwritten by other settings made later on.
 # Some are set again depending on settings made later.
 # Some variabels are rewritten in patch_config_rc.conf from globals to rc.conf
 # see patch_config_rc_conf for more details
 # At the moment i don't know what variables are really in use by AVM Firmware
-# This is just an approach to keep as much information as possible, to be on the safe side
+# This is just an approach to keep as much information as possible to be safe
 export USBH="n"
 export ATA="y"
 export CONFIG_ATA="${ATA}"
@@ -434,7 +434,7 @@ case "$1" in
 	export CONFIG_IsdnTE="1"
 	export CONFIG_Pots="1"
 	export kernel_size="7798784"
-#aditional not in use on W701 but on 7170
+#additional, not in use on W701 but on 7170
 	export CONFIG_DSL_UR8="y"
         export CONFIG_EXPERT="y"
 	export CONFIG_GDB="n"
@@ -940,7 +940,7 @@ if [ "$ORI" != "y" ]; then
  *)
  . SxxxAVM;;
  esac
-  #bug in home.js, courses mailfunction with tcom firmware, status page is emty  
+  #bug in home.js, causes mailfunction with tcom firmware, status page is empty  
  $sh_DIR/fix_homebug.sh
   #add missing files for tr064
  [ "$CONFIG_TR064" = "y" ] && $sh_DIR/copy_tr064_files.sh
@@ -959,7 +959,7 @@ if [ "$ORI" != "y" ]; then
 	done
  	cp -fdpr  ./addon/tmp/squashfs-root/*  --target-directory="${SRC}"
  fi
- #patch p_maxTimeout on Intenetpage
+ #patch p_maxTimeout on intenet page
  [ "$SET_PMAXTIMEOUT" = "y" ] && $sh_DIR/patch_pmaxTimeout.sh "${SRC}" "${OEMLIST}"
  #patch download url and add menuitem support
  [ "$ADD_SUPPORT" = "y" ] && $sh2_DIR/patch_url "${SRC}" "${OEMLIST}"
@@ -967,7 +967,7 @@ if [ "$ORI" != "y" ]; then
  [ "$ADD_DSL_EXPERT_MNUE" = "y" ] && $sh_DIR/add_dsl_expert.sh "${SRC}" "${OEMLIST}"
  #add omlinecounter pages 
  [ "$ADD_ONLINECOUNTER" = "y" ] && $sh_DIR/add_onlinecounter.sh "${SRC}" "${OEMLIST}"
- #relpace assistent menuitem with enhenced settings 
+ #replace assistent menuitem with enhanced settings 
  [ "$RPL_ASSIST" = "y" ] && $sh2_DIR/rpl_ass_menuitem "${SRC}" "${OEMLIST}" 
  #tam bugfix remove tams    
  $sh_DIR/patch_tam.sh "${SRC}"
@@ -975,7 +975,7 @@ if [ "$ORI" != "y" ]; then
  [ "$DO_GSM_PATCH" = "y" ] && $sh_DIR/disply_gsm.sh "${SRC}" "${OEMLIST}"
  #enable all providers
  [ "$SET_ALLPROVIDERS" = "y" ] && $sh_DIR/set_allproviders.sh
- #set expert Ansicht    
+ #set expert view    
  [ "$SET_EXPERT" = "y" ] && $sh_DIR/set_expertansicht.sh
  # reverse phonebook lookup
  [ "$DO_LOOKUP_PATCH" = "y" ] && $sh2_DIR/patch_fc "${SRC}"
@@ -1028,7 +1028,7 @@ else
  $sh_DIR/patch_tools.sh "${DST}"	
 fi
 #dont set kernel annex args, if it is a multi annex firmware
-#make firmware insallable via GUI
+#make firmware installable via GUI
 readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
 [ "$DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
 $sh_DIR/patch_install.sh "${SPDIR}"
@@ -1045,7 +1045,7 @@ exec 2> /dev/null
 [ "$DO_FINAL_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${FBDIR_2}" "${TEMPDIR}"
 #[ "$TYPE_LOCAL_MODEL" == "y" ] && [ "$DO_FINAL_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${TEMPDIR}"
 [ "$DO_NOT_STOP_ON_ERROR" = "n" ] && exec 2>"${HOMEDIR}/${ERR_LOGFILE}"
-# compose Filename for new .tar ended File
+# compose filename for new .tar file
 if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
  [ "${SVN_VERSION:0:6}" == "export" ] && SVN_VERSION=""
  [ "$SVN_VERSION" != "" ] && SVN_VERSION="-r-$SVN_VERSION"

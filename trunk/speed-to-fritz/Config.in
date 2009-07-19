@@ -280,16 +280,16 @@ choice
 		bool "AVM 7240"
 
 	config LOCAL_X_MODEL
-		bool "Any AVM Custom Model"
+		bool "Any AVM custom model"
 
 endchoice
 if LOCAL_X_MODEL
  config SPMOD
-	    string "Any AVM Custom Model Type --->"
+	    string "Any AVM custom model type --->"
 	    default "7270"	
 	    help 
-		    In this case only 1st AVM and 2nd AVM Firmware is in use, so insert any AVM Model Type and 
-		    then insert the Firmwares names for 1st AVM and 2nd AVM Firmware.
+		    In this case only 1st AVM and 2nd AVM firmware is in use, so insert any AVM model type and 
+		    then insert the firmwares names for 1st AVM and 2nd AVM firmware.
 endif
 
 if  TYPE_7141 || TYPE_7270v3 || TYPE_7240v2 || LOCAL_X_MODEL
@@ -315,13 +315,13 @@ endif
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config TYPE_TCOMBETA
-	bool "Select a special T-Home Firmware --->"
+	bool "Select a special T-Home firmware --->"
 	depends on TYPE_SPEEDPORT_W920V
 	default n
 	help
-		Enable this to compile the mod based on an special AVM Firmware.
+		Enable this to compile the mod based on an special AVM firmware.
 choice
-	prompt "T-Home alternative Firmware"
+	prompt "T-Home alternative firmware"
 		depends on TYPE_TCOMBETA
 		default TYPE_TCOM_BETA_74
 	config TYPE_TCOM_BETA_63
@@ -337,62 +337,62 @@ choice
 	config TYPE_TCOM_BETA_13571
 		bool "TCOM_BETA_13571"
 	config TYPE_LOCAL_TCOM
-		bool "CUSTOM T-Home Firmware"
+		bool "CUSTOM T-Home firmware"
 endchoice
 config TCOM_LOCAL
     depends on TYPE_LOCAL_TCOM 
-    string "Enter the name of your custom T-Home like Firmware"
+    string "Enter the name of your custom T-Home firmware"
     default "./Firmware.orig/..."
     help 
-	Enter the name of your custom type T-Home like Firmware, in the same manner with path/filename as usually,
-	this is the name of the 1st Firmware fitting completly to the hardware in use.
+	Enter the name of your custom T-Home firmware, in the same manner with path/filename as usually,
+	this is the name of the 1st Firmware fitting completely to the hardware in use.
 
 config TYPE_TCOM_7570_XX 
-	bool "Select a special 7570 Firmware as T-Home Firmware --->"
+	bool "Select a special 7570 Firmware as T-Home firmware --->"
 	depends on TYPE_SPEEDPORT_W920V && ! TYPE_TCOMBETA
 	default n
 	help
-		Enable this to compile the mod based on an special AVM Firmware.
+		Enable this to compile the mod based on an special AVM firmware.
 choice
-	prompt "T-Home 7570 alternative Firmware"
+	prompt "T-Home 7570 alternative firmware"
 	depends on TYPE_TCOM_7570_XX
 	config TYPE_TCOM_7570_70
-		bool "AVM_7570_70 used as T-Home Firmware"
+		bool "AVM_7570_70 used as T-Home firmware"
 	config TYPE_TCOM_7570_72
-		bool "AVM_7570_72 used as T-Home Firmware"
+		bool "AVM_7570_72 used as T-Home firmware"
 	config TYPE_TCOM_7570_14031
-		bool "AVM_7570_14031M used as T-Home Firmware"
+		bool "AVM_7570_14031M used as T-Home firmware"
 	config TYPE_TCOM_7570_14341
-		bool "AVM_7570_14341M used as T-Home Firmware"
+		bool "AVM_7570_14341M used as T-Home firmware"
 	config TYPE_TCOM_7570_14348
-		bool "AVM_7570_14348 used as T-Home Firmware"
+		bool "AVM_7570_14348 used as T-Home firmware"
 	config TYPE_TCOM_7570_14354
-		bool "AVM_7570_14354M used as T-Home Firmware"
+		bool "AVM_7570_14354M used as T-Home firmware"
 	config TYPE_TCOM_7570_14375
-		bool "AVM_7570_14375M used as T-Home Firmware"
+		bool "AVM_7570_14375M used as T-Home firmware"
 	config TYPE_TCOM_7570_14434
-		bool "AVM_7570_14434M used as T-Home Firmware"
+		bool "AVM_7570_14434M used as T-Home firmware"
 	config TYPE_TCOM_7570_14685
-		bool "AVM_7570_75_14685M used as T-Home Firmware"
+		bool "AVM_7570_75_14685M used as T-Home firmware"
 endchoice
 config TYPE_CONGSTAR
-	bool "Select a special Congstar Firmware --->"
+	bool "Select a special Congstar firmware --->"
 	depends on TYPE_SPEEDPORT_W701V
 	default n
 	help
-		Enable this to compile the mod based on an special AVM Firmware.
+		Enable this to compile the mod based on an special AVM firmware.
 choice
-	prompt "Congstar alternative Firmware"
+	prompt "Congstar alternative firmware"
 		depends on TYPE_CONGSTAR
 	config TYPE_CONGSTAR_W701V_58
 		bool "CONGSTAR_W701V_58"
 endchoice
 config TYPE_TCOM_W721SPECIAL
-	bool "Select a special T-Home Firmware --->"
+	bool "Select a special T-Home firmware --->"
 	depends on TYPE_SPEEDPORT_W721V
 	default n
 	help
-		Enable this to compile the mod based on an special AVM Firmware.
+		Enable this to compile the mod based on an special AVM firmware.
 choice
 	prompt "W721 Firmware"
 		depends on TYPE_TCOM_W721SPECIAL
@@ -405,8 +405,8 @@ choice
 		default TYPE_LANG_DE
 	help
 	    The selected Firmware language is usual the one used by the AVM Firmware.
-	    If 1st AVM and 2nd AVM Firmware is a multilingual Firmware, one of this Firmware languages can be forced, but this is possible only with 7270 or 7570 Firmwares.
-	    The resulting text within the generated Firmware may be not completely in this language, text not found in the selected language will be displayed in german or english.
+	    If 1st AVM and 2nd AVM firmware is a multilingual firmware, one of this firmware languages can be forced, but this is only possible with 7270 or 7570 Firmwares.
+	    The resulting text within the generated firmware may be not completely in this language, text not found in the selected language will be displayed in german or english.
 	config TYPE_LANG_DE
 		bool "de - german"
 	config TYPE_LANG_EN
@@ -432,69 +432,69 @@ endchoice
 #		-------------------------------------------------------------------------
 #		ATTENTION! AVM uses the same Filenames for 7170 and 7270 Labor-Firmwares!
 #		So if you change your settings from W920V (in combination with a
-#		Labor Firmware 11500) back to any other or the other way round then,
-#		the previously loaded Labor Firmware located in /Firmware.org is removed
+#		Labor Firmware 11500) back to any other or the other way round, then
+#		the previously loaded Labor firmware located in /Firmware.org is removed
 #		-------------------------------------------------------------------------
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #### If types are added here the script file /subscripts/settings has to be edited as well to represent the new Labor versions too. 
 config TYPE_LABOR
-	bool "Select a special AVM Firmware  --->"
+	bool "Select a special AVM firmware  --->"
 	depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) 
 	default y if EXPORT_TYPE_LOCAL_MODEL
 	default n if ! EXPORT_TYPE_LOCAL_MODEL
 	help
-		Enable this to compile the mod based on an special AVM Firmware.
-		The actual final release version should not be selected is anyway preselected! 
+		Enable this to compile the mod based on an special AVM firmware.
+		The actual final release version should not be selected. It is preselected anyway! 
 		If you select it here your freetz config is not correct! 
 choice
-	prompt "Select Labor or any other non default Firmware."
+	prompt "Select Labor or any other non default firmware."
 		depends on TYPE_LABOR
 		default TYPE_76 if EXPORT_TYPE_LOCAL_MODEL && ! TYPE_7141
 		default TYPE_70 if EXPORT_TYPE_LOCAL_MODEL && TYPE_7141
 		default TYPE_AIO if ! EXPORT_TYPE_LOCAL_MODEL
 
-#----MOVED TO PLACE IN ORDER FOR DEFAULTS if is not avalabel 
+#----MOVED TO PLACE IN ORDER FOR DEFAULTS if is not available 
 #	config TYPE_7270_AIO
-#		bool "7270 AIO - Alles in einem prerelease"
+#		bool "7270 AIO - Alles in einem pre-release"
 #		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 #		help
 #			FRITZ!Lab AIO: This release combines several software improvements.
 #			Therefore AIO means All-In-One. As of now, it contains various
-#			fixes for Wife (Green AP, sources of interference), Facsimile
+#			fixes for Wifi (Green AP, sources of interference), Facsimile
 #			reception and DECT-support and expands NAS functionality.
 	config TYPE_7270_DSL
 		bool "7270 DSL"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
-			FRITZ!Lab DSL: This release optimise the DSL (Digital Subscriber
+			FRITZ!Lab DSL: This release optimises the DSL (Digital Subscriber
 			 Line) software and adds related graphs.
 	config TYPE_7270_WLAN
 		bool "7270 WLAN"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab WLAN: This release reduces the power consumption when
-			no more Wife clients are connected, and avoids channels with
+			no more Wifi clients are connected, and avoids channels with
 			interference.
 #	config TYPE_7170_AIO
-#		bool "7170 AIO - Alles in einem prerelease"
+#		bool "7170 AIO - Alles in einem pre-release"
 #		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 #		help
 #			FRITZ!Lab AIO: This release combines several software improvements.
 #			Therefore AIO means All-In-One. As of now, it contains various
-#			fixes for Wife (Green AP, sources of interference), Facsimile
+#			fixes for Wifi (Green AP, sources of interference), Facsimile
 #			reception and DECT-support and expands NAS functionality.
 	config TYPE_7170_DSL
 		bool "7170 DSL"
 		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
-			FRITZ!Lab DSL: This release optimise the DSL (Digital Subscriber
+			FRITZ!Lab DSL: This release optimises the DSL (Digital Subscriber
 			 Line) software and adds related graphs.
 #	config TYPE_7170_WLAN
 #		bool "7170 WLAN"
 #		depends on ( TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 #		help
 #			FRITZ!Lab WLAN: This release reduces the power consumption when
-#			no more Wife clients are connected, and avoids channels with
+#			no more Wifi clients are connected, and avoids channels with
 #			interference.
 #----MOVED
 	config TYPE_57
@@ -590,28 +590,28 @@ choice
 #		bool "7270_14712 PHONE (MT-D)"
 #		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 #		help
-#			FRITZ!Lab Phone: This release improves DECT-Repeating, call lists,
+#			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
 #			and fixes various software problems, e.g. answering machine and
 #			facsimile reception.
 	config TYPE_14712_V3
 		bool "7270v3_14712 PHONE (MT-D)"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
-			FRITZ!Lab Phone: This release improves DECT-Repeating, call lists,
+			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
 			and fixes various software problems, e.g. answering machine and
 			facsimile reception.
 	config TYPE_7240_PHONE
 		bool "7240 PHONE (MT-D)"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
-			FRITZ!Lab Phone: This release improves DECT-Repeating, call lists,
+			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
 			and fixes various software problems, e.g. answering machine and
 			facsimile reception.
 	config TYPE_7270_PHONE
 		bool "7270 PHONE (MT-D)"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
-			FRITZ!Lab Phone: This release improves DECT-Repeating, call lists,
+			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
 			and fixes various software problems, e.g. answering machine and
 			facsimile reception.
 #	config TYPE_7270_GAMING
@@ -638,26 +638,26 @@ choice
 		help
 			FRITZ! : release 67 multilingual
 	config TYPE_LOCAL_AVM
-		bool "CUSTOM AVM LOCAL Firmware"
+		bool "CUSTOM AVM LOCAL firmware"
 		help
-			FRITZ! : Any AVM like Firmware
+			FRITZ! : Any AVM firmware
 endchoice
 
 config AVM_LOCAL 
     depends on TYPE_LOCAL_AVM
-    string "Enter the name of your custom type AVM like Firmware"
+    string "Enter the name of your custom type AVM firmware"
     default "./Firmware.orig/..."
     help 
-	Enter the name of your custom type AVM like Firmware, in the same manner with path/filename as usually.
+	Enter the name of your custom type AVM firmware, in the same manner with path/filename as usually.
 config TYPE_AVM_7570_XX
-		bool "Select a special 7570 AVM Firmware as 2nd Firmware--->"
+		bool "Select a special 7570 AVM firmware as 2nd firmware--->"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ! TYPE_LABOR
 		help
-			Enable this to compile the mod based on an special AVM 7570 Firmware.
-			The actual final release version should not be selected is anyway preselected! 
+			Enable this to compile the mod based on an special AVM 7570 firmware.
+			The actual final release version should not be selected. It is preselected anyway! 
 			If you select it here your freetz config is not correct! 
 choice
-	prompt "Any 7570 Firmware"
+	prompt "Any 7570 firmware"
 		depends on  TYPE_AVM_7570_XX
 		default TYPE_AVM_7570_72
 	config TYPE_AVM_7570_70
@@ -699,20 +699,20 @@ choice
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config SOURCE2
-	bool "2nd AVM Type Firmware"
+	bool "2nd AVM Type firmware"
 	default y if EXPORT_TYPE_LOCAL_MODEL
 	default n if ! EXPORT_TYPE_LOCAL_MODEL
 	help
-		Enable this if you need a second AVM or T-Home Firmware, this may be needed with some options.
-		Not all listed Firmwares are usabel. 
-		If the orignal firmare was selected as first Firmware then this may be a other fitting Firmware
+		Enable this if you need a second AVM or T-Home firmware, this may be needed with some options.
+		Not all listed firmwares are usable. 
+		If the orignal firmare was selected as first firmware then this may be another fitting firmware
 		to supply missing modules.
 		
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-### if new Firmware was added it could be needed to enter one more entry's into the second source section as well!
+### if new Firmware was added it could be needed to enter one more entries into the second source section as well!
 choice
 
-	prompt "All possible Firmware's"
+	prompt "All possible firmware's"
 		depends on SOURCE2
 		default TYPE_SRC3_AVM_7570_72 if ! EXPORT_TYPE_LOCAL_MODEL
 		default TYPE_SRC3_AVM_V3_7270_76 if EXPORT_TYPE_LOCAL_MODEL && TYPE_7270v3
@@ -856,16 +856,16 @@ endchoice
 
 config SRC3_LOCAL 
     depends on TYPE_SRC3_LOCAL_IMAGE
-    string "Enter the name of your custom type AVM like Firmware"
+    string "Enter the name of your custom type AVM like firmware"
     default "./Firmware.orig/..."
     help 
-	Enter the name of your custom type AVM like Firmware, in the same manner with path/filename as usually.
+	Enter the name of your custom type AVM firmware, in the same manner with path/filename as usually.
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### If new Firmware is added in the top section of this file, some of this section may be changed or added in connection
 ### Keep in mind if in the top section the  SYMBOL NAME was XXX (example: TCOM_SINUS_27) then a $ sign is added here in front of it.
-### Based on the above four menu sections, here the corresponding Firmwares are set up with "if"
+### Based on the above four menu sections, here the corresponding firmwares are set up with "if"
 config TCOM_IMG
 	string
 	default "$TCOM_SINUS_27" 		if TYPE_SINUS_W500V
@@ -1071,20 +1071,20 @@ config TYPE_LABOR_TYPE
 	default "LOCAL"		if TYPE_LOCAL_AVM
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_FORCE_MULTI_LANGUAGE
-	bool "Use Multilingual from 2nd AVM Firmware"
+	bool "Use Multilingual from 2nd AVM firmware"
 	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m ) && SOURCE2
 	default n
 	help
-	    Do not use this option if the AVM 1st Firmware is a multilingual Firmware originally!  
-	    To make this work you must have a T-Home or 2nd AVM Firmware that supplies the needed feature.
+	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!  
+	    To make this work you must have a T-Home or 2nd AVM firmware that supplies the needed feature.
 
 config EXPORT_FORCE_MULTI_COUNTRY
-	bool "Use Multi country from 2nd AVM Firmware"
+	bool "Use Multi country from 2nd AVM firmware"
 	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m ) && SOURCE2
  	default n
 	help
-	    Do not use this option if the AVM 1st Firmware is a multilingual Firmware originally!
-	    To make this work you must have a T-Home or 2nd AVM Firmware that supplies the needed feature, some text may be wrong or missing!.
+	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!
+	    To make this work you must have a T-Home or 2nd AVM firmware that supplies the needed feature, some text may be wrong or missing!.
 		
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_FORCE_DSL_MULTI_ANNEX 
@@ -1093,7 +1093,7 @@ config EXPORT_FORCE_DSL_MULTI_ANNEX
 	depends on ( ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
 	default n
 	help
-	    To make this work you must have Firmware that supplies the needed feature, firmware with minor version > 70.
+	    To make this work you must have a firmware that supplies the needed feature, firmware with minor version > 70.
 choice
 	depends ! EXPORT_FORCE_DSL_MULTI_ANNEX && ! TYPE_AVM_7570_XX
 	bool "Annex"
@@ -1106,7 +1106,7 @@ choice
 		this is a parameter for DSL and specifies the frequency range of ADSL, POTS lines with 
 		ADSL usually are annex A, ISDN lines usually annex B. 
 		For Speed-to-Fritz, this parameter will be set correctly only if the automatic FTP push
-		option is used in combination or the resulting Firmware is transfered via Web interface.
+		option is used in combination or the resulting firmware is transfered via Web interface.
 		annex A or B. You would have to enter the annex parameter as FTP command line,
 		as 'quote SETENV kernel_args annex=A' but then some telephone settings are not adjusted at the same time.
 	config TYPE_ANNEX_A
@@ -1116,7 +1116,7 @@ choice
 		this is a parameter for DSL and specifies the frequency range of ADSL, POTS lines with 
 		ADSL usually are annex A, ISDN lines usually annex B. 
 		For Speed-to-Fritz, this parameter will be set correctly only if the automatic FTP push
-		option is used in combination or the resulting Firmware is transfered via Web interface.
+		option is used in combination or the resulting firmware is transfered via Web interface.
 		Using some other tools to transfer the kernel.image to the box will not work for setting
 		annex A or B. You would have to enter the annex parameter as FTP command line,
 		as 'quote SETENV kernel_args annex=A' but then some telephone settings are not adjusted at the same time.
@@ -1147,7 +1147,7 @@ config SET_OEM
 	default n
 	help
 	    Branding should be left as it is, but if needed you may specify your own.
-	    You can only specify a branding implemented within the AVM Firmware used!
+	    You can only specify a branding implemented within the AVM firmware used!
 	    (avm, avme, tcom, 1und1, aol, freenet)
 	    In case of option ORI branding will always set to T-Home later through the script.
 
@@ -1156,7 +1156,7 @@ config EXPORT_OEM
 	depends on SET_OEM
 	help
 	    Branding should be left as it is, but if needed you may specify your own.
-	    You can only specify a branding implemented within the AVM Firmware used!
+	    You can only specify a branding implemented within the AVM firmware used!
 	    (avm, avme, tcom, 1und1, aol, freenet)
 	    In case of option ORI branding will always set to T-Home later through the script.
 
@@ -1165,23 +1165,23 @@ comment "Optional settings for Speed-to-fritz -------------------------------"
 menu "Options"
 if ! EXPORT_TYPE_LOCAL_MODEL
  config  ORI
-	bool "Restore original T-Home Firmware"
+	bool "Restore original T-Home firmware"
 	default n
 	select EXPORT_FORCE_CLEAR_FLASH
 	help
-		Set this to "y" if you want to flash back to the original Firmware.
+		Set this to "y" if you want to flash back to the original firmware.
 		Speedport my be rebooting, in this case:
-		If your PC net card is set to DHCP and you did restart the PC you must set the PC net card to:
+		If your PC network card is set to DHCP and you did restart the PC you must set the PC net card to:
 		IP 192.168.178.19 
 		MASK 255.255.0.0
-		Only one net card should be installed, or you specify the IF Option as well.
-		Keep in mind if the Speedport is not responding, the Speedport my use the alternative IP.
-		Use IP Option to change this. 
+		Only one network card should be installed, or you specify the IF option as well.
+		Keep in mind if the Speedport is not responding, the Speedport may use the alternative IP.
+		Use IP option to change this. 
  config PUSHCONF
-	bool "Push Firmware to box via FTP"
+	bool "Push firmware to box via FTP"
 	default y
 	help
-		Do an automatic upload after Firmware is patched.
+		Do an automatic upload after firmware is patched.
  config EXPORT_ADD_OLD_DECTMENU
 	bool "DECT menu (add)"
 	depends on TYPE_SPEEDPORT_W900V || TYPE_SINUS_W500V  || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
@@ -1198,12 +1198,12 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	bool "Add modinfo icon on status page"
 	default y
 	help
-		Add modinfo icon on status page, modinfo buttin is always displayed.
+		Add modinfo icon on status page, modinfo button is always displayed.
  config EXPORT_REMOVE_MENU_ITEM
 	bool "Unusable menu's (remove)"
 	default y
 	help
-		Set this to 'y' if you like to remove Fon3 (or more depending on the type of box) from some menu's. 
+		Set this to 'y' if you like to remove Fon3 (or more depending on the type of box) from some menus. 
 		Both source files must be without leading "#", diff result is in directory ./LogSRC_SRC2
 endif
 
@@ -1217,7 +1217,7 @@ config EXPORT_SET_PMAXTIMEOUT
 	bool "Set Timeout for reconnect to 3600"
 	default n
 	help
-		Set Timeout on Internetsetup page for reconnect from 900 to 3600.
+		Set Timeout on internet setup page for reconnect from 900 to 3600.
 config EXPORT_DO_LOOKUP_PATCH
 	bool "Include reverse lookup patch"
 	depends on ! EXPORT_TYPE_LOCAL_MODEL
@@ -1241,13 +1241,13 @@ config EXPORT_REMOVE_HELP
 	depends on TYPE_SPEEDPORT_W501V || TYPE_LOCAL_TCOM
 	default n
 	help
-		Set this to 'y' if you like to remove help pages, to save space, normal this is "y".
+		Set this to 'y' if you like to remove help pages to save space, normal this is "y".
 config EXPORT_REMOVE_KIDS
 	bool "Kids files (remove)"
 	depends on TYPE_SPEEDPORT_W501V || TYPE_LOCAL_TCOM
 	default n
 	help
-		Set this to 'y' if you like to remove kids pages, to save space, normal this is "n".
+		Set this to 'y' if you like to remove kids pages to save space, normal this is "n".
 config EXPORT_BUGFIX_FONCONFIG
 	bool "Bugfix for fon config ut8"
 	depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V ) && TYPE_LABOR
@@ -1262,26 +1262,26 @@ config EXPORT_DO_GSM_PATCH
 	help
 		Enables GSM page without device plugged in. Usual a GSM modem shows only up if the device is plugged in.
 config FORCE_SRC2_DECTDRIVER
-	bool "Use dect driver from 2nd AVM Firmware"
+	bool "Use DECT driver from 2nd AVM firmware"
 	depends on TYPE_SPEEDPORT_W920V || EXPORT_TYPE_LOCAL_MODEL
 	default n
 	help
-		Use dect driver from 2nd AVM source.
-		V3 Firmware dectdriver cant be used with W920 
+		Use DECT driver from 2nd AVM source.
+		V3 firmware DECT driver canït be used with W920 
 config FORCE_OWN_DECTDRIVER
-	bool "Use own dect driver from ./addon/tmp/XXXX/"
+	bool "Use own DECT driver from ./addon/tmp/XXXX/"
 	depends on TYPE_SPEEDPORT_W920V || EXPORT_TYPE_LOCAL_MODEL
 	default n
 	help
-		Use dect driver from local directory ./addon/tmp/WXXX/.....
-		V3 Firmware dectdriver cant be used with W920, ... 
+		Use DECT driver from local directory ./addon/tmp/WXXX/.....
+		V3 firmware DECT driver canït be used with W920, ... 
 config SAVE_SRC2_DECTDRIVER
-	bool "Save 2nd AVM source dect driver to ./addon/tmp/XXXX/"
+	bool "Save 2nd AVM source DECT driver to ./addon/tmp/XXXX/"
 	depends on TYPE_SPEEDPORT_W920V || EXPORT_TYPE_LOCAL_MODEL
 	default n
 	help
-		Save dect to local directory ./addon/tmp/XXXX/.....
-		V3 Firmware dectdriver cant be used with W920, ...
+		Save DECT driver to local directory ./addon/tmp/XXXX/.....
+		V3 firmware DECT driver canït be used with W920, ...
 
 if ! EXPORT_TYPE_LOCAL_MODEL
  config EXPORT_ADD_ONLINECOUNTER
@@ -1307,12 +1307,12 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	    string "product name"
 		    default "FRITZ!Box Fon WLAN 7170"
 	    help
-		Fritz!Fax works with the default value set! Default is the name used by the AVM Firmware. 
+		Fritz!Fax works with the default value set! Default is the name used by the AVM firmware. 
  config SET_HOSTNAME
 	bool "Box hostname (setup)"
 	default n
 	help
-	    Box hostname should be left as it is, but if needed you may specify your own! Default is the name used by the AVM Firmware.
+	    Box hostname should be left as it is, but if needed you may specify your own! Default is the name used by the AVM firmware.
  	config  EXPORT_HOSTNAME
 	    depends on SET_HOSTNAME
 	    string "hostname"
@@ -1332,8 +1332,8 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	    default ""
 	    help
 		This is the ID name used instead of the ID used in AVM Firmware, 
-		use "7270, 7170, ...  but can be any valled ID used in download addresses.
-		This ID is used to construct the URLs for "Programme" and for Plugindownload. 
+		use "7270, 7170, ...  but can be any valid ID used in download addresses.
+		This ID is used to construct the URLs for "Programme" and for plugin download. 
 
  config SET_FBHWRevision
 	bool "Box Hardware revision (setup)"
@@ -1348,8 +1348,8 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	string "type in new HWRevision, see help for more info."
 	    help
 		This is the Hardware revision used instead of the one used in AVM Firmware, 
-		use defaults, but can be any valled Hardware revision used in download addresses.
-		This Hardware revision is used for Plugindownload.
+		use defaults, but can be any valid Hardware revision used in download addresses.
+		This Hardware revision is used for plugin download.
 		HWR 58 = FB Fon
 		HWR 60 = FB WLAN
 		HWR 61 = FB Fon WLAN
@@ -1438,13 +1438,13 @@ config EXPORT_ENABLE_EXT2
 	bool "add ext2 (ext3) driver"
 	default n
 	help
-		With new AVM Versions in most cases no drivers are present, 
+		With new AVM versions in most cases no drivers are present, 
 		you my place your own driver to: 
 		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext2/ext2.ko 
 		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext3/ext3.ko
 		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/mbcache.ko
-		"2.6.19.2" must match the kernelversion!  
- 		Or you can select a 2nd AVM Firmware from which the driver will be taken.
+		"2.6.19.2" must match the kernel version!  
+ 		Or you can select a 2nd AVM firmware from which the driver will be taken.
 
 config EXPORT_USE_SOURCE2_WEBMNUE
 	bool "Use 2nd AVM source webfiles"
@@ -1452,7 +1452,7 @@ config EXPORT_USE_SOURCE2_WEBMNUE
 	select DO_NOT_STOP_ON_ERROR
 	default n
 	help
-		Use this additional option if new Firmware with alternative menus is used, 
+		Use this additional option if new firmware with alternative menus is used, 
 		with limited functionality but interesting for experiments.
 comment "DSL Options --------------------------------------------------------"
 config EXPORT_ATA_ONLY
@@ -1463,8 +1463,8 @@ config EXPORT_ATA_ONLY
  
 	help
 		Use this additional option, if VDSL or ADSL is not needed or not 
-		usable with the Firmwares in use.
-		"All In One" or similar Firmwares in combination with T-Home .58
+		usable with the firmwares in use.
+		"All In One" or similar firmwares in combination with T-Home .58
 		can only be used in ATA Mode.
 		In Case of W501, no fon will be usable with this option.
 ####
@@ -1472,57 +1472,57 @@ if ! EXPORT_ATA_ONLY
  if ! EXPORT_TYPE_LOCAL_MODEL
     config EXPORT_ADD_DSL_EXPERT_MNUE
 	depends on ! TYPE_TCOM_7570_XX && ! TYPE_SPEEDPORT_W920V && ! TYPE_SPEEDPORT_W721V && ! EXPORT_FORCE_DSL_MULTI_ANNEX
-	bool "Add dsl expert pages"
+	bool "Add DSL expert pages"
 	default n if  TYPE_DSL 
 	default y if  ! TYPE_DSL 
 	help
-		Use this additional option to add expert-pages for dsl settings,
-		only usable on "All In One" or similar Firmwares.
+		Use this additional option to add expert-pages for DSL settings,
+		only usable on "All In One" or similar firmwares.
     config EXPORT_ADD_VDSL_PROFILE
 	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
-	bool "Replace feedback tab with vdsl profil settings pages"
+	bool "Replace feedback tab with VDSL profile settings pages"
 	default y
 	help
-		Use this additional option to enable profile settings pages for vdsl.
+		Use this additional option to enable profile settings pages for VDSL.
     config EXPORT_USE_SOURCE2_DSLMNUE
 	bool "Use 2nd AVM source DSL web files"
 	depends on SOURCE2
 	default n
 	help
-		Use this additional option if new dsl-menu pages from alternative Firmware-images are used.
+		Use this additional option if new DSL menu pages from alternative firmware-images are used.
     config FORCE_TCOM_PCMLINK
-	bool "Use T-Home pcmlink driver"
+	bool "Use T-Home PCMLINK driver"
 	depends on TYPE_SPEEDPORT_W920V
 	# && TYPE_AVM_7570_XX
 	default n
 	help
-		Use PCMLINK from T-Home Firmware.
+		Use PCMLINK from T-Home firmware.
     config FORCE_TCOM_KDSLDMOD
-	bool "Use T-Home kdsldmod driver"
+	bool "Use T-Home KDSLDMOD driver"
 	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default n if ! TYPE_ANNEX_A && ! EXPORT_FORCE_MULTI_LANGUAGE
 	default y if TYPE_ANNEX_A || EXPORT_FORCE_MULTI_LANGUAGE
 	help
-		Use KSLDMOD from T-Home Firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
+		Use KDSLDMOD from T-Home firmware, VPN is causing trouble with this option, in most cases ADSL+ needs this option set.
     config FORCE_SRC2_KDSLDMOD
-	bool "Use 2nd AVM source kdsldmod driver"
+	bool "Use 2nd AVM source KDSLDMOD driver"
 	depends on SOURCE2 && TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V 
 	default n
 	help
-		Use KSLDMOD from 2nd AVM source Firmware, VPN is coursing trouble with this option, in most cases ADSL+ needs this option set.
+		Use KDSLDMOD from 2nd AVM source firmware, VPN is causing trouble with this option, in most cases ADSL+ needs this option set.
     config FORCE_OWN_KDSLDMOD
-	bool "Use own kdsldmod driver from ./addon/tmp/WXXX/"
+	bool "Use own KSLDMOD driver from ./addon/tmp/WXXX/"
 	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default n
 	help
-		Use KSLDMOD from local directory ./addon/tmp/WXXX/.....
+		Use KDSLDMOD from local directory ./addon/tmp/WXXX/.....
     config SAVE_SRC2_KDSLDMOD
-	bool "Save 2nd AVM source kdsldmod driver to ./addon/tmp/WXXX/"
+	bool "Save 2nd AVM source KDSLDMOD driver to ./addon/tmp/WXXX/"
 	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default n
 	help
-		Save KSLDMOD to local directory ./addon/tmp/WXXX/.....
-		At present time only older kdsldmod.ko modules are usable with Annex A and Adsl.
+		Save KDSLDMOD to local directory ./addon/tmp/WXXX/.....
+		At present time only older kdsldmod.ko modules are usable with Annex A and ADSL.
     config USE_SRC2_VINAX_ADSLFW
 	bool "Use 2nd AVM source DSL vinax driver"
 	depends on TYPE_SPEEDPORT_W721V
@@ -1535,7 +1535,7 @@ if ! EXPORT_ATA_ONLY
 	default y if TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V  
 	help
 		For normal this is "n", only with some very bad ADSL connections this may be needed.
-		Use ADSL or VINAX DRIVER from second AVM source Firmware specified in SRC2_IMG.
+		Use ADSL or VINAX DRIVER from second AVM source firmware specified in SRC2_IMG.
  endif
     config USE_SRC2_DSL
 	bool "Use 2nd AVM source (V)DSL driver"
@@ -1544,15 +1544,15 @@ if ! EXPORT_ATA_ONLY
 	default n if ! EXPORT_TYPE_LOCAL_MODEL
 	
 	help
-		Use (V)DSL DRIVER from second AVM source Firmware specified in SRC2_IMG.
+		Use (V)DSL DRIVER from second AVM source firmware specified in SRC2_IMG.
     config USE_OWN_DSL
 	bool "Use own (V)DSL driver"
 	default n
 	help
 		Use (V)DSL DRIVER from local directory ./addon/tmp/WXXX/....
-		WXXX is the respective speedport type, the files here are from a save DSL Driver before.
-		No files get removed within this directory so if you do more as one save with different settings
-		more files my be within this directory as really wanted.
+		WXXX is the respective speedport type, the files here are a saved DSL driver from before.
+		No files get removed within this directory so if you do more than one save with different settings
+		more files may be within this directory than really wanted.
     config SAVE_SRC2_DSL
 	bool "Save 2nd AVM source (V)DSL driver"
 	depends on SOURCE2
@@ -1560,16 +1560,16 @@ if ! EXPORT_ATA_ONLY
 	help
 		Save (V)DSL DRIVER from AVM 2nd AVM source  to ./addon/tmp/WXXX
 		WXXX is the respective Speedport type.
-		No files get removed within this directory so if you do more as one save with diffent settings
-		more files my be within this directory as realy wanted.
+		No files get removed within this directory so if you do more than one save with different settings
+		more files may be within this directory than really wanted.
     config SAVE_AVM_DSL
 	bool "Save AVM (V)DSL driver"
 	depends on ! TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	default n
 	help
 		WXXX is the respective Speedport type.
-		No files get removed within this directory so if you do more as one save with diffent settings
-		more files my be within this directory as realy wanted.
+		No files get removed within this directory so if you do more than one save with different settings
+		more files may be within this directory than realy wanted.
 		Save (V)DSL DRIVER from AVM source to ./addon/tmp/WXXX.
     config REMOVE_ANNEX_B_DSL_DRIVER
 	bool "Remove Annex B driver on 72XX Firmware"
@@ -1578,8 +1578,8 @@ if ! EXPORT_ATA_ONLY
 	default n
 	help
 		Annex B driver will be removed if it is a 72XX firmware.
-		Boxes with 8MB lak of spece, so set this option with older boxes.
-		Aswering machine may have no space left to record if not set.
+		Boxes with 8MB lack of space, so set this option with older boxes.
+		Answering machine may have no space left to record if not set.
     config REMOVE_ANNEX_A_DSL_DRIVER
 	bool "Remove Annex A driver on 72XX Firmware"
 	depends on EXPORT_TYPE_LOCAL_MODEL && TYPE_ANNEX_B
@@ -1587,8 +1587,8 @@ if ! EXPORT_ATA_ONLY
 	default n
 	help
 		Annex A driver will be removed if it is a 72XX firmware.
-		Boxes with 8MB lak of spece, so set this option with older boxes.
-		Aswering machine may have no space left to record if not set.
+		Boxes with 8MB lack of space, so set this option with older boxes.
+		Answering machine may have no space left to record if not set.
 
  if ! EXPORT_TYPE_LOCAL_MODEL
 
@@ -1598,35 +1598,35 @@ if ! EXPORT_ATA_ONLY
 	help
 		Save (V)DSL DRIVER from T-Home source to ./addon/tmp/WXXX.
 		WXXX is the respective Speedport type.
-		No files get removed within this directory so if you do more as one save with diffent settings
-		more files my be within this directory as realy wanted.
+		No files get removed within this directory so if you do more than one save with diffent settings
+		more files may be within this directory than realy wanted.
     config WRAP_DSLD
-	bool "Wrap dsld "
+	bool "Wrap DSLD"
 	depends on TYPE_SPEEDPORT_W920V
 	default n
 	help
-		wrap dsld, ...
+		wrap DSLD, ...
 	if WRAP_DSLD
 		config WRAP_DSLD_LIBBOXLIB
-			bool "Add libboxlib to dsld wrapper"
+			bool "Add libboxlib to DSLD wrapper"
 			default y 
 		config WRAP_DSLD_LIBAR7CFG
-			bool "Add libar7cfg to dsld wrapper"
+			bool "Add libar7cfg to DSLD wrapper"
 			default y 
 		config WRAP_DSLD_LIBAVMCSOCK
-			bool "Add libavmcsock to dsld wrapper"
+			bool "Add libavmcsock to DSLD wrapper"
 			default n
 		config WRAP_DSLD_LIBAVMCIPHER
-			bool "Add libavmcipher to dsld wrapper"
+			bool "Add libavmcipher to DSLD wrapper"
 			default n 
 		config WRAP_DSLD_LIBAVMHMAC
-			bool "Add libavmhmac to dsld wrapper"
+			bool "Add libavmhmac to DSLD wrapper"
 			default n 
 		config WRAP_DSLD_LIBEWNWLINUX
-			bool "Add libewnwlinux to dsld wrapper"
+			bool "Add libewnwlinux to DSLD wrapper"
 			default n 
 		config WRAP_DSLD_LIBSLAB
-			bool "Add libslab to dsld wrapper"
+			bool "Add libslab to DSLD wrapper"
 			default n 
 	endif
  endif
@@ -1647,14 +1647,14 @@ if ! EXPORT_TYPE_LOCAL_MODEL
  #		    default "8"
  #	    help
  #		This is the value used instead, 
- #		T-Home uses "1" but my be specified by your provider.
+ #		T-Home uses "1" but may be specified by your provider.
  # 	config  EXPORT_VCI
  #	    depends on EXPORT_SETATM
  #	    string "VCI value"
  #		    default "48"
  #	    help
  #		This is the value used instead, 
- #		T-Home uses "32" but my be specified by your provider.
+ #		T-Home uses "32" but may be specified by your provider.
 
  #choice
  #	prompt "ATM Type: "
@@ -1712,7 +1712,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	bool "Force use of T-Home piglet driver"
 	default n
 	help
-		For normal this is "n", but for Firmwares with minor versions less then 50 "y" works better.
+		For normal this is "n", but for firmwares with minor versions less then 50 "y" works better.
 
  config FORCE_TCOM_LEDDRIVER
 	bool "Force use of T-Home LED driver"
@@ -1725,7 +1725,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	bool "Force use of T-Home fon driver"
 	default n  
 	help
-		For normal this is "n", but for Firmwares with minor versions less then 50 "y" works better.
+		For normal this is "n", but for firmwares with minor versions less then 50 "y" works better.
 
  config USE_SRC2_FON
 	bool "Use 2nd AVM source FON driver"
@@ -1733,14 +1733,14 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	depends on TYPE_SINUS_W500V
 	default n
 	help
-		Use FON DRIVER from second source Firmware specified in SRC2_IMG.
+		Use FON DRIVER from second source firmware specified in SRC2_IMG.
  config COPY_ADDON_TMP_to_ORI
 	bool "Copy addon/tmp with option -u"
 	depends on ORI
 	default n
 	help
 		Set this to 'y' if you like to include all files within the directory
-		./addon/tmp/squashfs-root in combination with Option -u.
+		./addon/tmp/squashfs-root in combination with option -u.
 
  config UPDATE_DEPMOD
 	bool "Update module dependency information"
@@ -1754,30 +1754,30 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	default y
 	depends on ! TYPE_SPEEDPORT_W721V
 	help
-		Set this to "y" if Freetz 7170 Firmwares are used instead of original AVM Firmware,
+		Set this to "y" if Freetz 7170 firmwares are used instead of original AVM firmware,
 		WWW "all" directory is moved to "$OEM"
 		Other OEM WWW directories if present are removed to save space.
-		Always turn this on if freetz Firmware is used!
+		Always turn this on if freetz firmware is used!
 		Disable this option if autoconfig is used.
  config MOVE_AVM_to_OEM
 	bool "MOVE avm to OEM"
 	default n
 	depends on TYPE_SPEEDPORT_W920V
 	help
-		Set this to "y" if normal 7270 Firmwares in combination with multilingual Firmwares are used, but usual this is not needed.
+		Set this to "y" if normal 7270 firmwares in combination with multilingual firmwares are used, but usual this is not needed.
 		WWW "avm" directory is moved to "$OEM"
 		
  config EXPORT_CONFIG_TR069
 	bool "Enable TR069 disable ATA"
 	default n
 	help
-		Set this to "y" if you want that autoconfiguration is turned on,
-		this may result that in the case that your box is turned back to T-Home Firmware
-		automatically if new T-Home Firmware is available, if this happens, it is not sure
-		that your box will funktion normal again, so do not use this option 
+		Set this to "y" if you want that autoconfiguration turned on,
+		this may turn your box back automatically to T-Home firmware 
+		if new T-Home firmware is available. If this happens, it is not sure
+		that your box will function normal again, so do not use this option 
 		expect you be aware of this case.
 		You must set OEM to the branding you use.  
-		Autoconfiguration is only set on if AVM Firmware suports this option!.
+		Autoconfiguration is only set on if AVM firmware supports this option!.
 		ATA is disabled if tr069 is turned on.
 		
  config EXPORT_CONFIG_TR064
@@ -1797,7 +1797,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	help
 		For normal this is "n", but for testing this may be used, this option is dangerous,
 		but it can be used in combination with the option restore original Firmware as well.
-		It is mainly added for testing W920, W920 original Firmware does not log to the console
+		It is mainly added for testing W920, W920 original firmware does not log to the console
 		but if the kernel is replaced with AVM kernel the log is present.
 endif
  config SRC2_KERNEL
@@ -1807,7 +1807,7 @@ endif
 	help
 		For normal this is "n", but for testing this may be used, this option is dangerous,
 		but it can be used in combination with the option restore original Firmware as well.
-		It is mainly added for testing W920, W920 original Firmware does not log to the console
+		It is mainly added for testing W920, W920 original firmware does not log to the console
 		but if the kernel is replaced with AVM kernel the log is present.
  config COPY_ADDON_TMP
 	bool "Copy addon/tmp"
@@ -1819,10 +1819,10 @@ config EXPORT_FORCE_CLEAR_FLASH
 	bool "Clear mtd3 and mtd4"
 	default y
 	help
-		Set this to "y" if Firmwares are used witch are older or much newer as the one installed.
-		Usual this is also made automatically on base of versionsnumbers but in some cases
-		versions will not indicate the changes made by the skript. Ths will prevent a reboot loop,
-		coursed by settings incompatibility. 
+		Set this to "y" if firmwares are used witch are older or much newer than the one installed.
+		Usually this is also made automatically based on version numbers but in some cases
+		versions will not indicate the changes made by the script. This will prevent a reboot loop,
+		caused by settings incompatibility. 
 
 comment "TEST Options -------------------------------------------------------"
 
@@ -1830,13 +1830,13 @@ config VERBOSEETY
 	bool "Verbose display for debugging"
 	default y
 	help
-		Verbose display for debugging, skript may by interrupted if this is set!
+		Verbose display for debugging, script may be interrupted if this is set!
 
 config SET_UP
 	bool "Just do a setup run"
 	default n
 	help
-		No output file will be generated! Process stops before packing Firmware!.
+		No output file will be generated! Process stops before packing firmware!.
 
 config EXPORT_REUSECONF
 	bool "Keep configuration"
@@ -1848,7 +1848,7 @@ config DO_NOT_STOP_ON_ERROR
 	bool "Do not STOP on ERROR" 
 	default n
 	help
-		If you set this to 'y' for some reason, you are able to build a Firmware with bugs!.
+		If you set this to 'y' for some reason, you are able to build a firmware with bugs!.
 
 config DO_DIFF
 	bool "Do DIFF between AVM source and 2nd AVM source"
@@ -1879,14 +1879,14 @@ config DO_FINAL_DIFF_SRC2
 		Set this to 'y' to make a diff between DST and SRC2
 		SRC2_IMG source files must be selected, diff result is in directory ./LogFINALto3.
 config DO_KDIFF3_2
-	bool "Do KDIFF3, show the two selected Firmwares"
+	bool "Do KDIFF3, show the two selected firmwares"
 	depends on ! SOURCE2
 	default n
 	help
 		Set this to 'y' to make a kdiff3 between AVM and T-Home (or 2nd AVM if TYPE_LOCAL_MODEL was selected).
 		Diff result is shown in kdiff3 gui.
 config DO_KDIFF3_3
-	bool "Do KDIFF3, show all selected Firmwares"
+	bool "Do KDIFF3, show all selected firmwares"
 	depends on SOURCE2 
 	default n
 	help
@@ -1907,15 +1907,15 @@ config DO_FINAL_KDIFF3_3
 		Set this to 'y' to make a kdiff3 show changed AVM, orignal AVM source and 2nd AVM source
 		Diff result is shown in kdiff3 gui.
 
-comment "Netcard Options ----------------------------------------------------"
+comment "Network card options ----------------------------------------------------"
 
 config ETH_IF_Q
-	bool "Setup a fixed Netcard port"
+	bool "Setup a fixed network card port"
 	help
-		Only set this, if you have more than one netcard installed!
+		Only set this, if you have more than one network card installed!
 		This option is only in use with the push option or with CLEAR_ENV or ftpXXX.
 choice
-	prompt "Netcard installed on: "
+	prompt "Network card installed on: "
 	depends on ETH_IF_Q
 	default ETH0
 	config ETH0
@@ -1961,7 +1961,7 @@ config SET_IP_ADDRESS_Q
 		This option is only in use with the push option or with ftpXXX.
 
 choice
-	prompt "Netcard installed on: "
+	prompt "Network card installed on: "
 	depends on SET_IP_ADDRESS_Q
 	default TYPE_IP_178
 	config TYPE_IP_178
@@ -1984,7 +1984,7 @@ endmenu
 menu "Preset some GUI settings"
 
 config SET_EXPERT
-	bool "Set Expertenansicht as default"
+	bool "Set experten view as default"
 	default y
 	help
 	    This is usual set to no, within the AVM GUI. 
@@ -2003,7 +2003,7 @@ config EXPORT_ADD_KAID
 	bool "Add kaid for XBOX"
 	default n
 	help
-		Set this to 'y' to if Xlink-kai for Xbox should be added   
+		Set this to 'y' to if Xlink-kai for Xbox should be added.   
 		Files are copied from /addon/kaid configuration must 
 		be done on the file /addon/kaid/kaid.conf before! 
 		Defaults, Username: admin, Password: 0000
@@ -2011,13 +2011,13 @@ config EXPORT_ADD_KAID
 
 
 config EXPORT_ADD_NTFS
-	bool "Add ntfs"
+	bool "Add NTFS"
 	select EXPORT_ENABLE_EXT2
 	depends on TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM
 	default n
 	help
-		With new AVM Versions in most cases ntfs is part of the Firmware.
-		Or you can select a 2ns AVM Firmware from where the driver will be taken.
+		With new AVM Versions in most cases NTFS is part of the firmware.
+		Or you can select a 2nd AVM firmware from where the driver will be taken.
 
 config EXPORT_ADD_USBROOT
 	bool "Add USBROOT"
@@ -2025,7 +2025,7 @@ config EXPORT_ADD_USBROOT
 	depends on TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM
 	default n
 	help
-		Generate a USB rot file for use on a USB stick.
+		Generate a USB root file for use on a USB stick.
 
 endmenu
 
@@ -2036,8 +2036,8 @@ config SET_FREETZ_REVISION
 	default n if ! ( ( TYPE_58  && TYPE_SPEEDPORT_W920V ) || TYPE_13486 )
 	default y if   ( ( TYPE_58  && TYPE_SPEEDPORT_W920V ) || TYPE_13486 )
 	help
-	    normaly this is not set, but in specail cases new revisions of freetz
-	    can't be used in combination with the Firmware on wants to use.
+	    normaly this is not set, but in special cases new revisions of freetz
+	    can't be used in combination with the firmware one wants to use.
 	    So type in the revision number, this will be used with start-freetz.sh
 	    script only. 
 
@@ -2057,6 +2057,6 @@ comment "--"
 comment "--------------------------------------------------------------------"
 
 comment "If you save or load the configuration with a different name, you must"
-comment "save with name 'Firmware.conf' again, only this File name is in use by sp-to-fritz.sh"
+comment "save with name 'Firmware.conf' again, only this file name is in use by sp-to-fritz.sh"
 #( do not remove the following line)
 ### FILE_ENDE ###
