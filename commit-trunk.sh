@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="README changed"
+comment="Clean up of some unused files"
 
 
 
@@ -21,6 +21,8 @@ date=$(date +%Y%m%d-%H%M)
 svn delete --force ./download_speed-to-fritz.sh
 svn delete --force ./diff.sh
 svn delete --force ./patch.diff
+svn delete --force ./trunk/patch.diff
+svn delete --force ./trunk/sp-to-fritz.sh
 #svn add * --force
 #svn propedit svn:ignore trunk
 #svn propedit svn:ignore .
