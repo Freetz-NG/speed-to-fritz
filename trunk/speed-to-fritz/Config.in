@@ -234,8 +234,8 @@ config AVM_7570_14685
 ### FIRMWARE_CONFIG_ENDE ###
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### ATTENTION! Most variables set up here are in use by various scripts later, so do not change,
-### except numbers within variable names corresponding to the above Firmware names.
-### If a Firmware version or subversion changes replace all the partial numbers accuring within this config file.
+### except numbers within variable names corresponding to the above firmware names.
+### If a firmware version or subversion changes replace all the partial numbers accuring within this config file.
 ### Example:  _11779 to _XXXXX.  Or _58 to _XX (but be careful because some of the very short numbers may be used on other ocasins)
 choice
 	prompt "Hardware type"
@@ -289,7 +289,7 @@ if LOCAL_X_MODEL
 	    default "7270"	
 	    help 
 		    In this case only 1st AVM and 2nd AVM firmware is in use, so insert any AVM model type and 
-		    then insert the firmwares names for 1st AVM and 2nd AVM firmware.
+		    then insert the firmware names for 1st AVM and 2nd AVM firmware.
 endif
 
 if  TYPE_7141 || TYPE_7270v3 || TYPE_7240v2 || LOCAL_X_MODEL
@@ -345,10 +345,10 @@ config TCOM_LOCAL
     default "./Firmware.orig/..."
     help 
 	Enter the name of your custom T-Home firmware, in the same manner with path/filename as usually,
-	this is the name of the 1st Firmware fitting completely to the hardware in use.
+	this is the name of the 1st firmware fitting completely to the hardware in use.
 
 config TYPE_TCOM_7570_XX 
-	bool "Select a special 7570 Firmware as T-Home firmware --->"
+	bool "Select a special 7570 firmware as T-Home firmware --->"
 	depends on TYPE_SPEEDPORT_W920V && ! TYPE_TCOMBETA
 	default n
 	help
@@ -394,18 +394,18 @@ config TYPE_TCOM_W721SPECIAL
 	help
 		Enable this to compile the mod based on an special AVM firmware.
 choice
-	prompt "W721 Firmware"
+	prompt "W721 firmware"
 		depends on TYPE_TCOM_W721SPECIAL
 	config TYPE_TCOM_W721V_74
 		bool "TCOM_W721V_74"
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 choice
-	prompt "Select Firmware default language"
+	prompt "Select firmware default language"
 		default TYPE_LANG_DE
 	help
-	    The selected Firmware language is usual the one used by the AVM Firmware.
-	    If 1st AVM and 2nd AVM firmware is a multilingual firmware, one of this firmware languages can be forced, but this is only possible with 7270 or 7570 Firmwares.
+	    The selected firmware language is usual the one used by the AVM firmware.
+	    If 1st AVM and 2nd AVM firmware is a multilingual firmware, one of this firmware languages can be forced, but this is only possible with 7270 or 7570 firmwares.
 	    The resulting text within the generated firmware may be not completely in this language, text not found in the selected language will be displayed in german or english.
 	config TYPE_LANG_DE
 		bool "de - german"
@@ -430,9 +430,9 @@ endchoice
 #	default "ATTENTION!"
 #	help
 #		-------------------------------------------------------------------------
-#		ATTENTION! AVM uses the same Filenames for 7170 and 7270 Labor-Firmwares!
+#		ATTENTION! AVM uses the same Filenames for 7170 and 7270 Labor-firmwares!
 #		So if you change your settings from W920V (in combination with a
-#		Labor Firmware 11500) back to any other or the other way round, then
+#		Labor firmware 11500) back to any other or the other way round, then
 #		the previously loaded Labor firmware located in /Firmware.org is removed
 #		-------------------------------------------------------------------------
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -709,10 +709,10 @@ config SOURCE2
 		to supply missing modules.
 		
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-### if new Firmware was added it could be needed to enter one more entries into the second source section as well!
+### if new firmware was added it could be needed to enter one more entries into the second source section as well!
 choice
 
-	prompt "All possible firmware's"
+	prompt "All possible firmwares"
 		depends on SOURCE2
 		default TYPE_SRC3_AVM_7570_72 if ! EXPORT_TYPE_LOCAL_MODEL
 		default TYPE_SRC3_AVM_V3_7270_76 if EXPORT_TYPE_LOCAL_MODEL && TYPE_7270v3
@@ -863,7 +863,7 @@ config SRC3_LOCAL
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-### If new Firmware is added in the top section of this file, some of this section may be changed or added in connection
+### If new firmware is added in the top section of this file, some of this section may be changed or added in connection
 ### Keep in mind if in the top section the  SYMBOL NAME was XXX (example: TCOM_SINUS_27) then a $ sign is added here in front of it.
 ### Based on the above four menu sections, here the corresponding firmwares are set up with "if"
 config TCOM_IMG
@@ -1331,7 +1331,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	    string "Type in FritzBox Mod ID, see help for more info."
 	    default ""
 	    help
-		This is the ID name used instead of the ID used in AVM Firmware, 
+		This is the ID name used instead of the ID used in AVM firmware, 
 		use "7270, 7170, ...  but can be any valid ID used in download addresses.
 		This ID is used to construct the URLs for "Programme" and for plugin download. 
 
@@ -1347,7 +1347,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	default "145" if TYPE_67m || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_EN )
 	string "type in new HWRevision, see help for more info."
 	    help
-		This is the Hardware revision used instead of the one used in AVM Firmware, 
+		This is the Hardware revision used instead of the one used in AVM firmware, 
 		use defaults, but can be any valid Hardware revision used in download addresses.
 		This Hardware revision is used for plugin download.
 		HWR 58 = FB Fon
@@ -1572,7 +1572,7 @@ if ! EXPORT_ATA_ONLY
 		more files may be within this directory than realy wanted.
 		Save (V)DSL DRIVER from AVM source to ./addon/tmp/WXXX.
     config REMOVE_ANNEX_B_DSL_DRIVER
-	bool "Remove Annex B driver on 72XX Firmware"
+	bool "Remove Annex B driver on 72XX firmware"
 	depends on EXPORT_TYPE_LOCAL_MODEL && TYPE_ANNEX_A
 #	depends on EXPORT_TYPE_LOCAL_MODEL
 	default n
@@ -1581,7 +1581,7 @@ if ! EXPORT_ATA_ONLY
 		Boxes with 8MB lack of space, so set this option with older boxes.
 		Answering machine may have no space left to record if not set.
     config REMOVE_ANNEX_A_DSL_DRIVER
-	bool "Remove Annex A driver on 72XX Firmware"
+	bool "Remove Annex A driver on 72XX firmware"
 	depends on EXPORT_TYPE_LOCAL_MODEL && TYPE_ANNEX_B
 #	depends on EXPORT_TYPE_LOCAL_MODEL
 	default n
@@ -1789,14 +1789,14 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		your box will function normal again, so do not use this option
 		expect you be aware of this case.
 		Autoconfiguration from within the internal LAN is only 
-		set on if AVM Firmware supports this option!.
+		set on if AVM firmware supports this option!.
  config XCHANGE_KERNEL
 	bool "Xchange kernel between T-Home and avm source"
 	default n if ! TYPE_SPEEDPORT_W721V
 	default y if TYPE_SPEEDPORT_W721V
 	help
 		For normal this is "n", but for testing this may be used, this option is dangerous,
-		but it can be used in combination with the option restore original Firmware as well.
+		but it can be used in combination with the option restore original firmware as well.
 		It is mainly added for testing W920, W920 original firmware does not log to the console
 		but if the kernel is replaced with AVM kernel the log is present.
 endif
@@ -1806,7 +1806,7 @@ endif
 	default n
 	help
 		For normal this is "n", but for testing this may be used, this option is dangerous,
-		but it can be used in combination with the option restore original Firmware as well.
+		but it can be used in combination with the option restore original firmware as well.
 		It is mainly added for testing W920, W920 original firmware does not log to the console
 		but if the kernel is replaced with AVM kernel the log is present.
  config COPY_ADDON_TMP
@@ -1984,7 +1984,7 @@ endmenu
 menu "Preset some GUI settings"
 
 config SET_EXPERT
-	bool "Set experten view as default"
+	bool "Set expert view as default"
 	default y
 	help
 	    This is usual set to no, within the AVM GUI. 
