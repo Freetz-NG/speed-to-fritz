@@ -126,7 +126,7 @@ if [  -e "${SPDIR}/var/install" ]; then
  [ "$uClibVersion" ] || echo "WARNING! AVM uClib version not found!"
  if [ "$TCOM_uClibVersion" != "$uClibVersion" ]; then
   export DifferentuClibVersion="y"
-  echo "WARNING! uClib version of AVM and T-Home Firmware differ!"
+  echo "WARNING! uClib version of AVM and T-Home firmware differ!"
   sleep 2
  fi
 #else
