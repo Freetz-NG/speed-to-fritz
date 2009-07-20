@@ -49,12 +49,12 @@ MIRROR_DLD_PATH="${5%/*}"
 #echo "FILENAME_DLD_TPL:$6"
 #echo "test----------------------------"
 IMG_REQ_N="${IMG_REQ%.*}"
-#alternativ lokal filename -->
+#alternative local filename -->
 if [ -f "$DLD_DIR/${FILENAME_DLD_TPL##*/}" ]; then
     IMG_REQ="${FILENAME_DLD_TPL##*/}"
     EXT="${FILENAME_DLD_TPL##*.}"
     DLD_PATH="${FILENAME_DLD_TPL%/*}"
-else #<--alternativ lokal filename --
+else #<--alternative local filename --
 
  #echo "IMG_REQ_N: $IMG_REQ_N"
  if [ -f "$DLD_DIR/$IMG_REQ_N.image" ]; then
@@ -86,7 +86,7 @@ else #<--alternativ lokal filename --
 	esac
     fi
   fi
- fi #<--alternativ lokal filename --
+ fi #<--alternative local filename --
 fi
 
 if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
@@ -96,12 +96,12 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 	rm -fdR "$DLD_DIR/$IMG_REQ1"
 	mkdir "$DLD_DIR/$IMG_REQ1"
 	unzip -qoj "$DLD_DIR/$IMG_REQ" -d "$DLD_DIR/$IMG_REQ1" 	#option j added because AVM added path inside zipfile with fritz_box-labor-7270-13362.zip 
-	#--> look for file suppled via Config.in as 2nd parameter -->  
+	#--> look for file supplied via Config.in as 2nd parameter -->  
 	if [ -f "$DLD_DIR/$IMG_REQ1/${FILENAME_DLD_TPL##*/}" ]; then
 		IMG_EXTRACTED="${FILENAME_DLD_TPL##*/}"
 	else
-	#<--look for file suppled via Config.in as 2nd parameter
-#-->only used if more as one .image file is within the zipfile-->
+	#<--look for file supplied via Config.in as 2nd parameter
+#-->only used if more than one .image file is within the zipfile-->
 		IMG_EXTRACTED=`ls "$DLD_DIR/$IMG_REQ1" | grep  'image'`
 		IMG_CNTS=`ls "$DLD_DIR/$IMG_REQ1" | grep -c 'image'`
 		SELECT=0
@@ -125,8 +125,8 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 		    fi
 		    [ "$YESNO" = "y" ] && IMG_EXTRACTED="${IMG[$SELECT]}"
 		done
-#<--only used if more as one .image file is within the zipfile
-	fi #<--look for file suppled via Config.in as 2nd parameter
+#<--only used if more than one .image file is within the zipfile
+	fi #<--look for file supplied via Config.in as 2nd parameter
 		#workaround problem with filenames including SPC
 		IMG_EXTRACTED_SPC="$(echo $IMG_EXTRACTED | sed -e "s/ /-/")" 
 		mv "$DLD_DIR/$IMG_REQ1/$IMG_EXTRACTED" "$DLD_DIR/$IMG_EXTRACTED_SPC" 
@@ -148,7 +148,7 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 #original name was:\n\
 #$IMG_DESC=\"$DLD_TPL\" \n\
 #|" "$HOMEDIR/$firmwareconf_file_name"
-	echo "image extraktet: $IMG_EXTRACTED_SPC"
+	echo "image extracted: $IMG_EXTRACTED_SPC"
 
 		eval "$4=$IMG_EXTRACTED_SPC"
 		return 0
@@ -160,7 +160,7 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 fi
 echo "-- Unable to retrieve file '$IMG_REQ'" 
 echo "   Check your internet connection!"
-echo "In some cases the download won't start even the file is existent on the server."
+echo "In some cases the download won't start even the file exists on the server."
 echo "It is better to keep the source images local in any case."
 echo "In such cases please download the file to the directory:"
 echo "      $DLD_DIR"
@@ -174,13 +174,13 @@ sleep 20; exit 1
 #                                                                       #
 # Function pushconfig()                                                 #
 #                                                                       #
-# pushconfig waits for Speedport's ping replay after reboot to          #
+# pushconfig waits for Speedport's ping reply after reboot to          #
 # automatically transfer the file 'kernel.image' via ftp (adam2)        #
 #                                                                       #
 #########################################################################
 # Cygwin users note:
 #   1. There is NO guarantee whatsoever that this will work on Cygwin,
-#      Provided as is.
+#      provided as it is.
 #   2. For FTP you need the 'ncftp' cygwin package (category 'net').
 #   3. You need the 'ping' command from Windows (tested on XP), NOT from the
 #      'ping' cygwin package (please uninstall or change path so Windows
@@ -229,12 +229,12 @@ NET=${CNET%.*}
 ETHLIST=" eth0 eth1 eth2 eth3 eth4 eth5"
 if [ $ETH_IF ]; then 
  ETHLIST="$ETH_IF"
- echo "Net cards set up for search active netconnections: $ETHLIST"
+ echo "Network cards set up for search active net connections: $ETHLIST"
  echo "This was set via command line parameter of sp-to-fritz.sh."
 else 
- echo "Net cards set up for search active netconnections: $ETHLIST"
- echo "This list was set default, but can be set in advance." 
- echo "By invoking via Menue or commandline option."
+ echo "Network  cards set up for search active netconnections: $ETHLIST"
+ echo "This list was set to default, but can be set to advance." 
+ echo "By invoking via menu or commandline option."
 fi
 for ETH_IF in ${ETHLIST} ; do
   if  ifconfig $ETH_IF >/dev/null ; then
@@ -264,7 +264,7 @@ if ! [ $FORCE_CLEAR_FLASH ]; then
 	echo
 	echo " * You should now reboot your box."
 	echo "   Waiting for box to shut down."
-	echo "   Tip: switch off, if reboot is not detected because it happens to quickly"
+	echo "   Tip: switch off, if reboot is not detected because it happens too quickly"
 	echo -n "   "
 	while eval "ping $ping_params $ip > /dev/null"; do
 		echo -n "."
@@ -337,7 +337,7 @@ quote REBOOT
 quit
 EOT
 fi
-# this my be needed if the Box is to recover
+# this may be needed if the Box is about to recover
 #quote SETENV jffs2_size	$CONFIG_jffs2_size
 #quote SETENV kernel_args	idle=4
 
@@ -347,23 +347,23 @@ fi
 # Next important Bit is ATA, since the bits are used to indicate ATA mode.
 # The other bit is BitFileCount and BitFileCountReservd1.
 # All used in the startup process of the box.  
-# This information overrides other settings made elseware.
+# This information overrides other settings made elsewhere.
 # BitFileCount 1 is used to decide the version of binary files used for the XILINX.
 # BitFileCountReserved1 is of less importanc is 0. 
 # quote SETENV ptest finalize=1
-# finalize=1 (holt env vom tftpserver 192.168.2.20 (FILNAME = finalize.tar))
-# ptest options: (only one option is possible with quote SETENV ptest, but within the serial console more as one option is possible at once) 
-         #this alternative method is used to keep some original tar entrys used by t-com update
+# finalize=1 (getting ENV from tftpserver 192.168.2.20 (FILNAME = finalize.tar))
+# ptest options: (only one option is possible with quote SETENV ptest, but within the serial console more than one option is possible at once) 
+         #this alternative method is used to keep some original tar entries used by t-com update
 
 # subnet=2.20 (192.168.X.X)
-# dsl=XX (XX stands for number of testes performed)
-# wlan=off (oder on, cal, XX)
+# dsl=XX (XX stands for number of tests performed)
+# wlan=off (or on, cal, XX)
 # ab=XX
 # usb_h=1 
 # capiserv=1
 #  
-# results of test should be pushed to the tftpserver but not veryfied jet 
-# quote SETENV ProductID  $CONFIG_PRODUKT (For some reason this command is not transfered via FTP only within the serial Console) 
+# results of test should be pushed to the tftpserver but not veryfied yet 
+# quote SETENV ProductID  $CONFIG_PRODUKT (For some reason this command is not transfered via FTP only within the serial console) 
 # quote SETENV firmware_info  $VERSION
 
 else
@@ -379,7 +379,7 @@ done
 echo  "."
 echo "Box is back up again. Initiating file transfer of 'kernel.image' ..."
 echo "Please be patient, it takes about one minute to erase the mtd1 partition ..."
-echo "Reset Environment..."
+echo "Reset environment..."
 #lcd "${IMAGEDIR}"
 ftp -n -p <<EOT
 open "${IPADDRESS}"
@@ -479,7 +479,7 @@ function fw_unpack()
 	rm -rf "$DESTDIR"
 	mkdir "$DESTDIR"
         if [ "$DESTDIR" = "$SPDIR"  ] && [ -s "$HOMEDIR/kernel.image" ]; then
-	 echo "-- Could locate './kernel.image' in workdirectory."
+	 echo "-- Could locate './kernel.image' in work directory."
 	 echo "-- If you keep this file it will be used instead of:"
 	 echo "-- ${ARCHIVE##*/}"
 	 echo "   Remove ./kernel.image file? (y/n)"
@@ -642,7 +642,7 @@ fw_pack()
 	# Calculate aproximately free space in seconds for the answering machine
 	FREE_BYTE_JFFS2=$((($kernel_size - $act_kernel_size - 233472)))
 	FREE_MINUTES=$((($FREE_BYTE_JFFS2 / 2017 / 60)))
-	echo "-- Aproximately free time for the answering machine: $((($FREE_BYTE_JFFS2 / 2017)))s (${FREE_MINUTES}min $((($FREE_BYTE_JFFS2 / 2017 - $FREE_MINUTES * 60)))s)"
+	echo "-- Approximately free time for the answering machine: $((($FREE_BYTE_JFFS2 / 2017)))s (${FREE_MINUTES}min $((($FREE_BYTE_JFFS2 / 2017 - $FREE_MINUTES * 60)))s)"
     fi
     echo2 "Adding checksum"
     "$TICHKSUM" "$KERNEL_MOD" > "${DIR}/kernelchksum.log"

@@ -6,8 +6,8 @@ echo2 "-------------------------------------------------------------------------
 echo2 "Verifying version of firmware images ..."
 
 if [  -e "${SPDIR}/var/install" ]; then
- ## Für Language den Default der Firmware auflösen
- ## (es wird immer die Sprache der FW genommen)
+ ## Get default language of firmware
+ ## (always using the language of firmware)
  Language=`grep language ${DST}/etc/default.language`
  export tcom_Lang=`echo ${Language##language} | tr -d ' '`
  readConfig "VERSION_MAJOR" "TCOM_VERSION_MAJOR" "${DST}/etc/init.d"
@@ -76,14 +76,14 @@ if [  -e "${SPDIR}/var/install" ]; then
   if [ "$OEM" = "avme" ] && [ "$avm_Lang" != "en" ]; then
   echo "-- AVM  firmware image version is: $AVM_VERSION-$AVM_SUBVERSION"
   echo "-- Language of AVM firmware is: $avm_Lang, language of T-Home firmware is: $tcom_Lang"
- # echo "-- May be You cant use branding: \"$OEM\" with this version! Set it to 'avm' or a other valid oem and try again!"
+ # echo "-- You can't use branding: \"$OEM\" with this version! Set it to 'avm' or a other valid oem and try again!"
  #  sleep 20
  #  exit 0
   fi
   if [ "$OEM" != "avme" ] && [ "$avm_Lang" = "en" ]; then
   echo "-- AVM  firmware image version is: $AVM_VERSION-$AVM_SUBVERSION"
   echo "-- Language of AVM firmware is: $avm_Lang, language of T-Home firmware is: $tcom_Lang"
- # echo "-- May be You can't use branding: \"$OEM\" with this version. Set it to 'avm' or a other valid oem and try again!"
+ # echo "-- You can't use branding: \"$OEM\" with this version. Set it to 'avm' or a other valid oem and try again!"
  #  sleep 20
  #  exit 0
   fi
@@ -109,7 +109,7 @@ if [  -e "${SPDIR}/var/install" ]; then
  if [ "$TCOM_KernelVersion" != "$KernelVersion" ]; then
   export DifferentKernelVersion="y"
   echo "ATTENTION! Kernel version of AVM and T-Home Firmware differ!"
-  echo "You cant use options like:"
+  echo "You can't use options like:"
   echo "'Force use of t-com piglet driver' or 'Force use of T-Home fon driver."
   sleep 5
  fi
