@@ -157,7 +157,7 @@ config AVM_7270_67m
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image"
 config AVM_7270_70
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_IPv6/fritz_box-labor-14338.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_IPv6/fritz_box-labor-14620.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
 config AVM_7240_76
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7240/firmware/deutsch/FRITZ.Box_Fon_WLAN_7240.73.04.76.image"
@@ -188,9 +188,9 @@ config AVM_PHONE_7270_14755
 config AVM_AURA_7270_14142
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_usb/fritz_box-labor-14142.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabAURA.AnnexB.54.04.95-14142.image"
-config AVM_IPV6_7270_14338
+config AVM_IPV6_7270_14620
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_IPv6/fritz_box-labor-14338.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabIPV6.AnnexB.54.04.94-14338.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_IPv6/fritz_box-labor-14620.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabIPV6.AnnexB.54.04.94-14620.image"
 config AVM_WLANX_7270_14080
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_wlan/fritz_box-labor-14080.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_WLAN_Labor_54.04.98-14080.image"    
@@ -574,8 +574,8 @@ choice
 			FRITZ!Lab AURA: Thanks to AVM USB Remote Architecture (AURA),
 			all devices connected to FRITZ!Box behave as if they were connected
 			directly to your PC.
-	config TYPE_IPV6_14338
-		bool "7270 IPV6_14338"
+	config TYPE_IPV6_14620
+		bool "7270 IPV6_14620"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
@@ -781,8 +781,8 @@ choice
 		bool "AVM_WLANX_7270_14080"
 	config TYPE_SRC3_AVM_AURA_7270_14142
 		bool "AVM_AURA_7270_14142"
-	config TYPE_SRC3_AVM_IPV6_7270_14338
-		bool "AVM_IPV6_7270_14338"
+	config TYPE_SRC3_AVM_IPV6_7270_14620
+		bool "AVM_IPV6_7270_14620"
 	config TYPE_SRC3_AVM_PHONE_7270_14712
 		bool "AVM_PHONE_7270_14712"
 	config TYPE_SRC3_AVM_PHONE_7240_14755
@@ -935,7 +935,7 @@ config AVM_IMG
 	default "$AVM_AIO_7270_14543"			if ( TYPE_7270_AIO ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_WLANX_7270_14080"			if ( TYPE_7270_WLAN ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_AURA_7270_14142"			if ( TYPE_AURA_14142 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_IPV6_7270_14338"			if ( TYPE_IPV6_14338 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_IPV6_7270_14620"			if ( TYPE_IPV6_14620 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PHONE_7240_14755"			if ( TYPE_7240_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PHONE_7270_14755"			if ( TYPE_7270_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PHONE_7270_14712"			if ( TYPE_7270_14712_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
@@ -996,7 +996,7 @@ config SRC2_IMG
 	default "$AVM_AIO_7270_14543"		if TYPE_SRC3_AVM_AIO_7270_14543
 	default "$AVM_WLANX_7270_14080"		if TYPE_SRC3_AVM_WLANX_7270_14080
 	default "$AVM_AURA_7270_14142"		if TYPE_SRC3_AVM_AURA_7270_14142
-	default "$AVM_IPV6_7270_14338"		if TYPE_SRC3_AVM_IPV6_7270_14338
+	default "$AVM_IPV6_7270_14620"		if TYPE_SRC3_AVM_IPV6_7270_14620
 	default "$AVM_DSL_7270_14000"		if TYPE_SRC3_AVM_DSL_7270_14000
 	default "$AVM_PHONE_7270_14712"		if TYPE_SRC3_AVM_PHONE_7270_14712
 	default "$AVM_PHONE_7240_14755"		if TYPE_SRC3_AVM_PHONE_7240_14755
@@ -1057,7 +1057,7 @@ config TYPE_LABOR_TYPE
 	default "MINI" 		if TYPE_7270_MINI || TYPE_7170_MINI
 	default "AIO" 		if TYPE_7270_AIO || TYPE_7170_AIO 
         default "AURA_14142" 	if TYPE_AURA_14142
-        default "IPV6_14338" 	if TYPE_IPV6_14338
+        default "IPV6_14620" 	if TYPE_IPV6_14620
 	default "298" 		if TYPE_298
 	default "7570_70" 	if TYPE_AVM_7570_70
 	default "7570_72" 	if TYPE_AVM_7570_72
