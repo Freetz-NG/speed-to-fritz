@@ -40,6 +40,7 @@ Resizing Images takes 15 minutes or much longer depending on the size.
 ----------------------------------------------------------------------------
 Cooperative Linux 0.8.0 README
 ----------------------------------------------------------------------------
+* console-nt: paste with WinKey+V
 
   Instructions for running Cooperative Linux for Windows (see source for
 how to build and run coLinux for Linux)

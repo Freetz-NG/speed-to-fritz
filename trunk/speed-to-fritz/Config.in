@@ -167,9 +167,9 @@ config AVM_7270_76
 config AVM_V3_7270_76
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.76.image"
-config AVM_V3_7270_14712
-    string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7270/fritz_box-labor-7270-14712.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabPHONE.AnnexB.54.04.97-14712.image"
+config AVM_V3_7270_14755
+   string
+      default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7270/fritz_box-labor-7270v3-14755.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabPHONE.AnnexB.74.04.97-14755.image"
 config AVM_DSL_7270_14000
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-1400.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.99-14000.image"
@@ -178,7 +178,7 @@ config AVM_7270_13486
     default "http://www.hostarea.de/server-02/Februar-3257971088.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.70-13486.image"
 config AVM_PHONE_7240_14755
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7240/fritz_box-labor-7240-14755.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7240_Labor_73.04.97-14755.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7240/fritz_box-labor-7240-14755.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7240_LabPHONE.AnnexB.73.04.97-14755.image"
 config AVM_PHONE_7270_14712
     string
     default "p"
@@ -191,6 +191,9 @@ config AVM_AURA_7270_14142
 config AVM_IPV6_7270_14620
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_IPv6/fritz_box-labor-14620.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabIPV6.AnnexB.54.04.94-14620.image"
+config AVM_V3_IPV6_7270_14620
+    string
+   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_IPv6/fritz_box-labor-7270v3-14620.zip ./FRITZ.Box_Fon_WLAN_7270_v3_LabIPV6.AnnexB.74.04.94-14620.image"
 config AVM_WLANX_7270_14080
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_wlan/fritz_box-labor-14080.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_WLAN_Labor_54.04.98-14080.image"    
@@ -580,6 +583,12 @@ choice
 		help
 			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
 			(Internet Protocol Version 6) and 6to4 tunnels.
+	config TYPE_7270_IPV6_14620_V3
+		bool "7270 V3 IPV6_14620"
+		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		help
+			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
+			(Internet Protocol Version 6) and 6to4 tunnels.
 #	config TYPE_7270_IPV6
 #		bool "7270 IPV6"
 #		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
@@ -587,14 +596,14 @@ choice
 #			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
 #			(Internet Protocol Version 6) and 6to4 tunnels.
 #	config TYPE_7270_14712_PHONE
-#		bool "7270_14712 PHONE (MT-D)"
+#		bool "7270_1412 PHONE (MT-D)"
 #		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 #		help
 #			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
 #			and fixes various software problems, e.g. answering machine and
 #			facsimile reception.
-	config TYPE_7270_14712_V3
-		bool "7270v3_14712 PHONE (MT-D)"
+	config TYPE_7270_14755_V3
+		bool "7270v3_14755 PHONE (MT-D)"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
@@ -771,8 +780,8 @@ choice
 		bool "AVM_7240_76"
 	config TYPE_SRC3_AVM_V3_7270_76
 		bool "AVM_7270v3_76"
-	config TYPE_SRC3_AVM_V3_7270_14712
-		bool "AVM_7270v3_14712 PHONE (MT-D)"
+	config TYPE_SRC3_AVM_V3_7270_14755
+		bool "AVM_7270v3_14755 PHONE (MT-D)"
 	config TYPE_SRC3_AVM_DSL_7270_14000 
 		bool "AVM_DSL_7270_14000"
 	config TYPE_SRC3_AVM_AIO_7270_14543 
@@ -781,6 +790,8 @@ choice
 		bool "AVM_WLANX_7270_14080"
 	config TYPE_SRC3_AVM_AURA_7270_14142
 		bool "AVM_AURA_7270_14142"
+	config TYPE_SRC3_AVM_V3_IPV6_7270_14620
+		bool "AVM_V3_IPV6_7270_14620"
 	config TYPE_SRC3_AVM_IPV6_7270_14620
 		bool "AVM_IPV6_7270_14620"
 	config TYPE_SRC3_AVM_PHONE_7270_14712
@@ -929,13 +940,14 @@ config AVM_IMG
 	default "$AVM_7270_70"				if ( TYPE_7270_70 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_76"				if ( TYPE_7270_76 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_V3_7270_76"			if ( TYPE_7270_76_V3 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_V3_7270_14712"			if ( TYPE_7270_14712_V3 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_V3_7270_14755"			if ( TYPE_7270_14755_V3 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_13486"			if ( TYPE_7270_13486 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_DSL_7270_14000"			if ( TYPE_7270_DSL ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_AIO_7270_14543"			if ( TYPE_7270_AIO ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_WLANX_7270_14080"			if ( TYPE_7270_WLAN ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_AURA_7270_14142"			if ( TYPE_7270_AURA_14142 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_IPV6_7270_14620"			if ( TYPE_7270_IPV6_14620 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_V3_IPV6_7270_14620"		if ( TYPE_7270_IPV6_14620_V3 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PHONE_7240_14755"			if ( TYPE_7240_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PHONE_7270_14755"			if ( TYPE_7270_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PHONE_7270_14712"			if ( TYPE_7270_14712_PHONE ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || EXPORT_TYPE_LOCAL_MODEL )
@@ -990,7 +1002,7 @@ config SRC2_IMG
 	default "$AVM_7240_76" 			if TYPE_SRC3_AVM_7240_76
 	default "$AVM_7270_76" 			if TYPE_SRC3_AVM_7270_76
 	default "$AVM_V3_7270_76" 		if TYPE_SRC3_AVM_V3_7270_76
-	default "$AVM_V3_7270_14712" 		if TYPE_SRC3_AVM_V3_7270_14712
+	default "$AVM_V3_7270_14755" 		if TYPE_SRC3_AVM_V3_7270_14755
 	default "$AVM_7270_67m"	 		if TYPE_SRC3_AVM_7270_67m
 	default "$AVM_7270_13486"		if TYPE_SRC3_AVM_7270_13486
 	default "$AVM_AIO_7270_14543"		if TYPE_SRC3_AVM_AIO_7270_14543
@@ -1044,7 +1056,7 @@ config TYPE_LABOR_TYPE
         default "70" 		if TYPE_7170_70 || TYPE_7270_70
         default "76" 		if TYPE_7170_76 || TYPE_7270_76
         default "76V3" 		if TYPE_7270_76_V3
-        default "14712V3" 	if TYPE_7270_14712_V3
+        default "14755V3" 	if TYPE_7270_14755_V3
         default "14712" 	if TYPE_7270_14712_PHONE
         default "13948" 	if TYPE_7170_13948
         default "13486" 	if TYPE_7170_13486
