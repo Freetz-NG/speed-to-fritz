@@ -607,8 +607,8 @@ choice
 #			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
 #			and fixes various software problems, e.g. answering machine and
 #			facsimile reception.
-	config TYPE_7270_V3_14755
-		bool "7270_V3_14755 PHONE (MT-D)"
+	config TYPE_7270_V3_PHONE_14755
+		bool "7270_V3_PHONE_14755 (MT-D)"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
@@ -789,8 +789,8 @@ choice
 		bool "AVM_7240_76"
 	config TYPE_SRC3_AVM_7270_V3_76
 		bool "AVM_7270_V3_76"
-	config TYPE_SRC3_AVM_7270_V3_14755
-		bool "AVM_7270_V3_14755 PHONE (MT-D)"
+	config TYPE_SRC3_AVM_PHONE_7270_V3_14755
+		bool "AVM_PHONE_7270_V3_14755 (MT-D)"
 	config TYPE_SRC3_AVM_DSL_7270_14000 
 		bool "AVM_DSL_7270_14000"
 	config TYPE_SRC3_AVM_AIO_7270_14543 
