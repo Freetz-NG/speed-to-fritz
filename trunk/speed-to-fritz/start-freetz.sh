@@ -107,17 +107,8 @@ while [ "$KEY" != "y" ]; do
  [ "$YESNO" = "n" ] || [ "$YESNO" = "y" ] || echo "wrong key!"
 if [ "$YESNO" = "y" ]; then
  #sudo apt-get -y update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade && sudo apt-get -y install subversion gcc g++ binutils autoconf automake automake1.9 automake1.8 libtool make bzip2 libncurses5-dev zlib1g-dev flex bison patch texinfo tofrodos gettext jam pkg-config jikes ecj-bootstrap fastjar realpath perl libstring-crc32-perl ruby ruby1.8 gawk python libusb-dev unzip
- echo "Update ----->"
- sudo apt-get -y update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade &&\
- sudo apt-get -y install gcc g++ binutils autoconf automake automake1.9
- sudo apt-get -y update && sudo apt-get -y upgrade &&\
- sudo apt-get -y install libtool make libncurses5-dev zlib1g-dev flex bison patch texinfo
- sudo apt-get -y update && sudo apt-get -y upgrade &&\
- sudo apt-get -y install tofrodos gettext jam pkg-config jikes fastjar realpath perl
- sudo apt-get -y update && sudo apt-get -y upgrade &&\
- sudo apt-get -y install libstring-crc32-perl ruby ruby1.8 gawk python subversion bzip2
- sudo apt-get -y install intltool
- echo "End update <-----"
+	export EXTRAPKG=intltool
+	. ./install-tools2
  fi
 done
 KEY="x"

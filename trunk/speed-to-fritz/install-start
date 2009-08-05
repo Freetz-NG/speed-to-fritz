@@ -3,7 +3,7 @@
 # They only need to be installed once, you may remove the apt-get line for repeated use
 echo "----------------------------------------------------------------------------------------------"
 echo "----------------------------------------------------------------------------------------------"
-echo "Attempt to update some tools, this only works on Debian, Ubunto ..."
+echo "Attempt to update some tools, this only works on Debian, Ubuntu, openSUSE ..."
 echo "----------------------------------------------------------------------------------------------"
 echo "On some systems even sudo must be installed first, see Wiki for andLINUX   ..."
 echo "If sudo is missing, do the following:"
@@ -25,7 +25,17 @@ case "$DEB_HOST_ARCH" in
 	amd64) ARCHPKG="libc6-i386 lib32gcc1 lib32ncurses5 lib32stdc++6 lib32z1" ;;
 esac
 
-sudo apt-get -y install \
+if [ -e /etc/SuSE-release -a -x /usr/bin/zypper ] ; then
+ 	echo "installing packages for openSUSE (tested on 11.1)"
+	case `uname -m` in
+		x86_64) ARCHPKG="glibc-32bit libgcc43-32bit libncurses5-32bit libstdc++43-32bit zlib-32bit" ;;
+	esac
+
+	sudo zypper --non-interactive install \
+		make gcc-c++ glibc-devel ncurses-devel automake patch \
+		subversion lukemftp kdiff3 $ARCHPKG
+else
+    sudo apt-get -y install \
 	fakeroot \
 	make \
 	build-essential \
@@ -37,6 +47,7 @@ sudo apt-get -y install \
 	kdiff3 \
 	apt-xapian-index \
 	$ARCHPKG
+fi
 echo "----------------------------------------------------------------------------------------------"
 . ./start
 
