@@ -76,9 +76,9 @@ config AVM_7150_32
 config AVM_7140_43
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/deutsch_a-ch/fritz.box_fon_wlan_7140.annexa.39.04.43.zip mirror http://www.hostarea.de/server-01/Januar-de288cff9c.zip"
-config AVM_7150_56
-    string
-    default "ftp://ftp.avm.de/fritz.box/fritzfon.7150/firmware/FRITZ.Fon_7150.AnnexB.38.04.56.image"
+# config AVM_7150_71
+#     string
+#     default "ftp://ftp.avm.de/fritz.box/fritzfon.7150/firmware/fritz.fon_7150.annexb.38.04.71.image"
 config AVM_7150_57
     string
     default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.fon.7150/fritz.fon_7150.38.04.57.image"
@@ -742,8 +742,8 @@ choice
 		bool "AVM_7150_32"
 	config TYPE_SRC3_AVM_7140_43
 		bool "AVM_7140_43"
-	config TYPE_SRC3_AVM_7150_56
-		bool "AVM_7150_56"
+#	config TYPE_SRC3_AVM_7150_71
+#		bool "AVM_7150_71"
 	config TYPE_SRC3_AVM_7170_58
 		bool "AVM_7170_58"
 	config TYPE_SRC3_AVM_7170_A59
@@ -925,7 +925,7 @@ config AVM_IMG
 	string
 	default "$AVM_7140_43"				if TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
 	default "$AVM_7140_67en"			if TYPE_SPEEDPORT_W501V && TYPE_LANG_EN
-	default "$AVM_7150_56" 				if TYPE_SINUS_W500V &&  ! TYPE_7150_57
+	default "$AVM_7150_57" 				if TYPE_SINUS_W500V &&  ! TYPE_7150_57
 	default "$AVM_7170_A67en" 			if TYPE_LANG_EN && ! TYPE_B67en && ! TYPE_A67en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 #	default "$AVM_7170_67" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7170_76" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_DE
@@ -987,7 +987,7 @@ config SRC2_IMG
 	default "$AVM_7170_50" 			if TYPE_SRC3_AVM_7170_50
 	default "$AVM_7170_A67en" 		if TYPE_SRC3_AVM_7170_A67en
 	default "$AVM_7170_B67en" 		if TYPE_SRC3_AVM_7170_B67en
-	default "$AVM_7150_56" 			if TYPE_SRC3_AVM_7150_56
+#	default "$AVM_7150_71" 			if TYPE_SRC3_AVM_7150_71
 	default "$AVM_7150_57" 			if TYPE_SRC3_AVM_7150_57
 	default "$AVM_7170_58" 			if TYPE_SRC3_AVM_7170_58
 	default "$AVM_7170_A59" 		if TYPE_SRC3_AVM_7170_A59

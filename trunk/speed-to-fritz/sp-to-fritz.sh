@@ -4,7 +4,7 @@ export PATH=$PATH:/sbin
 ##########################################################################
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
-Tag="07"; Monat="08"; Jahr="09"
+Tag="08"; Monat="08"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
