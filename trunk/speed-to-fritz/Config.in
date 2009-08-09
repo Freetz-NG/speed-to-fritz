@@ -78,7 +78,7 @@ config AVM_7140_43
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/deutsch_a-ch/fritz.box_fon_wlan_7140.annexa.39.04.43.zip mirror http://www.hostarea.de/server-01/Januar-de288cff9c.zip"
 # config AVM_7150_71
 #     string
-#     default "ftp://ftp.avm.de/fritz.box/fritzfon.7150/firmware/fritz.fon_7150.annexb.38.04.71.image"
+#     default "ftp://ftp.avm.de/fritz.box/fritzfon.7150/firmware/fritz.fon_7150.annexb.38.04.71.image mirror http://download.avm.de/fritz.box/fritzfon.7150/firmware/fritz.fon_7150.annexb.38.04.71.image"
 config AVM_7150_57
     string
     default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.fon.7150/fritz.fon_7150.38.04.57.image"
@@ -87,16 +87,16 @@ config AVM_7113_58
     default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7113/fritz.box.fon.wlan.7113_60.04.58.image"
 config AVM_7113_67
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch/FRITZ.Box_Fon_WLAN_7113.60.04.67.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch/FRITZ.Box_Fon_WLAN_7113.60.04.67.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch/FRITZ.Box_Fon_WLAN_7113.60.04.67.image"
 config AVM_7170_67
     string
     default "p"
 config AVM_7141_70
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7141/firmware/deutsch/FRITZ.Box_Fon_WLAN_7141.40.04.70.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7141/firmware/deutsch/FRITZ.Box_Fon_WLAN_7141.40.04.70.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7141/firmware/deutsch/FRITZ.Box_Fon_WLAN_7141.40.04.70.image"
 config AVM_7170_76
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.76.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.76.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.76.image"
 config AVM_7170_13948
     string
     default "p"
@@ -105,19 +105,19 @@ config AVM_7170_59
     default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7170/FRITZ.Box_Fon_WLAN_7170.29.04.59.image"
 config AVM_7170_A59
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image"
 config AVM_MINI_7170_67
     string
     default "p"
-config AVM_7170_A67en
+config AVM_7170_A76en
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.67.image"
-config AVM_7170_B67en
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.76.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.76.image"
+config AVM_7170_B76en
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_b/FRITZ.Box_Fon_WLAN_7170.AnnexB.en.29.04.67.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_b/FRITZ.Box_Fon_WLAN_7170.AnnexB.en.29.04.76.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_b/FRITZ.Box_Fon_WLAN_7170.AnnexB.en.29.04.76.image"
 config AVM_7140_67en
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7140.AnnexA.en.39.04.67.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7140.AnnexA.en.39.04.67.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7140.AnnexA.en.39.04.67.image"
 config AVM_DSL_7170_14119
     string
 default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_dsl/fritz_box-labor-14119.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.99-14119.image"
@@ -148,25 +148,25 @@ config AVM_7270_58
     default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/Release_FRITZ.Box_Fon_WLAN_7270.54.04.58.zip mirror http://www.hostarea.de/server-01/Januar-4bf414c469.zip"
 config AVM_7270_59
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.59.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.59.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.59.image"
 config AVM_7270_67
     string
     default "p"
 config AVM_7270_67m
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image"
 config AVM_7270_70
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_IPv6/fritz_box-labor-14620.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
 config AVM_7240_76
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7240/firmware/deutsch/FRITZ.Box_Fon_WLAN_7240.73.04.76.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7240/firmware/deutsch/FRITZ.Box_Fon_WLAN_7240.73.04.76.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7240/firmware/deutsch/FRITZ.Box_Fon_WLAN_7240.73.04.76.image"
 config AVM_7270_76
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.76.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.76.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.76.image"
 config AVM_7270_V3_76
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.76.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.76.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.76.image"
 config AVM_7270_14907
    string
       default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7270/fritz_box-labor-7270-14907.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabPHONE.AnnexB.54.04.97-14907.image"
@@ -530,13 +530,13 @@ choice
 		depends on ( TYPE_SPEEDPORT_W721V && ! TYPE_TCOM_W721SPECIAL ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
 		help
 			FRITZ! release: 59 Annex A
-	config TYPE_7170_A67en
-		bool "7170_A67en ANNEX_A english"
+	config TYPE_7170_A76en
+		bool "7170_A76en ANNEX_A english"
 		depends on ( TYPE_SPEEDPORT_W721V && ! TYPE_TCOM_W721SPECIAL ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
 		help
 			FRITZ! release: 67 Annex A english
-	config TYPE_7170_B67en
-		bool "7170_B67en ANNEX_B english"
+	config TYPE_7170_B76en
+		bool "7170_B76en ANNEX_B english"
 		depends on ( TYPE_SPEEDPORT_W721V && ! TYPE_TCOM_W721SPECIAL ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
 		help
 			FRITZ! release: 67 Annex B english
@@ -762,10 +762,10 @@ choice
 		bool "AVM_7113_67"
 #	config TYPE_SRC3_AVM_7170_13948
 #		bool "AVM_7170_13948"
-	config TYPE_SRC3_AVM_7170_A67en
-		bool "AVM_7170_A67en Annex A"
-	config TYPE_SRC3_AVM_7170_B67en
-		bool "AVM_7170_B67en Annex B"
+	config TYPE_SRC3_AVM_7170_A76en
+		bool "AVM_7170_A76en Annex A"
+	config TYPE_SRC3_AVM_7170_B76en
+		bool "AVM_7170_B76en Annex B"
 #	config TYPE_SRC3_AVM_AIO_7170_13679
 #		bool "AVM_AIO_7170_13679"
 	config TYPE_SRC3_AVM_DSL_7170_14119
@@ -926,14 +926,14 @@ config AVM_IMG
 	default "$AVM_7140_43"				if TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
 	default "$AVM_7140_67en"			if TYPE_SPEEDPORT_W501V && TYPE_LANG_EN
 	default "$AVM_7150_57" 				if TYPE_SINUS_W500V &&  ! TYPE_7150_57
-	default "$AVM_7170_A67en" 			if TYPE_LANG_EN && ! TYPE_B67en && ! TYPE_A67en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7170_A76en" 			if TYPE_LANG_EN && ! TYPE_B67en && ! TYPE_A67en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 #	default "$AVM_7170_67" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7170_76" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7141_70" 				if TYPE_7141_70 && ( EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7150_57" 				if TYPE_57_AVM_SR2_7150 &&  TYPE_SINUS_W500V 
 	default "$AVM_7170_A59" 			if ( TYPE_7170_A59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )) || ( TYPE_SPEEDPORT_W721V && ! TYPE_LABOR )
-	default "$AVM_7170_A67en" 			if TYPE_7170_A67en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_7170_B67en" 			if TYPE_7170_B67en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7170_A76en" 			if TYPE_7170_A76en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7170_B76en" 			if TYPE_7170_B76en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_76" 				if TYPE_7170_76 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_13948" 			if TYPE_7170_13948 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_DSL_7170_14119"			if TYPE_7170_DSL_14119 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
@@ -985,8 +985,8 @@ config SRC2_IMG
 	default "$AVM_7150_32" 			if TYPE_SRC3_AVM_7150_32
 	default "$AVM_7140_43" 			if TYPE_SRC3_AVM_7140_43
 	default "$AVM_7170_50" 			if TYPE_SRC3_AVM_7170_50
-	default "$AVM_7170_A67en" 		if TYPE_SRC3_AVM_7170_A67en
-	default "$AVM_7170_B67en" 		if TYPE_SRC3_AVM_7170_B67en
+	default "$AVM_7170_A76en" 		if TYPE_SRC3_AVM_7170_A76en
+	default "$AVM_7170_B76en" 		if TYPE_SRC3_AVM_7170_B76en
 #	default "$AVM_7150_71" 			if TYPE_SRC3_AVM_7150_71
 	default "$AVM_7150_57" 			if TYPE_SRC3_AVM_7150_57
 	default "$AVM_7170_58" 			if TYPE_SRC3_AVM_7170_58
