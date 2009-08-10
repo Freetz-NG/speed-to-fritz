@@ -1,60 +1,58 @@
-echo
-echo
-echo "-------------------------------------------------------------------------------------------"
+wrtjp.5.1 -backup:custom /bypass /skipdetect /silent /window:90000000 /start:90000000 /length:20000
+pause
 
-# Example: Chain with 4 devicese and instruction length 5 for each device:
-# Hir= Header Insructionregister
-# Tir= Trailer Insructionregister
-# Hdr= Header Dataregister
-# Tdr= Trailer Dataregister
-#    (Hir, Tir, Hdr, Tdr)
-#To program device #1, the following parameters:
-#       (15, 0, 3, 0)
-#To program device #2, the following parameters:
-#       (10, 5, 2, 1)
-#To program device #3, the following parameters:
-#       (5, 10, 1, 2)
-#To program device #4, the following parameters:
-#       (0, 15, 0, 3)
+:: Example: Chain with 4 devicese and instruction length 5 for each device:
+:: Hir= Header Insructionregister
+:: Tir= Trailer Insructionregister
+:: Hdr= Header Dataregister
+:: Tdr= Trailer Dataregister
+::    (Hir, Tir, Hdr, Tdr)
+::To program device ::1, the following parameters:
+::       (15, 0, 3, 0)
+::To program device ::2, the following parameters:
+::       (10, 5, 2, 1)
+::To program device ::3, the following parameters:
+::       (5, 10, 1, 2)
+::To program device ::4, the following parameters:
+::       (0, 15, 0, 3)
 
-#Example: Chain with 3 devicese and instruction length 6, 3, 5 for each device:
-#    (Hir, Tir, Hdr, Tdr)
-#To program device #1, the following parameters:
-#       ( 9, 0, 2, 0)
-#To program device #2, the following parameters:
-#       ( 5, 6, 1, 1)
-#To program device #3, the following parameters:
-#       ( 0, 8, 0, 2)
+::Example: Chain with 3 devicese and instruction length 6, 3, 5 for each device:
+::    (Hir, Tir, Hdr, Tdr)
+::To program device ::1, the following parameters:
+::       ( 9, 0, 2, 0)
+::To program device ::2, the following parameters:
+::       ( 5, 6, 1, 1)
+::To program device ::3, the following parameters:
+::       ( 0, 8, 0, 2)
 
 
-#./wrtjp.5.1 -backup:custom  /skipdetect /silent /hir:9 /tir:0 /hdr:2 /tdr:0 /window:90000000 /start:90000000 /length:20000 /dv:1
-#/debug2 >log
-#./wrtjp.5.1 -backup:custom  /skipdetect /silent /hir:0 /tir:8 /hdr:0 /tdr:2 /window:90000000 /start:90000000 /length:20000 /dv:3
-#/debug2 >log
-# Not all parameter need to be specified usual /hir:X or /tir:X is sufficiant. /hir:0 /tir:0 /hdr:0 /tdr:0 is default.
-#./wrtjp.5.1 -backup:custom  /skipdetect /silent /hir:9 /window:90000000 /start:90000000 /length:20000
-#/debug2 >log
-#./wrtjp.5.1 -backup:custom /skipdetect /silent /tir:8 /window:90000000 /start:90000000 /length:20000 /dv:3
-#/debug2 >log
-#!!!!!!!!!!!!!!!!!!!!!!#
-# If bypass Option is in use only /skipdetect /dv:X must be specified to select the decired device. /dev:1 is default.
-./wrtjp.5.1 -backup:custom /bypass /skipdetect /silent /window:90000000 /start:90000000 /length:20000 /dv:1 /fc:21 
-#/debug1
-#/debug2 > log
-#./wrtjp.5.1 -backup:custom /bypass /skipdetect /silent /window:90000000 /start:90000000 /length:20000 /dv:3
-#/debug2 >log
+::wrtjp.5.1 -backup:custom  /skipdetect /silent /hir:9 /tir:0 /hdr:2 /tdr:0 /window:90000000 /start:90000000 /length:20000 /dv:1
+::/debug2 >log
+::wrtjp.5.1 -backup:custom  /skipdetect /silent /hir:0 /tir:8 /hdr:0 /tdr:2 /window:90000000 /start:90000000 /length:20000 /dv:3
+::/debug2 >log
+:: Not all parameter need to be specified usual /hir:X or /tir:X is sufficiant. /hir:0 /tir:0 /hdr:0 /tdr:0 is default.
+::wrtjp.5.1 -backup:custom  /skipdetect /silent /hir:9 /window:90000000 /start:90000000 /length:20000
+::/debug2 >log
+::wrtjp.5.1 -backup:custom /skipdetect /silent /tir:8 /window:90000000 /start:90000000 /length:20000 /dv:3
+::/debug2 >log
+::!!!!!!!!!!!!!!!!!!!!!!::
+:: If bypass Option is in use only /skipdetect /dv:X must be specified to select the decired device. /dev:1 is default.
+::/debug1
+::/debug2 > log
+::wrtjp.5.1 -backup:custom /bypass /skipdetect /silent /window:90000000 /start:90000000 /length:20000 /dv:3
+::/debug2 >log
 
-# Option test for checking pin assignment of adapter.
-# /test
-# Option debug2 generates a total trace step by step.
-#/debug2 >log
-# Option debug1 generates trace of flasch read/writes 
-#/debug1 >log
+:: Option test for checking pin assignment of adapter.
+:: /test
+:: Option debug2 generates a total trace step by step.
+::/debug2 >log
+:: Option debug1 generates trace of flasch read/writes 
+::/debug1 >log
 
-#cat log | more
-# (7141 and W701 "/hir:9 /hdr:2") 
-# (7050 "/hir:4 /hdr:1")
-#sleep 2
+::cat log | more
+:: (7141 and W701 "/hir:9 /hdr:2") 
+:: (7050 "/hir:4 /hdr:1")
+
 
 exit 0
 
