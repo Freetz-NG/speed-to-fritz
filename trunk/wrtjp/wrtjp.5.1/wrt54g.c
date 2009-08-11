@@ -3,10 +3,11 @@
 //  WRT54G.C - WRT54G/GS/AVM/Speedport EJTAG Debrick Utility  v5.1
 //
 //  Note:
-//  This program is for De-Bricking the WRT54G/GS/AVM/Speedport/AVM/Speedport
+//  This program is for De-Bricking the WRT54G/GS, AVM, Speedport
 //  and other misc routers.
 //
 //  New for v4.9 - Added 2 new Flash Chip Parts to the list:
+//                     - /check ............. do double reed"
 //                     - /dedug1 ............ show CPU state"
 //                     - /dedug2 ............ show all clockstates"
 //                     - /test .............. manual test of ports"
@@ -151,6 +152,7 @@ int debug2	     = 0;
 int repeat 	     = 0;
 int clkcount 	     = 0;
 int test 	     = 0;
+int check 	     = 0;
 int wiggler          = 0;
 int old	         = 0;
 int ChainLength  = 0;
@@ -281,7 +283,7 @@ flash_area_type  flash_area_list[] = {
    { size2MB,    "WHOLEFLASH",  0x1FC00000,  0x200000 },
    { size4MB,    "WHOLEFLASH",  0x1FC00000,  0x400000 },
    { size8MB,    "WHOLEFLASH",  0x1C000000,  0x800000 },
-   { size16MB,   "WHOLEFLASH",  0x1C000000,  0x800000 },
+   { size16MB,   "WHOLEFLASH",  0x1C000000,  0x100000 },
 
    { 0, 0, 0, 0 }
    };
@@ -849,10 +851,7 @@ begin_ejtag_dma_read_h:
 
     return(data);
 }
-
-
 //ejtag_dma_write
-
 void ejtag_dma_write(unsigned int addr, unsigned int data)
 {
     int   retries = RETRY_ATTEMPTS;
@@ -911,44 +910,70 @@ begin_ejtag_dma_write_h:
         else  printf("DMA Write Addr = %08x  Data = ERROR ON WRITE\n", addr);
     }
 }
-
-
-
-
 // ejtag_pracc_read
 static unsigned int ejtag_pracc_read(unsigned int addr)
 {
-   address_register = addr | 0xA0000000;  // Force to use uncached segment
-   data_register    = 0x0;
-   ExecuteDebugModule(pracc_readword_code_module);
-   return(data_register);
+    address_register = addr | 0xA0000000;  // Force to use uncached segment
+    data_register    = 0x0;
+    unsigned int  data_register2    = 0x0;
+    int   retries = RETRY_ATTEMPTS;
+    while ((ExecuteDebugModule(pracc_readword_code_module)) && (retries--));
+    data_register2 = data_register;
+    if (check) {
+        retries = RETRY_ATTEMPTS;
+        while ((ExecuteDebugModule(pracc_readword_code_module)) && (retries--));
+     }
+    if ((data_register2 == data_register) && (retries)) return(data_register); else {printf("ERROR in byte\n"); return(0x20);}
 }
 static unsigned int ejtag_pracc_read_h(unsigned int addr)
 {
-   address_register = addr | 0xA0000000;  // Force to use uncached segment
-   data_register    = 0x0;
-   ExecuteDebugModule(pracc_readhalf_code_module);
-   return(data_register);
+    address_register = addr | 0xA0000000;  // Force to use uncached segment
+    data_register    = 0x0;
+    unsigned int  data_register2    = 0x0;
+    int   retries = RETRY_ATTEMPTS;
+    while ((ExecuteDebugModule(pracc_readhalf_code_module)) && (retries--));
+    data_register2 = data_register;
+    if (check) {
+        retries = RETRY_ATTEMPTS;
+        while ((ExecuteDebugModule(pracc_readhalf_code_module)) && (retries--));
+    }
+    if ((data_register2 == data_register) && (retries)) return(data_register); else {printf("ERROR in byte\n"); return(0x20);}
 }
-
-
-
-
 // ejtag_pracc_write
-void ejtag_pracc_write(unsigned int addr, unsigned int data)
+static unsigned int ejtag_pracc_write(unsigned int addr, unsigned int data)
 {
-   address_register = addr | 0xA0000000;  // Force to use uncached segment
-   data_register    = data;
-   ExecuteDebugModule(pracc_writeword_code_module);
+    address_register = addr | 0xA0000000;  // Force to use uncached segment
+    data_register    = data;
+    unsigned int  data_register2    = 0x0;
+    int   retries = RETRY_ATTEMPTS;
+    int   retries2 = 10;
+    repeat1:
+    while ((ExecuteDebugModule(pracc_writeword_code_module)) && (retries--));
+    data_register2 = data_register;
+    if (check) {
+        retries = RETRY_ATTEMPTS;
+        while ((ExecuteDebugModule(pracc_readword_code_module)) && (retries--));
+    }
+    if ((data_register2 != data_register) && (retries2--)) goto repeat1;
+    if ((data_register2 == data_register) && (retries2)) return 0; else return 1;
 }
-void ejtag_pracc_write_h(unsigned int addr, unsigned int data)
+static unsigned int ejtag_pracc_write_h(unsigned int addr, unsigned int data)
 {
-   address_register = addr | 0xA0000000;  // Force to use uncached segment
-   data_register    = data;
-   ExecuteDebugModule(pracc_writehalf_code_module);
+    address_register = addr | 0xA0000000;  // Force to use uncached segment
+    data_register    = data;
+    unsigned int  data_register2    = 0x0;
+    int   retries = RETRY_ATTEMPTS;
+    int   retries2 = 10;
+    repeat2:
+    while ((ExecuteDebugModule(pracc_writehalf_code_module)) && (retries--));
+    data_register2 = data_register;
+    if (check) {
+        retries = RETRY_ATTEMPTS;
+        while ((ExecuteDebugModule(pracc_readhalf_code_module)) && (retries--));
+    }
+    if ((data_register2 != data_register) && (retries2--)) goto repeat2;
+    if ((data_register2 == data_register) && (retries2)) return 0; else return 1;
 }
-
-
 // ejtag_read
 static unsigned int ejtag_read(unsigned int addr)
 {
@@ -967,21 +992,21 @@ static unsigned int ejtag_read_h(unsigned int addr)
 // ejtag_write
 void ejtag_write(unsigned int addr, unsigned int data)
 {
-   if (USE_DMA) ejtag_dma_write(addr, data);
-   else
-ejtag_pracc_write(addr, data);
+    if (USE_DMA) ejtag_dma_write(addr, data);
+    else
+    if (ejtag_pracc_write(addr, data)) printf("Write ERROR!");
 }
 void ejtag_write_h(unsigned int addr, unsigned int data)
 {
-   if (USE_DMA) ejtag_dma_write_h(addr, data);
-   else
-ejtag_pracc_write_h(addr, data);
+    if (USE_DMA) ejtag_dma_write_h(addr, data);
+    else
+    if (ejtag_pracc_write_h(addr, data)) printf("Write ERROR!");
 }
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
 //--------------------------------------------------------------------------------
-void ExecuteDebugModule(unsigned int *pmodule)
+static unsigned int ExecuteDebugModule(unsigned int *pmodule)
 {
    unsigned int ctrl_reg;
    unsigned int address;
@@ -1003,7 +1028,7 @@ void ExecuteDebugModule(unsigned int *pmodule)
             ctrl_reg = ReadWriteData(PRACC | PROBEN | SETDEV,32);
             if (ctrl_reg & PRACC)
         	break;
-		if (timeout==0) break;
+		if (timeout==0) return 1;
         	if ((DEBUGMSG) && (timeout==1)) printf("CPU-DEBUG: No memory access in progress!\n");
 		timeout--;
         }
@@ -1031,32 +1056,30 @@ void ExecuteDebugModule(unsigned int *pmodule)
          if (address == MIPS_VIRTUAL_ADDRESS_ACCESS)  address_register = data;
          if (address == MIPS_VIRTUAL_DATA_ACCESS)     data_register    = data;
       }
-
       else
-
       {
          // Check to see if its reading at the debug vector.  The first pass through
          // the module is always read at the vector, so the first one we allow.  When
          // the second read from the vector occurs we are done and just exit.
-//         if (address < MIPS_DEBUG_VECTOR_ADDRESS){
-//               if (DEBUGMSG) printf("CPU-DEBUG: ERROR!!.\n");
-//	       return;
-//	       }
-         if (address == MIPS_DEBUG_VECTOR_ADDRESS)
+        if (address == MIPS_DEBUG_VECTOR_ADDRESS)
          {
             if (finished++) // Allows ONE pass
             {
                if (DEBUGMSG) printf("CPU-DEBUG: Finished module.\n");
-               return;
+               return 0;
             }
          }
-
          // Processor is reading from us
          if (address >= MIPS_DEBUG_VECTOR_ADDRESS)
          {
             // Reading an instruction from our module so fetch the instruction from the module
             offset = (address - MIPS_DEBUG_VECTOR_ADDRESS) / 4;
-            data = *(unsigned int *)(pmodule + offset);
+            //printf("2-CPU-DEBUG: Instruction read at 0x%08X  offset -> %04d  data -> 0x%08X\n", address, offset, data); //fflush(stdout);
+                     if (offset > 9999)
+                     { if (DEBUGMSG) printf("ERROR: Check your wireing, some wrong: Instruction read at 0x%08X  offset -> %04d  data -> 0x%08X\n", address, offset, data); //fflush(stdout);
+                        return 1;
+                     }
+          data = *(unsigned int *)(pmodule + offset);
             if (DEBUGMSG) printf("2-CPU-DEBUG: Instruction read at 0x%08X  offset -> %04d  data -> 0x%08X\n", address, offset, data); //fflush(stdout);
          }
          else
@@ -1066,9 +1089,12 @@ void ExecuteDebugModule(unsigned int *pmodule)
             // Handle Debug Read
             // If processor is reading from one of our psuedo virtual registers then give it data
             if (address == MIPS_VIRTUAL_ADDRESS_ACCESS)  data = address_register;
-            if (address == MIPS_VIRTUAL_DATA_ACCESS)     data = data_register;
+            else if (address == MIPS_VIRTUAL_DATA_ACCESS)     data = data_register;
+            else {
+                if (DEBUGMSG) printf("Flash adressing ERROR! Check wireing.");
+                return 1;
+            }
          }
-
          // Send the data out
 	 if (DEBUGMSG) { printf("last data send                           : ");  ShowData(data,32);}
          WriteIR(INSTR_DATA);
@@ -1324,7 +1350,7 @@ void detectChainLength(void)
     unsigned int retries = 10000;
     unsigned int recive_data = 0;
     unsigned char recive_bit = 0;
-    printf("Beginning decect scan leangth... \n");
+    printf("Beginning dedect scan leangth... \n");
     printf("Switch on power!...\n");
     rep:
     tap_reset();
@@ -1349,7 +1375,7 @@ void detectChainLength(void)
 //	if (recive_bit==1) {i--; printf("\n"); break;};
     }
     //printf("\n");
-    if (i<=0) {
+    if ((i<=0) || (i==64)) {
        if (retries--) goto rep;
 	printf("\n\n==================================\n");
 	printf("Chain leangh could not be dedected.\n");
@@ -1576,7 +1602,7 @@ void run_backup(char *filename, unsigned int start, unsigned int length)
         data = ejtag_read(addr);
         fwrite((unsigned char*) &data, 1, sizeof(data), fd);
 
-       if (silent_mode)  printf("%4d%%   bytes = %d\r", percent_complete, counter);
+       if (silent_mode)  printf("%4d%%   byte count: %d\r", percent_complete, counter);
        else              printf("%08x%c", data, (addr&0xF)==0xC?'\n':' ');
 
        fflush(stdout);
@@ -1791,23 +1817,20 @@ void sflash_config(void)
       }
       flash_chip++;
    }
-
-    if (strcasecmp(flash_part,"")==0)
-       printf("*** Unknown or NO Flash Chip Selected ***\n");
-
+   if (strcasecmp(flash_part,"")==0) printf("*** Unknown or NO Flash Chip Selected ***\n");
 }
 
 
 void sflash_probe(void)
 {
-   int retries = 300;
+   int retries = 30;
 
     // Default to Standard Flash Window for Detection if not CUSTOM
     if (strcasecmp(AREA_NAME,"CUSTOM")==0)
          FLASH_MEMORY_START = selected_window;
     else FLASH_MEMORY_START = 0x1FC00000;
 
-    printf("\nProbing Flash at (Flash Window: 0x%08x) ...", FLASH_MEMORY_START);
+    printf("\nProbing Flash at (Flash Window: 0x%08x) ", FLASH_MEMORY_START);
 
 again:
 
@@ -1852,35 +1875,36 @@ again:
 
     if (strcasecmp(flash_part,"")==0)
     {
-       if (retries--)
+       if (retries--) {
+          printf(".");
           goto again;
+          }
        else
        {
        	  printf("Done\n\n");
           printf("*** Unknown or NO Flash Chip Detected ***");
+          waitTime(300000);
        }
     }
-
     return;
 }
 
 
 void sflash_poll(unsigned int addr, unsigned int data)
 {
-
+    int retries = RETRY_ATTEMPTS;
     if ((cmd_type == CMD_TYPE_BSC) || (cmd_type == CMD_TYPE_SCS))
     {
        // Wait Until Ready
-       while ( (ejtag_read_h(FLASH_MEMORY_START) & STATUS_READY) != STATUS_READY );
+       while ((((ejtag_read_h(FLASH_MEMORY_START) & STATUS_READY) != STATUS_READY )) && (retries--));
     }
     else
     {
        // Wait Until Ready
-       while ( (ejtag_read_h(addr) & STATUS_READY) != (data & STATUS_READY) );
+       while (( (ejtag_read_h(addr) & STATUS_READY) != (data & STATUS_READY)) && (retries--));
     }
-
+    if (!retries) printf("ERROR no Status ready from flash!\n");
 }
-
 
 void sflash_erase_area(unsigned int start, unsigned int length)
 {
@@ -1908,21 +1932,21 @@ void sflash_erase_area(unsigned int start, unsigned int length)
        block_addr = blocks[cur_block];
        if ((block_addr >= reg_start) && (block_addr < reg_end))
           {
-             printf("Erasing block: %d (addr = %08x)...", cur_block, block_addr);  fflush(stdout);
+             printf("Erasing block: %d (addr = %08x)..", cur_block, block_addr);  //fflush(stdout);
              sflash_erase_block(block_addr);
-             printf("Done\n");  fflush(stdout);
+             fflush(stdout);
           }
     }
-
+    printf("Done\n");
 }
 
 
 void sflash_erase_block(unsigned int addr)
 {
-
+    printf(".");
     if (cmd_type == CMD_TYPE_AMD)
     {
-
+    printf("'");
         //Unlock Block
         ejtag_write_h(FLASH_MEMORY_START+(0x555 << 1), 0x00AA00AA);
         ejtag_write_h(FLASH_MEMORY_START+(0x2AA << 1), 0x00550055);
@@ -1940,7 +1964,7 @@ void sflash_erase_block(unsigned int addr)
 
     if (cmd_type == CMD_TYPE_SST)
     {
-
+    printf("*");
         //Unlock Block
         ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00AA00AA);
         ejtag_write_h(FLASH_MEMORY_START+(0x2AAA << 1), 0x00550055);
@@ -1958,27 +1982,30 @@ void sflash_erase_block(unsigned int addr)
 
     if ((cmd_type == CMD_TYPE_BSC) || (cmd_type == CMD_TYPE_SCS))
     {
-
+    printf("+");
         //Unlock Block
         ejtag_write_h(addr, 0x00500050);     // Clear Status Command
+            printf("1");
         ejtag_write_h(addr, 0x00600060);     // Unlock Flash Block Command
+                    printf("2");
         ejtag_write_h(addr, 0x00D000D0);     // Confirm Command
-
+            printf("3");
         // Wait for Unlock Completion
         sflash_poll(addr, STATUS_READY);
-
+            printf("4");
         //Erase Block
         ejtag_write_h(addr, 0x00500050);     // Clear Status Command
+                    printf("5");
         ejtag_write_h(addr, 0x00200020);     // Block Erase Command
+                    printf("6");
         ejtag_write_h(addr, 0x00D000D0);     // Confirm Command
+                    printf("7");
 
         // Wait for Erase Completion
         sflash_poll(addr, STATUS_READY);
-
     }
-
+    printf(".");
     sflash_reset();
-
 }
 
 
@@ -2153,6 +2180,7 @@ void show_usage(void)
            "            /dedub2 ............ show all clockstates\n"
            "            /dedug ............. show all CPU read/write\n"
            "            /test .............. manual set of port\n"
+           "            /check ............. double read and write check\n"
            "            /fc:XX = Optional (Manual) Flash Chip Selection\n"
            "            /dv:XX ............. Optional (Manual) CPU Chip Selection\n"
            "            -----------------------------------------------\n");
@@ -2303,6 +2331,7 @@ int main(int argc, char** argv)
           else if (strcasecmp(choice,"/debug1")==0)        	debug1 = 1;
           else if (strcasecmp(choice,"/debug2")==0)        	{debug2 = 1; debug1 = 1;}
           else if (strcasecmp(choice,"/test")==0)        	{test = 1; debug2 = 1;}
+          else if (strcasecmp(choice,"/check")==0)        	check = 1;
 	  else if (strncasecmp(choice,"/dv:",4)==0)             { selected_device = (strtoul(((char *)choice + 4),NULL,10)); if (selected_device) selected_device -=1;}
 	  else if (strncasecmp(choice,"/hir:",5)==0)    	selected_hir = strtoul(((char *)choice + 5),NULL,10);
 	  else if (strncasecmp(choice,"/tir:",5)==0)   		selected_tir = strtoul(((char *)choice + 5),NULL,10);
@@ -2350,7 +2379,7 @@ int main(int argc, char** argv)
     // ----------------------------------
     printf("\ncheck EJTAG ... \n");
     check_ejtag_features();
-//q_continue ();
+
     // ----------------------------------
     // Reset Processor and Peripherals
     // ----------------------------------
@@ -2370,7 +2399,7 @@ int main(int argc, char** argv)
 	//printf("\nTAP reset ... \n");
 	//tap_reset();
 	printf("-- > Halting Processor ... \n");
-	WriteIR(INSTR_CONTROL);
+    WriteIR(INSTR_CONTROL);
 	ctrl_reg = ReadWriteData(PRACC | PROBEN | SETDEV | JTAGBRK,32);
         if (debug) { printf("out-> PRACC | PROBEN | SETDEV | JTAGBRK: "); ShowData(PRACC | PROBEN | SETDEV | JTAGBRK,32); printf("in <- : "); ShowData(ctrl_reg,32);}
 	ctrl_reg = ReadWriteData(PRACC | PROBEN | SETDEV,32);
@@ -2380,10 +2409,12 @@ int main(int argc, char** argv)
 	else
 	{
 	    printf("<------ Processor Entered Debug Mode ------>\n");
+        //q_continue ();
 	    // ----------------------------------
 	    // Clear Watchdog
 	    // ----------------------------------
 	    if (issue_watchdog) {printf("Clearing Watchdog (0xb8000080) ... Done\n"); ejtag_write(0xb8000080,0);}
+        //q_continue ();
 	    // ----------------------------------
 	    // Flash Chip Detection
 	    //printf("<------ flash ------>\n");
@@ -2403,6 +2434,7 @@ int main(int argc, char** argv)
 	}
     }
  } //not test end
+ waitTime(300000);
  chip_shutdown();
  lpt_closeport();
  return 0;

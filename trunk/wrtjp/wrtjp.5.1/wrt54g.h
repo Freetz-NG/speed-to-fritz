@@ -140,8 +140,8 @@ void ejtag_dma_write_h(unsigned int addr, unsigned int data);
 
 static unsigned int ejtag_pracc_read(unsigned int addr);
 static unsigned int ejtag_pracc_read_h(unsigned int addr);
-void ejtag_pracc_write(unsigned int addr, unsigned int data);
-void ejtag_pracc_write_h(unsigned int addr, unsigned int data);
+static unsigned int ejtag_pracc_write(unsigned int addr, unsigned int data);
+static unsigned int ejtag_pracc_write_h(unsigned int addr, unsigned int data);
 
 static unsigned int ejtag_read(unsigned int addr);
 static unsigned int ejtag_read_h(unsigned int addr);
@@ -166,7 +166,7 @@ void run_erase(char *filename, unsigned int start, unsigned int length);
 void run_flash(char *filename, unsigned int start, unsigned int length);
 
 
-void ExecuteDebugModule(unsigned int *pmodule);
+static unsigned int ExecuteDebugModule(unsigned int *pmodule);
 void show_usage(void);
 
 unsigned int pracc_readword_code_module[] = {

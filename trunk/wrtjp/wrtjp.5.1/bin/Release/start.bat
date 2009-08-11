@@ -1,4 +1,4 @@
-wrtjp.5.1 -backup:custom /bypass /skipdetect /silent /window:90000000 /start:90000000 /length:20000
+wrtjp.5.1 -backup:custom /bypass /skipdetect /silent /window:90000000 /start:90000000 /length:20000 /fc:21
 pause
 
 :: Example: Chain with 4 devicese and instruction length 5 for each device:
