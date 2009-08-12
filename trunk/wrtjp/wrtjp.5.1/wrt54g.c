@@ -1,16 +1,20 @@
 // **************************************************************************
 //
-//  WRT54G.C - WRT54G/GS/AVM/Speedport EJTAG Debrick Utility  v5.1
+//  WRT54G.C - WRT54G/GS AVM Speedport EJTAG Debrick Utility  v5.1
 //
 //  Note:
 //  This program is for De-Bricking the WRT54G/GS, AVM, Speedport
 //  and other misc routers.
 //
-//  New for v4.9 - Added 2 new Flash Chip Parts to the list:
-//                     - /check ............. do double reed"
-//                     - /dedug1 ............ show CPU state"
-//                     - /dedug2 ............ show all clockstates"
-//                     - /test .............. manual test of ports"
+//  New for v5.1 - Added 1 new Flash types to the list:
+//               - /check ............. do check flash reed and write
+//				 - fix segmetation fault in PrAcc routine,
+//				   happend if wrong adresses ware read.
+//  New for v5.0 - bugfix
+//  New for v4.9 - Added 2 new Flash types to the list:
+//               - /dedug1 ............ show CPU state
+//               - /dedug2 ............ show all clockstates
+//               - /test .............. manual test of ports
 // Replaced port routines with the one from xilinx Application note.
 // http://www.xilinx.com/support/documentation/application_notes/xapp058.pdf
 // http://www.xilinx.com/support/documentation/application_notes/xapp424.pdf
@@ -115,7 +119,7 @@
 //#include <ctype.h>
 #include <stdio.h>
 //#include <stdlib.h>
-//#include <string.h>
+#include <string.h>
 #include <time.h>
 #include "wrt54g.h"
 //#include "lenval.h"
@@ -304,8 +308,6 @@ typedef struct _flash_chip_type {
     unsigned int        region4_num;    // Region 4 block count
     unsigned int        region4_size;   // Region 4 block size
 } flash_chip_type;
-
-
 flash_chip_type  flash_chip_list[] = {
    { 0x0001, 0x2249, size2MB, CMD_TYPE_AMD, "AMD 29lv160DB 1Mx16 BotB   (2MB)"   ,1,size16K,    2,size8K,     1,size32K,  31,size64K },
    { 0x0001, 0x22c4, size2MB, CMD_TYPE_AMD, "AMD 29lv160DT 1Mx16 TopB   (2MB)"   ,31,size64K,   1,size32K,    2,size8K,   1,size16K  },
@@ -314,7 +316,7 @@ flash_chip_type  flash_chip_list[] = {
    { 0x0001, 0x2200, size4MB, CMD_TYPE_AMD, "AMD 29lv320MB 2Mx16 BotB   (4MB)"   ,8,size8K,     63,size64K,   0,0,        0,0        },
    { 0x0001, 0x227E, size4MB, CMD_TYPE_AMD, "AMD 29lv320MT 2Mx16 TopB   (4MB)"   ,63,size64K,   8,size8K,     0,0,        0,0        },
    { 0x0001, 0x2201, size4MB, CMD_TYPE_AMD, "AMD 29lv320MT 2Mx16 TopB   (4MB)"   ,63,size64K,   8,size8K,     0,0,        0,0        },
-   { 0x0089, 0x0018,size16MB, CMD_TYPE_SCS, "Intel 28F128J3 8Mx16       (16MB)"  ,128,size128K, 0,0,          0,0,        0,0        },
+   { 0x0089, 0x0018,size16MB, CMD_TYPE_SCS, "Intel 28F128J3 8Mx16      (16MB)"   ,128,size128K, 0,0,          0,0,        0,0        },
    { 0x0089, 0x8891, size2MB, CMD_TYPE_BSC, "Intel 28F160B3 1Mx16 BotB  (2MB)"   ,8,size8K,     31,size64K,   0,0,        0,0        },
    { 0x0089, 0x8890, size2MB, CMD_TYPE_BSC, "Intel 28F160B3 1Mx16 TopB  (2MB)"   ,31,size64K,   8,size8K,     0,0,        0,0        },
    { 0x0089, 0x88C3, size2MB, CMD_TYPE_BSC, "Intel 28F160C3 1Mx16 BotB  (2MB)"   ,8,size8K,     31,size64K,   0,0,        0,0        },
@@ -378,14 +380,13 @@ flash_chip_type  flash_chip_list[] = {
    { 0x00EC, 0x22A0, size2MB, CMD_TYPE_AMD, "K8D3216UTC  2Mx16 TopB     (4MB)"   ,63,size64K,    8,size8K,     0,0,        0,0        },
    { 0x00EC, 0x22A2, size2MB, CMD_TYPE_AMD, "K8D3216UBC  2Mx16 BotB     (4MB)"   ,8,size8K,      63,size64K,   0,0,        0,0        },
    // --- Add a few new Flash Chip Definitions ---
-   { 0x00BF, 0x236D, size4MB, CMD_TYPE_SST, "SST39VF6401B 4Mx16 BotB    (8MB)"   ,256,size32K,   0,0,          0,0,        0,0        },
-   { 0x00BF, 0x236C, size4MB, CMD_TYPE_SST, "SST39VF6402B 4Mx16 TopB    (8MB)"   ,256,size32K,   0,0,          0,0,        0,0        },
-   { 0x0020, 0x227E, size16MB, CMD_TYPE_AMD, "M29W128GH 8Mx16           (16MB)"  ,128,size128K,  0,0,          0,0,        0,0        },
+   { 0x00BF, 0x236D, size8MB, CMD_TYPE_SST, "SST39VF6401B 4Mx16 BotB    (8MB)"   ,256,size32K,   0,0,          0,0,        0,0        },
+   { 0x00BF, 0x236C, size8MB, CMD_TYPE_SST, "SST39VF6402B 4Mx16 TopB    (8MB)"   ,256,size32K,   0,0,          0,0,        0,0        },
+   { 0x0020, 0x227E,size16MB, CMD_TYPE_AMD, "M29W128GH 8Mx16           (16MB)"   ,128,size128K,  0,0,          0,0,        0,0        },
+   // --- Add a few new Flash Chip Definitions ---
+   { 0x00C2, 0x227E, size8MB, CMD_TYPE_AMD, "MX29LV640MTTC-90G 4Mx16    (8MB)"   ,256,size32K,   0,0,          0,0,        0,0        },
    { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
    };
-
-
-
 //###################################################################################################
 //# Set TMS to specified value by driving TMS port/pin specified in configuration
 //###################################################################################################
@@ -1725,6 +1726,8 @@ void identify_flash_part(void)
    // Funky AMD Chip
    if (((vendid & 0x00ff) == 0x0001) && (devid == 0x227E))  devid = ejtag_read_h(FLASH_MEMORY_START+0x1E);  // Get real devid
 
+        // printf("Flash Vendor ID: ");  ShowData(vendid,32);
+        // printf("Flash Device ID: ");  ShowData(devid,32);
    while (flash_chip->vendid)
    {
       if ((flash_chip->vendid == vendid) && (flash_chip->devid == devid))
@@ -2163,26 +2166,26 @@ void show_usage(void)
            "            /noerase ........... prevent Forced Erase before Flashing\n"
            "            /notimestamp ....... prevent Timestamping of Backups\n"
            "            /dma ............... force use of DMA routines\n"
-           "            /nodma ............. force use of PRACC routines (No DMA)\n"
+           "            /nodma ............. force use of PrAcc routines (No DMA)\n"
            "            /window:XXXXXXXX ... custom flash window base (in HEX)\n"
            "            /start:XXXXXXXX .... custom start location (in HEX)\n"
            "            /length:XXXXXXXX ... custom length (in HEX)\n"
            "            /silent ............ prevent scrolling display of data\n"
-           "            /skipdetect ........ skip auto detection of CPU Chip ID\n"
-           "            /wiggler ........... use wiggler cable, this option is nologeger supported, \n look into header file and copile with new switch! \n"
+           "            /skipdetect ........ skip some auto detection\n"
            "            /instrlen:XX ....... set instruction length manually\n"
            "            /hir:XX ............ custom istruktion prefix\n"
            "            /tir:XX ............ custom istruktion postfix\n"
            "            /hdr:XX ............ custom data prefix\n"
            "            /tdr:XX ............ custom data postfix\n"
            "            /bypass ............ set bypass - not usable in every case \n"
-           "            /debug1 ............ display states\n"
-           "            /dedub2 ............ show all clockstates\n"
+           "            /debug1 ............ display EJTAG states\n"
+           "            /dedub2 ............ show all EJTAG states\n"
            "            /dedug ............. show all CPU read/write\n"
-           "            /test .............. manual set of port\n"
-           "            /check ............. double read and write check\n"
+           "            /test .............. manual set of ports, siglstep, ...\n"
+           "            /check ............. check every flash read and write\n"
            "            /fc:XX = Optional (Manual) Flash Chip Selection\n"
            "            /dv:XX ............. Optional (Manual) CPU Chip Selection\n"
+           "            /wiggler ........... use wiggler cable, this option is no logeger supported, \n                                   look into header file and copile with new switch! \n"
            "            -----------------------------------------------\n");
 
            while (flash_chip->vendid)
@@ -2195,8 +2198,8 @@ void show_usage(void)
    printf( " NOTES: 1) If 'flashing' - the source filename must exist as follows:\n"
            "           CFE.BIN, NVRAM.BIN, KERNEL.BIN, WHOLEFLASH.BIN or CUSTOM.BIN\n\n"
 
-           "        2) If you have difficulty auto-detecting a particular flash part\n"
-           "           you can manually specify your exact part using the /fc:XX option.\n\n"
+           "        2) If you have difficulty auto-detecting a particular flash \n"
+           "           you can manually specify your flash type using the /fc:XX option.\n\n"
 
            "        3) If you have difficulty with the older bcm47xx chips or when no CFE\n"
            "           is currently active/operational you may want to try both the\n"
@@ -2207,17 +2210,17 @@ void show_usage(void)
            "           out, then plug in the router, and then hit <ENTER> quickly to avoid\n"
            "           the CPUs watchdog interfering with the EJTAG operations.\n\n"
 
-           "        5) Test option useds a subset off keys to set ort toggle port lines.\n"
+           "        5) Test option useds a subset off keys to set or toggle port lines.\n"
            "           You my use single nuber keys followed by the enter key or multible\n"
-           "           keys followed by the  enter key, in this way you can produce a putten.\n"
-           "           Use this test options to make sure the hardware is wired correcly.\n"
+           "           keys followed by the enter key, in this way you can produce a putten.\n"
+           "           Use this test options to make sure the hardware is connected correcly.\n"
            "           You may also us the test mode to enter the states of the tap bus.\n"
-	   "	       So you could progam a chip step by step as well, if it would not be\n"
-	   "           to timeconsuming. But for lerning and displaying the states it is\n"
-	   "           usefull.\n"
+	       "	       So you could progam a chip step by step as well, if it would not be\n"
+	       "           to timeconsuming. But for lerning and displaying the states it is\n"
+	       "           usefull.\n"
 
 	   " .............................................................................................\n"
-           "          If /bypass is used some off the the folllowing parameters may still be needed \n"
+       "          If /bypass is used some off the the folllowing parameters may still be needed. \n"
 	   " .............................................................................................\n"
 	   "     Parameter           Name                                Description\n"
 	   " .............................................................................................\n"
@@ -2438,6 +2441,7 @@ int main(int argc, char** argv)
  chip_shutdown();
  lpt_closeport();
  return 0;
+
 } //main ende
 // **************************************************************************
 
