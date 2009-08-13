@@ -12,7 +12,7 @@
   #define LINUX_VERSION
 #else
   #define WINDOWS_VERSION
-#endif 
+#endif
 // #define __FreeBSD__       // uncomment only this for FreeBSD
 #ifdef WINDOWS_VERSION
 #include "inpout32.h"    // our non-system header in quotes
@@ -53,9 +53,6 @@ typedef union inPortUnion {
 static inPortType in_word;
 static outPortType out_word;
 static int once = 0;
-
-unsigned char   DataIn;
-
 
 int pfd;
 
@@ -129,8 +126,7 @@ unsigned char readTDOBit()
     #else
 	ioctl(pfd, PPRSTATUS, &in_word.value);
     #endif
-    DataIn = !! (in_word.bits.tdo);
-    return (DataIn);
+    return (!! (in_word.bits.tdo));
 }
 /* Wait at least the specified number of microsec.                           */
 /* Use a timer if possible; otherwise estimate the number of instructions    */

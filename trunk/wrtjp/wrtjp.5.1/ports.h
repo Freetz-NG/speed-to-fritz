@@ -64,6 +64,7 @@ extern void setPort(short p, short val);
 /* read the TDO bit and store it in val */
 extern unsigned char readTDOBit();
 
+
 /* make clock go down->up->down*/
 extern void pulseClock();
 

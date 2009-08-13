@@ -428,7 +428,6 @@ for (i=0; i < count; i++){
     if (debug1) jtag_tap_controller_state_machine();
 }
 }
-
 //###################################################################################################
 //# Read TDO from port/pin specified in configuration
 //###################################################################################################
@@ -439,15 +438,43 @@ for (i=0; i < count; i++){
 // wiggler type cable is set via compiler option in headerfile
 static unsigned char clockin(int tms, int tdi)
 {
-   unsigned char data;
-	set_tms_tdi (tms,tdi);
-        setPort( TCK, 0 );/* Set TCK low */
-	data=get_tdo();
-        setPort( TCK, 1 );/* Set TCK high */
-//	data=get_tdo();
+    if (once == 0) {
+        out_word.bits.one = 1;
+        out_word.bits.zero = 0;
+        once = 1;
+    }
+    out_word.bits.tms = (unsigned char) tms;
+    out_word.bits.tdi = (unsigned char) tdi;
+    out_word.bits.tck = (unsigned char) 0;
+    #ifdef WINDOWS_VERSION
+        Out32(PPORT_BASE, out_word.value );
+    #else
+        ioctl(pfd, PPWDATA, &out_word.value);
+    #endif
+        out_word.bits.tck = (unsigned char) 1;
+    #ifdef WINDOWS_VERSION
+        Out32(PPORT_BASE, out_word.value );
+    #else
+        ioctl(pfd, PPWDATA, &out_word.value);
+    #endif
 	if (debug1) jtag_tap_controller_state_machine();
-   return data;
+    #ifdef WINDOWS_VERSION
+        in_word.value = Inp32(SPORT_BASE);
+    #else
+        ioctl(pfd, PPRSTATUS, &in_word.value);
+    #endif
+    return (!! (in_word.bits.tdo));
 }
+/* alternativ but slower
+static unsigned char clockin(int tms, int tdi)
+{
+	set_tms_tdi (tms,tdi);
+        setPort( TCK, 0 );// Set TCK low
+        setPort( TCK, 1 );// Set TCK high
+	if (debug1) jtag_tap_controller_state_machine();
+	return get_tdo();
+}
+*/
 // ---------------------------------------
 // ---- End of Compiler Specific Code ----
 // ---------------------------------------
@@ -484,7 +511,7 @@ if ((!debug2) && (repeat == state)) return(state);
 repeat=state;
     if (debug1){
 	int i;
-	printf(" TDO: %01d  ",DataIn);
+	printf(" TDO: %01d  ",(!! (in_word.bits.tdo)));
 	printf(" PPort: ");
 	for (i=0; i<8; i++) printf("%d", (out_word.value >> (7-i)) & 1);
 	printf(" clkcount: %05d  ", clkcount);
@@ -509,24 +536,6 @@ repeat=state;
             case(14): printf(" 14 TAP_PAUSE___IR\n"); break;
 	    case(15): printf(" 15 TAP_EXIT2___IR\n"); break;
             case(16): printf(" 16 TAP_UPDATE__IR\n"); break;
-
-//	    PrintState("tms: 1 tdi: 0  1 TAP_TEST_RESET");
-//	    PrintState("tms: 1 tdi: 0  2 TAP_RUN___IDLE");
-//	    PrintState("tms: 1 tdi: 0  3 TAP_SELECT__DR");
-//	    PrintState("tms: 1 tdi: 0  4 TAP_CAPTURE_DR");
-//	    PrintState("tms: 1 tdi: 0  5 TAP_SHIFT___DR");
-//	    PrintState("tms: 1 tdi: 0  6 TAP_EXIT1___DR");
-//	    PrintState("tms: 1 tdi: 0  7 TAP_PAUSE___DR");
-//	    PrintState("tms: 1 tdi: 0  8 TAP_EXIT2___DR");
-//	    PrintState("tms: 1 tdi: 0  9 TAP_UPDATE__DR");
-//	    PrintState("tms: 1 tdi: 0 10 TAP_SELECT__IR");
-//	    PrintState("tms: 1 tdi: 0 11 TAP_CAPTURE_IR");
-//	    PrintState("tms: 1 tdi: 0 12 TAP_SHIFT___IR");
-//	    PrintState("tms: 1 tdi: 0 13 TAP_EXIT1___IR");
-//	    PrintState("tms: 1 tdi: 0 14 TAP_PAUSE___IR");
-//	    PrintState("tms: 1 tdi: 0 15 TAP_EXIT2___IR");
-//	    PrintState("tms: 1 tdi: 0 16 TAP_UPDATE__IR");
-
         }
     }
 return (state);
@@ -1827,7 +1836,8 @@ void sflash_config(void)
 void sflash_probe(void)
 {
    int retries = 30;
-
+   int check1= check;
+   check = 0;
     // Default to Standard Flash Window for Detection if not CUSTOM
     if (strcasecmp(AREA_NAME,"CUSTOM")==0)
          FLASH_MEMORY_START = selected_window;
@@ -1889,6 +1899,7 @@ again:
           waitTime(300000);
        }
     }
+    check = check1;
     return;
 }
 

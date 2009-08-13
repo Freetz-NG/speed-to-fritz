@@ -117,7 +117,10 @@
 #define MIPS_VIRTUAL_DATA_ACCESS            0xFF200004
 
 // --- Uhh, Just Because I Have To ---
+
+/* read the TDO bit and clock out tms tdo first*/
 static unsigned char clockin(int tms, int tdi);
+
 static unsigned int ReadWriteData(unsigned int send_data, unsigned int count);
 static unsigned int ReadData(unsigned int count);
 void WriteData(unsigned int send_data, unsigned int count);
