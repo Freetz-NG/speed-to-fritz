@@ -143,24 +143,11 @@ sed -i -e '/modprobe ${pcm_link} ${pcm_link_params}/d' "${SRC}/etc/init.d/rc.S"
 #DSL skripts--->
 #copy VDSL Skript
 cp -fdpr  "${DST}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d
-
-if [ "${USE_SRC2_VINAX_ADSLFW}" = "y" ] || [ "${ANNEX}" = "A" ]; then  
- if  ! [ -f "${SRC_2}"/lib/modules/vinax_fw_adsl_${ANNEX}.bin ]; then
-  echo
-  echo
-  echo "  File missing! Select 7570 firmware as 3rd firmware!" 
-  sleep 20
-  exit 0
- else
-  rm -fdr "${SRC}"/lib/modules/vinax_fw_adsl_*.bin
-  cp "${SRC_2}"/lib/modules/vinax_fw_adsl_${ANNEX}.bin "${SRC}"/lib/modules/vinax_fw_adsl.bin 
- fi
-fi
-
-
-#Annex A not working up to now  
+#Annex 
 sed -i -e "s/DSL_Mode=\"VB\"/DSL_Mode=\"V$ANNEX\"/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 #sed -i -e "s/annex=B/annex=$ANNEX/" "${SRC}/etc/init.d/rc.dsl.sh" 
+#Annex default  
+sed -i -e "s/VNX_Mode=\"VB\"/VNX_Mode=\"V$ANNEX\"/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 
 #ATM Parameter
 sed -i -e 's/dsl_pipe sarcs 0 0 0 1 32 1/dsl_pipe sarcs 0 0 0 $VPI $VCI 1/' "${SRC}/etc/init.d/rc.vdsl.sh" 
@@ -175,10 +162,8 @@ echo Starting Vinax\
 echo ===============\
 echo VPI: $VPI\
 echo VCI: $VCI' "${SRC}/etc/init.d/rc.vdsl.sh" 
-
-
-#there is still no option within the menus 7570 rc.vdsl.sh is not used!
 #not in use -->
+#if there is still no option within the menus 7570 rc.vdsl.sh is not used!
 #sed -i -e "s/dsl_pipe sarcs 0 0 0 1 32 1/dsl_pipe sarcs 0 0 0 $VPI $VCI 1/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 #sed -i -e "s/dsl_pipe sarrts 0 0 1 1 32/dsl_pipe sarrts 0 0 1 $VPI $VCI/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 #case $KAPSELUNG in 
@@ -199,14 +184,32 @@ echo VCI: $VCI' "${SRC}/etc/init.d/rc.vdsl.sh"
 #VNX_PPP=0 #default is PPPoE
 #[ "${KAPSELUNG}" != "" ] && sed -i -e "s/VNX_PPP=0/VNX_PPP=${VNX_PPP}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 #<--
-#Annex default  
-sed -i -e "s/VNX_Mode=\"VB\"/VNX_Mode=\"V$ANNEX\"/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 #set DSLMOD
 [ "${DSLMOD}" != "" ] && sed -i -e "s/local DSLMODE=.*$/local DSLMODE=${DSLMOD}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 
+# still not usabele with PPPoA becaus we would need drv_vianx.co for 2.6.13.1.ohio kernelversion
+if [ "${USE_SRC2_VINAX_ADSLFW}" = "y" ] || [ "${ANNEX}" = "A" ]; then  
+ if  ! [ -f "${SRC_2}"/lib/modules/vinax_fw_adsl_${ANNEX}.bin ]; then
+  echo
+  echo
+  echo "  Annex ${ANNEX} VINAX Driver missing! Select 7570 firmware as 3rd firmware!" 
+  sleep 20
+  exit 0
+ else
+  rm -fdr "${SRC}"/lib/modules/vinax_fw_adsl*.bin
+  cp "${SRC_2}"/lib/modules/vinax_fw_adsl_${ANNEX}.bin "${SRC}"/lib/modules/vinax_fw_adsl.bin 
+
+### Still not usabele with PPPoA becaus we would need drv_vianx.co for 2.6.13.1.ohio kernelversion, use the following three lines if kernelversion is correct
+##  cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion2/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
+##  sed -i -e 's/drv_vinax major_number=253/drv_vinax major_number=253 vnx_ppp_mode=$VNX_PPP vnx_vpi=$VPI vnx_vci=$VCI/' "${SRC}/etc/init.d/rc.vdsl.sh" 
+##  sed -i -e 's/vinax_fw_version=0x953a02//' "${SRC}/etc/init.d/rc.vdsl.sh"
+# alternativ to above two lines
+###  cp -fdpr  "${SRC_2}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d
+ fi
+fi
+
 #VDSL would not start if wrong HWrevision is in use, so it only can be set in ATA mod
 #But pluginsupport needs AVM HWrevision to setup the download URL for plugins 
-
 
 #dont think it is needed, but for safty
 sed -i -e '/CONFIG_VDSL=/a\
