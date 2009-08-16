@@ -1,0 +1,37 @@
+#!/bin/bash
+. split_functions
+# Parameter handling
+mod_base="."
+case $# in
+1)
+input_file="$1"
+;;
+2)
+mod_base="$1"
+input_file="$2"
+;;
+*)
+echo "usage: $0 [<ds-mod base directory>] <input file>" >&2
+echo " - base directory defaults to '.'" >&2
+echo " - input file (e.g. recover exe or mtdblock dump) is to be searched for"
+echo " kernel.image and/or urlader.image" >&2
+exit 1
+esac
+
+# Magic byte sequences prepared for 'hexgrep' usage
+KERNEL_MAGIC="81 12 ED FE .. .. .. .."
+SQUASHFS_MAGIC="68 73 71 73 .. .. .. .. .. .. .. .."
+BOOTLOADER_MAGIC="00 90 80 40"
+
+output_dir="$(basename "$input_file" | sed -r 's/(.*)\.[^\.]*/\1/')"
+mkdir -p "$output_dir"
+echo
+echo
+echo "--------------------------------------------------------------------------------------------"
+new_output_file="new_$input_file"
+extract_kernel_image
+#extract_kernel
+#extract_exe_mid
+#extract_bootloader
+#extract_exe_end
+

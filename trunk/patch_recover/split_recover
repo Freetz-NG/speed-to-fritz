@@ -1,0 +1,58 @@
+#!/bin/bash
+. split_functions
+# Parameter handling
+mod_base="."
+case $# in
+1)
+input_file="$1"
+;;
+2)
+mod_base="$1"
+input_file="$2"
+;;
+*)
+echo "usage: $0 [<ds-mod base directory>] <input file>" >&2
+echo " - base directory defaults to '.'" >&2
+echo " - input file (e.g. recover exe or mtdblock dump) is to be searched for"
+echo " kernel.image and/or urlader.image" >&2
+exit 1
+esac
+
+# Magic byte sequences prepared for 'hexgrep' usage
+KERNEL_MAGIC="81 12 ED FE .. .. .. .."
+SQUASHFS_MAGIC="68 73 71 73 .. .. .. .. .. .. .. .."
+BOOTLOADER_MAGIC="00 90 80 40"
+
+output_dir="$(basename "$input_file" | sed -r 's/(.*)\.[^\.]*/\1/')"
+mkdir -p "$output_dir"
+echo
+echo
+echo "--------------------------------------------------------------------------------------------"
+new_output_file="new_$input_file"
+extract_exe
+extract_kernel_filesystem
+add_ticsum
+#extract_kernel
+#extract_exe_mid
+extract_bootloader
+extract_exe_end
+
+new_output_file="new_$input_file"
+echo
+echo "concat all parts to one for chacking"
+cat ./$output_dir/recover.exe >$output_dir/$new_output_file
+cat ./$output_dir/kernel.image >>$output_dir/$new_output_file
+cat ./$output_dir/exe_mid >>$output_dir/$new_output_file
+cat ./$output_dir/urlader.image >>$output_dir/$new_output_file
+cat ./$output_dir/exe_end >>$output_dir/$new_output_file
+
+chmod -x ./$output_dir/exe_end >>$output_dir/$new_output_file
+
+act_size=`ls -l "$input_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
+new_act_size=`ls -l "$output_dir/$new_output_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
+
+echo "actual size= $act_size,  new actual size= $new_act_size" 
+echo
+[ $act_size -eq $new_act_size ] || echo "ERROR!!" 
+ 
+

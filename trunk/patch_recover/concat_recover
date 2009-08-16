@@ -1,0 +1,98 @@
+#!/bin/bash
+#kernl_imag_file muss ein file fuer Webintefaceupdate  sein, nicht das kernel.image fuer FTP.
+#kernl_imag_file name muss "500, 501, 701, oder 900 .image" sein 
+input_kernel_file="701.image" 
+# Nur input_kernel_filname ist veraenderbar, da der patch auf das ausgewaehlte recover inputfile abgestimmt ist.  
+#-------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------
+input_recover_file="fritz.box_fon_wlan_7170.04.29.recover-image.exe" 
+#-------------------------------------------------------------------------------------------------
+./split_image $input_kernel_file
+./split_recover $input_recover_file
+#kernel_dir="${input_kernel_file%.*}"
+echo "$kernel_dir"
+kernel_dir="$(basename "$input_kernel_file" | sed -r 's/(.*)\.[^\.]*/\1/')"
+mkdir -p "$kernel_dir"
+output_dir="$(basename "$input_recover_file" | sed -r 's/(.*)\.[^\.]*/\1/')"
+mkdir -p "$output_dir"
+echo
+echo
+echo "--------------------------------------------------------------------------------------------"
+
+
+if  `cat "./$output_dir/exe_end" | grep -q 'FRITZ!Box Fon WLAN 7170'`; then
+ echo "text found"
+fi
+
+#sed -i -e 's|FRITZ!Box Fon WLAN 7170|FRITZ!Box Speedp. W900V|' "./$output_dir/recover.exe"
+sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Speedp. W${kernel_dir}V|g" "./$output_dir/exe_end"
+
+if ! `cat "./$output_dir/exe_end" | grep -q 'FRITZ!Box Fon WLAN 7170'`; then
+ echo "text changed"
+fi
+
+echo "remove check ..."
+
+# remove firmwareversion check und OEM check
+#0x1a249
+sed -i -e 's|\x0F\x85\xFA\x01\x00\x00\x8D\x85|\x90\x90\x90\x90\x90\x90\x8D\x85|' "./$output_dir/recover.exe"
+#0x1a25e
+sed -i -e 's|\x0F\x85\x26\x02\x00\x00\x39\x9D|\x90\x90\x90\x90\x90\x90\x39\x9D|' "./$output_dir/recover.exe"
+#Check Kenenel
+#0x1a684
+sed -i -e 's|\x74\x59\x83\xFF\xFF\x89\xBD\x60|\xEB\x59\x83\xFF\xFF\x89\xBD\x60|' "./$output_dir/recover.exe"
+#NOUrladerUpdat
+#0x1a310
+#sed -i -e 's|\x73\x06\x89\x1D\x50\xB6\x8F\x00|\x73\x00\x90\x90\x50\xB6\x8F\x00|' "./$output_dir/recover.exe"
+#0x1a308
+#sed -i -e 's|\x72\x0E\x81\xFF\xE8\x03\x00\x00|\x72\x08\x81\xFF\xE8\x03\x00\x00|' "./$output_dir/recover.exe"
+
+
+
+
+act_size=`ls -l "./$output_dir/kernel.image" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
+new_act_size=`ls -l "./$kernel_dir/kernel.image" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
+act_diff=$((act_size - new_act_size))
+
+echo "original size= $act_size, new size= $new_act_size, difference= $act_diff" 
+[ $act_size -gt $new_act_size ] || echo "ERROR!! new kernel image does not fit into recover.exe" 
+
+
+
+dd if=/dev/zero bs=1 count=$act_diff >./$output_dir/zerro.image
+
+
+new_output_file="Speedport_W${kernel_dir}V.recover-image.exe"
+
+echo "concat all parts ..."
+cat ./$output_dir/recover.exe >$kernel_dir/$new_output_file
+cat ./$kernel_dir/kernel.image >>$kernel_dir/$new_output_file
+cat ./$output_dir/zerro.image >>$kernel_dir/$new_output_file
+cat ./$output_dir/exe_mid >>$kernel_dir/$new_output_file
+cat ./$output_dir/urlader.image >>$kernel_dir/$new_output_file
+cat ./$output_dir/exe_end >>$kernel_dir/$new_output_file
+
+
+chmod -x ./$kernel_dir/$new_output_file
+
+act_size=`ls -l "./$input_recover_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
+new_act_size=`ls -l "./$kernel_dir/$new_output_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
+
+
+
+echo "actual size= $act_size,  new actual size= $new_act_size" 
+echo
+[ $act_size -eq $new_act_size ] || echo "ERROR!!" 
+[ $act_size -eq $new_act_size ] && echo "Size OK!!" 
+ 
+
+
+echo "All done, Press 'ENTER' to finish"
+while !(read -s);do
+	sleep 1
+done
+
+exit 0
+
+sleep 20
+exit 0

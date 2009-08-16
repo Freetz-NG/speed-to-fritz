@@ -1,0 +1,178 @@
+#!/bin/bash
+
+# Converts little endian 4-byte unsigned integer given as spaced hex string
+# into decimal number (e.g. "00 D0 4C 00" -> 5033984)
+hex2dec()
+{
+# ATTENTION, 'strtonum' is gawk-specific, other awk versions like mawk
+# probably do not know it.
+echo "$1" | gawk '{ printf "%d\n", strtonum("0x" $4 $3 $2 $1) }'
+}
+extract_exe()
+{
+echo -e "\nExtracting exe from $input_file ..."
+n=1
+kernel_lines="$(tools/hexgrep "$KERNEL_MAGIC" "$input_file")"
+exe_length=($(echo "$kernel_lines" | sed 's/:.*//'))
+
+output_file="$output_dir/recover.exe"
+echo " $output_file - exe @ 0, total length = $exe_length"
+dd if="$input_file" of="$output_file" ibs=1 obs=8192 count=$exe_length 2> /dev/null
+
+}
+extract_exe_mid()
+{
+echo -e "\nExtracting exe middlepart from $input_file ..."
+n=1
+kernel_lines="$(tools/hexgrep "$KERNEL_MAGIC" "$input_file")"
+kernel_offs=($(echo "$kernel_lines" | sed 's/:.*//'))
+kernel_length=($(hex2dec "$(echo "$kernel_lines" | sed -r 's/^[0-9]+:.{12}(.*)/\1/')"))
+offs=$((kernel_length + kernel_offs))
+act_size="$(tools/hexgrep "$BOOTLOADER_MAGIC" "$input_file" | sed 's/:.*//')"
+size=$((act_size - offs))
+output_file="$output_dir/exe_mid"
+echo " $output_file - start @ $offs - end @ $act_size "
+dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$offs count=$size 2> /dev/null
+}
+extract_exe_end()
+{
+echo -e "\nExtracting exe endpart from $input_file ..."
+n=1
+act_size=`ls -l "$input_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
+offs="$(tools/hexgrep "$BOOTLOADER_MAGIC" "$input_file" | sed 's/:.*//')"
+offs=$((offs + 65536))
+size=$((act_size - offs))
+output_file="$output_dir/exe_end"
+echo " $output_file - loader @ $offs - end @ $act_size"
+dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$offs count=$size 2> /dev/null
+}
+
+
+# Extracts urlader.image candidates from input file, based on bootloader magic
+# string. Applies heuristic check for typical strings occurring in AVM
+# bootloaders. Detects older ADAM as well as newer EVA bootloaders.
+extract_bootloader()
+{
+echo -e "\nExtracting bootloader (urlader.image) from $input_file ..."
+n=1
+for bootloader_offs in $(tools/hexgrep "$BOOTLOADER_MAGIC" "$input_file" | sed 's/:.*//'); do
+output_file="$output_dir/urlader.image"
+n=$((n+1))
+size=65536
+act_size=$((offs + size))
+echo " $output_file - loader @ $bootloader_offs, total length = $size, end @ $act_size"
+dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$bootloader_offs count=$size 2> /dev/null
+grep -iq 'entering passive mode' "$output_file" \
+&& grep -iq 'ftp server ready' "$output_file" \
+&& echo " file is a possible bootloader candidate" 
+#\
+#|| echo " file is probably not a bootloader"
+done
+[ $n -eq 1 ] && echo " No bootloader candidate found in input file: $input_file"
+}
+#newer large recover seem to have differnt magic for SQUASHFS_MAGIC
+#So this is just a work around
+extract_kernel()
+{
+echo -e "\nExtracting hidden root kernel + filesystem (kernel.image) from $input_file ..."
+n=1
+kernel_lines="$(tools/hexgrep "$KERNEL_MAGIC" "$input_file")"
+kernel_offs=($(echo "$kernel_lines" | sed 's/:.*//'))
+
+bootloder_offs="$(tools/hexgrep "$BOOTLOADER_MAGIC" "$input_file" | sed 's/:.*//')"
+size=53
+#size=112
+#size=200
+n=$((n+1))
+kernel_end=$((bootloder_offs - size))
+dd_count=$((kernel_end - kernel_offs))
+output_file="$output_dir/kernel.image"
+echo " $output_file - kernel-2 @ ${kernel_offs}, total length = $dd_count, end @ $kernel_end"
+dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=${kernel_offs} count=$dd_count 2> /dev/null
+
+output_file="$output_dir/exe_mid"
+echo " $output_file - start @ $kernel_end, total length = $size, end @ $bootloder_offs "
+dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$kernel_end count=$size 2> /dev/null
+}
+
+# Extracts kernel.image candidates from input file, based on kernel and
+# SquashFS magic strings. Applies heuristic check if kernel end offset
+# calculated from assumed length header field is close enough to subsequent
+# SquashFS start offset. Detects hidden root images used in ds26-enabled
+# firmwares, but currently no other image types.
+extract_kernel_filesystem()
+{
+echo -e "\nExtracting hidden root kernel + filesystem (kernel.image) from $input_file ..."
+n=1
+squashfs_lines="$(tools/hexgrep "$SQUASHFS_MAGIC" "$input_file")"
+squashfs_offs=($(echo "$squashfs_lines" | sed 's/:.*//'))
+squashfs_length=($(hex2dec "$(echo "$squashfs_lines" | sed -r 's/^[0-9]+:.{24}(.*)/\1/')"))
+kernel_lines="$(tools/hexgrep "$KERNEL_MAGIC" "$input_file")"
+kernel_offs=($(echo "$kernel_lines" | sed 's/:.*//'))
+kernel_length=($(hex2dec "$(echo "$kernel_lines" | sed -r 's/^[0-9]+:.{12}(.*)/\1/')"))
+k=0
+while [ $k -lt ${#kernel_offs[*]} ]; do
+s=0
+dd_count=0
+while [ $s -lt ${#squashfs_offs[*]} ]; do
+delta=$((squashfs_offs[s] - kernel_length[k] - kernel_offs[k]))
+[ $delta -le 0 -o $delta -gt 1024 ] && s=$((s+1)) && continue
+squashfs_pad=$(((4096 - squashfs_length[s] % 4096) % 4096))
+dd_count=$((squashfs_offs[s] - kernel_offs[k] + squashfs_length[s] + squashfs_pad))
+output_file="$output_dir/kernel.image"
+n=$((n+1))
+act_end=$((kernel_offs[k] + dd_count))
+echo " $output_file - kernel @ ${kernel_offs[k]}, SquashFS @ ${squashfs_offs[s]}, total length = $dd_count, end @ $act_end"
+dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=${kernel_offs[k]} count=$dd_count 2> /dev/null
+echo -e "\nExtracting exe middlepart ..."
+act_size="$(tools/hexgrep "$BOOTLOADER_MAGIC" "$input_file" | sed 's/:.*//')"
+size=$((act_size - act_end))
+output_file="$output_dir/exe_mid"
+echo " $output_file - start @ $act_end - end @ $act_size "
+dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$act_end count=$size 2> /dev/null
+break
+done
+k=$((k+1))
+done
+[ $n -eq 1 ] && echo " No squashfs candidate found in input file, use alternativ methode"
+[ $n -eq 1 ] && extract_kernel
+}
+extract_kernel_image()
+{
+echo -e "\nExtracting hidden root kernel + filesystem (kernel.image) from $input_file ..."
+n=1
+squashfs_lines="$(tools/hexgrep "$SQUASHFS_MAGIC" "$input_file")"
+squashfs_offs=($(echo "$squashfs_lines" | sed 's/:.*//'))
+squashfs_length=($(hex2dec "$(echo "$squashfs_lines" | sed -r 's/^[0-9]+:.{24}(.*)/\1/')"))
+kernel_lines="$(tools/hexgrep "$KERNEL_MAGIC" "$input_file")"
+kernel_offs=($(echo "$kernel_lines" | sed 's/:.*//'))
+kernel_length=($(hex2dec "$(echo "$kernel_lines" | sed -r 's/^[0-9]+:.{12}(.*)/\1/')"))
+k=0
+while [ $k -lt ${#kernel_offs[*]} ]; do
+s=0
+dd_count=0
+while [ $s -lt ${#squashfs_offs[*]} ]; do
+delta=$((squashfs_offs[s] - kernel_length[k] - kernel_offs[k]))
+[ $delta -le 0 -o $delta -gt 1024 ] && s=$((s+1)) && continue
+squashfs_pad=$(((4096 - squashfs_length[s] % 4096) % 4096))
+dd_count=$((squashfs_offs[s] - kernel_offs[k] + squashfs_length[s] + squashfs_pad))
+output_file="$output_dir/kernel.image"
+n=$((n+1))
+act_end=$((kernel_offs[k] + dd_count))
+echo " $output_file - kernel @ ${kernel_offs[k]}, SquashFS @ ${squashfs_offs[s]}, total length = $dd_count, end @ $act_end"
+dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=${kernel_offs[k]} count=$dd_count 2> /dev/null
+break
+done
+k=$((k+1))
+done
+[ $n -eq 1 ] && echo " No squashfs candidate found in input file, use alternativ methode"
+[ $n -eq 1 ] && extract_kernel
+}
+add_ticsum()
+{
+#checksum
+output_file1="$mod_base/$output_dir/tichksum/kernel.image"
+[ ! -d "$mod_base/$output_dir/tichksum" ] && mkdir $mod_base/$output_dir/tichksum
+cp -p ./$output_dir/kernel.image "$output_file1"
+"$mod_base/tools/tichksum" "$output_file1" | sed 's/^/ /'
+}
