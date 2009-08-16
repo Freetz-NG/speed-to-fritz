@@ -484,7 +484,7 @@ choice
 		bool "AVM_7570_14771 en-de.75.04.77-14771M used as T-Home"
 
 	config TYPE_TCOM_7570_14685
-		bool "AVM_7570_75_14771M en-de-fr.75.04.76-14685 used as T-Home"		
+		bool "AVM_7570_75_14771 en-de-fr.75.04.76-14685 used as T-Home"
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config TYPE_CONGSTAR
@@ -831,42 +831,42 @@ choice
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14031
-		bool "AVM_7570_14031M en.de.75.04.94-14031M"
+		bool "AVM_7570_14031 en.de.75.04.94-14031M"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14341
-		bool "AVM_7570_14341M en.de.75.04.94-14341M"
+		bool "AVM_7570_14341 en.de.75.04.94-14341M"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14348
-		bool "AVM_7570_14348M en.de.75.04.94-14348M"
+		bool "AVM_7570_14348 en.de.75.04.94-14348M"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14354
-		bool "AVM_7570_14354M en.de.75.04.94-14354M"
+		bool "AVM_7570_14354 en.de.75.04.94-14354M"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14375
-		bool "AVM_7570_14375M en.de.75.04.94-14375M"
+		bool "AVM_7570_14375 en.de.75.04.94-14375M"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14434
-		bool "AVM_7570_14434M en.de.75.04.94-14343M"
+		bool "AVM_7570_14434 en.de.75.04.94-14343M"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14685
-		bool "AVM_7570_14685M en-de-fr.75.04.76-14685"
+		bool "AVM_7570_14685 en-de-fr.75.04.76-14685"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14771
-		bool "AVM_7570_14771M en.de.75.04.94-14771M"
+		bool "AVM_7570_14771 en.de.75.04.94-14771M"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920	
 endchoice
@@ -916,10 +916,10 @@ choice
 		bool "AVM_7141_70 40.04.70"
 
 	config TYPE_SRC3_AVM_7150_27
-		bool "AVM_7150_38.04.27"
+		bool "AVM_7150_27 38.04.27"
 
 	config TYPE_SRC3_AVM_7150_32
-		bool "AVM_7150_43 .38.04.32"
+		bool "AVM_7150_43 38.04.32"
 
 	config TYPE_SRC3_AVM_7150_57
 		bool "AVM_7150_57 38.04.57"
@@ -1006,7 +1006,7 @@ choice
 #		bool "AVM_UMTS_7270_13265"
 
 	config TYPE_SRC3_AVM_WLANX_7270_14080
-		bool "AVM_7270_14080 54.04.98-14080 (WLANX)"
+		bool "AVM_7270_14080 54.04.98-14080 (WLAN)"
 
 	config TYPE_SRC3_AVM_AURA_7270_14142
 		bool "AVM_7270_14142 54.04.95-14142 (AURA USB)"
@@ -1033,7 +1033,7 @@ choice
 #		bool "AVM_PHONE_7270_14712"
 
 	config TYPE_SRC3_AVM_PHONE_7270_14907
-		bool "AVM_7270_54.04.97-14907 Phone (MT-D)"
+		bool "AVM_7270_14907 54.04.97-14907 Phone (MT-D)"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 Firmware
 
@@ -1044,25 +1044,25 @@ choice
 		bool "AVM_7570_72 en-de.75.04.72"
 
 	config TYPE_SRC3_AVM_7570_14031
-		bool "AVM_7570_14031M en-de.75.04.94-14031M"
+		bool "AVM_7570_14031 en-de.75.04.94-14031M"
 
 	config TYPE_SRC3_AVM_7570_14341
 		bool "AVM_7570_14341 en-de.75.04.94-14341M"
 
 	config TYPE_SRC3_AVM_7570_14348
-		bool "AVM_7570_14348M en-de.75.04.94-14348M"
+		bool "AVM_7570_14348 en-de.75.04.94-14348M"
 
 	config TYPE_SRC3_AVM_7570_14354
-		bool "AVM_7570_14354M en-de.75.04.94-14354M"
+		bool "AVM_7570_14354 en-de.75.04.94-14354M"
 
 	config TYPE_SRC3_AVM_7570_14375
-		bool "AVM_7570_14375M en-de.75.04.94-14375M"
+		bool "AVM_7570_14375 en-de.75.04.94-14375M"
 
 	config TYPE_SRC3_AVM_7570_14434
-		bool "AVM_7570_14685M en-de.75.04.94-14434M"
+		bool "AVM_7570_14685 en-de.75.04.94-14434M"
 
 	config TYPE_SRC3_AVM_7570_14771
-		bool "AVM_7570_14771M en-de.75.04.77-14771M"
+		bool "AVM_7570_14771 en-de.75.04.77-14771M"
 
 	config TYPE_SRC3_AVM_7570_14685
 		bool "AVM_7570_14685 en-de-fr.75.04.76-14685"
