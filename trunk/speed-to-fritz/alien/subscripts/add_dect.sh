@@ -185,8 +185,17 @@ var mCount = "<? query telcfg:settings/Foncontrol ?>";' "$SR1"/${USRWWW}/home/ho
  #add infoled on main web page
     sed -i -e '/case "11":/a\
 case "12": str += "Bei aktiviertem DECT"; break;' "$SR1"/${USRWWW}/home/home.js
+
  #add dect info on main web page
 sed -i -e '/DslStateDisplay()/a\
+<\/tr>\
+<tr>\
+<td class="tdName"><script type="text\/javascript">document.write(DectStateTitle(true));<\/script><\/td>\
+<td class="tdLed"><script type="text\/javascript">document.write(DectLed());<\/script><\/td>\
+<td><script type="text\/javascript">document.write(DectStateDisplay());<\/script><\/td>' "$SR1"/${USRWWW}/home/home.html
+
+#add dect info on main web page firmware > .76
+sed -i -e '/dsl_info/a\
 <\/tr>\
 <tr>\
 <td class="tdName"><script type="text\/javascript">document.write(DectStateTitle(true));<\/script><\/td>\
