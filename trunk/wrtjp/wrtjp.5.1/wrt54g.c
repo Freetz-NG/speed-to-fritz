@@ -414,8 +414,10 @@ int i;
 for (i=0; i < count; i++){
     setPort(TCK,1);  /* set the TCK port to high */
     setPort(TCK,0);  /* set the TCK port to low  */
+ #ifdef DEBUG
     if (debug1) jtag_tap_controller_state_machine();
-}
+ #endif
+    }
 }
 //###################################################################################################
 //# Toggle clock 0->1 by driving TCK port/pin specified in configuration
@@ -425,9 +427,12 @@ int i;
 for (i=0; i < count; i++){
     setPort(TCK,0);  /* set the TCK port to low  */
     setPort(TCK,1);  /* set the TCK port to high */
+ #ifdef DEBUG
     if (debug1) jtag_tap_controller_state_machine();
+ #endif
 }
 }
+
 //###################################################################################################
 //# Read TDO from port/pin specified in configuration
 //###################################################################################################
@@ -451,17 +456,19 @@ static unsigned char clockin(int tms, int tdi)
     #else
         ioctl(pfd, PPWDATA, &out_word.value);
     #endif
-        out_word.bits.tck = (unsigned char) 1;
+    out_word.bits.tck = (unsigned char) 1;
     #ifdef WINDOWS_VERSION
         Out32(PPORT_BASE, out_word.value );
     #else
         ioctl(pfd, PPWDATA, &out_word.value);
     #endif
-	if (debug1) jtag_tap_controller_state_machine();
+    #ifdef DEBUG
+     if (debug1) jtag_tap_controller_state_machine();
+    #endif
     #ifdef WINDOWS_VERSION
-        in_word.value = Inp32(SPORT_BASE);
+    in_word.value = Inp32(SPORT_BASE);
     #else
-        ioctl(pfd, PPRSTATUS, &in_word.value);
+	ioctl(pfd, PPRSTATUS, &in_word.value);
     #endif
     return (!! (in_word.bits.tdo));
 }
@@ -471,13 +478,16 @@ static unsigned char clockin(int tms, int tdi)
 	set_tms_tdi (tms,tdi);
         setPort( TCK, 0 );// Set TCK low
         setPort( TCK, 1 );// Set TCK high
-	if (debug1) jtag_tap_controller_state_machine();
+    #ifdef DEBUG
+     if (debug1) jtag_tap_controller_state_machine();
+    #endif
 	return get_tdo();
 }
 */
 // ---------------------------------------
 // ---- End of Compiler Specific Code ----
 // ---------------------------------------
+#ifdef DEBUG
 static int state=TAP_TEST_LOGIC_RESET;
 void jtag_tap_controller_state_machine(void){
 	clkcount++;
@@ -540,6 +550,7 @@ repeat=state;
     }
 return (state);
 }
+#endif
 void printInfo (void)
 {
 printf( " [Key] ... [nKey] + [Enter] \n"
@@ -567,14 +578,35 @@ printInfo();
   {
     switch(ch=getchar())
     {
-      case ('1'): set_tms(1); PrintState(" tms: 1"); break;
-      case ('2'): set_tms(0); PrintState(" tms: 0");break;
-      case ('3'): set_tdi(1); PrintState(" tdi: 1");break;
-      case ('4'): set_tdi(0); PrintState(" tdi: 0");break;
-      case ('5'): tog_tck(1); PrintState("        ");break;
-      case ('6'): tog_tck10(1); PrintState("        ");break;
+      case ('1'): set_tms(1);
+      #ifdef DEBUG
+      PrintState(" tms: 1"); break;
+      #endif
+      case ('2'): set_tms(0);
+      #ifdef DEBUG
+      PrintState(" tms: 0");break;
+      #endif
+      case ('3'): set_tdi(1);
+      #ifdef DEBUG
+      PrintState(" tdi: 1");break;
+      #endif
+      case ('4'): set_tdi(0);
+      #ifdef DEBUG
+      PrintState(" tdi: 0");break;
+      #endif
+      case ('5'): tog_tck(1);
+      #ifdef DEBUG
+      PrintState("        ");break;
+      #endif
+      case ('6'): tog_tck10(1);
+      #ifdef DEBUG
+      PrintState("        ");break;
+      #endif
       case ('7'): printf(" TDO: %d\n", get_tdo());break;
-      case ('8'): tog_tck(4000000); PrintState("        "); break;
+      case ('8'): tog_tck(4000000);
+      #ifdef DEBUG
+      PrintState("        "); break;
+      #endif
       case ('9'): detectChainLength(); break;
      default: printInfo();
     }
@@ -591,25 +623,39 @@ void q_continue (void)
 void goToShiftDR(void) {
     set_tms(1);
     tog_tck(1);
+    #ifdef DEBUG
     PrintState("tms: 1 tdi: 0  3 TAP_SELECT__DR");
+    #endif
     set_tms(0);
     tog_tck(1);
+    #ifdef DEBUG
     PrintState("tms: 1 tdi: 0  4 TAP_CAPTURE_DR");
+    #endif
     tog_tck(1);
+    #ifdef DEBUG
     PrintState("tms: 0 tdi: 0  5 TAP_SHIFT___DR");
+    #endif
 }
 //###################################################################################################
 void goToShiftIR(void){
     set_tms(1);
     tog_tck(1);
+    #ifdef DEBUG
     PrintState("tms: 1 tdi: 0  3 TAP_SELECT__DR");
+    #endif
     tog_tck(1);
+    #ifdef DEBUG
     PrintState("tms: 1 tdi: 0 10 TAP_SELECT__IR");
+    #endif
     set_tms(0);
     tog_tck(1);
+    #ifdef DEBUG
     PrintState("tms: 0 tdi: 0 11 TAP_CAPTURE_IR");
+    #endif
     tog_tck(1);
+    #ifdef DEBUG
     PrintState("tms: 0 tdi: 0 12 TAP_SHIFT___IR");
+    #endif
 }
 //###################################################################################################
 // Initialize the JTAG chain to the RTI state.
@@ -622,10 +668,14 @@ void tap_reset(void)
     clkcount = 0;
     set_tms_tdi(1,0);
     tog_tck(6);
+    #ifdef DEBUG
     PrintState("tms: 1 tdi: 0  1 TAP_TEST_RESET");
+    #endif
     set_tms(0);
     tog_tck(1);
+    #ifdef DEBUG
     PrintState("tms: 0 tdi: 0  2 TAP_RUN___IDLE");
+    #endif
 }
 //----------------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------------
@@ -634,34 +684,55 @@ void WrIR(int instr)
     int i;
     if (hir!=0) {
         //set_tdi(1); /* put header Bypass */
+	#ifdef DEBUG
         if (debug2)  printf("IR hir:%d hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\n",hir);
+	#endif
         /* put header Bypass, discard N bits if more as one chip is on the chain after the one in use */
 	for (i=0; i < hir; i++){
 	    clockin(0,1);
+	    #ifdef DEBUG
 	    PrintState("tms: 0 tdi: 1 12 TAP_SHIFT___IR" );
+	    #endif
         }
     }
+    #ifdef DEBUG
     if (debug2)  printf("IR instr length:%d -----------------------------------------------------------------------------------------------------------------\n",instruction_length);
+    #endif
     for (i=0; i < instruction_length; i++)
     {
 	if (tir==0) {
 	    clockin((i == instruction_length - 1), (instr>>i)&1); /*set tms on last bit and clock out tdi*/
-    	    if (i!=(instruction_length - 1)) PrintState("tms: 0 tdi: - 12 TAP_SHIFT___IR" );
-    	    if (i==(instruction_length - 1)) PrintState("tms: 1 tdi: - 13 TAP_EXIT1___IR" );
+    	    #ifdef DEBUG
+	    if (i!=(instruction_length - 1))
+	    PrintState("tms: 0 tdi: - 12 TAP_SHIFT___IR" );
+    	    if (i==(instruction_length - 1))
+	    PrintState("tms: 1 tdi: - 13 TAP_EXIT1___IR" );
+	    #endif
 	} else {
 	    clockin(0, (instr>>i)&1); /*reset tms, and clock out tdi*/
-    	    PrintState("tms: 0 tdi: - 12 TAP_SHIFT___IR" );
+    	    #ifdef DEBUG
+	    PrintState("tms: 0 tdi: - 12 TAP_SHIFT___IR" );
+	    #endif
 	}
     }
     if (tir!=0) {/* put trailer Bypass, discard N bits if more as one chip is on the chain in front of the one in use*/
+    #ifdef DEBUG
     if (debug2)  printf("IR IR tir:%d  tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt\n",tir);
+    #endif
 	for (i=0; i < tir; i++){
     	    clockin((i == tir-1), 1); /*set tms on last bit and clock out bypass*/
-	    if (i!=(tir-1)) PrintState("tms: 0 tdi: 1 12 TAP_SHIFT___IR" );
-	    if (i==(tir-1)) PrintState("tms: 1 tdi: 1 13 TAP_EXIT1___IR" );
+	    #ifdef DEBUG
+	    if (i!=(tir-1))
+	    PrintState("tms: 0 tdi: 1 12 TAP_SHIFT___IR" );
+	    if (i==(tir-1))
+	    PrintState("tms: 1 tdi: 1 13 TAP_EXIT1___IR" );
+	    #endif
 	}
     }
+    #ifdef DEBUG
     if (debug2)  printf("IR --------------------------------------------------------------------------------------------------------------------------------\n");
+    #endif
+
 }
 //----------------------------------------------------------------------------------------------------------------------------
 // read and writets 32 bits
@@ -672,22 +743,34 @@ static unsigned int rwDR(unsigned int send_data, unsigned int count)
     unsigned char recive_bit;
     if (hdr!=0) {
         //set_tdi(0);
+	    #ifdef DEBUG
         if (debug2)  printf("DR hdr:%d hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\n",hdr);
+	    #endif
         /* put header Bypass, discard N bits if more as one chip is on the chain after the one in use */
 	for (i=0; i < hdr; i++){
 	    clockin(0,0);
+	    #ifdef DEBUG
 	    PrintState("tms: 0 tdi: 0  5 TAP_SHIFT___DR" );
+	    #endif
         }
     }
+ #ifdef DEBUG
     if (debug2)  printf("DR 32 -----------------------------------------------------------------------------------------------------------------------------\n");
+ #endif
     for(i = 0 ; i < count ; i++){
         if (tdr==0){
 	    recive_bit  = clockin((i == count-1), ((send_data>>i)&1)); /*set tms on last bit and clock out tdi*/
-    	    if (i!=count-1) PrintState("tms: 0 tdi: -  5 TAP_SHIFT___DR" );
-    	    if (i==count-1) PrintState("tms: 1 tdi: -  6 TAP_EXIT1___DR" );
+	    #ifdef DEBUG
+    	    if (i!=count-1)
+	    PrintState("tms: 0 tdi: -  5 TAP_SHIFT___DR" );
+    	    if (i==count-1)
+	    PrintState("tms: 1 tdi: -  6 TAP_EXIT1___DR" );
+	    #endif
         } else {
     	    recive_bit  = clockin(0, ((send_data>>i)&1)); /*reset tms, and clock out tdi*/
-    	    PrintState("tms: 0 tdi: -  5 TAP_SHIFT___IR" );
+    	    #ifdef DEBUG
+	    PrintState("tms: 0 tdi: -  5 TAP_SHIFT___IR" );
+	    #endif
 	}
 	recive_data |= (recive_bit << i);
     }
@@ -695,11 +778,17 @@ static unsigned int rwDR(unsigned int send_data, unsigned int count)
         if (debug2)  printf("DR tdr:%d tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt\n",tdr);
 	for (i=0; i < tdr; i++){
     	    clockin((i == tdr-1), 0); /*set tms on last bit and clock out zerros*/
-	    if (i!=(tdr-1)) PrintState("tms: 0 tdi: 0  5 TAP_SHIFT___DR" );
-	    if (i==(tdr-1)) PrintState("tms: 1 tdi: 0  6 TAP_EXIT1___DR" );
+	    #ifdef DEBUG
+	    if (i!=(tdr-1))
+	    PrintState("tms: 0 tdi: 0  5 TAP_SHIFT___DR" );
+	    if (i==(tdr-1))
+	    PrintState("tms: 1 tdi: 0  6 TAP_EXIT1___DR" );
+	    #endif
 	}
     }
+    #ifdef DEBUG
     if (debug2)  printf("DR --------------------------------------------------------------------------------------------------------------------------------\n");
+    #endif
     return recive_data;
 }
 //----------------------------------------------------------------------------------------------------------------------------
@@ -710,12 +799,17 @@ void WriteToIR(int instr)
     WrIR(instr);
     set_tms(1);
     tog_tck(1);
+    #ifdef DEBUG
     PrintState("tms: 1 tdi: 0 16 TAP_UPDATE__IR");
+    #endif
     set_tms(0);
     tog_tck(1);
+    #ifdef DEBUG
     PrintState("tms: 0 tdi: 0  2 TAP_RUN___IDLE");
+    #endif
 }
 //----------------------------------------------------------------------------------------------------------------------------
+#ifdef DEBUG
 void PrintDebugInstr(int instr)
 {
 char *CONTROL="";
@@ -731,11 +825,13 @@ char *CONTROL="";
             case(INSTR_CONTROL): CONTROL="INSTR_CONTROL"; break;
             case(INSTR_BYPASS): CONTROL="INSTR_BYPASS"; break;
 	}
+
     printf("%s: ",CONTROL);
     ShowData(instr,instruction_length);
     printf("\n");
     }
 }
+#endif
 //----------------------------------------------------------------------------------------------------------------------------
 void WriteIR(int instr)
 {
@@ -745,7 +841,9 @@ void WriteIR(int instr)
     if (instr == curinstr1)
        return;
 //add <-
+    #ifdef DEBUG
     PrintDebugInstr(instr);
+    #endif
     //if (instr != curinstr)
     { WriteToIR(instr); curinstr = instr;}
 }
@@ -757,10 +855,14 @@ static unsigned int ReadWriteData(unsigned int send_data, unsigned int count)
     recive_data=rwDR(send_data, count);
     set_tms(1);
     tog_tck(1);
+    #ifdef DEBUG
     PrintState("tms: 1 tdi: 0  9 TAP_UPDATE__DR");
+    #endif
     set_tms(0);
     tog_tck(1);
+    #ifdef DEBUG
     PrintState("tms: 0 tdi: 0  2 TAP_RUN___IDLE");
+    #endif
     return recive_data;
 }
 //----------------------------------------------------------------------------------------------------------------------------
@@ -1190,10 +1292,14 @@ unsigned int readCountDR(unsigned char count) {
       setPort( TCK, 0 );
       recive_bit = get_tdo();
       recive_data |= (recive_bit << i);
+      #ifdef DEBUG
       if (debug1) ShowDataLine(recive_bit,1);
+      #endif
       setPort( TCK, 1 );
-      if (debug1) jtag_tap_controller_state_machine();
-      PrintState("tms: 0 tdi: 0  5 TAP_SHIFT___DR");
+    #ifdef DEBUG
+     if (debug1) jtag_tap_controller_state_machine();
+     PrintState("tms: 0 tdi: 0  5 TAP_SHIFT___DR");
+    #endif
     }
 return (recive_data);
 }
@@ -1255,8 +1361,10 @@ void autodetect(unsigned char notquiet ) {
       recive_data |= (recive_bit << i);
       if (debug1) ShowDataLine(recive_bit,1);
       setPort( TCK, 1 );
-      jtag_tap_controller_state_machine();
+    #ifdef DEBUG
+     if (debug1) jtag_tap_controller_state_machine();
       PrintState("tms: 0 tdi: 0  5 TAP_SHIFT___DR");
+    #endif
     }
     if (debug1) printf("\n");
     if (recive_bit32){
@@ -1372,7 +1480,9 @@ void detectChainLength(void)
 	recive_data |= (recive_bit << i);
 	set_tdi(0);                 // shift in 0s on TDI
 	tog_tck(1);
-        PrintState("tms: 0 tdi: 0 12 TAP_SHIFT___IR");
+	#ifdef DEBUG
+	PrintState("tms: 0 tdi: 0 12 TAP_SHIFT___IR");
+	#endif
     }
     //printf("\n");
     for(i = 0 ; i < 64 ; i++){
@@ -1380,7 +1490,9 @@ void detectChainLength(void)
 	//ShowDataLine(recive_bit,1);
 	set_tdi(1);                 // shift in 1s on TDI
 	tog_tck(1);
-        PrintState("tms: 0 tdi: 1 12 TAP_SHIFT___IR");
+        #ifdef DEBUG
+	PrintState("tms: 0 tdi: 1 12 TAP_SHIFT___IR");
+	#endif
 	if (recive_bit==1) {i--; if (debug1) printf("\n"); break;};
 //	if (recive_bit==1) {i--; printf("\n"); break;};
     }
@@ -1951,6 +2063,7 @@ void sflash_erase_area(unsigned int start, unsigned int length)
              fflush(stdout);
           }
     }
+    waitTime(100000);
     printf("Done\n");
 }
 
@@ -2189,8 +2302,8 @@ void show_usage(void)
            "            /hdr:XX ............ custom data prefix\n"
            "            /tdr:XX ............ custom data postfix\n"
            "            /bypass ............ set bypass - not usable in every case \n"
-           "            /debug1 ............ display EJTAG states\n"
-           "            /dedub2 ............ show all EJTAG states\n"
+           "            /debug1 ............ display EJTAG states, only if compiled for debug\n"
+           "            /dedub2 ............ show all EJTAG states, only if compiled for debug\n"
            "            /dedug ............. show all CPU read/write\n"
            "            /test .............. manual set of ports, siglstep, ...\n"
            "            /check ............. check every flash read and write\n"
@@ -2342,8 +2455,10 @@ int main(int argc, char** argv)
           else if (strncasecmp(choice,"/instrlen:",10)==0)   	instrlen = strtoul(((char *)choice + 10),NULL,10);
           else if (strcasecmp(choice,"/bypass")==0)        	setBypass = 1;
           else if (strcasecmp(choice,"/debug")==0)        	debug = 1;
+    #ifdef DEBUG
           else if (strcasecmp(choice,"/debug1")==0)        	debug1 = 1;
           else if (strcasecmp(choice,"/debug2")==0)        	{debug2 = 1; debug1 = 1;}
+    #endif
           else if (strcasecmp(choice,"/test")==0)        	{test = 1; debug2 = 1;}
           else if (strcasecmp(choice,"/check")==0)        	check = 1;
 	  else if (strncasecmp(choice,"/dv:",4)==0)             { selected_device = (strtoul(((char *)choice + 4),NULL,10)); if (selected_device) selected_device -=1;}
@@ -2376,7 +2491,7 @@ int main(int argc, char** argv)
     lpt_openport();
     printf("\n***--------------------------------------------------------------------------------------------------------------***\n\n");
     //Initialize the chain to ensure we start from the RTI state
-    //tap_reset();
+    tap_reset();
     // ----------------------------------
  if (test) { test_ports();} else
  {
@@ -2411,7 +2526,7 @@ int main(int argc, char** argv)
     if (issue_break)
     {
 	//printf("\nTAP reset ... \n");
-	//tap_reset();
+	tap_reset();
 	printf("-- > Halting Processor ... \n");
     WriteIR(INSTR_CONTROL);
 	ctrl_reg = ReadWriteData(PRACC | PROBEN | SETDEV | JTAGBRK,32);
@@ -2429,6 +2544,8 @@ int main(int argc, char** argv)
 	    // ----------------------------------
 	    if (issue_watchdog) {printf("Clearing Watchdog (0xb8000080) ... Done\n"); ejtag_write(0xb8000080,0);}
         //q_continue ();
+        printf("\nTAP reset ... \n");
+        tap_reset();
 	    // ----------------------------------
 	    // Flash Chip Detection
 	    //printf("<------ flash ------>\n");

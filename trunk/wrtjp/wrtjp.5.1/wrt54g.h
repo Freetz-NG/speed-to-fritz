@@ -22,6 +22,9 @@
 #include <stdlib.h>
 #include <fcntl.h>
 // --- JPascher Statemachine ---
+//## Enable this if debug should be useabel
+#define DEBUG  1
+
 #define TAP_TEST_LOGIC_RESET 1
 #define TAP_RUN_TEST_IDLE 2
 #define TAP_SELECT_DR_SCAN 3
