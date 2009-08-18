@@ -24,6 +24,6 @@ typedef void (_stdcall *oupfuncPtr)(short portaddr, short datum);
 
 extern int inpout32_init(void);
 extern void inpout32_unload(void);
-extern short Inp32(short portaddr);
-extern void Out32(short portaddr,short datum);
+extern unsigned char Inp32(short portaddr);
+extern void Out32(short portaddr, unsigned char datum);
 

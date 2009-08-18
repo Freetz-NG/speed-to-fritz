@@ -1,0 +1,33 @@
+# depslib dependency file v1.0
+1250617588 source:c:\shared\5\wrtjp.5.1\wrt54g.c
+	<stdio.h>
+	<string.h>
+	<time.h>
+	"wrt54g.h"
+	"ports.c"
+
+1250617337 c:\shared\5\wrtjp.5.1\wrt54g.h
+	<stdio.h>
+	<stdlib.h>
+	<fcntl.h>
+
+1250615259 c:\shared\5\wrtjp.5.1\ports.c
+	"ports.h"
+	"stdio.h"
+	"inpout32.h"
+	<windows.h>
+	<unistd.h>
+	<dev/ppbus/ppi.h>
+	<dev/ppbus/ppbconf.h>
+	<linux/ppdev.h>
+	<sys/ioctl.h>
+
+1250209440 c:\shared\5\wrtjp.5.1\ports.h
+
+1250611408 c:\shared\5\wrtjp.5.1\inpout32.h
+
+1249975680 source:c:\shared\5\wrtjp.5.1\inpout32.c
+	<windows.h>
+	<stdio.h>
+	"inpout32.h"
+

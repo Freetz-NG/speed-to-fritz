@@ -22,7 +22,7 @@ static oupfuncPtr oup32fp = NULL;
 
 static HINSTANCE hLib;
 
-int inpout32_init(void)
+int inpout32init(void)
 {
 
 //     short x;
@@ -69,12 +69,47 @@ void inpout32_unload(void)
 
 /* Wrapper Functions */
 
-short  Inp32 (short portaddr)
+short  Inp_32 (short portaddr)
 {
      return (inp32fp)(portaddr);
 }
 
-void  Out32 (short portaddr, short datum)
+void  Out_32 (short portaddr, short datum)
 {
      (oup32fp)(portaddr,datum);
 }
+
+//----------------------------------
+//Alternativ with giveio.sys is three times faster!
+unsigned char Inp32 ( short portaddr )
+{
+  unsigned char value;
+  asm volatile
+  (
+    "in %1, %0" :
+    "=a" (value) :
+    "d" (portaddr)
+  );
+  return value;
+}
+
+void Out32 ( short portaddr, unsigned char value )
+{
+  asm volatile
+  (
+    "out %1, %0" ::
+    "d" (portaddr), "a" (value)
+  );
+}
+
+int inpout32_init(void)
+{
+  HANDLE h;
+  h = CreateFile("\\\\.\\giveio", GENERIC_READ,
+    0, NULL, OPEN_EXISTING,
+    FILE_ATTRIBUTE_NORMAL, NULL);
+  CloseHandle(h);
+  if (h != INVALID_HANDLE_VALUE) return 0; else return 1;
+}
+
+

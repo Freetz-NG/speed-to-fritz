@@ -1066,7 +1066,7 @@ static unsigned int ejtag_pracc_write(unsigned int addr, unsigned int data)
         retries = RETRY_ATTEMPTS;
         while ((ExecuteDebugModule(pracc_readword_code_module)) && (retries--));
     }
-    if ((data_register2 != data_register) && (retries2--)) goto repeat1;
+    if ((data_register2 != data_register) && (retries2--) && (check)) goto repeat1;
     if ((data_register2 == data_register) && (retries2)) return 0; else return 1;
 }
 static unsigned int ejtag_pracc_write_h(unsigned int addr, unsigned int data)
@@ -1083,7 +1083,7 @@ static unsigned int ejtag_pracc_write_h(unsigned int addr, unsigned int data)
         retries = RETRY_ATTEMPTS;
         while ((ExecuteDebugModule(pracc_readhalf_code_module)) && (retries--));
     }
-    if ((data_register2 != data_register) && (retries2--)) goto repeat2;
+    if ((data_register2 != data_register) && (retries2--) && (check)) goto repeat2;
     if ((data_register2 == data_register) && (retries2)) return 0; else return 1;
 }
 // ejtag_read
@@ -2058,12 +2058,12 @@ void sflash_erase_area(unsigned int start, unsigned int length)
        block_addr = blocks[cur_block];
        if ((block_addr >= reg_start) && (block_addr < reg_end))
           {
-             printf("Erasing block: %d (addr = %08x)..", cur_block, block_addr);  //fflush(stdout);
+             printf("\nErasing block: %d (addr = %08x)..", cur_block, block_addr);  //fflush(stdout);
              sflash_erase_block(block_addr);
              fflush(stdout);
           }
     }
-    waitTime(100000);
+    //waitTime(100000);
     printf("Done\n");
 }
 
@@ -2489,9 +2489,9 @@ int main(int argc, char** argv)
     }
     // ----------------------------------
     lpt_openport();
-    printf("\n***--------------------------------------------------------------------------------------------------------------***\n\n");
+    printf("\n***-----------------------------------------------------------------***\n\n");
     //Initialize the chain to ensure we start from the RTI state
-    tap_reset();
+    //tap_reset();
     // ----------------------------------
  if (test) { test_ports();} else
  {
@@ -2526,7 +2526,7 @@ int main(int argc, char** argv)
     if (issue_break)
     {
 	//printf("\nTAP reset ... \n");
-	tap_reset();
+	//tap_reset();
 	printf("-- > Halting Processor ... \n");
     WriteIR(INSTR_CONTROL);
 	ctrl_reg = ReadWriteData(PRACC | PROBEN | SETDEV | JTAGBRK,32);
