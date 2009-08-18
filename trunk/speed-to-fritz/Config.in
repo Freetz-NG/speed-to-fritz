@@ -88,9 +88,9 @@ config AVM_7113_58
     string
     default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7113/fritz.box.fon.wlan.7113_60.04.58.image"
 
-config AVM_7113_67
+config AVM_7113_68
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch/FRITZ.Box_Fon_WLAN_7113.60.04.67.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch/FRITZ.Box_Fon_WLAN_7113.60.04.67.image"
+    ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch/FRITZ.Box_Fon_WLAN_7113.60.04.68.image" mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch/FRITZ.Box_Fon_WLAN_7113.60.04.68.image"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM 7140 Firmware
 
@@ -899,8 +899,8 @@ choice
 #	config TYPE_SRC3_AVM_7113_61
 #		bool "AVM_7113_61"
 
-	config TYPE_SRC3_AVM_7113_67
-		bool "AVM_7113_67 60.04.67"
+	config TYPE_SRC3_AVM_7113_68
+		bool "AVM_7113_68 60.04.68"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7140 Firmware
 
@@ -1246,7 +1246,7 @@ config SRC2_IMG
 	default "$AVM_7170_59" 			if TYPE_SRC3_AVM_7170_59
 #	default "$AVM_7113_61" 			if TYPE_SRC3_AVM_7113_61
 	default "$AVM_7113_58" 			if TYPE_SRC3_AVM_7113_58
-	default "$AVM_7113_67" 			if TYPE_SRC3_AVM_7113_67
+	default "$AVM_7113_68" 			if TYPE_SRC3_AVM_7113_68
 #	default "$AVM_7170_67" 			if TYPE_SRC3_AVM_7170_67
 	default "$AVM_7170_76" 			if TYPE_SRC3_AVM_7170_76
 	default "$AVM_7141_70" 			if TYPE_SRC3_AVM_7141_70
@@ -1315,8 +1315,9 @@ config TYPE_LABOR_TYPE
         default "59" 		if TYPE_7170_59 || TYPE_7270_59
         default "A59" 		if TYPE_7170_A59 || TYPE_7270_A59
         default "61" 		if TYPE_7113_61
-        default "67" 		if TYPE_7113_67 || TYPE_7270_67
+        default "67" 		if TYPE_7270_67
         default "67m" 		if TYPE_7170_67m || TYPE_7270_67m
+        default "68" 		if TYPE_7113_68
         default "70" 		if TYPE_7170_70 || TYPE_7270_70
         default "A76" 		if TYPE_7170_A76 || TYPE_7270_A76
         default "76" 		if TYPE_7170_76 || TYPE_7270_76
@@ -1517,14 +1518,16 @@ config EXPORT_RPL_ASSIST
 		Set this to 'y' if you like to replace the assistant menu-item with enhanced settings. 
 config EXPORT_REMOVE_HELP
 	bool "Help files (remove)"
-	depends on TYPE_SPEEDPORT_W501V || TYPE_LOCAL_TCOM
-	default n
+	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM
+	default y if ! TYPE_TCOM_W721SPECIAL
+	default n if TYPE_TCOM_W721SPECIAL
 	help
 		Set this to 'y' if you like to remove help pages to save space, normal this is "y".
 config EXPORT_REMOVE_KIDS
 	bool "Kids files (remove)"
-	depends on TYPE_SPEEDPORT_W501V || TYPE_LOCAL_TCOM
-	default n
+	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM
+	default y if ! TYPE_TCOM_W721SPECIAL
+	default n if TYPE_TCOM_W721SPECIAL
 	help
 		Set this to 'y' if you like to remove kids pages to save space, normal this is "n".
 config EXPORT_BUGFIX_FONCONFIG
@@ -1761,7 +1764,7 @@ if ! EXPORT_ATA_ONLY
     config EXPORT_ADD_VDSL_PROFILE
 	depends on TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W721V
 	bool "Replace feedback tab with VDSL profile settings pages"
-	default y
+	default n
 	help
 		Use this additional option to enable profile settings pages for VDSL.
     config EXPORT_USE_SOURCE2_DSLMNUE
@@ -1978,6 +1981,9 @@ if ! EXPORT_TYPE_LOCAL_MODEL
  config COPY_TCOM_BIN
 	bool "Keep T-Home libs and binary files"
 	depends on TYPE_SPEEDPORT_W721V && XCHANGE_KERNEL
+	default y if TYPE_TCOM_W721SPECIAL
+	default n if ! TYPE_TCOM_W721SPECIAL
+
 	default y
 	help
 		For normal this is "n", but for testing this may be used, webmenu is with errors.
@@ -2072,8 +2078,9 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		set on if AVM firmware supports this option!.
  config XCHANGE_KERNEL
 	bool "Xchange kernel between T-Home and avm source"
-	default n if ! TYPE_SPEEDPORT_W721V
-	default y if TYPE_SPEEDPORT_W721V
+	default y if TYPE_TCOM_W721SPECIAL
+	default n if ! TYPE_TCOM_W721SPECIAL
+
 	help
 		For normal this is "n", but for testing this may be used, this option is dangerous,
 		but it can be used in combination with the option restore original firmware as well.

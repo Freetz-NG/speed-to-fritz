@@ -12,10 +12,11 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
     rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
-#OEM tcom 
+#use OEM tcom 
  cp -fdrp "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}" "${SRC}/etc/default.${CONFIG_PRODUKT}/tcom"
- cp -fdrp "${DST}/etc/default.${CONFIG_PRODUKT}/tcom" --target-directory="${SRC}/etc/default.${CONFIG_PRODUKT}"
  cp -fdrp "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/strings.tab" --target-directory="${SRC}/etc/default.${CONFIG_PRODUKT}/tcom"
+# use tcom defaults from tcom firmware 
+ cp -fdrp "${DST}/etc/default.${CONFIG_PRODUKT}/tcom" --target-directory="${SRC}/etc/default.${CONFIG_PRODUKT}"
 #copy second source internet dsl menue
 [ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
 #use scond source web GUI
@@ -200,9 +201,9 @@ if [ "${USE_SRC2_VINAX_ADSLFW}" = "y" ] || [ "${ANNEX}" = "A" ]; then
   cp "${SRC_2}"/lib/modules/vinax_fw_adsl_${ANNEX}.bin "${SRC}"/lib/modules/vinax_fw_adsl.bin 
 
 ### Still not usabele with PPPoA becaus we would need drv_vianx.co for 2.6.13.1.ohio kernelversion, use the following three lines if kernelversion is correct
-##  cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion2/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
-##  sed -i -e 's/drv_vinax major_number=253/drv_vinax major_number=253 vnx_ppp_mode=$VNX_PPP vnx_vpi=$VPI vnx_vci=$VCI/' "${SRC}/etc/init.d/rc.vdsl.sh" 
-##  sed -i -e 's/vinax_fw_version=0x953a02//' "${SRC}/etc/init.d/rc.vdsl.sh"
+##cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion2/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
+##sed -i -e 's/drv_vinax major_number=253/drv_vinax major_number=253 vnx_ppp_mode=$VNX_PPP vnx_vpi=$VPI vnx_vci=$VCI/' "${SRC}/etc/init.d/rc.vdsl.sh" 
+##sed -i -e 's/vinax_fw_version=0x953a02//' "${SRC}/etc/init.d/rc.vdsl.sh"
 # alternativ to above two lines
 ###  cp -fdpr  "${SRC_2}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d
  fi
@@ -319,3 +320,17 @@ $sh_DIR/patch_fonbuch.sh "${SRC}"
 echo "********************************************************************************"
 #if this is not corrected no webintaface is present with most firmwares
 sed -i -e "s|HWRevision_ATA=0|HWRevision_ATA=1|" "${SRC}/etc/init.d/rc.conf"
+
+
+#remove kids and help
+[ ${REMOVE_KIDS} = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
+[ ${REMOVE_HELP} = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
+
+#echo2 "Removing files for further image size reduction:"
+#$sh_DIR/remove_files_721.sh ${SRC}
+
+#remove programme menu entry
+DIRI="${SRC}/usr/www/${OEMLINK}/html/de/menus"
+for FILE in `ls "${DIRI}"/*`; do  
+    sed -i -e "/'software','extern'/d" $FILE
+done
