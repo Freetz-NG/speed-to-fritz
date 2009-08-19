@@ -1,0 +1,48 @@
+#!/bin/sh
+
+##################################################################################
+# install results:
+##################################################################################
+export INSTALL_SUCCESS_NO_REBOOT=0
+export INSTALL_SUCCESS_REBOOT=1
+export INSTALL_WRONG_HARDWARE=2
+export INSTALL_KERNEL_CHECKSUM=3
+export INSTALL_FILESYSTEM_CHECKSUM=4
+export INSTALL_URLADER_CHECKSUM=5
+export INSTALL_OTHER_ERROR=6
+export INSTALL_FIRMWARE_VERSION=7
+
+##################################################################################
+
+echo "install: check and install ..."
+cat > /var/tmp/debug.cfg << 'EOF'
+#!/bin/sh
+# wait to be able to interrupt in case of emergency
+sleep 10
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+# debug.cfg idee, ohne gewähr da nicht getestet
+(
+  exec 1> /var/tmp/debug.cfg-relogin 2>&1 < /dev/null
+  set -x
+  trap : 1 2 17
+  if [ -n "$(pidof dsld)" ]; then # nur wenn dsld aktiv
+    connected=
+    showdsldstat | grep "0: connected" > /dev/null && connected=yes # wenn schon verbunden alles ok
+    while [ -z "$connected" ]; do # solange laufen, bis eine verbindung zustande kommt
+      sleep 60 # warten bis alles oben ist, und dsld genug zeit geben selber klar zu kommen
+      # schwarze Magie
+      dsl_pipe ld 0
+      #
+      showdsldstat | grep "0: connected" > /dev/null && connected=yes
+    done
+  fi
+) &
+sleep 1
+EOF
+# write debug.cfg
+cat /var/tmp/debug.cfg > /var/flash/debug.cfg
+# delete /var/tmp/debug.cfg
+rm /var/tmp/debug.cfg
+# reboot
+exit $INSTALL_SUCCESS_REBOOT
+
