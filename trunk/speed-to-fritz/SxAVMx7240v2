@@ -164,5 +164,9 @@ sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init
 [ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
 # add buchsend button to fon bookpage
 $sh_DIR/patch_fonbuch.sh "${SRC}"
+#remove kids and help
+[ ${REMOVE_KIDS} = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
+[ ${REMOVE_HELP} = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
+
 echo "********************************************************************************"
 sleep 1

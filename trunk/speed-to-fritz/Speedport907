@@ -139,5 +139,8 @@ cp -fdpr  ./addon/tmp/jp   --target-directory="${SRC}"
 $sh_DIR/patch_annex.sh "${SRC}"
 # add kapselung and annex settings page if missing
 $sh_DIR/add_multi_settings.sh
+#remove kids and help
+[ ${REMOVE_KIDS} = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
+[ ${REMOVE_HELP} = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
 
 echo "********************************************************************************"

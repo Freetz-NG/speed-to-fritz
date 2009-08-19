@@ -286,4 +286,7 @@ fi
 $sh_DIR/add_multi_settings.sh
 # add feedback tab with vdsl profile page
 $sh_DIR/add_vdslprofilepage.sh "${SRC}"
+#remove kids and help
+[ ${REMOVE_KIDS} = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
+[ ${REMOVE_HELP} = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
 echo "********************************************************************************"

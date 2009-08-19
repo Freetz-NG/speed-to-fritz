@@ -85,5 +85,8 @@ $sh_DIR/add_multi_settings.sh
 
 #patch download url
 sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
+#remove kids and help
+[ ${REMOVE_KIDS} = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
+[ ${REMOVE_HELP} = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
 
 echo "********************************************************************************"
