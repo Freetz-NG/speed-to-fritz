@@ -26,6 +26,7 @@
 +<option value="480" >GMT Minus 8</option>
 +<option value="420" >GMT Minus 7</option>
 +<option value="360" >GMT Minus 6</option>
++<option value="330" >GMT Minus 6,5</option>
 +<option value="300" >GMT Minus 5</option>
 +<option value="240" >GMT Minus 4</option>
 +<option value="210" >GMT Minus 4,5</option>
@@ -55,8 +56,7 @@
 +<option value="-765">GMT Plus 12:45</option>
 +</select></p>
 +<p class="mb10"><input type="checkbox" id="uiViewTZ_Dst_Enabled" name="uiViewClickToTZ_DstEnabled" onclick="OnClickTo_DstEnabled()">&nbsp;<label for="uiViewTZ_Dst_Enabled">Sommer- und Winterzeit nutzen</label></p>
-+</div>
-+<p class="mt10 mt10"><b>Achtung!</b>&nbsp; Wenn Sie diese Einstellungen aendern, wird die FRITZ!Box zur uebernahme der Einstellungen automatisch neu gestartet.</p>
++</div><p class="mt10 mt10"><b>Achtung!</b>&nbsp; Wenn Sie diese Einstellungen aendern, wird die FRITZ!Box zur uebernahme der Einstellungen automatisch neu gestartet.</p>
 +</div></div></div></div></div></div>
 +<? include ../html/de/home/rbb_applycancel.html ?>
 +</div></div></div></div></div></div></div></div>
