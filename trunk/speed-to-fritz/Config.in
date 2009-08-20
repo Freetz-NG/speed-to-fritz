@@ -292,7 +292,9 @@ config AVM_7570_72
     string
     default "http://supportvente.pt.lu/luxdsl/avm/7570/fw_72/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.72.image"
 
+
 ### Not available only in use by AVM -->
+
 config AVM_7570_14031
     string
     default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.94-14031M.image"
@@ -324,6 +326,10 @@ config AVM_7570_14685
 config AVM_7570_14771
    string
       default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.77-14771M.image"
+
+config AVM_7570_76
+    string
+    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.76.image"
 ### Not available only in use by AVM <--
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #( do not remove the following line)
@@ -466,6 +472,9 @@ choice
 
 	config TYPE_TCOM_7570_72
 		bool "AVM_7570_72 en-de.75.04.72 used as T-Home firmware"
+
+	config TYPE_TCOM_7570_76
+		bool "AVM_7570_76 en-de-fr.75.04.76 used as T-Home firmware"
 
 	config TYPE_TCOM_7570_14031
 		bool "AVM_7570_14031 en-de.75.04.94-14031M used as T-Home"
@@ -843,6 +852,11 @@ choice
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
+	config TYPE_AVM_7570_76
+		bool "AVM_7570_76 en-de-fr.75.04.76"
+		help
+		FRITZ! : 7570 release multilingual, for used in combination with W920
+
 	config TYPE_AVM_7570_14031
 		bool "AVM_7570_14031 en.de.75.04.94-14031M"
 		help
@@ -1059,6 +1073,9 @@ choice
 	config TYPE_SRC3_AVM_7570_72
 		bool "AVM_7570_72 en-de.75.04.72"
 
+	config TYPE_SRC3_AVM_7570_76
+		bool "AVM_7570_76 en-de-fr.75.04.76"
+
 	config TYPE_SRC3_AVM_7570_14031
 		bool "AVM_7570_14031 en-de.75.04.94-14031M"
 
@@ -1171,6 +1188,7 @@ config TCOM_IMG
 	default "$TCOM_W920_13571" 		if TYPE_TCOM_BETA_13571 && ( TYPE_SPEEDPORT_W920V )
 	default "$AVM_7570_70" 			if TYPE_TCOM_7570_70 && ( TYPE_SPEEDPORT_W920V )
 	default "$AVM_7570_72" 			if TYPE_TCOM_7570_72 && ( TYPE_SPEEDPORT_W920V )
+	default "$AVM_7570_76" 			if TYPE_TCOM_7570_76 && ( TYPE_SPEEDPORT_W920V )
 	default "$AVM_7570_14031" 		if TYPE_TCOM_7570_14031 && ( TYPE_SPEEDPORT_W920V )
 	default "$AVM_7570_14341" 		if TYPE_TCOM_7570_14341 && ( TYPE_SPEEDPORT_W920V )
 	default "$AVM_7570_14348" 		if TYPE_TCOM_7570_14348 && ( TYPE_SPEEDPORT_W920V )
@@ -1236,6 +1254,7 @@ config AVM_IMG
 
 	default "$AVM_7570_70"				if ( TYPE_AVM_7570_70 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_7570_72"				if ( TYPE_AVM_7570_72 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
+	default "$AVM_7570_76"				if ( TYPE_AVM_7570_76 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_7570_14031"			if ( TYPE_AVM_7570_14031 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_7570_14341"			if ( TYPE_AVM_7570_14341 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
 	default "$AVM_7570_14348"			if ( TYPE_AVM_7570_14348 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V )
@@ -1299,6 +1318,7 @@ config SRC2_IMG
 #	default "$AVM_MINI_7270_67"		if TYPE_SRC3_AVM_MINI_7270_67
 	default "$AVM_7570_70" 			if TYPE_SRC3_AVM_7570_70
 	default "$AVM_7570_72" 			if TYPE_SRC3_AVM_7570_72
+	default "$AVM_7570_76" 			if TYPE_SRC3_AVM_7570_76
 	default "$AVM_7570_14031" 		if TYPE_SRC3_AVM_7570_14031
 	default "$AVM_7570_14341" 		if TYPE_SRC3_AVM_7570_14341
 	default "$AVM_7570_14348" 		if TYPE_SRC3_AVM_7570_14348
@@ -1360,6 +1380,7 @@ config TYPE_LABOR_TYPE
 	default "298" 		if TYPE_298
 	default "7570_70" 	if TYPE_AVM_7570_70
 	default "7570_72" 	if TYPE_AVM_7570_72
+	default "7570_76" 	if TYPE_AVM_7570_76
 	default "7570_14031" 	if TYPE_AVM_7570_14031
 	default "7570_14341" 	if TYPE_AVM_7570_14341
 	default "7570_14348" 	if TYPE_AVM_7570_14348
