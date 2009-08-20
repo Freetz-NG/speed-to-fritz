@@ -276,7 +276,7 @@ config AVM_PHONE_7270_14907
    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7270/fritz_box-labor-7270-14907.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabPHONE.AnnexB.54.04.97-14907.image"
 ###
 
-config AVM_7270_CORE_14988
+config AVM_CORE_7270_14988
    string
    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_streaming_stick/fritz_box-labor-14988.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabCORE.AnnexB.54.04.98-14988.image"
 
