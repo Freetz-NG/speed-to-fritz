@@ -60,12 +60,13 @@ int pfd;
 void lpt_openport(void)
 {
    #ifdef WINDOWS_VERSION
+
    // Attempt to initialize the interface
-    if (inpout32_init() != 0) {
+    if ( inpout32_init() != 0) {
           fprintf(stderr,
-               "ERROR: Failed to initialize giveio.sys interface!\n giveio.sys must be preset within the same directory.\n Run ddw_ntdriver.exe as well!");
+               "Failed to initialize giveio.sys!\n giveio.sys must be preset within the same directory.\n You may use ddw_ntdriver.exe to start giveio.sys!");
         exit (-1);
-     }
+    }
    #else
       #ifdef __FreeBSD__
          pfd = open("/dev/ppi0", O_RDWR);
@@ -81,7 +82,8 @@ void lpt_openport(void)
 void lpt_closeport(void)
 {
    #ifdef WINDOWS_VERSION
-    //  inpout32_unload();
+      //inpout32_unload();
+      CloseGiveio();
    #else
       #ifndef __FreeBSD__
          if (ioctl(pfd, PPRELEASE) < 0)  {  perror("Failed to release /dev/parport0");  close(pfd);  exit(0);  }

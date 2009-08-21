@@ -2063,7 +2063,7 @@ void sflash_erase_area(unsigned int start, unsigned int length)
              fflush(stdout);
           }
     }
-    //waitTime(100000);
+    waitTime(100000);
     printf("Done\n");
 }
 
