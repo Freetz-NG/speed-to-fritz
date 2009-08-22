@@ -14,7 +14,7 @@ diff -Naur internet/labor_dsl.frm internet/labor_dsl.frm
 diff -Naur internet/labor_dsl.html internet/labor_dsl.html
 --- internet/labor_dsl.html	1969-12-31 19:00:00.000000000 -0500
 +++ internet/labor_dsl.html	2008-08-17 15:49:36.000000000 -0400
-@@ -0,0 +1,126 @@
+@@ -0,0 +1,128 @@
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
 +DSL-Informationen
@@ -26,6 +26,7 @@ diff -Naur internet/labor_dsl.html internet/labor_dsl.html
 +<li><a href="javascript:uiDoBitsPage()">Spektrum</a></li>
 +<li><a href="javascript:uiDoATMPage()">Statistik</a></li>
 +<li class="tabs_on"><div class="activtab">Einstellungen</div></li>
++<li><a href="javascript:uiDoFeedbackPage()">Feedback</a></li>
 +</ul>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
 +<fieldset class="groups">
@@ -150,7 +151,7 @@ diff -Naur internet/labor_dsl.js internet/labor_dsl.js
 +<? include ../html/de/internet/labor_dsl.inc ?>
 +<style type="text/css">
 +<!--
-+#content {width: 580px; margin: auto;}
++#content {width: auto; margin: auto;}
 +.ac {text-align:center;}
 +.fett {font-weight: bold;}
 +.groups { margin-top: 10px;}

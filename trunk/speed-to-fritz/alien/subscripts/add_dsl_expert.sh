@@ -18,7 +18,7 @@ for OEMDIR in $2; do
    [ "$Unicode_ut8" = "n" ] && [ "$avm_Lang" = "de" ] && modpatch "$1/${USRWWW}/" "$P_DIR/${PatchfileName}.patch"
    [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ] && modpatch "$1/${USRWWW}/" "$P_DIR/${PatchfileName}_ut8.patch"
   fi
-  for FILE in adsl.html atm.html bits.html overview.html; do
+  for FILE in adsl.html atm.html bits.html overview.html feedback.html; do
   if [ -f "$1/${USRWWW}/internet/$FILE" ]; then 
     sed -i -e "
     s|query box:settings.expertmode.activated ?>. .1.|query box:settings/expertmode/activated ?>' '0'|
