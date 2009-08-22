@@ -265,7 +265,7 @@ config AVM_PHONE_7270_14712
 
 config AVM_DSL_7270_14869
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-14869.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.99-14869.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-14869.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabDSL.AnnexB.54.04.99-14869.image"
 
 config AVM_7270_14907
    string
@@ -1244,7 +1244,8 @@ config AVM_IMG
 	default "$AVM_7240_76"				if ( TYPE_7240_76 )
 	default "$AVM_7270_76" 				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_67m" 			if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_EN
-	default "$AVM_7270_59" 				if ( TYPE_7270_59  &&  TYPE_SPEEDPORT_W920V ) || ( TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE )
+	default "$AVM_7270_59" 				if ( TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
+	default "$AVM_7270_59" 				if ( TYPE_7270_59 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_58"	 			if ( TYPE_7270_58 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL ) 
 	default "$AVM_7270_67m" 			if ( TYPE_7270_67m ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL ) 
 #	default "$AVM_7270_67"				if ( TYPE_7270_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )

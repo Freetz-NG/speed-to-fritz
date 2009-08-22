@@ -139,7 +139,13 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 		echo "$IMG_EXTRACTED" | grep -q ' ' || ([ "$MIRROR_DLD_TPL" == "" ] && sed -i -e "s|\"$DLD_TPL\"|\"$DLD_TPL \./$FWORIGDIR/$IMG_EXTRACTED_SPC\"|" "$HOMEDIR/Config.in")
 		[ "$MIRROR_DLD_TPL" == "" ] && sed -i -e "s|\"$DLD_TPL\"|\"$DLD_TPL \./$FWORIGDIR/$IMG_EXTRACTED_SPC\"|" "$HOMEDIR/$firmwareconf_file_name"
 		 #fi
-		 rm -fdR "$DLD_DIR/$IMG_REQ1"
+		 # workaroud because LaborCORE zip includes now DOS filenames with !, delite did hang.
+		 for file in $(ls "$DLD_DIR/$IMG_REQ1"); do
+		    #echo "$file"
+		    rm -fr "$DLD_DIR/$IMG_REQ1/$file"
+		 done
+		 rm -fr "$DLD_DIR/$IMG_REQ1/"
+		 rmdir  --ignore-fail-on-non-empty "$DLD_DIR/$IMG_REQ1" > /dev/null 2>&1
 #####		 rm -f "$DLD_DIR/$IMG_REQ"
 		fi
 		#correct filename if skript is used again    
