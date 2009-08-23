@@ -362,7 +362,7 @@ choice
 		
 	config TYPE_SPEEDPORT_W503V
 		bool "Speedport W503V"
-		select XCHANGE_KERNEL
+#		select XCHANGE_KERNEL 
 	
 	config TYPE_SPEEDPORT_W701V
 		bool "Speedport W701V"
@@ -1504,6 +1504,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	bool "Restore original T-Home firmware"
 	default n
 	select EXPORT_FORCE_CLEAR_FLASH
+
 	help
 		Set this to "y" if you want to flash back to the original firmware.
 		Speedport my be rebooting, in this case:
@@ -2134,9 +2135,8 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		set on if AVM firmware supports this option!.
  config XCHANGE_KERNEL
 	bool "Xchange kernel between T-Home and avm source"
-	default y if TYPE_TCOM_W721SPECIAL
-	default n if ! TYPE_TCOM_W721SPECIAL
-
+	default y if ( TYPE_TCOM_W721SPECIAL && ! ORI ) || ( TYPE_SPEEDPORT_W503V && ! ORI )
+	default n if ( ! TYPE_TCOM_W721SPECIAL && ! TYPE_SPEEDPORT_W503V ) || ORI
 	help
 		For normal this is "n", but for testing this may be used, this option is dangerous,
 		but it can be used in combination with the option restore original firmware as well.
