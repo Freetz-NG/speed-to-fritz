@@ -372,6 +372,12 @@ cat <<EOF > /etc/issue
 
 Please log in as root or use 'sudo su', change the password, and then update the /etc/issue file, to remove this info.
 
+*  console-nt: paste with WinKey+V
+
+Login as normal user via SSH Putty or Xterminal first then:
+./download_speed-to-fritz.sh (will start the latest speed-to-fritz version.)
+./freetz.sh  (will start the stable freetz version.)
+
 EOF
 cat <<SETEOF >/setpw
 #!/bin/sh
@@ -396,6 +402,10 @@ sed -i -e "/#!.bin.sh/a\\
 rm -f \\/mnt\\/and\\/firstboot.txt #####\\n\\
 \\/setpw #####\\n\\
 sed -i -e \\"\\/#####\\/d\\" \/etc\/rc.local" /etc/rc.local
+### move aditional start scripts to user directory
+mv /freetz.sh  /home/\${NewUser}/freetz.sh
+mv /install-tool2  /home/\${NewUser}/install-tool2
+mv /download_speed-to-fritz.sh  /home/\${NewUser}/download_speed-to-fritz.sh
 EOSF
 if [ "$CL_FORMATIEREN" = "y" ]; then
 

@@ -846,8 +846,8 @@ Section -CreateConfigFile
   FileWrite $0 "# Ubuntu must be updated as well, then: apt-get install pump, so eth0 is usable with dhcp, ping via LAN1 possible, but not via WLAN if not bridged inside windows.$\r$\n"
   FileWrite $0 "# eth0 is set to dhcp, eth2 to 192.168.178.10, in /etc/network/interfaces. You must rename your Windows physical LAN connection to 'LAN1' inside windows,$\r$\n"
   FileWrite $0 "# if the following line is enabled then make sure you already have a physical LAN connection up running with a link to the router, because there is a bug that blocks all activity if this is not the case.$\r$\n"
-  FileWrite $0 '# eth2=ndis-bridge,"LAN1",$\r$\n'
-  FileWrite $0 "If an other instance of tuntap is used, go to $INSTDIR/netdrivers and run 'addtap.bat' the second virtual adapter inside Windows will be named to 'TAPfreetzLinux2'.$\r$\n"
+  FileWrite $0 'eth2=ndis-bridge,"LAN1",$\r$\n'
+  FileWrite $0 "# If an other instance of tuntap is used, go to $INSTDIR/netdrivers and run 'addtap.bat' the second virtual adapter inside Windows will be named to 'TAPfreetzLinux2'.$\r$\n"
   FileWrite $0 '#eth0=tuntap,"TAPfreetzLinux2",$\r$\n'
   FileWrite $0 '#eth1=tuntap,"TAPfreetzLinux2",$\r$\n'
   FileWrite $0 "$\r$\n"
