@@ -20,11 +20,11 @@ date=$(date +%Y%m%d-%H%M)
 
 #svn delete --force ./download_speed-to-fritz.sh
 #svn delete --force ./diff.sh
-svn delete --force ./get_SRC2_ver.patch
-svn delete --force ./log
-svn delete --force ./getversion.patch
-svn delete --force ./getprodukt.patch
-svn delete --force ./includefunktions.patch
+#svn delete --force ./get_SRC2_ver.patch
+#svn delete --force ./log
+#svn delete --force ./getversion.patch
+#svn delete --force ./getprodukt.patch
+svn delete --force ./includefunctions.patch
 
 #svn delete --force ./patch.diff
 #svn delete --force ./trunk/patch.diff
