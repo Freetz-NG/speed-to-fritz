@@ -41,14 +41,16 @@ cp -v /mnt/and/freetzLinux-${VER}.exe $UPSTREAM_DIR/freetzLinux-${VER}.exe && ec
 echo "---------------------------------------------------------------------------------------------------------------"
 cat <<EOF > $UPSTREAM_DIR/upload_files_${VER}.sh
 #sudo apt-get install rsync xinetd
-rsync -avP -e ssh co-${VER}.tar.gz jpascher@frs.sourceforge.net:uploads/
-sleep 10
-rsync -avP -e ssh freetzLinux-${VER}.exe jpascher@frs.sourceforge.net:uploads/
+#rsync -avP -e ssh co-${VER}.tar.gz jpascher@frs.sourceforge.net:uploads/ 
+#rsync -e ssh co-${VER}.tar.gz jpascher,freetzlinux@frs.sourceforge.net:/home/frs/project/f/fo/fretzlinux/1300/
+#sleep 5
+#rsync -avP -e ssh freetzLinux-${VER}.exe jpascher@frs.sourceforge.net:uploads/
+rsync -e ssh freetzLinux-${VER}.exe jpascher,freetzlinux@frs.sourceforge.net:/home/frs/project/f/fo/fretzlinux/1300/
 exit
-#findet Verzeichnis nicht
+#alternativ
+#scp freetzLinux-${VER}.exe jpascher,freetzlinux@frs.sourceforge.net:/home/frs/project/f/fo/fretzlinux/1300
 sftp jpascher,freetzlinux@frs.sourceforge.net <<EOT
-cd uploads
-put co-${VER}.tar.gz
+cd /home/frs/project/f/fo/fretzlinux/1300
 put freetzLinux-${VER}.exe
 bye
 EOT

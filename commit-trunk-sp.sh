@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="Some more typing/spelling corrections by: Gizmo_Ger"
+comment="W503: 'Restore original-Tcom firmware' had Xchange kernel set to on, changed default to off."
 
 
 
@@ -46,7 +46,7 @@ echo "------------------------------------------------------------------" >>"$DS
 #svn propedit svn:ignore trunk
 cd trunk
 #sleep 20
-#svn delete --force ./speed-to-fritz/info.txt
+#svn delete --force ./wrtjp/wrtjp.5.1/bin/Release/start.bat
 #svn delete --force ./speed-to-fritz/info.txt.r79
 #svn delete --force ./speed-to-fritz/info.txt.mine
 #svn delete --force ./speed-to-fritz/info.txt.r130

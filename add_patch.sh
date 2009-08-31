@@ -4,16 +4,30 @@ export include_modpatch="${HOME}/trunk/speed-to-fritz/tools/freetz_patch"
 export VERBOSE="-v"
 
 . ${include_modpatch}
-
-DIR="trunk/speed-to-fritz"
+DIR="trunk"
+#DIR="trunk/speed-to-fritz"
+#DIR="trunk/speed-to-fritz/includes"
 PATCH="patch.diff"
+#PATCH="rev494_dsl-labor-pages.patch"
+#PATCH="get_SRC2_ver.patch"
+#PATCH="getprodukt.patch"
+#PATCH="getversion.patch"
+#PATCH="includefunctions.patch"
 #PATCH="Config.in.diff"
+#PATCH="config.in.diff"
+#PATCH="print_settings.diff"
 #PATCH="sp-to-fritz.sh.diff"
 #PATCH="patch_dect.sh.diff"
+#PATCH="install-start.diff"
+#PATCH="install-tools.diff"
+#PATCH="start-freetz.sh.diff"
+
+#sleep 5
 modpatch "${HOME}/${DIR}" "${HOME}/${PATCH}"
+#sleep 5
 #patch -d "$FILE" -p0 --no-backup-if-mismatch < "$PATCH" 2>&1
 echo -n "   All done' ? "; read -n 1 -s YESNO; echo
-
+rm ./$PATCH 
 exit 0
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/bin/X11:/usr/games:/sbin:/sbin
 export inc_DIR="trunk/speed-to-fritz/includes"

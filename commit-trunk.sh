@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="Clean up of some unused files"
+comment="make-relase.sh changed."
 
 
 
@@ -18,17 +18,23 @@ svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk tru
 echo "-------------------------------------------------------------------------------------------------------------"
 date=$(date +%Y%m%d-%H%M)
 
-svn delete --force ./download_speed-to-fritz.sh
-svn delete --force ./diff.sh
-svn delete --force ./patch.diff
-svn delete --force ./trunk/patch.diff
-svn delete --force ./trunk/sp-to-fritz.sh
+#svn delete --force ./download_speed-to-fritz.sh
+#svn delete --force ./diff.sh
+svn delete --force ./get_SRC2_ver.patch
+svn delete --force ./log
+svn delete --force ./getversion.patch
+svn delete --force ./getprodukt.patch
+svn delete --force ./includefunktions.patch
+
+#svn delete --force ./patch.diff
+#svn delete --force ./trunk/patch.diff
+#svn delete --force ./trunk/sp-to-fritz.sh
 #svn add * --force
 #svn propedit svn:ignore trunk
 #svn propedit svn:ignore .
 
 #svn revert 
-svn add * --force
+#svn add * --force
 
 svn status
 svn diff > ../patch.diff
