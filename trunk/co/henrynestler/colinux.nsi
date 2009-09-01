@@ -136,7 +136,7 @@ Var FS_FORMATIEREN_Value
   !insertmacro MUI_PAGE_INSTFILES
 
   !define MUI_FINISHPAGE_LINK "Visit the freetzLinux website"
-  !define MUI_FINISHPAGE_LINK_LOCATION "freetzlinux.sourceforge.net"
+  !define MUI_FINISHPAGE_LINK_LOCATION "http://freetzlinux.sourceforge.net"
   !define MUI_FINISHPAGE_SHOWREADME "README.TXT"
 
   !insertmacro MUI_PAGE_FINISH

@@ -404,7 +404,7 @@ rm -f \\/mnt\\/and\\/firstboot.txt #####\\n\\
 sed -i -e \\"\\/#####\\/d\\" \/etc\/rc.local" /etc/rc.local
 ### move aditional start scripts to user directory
 mv /freetz.sh  /home/\${NewUser}/freetz.sh
-mv /install-tool2  /home/\${NewUser}/install-tool2
+mv /install-tools2  /home/\${NewUser}/install-tools2
 mv /download_speed-to-fritz.sh  /home/\${NewUser}/download_speed-to-fritz.sh
 EOSF
 if [ "$CL_FORMATIEREN" = "y" ]; then
