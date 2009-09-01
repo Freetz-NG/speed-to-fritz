@@ -34,6 +34,7 @@ if [ $AVM_V_MINOR -gt 48 ]; then
     	    echo2 "      /usr/www/${HTML}/de/home/${FILE##*/}"
 	    sed -i -e "s/ISDN-Anschluss/ISDN Anschluss/" "$FILE"
 	    sed -i -e "s/ISDN-//" "$FILE"
+	    sed -i -e "s/ISDN Anschluss/ISDN-Anschluss/" "$FILE"
 	fi
     done
   fi
@@ -41,7 +42,8 @@ if [ $AVM_V_MINOR -gt 48 ]; then
  # all in one --->
   if [ -e "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.html ]; then
    if `cat "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.html| grep -q 'ISDN-' `; then  
-    sed -i -e "/id=.uiViewDeviceIsdn/,/<p class=.pCheck/d" "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.html
+#    sed -i -e "/id=.uiViewDeviceIsdn/,/<p class=.pCheck/d" "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.html
+    sed -i -e "/id=.uiViewDeviceIsdnBlock/,/<\/div>/d" "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.html
    fi
   fi
    #remove ISDN- Prefix in some text displayed, all files are changed
@@ -49,7 +51,11 @@ if [ $AVM_V_MINOR -gt 48 ]; then
      for FILE in `ls "$1"/usr/www/${HTML}/de/fon_config/*`; do
 	if `cat "$FILE" | grep -q 'ISDN-' `; then  
     	    echo2 "      /usr/www/${HTML}/de/fon_config/${FILE##*/}"
+	    sed -i -e "s/ISDN-Anschluss/ISDN Anschluss/" "$FILE"
+	    sed -i -e "s/ISDN-Rufnummern/ISDN Rufnummern/" "$FILE"
 	    sed -i -e "s/ISDN-//" "$FILE"
+	    sed -i -e "s/ISDN Anschluss/ISDN-Anschluss/" "$FILE"
+	    sed -i -e "s/ISDN Rufnummern/ISDN-Rufnummern/" "$FILE"
 	    sed -i -e "s/Telefon, //" "$FILE"
 	fi
     done
@@ -59,8 +65,11 @@ if [ $AVM_V_MINOR -gt 48 ]; then
 	if `cat "$FILE" | grep -q 'ISDN-' `; then  
     	    echo2 "      /usr/www/${HTML}/de/home/${FILE##*/}"
 	    sed -i -e "s/ISDN-Anschluss/ISDN Anschluss/" "$FILE"
+	    sed -i -e "s/ISDN-Rufnummern/ISDN Rufnummern/" "$FILE"
 	    sed -i -e "s/, ISDN-Telefone//" "$FILE"
 	    sed -i -e "s/ISDN-//" "$FILE"
+	    sed -i -e "s/ISDN Anschluss/ISDN-Anschluss/" "$FILE"
+	    sed -i -e "s/ISDN Rufnummern/ISDN-Rufnummern/" "$FILE"
 	fi
     done
    fi

@@ -98,7 +98,7 @@ ls -l $DL_DIR_ABS/fw/*.image 2>&1 | grep -v 'No such file'
 echo
 echo "Now you can run 'make menuconfig', at the first time a lot of warnings will be displayed!"
 echo "As next step run 'make'"
-echo "The used firmware has to be copied to the '$DL_DIR_ABS' directory first!"
+echo "Needed AVM firmware has to be copied to the '$DL_DIR_ABS/fw' directory first!"
 echo
 KEY="x"
 while [ "$KEY" != "y" ]; do

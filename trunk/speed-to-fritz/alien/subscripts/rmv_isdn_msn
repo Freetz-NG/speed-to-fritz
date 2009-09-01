@@ -2,6 +2,17 @@
  # include modpatch function
  . ${include_modpatch}
 # is no ISTN Terminal equiptment "TE"
+DIRII="usr/www/${HTML}/de/fon_config"
+if  [ -f "$1"/$DIRII/fon_config_msn.html ]; then
+    #remove auswal Analog / ISDN
+    #.76 variante
+    if `cat $1/${DIRII}/fon_config_msn.html | grep -q 'Isdn' ` ; then  
+	echo2 "   -- Remove ISDN option from Festnetzmenue"
+	sed -i -e "/uiIsdn/,/<\/div>/d" "$1"/${DIRI}/msn.html
+	sed -i -e "/die Art Ihres Festnetzanschlusses aus/d" "$1"/${DIRII}/fon_config_msn.html
+	sed -i -e "/uiViewIsdn/d" "$1"/${DIRII}/fon_config_msn.html
+    fi
+fi
 DIRI="usr/www/${HTML}/de/home" 
 if ! [ -f "$1"/$DIRI/msn.html ]; then
    DIRI="usr/www/${HTML}/de/fon"
