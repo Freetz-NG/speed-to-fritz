@@ -1587,6 +1587,17 @@ config EXPORT_REMOVE_KIDS
 	default y if ( ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V )
 	help
 		Set this to 'y' if you like to remove kids pages to save space, normal this is "n".
+config EXPORT_PATCH_PORTRULE
+	bool "Enable portforwarding to box itself (remove refuse destination IP 0.0.0.0)"
+	default n
+	help
+		Select 'y' if you want to use daemons on your box wich are used from the internet.
+		Usually the GUI will refuse to forward any traffic to the box itself. So it is not possible to 
+		forward ports to the box itself. This restriction is removed by this patch.
+		This patch enables to use 0.0.0.0 as destination adress in the forwarding menu.
+	
+		PLEASE NOTE: 		You will not see these entries any more after a reboot !!
+					But they will remain active, even if not shown in GUI !!
 config EXPORT_BUGFIX_FONCONFIG
 	bool "Bugfix for fon config ut8"
 	depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V ) && TYPE_LABOR

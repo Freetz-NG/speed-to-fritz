@@ -1027,6 +1027,8 @@ else
  # patch update pages 
  $sh_DIR/patch_tools.sh "${DST}"	
 fi
+## patch portrule to enable forwarding to box itself 
+[ "$PATCH_PORTRULE" == "y" ] && subscripts2/patch_portrule "${SRC}"
 #dont set kernel annex args, if it is a multi annex firmware
 #make firmware installable via GUI
 readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
