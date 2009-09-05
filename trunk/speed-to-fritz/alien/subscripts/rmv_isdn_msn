@@ -8,7 +8,7 @@ if  [ -f "$1"/$DIRII/fon_config_msn.html ]; then
     #.76 variante
     if `cat $1/${DIRII}/fon_config_msn.html | grep -q 'Isdn' ` ; then  
 	echo2 "   -- Remove ISDN option from Festnetzmenue"
-	sed -i -e "/uiIsdn/,/<\/div>/d" "$1"/${DIRI}/msn.html
+	sed -i -e "/uiIsdn/,/<\/div>/d" "$1"/${DIRII}/fon_config_msn.html
 	sed -i -e "/die Art Ihres Festnetzanschlusses aus/d" "$1"/${DIRII}/fon_config_msn.html
 	sed -i -e "/uiViewIsdn/d" "$1"/${DIRII}/fon_config_msn.html
     fi
