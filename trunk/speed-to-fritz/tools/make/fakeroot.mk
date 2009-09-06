@@ -1,8 +1,9 @@
+#this file uses diffent paths as the compareable freetz version
 FAKEROOT_VERSION:=1.12.4
 FAKEROOT_SOURCE:=fakeroot_$(FAKEROOT_VERSION).tar.gz
 FAKEROOT_SOURCE_MD5:=aaefede2405a40c87438e7e833d69b70
 FAKEROOT_SITE:=http://ftp.debian.org/debian/pool/main/f/fakeroot
-FAKEROOT_DIR:=$(SOURCE_DIR)/fakeroot-$(FAKEROOT_VERSION)
+FAKEROOT_DIR:=$(TOOLS_SOURCE_DIR)/fakeroot-$(FAKEROOT_VERSION)
 FAKEROOT_MAKE_DIR:=$(TOOLS_DIR)/make
 FAKEROOT_DESTDIR:=$(shell pwd)/$(TOOLS_DIR)
 

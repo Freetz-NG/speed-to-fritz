@@ -44,6 +44,7 @@ MAKE_DIR:=make
 PACKAGES_DIR:=packages
 ROOT_DIR:=root
 SOURCE_DIR:=source
+TOOLS_SOURCE_DIR:=source
 TOOLS_DIR:=tools
 
 
@@ -318,6 +319,9 @@ $(PACKAGES_DIR):
 
 $(SOURCE_DIR):
 	@mkdir -p $(SOURCE_DIR)
+
+$(TOOLS_SOURCE_DIR):
+	@mkdir -p $(TOOLS_SOURCE_DIR)
 
 toolsclean: $(TOOLS_CLEAN)
 toolsdirclean: $(TOOLS_DIRCLEAN) 
