@@ -7,8 +7,18 @@ echo "Replacing hardware related files of AVM firmware images ..."
 echo2 "-- Copy original AVM module:"
 echo2 "      /lib/modules"
 
-
 if [ ${ATA_ONLY} = "n" ]; then
+ #add DSL driver dependig on the settings made
+ #7050
+ [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC}"/lib/modules/ubik/ubik2-dsl.bin --target-directory=./addon/tmp/modules &&\
+ echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+ [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin --target-directory=./addon/tmp/modules &&\
+ echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+ [ ${USE_OWN_DSL} = "y" ] && [ -f ./addon/tmp/modules/ubik2-dsl.bin ] && cp -fdrp ./addon/tmp/modules/ubik2-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+ echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
+ [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+ echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!"
+
  #add DSL driver dependig on the settings made
  #7170
  [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}"/lib/modules/microvoip-dsl.bin ] && cp -fdrp "${SRC}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
@@ -19,6 +29,7 @@ if [ ${ATA_ONLY} = "n" ]; then
  echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
  [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/microvoip-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
  echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!"
+ [ -f "${SRC}"/lib/modules/microvoip-dsl.bin ]  && rm -fd -R "${SRC}"/lib/modules/ubik/ubik2-dsl.bin
  #add DSL driver dependig on the settings made in
  #7270 
  #annex B driver
@@ -56,7 +67,9 @@ echo "  -- DSL Annex B Driver was removed from ${SORCE_PRODUKT}!"
 #save space on 8MB boxes specially
 [ "${REMOVE_ANNEX_A_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-A-dsl.bin" ] && rm -f "${SRC}"/lib/modules/dsp_ur8/ur8-A-dsl.bin &&\
 echo "  -- DSL Annex A Driver was removed from ${SORCE_PRODUKT}!"
-
+#7050 fix 
+[ -f "${SRC}"/lib/modules/ubik/ubik2-dsl.bin ] && sed -i -e '/modprobe tiatm/a\
+sleep 1' "${SRC}/etc/init.d/rc.S"
 
 #copy second source www dir
 [ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
