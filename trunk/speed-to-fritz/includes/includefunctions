@@ -515,6 +515,16 @@ function fw_unpack()
 	fi
 	echo2 "remove tichksum"
 	"$RMTICHKSUM" -f "${DESTDIR}/kernel.image" > /dev/null
+	
+	if [ ! "0" =  "`cat ${DESTDIR}/var/tmp/filesystem.image | wc -c`" ]; then
+            cp "$DESTDIR"/var/tmp/filesystem.image "$DESTDIR"/filesystem.image
+    	    echo2 "Hidden Root detected! Concat kernel.image and filesystem.image"
+    	    "$RMTICHKSUM" -f "${DESTDIR}/filesystem.image" > /dev/null
+    	    mv "${DESTDIR}/kernel.image" "${DESTDIR}/kernel_part.image"
+    	    cat "${DESTDIR}/kernel_part.image" "${DESTDIR}/filesystem.image" > "${DESTDIR}/kernel.image"
+	    rm -f "$DESTDIR"/filesystem.image
+        fi
+
 	echo2 "splitting kernel image"
 	( cd "$DESTDIR" && "$FINDSQUASHFS" "${DESTDIR}/kernel.image" > /dev/null 2>&1 && cd "$HOMEDIR")
 	if [ ! -r "${DESTDIR}/kernel.raw" -o ! -r "${DESTDIR}/kernelsquashfs.raw" ]; then
