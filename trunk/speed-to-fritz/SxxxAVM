@@ -10,13 +10,13 @@ echo2 "      /lib/modules"
 if [ ${ATA_ONLY} = "n" ]; then
  #add DSL driver dependig on the settings made
  #7050
- [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC}"/lib/modules/ubik/ubik2-dsl.bin --target-directory=./addon/tmp/modules &&\
+ [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC}"/lib/modules/ubik/ubik2-dsl.bin --target-directory=./addon/tmp/modules/ubik &&\
  echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
  [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin --target-directory=./addon/tmp/modules &&\
  echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
- [ ${USE_OWN_DSL} = "y" ] && [ -f ./addon/tmp/modules/ubik2-dsl.bin ] && cp -fdrp ./addon/tmp/modules/ubik2-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+ [ ${USE_OWN_DSL} = "y" ] && [ -f ./addon/tmp/modules/ubik2-dsl.bin ] && cp -fdrp ./addon/tmp/modules/ubik2-dsl.bin --target-directory="${SRC}"/lib/modules/ubik &&\
  echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
- [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+ [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin --target-directory="${SRC}"/lib/modules/ubik &&\
  echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!"
 
  #add DSL driver dependig on the settings made
