@@ -40,3 +40,4 @@ make
 ./sp-to-fritz.sh -z
 #sleep 20
 
+

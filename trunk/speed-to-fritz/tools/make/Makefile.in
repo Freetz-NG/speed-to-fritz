@@ -27,5 +27,5 @@ TOOLS+=squashfs
 TOOLS+=squashfs3
 TOOLS+=tichksum
 TOOLS+=fakeroot
-TOOLS+=tar
+#TOOLS+=tar
 #TOOLS+=xdelta

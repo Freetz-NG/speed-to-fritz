@@ -47,3 +47,6 @@ echo "export ATA_ONLY=\"${ATA_ONLY}\"" >> incl_var
 echo "export FORCE_CLEAR_FLASH=\"${FORCE_CLEAR_FLASH}\"" >> incl_var
 echo "export REUSECONF=\"${REUSECONF}\"" >> incl_var
 echo "export FREETZREVISION=\"${FREETZREVISION}\"" >> incl_var
+echo "export SET_UP=\"${SET_UP}\"" >> incl_var
+echo "export PUSHCONF=\"${PUSHCONF}\"" >> incl_var
+
