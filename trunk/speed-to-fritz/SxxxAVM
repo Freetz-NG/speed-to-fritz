@@ -9,7 +9,8 @@ echo2 "      /lib/modules"
 
 if [ ${ATA_ONLY} = "n" ]; then
  #add DSL driver dependig on the settings made
- #7050
+ #7050 .33
+ if [ -f "${SRC}"/lib/modules/ubik/ubik2-dsl.bin ]; then
  [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC}"/lib/modules/ubik/ubik2-dsl.bin --target-directory=./addon/tmp/modules/ubik &&\
  echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
  [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin --target-directory=./addon/tmp/modules &&\
@@ -18,7 +19,15 @@ if [ ${ATA_ONLY} = "n" ]; then
  echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
  [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin --target-directory="${SRC}"/lib/modules/ubik &&\
  echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!"
-
+ else 
+ # .50
+ [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC}"/lib/modules/ubik/ubik2-dsl.bin "${SRC}"/lib/modules/microvoip-dsl.bin &&\
+ echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+ [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin ./addon/tmp/modules/microvoip-dsl.bin &&\
+ echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+ [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin "${SRC}"/lib/modules/microvoip-dsl.bin &&\
+ echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!" 
+ fi
  #add DSL driver dependig on the settings made
  #7170
  [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}"/lib/modules/microvoip-dsl.bin ] && cp -fdrp "${SRC}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
@@ -29,7 +38,6 @@ if [ ${ATA_ONLY} = "n" ]; then
  echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
  [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/microvoip-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
  echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!"
- [ -f "${SRC}"/lib/modules/microvoip-dsl.bin ]  && rm -fd -R "${SRC}"/lib/modules/ubik/ubik2-dsl.bin
  #add DSL driver dependig on the settings made in
  #7270 
  #annex B driver
@@ -70,6 +78,8 @@ echo "  -- DSL Annex A Driver was removed from ${SORCE_PRODUKT}!"
 #7050 fix 
 [ -f "${SRC}"/lib/modules/ubik/ubik2-dsl.bin ] && sed -i -e '/modprobe tiatm/a\
 sleep 1' "${SRC}/etc/init.d/rc.S"
+[ -f "${SRC}"/lib/modules/fw_radia_1130_ap.bin ] && [ -f "${SRC}/etc/init.d/rc.dsl.sh" ] && sed -i -e '/modprobe tiatm/a\
+sleep 1' "${SRC}/etc/init.d/rc.dsl.sh"
 
 #copy second source www dir
 [ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
