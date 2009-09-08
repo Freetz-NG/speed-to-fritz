@@ -124,6 +124,7 @@ for FILE in `ls "${DIRI}"/*`; do
     sed -i -e "/'software','extern'/d" $FILE
 done
 #annex A fix
+[ "$ANNEX" ] &&  sed -i -e "s/CONFIG_ANNEX=\".*$/CONFIG_ANNEX=\"${ANNEX}\"/g" "${SRC}/etc/init.d/rc.conf"
 sed -i -e '/export ANNEX=$annex_param/a\
 echo annex $annex_param > $CONFIG_ENVIRONMENT_PATH/environment' "${SRC}/etc/init.d/rc.conf"
 ##########################################################################################
