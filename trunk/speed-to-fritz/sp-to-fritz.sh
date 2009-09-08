@@ -75,10 +75,13 @@ export MKSQUASHFS_TOOL="mksquashfs-lzma"
 export MKSQUASHFS_OPTIONS="-le -noappend -all-root -info"
 export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
 export FAKEROOT_NAME="fakeroot"
-export FAKEROOT_TOOL="${TOOLS_DIR}/usr/bin/${FAKEROOT_NAME}"
-sed -i -e "s|^PREFIX=.*$|PREFIX=${TOOLS_DIR}/usr|g" ${FAKEROOT_TOOL}
-sed -i -e "s|^BINDIR=.*$|BINDIR=${TOOLS_DIR}/usr/bin|g" ${FAKEROOT_TOOL}
-sed -i -e "s|^PATHS=.*$|PATHS=${TOOLS_DIR}/usr/lib|g" ${FAKEROOT_TOOL}
+export FAKEROOT_DESTDIR="${TOOLS_DIR}/usr"
+export FAKEROOT_BIN_DIR="${FAKEROOT_DESTDIR}/bin"
+export FAKEROOT_LIB_DIR="${FAKEROOT_DESTDIR}/lib"
+export FAKEROOT_TOOL="${FAKEROOT_BIN_DIR}/${FAKEROOT_NAME}"
+sed -i -e "s|^PREFIX=.*$|PREFIX=${FAKEROOT_DESTDIR}|g" ${FAKEROOT_TOOL}
+sed -i -e "s|^BINDIR=.*$|BINDIR=${FAKEROOT_BIN_DIR}|g" ${FAKEROOT_TOOL}
+sed -i -e "s|^PATHS=.*$|PATHS=${FAKEROOT_LIB_DIR}|g" ${FAKEROOT_TOOL}
 export TICHKSUM_TOOL="tichksum"
 export TICHKSUM="${TOOLS_DIR}/${TICHKSUM_TOOL}"
 #export TICHKSUM="$TOOLS_DIR/TI-chksum-0.1/tichksum"
