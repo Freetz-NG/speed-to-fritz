@@ -25,23 +25,29 @@
 # Just run 'make menuconfig', configure stuff, then run 'make'.
 # You shouldn't need to mess with anything beyond this point...
 #--------------------------------------------------------------
-CONFIG=tools/config
+#TOPDIR=.
+TOPDIR=./
+#CONFIG_DEFCONFIG=.defconfig
+#CONFIG=tools/config
 CONFIG_CONFIG_IN=Config.in
 CONFIG_DEFCONFIG=Firmware.conf
+CONFIG=tools/config
 DATE:=$(shell date +%Y%m%d)
+#-------
 SHELL:=/bin/bash
 IMAGE:=
 LOCALIP:=
 RECOVER:=
-#FREETZ_BASE_DIR:=$(shell pwd)
-HOMEDIR:=$(shell pwd)
-TOPDIR:=$(shell pwd)
+FREETZ_BASE_DIR:=$(shell pwd)
 DL_DIR:=dl
 MAKE_DIR:=make
 PACKAGES_DIR:=packages
+ROOT_DIR:=root
 SOURCE_DIR:=source
-TOOLS_SOURCE_DIR:=$(HOMEDIR)/source/host-tools
-TOOLS_DIR:=$(HOMEDIR)/tools
+TOOLS_SOURCE_DIR:=source
+TOOLS_DIR:=tools
+
+
 
 SED:=sed
 PATCH_TOOL:=$(TOOLS_DIR)/freetz_patch
@@ -49,7 +55,11 @@ DL_TOOL:=$(TOOLS_DIR)/freetz_download
 
 include $(TOOLS_DIR)/make/Makefile.in
 
+noconfig_targets:=tools $(TOOLS)
+
+
 VERBOSE:=-v
+
 
 export FREETZ_VERBOSITY_LEVEL
 export VERBOSE
@@ -58,10 +68,36 @@ TOOLS_CLEAN:=$(patsubst %,%-clean,$(TOOLS))
 TOOLS_DIRCLEAN:=$(patsubst %,%-dirclean,$(TOOLS))
 TOOLS_DISTCLEAN:=$(patsubst %,%-distclean,$(TOOLS))
 TOOLS_SOURCE:=$(patsubst %,%-source,$(TOOLS))
-
+#-------
 noconfig_targets:=menuconfig config oldconfig randconfig \
-	defconfig allyesconfig allnoconfig  \
-	help tools $(TOOLS)
+	defconfig allyesconfig allnoconfig release tags \
+	source-check help
+
+
+# Use shell variables, if defined
+ifneq ($(BUILDROOT_LOCAL),)
+BR2_LOCAL:=$(BUILDROOT_LOCAL)
+else
+BR2_LOCAL:=$(TOPDIR)/local
+endif
+
+# $(shell find . -name *_defconfig |sed 's/.*\///')
+# Pull in the user's configuration file
+ifeq ($(filter $(noconfig_targets),$(MAKECMDGOALS)),)
+ifeq ($(BOARD),)
+# if "make BOARD=xyz" command
+-include $(TOPDIR).config
+else
+# if "make" command
+-include $(BR2_LOCAL)/$(BOARD)/$(BOARD).config
+endif
+endif
+
+# Override BR2_DL_DIR if shell variable defined
+ifneq ($(BUILDROOT_DL_DIR),)
+BR2_DL_DIR:=$(BUILDROOT_DL_DIR)
+endif
+LOCAL:=$(BR2_LOCAL)
 
 # To put more focus on warnings, be less verbose as default
 # Use 'make V=1' to see the full commands
@@ -199,8 +235,8 @@ PREFERRED_LIB_FLAGS:=--enable-static --enable-shared
 # Cleanup and misc junk
 #
 #############################################################
-## clean: $(TARGETS_CLEAN)
-## 	rm -rf $(STAGING_DIR) $(TARGET_DIR) $(IMAGE)
+clean: $(TARGETS_CLEAN)
+	rm -rf $(STAGING_DIR) $(TARGET_DIR) $(IMAGE)
 
 
 else # ifeq ($(BR2_HAVE_DOT_CONFIG),y)
@@ -273,15 +309,19 @@ defconfig: $(CONFIG)/conf
 		$(CONFIG)/conf -d $(CONFIG_CONFIG_IN)
 
 include $(TOOLS_DIR)/make/*.mk
+#include $(MAKE_DIR)/*/*.mk
 
 $(DL_DIR):
 	@mkdir -p $(DL_DIR)
+
+$(PACKAGES_DIR):
+	@mkdir -p $(PACKAGES_DIR)
 
 $(SOURCE_DIR):
 	@mkdir -p $(SOURCE_DIR)
 
 $(TOOLS_SOURCE_DIR):
-	mkdir -p $(TOOLS_SOURCE_DIR)
+	@mkdir -p $(TOOLS_SOURCE_DIR)
 
 toolsclean: $(TOOLS_CLEAN)
 toolsdirclean: $(TOOLS_DIRCLEAN) 
@@ -294,13 +334,24 @@ tools: $(DL_DIR) $(SOURCE_DIR) $(TOOLS)
 #
 #############################################################
 clean:
-	rm -f .config .config.old
+	rm -f .config .config.old .config.cmd .tmpconfig.h
 	-$(MAKE) -C $(CONFIG) clean
 
 distclean: clean
 	rm -rf sources/*
 
 endif # ifeq ($(BR2_HAVE_DOT_CONFIG),y)
+
+%_defconfig: $(CONFIG)/conf
+	cp $(shell find ./target/ -name $@) .config
+	-@$(MAKE) oldconfig
+
+update:
+	cp .config $(BOARD_PATH)/$(BOARD_NAME)_defconfig
+
+configured: dirs host-sed kernel-headers uclibc-config busybox-config linux26-config
+
+cross: $(BASE_TARGETS)
 
 help:
 	@echo 'Cleaning:'
@@ -315,6 +366,6 @@ help:
 	@echo 'See docs/README and docs/buildroot.html for further details'
 	@echo
 
-.PHONY: dummy distclean clean config oldconfig \
-	menuconfig defconfig help toolsclean toolsdirclean tools
+.PHONY: dummy subdirs release distclean clean config oldconfig \
+	menuconfig tags check test depend defconfig help
 	
