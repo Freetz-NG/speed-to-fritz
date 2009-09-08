@@ -1,16 +1,5 @@
 #!/bin/bash
 echo "-------------------------------------------------------------------------------------------------------------"
-echo
-if [ `id -u` -eq 0 ]; then
- clear
-  echo
-  echo "This script needs to be executed without 'su' privileges."
-  echo "Login as normal user!"
-  echo "Speed-to-fritz must be run as normal user as well!" 
-  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-  sleep 10
-  exit 0
-fi
 KEY="x"
 #while [ "$KEY" != "y" ]; do
  echo

@@ -9,11 +9,6 @@ echo "On some systems even sudo must be installed first, see Wiki for andLINUX  
 echo "If sudo is missing, do the following:"
 echo "apt-get install sudo (as root)"
 echo "Setup a new user and insert this new users to /etc/sudoers with visudo" 
-echo "Der erstellte neue Benutzer muss aber noch in /etc/sudoers, eingetragen werden."
-echo "Das File /etc/sudoers mit visudo oeffnen, und die folgende Zeile anhaengen, "
-echo "wobei 'newusername' fuer den neu angelegten Benutzernamen steht."
-echo "(Dazu visudo [Enter] newusername ALL=(ALL) ALL als letzte Zeile eintippen, Strg O [Enter], Strg X)"
-echo "freetz ALL=(ALL) ALL "
 echo "----------------------------------------------------------------------------------------------"
 
 ARCHPKG=
