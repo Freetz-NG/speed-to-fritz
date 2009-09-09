@@ -443,8 +443,11 @@ config TYPE_TCOMBETA
 choice
 	prompt "T-Home alternative firmware"
 		depends on TYPE_TCOMBETA
-		default TYPE_TCOM_BETA_74
+		default TYPE_TCOM_BETA_78
 	
+	config TYPE_TCOM_BETA_58
+		bool "TCOM_BETA_58 Speedport_W920V_65.04.58"
+
 	config TYPE_TCOM_BETA_63
 		bool "TCOM_BETA_63 Speedport_W920V_65.04.63"
 
@@ -457,8 +460,11 @@ choice
 	config TYPE_TCOM_BETA_74
 		bool "TCOM_BETA_74 Speedport_W920V_65.04.74"
 
-	config TYPE_TCOM_BETA_13048
-		bool "TCOM_BETA_13048 Speedport_W920V_65.04.63-13048"
+	config TYPE_TCOM_BETA_78
+		bool "TCOM_BETA_78 Speedport_W920V_65.04.78"
+
+#	config TYPE_TCOM_BETA_13048
+#		bool "TCOM_BETA_13048 Speedport_W920V_65.04.63-13048"
 
 	config TYPE_TCOM_BETA_13571
 		bool "TCOM_BETA_13571 Speedport_W920V_65.04.72-13571"
