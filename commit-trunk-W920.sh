@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="Copy of trunk Speed-to-fritz added!"
+comment="Remove W920 copy of speed-to-fritz because it was not used."
 
 
 
@@ -38,7 +38,7 @@ sleep 2
 cd trunk
 #svn delete --force ./W920/commit-trunk-W920.sh
 #svn delete --force ./W920/downlaod_sp2fr_w920.sh
-#svn delete --force ./W920/diff.sh
+svn delete --force ./W920
 
 #svn delete --force ./W920/speed-to-fritz/ftp192
 #svn delete --force ./W920/speed-to-fritz/info.txt.r77

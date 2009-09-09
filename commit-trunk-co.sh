@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="freetzlinux Installer: README.txt update. freetz.sh and download_speed-to-fritz.sh added. Defaults for use all core CPUs and lan bridge changed."
+comment="freetzlinux Installer: fix, typings in README.txt"
 
 
 

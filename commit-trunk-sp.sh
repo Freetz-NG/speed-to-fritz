@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="W503: 'Restore original-Tcom firmware' had Xchange kernel set to on, changed default to off."
+comment="revert changes concerning tools directory"
 
 
 
@@ -53,7 +53,11 @@ cd trunk
 #svn delete --force ./speed-to-fritz/info.txt.r131
 #svn delete --force ./speed-to-fritz/conf-920-freetz
 #svn delete --force ./speed-to-fritz/start-920
-
+#svn delete --force ./speed-to-fritz/modfw.sh
+#svn delete --force ./Config.in
+#svn delete --force ./speed-to-fritz/tools/tar
+#svn delete --force ./speed-to-fritz/tools/conf
+#svn delete --force ./speed-to-fritz/tools/mconf
 #svn delete --force ./speed-to-fritz/alien/add_dect_7150.inc
 #svn delete --force ./speed-to-fritz/alien/subscripts/500.init
 #svn delete --force ./speed-to-fritz/alien/subscripts/501.init
@@ -77,3 +81,4 @@ echo -n "   Execute Commit?'  (y/n)? "; read -n 1 -s YESNO; echo
 [ "$YESNO" = "y" ] &&   svn commit --message "${date} - ${comment}"
 [ "$YESNO" = "y" ] && sed -i -e "s/svn diff .*$/svn diff -r $SVN_VERSION  > \.\.\/$SVN_VERSION-to-local.diff/" -e "s/cat  \.\..*$/cat  \.\.\/$SVN_VERSION-to-local.diff/" "./diff.sh"
 
+sleep 10
