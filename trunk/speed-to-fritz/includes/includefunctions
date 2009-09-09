@@ -458,8 +458,6 @@ function fw_unpack()
 {
 	ARCHIVE="$1"
 	DESTDIR="$2"
-	FILE="."
-	[ -n "$3" ] && FILE="$3"
 	# Do we have the tool ?
 	if [ ! -x "$RMTICHKSUM" ]; then
 		echo  "cannot find the tool $RMTICHKSUM_TOOL"
@@ -504,11 +502,11 @@ function fw_unpack()
 	 if  [ "${ARCHIVE##*/}" = "kernel.image" ]; then
 	  cp "${ARCHIVE}" "$DESTDIR"/kernel.image
 	 else
-    	  "$TAR" -xf "$ARCHIVE" -C "$DESTDIR" "$FILE"
+	  echo2 "unpacking archiv"
+	  "$TAR" -xf "$ARCHIVE" -C "$DESTDIR"
           cp "$DESTDIR"/var/tmp/kernel.image "$DESTDIR"/kernel.image
          fi
         fi 
-		
 	if [ ! -r "${DESTDIR}/kernel.image" ]; then
 		echo "cannot find kernel.image"
 		return 1

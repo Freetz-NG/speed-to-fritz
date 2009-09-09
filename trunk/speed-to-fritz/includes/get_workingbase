@@ -56,7 +56,6 @@ if [ -n "$SPIMG" ]; then
 fi
 echo "-- Unpacking $FBIMG to:"
 echo "      $FBDIR"
-#fw_unpack "$FWBASE/$FBIMG" "$FBDIR" "./var/tmp/kernel.image"
 fw_unpack "$FWBASE/$FBIMG" "$FBDIR"
 
 if [ $? -ne 0 ]; then
@@ -70,7 +69,6 @@ fi
 if [ -n "$FBIMG_2" ]; then
  echo "-- Unpacking $FBIMG_2 to:"
 	echo "      $FBDIR_2"
-#	fw_unpack "$FWBASE/$FBIMG_2" "$FBDIR_2" "./var/tmp/kernel.image"
 	fw_unpack "$FWBASE/$FBIMG_2" "$FBDIR_2"
 	if [ $? -ne 0 ]; then
 		echo "Something went wrong while extracting $FBIMG_2 to $FBDIR_2"
