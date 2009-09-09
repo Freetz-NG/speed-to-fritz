@@ -541,7 +541,7 @@ function fw_unpack()
 	fi
 	echo2 "unpacking var.tar"
 	mkdir "$VARTAR_DIR"
-	"$TAR" -xif "$VARTAR" -C "$VARTAR_DIR" || return 1
+	"$TAR" -xf "$VARTAR" -C "$VARTAR_DIR" || return 1
 	return 0
 }
 ################################
