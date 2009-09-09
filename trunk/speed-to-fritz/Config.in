@@ -107,6 +107,10 @@ config AVM_7140_43
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/deutsch_a-ch/fritz.box_fon_wlan_7140.annexa.39.04.43.zip mirror http://www.hostarea.de/server-01/Januar-de288cff9c.zip"
 
+config AVM_7140_76
+    string
+    default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7140.AnnexA.39.04.76.image"
+
 config AVM_7140_67en
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7140.AnnexA.en.39.04.67.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7140.AnnexA.en.39.04.67.image"
@@ -947,6 +951,9 @@ choice
 	config TYPE_SRC3_AVM_7140_43
 		bool "AVM_7140_43 39.04.43 (Annex A)"
 
+	config TYPE_SRC3_AVM_7140_76
+		bool "AVM_7140_76 39.04.76 (Annex A)"
+
 	config TYPE_SRC3_AVM_7140_67en
 		bool "AVM_7140_67en 39.04.67 (Annex A)"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1230,6 +1237,7 @@ config TCOM_IMG
 config AVM_IMG
 	string
 	default "$AVM_7140_43"				if TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
+#	default "$AVM_7140_76"				if TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
 	default "$AVM_7140_67en"			if TYPE_SPEEDPORT_W501V && TYPE_LANG_EN
 	default "$AVM_7150_57" 				if TYPE_SINUS_W500V && TYPE_7150_57
 	default "$AVM_7150_71" 				if TYPE_7150_71 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL )
@@ -1297,6 +1305,7 @@ config SRC2_IMG
 	default "$AVM_7150_27" 			if TYPE_SRC3_AVM_7150_27
 	default "$AVM_7150_32" 			if TYPE_SRC3_AVM_7150_32
 	default "$AVM_7140_43" 			if TYPE_SRC3_AVM_7140_43
+	default "$AVM_7140_76" 			if TYPE_SRC3_AVM_7140_76
 	default "$AVM_7150_57" 			if TYPE_SRC3_AVM_7150_57
 	default "$AVM_7150_71" 			if TYPE_SRC3_AVM_7150_71	
 	default "$AVM_7170_50" 			if TYPE_SRC3_AVM_7170_50
