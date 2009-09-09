@@ -1,9 +1,0 @@
-#!/bin/sh
-mount -o bind /var/media/ftp/MD/www/all/html /usr/www/all/html
-
-#echo "Mount www/all/html/ USB Stick as www/all/html/ Directory. Press 'ENTER' ..."
-#while !(read -s);do
-#	sleep 1
-#done
-
-exit 0

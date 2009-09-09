@@ -1,2 +1,0 @@
-#!/bin/bash
-echo init=/jp/init-usb-root.sh > /proc/sys/urlader/environment
