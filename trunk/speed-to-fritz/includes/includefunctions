@@ -442,13 +442,11 @@ return 0
 function modunsqfs()
 {
 	if [ "$VERBOSE" == "-v" ]; then
-#		[ ${FAKEROOT_ON} = "y" ] && "$FAKEROOT_TOOL" "$UNSQUASHFS" -dest "$1" "$2" 2>&1 | grep -v "^$" | sed -e "s/^/${L1}/g"
-#		[ ${FAKEROOT_ON} != "y" ] && "$UNSQUASHFS" -dest "$1" "$2" 2>&1 | grep -v "^$" | sed -e "s/^/${L1}/g"
-		"$UNSQUASHFS" -dest "$1" "$2" 2>&1 | grep -v "^$" | sed -e "s/^/${L1}/g"
+		[ ${FAKEROOT_ON} = "y" ] && "$FAKEROOT" "$UNSQUASHFS" -dest "$1" "$2" 2>&1 | grep -v "^$" | sed -e "s/^/${L1}/g"
+		[ ${FAKEROOT_ON} != "y" ] && "$UNSQUASHFS" -dest "$1" "$2" 2>&1 | grep -v "^$" | sed -e "s/^/${L1}/g"
 	else
-#		[ ${FAKEROOT_ON} = "y" ] && $FAKEROOT_TOOL "$UNSQUASHFS" -dest "$1" "$2" > /dev/null
-#		[ ${FAKEROOT_ON} != "y" ] && "$UNSQUASHFS" -dest "$1" "$2" > /dev/null
-		"$UNSQUASHFS" -dest "$1" "$2" > /dev/null
+		[ ${FAKEROOT_ON} = "y" ] && $FAKEROOT "$UNSQUASHFS" -dest "$1" "$2" > /dev/null
+		[ ${FAKEROOT_ON} != "y" ] && "$UNSQUASHFS" -dest "$1" "$2" > /dev/null
 	fi
 }
 
@@ -502,18 +500,17 @@ function fw_unpack()
 	 if  [ "${ARCHIVE##*/}" = "kernel.image" ]; then
 	  cp "${ARCHIVE}" "$DESTDIR"/kernel.image
 	 else
-	  echo2 "unpacking archiv"
-	  "$TAR" -xf "$ARCHIVE" -C "$DESTDIR"
+    	  "$TAR" -xf "$ARCHIVE" -C "$DESTDIR"
           cp "$DESTDIR"/var/tmp/kernel.image "$DESTDIR"/kernel.image
          fi
         fi 
+		
 	if [ ! -r "${DESTDIR}/kernel.image" ]; then
 		echo "cannot find kernel.image"
 		return 1
 	fi
 	echo2 "remove tichksum"
 	"$RMTICHKSUM" -f "${DESTDIR}/kernel.image" > /dev/null
-	
 	if [ ! "0" =  "`cat ${DESTDIR}/var/tmp/filesystem.image | wc -c`" ]; then
             cp "$DESTDIR"/var/tmp/filesystem.image "$DESTDIR"/filesystem.image
     	    echo2 "Hidden Root detected! Concat kernel.image and filesystem.image"
@@ -522,7 +519,6 @@ function fw_unpack()
     	    cat "${DESTDIR}/kernel_part.image" "${DESTDIR}/filesystem.image" > "${DESTDIR}/kernel.image"
 	    rm -f "$DESTDIR"/filesystem.image
         fi
-
 	echo2 "splitting kernel image"
 	( cd "$DESTDIR" && "$FINDSQUASHFS" "${DESTDIR}/kernel.image" > /dev/null 2>&1 && cd "$HOMEDIR")
 	if [ ! -r "${DESTDIR}/kernel.raw" -o ! -r "${DESTDIR}/kernelsquashfs.raw" ]; then
@@ -545,7 +541,7 @@ function fw_unpack()
 	fi
 	echo2 "unpacking var.tar"
 	mkdir "$VARTAR_DIR"
-	"$TAR" -xf "$VARTAR" -C "$VARTAR_DIR" || return 1
+	"$TAR" -xif "$VARTAR" -C "$VARTAR_DIR" || return 1
 	return 0
 }
 ################################
@@ -574,8 +570,8 @@ fw_pack()
     RAW_HIDDEN_MOD="${KERNEL_MOD_DIR}/${RAW_HIDDEN_FILE}"
     ROOTFS_TAR="${NEWDIR}/${3}.rootfs.tar"
     # Do we have the tool ?
-    if [ ! -x "$FAKEROOT_TOOL" ]; then
-	echo  "cannot find the tool $FAKEROOT_NAME"
+    if [ ! -x "$FAKEROOT" ]; then
+	echo  "cannot find the tool $FAKEROOT_TOOL"
 	return 1
     fi
     if [ ! -x "$TICHKSUM" ]; then
@@ -613,7 +609,7 @@ fw_pack()
 	echo2 "Packing var.tar"
 	VARTAR_MOD="${FILESYSTEM_MOD_DIR}/var.tar"
 	cp -fdpr "$DIR/var.tar" --target-directory="$KERNEL_MOD_DIR"
-	"$TAR" -c -C "$DIR/var.tar" . > "$VARTAR_MOD" || return 1
+	"$TAR" -c --owner=0 --group=0 --mode=0755 --format=oldgnu -C "$DIR/var.tar" . > "$VARTAR_MOD" || return 1
 	if [ ! -s "$VARTAR_MOD" ]; then
 	    echo "Packing of var.tar failed"
 	    return 1
@@ -621,10 +617,15 @@ fw_pack()
     fi
     [ "$VERBOSE" = "-v" ] && echo "Squashfs filesystem blocksize: $FILESYSTEM_BLOCKSIZE"
     echo "Creating filesystem image, be patient ..."
-    if [ ${FAKEROOT_ON} = "y" ]; then
-	$MKSQUASHFS $FILESYSTEM_MOD_DIR/* $RAW_HIDDEN_MOD $MKSQUASHFS_OPTIONS -b $FILESYSTEM_BLOCKSIZE > $DIR/filesystem.log 2>&1
-	[ "$ADD_USBROOT" = "y" ] && "$TAR" cf "${ROOTFS_TAR}" -C $FILESYSTEM_MOD_DIR/. . 2> $DIR/filesystem.log 2>&1
+    if [ ${FAKEROOT_ON} = "y" ]; then 
+	"$FAKEROOT" -s fakechroot.save -- $MAKEDEVS -d $MAKEDEVS_FILE $FILESYSTEM_MOD_DIR > $DIR/mkdev.log 2>&1
+	# Possible race condition: save file must become available in file system.
+	# This can take an instant, so wait if necessary.
+	until [ -r fakechroot.save ]; do sleep 0.1; done
+	"$FAKEROOT" -i fakechroot.save -- $MKSQUASHFS $FILESYSTEM_MOD_DIR/* $RAW_HIDDEN_MOD $MKSQUASHFS_OPTIONS -b $FILESYSTEM_BLOCKSIZE > $DIR/filesystem.log 2>&1
+	[ "$ADD_USBROOT" = "y" ] && "$FAKEROOT" -i fakechroot.save -- "$TAR" cf "${ROOTFS_TAR}" --owner=0 --group=0 -C $FILESYSTEM_MOD_DIR/. . 2> $DIR/filesystem.log 2>&1
 	[ -f "${ROOTFS_TAR}" ] && echo "USBROOT file: ${ROOTFS_TAR}"
+	rm -f fakechroot.save
     else
 	[ "$MAKE_DEV" = "y" ] && $MAKEDEVS -d $MAKEDEVS_FILE $FILESYSTEM_MOD_DIR > $MOD_DIR/mkdev.log 2>&1
 	$MKSQUASHFS $FILESYSTEM_MOD_DIR/* $RAW_HIDDEN_MOD $MKSQUASHFS_OPTIONS -b $FILESYSTEM_BLOCKSIZE > $DIR/filesystem.log 2>&1
@@ -661,7 +662,7 @@ fw_pack()
     # Pack firmware image (use old tar for compatibility)
     echo "Packing ..."
     rm -f "${modimage}"
-    "$TAR" -c -C "$FIRMWARE_MOD_DIR" ./var > "${modimage}" || return 1
+    "$TAR" -c --owner=0 --group=0 --mode=0755 --format=oldgnu -C "$FIRMWARE_MOD_DIR" ./var > "${modimage}" || return 1
     [ -r "${modimage}" ] && [ ${FAKEROOT_ON} != "y" ] && chown -R --reference=$0 "$NEWDIR"
     mv "$FIRMWARE_MOD_DIR/var/tmp/kernel.image" "$NEWDIR/kernel.image"
     #cleanup tempdir
