@@ -4,7 +4,7 @@
 for OEMDIR in $2; do
  html="html"
  USRWWW="usr/www/${OEMDIR}/$html/de"
- EXPERTP="$1/${USRWWW}/internet/internet_expert.js"
+  EXPERTP="$1/${USRWWW}/internet/internet_expert.js"
   if [ -f "${EXPERTP}" ]; then 
     if  ! `grep -q 'uiPostMac' "${EXPERTP}"`; then
 #-----------------------------------------------------------------
@@ -22,17 +22,21 @@ for (i=0; i<6; i++) {\
 var part = jslGetValue("uiViewMac"+i);\
 if (!part.match(\/^[\\dA-F]{2}$\/i)) {alert(g_mldMacPart); document.getElementById("uiViewMac"+i).focus(); return false;}\
 }\
-if (parseInt(jslGetValue("uiViewMac0"),16).toString(2).match$\/)) {alert(g_mldMacMulti); document.getElementById("uiViewMac0").focus(); return false;}\
+if (parseInt(jslGetValue("uiViewMac0"),16).toString(2).matchmatch\/)) {alert(g_mldMacMulti); document.getElementById("uiViewMac0").focus(); return false;}\
 if (changed \&\& !WanRouterAlert()) return false;\
 var mac = "";\
 for (i=0; i<6; i++) {\
 mac += jslGetValue("uiViewMac"+i)+((i<5) ? ":" : "");\
 }\
 jslSetValue("uiPostMac", mac);/}' "${EXPERTP}"
+    sed -i -e 's|matchmatch|match(/1$|' "${EXPERTP}"
     if  `grep -q 'uiPostMac' "${EXPERTP}"`; then
      echo "-- Added MAC settings to page:"
      echo2 "  /${USRWWW}/internet/internet_expert.js"
     fi
+
+    sed -i -e 's/id="uiViewAnschlussDsl">/id="uiViewAnschlussDsl">\&nbsp;/' "$1/${USRWWW}/internet/internet_expert.html"
+    sed -i -e 's/id="uiViewAnschlussWan">/id="uiViewAnschlussWan">\&nbsp;/' "$1/${USRWWW}/internet/internet_expert.html"
 #-----------------------------------------------------------------
     fi
   fi
