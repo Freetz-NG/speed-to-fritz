@@ -4,8 +4,8 @@ echo -e "\033[1mPhase 4:\033[0m Apply changes."
 echo "********************************************************************************"
 echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $AVM_2_VERSION-$AVM_2_SUBVERSION"
 echo "Replacing hardware related files of AVM firmware images ..."
-echo2 "-- Copy original AVM module:"
-echo2 "      /lib/modules"
+#echo2 "-- Copy original AVM module:"
+#echo2 "      /lib/modules"
 
 if [ ${ATA_ONLY} = "n" ]; then
  #add DSL driver dependig on the settings made
@@ -84,21 +84,17 @@ sleep 1' "${SRC}/etc/init.d/rc.dsl.sh"
 #copy second source www dir
 [ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
 [ ${USE_SOURCE2_WEBMNUE} = "y" ] && . $inc_DIR/get_SRC2_ver 
-
 #copy second source internet dsl menue
 [ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
-
-echo2 "-- copy complete AVM source to destination directory!"
-
 #patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
 # add kapselung and annex settings page if missing
 $sh_DIR/add_multi_settings.sh
 # add buchsend button to fon bookpage
-$sh_DIR/patch_fonbuch.sh "${SRC}"
+[ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
 #remove kids and help
-[ ${REMOVE_KIDS} = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
-[ ${REMOVE_HELP} = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
+[ "${REMOVE_KIDS}" = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
+[ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
 
 echo "********************************************************************************"
 sleep 1

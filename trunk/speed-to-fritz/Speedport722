@@ -170,7 +170,7 @@ $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 722
 [ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
 
 #Add buchsend button to fon bookpage
-$sh_DIR/patch_fonbuch.sh "${SRC}"
+[ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
 
 # skripts for startig ftp on USB
 cp -fdpr  ./addon/tmp/jp   --target-directory="${SRC}"
@@ -180,8 +180,8 @@ $sh_DIR/patch_annex.sh "${SRC}"
 # add kapselung and annex settings page if missing
 $sh_DIR/add_multi_settings.sh
 #remove kids and help
-[ ${REMOVE_KIDS} = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
-[ ${REMOVE_HELP} = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
+[ "${REMOVE_KIDS}" = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
+[ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
 
 echo "********************************************************************************"
 

@@ -170,7 +170,7 @@ $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 503
 [ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
 
 #Add buchsend button to fon bookpage
-$sh_DIR/patch_fonbuch.sh "${SRC}"
+[ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
 
 # skripts for startig ftp on USB
 cp -fdpr  ./addon/tmp/jp   --target-directory="${SRC}"

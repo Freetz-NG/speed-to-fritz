@@ -4,7 +4,7 @@ export PATH=$PATH:/sbin
 ##########################################################################
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
-Tag="10"; Monat="09"; Jahr="09"
+Tag="11"; Monat="09"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -943,14 +943,14 @@ if [ "$ORI" != "y" ]; then
  *)
  . SxxxAVM;;
  esac
-  #bug in home.js, causes mailfunction with tcom firmware, status page is empty  
- $sh_DIR/fix_homebug.sh
-  #add missing files for tr064
+ #bug in home.js, causes mailfunction with tcom firmware, status page is empty  
+ [ "$DONT_ADD_HOMEFIX" != "y" ] && $sh_DIR/fix_homebug.sh
+ #add missing files for tr064
  [ "$CONFIG_TR064" = "y" ] && $sh_DIR/copy_tr064_files.sh
  #remove help 
  [ "$REMOVE_HELP" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
  #Add modinfo
- $sh_DIR/add_modinfobutton.sh "${SRC}"
+ [ "$DONT_ADD_MODINFO" != "y" ] && $sh_DIR/add_modinfobutton.sh "${SRC}"
  #relace banner
  [ $COPY_HEADER = "y" ] && $sh_DIR/rpl_header.sh "${SRC}"
  #add addons
@@ -972,8 +972,8 @@ if [ "$ORI" != "y" ]; then
  [ "$ADD_ONLINECOUNTER" = "y" ] && $sh_DIR/add_onlinecounter.sh "${SRC}" "${OEMLIST}"
  #replace assistent menuitem with enhanced settings 
  [ "$RPL_ASSIST" = "y" ] && $sh2_DIR/rpl_ass_menuitem "${SRC}" "${OEMLIST}" 
- #tam bugfix remove tams    
- $sh_DIR/patch_tam.sh "${SRC}"
+ #tam bugfix remove tams
+ [ "$DONT_PATCH_TAMFIX" != "y" ] && $sh_DIR/patch_tam.sh "${SRC}"
  #gsm page    
  [ "$DO_GSM_PATCH" = "y" ] && $sh_DIR/disply_gsm.sh "${SRC}" "${OEMLIST}"
  #enable all providers
@@ -982,8 +982,10 @@ if [ "$ORI" != "y" ]; then
  [ "$SET_EXPERT" = "y" ] && $sh_DIR/set_expertansicht.sh
  # reverse phonebook lookup
  [ "$DO_LOOKUP_PATCH" = "y" ] && $sh2_DIR/patch_fc "${SRC}"
+ # add MAC settings to internet page
+ [ "$ADD_MACSETTING" = "y" ] && $sh_DIR/add_MAC_settings.sh  "${SRC}" "${OEMLIST}"
  # remove tcom and some other oem dirs and add link instead to enable other brands.
- $sh2_DIR/add_tcom_link "${SRC}"
+ [ "$DONT_LINK_OENDIRS" != "y" ] && $sh2_DIR/add_tcom_link "${SRC}"
  #add kaid for xbox 
  [ "$ADD_KAID" = "y" ] && $sh2_DIR/add_kaid
  #exchange kernel 
@@ -997,11 +999,11 @@ if [ "$ORI" != "y" ]; then
  #	echo "-- Take AVM kernel for new image"
  fi
  #remove signature
- $sh_DIR/rmv_signatur.sh "${SRC}"
+ [ "$DONT_REM_SIGNATUR" != "y" ] && $sh_DIR/rmv_signatur.sh "${SRC}"
  #remove autoupdate tab
- $sh_DIR/remove_autoupdatetab.sh "${SRC}"
+ [ "$REM_AUTOUPDATETAB" = "y" ] && $sh_DIR/remove_autoupdatetab.sh "${SRC}"
  # patch update pages 
- $sh_DIR/patch_tools.sh "${SRC}"
+ [ "$DONT_PATCH_TOOLS" != "y" ] && $sh_DIR/patch_tools.sh "${SRC}"
  # update modules dependencies
  [ "$UPDATE_DEPMOD" = y ] && $sh_DIR/update-module-deps.sh "${SRC}" "${KernelVersion}"
  #export download links
@@ -1028,7 +1030,7 @@ else
  echo "a downgrade via webinterface, you must use a recover tool or CLEAR_ENV"
  echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
  # patch update pages 
- $sh_DIR/patch_tools.sh "${DST}"	
+ $sh_DIR/patch_tools.sh "${DST}"
 fi
 ## patch portrule to enable forwarding to box itself 
 [ "$PATCH_PORTRULE" == "y" ] && subscripts2/patch_portrule "${SRC}"

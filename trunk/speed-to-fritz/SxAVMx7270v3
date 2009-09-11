@@ -148,10 +148,10 @@ echo "  -- Xilinx bitfile was taken from the original t-home firmware"
 echo "  -- Xilinx bitfile was taken from the original t-home firmware"
 
 # add buchsend button to fon bookpage
-$sh_DIR/patch_fonbuch.sh "${SRC}"
+[ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
 #remove kids and help
-[ ${REMOVE_KIDS} = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
-[ ${REMOVE_HELP} = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
+[ "${REMOVE_KIDS}" = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
+[ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
 
 echo "********************************************************************************"
 sleep 1

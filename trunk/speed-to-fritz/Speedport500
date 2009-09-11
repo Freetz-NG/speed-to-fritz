@@ -130,7 +130,7 @@ $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 500
 [ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
 
 #Add buchsend button to fon bookpage
-[ ${AVM_V_MINOR} -lt 56 ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
+[ "${ADD_PHONESEND}" = "y" ] && [ ${AVM_V_MINOR} -lt 56 ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
 #bug fix
 LCLASS=$( echo $CLASS | tr "[:upper:]" "[:lower:]" )
 for OEMD in $OEMLIST; do

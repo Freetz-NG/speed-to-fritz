@@ -1031,7 +1031,7 @@ choice
 		bool "AVM_7170_76 58.04.76 (Annex A)"
 
 	config TYPE_SRC3_AVM_7170_76
-		bool "AVM_7170_67 29.04.76"
+		bool "AVM_7170_76 29.04.76"
 
 	config TYPE_SRC3_AVM_7170_A76en
 		bool "AVM_7170_A76en 58.04.76 (english, Annex A)"
@@ -1302,10 +1302,10 @@ config AVM_IMG
 	default "$AVM_7170_B76en" 			if TYPE_7170_B76en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_76" 				if TYPE_7170_76 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_13948" 			if TYPE_7170_13948 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_DSL_7170_14119"			if TYPE_7170_DSL_14119 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
-#	default "$AVM_AIO_7170_13679"			if TYPE_7170_AIO_13679 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
-	default "$AVM_GAMING_7170_11435"		if TYPE_7170_GAMING_11435 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
-#	default "$AVM_MINI_7170_67"			if TYPE_7170_MINI_67 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
+	default "$AVM_DSL_7170_14119"			if TYPE_7170_DSL_14119 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
+#	default "$AVM_AIO_7170_13679"			if TYPE_7170_AIO_13679 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_GAMING_7170_11435"		if TYPE_7170_GAMING_11435 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
+#	default "$AVM_MINI_7170_67"			if TYPE_7170_MINI_67 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 
 #	default "$AVM_7240_76"				if ( TYPE_7240_76 ) && ( EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7240_76"				if ( TYPE_7240_76 )
@@ -1573,7 +1573,9 @@ config EXPORT_OEM
 comment "Optional settings for Speed-to-fritz -------------------------------"
 
 menu "Options"
+
 if ! EXPORT_TYPE_LOCAL_MODEL
+
  config  ORI
 	bool "Restore original T-Home firmware"
 	default n
@@ -1623,7 +1625,19 @@ config EXPORT_COPY_HEADER
 	default y
 	help
 		Set this to 'y' if you like to include  fw_header980.gif (new version) fw_header.gif (old version)
-		AVM minor version >= 47 uses the new file, if you do not want to copy both files you can remove one of this files in  ./addon/tmp/images.
+		AVM minor version >= 47 uses the new file, if you do not want to copy both 
+		files you can remove one of this files in  ./addon/tmp/images.
+config EXPORT_ADD_MACSETTING
+	bool "Add MAC settings to internet page"
+	default y
+	help
+		Readds MAC setting options to internet setuppage as it ware present on Versions XX.XX.70.
+config EXPORT_ADD_PHONESEND
+	bool "Add Phonebook send button"
+	default y
+	help
+		Adds Phonebook send button.
+		
 config EXPORT_SET_PMAXTIMEOUT
 	bool "Set Timeout for reconnect to 3600"
 	default n
@@ -1685,6 +1699,47 @@ config EXPORT_DO_GSM_PATCH
 	default n
 	help
 		Enables GSM page without device plugged in. Usual a GSM modem shows only up if the device is plugged in.
+if EXPORT_TYPE_LOCAL_MODEL
+ config EXPORT_DONT_REM_SIGNATUR
+	bool "Don't remove red wariniges on statuspage"
+	default n
+	help
+		Remove red wariniges on statuspage, (signatur)
+ config EXPORT_DONT_PATCH_TOOLS
+	bool "Don't patch install pages"
+	default n
+	help
+		If this is set to "y" nothing is changed on Install text pages. 
+		Install skript is still modified to set correct ANNEX type.
+ config EXPORT_DONT_LINK_OENDIRS
+	bool "Don't replace OEM directorys with links"
+	default y
+	help
+		If this is set to "y" nothing is changed in respect of OEM directorys, 
+		set this to "n" if OEM avme or avm is in use, usual you can set this
+		to "n" without any noticabel diffence in functionality.
+ config EXPORT_DONT_PATCH_TAMFIX
+	bool "Don't applay tam bug fix"
+	default y
+	help
+	    This fix is usual not needed any more and is not applayed anyway if newer firmware is in use.
+ config EXPORT_DONT_ADD_HOMEFIX
+	bool "Don't applay home bug fix"
+	default y
+	help
+	    This fix is usual not needed any more and is not applayed anyway if newer firmware is in use.
+ config EXPORT_DONT_ADD_MODINFO
+	bool "Don't applay mode info button"
+	default y
+	help
+	    Keep this info if you want, but it is not needed.
+ config EXPORT_REM_AUTOUPDATETAB
+	bool "Remove autoupdate tab"
+	default y
+	help
+	    This removes the autoupdate tab, usual there is no need to have this tab at all,
+	    but on firmwares with very little changes you may keep ths tab.
+endif
 config FORCE_SRC2_DECTDRIVER
 	bool "Use DECT driver from 2nd AVM firmware"
 	depends on TYPE_SPEEDPORT_W920V || EXPORT_TYPE_LOCAL_MODEL
@@ -2228,7 +2283,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		It is mainly added for testing W920, W920 original firmware does not log to the console
 		but if the kernel is replaced with AVM kernel the log is present.
 endif
- config SRC2_KERNEL
+config SRC2_KERNEL
 	bool "Take kernel from 2nd AVM source"
 	depends on SOURCE2 && ! XCHANGE_KERNEL
 	default n
@@ -2237,7 +2292,7 @@ endif
 		but it can be used in combination with the option restore original firmware as well.
 		It is mainly added for testing W920, W920 original firmware does not log to the console
 		but if the kernel is replaced with AVM kernel the log is present.
- config COPY_ADDON_TMP
+config COPY_ADDON_TMP
 	bool "Copy addon/tmp"
 	depends on !ORI
 	default n
@@ -2409,7 +2464,9 @@ config EXPORT_IPADDRESS
 
 endmenu
 
-menu "Preset some GUI settings"
+comment "Preset some GUI settings -------------------------------------------"
+
+menu "Preset"
 
 config SET_EXPERT
 	bool "Set expert view as default"
@@ -2418,7 +2475,7 @@ config SET_EXPERT
 	    This is usual set to no, within the AVM GUI. 
 config SET_ALLPROVIDERS
 	bool "Enable all providers"
-	default y
+	default n
 	help
 	    This is usual set to no in most cases, within the AVM GUI. 
 endmenu
