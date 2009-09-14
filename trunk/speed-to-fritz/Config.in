@@ -539,13 +539,13 @@ choice
 		bool "AVM_7570_14771 en-de.75.04.77-14771M used as T-Home"
 
 	config TYPE_TCOM_7570_14685
-		bool "AVM_7570_75_14771 en-de-fr.75.04.76-14685 used as T-Home"
+		bool "AVM_7570_14685 en-de-fr.75.04.76-14685 used as T-Home"
 
 #	config TYPE_TCOM_7570_14964
-#		bool "AVM_7570_75_14771 en-de-fr.75.04.76-14964 used as T-Home"
+#		bool "AVM_7570_14964 en-de-fr.75.04.76-14964 used as T-Home"
 
 #	config TYPE_TCOM_7570_15011
-#		bool "AVM_7570_75_14771 en-de-fr.75.04.76-15011M used as T-Home"
+#		bool "AVM_7570_15011 en-de-fr.75.04.76-15011M used as T-Home"
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config TYPE_CONGSTAR
@@ -1142,7 +1142,7 @@ choice
 		bool "AVM_7570_76 en-de-fr.75.04.76"
 
 	config TYPE_SRC3_AVM_7570_14621
-		bool "AVM_7570_14621 en-de-fr.75.04.94-14031M"
+		bool "AVM_7570_14621 en-de-fr.75.04.94-14621M"
 
 	config TYPE_SRC3_AVM_7570_14031
 		bool "AVM_7570_14031 en-de.75.04.94-14031M"
