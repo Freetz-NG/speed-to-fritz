@@ -6,43 +6,42 @@ echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $AVM_2_VERSION-$AVM_2
 echo "Replacing hardware related files of AVM firmware images ..."
 #echo2 "-- Copy original AVM module:"
 #echo2 "      /lib/modules"
-
 if [ ${ATA_ONLY} = "n" ]; then
  #add DSL driver dependig on the settings made
- #7050 .33
- if [ -f "${SRC}"/lib/modules/ubik/ubik2-dsl.bin ]; then
- [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC}"/lib/modules/ubik/ubik2-dsl.bin --target-directory=./addon/tmp/modules/ubik &&\
- echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
- [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin --target-directory=./addon/tmp/modules &&\
- echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
- [ ${USE_OWN_DSL} = "y" ] && [ -f ./addon/tmp/modules/ubik2-dsl.bin ] && cp -fdrp ./addon/tmp/modules/ubik2-dsl.bin --target-directory="${SRC}"/lib/modules/ubik &&\
- echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
- [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin --target-directory="${SRC}"/lib/modules/ubik &&\
- echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!"
- else 
- # .50
- [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC}"/lib/modules/ubik/ubik2-dsl.bin "${SRC}"/lib/modules/microvoip-dsl.bin &&\
- echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
- [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin ./addon/tmp/modules/microvoip-dsl.bin &&\
- echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
- [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/ubik/ubik2-dsl.bin "${SRC}"/lib/modules/microvoip-dsl.bin &&\
- echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!" 
+ find_dslfirmware() {
+ ANNEX_FIRMWARE=/lib/modules/microvoip-dsl.bin
+ [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/ar0700xx.bin
+ [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/ar0700aa.bin
+ [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/ubik/ubik2-dsl.bin
+# [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/dsp_ur8/ur8-A-dsl.bin
+# [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/dsp_ur8/ur8-B-dsl.bin
+# [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/vinax_fw_adsl_A.bin
+# [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/vinax_fw_adsl_B.bin
+# [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/vinax_fw_adsl.bin
+# [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/vinax_fw_vdsl.bin
+ if [ ! -f $1${ANNEX_FIRMWARE} ] ; then
+  echo2 "Error:$2 '${ANNEX_FIRMWARE}' not found "
+ else
+  echo2 "$2 ${ANNEX_FIRMWARE}'"
  fi
- #add DSL driver dependig on the settings made
- #7170
- [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}"/lib/modules/microvoip-dsl.bin ] && cp -fdrp "${SRC}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
- echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
- [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/microvoip-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
- echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
- [ ${USE_OWN_DSL} = "y" ] && [ -f ./addon/tmp/modules/microvoip-dsl.bin ] && cp -fdrp ./addon/tmp/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
- echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
- [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/microvoip-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
- echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!"
- #add DSL driver dependig on the settings made in
- #7270 
- #annex B driver
- mkdir -p ./addon/tmp/modules/dsp_ur8
- if [ -d "${SRC}/lib/modules/dsp_ur8"  ]; then
+ }
+ if ! [ -d "${SRC}/lib/modules/dsp_ur8"  ]; then
+  find_dslfirmware "${SRC}" "  -- AVM source 1 DSL Driver:"
+  SRC_ANNEX_FIRMWARE="$ANNEX_FIRMWARE"
+  find_dslfirmware ${SRC_2} "  -- AVM source 2 DSL Driver:"
+  SRC_2_ANNEX_FIRMWARE="$ANNEX_FIRMWARE"
+  [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}"${SRC_ANNEX_FIRMWARE}  ] && cp -fdrp "${SRC}"${SRC_ANNEX_FIRMWARE}  ./addon/tmp/modules/dsl.bin &&\
+  echo "  -- AVM source 1 DSL Driver saved as: ./addon/tmp/modules/dsl.bin"
+  [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"${SRC_2_ANNEX_FIRMWARE}  ] && cp -fdrp "${SRC_2}"${SRC_2_ANNEX_FIRMWARE}  ./addon/tmp/modules/dsl.bin &&\
+  echo "  -- AVM source 2 DSL Driver saved as: ./addon/tmp/modules/dsl.bin"
+  [ ${USE_OWN_DSL} = "y" ] && [ -f "./addon/tmp/modules/dsl.bin"  ] && cp -fdrp ./addon/tmp/modules/dsl.bin "${SRC}"${SRC_ANNEX_FIRMWARE} &&\
+  echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules/dsl.bin"
+  [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"$SRC_2_ANNEX_FIRMWARE  ] && cp -fdrp "${SRC_2}"$SRC_2_ANNEX_FIRMWARE "${SRC}"${SRC_ANNEX_FIRMWARE} &&\
+  echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!"
+ else 
+  #7270 
+  #annex B driver
+  mkdir -p ./addon/tmp/modules/dsp_ur8
   [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp "${SRC}"/lib/modules/dsp_ur8/ur8-B-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
   echo "  -- AVM DSL Annex B Driver saved to: ./addon/tmp/modules!"
   [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-B-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
@@ -67,6 +66,9 @@ else
  sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
  rm -fdr "${SRC}"/lib/modules/dsp_ur8
  rm -f "${SRC}"/lib/modules/microvoip-dsl.bin
+ rm -f "${SRC}"/lib/modules/ar0700xx.bin
+ rm -f "${SRC}"/lib/modules/ar0700aa.bin
+ rm -f "${SRC}"/lib/modules/ubik/ubik2-dsl.bin
 #<-- ATA only
 fi
 #save space on 8MB boxes specially
