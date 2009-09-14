@@ -155,8 +155,8 @@ config AVM_7170_67
 
 config AVM_MINI_7170_14935
     string
-    default "http://update.avm.de/7170_Mini_Firmware/fritz_box_29_04_76-14935.image"
-
+    default "http://update.avm.de/7170_Mini_Firmware/deutsch/fritz_box_29_04_76-14935.image"
+    
 config AVM_7170_A76
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.76.image"
