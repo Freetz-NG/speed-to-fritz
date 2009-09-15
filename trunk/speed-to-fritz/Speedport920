@@ -19,24 +19,25 @@ mv "${SRC}/etc/default.${CONFIG_PRODUKT}/avm" "${SRC}/etc/default.${CONFIG_PRODU
 echo "  -- moved /etc/default.${CONFIG_PRODUKT}/avm to ${OEM}"
 sleep 2
 #Attention! Vinax uses aditional /dev/vinax device entrys the are generateed via /tools/device_table.txt (makedevice option)
-[ ${FAKEROOT_ON} = "n" ] && cp -fdrp "${DST}"/dev/vinax --target-directory="${SRC}"/dev #this copy is onliy usable if run as root
+#[ ${FAKEROOT_ON} = "n" ] && 
+cp -fdrp "${DST}"/dev --target-directory="${SRC}" #this copy is onliy usable if run as root
 [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
 [ "${FORCE_TCOM_PCMLINK}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2/pcmlink.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2
 
 if [ "${TYPE_AVM_7570_XX}" = "y" ]; then 
  if [ "${SAVE_TCOM_DSL}" = "y" ]; then
-    cp -fdrp "${DST}"/lib/modules/vinax* --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
-    echo "  -- VINAX Driver saved to: ./addon/tmp/W920"
+    cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko ./addon/tmp/W920/squashfs-root/lib/modules/vinax/drv_vinax.ko &&\
+    echo "  -- VINAX Driver saved to: ./addon/tmp/W920/..."
  fi
  if [ "${SAVE_SRC2_DSL}" = "y" ]; then
-    cp -fdrp "${SRC_2}"/lib/modules/vinax* --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
-    echo "  -- VINAX Driver saved to: ./addon/tmp/W920"
+    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko ./addon/tmp/W920/squashfs-root/lib/modules/vinax/drv_vinax.ko &&\
+    echo "  -- VINAX Driver saved to: ./addon/tmp/W920/..."
  fi
  if [ "${USE_SRC2_DSL}" = "y" ]; then
-    cp -fdrp "${SRC_2}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
-    echo "  -- VINAX Driver was taken from 3. firmware"
- elif [ "${USE_OWN_DSL}" != "y" ]; then
-    cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
+    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion2/kernel/drivers/vinax/drv_vinax.ko "${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko" &&\
+    echo "  -- VINAX Driver was taken from 2nd AVM firmware"
+ elif [ "${USE_OWN_DSL}" = "y" ]; then
+    cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/vinax/drv_vinax.ko "${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko" &&\
     echo "  -- VINAX Driver was taken from the original t-com firmware"
  fi
 else

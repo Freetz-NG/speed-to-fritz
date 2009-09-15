@@ -41,5 +41,7 @@ sed -i -e '/uiPostAnnex/a\
 sed -i -e '/uiPostSarDns1/a\
 <!--input type="hidden" name="sar:settings/vlan_encap" value="<? query sar:settings/vlan_encap ?>" id="uiPostVlanAktiv" disabled>\
 <input type="hidden" name="sar:settings/vlan_id" value="<? query sar:settings/vlan_id ?>" id="uiPostVlanId" disabled-->' "${SRC}/usr/www/${OEMLINK}/html/de/internet/internet_expert.frm"
-
+sed -i -e '/InitSpeed();/a\
+InitVlan();' "${SRC}/usr/www/${OEMLINK}/html/de/internet/kabelmodem.js"
 exit 0
+
