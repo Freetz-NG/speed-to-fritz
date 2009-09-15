@@ -36,7 +36,7 @@ if [ "${TYPE_AVM_7570_XX}" = "y" ]; then
     cp -fdrp "${SRC_2}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
     echo "  -- VINAX Driver was taken from 3. firmware"
  elif [ "${USE_OWN_DSL}" != "y" ]; then
-    cp -fdrp "${DST}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
+    cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
     echo "  -- VINAX Driver was taken from the original t-com firmware"
  fi
 else
@@ -131,6 +131,8 @@ if `cat "${SRC}/etc/init.d/rc.S" | grep -q '_488.hex' ` && ! [ -f "${SRC}"/lib/m
  echo "You must use dect driver form 2nd AVM source or one that was saved before" && sleep 10 && exit 1
 fi
 
+[ "${FORCE_VINAX_DRV}" = "y" ] && cp -fdrp ${HOMEDIR}/addon/tmp/modules/vinax/drv_vinax.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax" &&\
+echo "  -- PPPoA compatibel VINAX DSL Driver is in use!"
 #v3 dect fix
 sed -i -e 's|_488.hex|.hex|' "${SRC}/etc/init.d/rc.S" 
 sed -i -e '/piglet_use_pll3_clk=1 \\/d' "${SRC}/etc/init.d/rc.S" 
