@@ -946,7 +946,7 @@ if [ "$ORI" != "y" ]; then
  esac
  #copy Firmware.conf into image
  . FirmwareConfStrip
- cp -v $firmwareconf_file_name "${SRC}"/etc/$firmwareconf_file_name
+ cp $firmwareconf_file_name "${SRC}"/etc/$firmwareconf_file_name
  #bug in home.js, causes mailfunction with tcom firmware, status page is empty  
  [ "$DONT_ADD_HOMEFIX" != "y" ] && $sh_DIR/fix_homebug.sh
  #add missing files for tr064
