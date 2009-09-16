@@ -36,7 +36,7 @@ EOF
 chmod 755 "./incl_var"
 fi
 make 
-. FirmwareConfStrip
+#. FirmwareConfStrip
 ### tells speed to fritz not to use commandline options 
 ./sp-to-fritz.sh -z
 #sleep 20
