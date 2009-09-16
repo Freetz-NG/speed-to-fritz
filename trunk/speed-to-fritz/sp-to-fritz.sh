@@ -4,7 +4,8 @@ export PATH=$PATH:/sbin
 ##########################################################################
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
-Tag="15"; Monat="09"; Jahr="09"
+#dont chang this line formwat is used in ./start to get script version into Firmware.conf
+Tag="16"; Monat="09"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -943,6 +944,9 @@ if [ "$ORI" != "y" ]; then
  *)
  . SxxxAVM;;
  esac
+ #copy Firmware.conf into image
+ . FirmwareConfStrip
+ cp -v $firmwareconf_file_name "${SRC}"/etc/$firmwareconf_file_name
  #bug in home.js, causes mailfunction with tcom firmware, status page is empty  
  [ "$DONT_ADD_HOMEFIX" != "y" ] && $sh_DIR/fix_homebug.sh
  #add missing files for tr064
