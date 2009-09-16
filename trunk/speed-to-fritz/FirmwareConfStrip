@@ -2,9 +2,6 @@
 #strip Firmware.conf 
 [ $firmwareconf_file_name ] || firmwareconf_file_name="Firmware.conf"
 FWC_FILE="./$firmwareconf_file_name"
-TCOM_LOCAL=""
-AVM_LOCAL=""
-
 TCOM_IMG="`cat "$FWC_FILE" | grep 'TCOM_IMG' | sed 's/TCOM_IMG=//' | sed 's/\"//g' | tr -d '\$' `"
 [ $TCOM_IMG ] && TCOM_IMG_LINK="`cat "$FWC_FILE" | grep "$TCOM_IMG" | sed '/TCOM_IMG/d' | sed '/is not set/d' | sed '/SRC3_/d' `"
 [ $TCOM_IMG ] && TCOM_IMG="`cat "$FWC_FILE" | grep "$TCOM_IMG" | grep "TCOM_IMG" `"
@@ -12,7 +9,7 @@ AVM_IMG="`cat "$FWC_FILE" | grep 'AVM_IMG' | sed 's/AVM_IMG=//' | sed 's/\"//g' 
 [ $AVM_IMG ] && AVM_IMG_LINK="`cat "$FWC_FILE" | grep "$AVM_IMG" | sed '/AVM_IMG/d' | sed '/is not set/d' | sed '/SRC3_/d' `"
 [ $AVM_IMG ] && AVM_IMG="`cat "$FWC_FILE" | grep "$AVM_IMG" | grep "AVM_IMG" `"
 SRC2_IMG="`cat "$FWC_FILE" | grep 'SRC2_IMG' | sed 's/SRC2_IMG=//' | sed 's/\"//g' | tr -d '\$'`"
-[ $SRC2_IMG ] && SRC2_IMG_LINK="`cat "$FWC_FILE" | grep "$SRC2_IMG" | sed '/SRC2_IMG/d' | sed '/is not set/d' | sed '/SRC3_/d' `"
+[ $SRC2_IMG ] && SRC2_IMG_LINK="`cat "$FWC_FILE" | grep "$SRC2_IMG" | sed '/SRC2_IMG/d' | sed '/is not set/d' | sed '/TYPE_SRC3_LOCAL_IMAGE/d' `"
 [ $SRC2_IMG ] && SRC2_IMG="`cat "$FWC_FILE" | grep "$SRC2_IMG" | grep "SRC2_IMG" `"
 echo "#!/bin/bash" > .tmpx
 echo "# Date: $(date +%Y%m%d-%H%M)" >> .tmpx
@@ -24,7 +21,7 @@ echo "# Script: $Jahr$Monat$Tag-$(svnversion . | tr ":" "_")" >> .tmpx
 echo "# Automatically generated and striped" >> .tmpx
 echo -ne $TCOM_IMG_LINK\\n$AVM_IMG_LINK\\n$SRC2_IMG_LINK\\n$TCOM_IMG\\n$AVM_IMG\\n$SRC2_IMG\\n >> .tmpx
 #sort .tmpx | uniq -u > .tmpx
-sed -i -e '/#/d' -e '/CONGSTAR_/d' -e '/AVM_.*7/d' -e '/TCOM_W/d' -e '/TCOM_SINUS/d' -e '/TCOM_LOCAL/d' -e '/AVM_LOCAL/d' -e '/SRC3_/d' "$FWC_FILE"
+sed -i -e '/#/d' -e '/CONGSTAR_/d' -e '/AVM_.*7/d' -e '/TCOM_W/d' -e '/TCOM_SINUS/d' -e '/TCOM_LOCAL/d' -e '/AVM_LOCAL/d' -e '/SRC2_IMG=/d' -e '/SRC3_LOCAL=/d' "$FWC_FILE"
 cat "$FWC_FILE" >> .tmpx
 mv .tmpx "$FWC_FILE"
 sed -i -e '/is not set/d' -e '/^$/d' "$FWC_FILE"
