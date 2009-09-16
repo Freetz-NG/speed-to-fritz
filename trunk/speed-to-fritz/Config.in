@@ -289,13 +289,13 @@ config AVM_PHONE_7270_15075
    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7270/fritz_box-labor-7270-15075.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabPHONE.AnnexB.54.04.97-15075.image"
 ###
 
-config AVM_CORE_7270_15114
+config AVM_CORE_7270_15160
    string
-   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_streaming_stick/fritz_box-labor-15114.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabCORE.AnnexB.54.04.98-15114.image"
+   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_streaming_stick/fritz_box-labor-15160.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabCORE.AnnexB.54.04.98-15160.image"
 
-config AVM_CORE_7270_V3_15114
+config AVM_CORE_7270_V3_15160
    string
-   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_streaming_stick/fritz_box-labor-7270v3-15114.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabCORE.AnnexB.74.04.98-15114.image"
+   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_streaming_stick/fritz_box-labor-7270v3-15160.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabCORE.AnnexB.74.04.98-15160.image"
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 AVM Firmware
 ### 7570 AVM Firmware
@@ -831,16 +831,16 @@ choice
 			and fixes various software problems, e.g. answering machine and
 			facsimile reception.
 
-	config TYPE_7270_CORE_15114
-		bool "AVM_7270_CORE_15114  7270-54.04.98-15114 (Streaming Stick)"
+	config TYPE_7270_CORE_15160
+		bool "AVM_7270_CORE_15160  7270-54.04.98-15160 (Streaming Stick)"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! Streaming Stick: This release adds support for streaming of
 			media content via AVM WLAN USB Stick v1.1. External software for
 			the USB-Stick is necessary and is part of the ZIP-file.
 
-	config TYPE_7270_V3_CORE_15114
-		bool "AVM_7270_V3_CORE_15114  7270v3-54.04.98-15114 (Str. Stick)"
+	config TYPE_7270_V3_CORE_15160
+		bool "AVM_7270_V3_CORE_15160  7270v3-54.04.98-15160 (Str. Stick)"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! Streaming Stick: This release adds support for streaming of
@@ -1118,11 +1118,11 @@ choice
 	config TYPE_SRC3_AVM_7270_15075
 		bool "AVM_7270_15075 54.04.97-15075"
 
-	config TYPE_SRC3_AVM_7270_CORE_15114
-		bool "AVM_7270_CORE_15114 54.04.98-15114 (Streaming Stick)"
+	config TYPE_SRC3_AVM_7270_CORE_15160
+		bool "AVM_7270_CORE_15160 54.04.98-15160 (Streaming Stick)"
 
-	config TYPE_SRC3_AVM_7270_V3_CORE_15114
-		bool "AVM_7270_V3_CORE_15114 54.04.98-15114 (Streaming Stick)"
+	config TYPE_SRC3_AVM_7270_V3_CORE_15160
+		bool "AVM_7270_V3_CORE_15160 54.04.98-15160 (Streaming Stick)"
 
 #	config TYPE_SRC3_AVM_PHONE_7270_14712
 #		bool "AVM_PHONE_7270_14712"
@@ -1318,8 +1318,8 @@ config AVM_IMG
 	default "$AVM_7270_76"				if ( TYPE_7270_76 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_V3_76"			if ( TYPE_7270_V3_76 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_15075"			if ( TYPE_7270_15075 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_CORE_7270_15114"			if ( TYPE_7270_CORE_15114 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_CORE_7270_V3_15114"		if ( TYPE_7270_V3_CORE_15114 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_CORE_7270_15160"			if ( TYPE_7270_CORE_15160 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_CORE_7270_V3_15160"		if ( TYPE_7270_V3_CORE_15160 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_13486"			if ( TYPE_7270_13486 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_DSL_7270_14869"			if ( TYPE_7270_DSL_14869 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_AIO_7270_14543"			if ( TYPE_7270_AIO_14543 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
@@ -1387,8 +1387,8 @@ config SRC2_IMG
 	default "$AVM_7270_76" 			if TYPE_SRC3_AVM_7270_76
 	default "$AVM_7270_V3_76" 		if TYPE_SRC3_AVM_7270_V3_76
 	default "$AVM_7270_15075" 		if TYPE_SRC3_AVM_7270_15075
-	default "$AVM_CORE_7270_15114" 		if TYPE_SRC3_AVM_CORE_7270_15114
-	default "$AVM_CORE_7270_V3_15114" 	if TYPE_SRC3_AVM_CORE_7270_V3_15114
+	default "$AVM_CORE_7270_15160" 		if TYPE_SRC3_AVM_CORE_7270_15160
+	default "$AVM_CORE_7270_V3_15160" 	if TYPE_SRC3_AVM_CORE_7270_V3_15160
 	default "$AVM_7270_67m"	 		if TYPE_SRC3_AVM_7270_67m
 	default "$AVM_7270_13486"		if TYPE_SRC3_AVM_7270_13486
 	default "$AVM_AIO_7270_14543"		if TYPE_SRC3_AVM_AIO_7270_14543
@@ -1448,8 +1448,8 @@ config TYPE_LABOR_TYPE
         default "76" 		if TYPE_7170_76 || TYPE_7270_76
         default "76V3" 		if TYPE_7270_V3_76
         default "15075" 	if TYPE_7270_15075
-	default "CORE"	 	if TYPE_7270_CORE_15114
-	default "CORE"	 	if TYPE_7270_CORE_V3_15114
+	default "CORE"	 	if TYPE_7270_CORE_15160
+	default "CORE"	 	if TYPE_7270_CORE_V3_15160
         default "14712" 	if TYPE_7270_PHONE_14712
         default "13948" 	if TYPE_7170_13948
         default "13486" 	if TYPE_7270_13486
