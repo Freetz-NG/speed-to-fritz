@@ -2078,12 +2078,21 @@ if ! EXPORT_ATA_ONLY
 		WXXX is the respective Speedport type.
 		No files get removed within this directory so if you do more than one save with diffent settings
 		more files may be within this directory than realy wanted.
+
     config FORCE_VINAX_DRV
 	bool "Force PPPoA compatibel vinax driver"
 	depends on TYPE_SPEEDPORT_W920V
 	default n
 	help
 		Use own drv_vinax.co from bulid 15011-827.
+
+    config FORCE_KDSLD_DRV
+	bool "Force PPPoA compatibel kdsld driver"
+	depends on TYPE_SPEEDPORT_W920V
+	default n
+	help
+		Use own drv_vinax.co from bulid 15011-827.
+
     config WRAP_DSLD
 	bool "Wrap DSLD"
 	depends on TYPE_SPEEDPORT_W920V
