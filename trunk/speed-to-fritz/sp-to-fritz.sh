@@ -947,6 +947,8 @@ if [ "$ORI" != "y" ]; then
  #copy Firmware.conf into image
  . FirmwareConfStrip
  cp $firmwareconf_file_name "${SRC}"/etc/$firmwareconf_file_name
+ #tar Firmware.conf 
+ [ -f "./${firmwareconf_file_name}" ] && tar --owner=0 --group=0 --mode=0755 -cf "./${firmwareconf_file_name}.tar" "${firmwareconf_file_name}"
  #bug in home.js, causes mailfunction with tcom firmware, status page is empty  
  [ "$DONT_ADD_HOMEFIX" != "y" ] && $sh_DIR/fix_homebug.sh
  #add missing files for tr064

@@ -35,6 +35,7 @@ export firmwareconf_file_name="Firmware.conf"
 EOF
 chmod 755 "./incl_var"
 fi
+#[ -f "./${firmwareconf_file_name}.tar" ] && tar --overwirte  -xf "${firmwareconf_file_name}"
 make 
 . FirmwareConfStrip
 ### tells speed to fritz not to use commandline options 
