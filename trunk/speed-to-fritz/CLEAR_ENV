@@ -4,7 +4,7 @@ echo "--WARNING: This skript will clear environment variables on older Speedport
 echo "If this is the case you need to add some individual variables into this skript at the marked position."
 echo "Make sure only one netcard is installed in your PC, or set a interface via Speed-to-fritz menu.-------"
 echo "You must run ./install-start first, to set up OEM, IPADRESS and LAN! ---------------------------------"
-echo "Or you may edid in ./incl_var the following tree Variables:"
+echo "Or you may edit in ./incl_var the following Variables:"
 echo 'export OEM="avm"'
 echo 'export ETH_IF="eth0"'
 echo 'export IPADDRESS="192.168.178.1"'

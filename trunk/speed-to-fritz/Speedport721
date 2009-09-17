@@ -230,9 +230,9 @@ rm -fdr "${SRC}"/lib/acgenusb*
 
 #workaround for HWRevision
 if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
-sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/i\
+sed -i -e "/url=\"\`\/sbin\/pluginurl\`\"/i\
 	export HWRevision=\"$FBHWRevision\"" "${SRC}/sbin/start_plugin.sh"
-sed -i -e "/        url=\"\`\/sbin\/pluginurl\`\"/a\
+sed -i -e "/url=\"\`\/sbin\/pluginurl\`\"/a\
 	export HWRevision=\"$HWID\"" "${SRC}/sbin/start_plugin.sh"
 fi
 sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
