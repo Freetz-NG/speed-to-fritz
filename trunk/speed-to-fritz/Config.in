@@ -114,6 +114,10 @@ config AVM_7140_76
 config AVM_7140_67en
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7140.AnnexA.en.39.04.67.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7140.AnnexA.en.39.04.67.image"
+
+#config AVM_7140_76en
+#    string
+#    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7140.AnnexA.39.04.76.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7140.AnnexA.39.04.76.image"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM 7141 Firmware
 
@@ -219,6 +223,10 @@ config AVM_7270_67
 config AVM_7270_67m
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/english/FRITZ.Box_Fon_WLAN_7270.en-de-es-it.54.04.67.image"
+
+config AVM_7270_76m
+    string
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7270.en-de-es-it-fr.54.04.76.image"
 
 config AVM_MINI_7270_67
     string
@@ -754,6 +762,12 @@ choice
 		help
 			FRITZ! release: 70
 
+#	config TYPE_7140_76en
+#		bool "AVM_7140_76en 39.04.76"
+#		depends on ( EXPORT_TYPE_LOCAL_MODEL )
+#		help
+#			FRITZ! release: 76
+
 	config TYPE_7270_76
 		bool "AVM_7270_76 54.04.76"
 		depends on ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
@@ -871,6 +885,11 @@ choice
 		depends on TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
 		help
 			FRITZ! : release 67 multilingual
+	config TYPE_7270_76m
+		bool "AVM_7270_76m en-de-es-it-fr.54.04.76 multilingual"
+		depends on TYPE_SPEEDPORT_W920V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
+		help
+			FRITZ! : release 76 multilingual
 
 	config TYPE_LOCAL_AVM
 		bool "CUSTOM AVM LOCAL firmware"
@@ -998,6 +1017,9 @@ choice
 
 	config TYPE_SRC3_AVM_7140_67en
 		bool "AVM_7140_67en 39.04.67 (Annex A)"
+
+#	config TYPE_SRC3_AVM_7140_76en
+#		bool "AVM_7140_76en 39.04.76 (Annex A)"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7141 Firmware
 
@@ -1078,6 +1100,9 @@ choice
 
 	config TYPE_SRC3_AVM_7270_67m
 		bool "AVM_7270_67m 54.04.67 (ge-en-it-sp)"
+		
+	config TYPE_SRC3_AVM_7270_76m
+		bool "AVM_7270_76m 54.04.76 (ge-en-it-sp-fr)"
 
 	config TYPE_SRC3_AVM_7270_70
 		bool "AVM_7270_54.04.70"
@@ -1286,8 +1311,10 @@ config TCOM_IMG
 config AVM_IMG
 	string
 	default "$AVM_7140_43"				if TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
-#	default "$AVM_7140_76"				if TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
+	default "$AVM_7140_76"				if TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
 	default "$AVM_7140_67en"			if TYPE_SPEEDPORT_W501V && TYPE_LANG_EN
+#	default "$AVM_7140_76en"			if TYPE_SPEEDPORT_W501V && TYPE_LANG_EN
+#	default "$AVM_7140_76en" 			if TYPE_7140_76en && ( TYPE_SPEEDPORT_W501V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7150_57" 				if TYPE_7150_57 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7150_71" 				if TYPE_7150_71 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL ) || ( TYPE_SINUS_W500V && ! TYPE_LABOR ) 
 	default "$AVM_7170_A76en" 			if TYPE_LANG_EN && ! TYPE_B67en && ! TYPE_A67en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
@@ -1308,7 +1335,8 @@ config AVM_IMG
 #	default "$AVM_7240_76"				if ( TYPE_7240_76 ) && ( EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7240_76"				if ( TYPE_7240_76 )
 	default "$AVM_7270_76" 				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
-	default "$AVM_7270_67m" 			if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_EN
+#	default "$AVM_7270_67m" 			if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_EN
+	default "$AVM_7270_76m" 			if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_EN
 	default "$AVM_7270_59" 				if ( TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_59" 				if ( TYPE_7270_59 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_58"	 			if ( TYPE_7270_58 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL ) 
@@ -1316,6 +1344,7 @@ config AVM_IMG
 #	default "$AVM_7270_67"				if ( TYPE_7270_67 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_70"				if ( TYPE_7270_70 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_76"				if ( TYPE_7270_76 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7270_76m" 			if ( TYPE_7270_76m ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL ) 
 	default "$AVM_7270_V3_76"			if ( TYPE_7270_V3_76 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_15075"			if ( TYPE_7270_15075 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_CORE_7270_15160"			if ( TYPE_7270_CORE_15160 ) && ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
@@ -1390,6 +1419,7 @@ config SRC2_IMG
 	default "$AVM_CORE_7270_15160" 		if TYPE_SRC3_AVM_CORE_7270_15160
 	default "$AVM_CORE_7270_V3_15160" 	if TYPE_SRC3_AVM_CORE_7270_V3_15160
 	default "$AVM_7270_67m"	 		if TYPE_SRC3_AVM_7270_67m
+	default "$AVM_7270_76m"	 		if TYPE_SRC3_AVM_7270_76m
 	default "$AVM_7270_13486"		if TYPE_SRC3_AVM_7270_13486
 	default "$AVM_AIO_7270_14543"		if TYPE_SRC3_AVM_AIO_7270_14543
 	default "$AVM_WLANX_7270_14080"		if TYPE_SRC3_AVM_WLANX_7270_14080
@@ -1441,11 +1471,12 @@ config TYPE_LABOR_TYPE
         default "A59" 		if TYPE_7170_A59 || TYPE_7270_A59
         default "61" 		if TYPE_7113_61
         default "67" 		if TYPE_7270_67
-        default "67m" 		if TYPE_7170_67m || TYPE_7270_67m
+        default "67m" 		if TYPE_7170_67m ||  TYPE_7270_67m
         default "68" 		if TYPE_7113_68
         default "70" 		if TYPE_7170_70 || TYPE_7270_70
         default "A76" 		if TYPE_7170_A76 || TYPE_7270_A76
         default "76" 		if TYPE_7170_76 || TYPE_7270_76
+        default "76m" 		if TYPE_7170_76m || TYPE_7270_76m
         default "76V3" 		if TYPE_7270_V3_76
         default "15075" 	if TYPE_7270_15075
 	default "CORE"	 	if TYPE_7270_CORE_15160
@@ -1480,7 +1511,7 @@ config TYPE_LABOR_TYPE
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_FORCE_MULTI_LANGUAGE
 	bool "Use Multilingual from 2nd AVM firmware"
-	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m ) && SOURCE2
+	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7270_76m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_76m || ! TYPE_AVM_7270_67m ) && SOURCE2
 	default n
 	help
 	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!  
@@ -1488,7 +1519,7 @@ config EXPORT_FORCE_MULTI_LANGUAGE
 
 config EXPORT_FORCE_MULTI_COUNTRY
 	bool "Use Multi country from 2nd AVM firmware"
-	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7270_67m ) && SOURCE2
+	depends on ( TYPE_SRC3_AVM_7270_67m || TYPE_SRC3_AVM_7270_76m || TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( ! TYPE_AVM_7570_XX  || ! TYPE_AVM_7270_76m|| ! TYPE_AVM_7270_67m ) && SOURCE2
  	default n
 	help
 	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!
@@ -1538,9 +1569,9 @@ config ANNEX
 config EXPORT_OEM
 	string
 	default "tcom" if ORI || TYPE_SPEEDPORT_W721V 
-	default "avm" if ( TYPE_LANG_DE && ! TYPE_67m && ! TYPE_AVM_7570_XX && ! EXPORT_FORCE_MULTI_LANGUAGE )
+	default "avm" if ( TYPE_LANG_DE && ! TYPE_67m && ! TYPE_76m && ! TYPE_AVM_7570_XX && ! EXPORT_FORCE_MULTI_LANGUAGE )
 	#default "avm" if TYPE_LANG_A_CH
-	default "avme" if ( TYPE_LANG_EN  || TYPE_67m || TYPE_AVM_7570_XX ) && ! EXPORT_FORCE_MULTI_LANGUAGE   
+	default "avme" if ( TYPE_LANG_EN  || TYPE_67m || TYPE_76m || TYPE_AVM_7570_XX ) && ! EXPORT_FORCE_MULTI_LANGUAGE   
  
 config EXPORT_FORCE_LANGUAGE
 	string
@@ -1820,8 +1851,8 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 
  config EXPORT_FBHWRevision
 	string
-	depends on SET_FBHWRevision || TYPE_67m || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_EN )
-	default "145" if TYPE_67m || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_EN )
+	depends on SET_FBHWRevision || TYPE_67m || TYPE_76m || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_EN )
+	default "145" if TYPE_67m || TYPE_76m || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_EN )
 	string "type in new HWRevision, see help for more info."
 	    help
 		This is the Hardware revision used instead of the one used in AVM firmware, 
