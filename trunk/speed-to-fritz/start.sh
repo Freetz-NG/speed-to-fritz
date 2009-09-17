@@ -37,7 +37,7 @@ chmod 755 "./incl_var"
 fi
 #[ -f "./${firmwareconf_file_name}.tar" ] && tar --overwirte  -xf "${firmwareconf_file_name}"
 make 
-. FirmwareConfStrip
+#. FirmwareConfStrip
 ### tells speed to fritz not to use commandline options 
 ./sp-to-fritz.sh -z
 #sleep 20

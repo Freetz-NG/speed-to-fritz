@@ -945,11 +945,13 @@ if [ "$ORI" != "y" ]; then
  . SxxxAVM;;
  esac
  #copy Firmware.conf into image
+ cp $firmwareconf_file_name .unstriped
  . FirmwareConfStrip
- cp $firmwareconf_file_name "${SRC}"/etc/$firmwareconf_file_name
+ cp $firmwareconf_file_name "${SRC}"/etc/Firmware.conf
  #tar Firmware.conf 
- [ -f "./${firmwareconf_file_name}" ] && tar --owner=0 --group=0 --mode=0755 -cf "./${firmwareconf_file_name}.tar" "${firmwareconf_file_name}"
- #bug in home.js, causes mailfunction with tcom firmware, status page is empty  
+ [ -f "${SRC}"/etc/Firmware.conf ] && tar --owner=0 --group=0 --mode=0755 -cf "./Firmware.conf.tar" "$firmwareconf_file_name"
+ mv .unstriped $firmwareconf_file_name
+ #bug in home.js, causes mailfunction with tcom firmware, status page is empty
  [ "$DONT_ADD_HOMEFIX" != "y" ] && $sh_DIR/fix_homebug.sh
  #add missing files for tr064
  [ "$CONFIG_TR064" = "y" ] && $sh_DIR/copy_tr064_files.sh
