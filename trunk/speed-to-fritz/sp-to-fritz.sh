@@ -1128,6 +1128,10 @@ if [ "$SET_UP" = "n" ]; then
 else
 echo "No output generated, because this was specified via setup! "
 fi
+# Strip Firmware.conf only if all was completed without error
+# a control C brack will keep the unstripped Firmware.conf 
+# Firmware.conf.tar was generated earlyer.
+ . FirmwareConfStrip
 echo "All done .... Press 'ENTER' to return to the calling shell."
 while !(read -s); do
     sleep 1
