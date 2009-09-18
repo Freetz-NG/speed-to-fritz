@@ -145,10 +145,6 @@ else
 #dirty workaround for now, LED's arn't reassigned, no driver for W920 with the firmware in use now  
 sed -i -e 's|new_led|led|' "${SR1}/etc/init.d/rc.S"
 sed -i -e 's|new_led|led|' "${SR1}/etc/init.d/rc.wlan"
-
-#cp -fr $2/bin/update_led_on ${SR1}/bin/update_led_on
-#cp -fr $2/bin/update_led_off ${SR1}/bin/update_led_off
-
 fi
 exit 0
 

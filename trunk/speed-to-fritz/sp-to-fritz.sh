@@ -1030,11 +1030,16 @@ if [ "$ORI" != "y" ]; then
  $HOMEDIR/extract_rpllist.sh	
  #packing takes place on SPDIR
  export SPDIR="${FBDIR}"
+ #--> Add patches here if the shold not be applayed with Option restore original!
+ # If patches should only be applyed to a special type, then add this patches
+ # on the end of individual files like "Speedport920".
+ #<-- Add patches here - end!
  echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
  echo "********************************************************************************"
  echo -e "\033[1mPhase 9:\033[0m Patch install."
  echo "********************************************************************************"
 else
+ # --> Only Tcom firmware with otion "restore original"
  #add addons
  export OEM="tcom"
  [ "$COPY_ADDON_TMP_to_ORI" = "y" ] &&  cp -fdpr  ./addon/tmp/squashfs-root/*  --target-directory="${DST}"
@@ -1051,20 +1056,23 @@ else
  echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
  # patch update pages 
  $sh_DIR/patch_tools.sh "${DST}"
+ # <-- Only Tcom
 fi
-## patch portrule to enable forwarding to box itself 
-[ "$PATCH_PORTRULE" == "y" ] && subscripts2/patch_portrule "${SRC}"
-#dont set kernel annex args, if it is a multi annex firmware
-#make firmware installable via GUI
+#-->All Firmwars, if patches added here the are applied to tcom firmware with option "restore original" as well!
+# patch portrule to enable forwarding to box itself 
+[ "$PATCH_PORTRULE" == "y" ] && $sh2_DIR/patch_portrule "${SRC}"
+# dont set kernel annex args, if it is a multi annex firmware
 readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
 [ "$DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
+# make firmware installable via GUI
 $sh_DIR/patch_install.sh "${SPDIR}"
+#<--All Firmwares
 . $inc_DIR/testerror
 [ ${FAKEROOT_ON} = "n" ] && chmod -R 777 "${FBDIR}"
 echo "********************************************************************************"
 echo -e "\033[1mPhase 10:\033[0m Pack and deliver."
 echo "********************************************************************************"
-#do a final compare
+# do a final compare
 exec 2> /dev/null
 [ "$DO_FINAL_DIFF" = "y" ] && ./0diff "${SPDIR}" "${TEMPDIR}" "./logFINALtoAVM"
 [ "$DO_FINAL_DIFF_SRC2" = "y" ] && ./0diff "${SPDIR}" "${FBDIR_2}" "./logFINALto3"

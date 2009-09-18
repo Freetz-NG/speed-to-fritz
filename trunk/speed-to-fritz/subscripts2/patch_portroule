@@ -1,9 +1,0 @@
-#!/bin/bash
- . $include_modpatch
-DIRI="/usr/www/${HTML}/de/internet/portroule.js" 
-if  [ -f "$1"$DIRI ]; then
- echo2 " -- Patch portrools:"
- echo2 "      ${DIRI}"
-       sed -i -e "s/return_gmldIpAdr0000;/return null;/" "$1"${DIRI}
-fi
-exit 0
