@@ -194,7 +194,6 @@ fi' "${SRC}/etc/init.d/rc.S"
 [ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
 # add missing gifs
 $sh_DIR/add_vdslscale.sh "${SRC}" "${OEMLIST}"
-
 $sh_DIR/patch_leddef_7270.sh "${SRC}" "${DST}"
 #xilix W920 Driver must be for the hardware in use
 rm -f "${SRC}"/lib/modules/microvoip_isdn_top.bit
@@ -235,6 +234,9 @@ if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] 
     cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
     echo "  -- LED Driver was taken from the original t-com firmware"
 fi
+# fix led-errormessage in fw-update process
+[ -f "${SRC}/bin/update_led_on" ] && sed -i -e 's|/var/led|/dev/led|' "${SRC}/bin/update_led_on"
+[ -f "${SRC}/bin/update_led_off" ] && sed -i -e 's|/var/led|/dev/led|' "${SRC}/bin/update_led_off"
 # 920 
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 920
 #there is still no option within the menus
