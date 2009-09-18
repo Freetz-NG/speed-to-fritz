@@ -1762,9 +1762,9 @@ if EXPORT_TYPE_LOCAL_MODEL
 	default y
 	help
 	    Keep this info if you want, but it is not needed.
- config EXPORT_REM_AUTOUPDATETAB
-	bool "Remove autoupdate tab"
-	default y
+ config EXPORT_DONT_REM_AUTOUPDATETAB
+	bool "Don't remove autoupdate tab"
+	default n
 	help
 	    This removes the autoupdate tab, usual there is no need to have this tab at all,
 	    but on firmwares with very little changes you may keep ths tab.

@@ -262,7 +262,12 @@ echo
 ifconfig $ETH_IF add ${CNET}.10 &> /dev/null
 ifconfig $ETH_IF | grep 'inet addr' | sed -e "s/inet addr/PC Netcardaddr. /g"
 echo
+if [ $FORCE_CLEAR_FLASH ]; then
+echo "-----------------------------------------------------------------------"
+echo "All settings will be removed, because clear mtd3 and mtd4 was selected!"
+echo "-----------------------------------------------------------------------"
 echo
+fi 
 if ! [ $FORCE_CLEAR_FLASH ]; then
  if [ $CYGWIN ]; then
 	trap 'echo ; echo "aborted" ; sleep 20; exit 1' TERM INT
@@ -307,7 +312,7 @@ if ! [ $FORCE_CLEAR_FLASH ]; then
 		-u adam2 -p adam2 \
 		-C ${IPADDRESS} \
 		"${IMAGEDIR}"/kernel.image mtd1
-
+#not cygwin
 else
 ping_params="-c1 -w1"
 echo "You should now reboot your box. Waiting for box to shut down for restart ..."
@@ -342,7 +347,7 @@ quote SETENV jffs2_size	$CONFIG_jffs2_size
 quote REBOOT
 quit
 EOT
-fi
+fi 
 # this may be needed if the Box is about to recover
 #quote SETENV jffs2_size	$CONFIG_jffs2_size
 #quote SETENV kernel_args	idle=4
@@ -372,7 +377,7 @@ fi
 # quote SETENV ProductID  $CONFIG_PRODUKT (For some reason this command is not transfered via FTP only within the serial console) 
 # quote SETENV firmware_info  $VERSION
 
-else
+else # <--not FORCE_CLEAR_FLASH
 ping_params="-c1 -w1"
 echo "You should now reboot your box. Waiting for box to shut down for restart ..."
 while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do

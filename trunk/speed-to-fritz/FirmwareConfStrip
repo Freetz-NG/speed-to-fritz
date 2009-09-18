@@ -21,7 +21,7 @@ Monat="`cat "./sp-to-fritz.sh" | grep 'Tag=....;' | sed 's/Tag=....//' | sed 's/
 Jahr="`cat "./sp-to-fritz.sh" | grep 'Tag=....;' | sed 's/Tag=....//' | sed 's/Monat=....//' | sed 's/Jahr=//' | tr -d ';' | tr -d '\"' | tr -d ' '`"
 echo "# Script: $Jahr$Monat$Tag-$(svnversion . | tr ":" "_")" >> .tmpx
 #echo "# Revison: $(svnversion . | tr ":" "_")" >> .tmpx
-echo "# Automatically generated and striped" >> .tmpx
+echo "# Automatically generated and stripped" >> .tmpx
 echo -ne $TCOM_IMG_LINK\\n$AVM_IMG_LINK\\n$SRC2_IMG_LINK\\n$TCOM_IMG\\n$AVM_IMG\\n$SRC2_IMG\\n >> .tmpx
 #sort .tmpx | uniq -u > .tmpx
 sed -i -e '/#/d' -e '/CONGSTAR_/d' -e '/AVM_.*7/d' -e '/TCOM_W/d' -e '/TCOM_SINUS/d' -e '/TCOM_LOCAL/d' -e '/AVM_LOCAL/d' -e '/SRC2_IMG=/d' -e '/SRC3_LOCAL=/d' "$FWC_FILE"
