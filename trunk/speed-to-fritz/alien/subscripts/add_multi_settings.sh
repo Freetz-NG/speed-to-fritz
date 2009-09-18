@@ -21,6 +21,7 @@
 OEML="avm" && [ -d "${DST}"/usr/www/avme ] && OEML="avme"
 OEML2="avm" && [ -d "${SRC_2}"/usr/www/avme ] && OEML2="avme"
  USRWWW="usr/www/${OEMLINK}/html/de"
+#--> multicountry
 if [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
   for file_n in /html/de/first/basic_first.js /html/de/first/basic_first.frm; do
     if [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ] && ! [ -f "${SRC}/usr/www/${OEMLINK}/$file_n" ]; then
@@ -76,7 +77,13 @@ file_nLIST="/html/de/internet/dslsnrset.frm \
    fi
   done
  #---------------------------------------------------------------
+#--> multiannex
 if [ "${FORCE_DSL_MULTI_ANNEX}" = "y" ]; then
+  #Make Tab Einstellungen visibel in ever case 
+  for file_n in atm.html adsl.html bits.html overview.html; do
+	sed -i -e 's|$var:Annex .|A B|'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n"
+	sed -i -e 's|<? query box:settings/expertmode/activated ?>|1|'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n"
+  done 
   for file_n in /html/de/first/basic_first.js /html/de/first/basic_first.frm /html/de/help/hilfe_internet_dslsnrset.html; do
     if [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ] && ! [ -f "${SRC}/usr/www/${OEMLINK}/$file_n" ]; then
      cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "  Copy from 2nd AVM firmware: $file_n"
@@ -192,7 +199,8 @@ jslSetChecked("uiViewAnnexB", n==1);\
  fi # <-- ? 1st firmware multiannex
 fi # <-- Multiannex 
 #----------------------------------------------------------------------------------------------------
-  if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
+# --> multilanguage
+if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
  # on 7240 Firmware some pages are missing
   `cat "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html" | grep -q 'isMultiLanguage' ` ||\
    modpatch "${SRC}/${USRWWW}" "$P_DIR/add_language_de.patch"
@@ -236,10 +244,10 @@ fi # <-- Multiannex
      echo -e "-- \033[1mWarning:\033[0m t-Home firmware database $lang is used, some text may be missing." && sleep 2
     fi
    done
-  fi
-  if [ "${FORCE_LANGUAGE}" != "de" ]; then
+fi # <-- multilanguage
+if [ "${FORCE_LANGUAGE}" != "de" ]; then
    #[ -f "${SRC}"/etc/htmltext_de.db ] || echo -e "-- \033[1mAttention:\033[0m 1st Firmware is not usabel for force language!" && sleep 7
    [ "${FORCE_LANGUAGE}" != "" ] && [ -f "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "  copy: database ${FORCE_LANGUAGE}"
    [ "${FORCE_LANGUAGE}" != "" ] && [ -f "${SRC_2}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${SRC_2}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "  copy: database ${FORCE_LANGUAGE}"
-  fi
+fi
 exit 0
