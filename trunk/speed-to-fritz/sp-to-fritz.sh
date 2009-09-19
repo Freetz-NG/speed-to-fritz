@@ -916,8 +916,13 @@ $sh2_DIR/del_zip "${AVM_AIO_7170_13014}" "${AVM_AIO_7270_13014}" "13014"
 . $inc_DIR/getprodukt
 # save some variabels to incl_var
 . $sh2_DIR/settings
-#print some Hardware setting found in the two firmwares in use
+# print some Hardware setting found in the two firmwares in use
 $sh2_DIR/dedect_HW
+# get revisions number
+if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
+ [ "${SVN_VERSION:0:6}" == "export" ] && export SVN_VERSION=""
+ [ "$SVN_VERSION" != "" ] && export SVN_VERSION="-r-$SVN_VERSION"
+fi
 # make sure all is set to correct rights
 [ ${FAKEROOT_ON} = "n" ] && chmod -R 777 .
 #[ ${FAKEROOT_ON} = "y" ] && $FAKEROOT chmod -R 755 .
@@ -1061,6 +1066,8 @@ fi
 #-->All Firmwars, if patches added here the are applied to tcom firmware with option "restore original" as well!
 # patch portrule to enable forwarding to box itself 
 [ "$PATCH_PORTRULE" == "y" ] && $sh2_DIR/patch_portrule "${SRC}"
+# add info to /usr/bin/system_status 
+$sh2_DIR/patch_system_status "${SRC}"
 # dont set kernel annex args, if it is a multi annex firmware
 readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
 [ "$DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
@@ -1081,17 +1088,13 @@ exec 2> /dev/null
 #[ "$TYPE_LOCAL_MODEL" == "y" ] && [ "$DO_FINAL_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${TEMPDIR}"
 [ "$DO_NOT_STOP_ON_ERROR" = "n" ] && exec 2>"${HOMEDIR}/${ERR_LOGFILE}"
 # compose filename for new .tar file
-if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
- [ "${SVN_VERSION:0:6}" == "export" ] && SVN_VERSION=""
- [ "$SVN_VERSION" != "" ] && SVN_VERSION="-r-$SVN_VERSION"
- SKRIPT_DATE+="$SVN_VERSION"
-fi
 [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ] && AVM_SUBVERSION="7570-$AVM_SUBVERSION"
 [ "y" == "${TYPE_TCOM_7570_70}" ] && TCOM_SUBVERSION="7570-$TCOM_SUBVERSION"
 [ ${FREETZ_REVISION} ] && FREETZ_REVISION="-freetz-${FREETZ_REVISION}"
 PANNEX="_annex${ANNEX}"
 [ "$DSL_MULTI_ANNEX" == "y" ] && PANNEX=""
 readConfig "MULTI_LANGUAGE" "MULTI_LANGUAGE" "${SRC}/etc/init.d"
+SKRIPT_DATE+="$SVN_VERSION"
 #Language="_${FORCE_LANGUAGE}"
 Language="_${avm_Lang}"
 [ "$MULTI_LANGUAGE" == "y" ] && Language=""
