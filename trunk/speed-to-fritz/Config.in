@@ -636,6 +636,7 @@ choice
 		default TYPE_7170_76 if ( EXPORT_TYPE_LOCAL_MODEL && TYPE_7141 ) || ( ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V )
 		default TYPE_7170_A59 if ( ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V )
 		default TYPE_7270_AIO_14543 if ! EXPORT_TYPE_LOCAL_MODEL
+		default TYPE_7270_CORE_15220 if TYPE_SPEEDPORT_W900V
 
 #----MOVED TO PLACE IN ORDER FOR DEFAULTS if is not available 
 #	config TYPE_7270_AIO_14543
@@ -913,7 +914,7 @@ config TYPE_AVM_7570_XX
 choice
 	prompt "Any 7570 firmware"
 		depends on  TYPE_AVM_7570_XX
-		default TYPE_AVM_7570_72
+		default TYPE_AVM_7570_14621
 
 	config TYPE_AVM_7570_70
 		bool "AVM_7570_70 en-de.75.04.70"
@@ -992,9 +993,10 @@ choice
 
 	prompt "All possible firmwares"
 		depends on SOURCE2
-		default TYPE_SRC3_AVM_7570_72 if ! EXPORT_TYPE_LOCAL_MODEL
-		default TYPE_SRC3_AVM_7270_V3_76 if EXPORT_TYPE_LOCAL_MODEL && TYPE_7270v3
-		default TYPE_SRC3_AVM_7141_70 if EXPORT_TYPE_LOCAL_MODEL && TYPE_7141
+		default TYPE_SRC3_AVM_7570_72 		if ! EXPORT_TYPE_LOCAL_MODEL
+		default TYPE_SRC3_AVM_7270_V3_76 	if EXPORT_TYPE_LOCAL_MODEL && TYPE_7270v3
+		default TYPE_SRC3_AVM_7141_70 		if EXPORT_TYPE_LOCAL_MODEL && TYPE_7141
+		default TYPE_SRC3_AVM_7270_CORE_15220 	if TYPE_SPEEDPORT_W900V
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 ### 7113 Firmware
 
@@ -1282,7 +1284,8 @@ config TCOM_IMG
 	default "$TCOM_W722_14111" 		if ( ! TYPE_TCOM_W722V_14111 ) && ( TYPE_SPEEDPORT_W722V )
 	default "$TCOM_W900_57" 		if TYPE_SPEEDPORT_W900V
 #	default "$TCOM_W920_74" 		if ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_SPEEDPORT_W920V )
-	default "$TCOM_W920_78" 		if ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_SPEEDPORT_W920V )
+#	default "$TCOM_W920_78" 		if ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_SPEEDPORT_W920V )
+	default "$AVM_7570_14621" 		if ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_58" 		if TYPE_58 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_63" 		if TYPE_TCOM_BETA_63 && ( TYPE_SPEEDPORT_W920V )
 	default "$TCOM_W920_70" 		if TYPE_TCOM_BETA_70 && ( TYPE_SPEEDPORT_W920V )
@@ -1334,7 +1337,8 @@ config AVM_IMG
 
 #	default "$AVM_7240_76"				if ( TYPE_7240_76 ) && ( EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7240_76"				if ( TYPE_7240_76 )
-	default "$AVM_7270_76" 				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
+	default "$AVM_CORE_7270_15220"			if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
+#	default "$AVM_7270_76" 				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 #	default "$AVM_7270_67m" 			if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_EN
 	default "$AVM_7270_76m" 			if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_EN
 	default "$AVM_7270_59" 				if ( TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
@@ -1530,7 +1534,7 @@ config EXPORT_FORCE_DSL_MULTI_ANNEX
 	bool "Force Multi annex"
 #	depends on ( TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ! TYPE_AVM_7570_XX
 	depends on ( ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
-	default n
+	default y
 	help
 	    To make this work you must have a firmware that supplies the needed feature, firmware with minor version > 70.
 choice
@@ -2113,14 +2117,14 @@ if ! EXPORT_ATA_ONLY
     config FORCE_VINAX_DRV
 	bool "Force PPPoA compatibel vinax driver"
 	depends on TYPE_SPEEDPORT_W920V
-	default n
+	default y
 	help
 		Use own drv_vinax.co from bulid 15011-827.
 
     config FORCE_KDSLD_DRV
 	bool "Force PPPoA compatibel kdsld driver"
 	depends on TYPE_SPEEDPORT_W920V
-	default n
+	default y
 	help
 		Use own drv_vinax.co from bulid 15011-827.
 
