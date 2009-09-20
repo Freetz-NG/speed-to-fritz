@@ -133,9 +133,9 @@ if `cat "${SRC}/etc/init.d/rc.S" | grep -q '_488.hex' ` && ! [ -f "${SRC}"/lib/m
 fi
 
 [ "${FORCE_VINAX_DRV}" = "y" ] && cp -fdrp ${HOMEDIR}/addon/tmp/modules/vinax/drv_vinax.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax" &&\
-echo "  -- PPPoA compatibel VINAX DSL Driver is in use!"
+echo "  -- PPPoA compatible VINAX DSL Driver is in use!"
 [ "${FORCE_KDSLD_DRV}" = "y" ] && cp -fdrp ${HOMEDIR}/addon/tmp/modules/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
-echo "  -- PPPoA compatibel KDSLDMOD Driver is in use!"
+echo "  -- PPPoA compatible KDSLDMOD Driver is in use!"
 #v3 dect fix
 sed -i -e 's|_488.hex|.hex|' "${SRC}/etc/init.d/rc.S" 
 sed -i -e '/piglet_use_pll3_clk=1 \\/d' "${SRC}/etc/init.d/rc.S" 

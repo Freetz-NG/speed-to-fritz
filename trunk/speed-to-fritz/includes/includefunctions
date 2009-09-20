@@ -267,6 +267,10 @@ echo "-----------------------------------------------------------------------"
 echo "All settings will be removed, because clear mtd3 and mtd4 was selected!"
 echo "-----------------------------------------------------------------------"
 echo
+echo "Press 'ENTER' to proceed!"
+while !(read -s); do
+    sleep 1
+done
 fi 
 if ! [ $FORCE_CLEAR_FLASH ]; then
  if [ $CYGWIN ]; then
