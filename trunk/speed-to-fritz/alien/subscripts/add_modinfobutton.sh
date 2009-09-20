@@ -219,7 +219,7 @@ readConfig "HOSTNAME" "HOSTNAME" "${1}/etc/init.d"
 
 readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${1}/etc/init.d"
 [ "$SPNUM" == "7570" ] && sed -i -e "s/MODEL/${SPMOD}/" "${DSTF}"
-v[ "$TYPE_LOCAL_MODEL" != "y" ] && sed -i -e "s/MODEL/W ${SPNUM}V/" "${DSTF}"
+[ "$TYPE_LOCAL_MODEL" != "y" ] && sed -i -e "s/MODEL/W ${SPNUM}V/" "${DSTF}"
 [ "$TYPE_LOCAL_MODEL" == "y" ] && sed -i -e "s/MODEL/${SPMOD}/" "${DSTF}"
 sed -i -e "s/VERSION/${SKRIPT_DATE}/" "${DSTF}"
 sed -i -e "s/OEM/${OEM}/" "${DSTF}"
