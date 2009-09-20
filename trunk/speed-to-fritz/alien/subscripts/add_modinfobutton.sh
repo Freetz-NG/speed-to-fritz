@@ -120,7 +120,7 @@ cat << 'EOF' >> "${DSTF}"
 <li><b>Hostname:</b> Der Hostname der Box wurde auf <b>'HOSTNAME'</b> eingestellt.</li>
 <li><b>Auto Konfiguration TR69:</b> Das automatische Einrichten durch den Dienstanbieter ist <b>AUTOCONF </b>ATACONF.</li>
 <li><b>LAN Auto Konfiguration TR64:</b> Das automatische Einrichten durch den Dienstanbieter aus dem lokalen Netz vom PC aus ist <b>LANTR64TEXT</b>.</li>
-<li>Weitere Informationen zu den verwendeten skriptoptionen in: /etc/Firmwae.conf.</li>
+<li><b>Weitere Informationen zu den verwendeten skriptoptionen in: /etc/Firmwae.conf.</b></li>
 <li><b>Kompatibilität:</b> Der Produktname wurde <b>PREFIX</b> erweitert.</li>
 <li>Die Statusseite zeigt den AVM Produktnamen plus <b>MODEL</b></li>
 <li><b>TelefonMenü:</b> Die Menüführung für die Einrichtung von Telefongeräten wurde <b>FONMENU</b>.</li>
@@ -175,7 +175,7 @@ cat << 'EOF' >> "${DSTF}"
 <li><b>Host name:</b> Host name has been set to <b>'HOSTNAME'</b>.</li>
 <li><b>Auto Configuration TR69:</b> Auto Configuration via ISP <b>AUTOCONF </b>ATACONF.</li>
 <li><b>LAN auto Configuration TR64:</b> Internal LAN auto Configuration via ISP <b>LANTR64TEXT</b>.</li>
-<li>More info to the used script options in: /etc/Firmwae.conf.</li>
+<li><b>More info to the used script options in: /etc/Firmwae.conf</b>.</li>
 <li><b>Compatibility:</b>  has <b>PREFIX</b> been added to the Product name.</li>
 <li>Status Page shows AVM Product name <b>plus hardware type</b>.</li>
 <li><b>Telefon-Menue:</b> Setup menu for telephones has been <b>FONMENU</b>.</li>
