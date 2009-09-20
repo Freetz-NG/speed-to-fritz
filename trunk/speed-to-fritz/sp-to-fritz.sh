@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="19"; Monat="09"; Jahr="09"
+Tag="20"; Monat="09"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -94,18 +94,18 @@ export UNTAR="${TOOLS_DIR}/${TAR_TOOL}"
 export NEW_WRAP="n"
 export TAR_RFS_OPTIONS="--owner=0 --group=0"
 export TAR_OPTIONS="--owner=0 --group=0 --mode=0755 --format=oldgnu"
-##-->temporarily use system tar to unpack avm images 
+##--> temporarily use system tar to unpack avm images 
 #export UNTAR="$(which tar)"
 ## dont use options
 #export TAR_RFS_OPTIONS=""
 #export TAR_OPTIONS=""
 ## set this to y if sp-to-fritz.sh is split in future versions
 #export FAKEROOT_WRAP="y"
-##<--
+##<-- temporaril
 export MAKEDEVS_TOOL="makedevs"
 export MAKEDEVS="${TOOLS_DIR}/${MAKEDEVS_TOOL}"
 export MAKEDEVS_FILE="${TOOLS_DIR}/device_table.txt"    
-#<---
+#<--- My Tools
 export SQUASHFSROOT="squashfs-root"
 # Set default values for output directory 
 export FWNEWDIR="Firmware.new"
@@ -629,18 +629,24 @@ case "$1" in
 	fi 
 	export kernel_size="7798784"
 	;;
-"920") 
-	export SPMOD="920"
+"920"|"7570") 
+  if [ "$1" == "920" ]; then
 	export CLASS="Speedport"
 	export SPNUM="920"
 	export PROD="DECT_W920V" 
-    	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
+	export HWID="135"
+  else
+	export CLASS=""
+	export SPNUM="7570"
+	export PROD="7570"
+	export HWID="146"
+  fi
+	export SPMOD="$1"
 	[ "$FBMOD" == "" ] && export FBMOD="7270"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="139"
-	export HWID="135"
-	export HWRevision="${HWID}.1.0.6"
-	#export CONFIG_INSTALL_TYPE="ur8_16MB_xilinx_4eth_2ab_isdn_nt_te_pots_wlan_mimo_usb_host_dect_40456"
 	export CONFIG_INSTALL_TYPE="ur8_16MB_xilinx_4eth_2ab_isdn_nt_te_pots_wlan_mimo_usb_host_dect_multiannex_13589"
+	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
+	export HWRevision="${HWID}.1.0.6"
 	export CONFIG_XILINX="y"
 	export CONFIG_jffs2_size="132"
 	export CONFIG_RAMSIZE="64"
@@ -916,13 +922,8 @@ $sh2_DIR/del_zip "${AVM_AIO_7170_13014}" "${AVM_AIO_7270_13014}" "13014"
 . $inc_DIR/getprodukt
 # save some variabels to incl_var
 . $sh2_DIR/settings
-# print some Hardware setting found in the two firmwares in use
+#print some Hardware setting found in the two firmwares in use
 $sh2_DIR/dedect_HW
-# get revisions number
-if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
- [ "${SVN_VERSION:0:6}" == "export" ] && export SVN_VERSION=""
- [ "$SVN_VERSION" != "" ] && export SVN_VERSION="-r-$SVN_VERSION"
-fi
 # make sure all is set to correct rights
 [ ${FAKEROOT_ON} = "n" ] && chmod -R 777 .
 #[ ${FAKEROOT_ON} = "y" ] && $FAKEROOT chmod -R 755 .
@@ -938,6 +939,8 @@ if [ "$ORI" != "y" ]; then
  #enable ext2
  [ "$ENABLE_EXT2" = "y" ] && $sh2_DIR/patch_ext2 "${SRC}" "${DST}"
  case "$SPMOD" in
+ "7570")
+ . SxAVMx7570;;
  "920")
  . Speedport920;;
  "907")
@@ -964,6 +967,8 @@ if [ "$ORI" != "y" ]; then
  #copy Firmware.conf into image
  cp $firmwareconf_file_name .unstriped
  . FirmwareConfStrip
+ #count bytes in Firmware.conf
+ let act_firmwareconf_size="$(wc -c < "$firmwareconf_file_name")"
  cp $firmwareconf_file_name "${SRC}"/etc/Firmware.conf
  #tar Firmware.conf 
  [ -f "${SRC}"/etc/Firmware.conf ] && tar --owner=0 --group=0 --mode=0755 -cf "./Firmware.conf.tar" "$firmwareconf_file_name"
@@ -1066,8 +1071,6 @@ fi
 #-->All Firmwars, if patches added here the are applied to tcom firmware with option "restore original" as well!
 # patch portrule to enable forwarding to box itself 
 [ "$PATCH_PORTRULE" == "y" ] && $sh2_DIR/patch_portrule "${SRC}"
-# add info to /usr/bin/system_status 
-$sh2_DIR/patch_system_status "${SRC}"
 # dont set kernel annex args, if it is a multi annex firmware
 readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
 [ "$DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
@@ -1088,22 +1091,28 @@ exec 2> /dev/null
 #[ "$TYPE_LOCAL_MODEL" == "y" ] && [ "$DO_FINAL_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${TEMPDIR}"
 [ "$DO_NOT_STOP_ON_ERROR" = "n" ] && exec 2>"${HOMEDIR}/${ERR_LOGFILE}"
 # compose filename for new .tar file
+if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
+ [ "${SVN_VERSION:0:6}" == "export" ] && SVN_VERSION=""
+ [ "$SVN_VERSION" != "" ] && SVN_VERSION="-r-$SVN_VERSION"
+ SKRIPT_DATE+="$SVN_VERSION"
+fi
 [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ] && AVM_SUBVERSION="7570-$AVM_SUBVERSION"
 [ "y" == "${TYPE_TCOM_7570_70}" ] && TCOM_SUBVERSION="7570-$TCOM_SUBVERSION"
 [ ${FREETZ_REVISION} ] && FREETZ_REVISION="-freetz-${FREETZ_REVISION}"
 PANNEX="_annex${ANNEX}"
 [ "$DSL_MULTI_ANNEX" == "y" ] && PANNEX=""
 readConfig "MULTI_LANGUAGE" "MULTI_LANGUAGE" "${SRC}/etc/init.d"
-SKRIPT_DATE+="$SVN_VERSION"
 #Language="_${FORCE_LANGUAGE}"
 Language="_${avm_Lang}"
 [ "$MULTI_LANGUAGE" == "y" ] && Language=""
 [ "$FORCE_CLEAR_FLASH" == "y" ] && CLEAR="C_" || CLEAR="" 
-[ "$ORI" != "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}_W${SPNUM}V_${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}${PANNEX}${Language}.image"
+[ "$CLASS" != "" ] && CLASS+="_"
+[ "$SPNUM" != "" ] && SPNUM+="_"
+[ "$ORI" != "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}-${act_firmwareconf_size}_OEM-${OEM}${PANNEX}${Language}.image"
 [ "$ORI" == "y" ] && export NEWIMG="${SPIMG}_OriginalTcomAdjusted${PANNEX}${Language}.image"
-[ "$ATA_ONLY" = "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}_W${SPNUM}V_${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}_ATA-ONLY${Language}.image"
+[ "$ATA_ONLY" = "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}-${act_firmwareconf_size}_OEM-${OEM}_ATA-ONLY${Language}.image"
 #only AVM + 2nd AVM Firmware was in use
-[ "$TYPE_LOCAL_MODEL" == "y" ] && export NEWIMG="fw_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_2_VERSION_MAJOR}.${AVM_2_VERSION}-${AVM_2_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}_OEM-${OEM}${PANNEX}${Language}.image"
+[ "$TYPE_LOCAL_MODEL" == "y" ] && export NEWIMG="fw_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_2_VERSION_MAJOR}.${AVM_2_VERSION}-${AVM_2_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}-${act_firmwareconf_size}_OEM-${OEM}${PANNEX}${Language}.image"
 echo "export MULTI_LANGUAGE=\"${MULTI_LANGUAGE}\"" >> incl_var
 echo "export kernel_args=\"${kernel_args}\"" >> incl_var
 echo "export NEWIMG=\"${NEWIMG}\"" >> incl_var

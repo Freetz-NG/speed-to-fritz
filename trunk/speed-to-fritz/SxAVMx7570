@@ -1,0 +1,6 @@
+#!/bin/bash
+# for now we use the same file as for W920 because hardware ist the same
+# only the HWrevision number is diffent.
+# see Config.in for all possible HWR numbers.
+# dependant diffent setting are made in sp-to-fritz.sh
+. $HOMEDIR/Speedport920
