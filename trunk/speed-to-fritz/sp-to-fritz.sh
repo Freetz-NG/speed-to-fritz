@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="20"; Monat="09"; Jahr="09"
+Tag="22"; Monat="09"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -970,14 +970,15 @@ if [ "$ORI" != "y" ]; then
  . SxxxAVM;;
  esac
  #copy Firmware.conf into image
- cp $firmwareconf_file_name .unstriped
+ cp -f $firmwareconf_file_name .unstripped
  . FirmwareConfStrip
  #count bytes in Firmware.conf
  let act_firmwareconf_size="$(wc -c < "$firmwareconf_file_name")"
  cp $firmwareconf_file_name "${SRC}"/etc/Firmware.conf
  #tar Firmware.conf 
  [ -f "${SRC}"/etc/Firmware.conf ] && tar --owner=0 --group=0 --mode=0755 -cf "./Firmware.conf.tar" "$firmwareconf_file_name"
- mv .unstriped $firmwareconf_file_name
+ mv -f .unstripped $firmwareconf_file_name
+ sleep 5
  #bug in home.js, causes mailfunction with tcom firmware, status page is empty
  [ "$DONT_ADD_HOMEFIX" != "y" ] && $sh_DIR/fix_homebug.sh
  #add missing files for tr064
@@ -1171,7 +1172,7 @@ fi
 # Strip Firmware.conf only if all was completed without error
 # a control C brack will keep the unstripped Firmware.conf 
 # Firmware.conf.tar was generated earlyer.
- . FirmwareConfStrip
+## . FirmwareConfStrip
 echo "All done .... Press 'ENTER' to return to the calling shell."
 while !(read -s); do
     sleep 1

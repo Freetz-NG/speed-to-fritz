@@ -2133,14 +2133,14 @@ if ! EXPORT_ATA_ONLY
 	depends on TYPE_9207570
 	default y
 	help
-		Use own drv_vinax.co from bulid 15011-827.
+		Use own drv_vinax.co from bulid 15216.
 
     config FORCE_KDSLD_DRV
 	bool "Force PPPoA compatibel kdsld driver"
 	depends on TYPE_9207570
 	default y
 	help
-		Use own drv_vinax.co from bulid 15011-827.
+		Use own drv_vinax.co from bulid 15216.
 
     config WRAP_DSLD
 	bool "Wrap DSLD"
