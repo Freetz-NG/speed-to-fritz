@@ -1073,9 +1073,15 @@ else
  $sh_DIR/patch_tools.sh "${DST}"
  # <-- Only Tcom
 fi
-#-->All Firmwars, if patches added here the are applied to tcom firmware with option "restore original" as well!
+#-->All firmwares, if patches added here the are applied to tcom firmware with option "restore original" as well!
 # patch portrule to enable forwarding to box itself 
-[ "$PATCH_PORTRULE" == "y" ] && $sh2_DIR/patch_portrule "${SRC}"
+[ "$PATCH_PORTRULE" = "y" ] && $sh2_DIR/patch_portrule "${SRC}"
+# add s2f config file
+[ "$ADD_S2F_CONF" = "y" ] && subscripts2/add_s2f_configfile "${SRC}" && $TAR xvzf packages/s2f_flash.tgz -C "${SRC}" 2> /dev/null
+# add own files 
+[ "$ADD_OWN" = "y" ] && $TAR c -C custom/rootfs . 2>/dev/null | $TAR x -C "${SRC}" 2> /dev/null
+# add dropbear files 
+[ "$ADD_PKG_DROPBEAR" = "y" ] && $TAR xvzf packages/dropbear.tgz -C "${SRC}" 2> /dev/null
 # add info to /usr/bin/system_status
 $sh2_DIR/patch_system_status "${SRC}"
 # dont set kernel annex args, if it is a multi annex firmware
@@ -1083,7 +1089,7 @@ readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
 [ "$DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
 # make firmware installable via GUI
 $sh_DIR/patch_install.sh "${SPDIR}"
-#<--All Firmwares
+#<--All firmwares
 . $inc_DIR/testerror
 [ ${FAKEROOT_ON} = "n" ] && chmod -R 777 "${FBDIR}"
 echo "********************************************************************************"

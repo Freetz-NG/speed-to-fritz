@@ -2574,6 +2574,30 @@ config EXPORT_ADD_USBROOT
 	help
 		Generate a USB root file for use on a USB stick.
 
+config EXPORT_ADD_S2F_CONF
+        bool "Add flash-node (to store configurations), like the approach on ds-mod/freetz (experimental)."
+        default n
+        help
+                Select this if you want to add a special node to /var/flash making storage of own configuration possible.
+		The content of this node will be a tar file extracted to /var/tmp/s2f so you may store some configuration there.
+		There is a simple script \"save_s2f_flash\" to save the files in this directory into the flash node.
+				
+                PLEASE NOTE:            This feature is highly experimental and should only be used for very experienced users!
+                                        The resulting node (/var/flash/s2f) will be used for a tar file very like the approach on ds-mod / freetz.
+                                        This node will be treated as a .tar-file and extracted to /var/tmp/s2f/ on boot-time via /etc/init.d/rc.S .
+
+
+config EXPORT_ADD_PKG_DROPBEAR
+        bool "Add dropbear package to image (very experimental yet)"
+        default n
+        help
+                Select this if you want to add dropbear files (a statically precompiled binary) to the resulting image.
+		There also is a startscript \"dropbearstart\" which could be invoked with the root password 
+		to generate keys and shadow entry. If the above storage node is selected, the keys will be written to 
+		/var/tmp/s2f/dropbear for further use. Please use \"save_s2f_flash\" afterwards to store them permanently
+				
+                PLEASE NOTE:            !!This feature is not well tested and therefore highly experimental!!
+
 endmenu
 
 comment "Options only in use with start-freetz.sh ---------------------------"

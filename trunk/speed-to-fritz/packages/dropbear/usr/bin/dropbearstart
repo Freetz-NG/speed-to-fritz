@@ -1,0 +1,19 @@
+#!/bin/sh
+if [ ! "$1" ]; then
+        echo "Simple startup script for dropbear deamon. Usage: $0 <root_password>"
+        exit 0
+fi
+echo 'root:'`pwcrypt $1`':12332:0:99999:7:::' > /etc/shadow
+if [ -e /var/tmp/s2f/dropbear/rsa_host_key ] ; then
+	cp /var/tmp/s2f/dropbear/rsa_host_key /var/tmp/dropbear_rsa_host_key
+else
+	dropbearkey -t rsa -f /var/tmp/dropbear_rsa_host_key
+	[ -e /var/tmp/s2f ] && (mkdir -p /var/tmp/s2f/dropbear ; cp  /var/tmp/dropbear_rsa_host_key   /var/tmp/s2f/dropbear/rsa_host_key)
+fi
+if [ -e /var/tmp/s2f/dropbear/dss_host_key ] ; then 
+	cp /var/tmp/s2f/dropbear/dss_host_key /var/tmp/dropbear_dss_host_key
+else
+	dropbearkey -t dss -f /var/tmp/dropbear_dss_host_key
+	[ -e /var/tmp/s2f ] && (mkdir -p /var/tmp/s2f/dropbear ; cp  /var/tmp/dropbear_dss_host_key   /var/tmp/s2f/dropbear/dss_host_key)
+fi
+dropbear
