@@ -2268,6 +2268,13 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	help
 		For normal this is "n", but you my use the T-Home driver, definition of LEDs differ, not all LEDS are usable.
 
+ config FORCE_SRC2_LEDDRIVER
+	bool "Force use of AVM source 2 LED driver"
+	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V
+	default n
+	help
+		For normal this is "n", but you my use AVM source 2 driver, definition of LEDs differ.
+		
  config FORCE_TCOM_FON
 	bool "Force use of T-Home fon driver"
 	default n  

@@ -34,7 +34,7 @@ if [ "${TYPE_AVM_7570_XX}" = "y" ]; then
     echo "  -- VINAX Driver saved to: ./addon/tmp/W920/..."
  fi
  if [ "${USE_SRC2_DSL}" = "y" ]; then
-    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion2/kernel/drivers/vinax/drv_vinax.ko "${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko" &&\
+    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko "${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko" &&\
     echo "  -- VINAX Driver was taken from 2nd AVM firmware"
  elif [ "${USE_OWN_DSL}" = "y" ]; then
     cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/vinax/drv_vinax.ko "${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko" &&\
@@ -233,6 +233,14 @@ if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] 
     cp -fr "${DST}"/bin/update_led_on ${SRC}/bin/update_led_on
     cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
     echo "  -- LED Driver was taken from the original t-com firmware"
+fi
+if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ ${FORCE_SRC2_LEDDRIVER} = "y" ]; then
+    cp -fdrpv "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
+    cp -fdrpv "${SRC_2}"/lib/libled* --target-directory="${SRC}"/lib
+    cp -fdrpv "${SRC_2}"/bin/led* --target-directory="${SRC}"/bin
+    cp -frv "${SRC_2}"/bin/update_led_on ${SRC}/bin/update_led_on
+    cp -frv "${SRC_2}"/bin/update_led_off ${SRC}/bin/update_led_off
+    echo "  -- LED Driver was taken from AVM source 2 firmware"
 fi
 # fix led-errormessage in fw-update process
 [ -f "${SRC}/bin/update_led_on" ] && sed -i -e 's|/var/led|/dev/led|' "${SRC}/bin/update_led_on"
