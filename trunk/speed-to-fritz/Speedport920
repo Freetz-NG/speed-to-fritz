@@ -235,11 +235,11 @@ if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] 
     echo "  -- LED Driver was taken from the original t-com firmware"
 fi
 if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ ${FORCE_SRC2_LEDDRIVER} = "y" ]; then
-    cp -fdrpv "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
-    cp -fdrpv "${SRC_2}"/lib/libled* --target-directory="${SRC}"/lib
-    cp -fdrpv "${SRC_2}"/bin/led* --target-directory="${SRC}"/bin
-    cp -frv "${SRC_2}"/bin/update_led_on ${SRC}/bin/update_led_on
-    cp -frv "${SRC_2}"/bin/update_led_off ${SRC}/bin/update_led_off
+    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
+    cp -fdrp "${SRC_2}"/lib/libled* --target-directory="${SRC}"/lib
+    cp -fdrp "${SRC_2}"/bin/led* --target-directory="${SRC}"/bin
+    cp -fr "${SRC_2}"/bin/update_led_on ${SRC}/bin/update_led_on
+    cp -fr "${SRC_2}"/bin/update_led_off ${SRC}/bin/update_led_off
     echo "  -- LED Driver was taken from AVM source 2 firmware"
 fi
 # fix led-errormessage in fw-update process
