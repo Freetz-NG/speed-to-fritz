@@ -1,10 +1,10 @@
 #!/bin/bash
 echo "#!/bin/bash" > incl_var
 echo "export PATH=$PATH:/sbin" >> incl_var
+echo 'export HOMEDIR="`pwd`"' >> incl_var
 #echo "export NEWIMG=\"${NEWIMG}\"" >> incl_var
 echo "export inc_DIR=\"${inc_DIR}\"" >> incl_var
 echo "export TOOLS_DIR=\"${TOOLS_DIR}\"" >> incl_var
-echo "export HOMEDIR=\"${HOMEDIR}\"" >> incl_var
 echo "export include_modpatch=\"${include_modpatch}\"" >> incl_var
 echo "export VERBOSE=\"${VERBOSE}\"" >> incl_var
 echo "export NEWDIR=\"${NEWDIR}\"" >> incl_var
@@ -49,4 +49,6 @@ echo "export REUSECONF=\"${REUSECONF}\"" >> incl_var
 echo "export FREETZREVISION=\"${FREETZREVISION}\"" >> incl_var
 echo "export SET_UP=\"${SET_UP}\"" >> incl_var
 echo "export PUSHCONF=\"${PUSHCONF}\"" >> incl_var
+
+sed -i -e "s|${HOMEDIR}|\${HOMEDIR}|" incl_var
 
