@@ -1,4 +1,5 @@
 #!/bin/bash
+export HOMEDIR="`pwd`"
 . incl_var
 if [ "$FIRST_RUN" = "y" ]; then
  echo "You must run the main skript first to set the parameters needed!" 

@@ -1,4 +1,6 @@
 #!/bin/bash
+# dont change variables
+export HOMEDIR="`pwd`"
 . incl_var
 if [ "$FIRST_RUN" = "y" ]; then
  echo "You must run the main Skript first to set the parameters needed!" 
