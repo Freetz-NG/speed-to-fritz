@@ -121,9 +121,9 @@ config AVM_7140_67en
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM 7141 Firmware
 
-config AVM_7141_70
+config AVM_7141_76
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7141/firmware/deutsch/FRITZ.Box_Fon_WLAN_7141.40.04.70.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7141/firmware/deutsch/FRITZ.Box_Fon_WLAN_7141.40.04.70.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7141/firmware/deutsch/FRITZ.Box_Fon_WLAN_7141.40.04.76.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7141/firmware/deutsch/FRITZ.Box_Fon_WLAN_7141.40.04.76.image"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM 7150 Firmware
 
@@ -773,8 +773,8 @@ choice
 		help
 			FRITZ! release: 70
 
-	config TYPE_7141_70
-		bool "AVM_7141_70 40.04.70"
+	config TYPE_7141_76
+		bool "AVM_7141_76 40.04.76"
 		depends on ( EXPORT_TYPE_LOCAL_MODEL )
 		help
 			FRITZ! release: 70
@@ -1024,7 +1024,7 @@ choice
 	    depends on SOURCE2
 		default TYPE_SRC3_AVM_7570_72           if ! EXPORT_TYPE_LOCAL_MODEL
 		default TYPE_SRC3_AVM_7270_V3_76        if EXPORT_TYPE_LOCAL_MODEL && TYPE_7270v3
-		default TYPE_SRC3_AVM_7141_70           if EXPORT_TYPE_LOCAL_MODEL && TYPE_7141
+		default TYPE_SRC3_AVM_7141_76           if EXPORT_TYPE_LOCAL_MODEL && TYPE_7141
 		default TYPE_SRC3_AVM_7270_CORE_15220   if TYPE_9207570
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 ### 7113 Firmware
@@ -1054,8 +1054,8 @@ choice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7141 Firmware
 
-	config TYPE_SRC3_AVM_7141_70
-		bool "AVM_7141_70 40.04.70"
+	config TYPE_SRC3_AVM_7141_76
+		bool "AVM_7141_76 40.04.76"
 
 	config TYPE_SRC3_AVM_7150_27
 		bool "AVM_7150_27 38.04.27"
@@ -1338,7 +1338,7 @@ config TCOM_IMG
 	default "$AVM_7570_14685" 		if TYPE_TCOM_7570_14685 && ( TYPE_9207570 )
 	default "$AVM_7570_14771" 		if TYPE_TCOM_7570_14771 && ( TYPE_9207570 )
 	default "$AVM_7570_15216" 		if TYPE_TCOM_7570_15216 && ( TYPE_9207570 )
-	default "$AVM_7141_70"			if TYPE_7141
+	default "$AVM_7141_76"			if TYPE_7141
 	default "$AVM_7240_76"			if TYPE_7240v2
 	default "$AVM_7270_V3_76"		if TYPE_7270v3
 	default "$TCOM_LOCAL"	 		if TYPE_LOCAL_TCOM
@@ -1356,7 +1356,7 @@ config AVM_IMG
 	default "$AVM_7170_A76en" 			if TYPE_LANG_EN && ! TYPE_B67en && ! TYPE_A67en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 #	default "$AVM_7170_67" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7170_76" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V ) && ! TYPE_LABOR && TYPE_LANG_DE
-	default "$AVM_7141_70" 				if TYPE_7141_70 && ( EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7141_76" 				if TYPE_7141_76 && ( EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_A59" 			if ( TYPE_7170_A59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )) || ( TYPE_SPEEDPORT_W721V && ! TYPE_LABOR )
 	default "$AVM_7170_A76" 			if ( TYPE_7170_A76 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )) || ( TYPE_SPEEDPORT_W721V && ! TYPE_LABOR )
 	default "$AVM_7170_A76en" 			if TYPE_7170_A76en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
@@ -1436,7 +1436,7 @@ config SRC2_IMG
 	default "$AVM_7113_68" 			if TYPE_SRC3_AVM_7113_68
 #	default "$AVM_7170_67" 			if TYPE_SRC3_AVM_7170_67
 	default "$AVM_7170_76" 			if TYPE_SRC3_AVM_7170_76
-	default "$AVM_7141_70" 			if TYPE_SRC3_AVM_7141_70
+	default "$AVM_7141_76" 			if TYPE_SRC3_AVM_7141_76
 	default "$AVM_7170_13948" 		if TYPE_SRC3_AVM_7170_13948
 	default "$AVM_DSL_7170_14119"		if TYPE_SRC3_AVM_DSL_7170_14119
 #	default "$AVM_AIO_7170_13679"		if TYPE_SRC3_AVM_AIO_7170_13679
