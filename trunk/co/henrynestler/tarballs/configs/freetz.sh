@@ -1,8 +1,8 @@
 #!/bin/bash
 ##enable this if if you want to use the stabil freetz version
-FREETZ_DIR="freetz-1.1"
+#FREETZ_DIR="freetz-1.1"
 ##enable this if if you want to use the latest version
-#FREETZ_DIR="trunk"
+FREETZ_DIR="trunk"
 ## insert the revision if you want to use a specific revision
 #FREETZREVISION="XXXX"
 #This skript should do the complete thing, no extra preparation should be needed if it runs within Ubuntu, andLinux or other 

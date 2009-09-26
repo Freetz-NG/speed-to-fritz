@@ -48,6 +48,8 @@ tac $LISTING > $TMP
 rm -f $LISTING
 read DVERSION < $TMP
 echo "coVersion: $DVERSION"
+#DVERSION="20090527"
+sleep 3
 sed -i -e "/$DVERSION/d" $TMP
 cp $TMP "$TMP"1 
 function get_older_modules()
