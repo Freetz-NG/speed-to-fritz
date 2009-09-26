@@ -48,39 +48,40 @@ tac $LISTING > $TMP
 rm -f $LISTING
 read DVERSION < $TMP
 echo "coVersion: $DVERSION"
+LINUX_VERSION="2.6.25.20"
 #DVERSION="20090527"
 sleep 3
 sed -i -e "/$DVERSION/d" $TMP
 cp $TMP "$TMP"1 
 function get_older_modules()
 {
-while ! [ -e "./modules-2.6.22.18-co-0.8.0-$DVERSION.tgz" ]
+while ! [ -e "./modules-$LINUX_VERSION-co-0.8.0-$DVERSION.tgz" ]
 do
     read DVERSION_PRI < ./$TMP
     echo "Zeile: $DVERSION_PRI"
     sed -i -e "/$DVERSION_PRI/d" "$TMP" 
-    wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION_PRI/modules-2.6.22.18-co-0.8.0-$DVERSION_PRI.tgz" \
-    && mv "./modules-2.6.22.18-co-0.8.0-$DVERSION_PRI.tgz" "./modules-2.6.22.18-co-0.8.0-$DVERSION.tgz" \
+    wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION_PRI/modules-$LINUX_VERSION-co-0.8.0-$DVERSION_PRI.tgz" \
+    && mv "./modules-$LINUX_VERSION-co-0.8.0-$DVERSION_PRI.tgz" "./modules-$LINUX_VERSION-co-0.8.0-$DVERSION.tgz" \
     && return 0
 done
 }
 function get_older_vmlinux()
 {
-while ! [ -e "./vmlinux-2.6.22.18-co-0.8.0-$DVERSION.zip" ]
+while ! [ -e "./vmlinux-$LINUX_VERSION-co-0.8.0-$DVERSION.zip" ]
 do
     read DVERSION_PRI < "$TMP"1
     echo "Zeile: $DVERSION_PRI"
     sed -i -e "/$DVERSION_PRI/d" "$TMP"1 
-    wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION_PRI/vmlinux-2.6.22.18-co-0.8.0-$DVERSION_PRI.zip" \
-    && mv "./vmlinux-2.6.22.18-co-0.8.0-$DVERSION_PRI.zip" "./vmlinux-2.6.22.18-co-0.8.0-$DVERSION.zip" \
+    wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION_PRI/vmlinux-$LINUX_VERSION-co-0.8.0-$DVERSION_PRI.zip" \
+    && mv "./vmlinux-$LINUX_VERSION-co-0.8.0-$DVERSION_PRI.zip" "./vmlinux-$LINUX_VERSION-co-0.8.0-$DVERSION.zip" \
     && return 0
 done
 }
 [ -f ./colinux-0.8.0-$DVERSION.src.tgz ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/colinux-0.8.0-$DVERSION.src.tgz"
 [ -f ./daemons-0.8.0-$DVERSION.dbg.zip ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/daemons-0.8.0-$DVERSION.dbg.zip"
 [ -f ./daemons-0.8.0-$DVERSION.zip ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/daemons-0.8.0-$DVERSION.zip"
-[ -f ./modules-2.6.22.18-co-0.8.0-$DVERSION.tgz ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/modules-2.6.22.18-co-0.8.0-$DVERSION.tgz" || get_older_modules
-[ -f ./vmlinux-2.6.22.18-co-0.8.0-$DVERSION.zip ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/vmlinux-2.6.22.18-co-0.8.0-$DVERSION.zip" || get_older_vmlinux
+[ -f ./modules-$LINUX_VERSION-co-0.8.0-$DVERSION.tgz ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/modules-$LINUX_VERSION-co-0.8.0-$DVERSION.tgz" || get_older_modules
+[ -f ./vmlinux-$LINUX_VERSION-co-0.8.0-$DVERSION.zip ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/vmlinux-$LINUX_VERSION-co-0.8.0-$DVERSION.zip" || get_older_vmlinux
 rm -f $TMP
 rm -f "$TMP"1
 echo "====================================================================================================="
@@ -118,7 +119,7 @@ echo "--------------------------------------------------------------------------
 cp ./colinux-$COLINUX_VER.src.tgz ../bfin-colinux/trunk/upstream/coLinux-${COLINUX_VER}.src.tar.gz
 
 
-7z x -y  vmlinux-2.6.22.18-co-$COLINUX_VER.zip
+7z x -y  vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip
 7z x -y  daemons-$COLINUX_VER.zip
 7z x -y  netdriver-tap84.zip
 7z x -y  tap32-driver-v9.zip 
@@ -141,7 +142,7 @@ mv mkFile.exe $and/mkFile.exe
 
 cp -f vmlinux $and/vmlinux
 mkdir -p $and/netdriver
-cp modules-2.6.22.18-co-$COLINUX_VER.tgz $and/vmlinux-modules.tar.gz
+cp modules-$LINUX_VERSION-co-$COLINUX_VER.tgz $and/vmlinux-modules.tar.gz
 mv OemWin2k.inf $and/netdriver/OemWin2k.inf
 mv README.TXT $and/netdriver/README.TXT
 mv tap.cat $and/netdriver/tap.cat
