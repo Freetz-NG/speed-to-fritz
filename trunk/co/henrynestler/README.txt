@@ -1,7 +1,7 @@
 This Version is adjusted for the use with speed-to-fritz and freetz.
 Login as normal user first.
 Use ./download_speed-to-fritz.sh to start the latest speed-to-fritz version.
-Use ./freetz.sh to start the stable freetz version.
+Use ./freetz.sh to start freetz.
 
 ATTENTION!
 Make sure that you already have a physical LAN connection up running with a link to the router,
@@ -31,5 +31,6 @@ X Applications:
 3. Click any X Windows icon.
 (Xming window server is stated via settings.txt)
 
+Or type in terminal in Console(NT), to bring up a Xterminal
 Some changes since 05.05.2009 base.drv is now called base.vdi
 This was done to be compatible to andLinux beta2 final

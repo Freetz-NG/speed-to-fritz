@@ -369,19 +369,20 @@ EOF
 echo "---------- added /etc/network/interfaces"
 sleep 2
 cat <<EOF > /etc/issue
----------------------------------------------------------------------------------------------------------------------
-Please log in as root or use 'sudo su', change the password, and then update the /etc/issue file, to remove this info.
+-------------------------------------------------------------------------------
+Please log in as root or use 'sudo su', change password, and then update the 
+/etc/issue file, to remove this info.
 
 *  console-nt: paste with WinKey+V
 
-Type in: terminal followed by Enter key - this shouls start Xterminal if installed.
+Type: terminal followed by Enter key, this should start Xterminal if installed.
 
-Login as normal user via SSH Putty or Xterminal first then:
+Then login as normal user via SSH Putty or Xterminal first then:
 
 ./download_speed-to-fritz.sh (will start the latest speed-to-fritz version.)
 
 ./freetz.sh  (will start freetz.)
----------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 EOF
 cat <<SETEOF >/setpw
 #!/bin/sh
