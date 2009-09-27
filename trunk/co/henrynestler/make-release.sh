@@ -5,7 +5,8 @@ set -e
 cd ${0%/*}
 
 ANDLINUX_VER=$1
-COLINUX_VER=$(find upstream -name 'coLinux-*.exe' | LC_ALL=C sort | tail -n1 | sed 's:.*coLinux-\(.*\).exe:\1:')
+#COLINUX_VER=$(find upstream -name 'coLinux-*.exe' | LC_ALL=C sort | tail -n1 | sed 's:.*coLinux-\(.*\).exe:\1:')
+COLINUX_VER=$(find upstream -name 'coLinux-*.src.tar.gz' | LC_ALL=C sort | tail -n1 | sed 's:.*coLinux-\(.*\).src.tar.gz:\1:')
 VER="${COLINUX_VER%-*}"
 #DATE="$(echo "${COLINUX_VER##*-}" | grep [0123456789])"
 DATE="${COLINUX_VER##*-}"

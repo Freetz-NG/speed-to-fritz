@@ -78,6 +78,7 @@ do
 done
 }
 [ -f ./colinux-0.8.0-$DVERSION.src.tgz ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/colinux-0.8.0-$DVERSION.src.tgz"
+sleep 10
 [ -f ./daemons-0.8.0-$DVERSION.dbg.zip ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/daemons-0.8.0-$DVERSION.dbg.zip"
 [ -f ./daemons-0.8.0-$DVERSION.zip ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/daemons-0.8.0-$DVERSION.zip"
 [ -f ./modules-$LINUX_VERSION-co-0.8.0-$DVERSION.tgz ] || wget "http://www.henrynestler.com/colinux/autobuild/devel-$DVERSION/modules-$LINUX_VERSION-co-0.8.0-$DVERSION.tgz" || get_older_modules
@@ -90,7 +91,11 @@ export home=$(pwd)
 export COLINUX_VER=$(find -name 'colinux-*.src.tgz' | LC_ALL=C sort | tail -n1 | sed 's:.*colinux-\(.*\).src.tgz:\1:')
 echo "New colinux version: $COLINUX_VER"
 cd ../bfin-colinux-ori/trunk/upstream
-[ -f coLinux-0.7.3.exe ] || wget "http://www.henrynestler.com/colinux/releases/0.7.3/coLinux-0.7.3.exe"
+# use devel only in us if some files would be missing in last release
+[ -f coLinux-20090927.exe ] || wget "http://www.henrynestler.com/colinux/testing/devel-0.8.0/20090927-Snapshot/devel-coLinux-20090927.exe"
+[ -f devel-coLinux-20090927.exe ] && mv ./devel-coLinux-20090927.exe ./coLinux-20090927.exe
+#this would be the old stabile
+###[ -f coLinux-0.7.3.exe ] || wget "http://www.henrynestler.com/colinux/releases/0.7.3/coLinux-0.7.3.exe"
 #[ -f coLinux-0.7.3-src.tgz ] || wget "http://www.henrynestler.com/colinux/releases/0.7.3/coLinux-0.7.3-src.tgz"
 [ -f Xming-mesa-6-9-0-31-setup.exe ] || wget "http://downloads.sourceforge.net/xming/Xming-mesa-6-9-0-31-setup.exe?use_mirror="
 #[ -f Xming-fonts-7-3-0-33-setup.exe ] || wget "http://downloads.sourceforge.net/xming/Xming-fonts-7-3-0-33-setup.exe?use_mirror="
@@ -107,9 +112,10 @@ cd and
 #--initrd.gz and colinux-daemon.txt are not includese with new releas so we need them from the old package
 7z x -y ../upstream/coLinux-$COLINUX_OLDVER.exe
 #
-[ -e ../patches/colinux-$COLINUX_OLDVER-initrd-hook.patch ] && cp ../patches/colinux-$COLINUX_OLDVER-initrd-hook.patch ../patches/colinux-$COLINUX_VER-initrd-hook.patch
-[ -e ../patches/colinux-$COLINUX_OLDVER-initrd-hook.patch ] && rm ../patches/colinux-$COLINUX_OLDVER-initrd-hook.patch
-[ -e ../patches/colinux-$COLINUX_OLDVER-installer.patch ] &&rm ../patches/colinux-$COLINUX_OLDVER-installer.patch
+COLINUX_PATCHVER="0.7.3"
+[ -e ../patches/colinux-$COLINUX_PATCHVER-initrd-hook.patch ] && cp ../patches/colinux-$COLINUX_PATCHVER-initrd-hook.patch ../patches/colinux-$COLINUX_VER-initrd-hook.patch
+[ -e ../patches/colinux-$COLINUX_PATCHVER-initrd-hook.patch ] && rm ../patches/colinux-$COLINUX_PATCHVER-initrd-hook.patch
+[ -e ../patches/colinux-$COLINUX_PATCHVER-installer.patch ] &&rm ../patches/colinux-$COLINUX_PATCHVER-installer.patch
 # get new versions
 cd $home
 echo "====================================================================================================="
@@ -153,7 +159,6 @@ rm mkSparse.exe
 rm spSize.exe
 rm vmlinux
 echo "====================================================================================================="
-
 ./build-and-installer.sh  
 sleep 10
 #./pack.sh 
