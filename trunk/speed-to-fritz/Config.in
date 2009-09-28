@@ -149,9 +149,9 @@ config AVM_7170_59
     string
     default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7170/FRITZ.Box_Fon_WLAN_7170.29.04.59.image"
 
-config AVM_7170_A59
-    string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image"
+#config AVM_7170_A59
+#    string
+#    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.59.image"
 
 config AVM_7170_67
     string
@@ -623,6 +623,47 @@ choice
 #		depends on ! TYPE_LABOR
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+config EXPORT_FORCE_DSL_MULTI_ANNEX 
+	bool "Force Multi annex"
+#	depends on ( TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ! TYPE_AVM_7570_XX
+	depends on ( ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
+	default y
+	help
+	    To make this work you must have a firmware that supplies the needed feature, firmware with minor version > 70 (7270 like).
+	    In case of 7170 Firmwares, it is usual better to stay without this optin because the drivers are optimized for a special annex type.
+
+choice
+	depends ! EXPORT_FORCE_DSL_MULTI_ANNEX && ! TYPE_AVM_7570_XX
+	bool "Annex"
+	default TYPE_ANNEX_B if ! EXPORT_TYPE_LOCAL_MODEL
+	default TYPE_ANNEX_A if EXPORT_TYPE_LOCAL_MODEL
+	config TYPE_ANNEX_B
+		bool "B"
+	help
+		Annex parameter, internationally annex A is in use, in Germany this is usually B,
+		this is a parameter for DSL and specifies the frequency range of ADSL, POTS lines with 
+		ADSL usually are annex A, ISDN lines usually annex B. 
+		For Speed-to-Fritz, this parameter will be set correctly only if the automatic FTP push
+		option is used in combination or the resulting firmware is transfered via Web interface.
+		annex A or B. You would have to enter the annex parameter as FTP command line,
+		as 'quote SETENV kernel_args annex=A' but then some telephone settings are not adjusted at the same time.
+	config TYPE_ANNEX_A
+		bool "A"
+	help
+		Annex parameter, internationally annex A is in use, in Germany this is usually B,
+		this is a parameter for DSL and specifies the frequency range of ADSL, POTS lines with 
+		ADSL usually are annex A, ISDN lines usually annex B. 
+		For Speed-to-Fritz, this parameter will be set correctly only if the automatic FTP push
+		option is used in combination or the resulting firmware is transfered via Web interface.
+		Using some other tools to transfer the kernel.image to the box will not work for setting
+		annex A or B. You would have to enter the annex parameter as FTP command line,
+		as 'quote SETENV kernel_args annex=A' but then some telephone settings are not adjusted at the same time.
+endchoice
+config ANNEX
+	string
+	default "A" if TYPE_ANNEX_A 
+	default "B" if TYPE_ANNEX_B || EXPORT_FORCE_DSL_MULTI_ANNEX
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #config COMMENT
 #	depends on TYPE_LABOR
 #	string "If you change between W920V and back read this help!"
@@ -650,7 +691,7 @@ choice
 		depends on TYPE_LABOR
 		default TYPE_7270_76 if EXPORT_TYPE_LOCAL_MODEL && ! TYPE_7141
 		default TYPE_7170_76 if ( EXPORT_TYPE_LOCAL_MODEL && TYPE_7141 ) || ( ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V )
-		default TYPE_7170_A59 if ( ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V )
+		default TYPE_7170_A76 if ( ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V )
 		default TYPE_7270_AIO_14543 if ! EXPORT_TYPE_LOCAL_MODEL
 		default TYPE_7270_CORE_15220 if TYPE_9207570
 		
@@ -731,27 +772,27 @@ choice
 #		help
 #			FRITZ! release: 61
 
-	config TYPE_7170_A59
-		bool "AVM_7170_A59 AnnexA_58.04.59"
-		depends on ( TYPE_TCOM_W721SPECIAL ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
-		help
-			FRITZ! release: 59 Annex A
+#	config TYPE_7170_A59
+#		bool "AVM_7170_A59 AnnexA_58.04.59"
+#		depends on ( TYPE_TCOM_W721SPECIAL ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
+#		help
+#			FRITZ! release: 59 Annex A
 
 	config TYPE_7170_A76
 		bool "AVM_7170_A76 AnnexA_58.04.76"
-		depends on ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V  || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
+		depends on TYPE_LANG_DE && ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V  || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
 		help
 			FRITZ! release: 76 Annex A
 
 	config TYPE_7170_A76en
 		bool "AVM_7170_A76en AnnexA.en_58.04.76"
-		depends on (! TYPE_TCOM_W721SPECIAL &&  TYPE_SPEEDPORT_W721V ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
+		depends on (! TYPE_TCOM_W721SPECIAL &&  TYPE_SPEEDPORT_W721V && TYPE_LANG_EN ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
 		help
 			FRITZ! release: 76 Annex A english
 
 	config TYPE_7170_B76en
 		bool "AVM_7170_B76en AnnexB.en.29.04.76"
-		depends on ( ! TYPE_TCOM_W721SPECIAL &&  TYPE_SPEEDPORT_W721V ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
+		depends on ( ! TYPE_TCOM_W721SPECIAL &&  TYPE_SPEEDPORT_W721V && TYPE_LANG_EN ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
 		help
 			FRITZ! release: 76 Annex B english
 
@@ -1077,8 +1118,8 @@ choice
 	config TYPE_SRC3_AVM_7170_59
 		bool "AVM_7170_59 29.04.59"
 
-	config TYPE_SRC3_AVM_7170_A59
-		bool "AVM_7170_59 58.04.59 (Annex A)"
+#	config TYPE_SRC3_AVM_7170_A59
+#		bool "AVM_7170_59 58.04.59 (Annex A)"
 
 	config TYPE_SRC3_AVM_7170_A76
 		bool "AVM_7170_76 58.04.76 (Annex A)"
@@ -1348,16 +1389,17 @@ config AVM_IMG
 	string
 	default "$AVM_7140_43"				if TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
 	default "$AVM_7140_76"				if TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
-	default "$AVM_7140_67en"			if TYPE_SPEEDPORT_W501V && TYPE_LANG_EN
-#	default "$AVM_7140_76en"			if TYPE_SPEEDPORT_W501V && TYPE_LANG_EN
+	default "$AVM_7140_67en"			if TYPE_SPEEDPORT_W501V && ! TYPE_LANG_DE
+#	default "$AVM_7140_76en"			if TYPE_SPEEDPORT_W501V && ! TYPE_LANG_DE
 #	default "$AVM_7140_76en" 			if TYPE_7140_76en && ( TYPE_SPEEDPORT_W501V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7141_76" 				if TYPE_7141_76 && ( EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7150_57" 				if TYPE_7150_57 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7150_71" 				if TYPE_7150_71 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL ) || ( TYPE_SINUS_W500V && ! TYPE_LABOR ) 
-	default "$AVM_7170_A76en" 			if TYPE_LANG_EN && ! TYPE_B67en && ! TYPE_A67en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7170_A76en" 			if ! TYPE_LANG_DE && ! TYPE_7170_B76en && ! TYPE_7170_A76en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 #	default "$AVM_7170_67" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_DE
-	default "$AVM_7170_76" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V ) && ! TYPE_LABOR && TYPE_LANG_DE
-	default "$AVM_7141_76" 				if TYPE_7141_76 && ( EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_7170_A59" 			if ( TYPE_7170_A59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )) || ( TYPE_SPEEDPORT_W721V && ! TYPE_LABOR )
+	default "$AVM_7170_76" 				if ! TYPE_ANNEX_A && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V ) && ! TYPE_LABOR && TYPE_LANG_DE
+	default "$AVM_7170_A76" 			if TYPE_ANNEX_A && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V ) && ! TYPE_LABOR && TYPE_LANG_DE
+#	default "$AVM_7170_A59" 			if ( TYPE_7170_A59 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )) || ( TYPE_SPEEDPORT_W721V && ! TYPE_LABOR )
 	default "$AVM_7170_A76" 			if ( TYPE_7170_A76 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )) || ( TYPE_SPEEDPORT_W721V && ! TYPE_LABOR )
 	default "$AVM_7170_A76en" 			if TYPE_7170_A76en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_B76en" 			if TYPE_7170_B76en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
@@ -1372,8 +1414,8 @@ config AVM_IMG
 	default "$AVM_7240_76"				if ( TYPE_7240_76 )
 	default "$AVM_CORE_7270_15220"			if ( TYPE_9207570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 #	default "$AVM_7270_76"				if ( TYPE_9207570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
-#	default "$AVM_7270_67m" 			if ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_EN
-	default "$AVM_7270_76m" 			if ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_EN
+#	default "$AVM_7270_67m" 			if ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && ! TYPE_LANG_DE
+	default "$AVM_7270_76m" 			if ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && ! TYPE_LANG_DE
 	default "$AVM_7270_59" 				if ( TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_59" 				if ( TYPE_7270_59 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_58"	 			if ( TYPE_7270_58 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL ) 
@@ -1428,7 +1470,7 @@ config SRC2_IMG
 	default "$AVM_7170_A76en" 		if TYPE_SRC3_AVM_7170_A76en
 	default "$AVM_7170_B76en" 		if TYPE_SRC3_AVM_7170_B76en
 	default "$AVM_7170_58" 			if TYPE_SRC3_AVM_7170_58
-	default "$AVM_7170_A59" 		if TYPE_SRC3_AVM_7170_A59
+#	default "$AVM_7170_A59" 		if TYPE_SRC3_AVM_7170_A59
 	default "$AVM_7170_A76" 		if TYPE_SRC3_AVM_7170_A76
 	default "$AVM_7170_59" 			if TYPE_SRC3_AVM_7170_59
 #	default "$AVM_7113_61" 			if TYPE_SRC3_AVM_7113_61
@@ -1564,45 +1606,6 @@ config EXPORT_FORCE_MULTI_COUNTRY
 	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!
 	    To make this work you must have a T-Home or 2nd AVM firmware that supplies the needed feature, some text may be wrong or missing!.
 		
-###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-config EXPORT_FORCE_DSL_MULTI_ANNEX 
-	bool "Force Multi annex"
-#	depends on ( TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ! TYPE_AVM_7570_XX
-	depends on ( ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
-	default y
-	help
-	    To make this work you must have a firmware that supplies the needed feature, firmware with minor version > 70.
-choice
-	depends ! EXPORT_FORCE_DSL_MULTI_ANNEX && ! TYPE_AVM_7570_XX
-	bool "Annex"
-	default TYPE_ANNEX_B if ! EXPORT_TYPE_LOCAL_MODEL
-	default TYPE_ANNEX_A if EXPORT_TYPE_LOCAL_MODEL
-	config TYPE_ANNEX_B
-		bool "B"
-	help
-		Annex parameter, internationally annex A is in use, in Germany this is usually B,
-		this is a parameter for DSL and specifies the frequency range of ADSL, POTS lines with 
-		ADSL usually are annex A, ISDN lines usually annex B. 
-		For Speed-to-Fritz, this parameter will be set correctly only if the automatic FTP push
-		option is used in combination or the resulting firmware is transfered via Web interface.
-		annex A or B. You would have to enter the annex parameter as FTP command line,
-		as 'quote SETENV kernel_args annex=A' but then some telephone settings are not adjusted at the same time.
-	config TYPE_ANNEX_A
-		bool "A"
-	help
-		Annex parameter, internationally annex A is in use, in Germany this is usually B,
-		this is a parameter for DSL and specifies the frequency range of ADSL, POTS lines with 
-		ADSL usually are annex A, ISDN lines usually annex B. 
-		For Speed-to-Fritz, this parameter will be set correctly only if the automatic FTP push
-		option is used in combination or the resulting firmware is transfered via Web interface.
-		Using some other tools to transfer the kernel.image to the box will not work for setting
-		annex A or B. You would have to enter the annex parameter as FTP command line,
-		as 'quote SETENV kernel_args annex=A' but then some telephone settings are not adjusted at the same time.
-endchoice
-config ANNEX
-	string
-	default "A" if TYPE_ANNEX_A 
-	default "B" if TYPE_ANNEX_B || EXPORT_FORCE_DSL_MULTI_ANNEX
 
 
 config EXPORT_OEM
@@ -1610,11 +1613,11 @@ config EXPORT_OEM
 	default "tcom" if ORI || TYPE_SPEEDPORT_W721V 
 	default "avm" if ( TYPE_LANG_DE && ! TYPE_67m && ! TYPE_76m && ! TYPE_AVM_7570_XX && ! EXPORT_FORCE_MULTI_LANGUAGE )
 	#default "avm" if TYPE_LANG_A_CH
-	default "avme" if ( TYPE_LANG_EN  || TYPE_67m || TYPE_76m || TYPE_AVM_7570_XX ) && ! EXPORT_FORCE_MULTI_LANGUAGE   
+	default "avme" if ( ! TYPE_LANG_DE  || TYPE_67m || TYPE_76m || TYPE_AVM_7570_XX ) && ! EXPORT_FORCE_MULTI_LANGUAGE   
  
 config EXPORT_FORCE_LANGUAGE
 	string
-	default "en" if TYPE_LANG_EN && ( TYPE_AVM_7570_XX || TYPE_TCOM_7570_XX )
+	default "en" if ! TYPE_LANG_DE && ( TYPE_AVM_7570_XX || TYPE_TCOM_7570_XX )
 	default "de" if TYPE_LANG_DE && ( TYPE_AVM_7570_XX || TYPE_TCOM_7570_XX )
 	default "fr" if TYPE_LANG_FR
 	default "es" if TYPE_LANG_ES
@@ -1890,8 +1893,8 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 
  config EXPORT_FBHWRevision
 	string
-	depends on SET_FBHWRevision || TYPE_67m || TYPE_76m || ( TYPE_9207570 && TYPE_LANG_EN )
-	default "145" if TYPE_67m || TYPE_76m || ( TYPE_9207570 && TYPE_LANG_EN )
+	depends on SET_FBHWRevision || TYPE_67m || TYPE_76m || ( TYPE_9207570 && ! TYPE_LANG_DE )
+	default "145" if TYPE_67m || TYPE_76m || ( TYPE_9207570 && ! TYPE_LANG_DE )
 	string "type in new HWRevision, see help for more info."
 	    help
 		This is the Hardware revision used instead of the one used in AVM firmware, 
