@@ -2152,6 +2152,13 @@ if ! EXPORT_ATA_ONLY
 		No files get removed within this directory so if you do more than one save with diffent settings
 		more files may be within this directory than realy wanted.
 
+    config FORCE_VLAN7
+	bool "Force VLAN7 and tcom ar7.cfg"
+	depends on TYPE_SPEEDPORT_W721V
+	default y
+	help
+		Use tcom ar7.cfg and set VLAN7 to yes, password is 0000 and Router IP is 192.168.2.1.
+
     config FORCE_VINAX_DRV
 	bool "Force PPPoA compatibel vinax driver"
 	depends on TYPE_9207570

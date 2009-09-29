@@ -49,9 +49,13 @@ cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory=
 cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.alias --target-directory="${SRC}"/lib/modules/$KernelVersion
 cp -fdrp "${DST}"/usr/sbin --target-directory="${SRC}"/usr
 cp -fdrp "${DST}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
-echo "  -- DSL Driver was taken from the original t-com firmware!"
+echo "  -- VINAX DSL driver was taken from the original t-com firmware!"
 [ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
 [ -f "${SRC}"/usr/share/ctlmgr/libtr064.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libtr064.so --target-directory=${SRC}/usr/share/ctlmgr
+[ -e "${DST}"/lib/modules/fw_dcrhp_1150_ap.bin ] && cp -fdrp "${DST}"/lib/modules/fw_dcrhp_1150_ap.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- fw_dcrhp_1150_ap.bin was taken from the original t-home firmware"
+[ -e "${DST}"/lib/modules/microvoip-dsl.bin ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- microvoip-dsl.bin was taken from the original t-home firmware"
 
 if [ ${SAVE_TCOM_DSL} = "y" ]; then
     cp -a "${DST}"/lib/modules/vinax* --target-directory=./addon/tmp/W721/squashfs-root/lib/modules &&\
@@ -64,6 +68,8 @@ if [ ${SAVE_TCOM_DSL} = "y" ]; then
     cp -a "${DST}"/usr/sbin --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/usr
     cp -a "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/usr/share/ctlmgr
     cp -a "${DST}"/usr/share/ctlmgr/libtr064.so --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/usr/share/ctlmgr
+    cp -a "${DST}"/lib/modules/fw_dcrhp_1150_ap.bin --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/lib/modules
+    cp -a "${DST}"/lib/modules/microvoip-dsl.bin --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/lib/modules
 fi
 
 if [ -d ${SRC_2}/lib/modules ]; then
@@ -85,6 +91,8 @@ if [ ${SAVE_SRC2_DSL} = "y" ]; then
     cp -a "${SRC_2}"/usr/share/ctlmgr/libvdsl.so --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/usr/share/ctlmgr
     cp -a "${SRC_2}"/usr/share/ctlmgr/libtr064.so --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/usr/share/ctlmgr
     cp -a "${SRC_2}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"${HOMEDIR}/addon/tmp/W721/squashfs-root/etc/init.d
+    cp -a "${SRC_2}"/lib/modules/fw_dcrhp_1150_ap.bin --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/lib/modules
+    cp -a "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/lib/modules
 fi
 
 if [ ${USE_SRC2_DSL} = "y" ]; then
@@ -99,10 +107,15 @@ if [ ${USE_SRC2_DSL} = "y" ]; then
     #take vdsl from source 3 if present
     cp -a "${SRC_2}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
     #cp -fdpr  "${SRC_2}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d &&\
-    echo "  -- DSL Driver was taken from the original t-com firmware!"
+    echo "  -- vinax driver was taken from the original t-com firmware!"
+    [ -e "${SRC_2}"/lib/modules/fw_dcrhp_1150_ap.bin ] && cp -fdrp "${SRC_2}"/lib/modules/fw_dcrhp_1150_ap.bin --target-directory="${SRC}"/lib/modules &&\
+    echo "  -- fw_dcrhp_1150_ap.bin was taken from 2nd AVM firmware"
+    [ -e "${SRC_2}"/lib/modules/microvoip-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
+    echo "  -- microvoip-dsl.bin was taken from 2nd AVM firmware"
+
 fi
 [ "${USE_OWN_DSL}" = "y" ] && cp -fdrp ./addon/tmp/W721/squashfs-root/* --target-directory="${SRC}" &&\
-echo "  -- VINAX DSL Driver was taken from local directory ./addon/tmp/W721"
+echo "  -- VINAX DSL driver was taken from local directory ./addon/tmp/W721"
 
 if [ "${SAVE_SRC2_KDSLDMOD}" = "y" ]; then
     mkdir -p ./addon/tmp/W721/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld
@@ -283,7 +296,14 @@ fi
 
 #xilix W721 Driver must be for the hardware in use
 rm -fdr "${SRC}"/lib/modules/microvoip_isdn_top.bit1
-cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules
+[ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules &&\
+echo "  -- Xilinx bitfile was taken from the original t-home firmware"
+[ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
+echo "  -- Xilinx bitfile was taken from the original t-home firmware"
+
+
+
+
 # dont add if rc.S is coppyed
 if [ "$CPYPSEC" == "y" ]; then
 #adapt parameters for Piglet bitfile it is 7170 firmware
@@ -360,3 +380,5 @@ DIRI="${SRC}/usr/www/${OEMLINK}/html/de/menus"
 for FILE in `ls "${DIRI}"/*`; do  
     sed -i -e "/'software','extern'/d" $FILE
 done
+#copy tcom ar7.cfg to avm and set Vlan7 as defoult
+[ "${FORCE_VLAN7}" = "y" ] && $sh_DIR/add_vlan_in_ar7.cfg.sh
