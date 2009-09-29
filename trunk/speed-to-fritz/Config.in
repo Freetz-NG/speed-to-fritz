@@ -1049,7 +1049,7 @@ endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config SOURCE2
 	bool "2nd AVM Type firmware"
-	default y if EXPORT_TYPE_LOCAL_MODEL
+	default y if EXPORT_TYPE_LOCAL_MODEL || TYPE_9207570
 	default n if ! EXPORT_TYPE_LOCAL_MODEL
 	help
 		Enable this if you need a second AVM or T-Home firmware, this may be needed with some options.
@@ -1063,10 +1063,10 @@ choice
 
 	prompt "All possible firmwares"
 	    depends on SOURCE2
-		default TYPE_SRC3_AVM_7570_72           if ! EXPORT_TYPE_LOCAL_MODEL
+		default TYPE_SRC3_AVM_7570_72           if ! EXPORT_TYPE_LOCAL_MODEL && ! TYPE_9207570
 		default TYPE_SRC3_AVM_7270_V3_76        if EXPORT_TYPE_LOCAL_MODEL && TYPE_7270v3
 		default TYPE_SRC3_AVM_7141_76           if EXPORT_TYPE_LOCAL_MODEL && TYPE_7141
-		default TYPE_SRC3_AVM_7270_CORE_15220   if TYPE_9207570
+		default TYPE_SRC3_TCOM_W920_78   	if TYPE_9207570
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 ### 7113 Firmware
 
@@ -1680,7 +1680,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		Add some parts of DECT menu pages originating from 7150 .56, this patch is usable with .57 AVM version or similar versions.
  config EXPORT_ADD_MODINFOICON
 	bool "Add modinfo icon on status page"
-	default y
+	default y if ! TYPE_SPEEDPORT_W721V
 	help
 		Add modinfo icon on status page, modinfo button is always displayed.
  config EXPORT_REMOVE_MENU_ITEM
@@ -2051,7 +2051,7 @@ if ! EXPORT_ATA_ONLY
     config FORCE_TCOM_KDSLDMOD
 	bool "Use T-Home KDSLDMOD driver"
 	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V
-	default n if ! TYPE_ANNEX_A && ! EXPORT_FORCE_MULTI_LANGUAGE
+	default n if TYPE_SPEEDPORT_W721V || ( ! TYPE_ANNEX_A && ! EXPORT_FORCE_MULTI_LANGUAGE )
 	default y if TYPE_ANNEX_A || EXPORT_FORCE_MULTI_LANGUAGE
 	help
 		Use KDSLDMOD from T-Home firmware, VPN is causing trouble with this option, in most cases ADSL+ needs this option set.
@@ -2168,7 +2168,7 @@ if ! EXPORT_ATA_ONLY
 
     config WRAP_DSLD
 	bool "Wrap DSLD"
-	depends on TYPE_9207570
+	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V
 	default n
 	help
 		wrap DSLD, ...
@@ -2286,14 +2286,17 @@ if ! EXPORT_TYPE_LOCAL_MODEL
  config FORCE_TCOM_LEDDRIVER
 	bool "Force use of T-Home LED driver"
 	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V
-	default y
+	default y if ! TYPE_9207570 || TYPE_SPEEDPORT_W721V
+	default n if TYPE_9207570 && ! TYPE_SPEEDPORT_W721V
 	help
 		For normal this is "n", but you my use the T-Home driver, definition of LEDs differ, not all LEDS are usable.
 
  config FORCE_SRC2_LEDDRIVER
 	bool "Force use of AVM source 2 LED driver"
 	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V
-	default n
+	default n if ! TYPE_9207570 || TYPE_SPEEDPORT_W721V
+	default y if TYPE_9207570 && ! TYPE_SPEEDPORT_W721V
+ 	
 	help
 		For normal this is "n", but you my use AVM source 2 driver, definition of LEDs differ.
 		

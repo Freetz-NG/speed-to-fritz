@@ -12,11 +12,15 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
     rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
+
+if [ "${OEM}" == "tcom" ]; then
 #use OEM tcom 
  cp -fdrp "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}" "${SRC}/etc/default.${CONFIG_PRODUKT}/tcom"
  cp -fdrp "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/strings.tab" --target-directory="${SRC}/etc/default.${CONFIG_PRODUKT}/tcom"
 # use tcom defaults from tcom firmware 
  cp -fdrp "${DST}/etc/default.${CONFIG_PRODUKT}/tcom" --target-directory="${SRC}/etc/default.${CONFIG_PRODUKT}"
+ echo "  -- OEM tcom is in use, IP adress of Box is as with T-com Firmware!"
+fi
 #copy second source internet dsl menue
 [ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
 #use scond source web GUI
@@ -30,10 +34,11 @@ if [ ${ATA_ONLY} = "n" ]; then
 
 #/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:
 
-echo "/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:" >>"${SRC}"/lib/modules/$KernelVersion/modules.dep
-
 # "vinax_driver"  
 #Attention! Vinax uses additional /dev/vinax device entrys, they are generated via /tools/device_table.txt (makedevice option)
+echo "/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:" >>"${SRC}"/lib/modules/$KernelVersion/modules.dep
+cp -fdrp "${DST}"/dev --target-directory="${SRC}" #this copy is onliy usable if run as root
+
 
 [ -d "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax ] || mkdir "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
 cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
@@ -96,8 +101,29 @@ if [ ${USE_SRC2_DSL} = "y" ]; then
     #cp -fdpr  "${SRC_2}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d &&\
     echo "  -- DSL Driver was taken from the original t-com firmware!"
 fi
-[ "${FORCE_SRC2_KDSLDMOD}" = "y" ] && cp -a "${SRC_2}"/lib/modules/$KernelVersion2/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
-#[ "${FORCE_TIATM}" = "y" ] && cp -a "${DST}"/lib/modules/$KernelVersion2/kernel/drivers/atm/avm_atm/tiatm.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/atm/avm_atm
+[ "${USE_OWN_DSL}" = "y" ] && cp -fdrp ./addon/tmp/W721/squashfs-root/* --target-directory="${SRC}" &&\
+echo "  -- VINAX DSL Driver was taken from local directory ./addon/tmp/W721"
+
+if [ "${SAVE_SRC2_KDSLDMOD}" = "y" ]; then
+    mkdir -p ./addon/tmp/W721/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld
+    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory=./addon/tmp/W721/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld &&\
+    echo "  -- 2nd AVM Firmware kdslmod driver saved to: ./addon/tmp/W721"
+fi
+[ "${FORCE_SRC2_KDSLDMOD}" = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld &&\
+echo "  -- kdslmod Driver was taken from 2nd AVM source."
+
+if [ "${FORCE_OWN_KDSLDMOD}" = "y" ] && ! [ -f ./addon/tmp/W721/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko ]; then
+ echo "You must save kdsld driver form 2nd AVM source before" && sleep 10 && exit 1
+fi
+[ "${FORCE_OWN_KDSLDMOD}" = "y" ] && cp -fdrp ./addon/tmp/W721/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
+echo "  -- kdslmod Driver was taken from local directory ./addon/tmp/W721"
+
+# ther are no newer and compatibel drivers up to now
+#[ "${FORCE_VINAX_DRV}" = "y" ] && cp -fdrp ${HOMEDIR}/addon/tmp/modules/vinax/drv_vinax.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax" &&\
+#echo "  -- PPPoA compatible VINAX DSL Driver is in use!"
+#[ "${FORCE_KDSLD_DRV}" = "y" ] && cp -fdrp ${HOMEDIR}/addon/tmp/modules/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
+#echo "  -- PPPoA compatible KDSLDMOD Driver is in use!"
+#----
 CPYPSEC="y"
 if [ "${COPY_TCOM_BIN}" = "y" ]; then
     cp -fdrp "${DST}"/usr/bin --target-directory="${SRC}"/usr
@@ -139,7 +165,7 @@ sed -i -e '/rc.dsl.sh start/a\
 [ ${USE_OWN_DSL} = "y" ] && cp -fdrp ${HOMEDIR}/addon/tmp/W721/squashfs-root/* --target-directory="${SRC}" &&\
 echo "  -- DSL Driver was taken from local directory ./addon/tmp/W721!"
 
-sed -i -e '/modprobe ${pcm_link} ${pcm_link_params}/d' "${SRC}/etc/init.d/rc.S" 
+#sed -i -e '/modprobe ${pcm_link} ${pcm_link_params}/d' "${SRC}/etc/init.d/rc.S" 
 
 #DSL skripts--->
 #copy VDSL Skript
@@ -260,7 +286,7 @@ rm -fdr "${SRC}"/lib/modules/microvoip_isdn_top.bit1
 cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules
 # dont add if rc.S is coppyed
 if [ "$CPYPSEC" == "y" ]; then
-#adapt parameters for Piglet bitfile it it is 7170 firmware
+#adapt parameters for Piglet bitfile it is 7170 firmware
 $sh_DIR/patch_pigletsection.sh "${SRC}" "${DST}"
 #if section was not set correct it must be 7113 firmware, not needed becaus 7113 firmware is also not the clue
 grep -q "piglet_enable_switch=3" "${SRC}/etc/init.d/rc.S" || sed -i -e '/piglet_bitfile=/a \
