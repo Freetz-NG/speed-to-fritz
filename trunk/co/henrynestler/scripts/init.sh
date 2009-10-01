@@ -370,14 +370,17 @@ echo "---------- added /etc/network/interfaces"
 sleep 2
 cat <<EOF > /etc/issue
 -------------------------------------------------------------------------------
+User: root, password: root
+\${NewUser}, password: \${NewUser_pw}
+
 Please log in as root or use 'sudo su', change password, and then update the 
 /etc/issue file, to remove this info.
 
 *  console-nt: paste with WinKey+V
 
-Type: terminal followed by Enter key, this should start Xterminal if installed.
+Type: konsole followed by Enter key, this should start konsole if installed.
 
-Then login as normal user via SSH Putty or Xterminal first then:
+Then login as normal user via SSH Putty or konsole first then:
 
 ./download_speed-to-fritz.sh (will start the latest speed-to-fritz version.)
 
