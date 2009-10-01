@@ -1357,8 +1357,8 @@ config TCOM_IMG
 	default "$TCOM_W722_14111" 		if ( ! TYPE_TCOM_W722V_14111 ) && ( TYPE_SPEEDPORT_W722V )
 	default "$TCOM_W900_57" 		if TYPE_SPEEDPORT_W900V
 #	default "$TCOM_W920_74" 		if ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 )
-#	default "$TCOM_W920_78" 		if ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 )
-	default "$AVM_7570_14621"		if ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 )
+	default "$TCOM_W920_78" 		if ORI && ( TYPE_9207570 )
+	default "$AVM_7570_14621"		if ( ! ORI && ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 )
 	default "$TCOM_W920_58" 		if TYPE_58 && ( TYPE_9207570 )
 	default "$TCOM_W920_63" 		if TYPE_TCOM_BETA_63 && ( TYPE_9207570 )
 	default "$TCOM_W920_70" 		if TYPE_TCOM_BETA_70 && ( TYPE_9207570 )
