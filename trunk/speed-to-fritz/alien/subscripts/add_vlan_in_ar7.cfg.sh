@@ -1,7 +1,7 @@
 #!/bin/bash
 # include modpatch function
 . ${include_modpatch}
-cp -fv "${SRC}/etc/default.${CONFIG_PRODUKT}/tcom/ar7.cfg" "${SRC}/etc/default.${CONFIG_PRODUKT}/avm/ar7.cfg"
+cp -f "${SRC}/etc/default.${CONFIG_PRODUKT}/tcom/ar7.cfg" "${SRC}/etc/default.${CONFIG_PRODUKT}/avm/ar7.cfg"
 rpl_vlan()
  {
 	for file in $1; do

@@ -272,9 +272,9 @@ config AVM_IPV6_7270_15316
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_IPv6/fritz_box-labor-15316.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabIPV6.AnnexB.54.04.94-15316.image"
 
-config AVM_IPV6_7270_14621
-    string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7570_7270_IPv6_en/fritzbox_lab_14621_7270.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_16_LabIPV6.AnnexB.en-de-es-it-fr.54.04.94-14621.image"
+#config AVM_IPV6_7270_15316
+#    string
+#    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7570_7270_IPv6_en/fritzbox_lab_14621_7270.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_16_LabIPV6.AnnexB.en-de-es-it-fr.54.04.94-15316.image"
 
 config AVM_IPV6_7270_V3_15316
     string
@@ -311,9 +311,10 @@ config AVM_CORE_7270_V3_15220
 config AVM_7570_70
     string
     default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.image"
-config AVM_7570_14621
+config AVM_7570_15316
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7570_7270_IPv6_en/fritzbox_lab_14621_7570.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL_LabIPV6.en-de-fr.75.04.94-14621.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7570_7270_IPv6_en/fritzbox_lab_14621_7570.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL_LabIPV6.en-de-fr.75.04.94-15316.image"
+#"     ./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL_LabIPV6.en-de-fr.75.04.94-14621.image"
 config AVM_7570_72
     string
     default "http://supportvente.pt.lu/luxdsl/avm/7570/fw_72/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.72.image"
@@ -535,8 +536,8 @@ choice
 	config TYPE_TCOM_7570_76
 		bool "AVM_7570_76 en-de-fr.75.04.76 used as T-Home firmware"
 
-	config TYPE_TCOM_7570_14621
-		bool "AVM_7570_14621 en-de-fr.75.04.94 used as T-Home firmware"
+	config TYPE_TCOM_7570_15316
+		bool "AVM_7570_15316 en-de-fr.75.04.94 used as T-Home firmware"
 
 	config TYPE_TCOM_7570_14031
 		bool "AVM_7570_14031 en-de.75.04.94-14031M used as T-Home"
@@ -874,12 +875,12 @@ choice
 			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
 			(Internet Protocol Version 6) and 6to4 tunnels.
 
-	config TYPE_7270_IPV6_14621
-		bool "AVM_7270_IPV6_14621 en-de-es-it-fr LabIPV6_54.04.94"
-		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-		help
-			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
-			(Internet Protocol Version 6) and 6to4 tunnels.
+#	config TYPE_7270_IPV6_14621
+#		bool "AVM_7270_IPV6_14621 en-de-es-it-fr LabIPV6_54.04.94"
+#		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+#		help
+#			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
+#			(Internet Protocol Version 6) and 6to4 tunnels.
 
 #	config TYPE_7270_IPV6
 #		bool "7270_IPV6"
@@ -979,7 +980,7 @@ config TYPE_AVM_7570_XX
 choice
 	prompt "Any 7570 firmware"
 		depends on  TYPE_AVM_7570_XX
-		default TYPE_AVM_7570_14621
+		default TYPE_AVM_7570_15316
 
 	config TYPE_AVM_7570_70
 		bool "AVM_7570_70 en-de.75.04.70"
@@ -991,8 +992,8 @@ choice
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
-	config TYPE_AVM_7570_14621
-		bool "AVM_7570_14621 en-de-fr.75.04.94 14621"
+	config TYPE_AVM_7570_15316
+		bool "AVM_7570_15316 en-de-fr.75.04.94 15316"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
@@ -1206,8 +1207,9 @@ choice
 	config TYPE_SRC3_AVM_IPV6_7270_V3_15316
 		bool "AVM_7270_V3_15316 74.04.94-15316 (IPV6)"
 
-	config TYPE_SRC3_AVM_IPV6_7270_14621
-		bool "AVM_7270_14621 54.04.94-14621 en-de-es-it-fr (IPV6)"
+	config TYPE_SRC3_AVM_IPV6_7270_15316
+	
+		bool "AVM_7270_15316 54.04.94-15316 en-de-es-it-fr (IPV6)"
 
 	config TYPE_SRC3_AVM_DSL_7270_14869
 		bool "AVM_7270_14869 54.04.99-14869"
@@ -1238,8 +1240,8 @@ choice
 	config TYPE_SRC3_AVM_7570_76
 		bool "AVM_7570_76 en-de-fr.75.04.76"
 
-	config TYPE_SRC3_AVM_7570_14621
-		bool "AVM_7570_14621 en-de-fr.75.04.94-14621M"
+	config TYPE_SRC3_AVM_7570_15316
+		bool "AVM_7570_15316 en-de-fr.75.04.94-15316M"
 
 	config TYPE_SRC3_AVM_7570_14031
 		bool "AVM_7570_14031 en-de.75.04.94-14031M"
@@ -1358,7 +1360,7 @@ config TCOM_IMG
 	default "$TCOM_W900_57" 		if TYPE_SPEEDPORT_W900V
 #	default "$TCOM_W920_74" 		if ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 )
 	default "$TCOM_W920_78" 		if ORI && ( TYPE_9207570 )
-	default "$AVM_7570_14621"		if ( ! ORI && ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 )
+	default "$AVM_7570_15316"		if ( ! ORI && ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 )
 	default "$TCOM_W920_58" 		if TYPE_58 && ( TYPE_9207570 )
 	default "$TCOM_W920_63" 		if TYPE_TCOM_BETA_63 && ( TYPE_9207570 )
 	default "$TCOM_W920_70" 		if TYPE_TCOM_BETA_70 && ( TYPE_9207570 )
@@ -1370,7 +1372,7 @@ config TCOM_IMG
 	default "$AVM_7570_70" 			if TYPE_TCOM_7570_70 && ( TYPE_9207570 )
 	default "$AVM_7570_72" 			if TYPE_TCOM_7570_72 && ( TYPE_9207570 )
 	default "$AVM_7570_76" 			if TYPE_TCOM_7570_76 && ( TYPE_9207570 )
-	default "$AVM_7570_14621" 		if TYPE_TCOM_7570_14621 && ( TYPE_9207570 )
+	default "$AVM_7570_15316" 		if TYPE_TCOM_7570_15316 && ( TYPE_9207570 )
 	default "$AVM_7570_14031" 		if TYPE_TCOM_7570_14031 && ( TYPE_9207570 )
 	default "$AVM_7570_14341" 		if TYPE_TCOM_7570_14341 && ( TYPE_9207570 )
 	default "$AVM_7570_14348" 		if TYPE_TCOM_7570_14348 && ( TYPE_9207570 )
@@ -1432,8 +1434,8 @@ config AVM_IMG
 	default "$AVM_AIO_7270_14543"			if ( TYPE_7270_AIO_14543 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_WLANX_7270_14080"			if ( TYPE_7270_WLAN_14080 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_AURA_7270_14142"			if ( TYPE_7270_AURA_14142 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+#	default "$AVM_IPV6_7270_14621"			if ( TYPE_7270_IPV6_14621 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_IPV6_7270_15316"			if ( TYPE_7270_IPV6_15316 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_IPV6_7270_14621"			if ( TYPE_7270_IPV6_14621 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_IPV6_7270_V3_15316"		if ( TYPE_7270_V3_IPV6_15316 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PHONE_7240_15195"			if ( TYPE_7240_PHONE_15195 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PHONE_7270_15195"			if ( TYPE_7270_PHONE_15195 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
@@ -1451,7 +1453,7 @@ config AVM_IMG
 	default "$AVM_7570_14354"			if ( TYPE_AVM_7570_14354 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_7570_14375"			if ( TYPE_AVM_7570_14375 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_7570_14434"			if ( TYPE_AVM_7570_14434 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
-	default "$AVM_7570_14621"			if ( TYPE_AVM_7570_14621 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
+	default "$AVM_7570_15316"			if ( TYPE_AVM_7570_15316 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_7570_14685"			if ( TYPE_AVM_7570_14685 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_7570_14771"			if ( TYPE_AVM_7570_14771 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_7570_15216"			if ( TYPE_AVM_7570_15216 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
@@ -1504,7 +1506,7 @@ config SRC2_IMG
 	default "$AVM_WLANX_7270_14080"		if TYPE_SRC3_AVM_WLANX_7270_14080
 	default "$AVM_AURA_7270_14142"		if TYPE_SRC3_AVM_AURA_7270_14142
 	default "$AVM_IPV6_7270_15316"		if TYPE_SRC3_AVM_IPV6_7270_15316
-	default "$AVM_IPV6_7270_14621"		if TYPE_SRC3_AVM_IPV6_7270_14621
+	default "$AVM_IPV6_7270_15316"		if TYPE_SRC3_AVM_IPV6_7270_15316
 	default "$AVM_DSL_7270_14869"		if TYPE_SRC3_AVM_DSL_7270_14869
 #	default "$AVM_PHONE_7270_14712"		if TYPE_SRC3_AVM_PHONE_7270_14712
 	default "$AVM_PHONE_7240_15195"		if TYPE_SRC3_AVM_PHONE_7240_15195
@@ -1516,7 +1518,7 @@ config SRC2_IMG
 	default "$AVM_7570_72" 			if TYPE_SRC3_AVM_7570_72
 	default "$AVM_7570_76" 			if TYPE_SRC3_AVM_7570_76
 	default "$AVM_7570_14031" 		if TYPE_SRC3_AVM_7570_14031
-	default "$AVM_7570_14621" 		if TYPE_SRC3_AVM_7570_14621
+	default "$AVM_7570_15316" 		if TYPE_SRC3_AVM_7570_15316
 	default "$AVM_7570_14341" 		if TYPE_SRC3_AVM_7570_14341
 	default "$AVM_7570_14348" 		if TYPE_SRC3_AVM_7570_14348
 	default "$AVM_7570_14375" 		if TYPE_SRC3_AVM_7570_14375
@@ -1584,7 +1586,7 @@ config TYPE_LABOR_TYPE
 	default "7570_14348" 	if TYPE_AVM_7570_14348
 	default "7570_14375" 	if TYPE_AVM_7570_14375
 	default "7570_14434" 	if TYPE_AVM_7570_14434
-	default "7570_14621" 	if TYPE_AVM_7570_14621
+	default "7570_15316" 	if TYPE_AVM_7570_15316
 	default "7570_14685" 	if TYPE_AVM_7570_14685
 	default "7570_14771" 	if TYPE_AVM_7570_14771	
 	default "7570_15216" 	if TYPE_AVM_7570_15216	
