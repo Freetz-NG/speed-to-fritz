@@ -313,12 +313,10 @@ config AVM_7570_70
     default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.70.image"
 config AVM_7570_15316
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7570_7270_IPv6_en/fritzbox_lab_14621_7570.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL_LabIPV6.en-de-fr.75.04.94-15316.image"
-#"     ./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL_LabIPV6.en-de-fr.75.04.94-14621.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7570_7270_IPv6_en/fritzbox_lab_14621_7570.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL_LabIPV6.en-de-fr.75.04.94-14621.image"
 config AVM_7570_72
     string
     default "http://supportvente.pt.lu/luxdsl/avm/7570/fw_72/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.72.image"
-
 
 ### Not available only in use by AVM -->
 
@@ -1201,14 +1199,13 @@ choice
 	config TYPE_SRC3_AVM_AIO_7270_14543 
 		bool "AVM_7270_14543 54.04.75-14543 (AIO)"
 
-	config TYPE_SRC3_AVM_IPV6_7270_15316
-		bool "AVM_7270_15316 54.04.94-15316 (IPV6)"
+#	config TYPE_SRC3_AVM_IPV6_7270_15316
+#		bool "AVM_7270_15316 54.04.94-15316 (IPV6)"
 
 	config TYPE_SRC3_AVM_IPV6_7270_V3_15316
 		bool "AVM_7270_V3_15316 74.04.94-15316 (IPV6)"
 
 	config TYPE_SRC3_AVM_IPV6_7270_15316
-	
 		bool "AVM_7270_15316 54.04.94-15316 en-de-es-it-fr (IPV6)"
 
 	config TYPE_SRC3_AVM_DSL_7270_14869
@@ -1981,6 +1978,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		HWR 152 = Speedport W722V
 		HWR 153 = FB Fon WLAN 7570 HN
 		HWR 159 = FB Fon WLAN 7112
+		HWR 168 = Fritz_Box_3270v3
 endif
 
 config VERBOSE
