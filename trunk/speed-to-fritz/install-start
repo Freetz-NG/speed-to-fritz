@@ -28,7 +28,7 @@ if [ -e /etc/SuSE-release -a -x /usr/bin/zypper ] ; then
 
 	sudo zypper --non-interactive install \
 		make gcc-c++ glibc-devel ncurses-devel automake patch \
-		subversion lukemftp kdiff3 $ARCHPKG
+		subversion lukemftp kdiff3  $ARCHPKG lynx
 else
     sudo apt-get -y install \
 	fakeroot \
@@ -41,7 +41,8 @@ else
 	ftp \
 	kdiff3 \
 	apt-xapian-index \
-	$ARCHPKG
+	$ARCHPKG \
+	lynx
 fi
 echo "----------------------------------------------------------------------------------------------"
 . ./start
