@@ -16,23 +16,24 @@ kernel_lines="$(tools/hexgrep "$KERNEL_MAGIC" "$input_file")"
 exe_length=($(echo "$kernel_lines" | sed 's/:.*//'))
 
 output_file="$output_dir/recover.exe"
-echo " $output_file - exe @ 0, total length = $exe_length"
+echo " $output_file, exe @ 0, length = $exe_length"
 dd if="$input_file" of="$output_file" ibs=1 obs=8192 count=$exe_length 2> /dev/null
-
 }
+
 extract_exe_mid()
 {
 echo -e "\nExtracting exe middlepart from $input_file ..."
 n=1
-kernel_lines="$(tools/hexgrep "$KERNEL_MAGIC" "$input_file")"
-kernel_offs=($(echo "$kernel_lines" | sed 's/:.*//'))
-kernel_length=($(hex2dec "$(echo "$kernel_lines" | sed -r 's/^[0-9]+:.{12}(.*)/\1/')"))
-offs=$((kernel_length + kernel_offs))
 act_size="$(tools/hexgrep "$BOOTLOADER_MAGIC" "$input_file" | sed 's/:.*//')"
-size=$((act_size - offs))
+size="53"
+offs=$((act_size - size))
 output_file="$output_dir/exe_mid"
-echo " $output_file - start @ $offs - end @ $act_size "
+echo " $output_file, start @ $offs, end @ $act_size "
 dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$offs count=$size 2> /dev/null
+echo
+echo -n "Firmware version: "
+dd if="$output_file" bs=1 count=16 2> /dev/null
+echo
 }
 extract_exe_end()
 {
@@ -43,7 +44,7 @@ offs="$(tools/hexgrep "$BOOTLOADER_MAGIC" "$input_file" | sed 's/:.*//')"
 offs=$((offs + 65536))
 size=$((act_size - offs))
 output_file="$output_dir/exe_end"
-echo " $output_file - loader @ $offs - end @ $act_size"
+echo " $output_file, start @ $offs, length $size, end @ $act_size"
 dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$offs count=$size 2> /dev/null
 }
 
@@ -59,20 +60,16 @@ for bootloader_offs in $(tools/hexgrep "$BOOTLOADER_MAGIC" "$input_file" | sed '
 output_file="$output_dir/urlader.image"
 n=$((n+1))
 size=65536
-act_size=$((offs + size))
-echo " $output_file - loader @ $bootloader_offs, total length = $size, end @ $act_size"
+act_end=$((bootloader_offs + size))
+echo " $output_file, loader @ $bootloader_offs, length = $size, end @ $act_end"
 dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$bootloader_offs count=$size 2> /dev/null
 grep -iq 'entering passive mode' "$output_file" \
 && grep -iq 'ftp server ready' "$output_file" \
 && echo " file is a possible bootloader candidate" 
-#\
-#|| echo " file is probably not a bootloader"
 done
 [ $n -eq 1 ] && echo " No bootloader candidate found in input file: $input_file"
 }
-#newer large recover seem to have differnt magic for SQUASHFS_MAGIC
-#So this is just a work around
-extract_kernel()
+extract_kernel_plus_mid()
 {
 echo -e "\nExtracting hidden root kernel + filesystem (kernel.image) from $input_file ..."
 n=1
@@ -81,92 +78,99 @@ kernel_offs=($(echo "$kernel_lines" | sed 's/:.*//'))
 
 bootloder_offs="$(tools/hexgrep "$BOOTLOADER_MAGIC" "$input_file" | sed 's/:.*//')"
 size=53
-#size=112
-#size=200
 n=$((n+1))
 kernel_end=$((bootloder_offs - size))
 dd_count=$((kernel_end - kernel_offs))
 output_file="$output_dir/kernel.image"
-echo " $output_file - kernel-2 @ ${kernel_offs}, total length = $dd_count, end @ $kernel_end"
+echo " $output_file, kernel-2 @ ${kernel_offs}, length = $dd_count, end @ $kernel_end"
 dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=${kernel_offs} count=$dd_count 2> /dev/null
 
 output_file="$output_dir/exe_mid"
-echo " $output_file - start @ $kernel_end, total length = $size, end @ $bootloder_offs "
+echo " $output_file, start @ $kernel_end, length = $size, end @ $bootloder_offs "
 dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$kernel_end count=$size 2> /dev/null
+echo
+echo -n "Firmware version: "
+dd if="$output_file" bs=1 count=16 2> /dev/null
+echo
 }
-
 # Extracts kernel.image candidates from input file, based on kernel and
-# SquashFS magic strings. Applies heuristic check if kernel end offset
+# SquashFS magic strings.
 # calculated from assumed length header field is close enough to subsequent
-# SquashFS start offset. Detects hidden root images used in ds26-enabled
+# SquashFS start offset.
 # firmwares, but currently no other image types.
-extract_kernel_filesystem()
-{
-echo -e "\nExtracting hidden root kernel + filesystem (kernel.image) from $input_file ..."
-n=1
-squashfs_lines="$(tools/hexgrep "$SQUASHFS_MAGIC" "$input_file")"
-squashfs_offs=($(echo "$squashfs_lines" | sed 's/:.*//'))
-squashfs_length=($(hex2dec "$(echo "$squashfs_lines" | sed -r 's/^[0-9]+:.{24}(.*)/\1/')"))
-kernel_lines="$(tools/hexgrep "$KERNEL_MAGIC" "$input_file")"
-kernel_offs=($(echo "$kernel_lines" | sed 's/:.*//'))
-kernel_length=($(hex2dec "$(echo "$kernel_lines" | sed -r 's/^[0-9]+:.{12}(.*)/\1/')"))
-k=0
-while [ $k -lt ${#kernel_offs[*]} ]; do
-s=0
-dd_count=0
-while [ $s -lt ${#squashfs_offs[*]} ]; do
-delta=$((squashfs_offs[s] - kernel_length[k] - kernel_offs[k]))
-[ $delta -le 0 -o $delta -gt 1024 ] && s=$((s+1)) && continue
-squashfs_pad=$(((4096 - squashfs_length[s] % 4096) % 4096))
-dd_count=$((squashfs_offs[s] - kernel_offs[k] + squashfs_length[s] + squashfs_pad))
-output_file="$output_dir/kernel.image"
-n=$((n+1))
-act_end=$((kernel_offs[k] + dd_count))
-echo " $output_file - kernel @ ${kernel_offs[k]}, SquashFS @ ${squashfs_offs[s]}, total length = $dd_count, end @ $act_end"
-dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=${kernel_offs[k]} count=$dd_count 2> /dev/null
-echo -e "\nExtracting exe middlepart ..."
-act_size="$(tools/hexgrep "$BOOTLOADER_MAGIC" "$input_file" | sed 's/:.*//')"
-size=$((act_size - act_end))
-output_file="$output_dir/exe_mid"
-echo " $output_file - start @ $act_end - end @ $act_size "
-dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$act_end count=$size 2> /dev/null
-break
-done
-k=$((k+1))
-done
-[ $n -eq 1 ] && echo " No squashfs candidate found in input file, use alternativ methode"
-[ $n -eq 1 ] && extract_kernel
-}
 extract_kernel_image()
 {
-echo -e "\nExtracting hidden root kernel + filesystem (kernel.image) from $input_file ..."
-n=1
-squashfs_lines="$(tools/hexgrep "$SQUASHFS_MAGIC" "$input_file")"
-squashfs_offs=($(echo "$squashfs_lines" | sed 's/:.*//'))
-squashfs_length=($(hex2dec "$(echo "$squashfs_lines" | sed -r 's/^[0-9]+:.{24}(.*)/\1/')"))
+echo -e "\nStrip of kernel.image header from $input_file ..."
 kernel_lines="$(tools/hexgrep "$KERNEL_MAGIC" "$input_file")"
+echo "kernel magic line: $kernel_lines"
 kernel_offs=($(echo "$kernel_lines" | sed 's/:.*//'))
-kernel_length=($(hex2dec "$(echo "$kernel_lines" | sed -r 's/^[0-9]+:.{12}(.*)/\1/')"))
-k=0
-while [ $k -lt ${#kernel_offs[*]} ]; do
-s=0
-dd_count=0
-while [ $s -lt ${#squashfs_offs[*]} ]; do
-delta=$((squashfs_offs[s] - kernel_length[k] - kernel_offs[k]))
-[ $delta -le 0 -o $delta -gt 1024 ] && s=$((s+1)) && continue
-squashfs_pad=$(((4096 - squashfs_length[s] % 4096) % 4096))
-dd_count=$((squashfs_offs[s] - kernel_offs[k] + squashfs_length[s] + squashfs_pad))
+echo "kernel offset: $kernel_offs"
+echo -n "kernel length in hex: "
+echo "$kernel_lines" | sed -r 's/^[0-9]+:.{12}(.*).{27}/\1/'
+kernel_length=($(hex2dec "$(echo "$kernel_lines" | sed -r 's/^[0-9]+:.{12}(.*).{27}/\1/')"))
+echo "kernel length in decimal: $kernel_length"
+squashfs_lines="$(tools/hexgrep "$SQUASHFS_MAGIC" "$input_file")"
+echo "squashfs magic line: $squashfs_lines"
+squashfs_offs=($(echo "$squashfs_lines" | sed 's/:.*//'))
+echo "squashfs offset: $squashfs_offs"
+echo -n "squashfs length in hex: "
+echo "$squashfs_lines" | sed -r 's/^[0-9]+:.{24}(.*)/\1/'
+squashfs_length=($(hex2dec "$(echo "$squashfs_lines" | sed -r 's/^[0-9]+:.{24}(.*)/\1/')"))
+echo "squashfs length in decimal: $squashfs_length"
+#ls -l "$input_file"
+act_size=`ls -l "$input_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
+echo "File sizes: $act_size"
+dd_count=$((squashfs_offs - kernel_offs + squashfs_length))
+##older firmwaews used to have zerro bytes added
+#dd_count=$((((squashfs_offs - kernel_offs + squashfs_length) | 0xFFF)+1))
+echo "File sizes: $dd_count"
+output_file="$output_dir/kernel.image"
+echo " $output_file, kernel @ ${kernel_offs}, SquashFS @ ${squashfs_offs}, length = $dd_count, end @ $act_size"
+dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=${kernel_offs} count=$dd_count 2> /dev/null
+}
+extract_kernel_filesystem()
+{
+echo -e "\nExtracting root kernel (kernel.image) from $input_file ..."
+kernel_lines="$(tools/hexgrep "$KERNEL_MAGIC" "$input_file")"
+echo "kernel magic line: $kernel_lines"
+kernel_offs=($(echo "$kernel_lines" | sed 's/:.*//'))
+echo "kernel offset: $kernel_offs"
+echo -n "kernel length in hex: "
+echo "$kernel_lines" | sed -r 's/^[0-9]+:.{12}(.*).{27}/\1/'
+kernel_length=($(hex2dec "$(echo "$kernel_lines" | sed -r 's/^[0-9]+:.{12}(.*).{27}/\1/')"))
+squashfs_lines="$(tools/hexgrep "$SQUASHFS_MAGIC" "$input_file")"
+echo "squashfs magic line: $squashfs_lines"
+squashfs_offs=($(echo "$squashfs_lines" | sed 's/:.*//'))
+echo "squashfs offset: $squashfs_offs"
+squashfs_length1=("$(echo "$squashfs_lines" | sed -r 's/^[0-9]+:.{24}(.*)/\1/')")
+echo "squashfs length in hex: $squashfs_length1"
+squashfs_length=($(hex2dec "$(echo "$squashfs_lines" | sed -r 's/^[0-9]+:.{24}(.*)/\1/')"))
+echo "squashfs length in decimal: $squashfs_length"
+echo "kernel length in decimal: $kernel_length"
+dd_count=$((squashfs_offs - kernel_offs + squashfs_length))
+##older firmwaews used to have zirro bytes added
+#dd_count=$((((squashfs_offs - kernel_offs + squashfs_length) | 0xFFF)+1))
+
+#echo "File sizes: $dd_count"
 output_file="$output_dir/kernel.image"
 n=$((n+1))
-act_end=$((kernel_offs[k] + dd_count))
-echo " $output_file - kernel @ ${kernel_offs[k]}, SquashFS @ ${squashfs_offs[s]}, total length = $dd_count, end @ $act_end"
-dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=${kernel_offs[k]} count=$dd_count 2> /dev/null
-break
-done
-k=$((k+1))
-done
-[ $n -eq 1 ] && echo " No squashfs candidate found in input file, use alternativ methode"
-[ $n -eq 1 ] && extract_kernel
+kernel_end=$((kernel_offs + dd_count))
+echo " $output_file, kernel @ ${kernel_offs}, SquashFS @ ${squashfs_offs}, length = $dd_count, end @ $kernel_end"
+dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=${kernel_offs} count=$dd_count 2> /dev/null
+echo -e "\nExtracting exe middlepart ..."
+act_blmpos="$(tools/hexgrep "$BOOTLOADER_MAGIC" "$input_file" | sed 's/:.*//')"
+m_size=$((act_blmpos - kernel_end))
+if ! [ $m_size -eq 54 ]; then
+    echo "Use extract_kernel_plus_mid instaed because some went wrong!"
+    m_size="54"
+fi
+output_file="$output_dir/exe_mid"
+echo " $output_file, start @ $kernel_end, length = $m_size, end @ $act_blmpos "
+dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$kernel_end count=$m_size 2> /dev/null
+echo
+echo -n "Firmware version: "
+dd if="$output_file" bs=1 count=16 2> /dev/null
+echo
 }
 add_ticsum()
 {

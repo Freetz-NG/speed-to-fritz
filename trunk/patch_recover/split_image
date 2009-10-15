@@ -19,8 +19,9 @@ exit 1
 esac
 
 # Magic byte sequences prepared for 'hexgrep' usage
-KERNEL_MAGIC="81 12 ED FE .. .. .. .."
-SQUASHFS_MAGIC="68 73 71 73 .. .. .. .. .. .. .. .."
+# dont change number of bytes counts are defind within routine
+KERNEL_MAGIC="81 12 ED FE .. .. .. 00 00 00 00 94 01 02 5a 07"
+SQUASHFS_MAGIC="68 73 71 73 .. .. 00 00 .. .. .. .."
 BOOTLOADER_MAGIC="00 90 80 40"
 
 output_dir="$(basename "$input_file" | sed -r 's/(.*)\.[^\.]*/\1/')"
@@ -30,7 +31,7 @@ echo
 echo "--------------------------------------------------------------------------------------------"
 new_output_file="new_$input_file"
 extract_kernel_image
-#extract_kernel
+#extract_kernel_plus_mid
 #extract_exe_mid
 #extract_bootloader
 #extract_exe_end

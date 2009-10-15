@@ -1,0 +1,34 @@
+#!/bin/bash
+# Parameter handling
+mod_base="."
+case $# in
+1)
+input_file="$1"
+;;
+2)
+mod_base="$1"
+input_file="$2"
+;;
+*)
+echo "usage: $0 [<mod base directory>] <input file>" >&2
+echo " - base directory defaults to '.'" >&2
+echo " firmware.image" >&2
+exit 1
+esac
+
+# the same as split_image but with tar
+echo -e "\nExtracting root kernel (kernel.image) from $input_file ..."
+#	rm -drf ./var
+output_dir="$(basename "$input_file" | sed -r 's/(.*)\.[^\.]*/\1/')"
+mkdir -p "$output_dir"
+	tar -xf "$input_file" -C .
+	mv -f "./var/tmp/kernel.image" "$output_dir/kernel.image"
+	if [ ! -r "$output_dir/kernel.image" ]; then
+		echo "cannot find kernel.image"
+		sleep 20
+		exit 1
+	fi
+#	echo "remove tichksum"
+#	./tools/rmtichksum -f "$output_dir/kernel.image" > /dev/null
+	rm -drf ./var
+exit
