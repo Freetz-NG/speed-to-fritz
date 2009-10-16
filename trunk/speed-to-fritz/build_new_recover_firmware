@@ -29,8 +29,8 @@ RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/english
 [ "${FBMOD}" == "7270" ] && R_IMG="$RECOVERIMG7270"
 #-------------------------------------------------------------------------------------------------
 input_recover_file="$FWBASE/$(echo $R_IMG | sed -e "s/.*\///")"
-echo "R_IMG: $R_IMG"
-echo "input_recover_file: $input_recover_file"
+#echo "R_IMG: $R_IMG"
+#echo "input_recover_file: $input_recover_file"
 [ -f $input_recover_file ] || wget -P "$FWBASE" "$R_IMG"
 #-------------------------------------------------------------------------------------------------
 kernel_dir="$NEWDIR"
@@ -50,8 +50,9 @@ if ! [ -f "$input_recover_file" ];then
     sleep 20
     exit 1
 fi
-$HOMEDIR/recoversubscripts/split_recover $HOMEDIR $input_recover_file $output_dir
-new_recover_file="$kernel_dir/Speedport_W${SPNUM}V.recover-image.exe"
+#$HOMEDIR/recoversubscripts/split_recover $HOMEDIR $input_recover_file $output_dir
+new_recover_file="$kernel_dir/$(echo "$NEWIMG" | sed -r 's/.image//' | sed -r 's/fw_//' | sed -r 's/C_//').exe"
+#new_recover_file="$kernel_dir/Speedport_W${SPNUM}V.recover-image.exe"
 echo
 echo
 echo "--------------------------------------------------------------------------------------------"
