@@ -1,0 +1,34 @@
+#!/bin/bash
+# Parameter handling
+mod_base="."
+case $# in
+1)
+input_file="$1"
+output_dir1="$(basename "$input_file" | sed -r 's/(.*)\.[^\.]*/\1/')"
+;;
+2)
+mod_base="$1"
+input_file="$2"
+output_dir1="$(basename "$input_file" | sed -r 's/(.*)\.[^\.]*/\1/')"
+;;
+3)
+mod_base="$1"
+input_file="$2"
+output_dir1="$3"
+;;
+*)
+echo "usage: $0 [<base directory>] <input file> [<output directory>] ">&2
+echo " - base directory defaults to '.'" >&2
+exit 1
+esac
+#. split_functions
+abs_split_functions="`find $mod_base -name split_functions`"
+. $abs_split_functions
+# Magic byte sequences prepared for 'hexgrep' usage
+# dont change number of bytes counts are defind within routine
+KERNEL_MAGIC="81 12 ED FE .. .. .. 00 00 00 00 94 01 02 5a 07"
+SQUASHFS_MAGIC="68 73 71 73 .. .. 00 00 .. .. .. .."
+BOOTLOADER_MAGIC="00 90 80 40"
+echo
+echo
+echo "--------------------------------------------------------------------------------------------"

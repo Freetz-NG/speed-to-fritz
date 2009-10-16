@@ -1,0 +1,17 @@
+#!/bin/bash
+abs_split_header="`find -name split_header`"
+. $abs_split_header
+# the same as split_image but with tar
+kernel_dir="$output_dir1"
+echo -e "\nExtracting root kernel (kernel.image) from:\n $input_file ..."
+	tar -xf "$kernel_dir/$input_file" -C .
+	mv -f "$mod_base/var/tmp/kernel.image" "$kernel_dir/kernel.image"
+	rm -drf $mod_base/var
+	if [ ! -r "$kernel_dir/kernel.image" ]; then
+		echo "Cannot find kernel.image"
+		sleep 20
+		exit 1
+	fi
+#	echo "Remove checksum"
+#	$mod_base/tools/rmtichksum -f "$mod_base/$output_dir/kernel.image" > /dev/null
+exit
