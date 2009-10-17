@@ -50,7 +50,7 @@ if ! [ -f "$input_recover_file" ];then
     sleep 20
     exit 1
 fi
-#$HOMEDIR/recoversubscripts/split_recover $HOMEDIR $input_recover_file $output_dir
+$HOMEDIR/recoversubscripts/split_recover $HOMEDIR $input_recover_file $output_dir
 new_recover_file="$kernel_dir/$(echo "$NEWIMG" | sed -r 's/.image//' | sed -r 's/fw_//' | sed -r 's/C_//').exe"
 #new_recover_file="$kernel_dir/Speedport_W${SPNUM}V.recover-image.exe"
 echo
