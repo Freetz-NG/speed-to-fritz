@@ -202,9 +202,9 @@ config AVM_7240_76
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7240/firmware/deutsch/FRITZ.Box_Fon_WLAN_7240.73.04.76.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7240/firmware/deutsch/FRITZ.Box_Fon_WLAN_7240.73.04.76.image"
 
-config AVM_PHONE_7240_15437
+config AVM_PHONE_7240_15195
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7240_vorschau_release_candidate/7240-fritz_box_labor_15437.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7240.Labor.73.04.78-15437.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7240/fritz_box-labor-7240-15195.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7240_LabPHONE.AnnexB.73.04.97-15195.image"
 ###------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM 7270 Firmware
 
@@ -288,13 +288,13 @@ config AVM_DSL_7270_15335
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-15335.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabDSL.AnnexB.54.04.99-15335.image"
 
-config AVM_PHONE_7270_15437
+config AVM_PHONE_7270_15195
    string
-   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/7270-fritz_box-labor-15437.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.78-15437.image"
+   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7270/fritz_box-labor-7270-15195.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabPHONE.AnnexB.54.04.97-15195.image"
 ###
-config AVM_PHONE_7270_V3_15437
+config AVM_PHONE_7270_V3_15195
    string
-   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritz_box-labor-7270v3-15437.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3.Labor.74.04.78-15437.image"
+   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7270/fritz_box-labor-7270v3-15195.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabPHONE.AnnexB.74.04.97-15075.image"
 
 config AVM_CORE_7270_15220
    string
@@ -754,8 +754,8 @@ choice
 		help
 			FRITZ! release: 76
 
-	config TYPE_7240_PHONE_15437
-		bool "AVM_7240_PHONE_15437 LabPHONE_73.04.78-15437 (PRE)"
+	config TYPE_7240_PHONE_15195
+		bool "AVM_7240_PHONE_15195 LabPHONE_73.04.97-15195 (MT-D)"
 		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
@@ -903,16 +903,16 @@ choice
 #			and fixes various software problems, e.g. answering machine and
 #			facsimile reception.
 
-	config TYPE_7270_PHONE_15437
-		bool "AVM_7270_PHONE_15437 LabPHONE_54.04.78-15437 (PRE)"
+	config TYPE_7270_PHONE_15195
+		bool "AVM_7270_PHONE_15195 LabPHONE_54.04.97-15195 (MT-D)"
 		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
 			and fixes various software problems, e.g. answering machine and
 			facsimile reception.
 
-	config TYPE_7270_V3_PHONE_15437
-		bool "AVM_7270_V3_PHONE_15437 7270v3 54.04.78-15437 (PRE)"
+	config TYPE_7270_V3_PHONE_15195
+		bool "AVM_7270_V3_PHONE_15195 7270v3 54.04.97-15195 (MT-D)"
 		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
@@ -1166,8 +1166,8 @@ choice
 	config TYPE_SRC3_AVM_7240_76
 		bool "AVM_7240_76 73.04.76"
 
-	config TYPE_SRC3_AVM_PHONE_7240_15437
-		bool "AVM_7240_15437 LabPHONE_73.04.97-15437 (AiO)"
+	config TYPE_SRC3_AVM_PHONE_7240_15195
+		bool "AVM_7240_15195 LabPHONE_73.04.97-15195 (MT-D)"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7270 Firmware
 
@@ -1234,11 +1234,11 @@ choice
 #	config TYPE_SRC3_AVM_PHONE_7270_14712
 #		bool "AVM_PHONE_7270_14712"
 
-	config TYPE_SRC3_AVM_PHONE_7270_15437
-		bool "AVM_7270_PHONE_15437 54.04.78-15437 Phone (PRE)"
+	config TYPE_SRC3_AVM_PHONE_7270_15195
+		bool "AVM_7270_PHONE_15195 54.04.97-15195 Phone (MT-D)"
 
-	config TYPE_SRC3_AVM_PHONE_7270_V3_15437
-		bool "AVM_7270_V3_PHONE_15437 54.04.78-15437 Phone (PRE)"
+	config TYPE_SRC3_AVM_PHONE_7270_V3_15195
+		bool "AVM_7270_V3_PHONE_15195 54.04.97-15195 Phone (MT-D)"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 Firmware
 
@@ -1452,9 +1452,9 @@ config AVM_IMG
 #	default "$AVM_IPV6_7270_14621"			if ( TYPE_7270_IPV6_14621 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_IPV6_7270_15316"			if ( TYPE_7270_IPV6_15316 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_IPV6_7270_V3_15316"		if ( TYPE_7270_V3_IPV6_15316 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_PHONE_7240_15437"			if ( TYPE_7240_PHONE_15437 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_PHONE_7270_15437"			if ( TYPE_7270_PHONE_15437 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_PHONE_7270_V3_15437"		if ( TYPE_7270_V3_PHONE_15437 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_PHONE_7240_15195"			if ( TYPE_7240_PHONE_15195 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_PHONE_7270_15195"			if ( TYPE_7270_PHONE_15195 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_PHONE_7270_V3_15195"		if ( TYPE_7270_V3_PHONE_15195 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 #	default "$AVM_PHONE_7270_14712"			if ( TYPE_7270_PHONE_14712 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 #	default "$AVM_UMTS_7270_13265"			if ( TYPE_7270_UMTS_13265 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 #	default "$AVM_MINI_7270_67"			if ( TYPE_7270_MINI_67 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
@@ -1525,9 +1525,9 @@ config SRC2_IMG
 	default "$AVM_IPV6_7270_15316"		if TYPE_SRC3_AVM_IPV6_7270_15316
 	default "$AVM_DSL_7270_15335"		if TYPE_SRC3_AVM_DSL_7270_15335
 #	default "$AVM_PHONE_7270_14712"		if TYPE_SRC3_AVM_PHONE_7270_14712
-	default "$AVM_PHONE_7240_15437"		if TYPE_SRC3_AVM_PHONE_7240_15437
-	default "$AVM_PHONE_7270_15437"		if TYPE_SRC3_AVM_PHONE_7270_15437
-	default "$AVM_PHONE_7270_V3_15437"	if TYPE_SRC3_AVM_PHONE_7270_V3_15437
+	default "$AVM_PHONE_7240_15195"		if TYPE_SRC3_AVM_PHONE_7240_15195
+	default "$AVM_PHONE_7270_15195"		if TYPE_SRC3_AVM_PHONE_7270_15195
+	default "$AVM_PHONE_7270_V3_15195"	if TYPE_SRC3_AVM_PHONE_7270_V3_15195
 #	default "$AVM_UMTS_7270_13265"		if TYPE_SRC3_AVM_UMTS_7270_13265
 #	default "$AVM_MINI_7270_67"		if TYPE_SRC3_AVM_MINI_7270_67
 	default "$AVM_7570_70" 			if TYPE_SRC3_AVM_7570_70
@@ -1585,7 +1585,7 @@ config TYPE_LABOR_TYPE
         default "13486" 	if TYPE_7270_13486
         default "DSL" 		if TYPE_7270_DSL_15335 || TYPE_7170_DSL_14119
         default "GAMING" 	if TYPE_7270_GAMING || TYPE_7170_GAMING_11435
-        default "PHONE" 	if TYPE_7240_PHONE_15437 || TYPE_7270_PHONE_15437 || TYPE_7270_PHONE_V3_15437 || TYPE_7170_PHONE
+        default "PHONE" 	if TYPE_7240_PHONE_15195 || TYPE_7270_PHONE_15195 || TYPE_7270_PHONE_V3_15195 || TYPE_7170_PHONE
         default "WLAN" 		if TYPE_7270_WLAN_14080 || TYPE_7170_WLAN
         default "IPV6" 		if TYPE_7270_IPV6 || TYPE_7170_IPV6
         default "UMTS" 		if TYPE_7270_UMTS_13265 || TYPE_7170_UMTS
@@ -1652,7 +1652,7 @@ config SET_OEM
 	    (avm, avme, tcom, 1und1, aol, freenet)
 	    In case of option ORI branding will always set to T-Home later through the script.
 
-config EXPORT_OEM
+config EXPORT_OEMu
 	string "Branding (OEM)"
 	depends on SET_OEM
 	help
@@ -1685,7 +1685,17 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	bool "Push firmware to box via FTP"
 	default y
 	help
-		Do an automatic upload after firmware is patched.
+		Do an automatic upload after firmware is patched. 
+ config EXPORT_BUILDRECOVER
+	bool "Build Recover firmware"
+	default y
+	help
+		This reconcates a AVM Recover firmware with changed kernel.image.
+		Not in every case the size of the new kernel.image will fit.
+		In some cases therfore no Recover Firmware will be genareted.
+		Resulting windows executabel can be usesd in the same way as 
+		original Recover.
+		
  config EXPORT_ADD_OLD_DECTMENU
 	bool "DECT menu (add)"
 	depends on TYPE_SPEEDPORT_W900V || TYPE_SINUS_W500V  || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL

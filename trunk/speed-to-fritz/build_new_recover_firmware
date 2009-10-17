@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "--------------------------------------------------------------------------------------------"
+echo "--------------------------------------------------------------------------------"
 HOMEDIR=$(pwd)
 export FWORIGDIR="Firmware.orig"
 export FWBASE="$HOMEDIR/$FWORIGDIR"
@@ -53,9 +53,7 @@ fi
 $HOMEDIR/recoversubscripts/split_recover $HOMEDIR $input_recover_file $output_dir
 new_recover_file="$kernel_dir/$(echo "$NEWIMG" | sed -r 's/.image//' | sed -r 's/fw_//' | sed -r 's/C_//').exe"
 #new_recover_file="$kernel_dir/Speedport_W${SPNUM}V.recover-image.exe"
-echo
-echo
-echo "--------------------------------------------------------------------------------------------"
+echo "--------------------------------------------------------------------------------"
 if [ "${SPNUM}" != "7570" ]; then
  sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Speedp. W${SPNUM}V|g" "$output_dir/exe_end"
  sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Speedp. W${SPNUM}V|g" "$output_dir/recover.exe"
@@ -90,10 +88,10 @@ rplbytes="c4 0c 85 c0 eb 4a"
 act_size=`ls -l "$output_dir/kernel.image" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 new_act_size=`ls -l "$kernel_dir/kernel.image" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 act_diff=$((act_size - new_act_size))
-echo "original size= $act_size, new size= $new_act_size, difference= $act_diff" 
+#echo "original size= $act_size, new size= $new_act_size, difference= $act_diff" 
 error_size=$((new_act_size - act_size))
 [ $act_size -lt $new_act_size ] && echo "ERROR!! New kernel.image does not fit into recover firmware!" && checkerror="y"
-dd if=/dev/zero bs=1 count=$act_diff >$output_dir/zerro.image
+dd if=/dev/zero bs=1 count=$act_diff >$output_dir/zerro.image 2> /dev/null
 #echo "concat all parts ..."
 cat $output_dir/recover.exe >$new_recover_file
 cat $kernel_dir/kernel.image >>$new_recover_file
@@ -101,15 +99,13 @@ cat $output_dir/zerro.image >>$new_recover_file
 cat $output_dir/exe_mid >>$new_recover_file
 cat $output_dir/urlader.image >>$new_recover_file
 cat $output_dir/exe_end >>$new_recover_file
-
 if  ! `cat "$new_recover_file" | grep -q "FRITZ!Box Speedp. W${SPNUM}V"`; then
- echo "-- Text not changed to; FRITZ!Box Speedp. W${SPNUM}V"
+ echo "-- Text not changed to: FRITZ!Box Speedp. W${SPNUM}V"
 fi
 chmod -x $new_recover_file
 act_size=`ls -l "$input_recover_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 new_act_size=`ls -l "$new_recover_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
-echo "actual size= $act_size,  new actual size= $new_act_size" 
-echo
+#echo "actual size= $act_size,  new actual size= $new_act_size" 
 [ $act_size -eq $new_act_size ] || echo "ERROR! Reduce size of kernel.image by: $error_size" 
 [ $act_size -eq $new_act_size ] && echo "New Recover: $new_recover_file" 
 if [ "$checkerror" == "y" ]; then
@@ -117,6 +113,7 @@ if [ "$checkerror" == "y" ]; then
     echo "No Recover image was built!"
     echo
 fi
+[ "$BUILDRECOVER" = "y" ] && exit 0
 echo "All done, Press 'ENTER' to finish"
 while !(read -s);do
 	sleep 1

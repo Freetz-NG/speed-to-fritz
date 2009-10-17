@@ -1137,6 +1137,8 @@ if [ "$SET_UP" = "n" ]; then
  #wrap all up again
  fw_pack "$SPDIR" "${NEWDIR}" "${NEWIMG}"
  . $inc_DIR/testerror
+ # build recover
+ [ "$BUILDRECOVER" = "y" ] && $HOMEDIR/build_new_recover_firmware
 	echo "********************************************************************************"
  if [ "$PUSHCONF" = "y" ]; then
 	echo "Flashing firmware image $NEWDIR/kernel.image..."

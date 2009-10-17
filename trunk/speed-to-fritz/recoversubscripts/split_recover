@@ -1,7 +1,7 @@
 #!/bin/bash
 abs_split_header="`find -name split_header`"
 . $abs_split_header
-echo "New output directory: $output_dir1"
+#echo "New output directory: $output_dir1"
 #echo "New output file: $new_output_file"
 new_output_file="new_$output_dir1.exe"
 output_dir="$mod_base/$output_dir1"
@@ -33,7 +33,6 @@ new_act_size=`ls -l "$output_dir/$new_output_file" | sed -e 's/[^0-9]/#/g' | sed
 rm $output_dir/$new_output_file
 
 echo "actual size= $act_size,  new actual size= $new_act_size" 
-echo
 [ $act_size -eq $new_act_size ] || echo "ERROR!!" 
 
 
