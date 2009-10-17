@@ -29,8 +29,7 @@ output_file="$output_dir/exe_mid"
 echo " exe_mid, start @ $offs, end @ $act_size "
 dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$offs count=$msize 2> /dev/null
 echo -n "Firmware version: "
-dd if="$output_file" bs=1 count=16 2> /dev/null
-echo
+dd if="$output_file" bs=1 count=16  2> /dev/null | tr -d '[:alpha:]' echo
 }
 extract_exe_end()
 {
@@ -84,7 +83,7 @@ output_file="$output_dir/exe_mid"
 echo " exe_mid, start @ $kernel_end, length: $psize, end @ $bootloder_offs "
 dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$kernel_end count=$psize 2> /dev/null
 echo -n "Firmware version: "
-dd if="$output_file" bs=1 count=16 2> /dev/null
+dd if="$output_file" bs=1 count=16  2> /dev/null | tr -d '[:alpha:]' | sed 's/-\.//' | sed 's/-//' 
 echo
 }
 # Extracts kernel.image candidates from input file, based on kernel and

@@ -710,7 +710,7 @@ case "$1" in
 	;;
 "7270v3")
 	export CLASS=""
-	export SPNUM=""
+	export SPNUM="7270"
 	export PROD="7270plus" 
 	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
 	[ "$NEWNAME" == "" ] && export NEWNAME="FRITZ!Box Fon WLAN 7270 v3"
@@ -757,7 +757,7 @@ case "$1" in
 "7240v2")
 	export SPMOD="$1"
 	export CLASS=""
-	export SPNUM=""
+	export SPNUM="7240"
 	export PROD="7240"
 	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
 	[ "$NEWNAME" == "" ] && export NEWNAME="FRITZ!Box Fon WLAN 7240"
@@ -805,7 +805,7 @@ case "$1" in
 "7141")
 	export SPMOD="$1"
 	export CLASS=""
-	export SPNUM=""
+	export SPNUM="7141"
 	export PROD="7141"
 	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
 	[ "$NEWNAME" == "" ] && export NEWNAME="FRITZ!Box Fon WLAN 7141"
@@ -846,7 +846,7 @@ case "$1" in
 *)
 	export SPMOD="$1"
 	export CLASS=""
-	export SPNUM=""
+	export SPNUM="$1"
 	export PROD="$1" 
 	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
 	[ "$FBMOD" == "" ] && export FBMOD="$1"

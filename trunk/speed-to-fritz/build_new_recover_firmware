@@ -55,11 +55,10 @@ new_recover_file="$kernel_dir/$(echo "$NEWIMG" | sed -r 's/.image//' | sed -r 's
 #new_recover_file="$kernel_dir/Speedport_W${SPNUM}V.recover-image.exe"
 echo "--------------------------------------------------------------------------------"
 if [ "${SPNUM}" != "7570" ]; then
- sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Speedp. W${SPNUM}V|g" "$output_dir/exe_end"
- sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Speedp. W${SPNUM}V|g" "$output_dir/recover.exe"
- sed -i -e "s|FRITZ!Box Fon WLAN 7270|FRITZ!Box Speedp. W${SPNUM}V|g" "$output_dir/recover.exe"
+ sed -i -e "s|FRITZ!Box Fon WLAN ${FBMOD}|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_end"
+ sed -i -e "s|FRITZ!Box Fon WLAN ${FBMOD}|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/recover.exe"
 else
- sed -i -e "s|FRITZ!Box Fon WLAN 7270|FRITZ!Box Fon WLAN 7570|g" "$output_dir/recover.exe"
+ sed -i -e "s|FRITZ!Box Fon WLAN ${FBMOD}|FRITZ!Box Fon WLAN ${SPNUM:0:4}|g" "$output_dir/recover.exe"
 fi
 #0x1a249
 sed -i -e 's|\x0F\x85\xFA\x01\x00\x00\x8D\x85|\x90\x90\x90\x90\x90\x90\x8D\x85|' "$output_dir/recover.exe"
@@ -99,8 +98,8 @@ cat $output_dir/zerro.image >>$new_recover_file
 cat $output_dir/exe_mid >>$new_recover_file
 cat $output_dir/urlader.image >>$new_recover_file
 cat $output_dir/exe_end >>$new_recover_file
-if  ! `cat "$new_recover_file" | grep -q "FRITZ!Box Speedp. W${SPNUM}V"`; then
- echo "-- Text not changed to: FRITZ!Box Speedp. W${SPNUM}V"
+if  ! `cat "$new_recover_file" | grep -q "FRITZ!Box Speedp. W${SPNUM:0:3}V"`; then
+ echo "-- Text not changed to: FRITZ!Box Speedp. W${SPNUM:0:3}V"
 fi
 chmod -x $new_recover_file
 act_size=`ls -l "$input_recover_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
