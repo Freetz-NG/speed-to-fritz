@@ -7,7 +7,7 @@ new_output_file="new_$output_dir1.exe"
 output_dir="$mod_base/$output_dir1"
 mkdir -p "$output_dir"
 #---------------------------------------------
-extract_exe
+extract_exe_start
 extract_kernel_plus_mid
 #extract_kernel_image
 #extract_exe_mid
@@ -19,7 +19,7 @@ extract_exe_end
 #echo
 #echo "Concat all parts to one for chacking"
 
-cat $output_dir/recover.exe >$output_dir/$new_output_file
+cat $output_dir/exe_start >$output_dir/$new_output_file
 cat $output_dir/kernel.image >>$output_dir/$new_output_file
 cat $output_dir/exe_mid >>$output_dir/$new_output_file
 cat $output_dir/urlader.image >>$output_dir/$new_output_file

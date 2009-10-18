@@ -7,15 +7,15 @@ hex2dec()
 # probably do not know it.
 echo "$1" | gawk '{ printf "%d\n", strtonum("0x" $4 $3 $2 $1) }'
 }
-extract_exe()
+extract_exe_start()
 {
-echo -e "Extracting executeabel endpart ..."
+echo -e "Extracting executabel first part ..."
 n=1
 kernel_lines="$(tools/hexgrep "$KERNEL_MAGIC" "$input_file")"
 exe_length=($(echo "$kernel_lines" | sed 's/:.*//'))
 
-output_file="$output_dir/recover.exe"
-echo " recover.exe, start @ 0, length: $exe_length"
+output_file="$output_dir/exe_start"
+echo " exe_start, start @ 0, length: $exe_length"
 dd if="$input_file" of="$output_file" ibs=1 obs=8192 count=$exe_length 2> /dev/null
 }
 extract_exe_mid()
@@ -33,7 +33,7 @@ dd if="$output_file" bs=1 count=16  2> /dev/null | tr -d '[:alpha:]' echo
 }
 extract_exe_end()
 {
-echo -e "Extracting executeabel endpart ..."
+echo -e "Extracting executabel end part ..."
 n=1
 act_size=`ls -l "$input_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 offs="$(tools/hexgrep "$BOOTLOADER_MAGIC" "$input_file" | sed 's/:.*//')"
