@@ -87,9 +87,13 @@ rplbytes="c4 0c 85 c0 eb 4a"
 act_size=`ls -l "$output_dir/kernel.image" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 new_act_size=`ls -l "$kernel_dir/kernel.image" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 act_diff=$((act_size - new_act_size))
-#echo "original size= $act_size, new size= $new_act_size, difference= $act_diff" 
+#echo "original size= $act_size, new size= $new_act_size, difference= $act_diff"
 error_size=$((new_act_size - act_size))
-[ $act_size -lt $new_act_size ] && echo "ERROR!! New kernel.image does not fit into recover firmware!" && checkerror="y"
+[ -n "$kernel_size" ] && [ "$act_size" -lt "$kernel_size" ] && kernel_diff_size=$((kernel_size - act_size))
+if [ $act_size -lt $new_act_size ]; then
+    echo "ERROR!! New kernel.image does not fit into recover firmware." && checkerror="y"
+    [ -n "$kernel_size" ] && [ "$kernel_diff_size" -gt 0 ] && echo  "Space within the recover firmware is smaller as in the flash by: $kernel_diff_size Bytes."
+fi
 dd if=/dev/zero bs=1 count=$act_diff >$output_dir/zerro.image 2> /dev/null
 #echo "concat all parts ..."
 cat $output_dir/exe_start >$new_recover_file
@@ -105,7 +109,7 @@ chmod -x $new_recover_file
 act_size=`ls -l "$input_recover_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 new_act_size=`ls -l "$new_recover_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 #echo "actual size= $act_size,  new actual size= $new_act_size" 
-[ $act_size -eq $new_act_size ] || echo "ERROR! Reduce size of kernel.image by: $error_size" 
+[ $act_size -eq $new_act_size ] || echo "ERROR! Reduce size of kernel.image by: $error_size Bytes." 
 [ $act_size -eq $new_act_size ] && echo "New Recover: $new_recover_file" 
 if [ "$checkerror" == "y" ]; then
     rm "$new_recover_file"

@@ -48,6 +48,7 @@ echo "export REUSECONF=\"${REUSECONF}\"" >> incl_var
 echo "export FREETZREVISION=\"${FREETZREVISION}\"" >> incl_var
 echo "export SET_UP=\"${SET_UP}\"" >> incl_var
 echo "export PUSHCONF=\"${PUSHCONF}\"" >> incl_var
+echo "export kernel_size=\"${kernel_size}\"" >> incl_var
 
 sed -i -e "s|${HOMEDIR}|\${HOMEDIR}|" incl_var
 
