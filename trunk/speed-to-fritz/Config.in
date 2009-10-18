@@ -912,7 +912,7 @@ choice
 #			(Internet Protocol Version 6) and 6to4 tunnels.
 
 	config TYPE_7270_PRE_15437
-		bool "AVM_7270_PRE_15437 73.04.78-15437 (BETA)"
+		bool "AVM_7270_PRE_15437 54.04.78-15437 (BETA)"
 		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab Prerelease:
@@ -1189,6 +1189,9 @@ choice
 	config TYPE_SRC3_AVM_PHONE_7240_15195
 		bool "AVM_7240_15195 LabPHONE_73.04.97-15195 (MT-D)"
 
+	config TYPE_SRC3_AVM_PRE_7240_15437
+		bool "AVM_7240_PRE_15437 54.04.78-15437 Prerelease"
+
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7270 Firmware
 
@@ -1258,8 +1261,8 @@ choice
 	config TYPE_SRC3_AVM_PHONE_7270_V3_15195
 		bool "AVM_7270_V3_PHONE_15195 74.04.97-15195 Phone (MT-D)"
 
-	config TYPE_SRC3_AVM_PRE_7240_15437
-		bool "AVM_PRE_7240_15437 54.04.78-15437 Prerelease"
+	config TYPE_SRC3_AVM_PRE_7270_15437
+		bool "AVM_7270_PRE_15437 54.04.78-15437 Prerelease"
 
 	config TYPE_SRC3_AVM_PRE_7270_V3_15437
 		bool "AVM_7270_V3_PRE_15437 74.04.78-15437 Prerelease"
