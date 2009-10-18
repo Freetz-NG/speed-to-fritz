@@ -299,11 +299,11 @@ config AVM_DSL_7270_15335
 
 config AVM_PHONE_7270_15195
    string
-   default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabPHONE.AnnexB.54.04.97-15195.image"
+   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7270/fritz_box-labor-7270-15195.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabPHONE.AnnexB.54.04.97-15195.image"
 ###
 config AVM_PHONE_7270_V3_15195
    string
-   default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabPHONE.AnnexB.74.04.97-15075.image"
+   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7270/fritz_box-labor-7270v3-15195.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabPHONE.AnnexB.74.04.97-15195.image"
 
 config AVM_CORE_7270_15220
    string
