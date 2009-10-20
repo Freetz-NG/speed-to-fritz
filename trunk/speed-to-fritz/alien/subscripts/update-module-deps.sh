@@ -2,7 +2,7 @@
 
 if [ -x /sbin/depmod ]; then
 	echo "-- Updating module dependency informations"
-	/sbin/depmod -b "$1" "$2"
+	/sbin/depmod -b "$1" "$2" 2> /dev/null
 sed -i -e "s|kernel/|/lib/modules/$2/kernel/|" "${1}/lib/modules/$2/modules.dep"
 sed -i -e "s| kernel/| /lib/modules/$2/kernel/|" "${1}/lib/modules/$2/modules.dep"
 rm -f "${1}/lib/modules/$2/modules.dep.bin"
