@@ -1720,7 +1720,7 @@ config SET_OEM
 	    (avm, avme, tcom, 1und1, aol, freenet)
 	    In case of option ORI branding will always set to T-Home later through the script.
 
-config EXPORT_OEMu
+config EXPORT_OEM
 	string "Branding (OEM)"
 	depends on SET_OEM
 	help
@@ -1756,6 +1756,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		Do an automatic upload after firmware is patched. 
  config EXPORT_BUILDRECOVER
 	bool "Build Recover firmware"
+	depends on ! ORI
 	default y
 	help
 		This reconcates a AVM Recover firmware with changed kernel.image.

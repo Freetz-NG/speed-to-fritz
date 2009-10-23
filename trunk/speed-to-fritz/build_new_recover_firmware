@@ -10,8 +10,14 @@ SPNUM="900"
 NEWIMG="fw_C_Speedport_900_34.04.57-0_Fritz_Box_DECT_W900V_29.04.76-0-sp2fr-09.10.14-r-593M-946_OEM-avm_de.image"
 #above settings are not in use if ./incl_var is included
 . ./incl_var
+if [ "$ORI" == "y" ]; then
+    echo "Option 'Restore original' was selectet, use the original AVM Recover instead!"
+    sleep 5
+    exit 0
+fi
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
+RECOVERIMG7140="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/x_misc/english/annex_b/FRITZ.Box_Fon_WLAN_7140.AnnexB.en.04.67.recover-image.exe"
 RECOVERIMG7141="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7141/x_misc/deutsch/fritz.box_fon_wlan_7141.04.76.recover-image.exe"
 RECOVERIMG7113="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7113.04.67.recover-image.exe"
 RECOVERIMG7150="ftp://ftp.avm.de/fritz.box/fritzfon.7150/x_misc/FRITZ.Fon_7150.AnnexB.04.71.recover-image.exe"
@@ -19,14 +25,18 @@ RECOVERIMG7170="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/x_misc/deutsch
 RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/english/FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it-fr.04.76.recover-image.exe"
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
+#for W501
+[ "${FBMOD}" == "7140" ] && R_IMG="$RECOVERIMG7140"
 #for all newer 4mb boxes
-[ "${FBMOD}" == "7140" ] && R_IMG="$RECOVERIMG7141"
+[ "${FBMOD}" == "7141" ] && R_IMG="$RECOVERIMG7141"
 #for a Sinus500 
 [ "${FBMOD}" == "7150" ] && R_IMG="$RECOVERIMG7150"
 #for all newer 8mb boxes
 [ "${FBMOD}" == "7170" ] && R_IMG="$RECOVERIMG7170"
 #for all 16MB boxes
 [ "${FBMOD}" == "7270" ] && R_IMG="$RECOVERIMG7270"
+#for all 16MB boxes
+[ "${FBMOD}" == "7570" ] && R_IMG="$RECOVERIMG7270"
 #-------------------------------------------------------------------------------------------------
 input_recover_file="$FWBASE/$(echo $R_IMG | sed -e "s/.*\///")"
 #echo "R_IMG: $R_IMG"
