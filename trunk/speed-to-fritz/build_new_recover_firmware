@@ -17,26 +17,29 @@ if [ "$ORI" == "y" ]; then
 fi
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
+RECOVERIMG7113="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7113.04.67.recover-image.exe"
+#RECOVERIMG7140="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/x_misc/deutsch/fritz.box_fon_wlan_7140.annexb.04.33.recover-image.exe"
 RECOVERIMG7140="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/x_misc/english/annex_b/FRITZ.Box_Fon_WLAN_7140.AnnexB.en.04.67.recover-image.exe"
 RECOVERIMG7141="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7141/x_misc/deutsch/fritz.box_fon_wlan_7141.04.76.recover-image.exe"
-RECOVERIMG7113="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7113.04.67.recover-image.exe"
 RECOVERIMG7150="ftp://ftp.avm.de/fritz.box/fritzfon.7150/x_misc/FRITZ.Fon_7150.AnnexB.04.71.recover-image.exe"
 RECOVERIMG7170="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7170.04.76.recover-image.exe"
 RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/english/FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it-fr.04.76.recover-image.exe"
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
-#for W501
+[ "${FBMOD}" == "7113" ] && R_IMG="$RECOVERIMG7113"
 [ "${FBMOD}" == "7140" ] && R_IMG="$RECOVERIMG7140"
-#for all newer 4mb boxes
 [ "${FBMOD}" == "7141" ] && R_IMG="$RECOVERIMG7141"
-#for a Sinus500 
 [ "${FBMOD}" == "7150" ] && R_IMG="$RECOVERIMG7150"
 #for all newer 8mb boxes
 [ "${FBMOD}" == "7170" ] && R_IMG="$RECOVERIMG7170"
 #for all 16MB boxes
 [ "${FBMOD}" == "7270" ] && R_IMG="$RECOVERIMG7270"
-#for all 16MB boxes
+#for 7570
 [ "${FBMOD}" == "7570" ] && R_IMG="$RECOVERIMG7270"
+#for W501
+[ "${SPNUM}" == "501" ] && R_IMG="$RECOVERIMG7170"
+#for a Sinus500 
+[ "${SPNUM}" == "500" ] && R_IMG="$RECOVERIMG7170"
 #-------------------------------------------------------------------------------------------------
 input_recover_file="$FWBASE/$(echo $R_IMG | sed -e "s/.*\///")"
 #echo "R_IMG: $R_IMG"
@@ -70,6 +73,8 @@ if [ "${SPNUM}" != "7570" ]; then
 else
  sed -i -e "s|FRITZ!Box Fon WLAN ${FBMOD}|FRITZ!Box Fon WLAN ${SPNUM:0:4}|g" "$output_dir/exe_start"
 fi
+[ "${SPNUM}" == "501" ] && sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_start"
+[ "${SPNUM}" == "500" ] && sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box    Sinus ${SPNUM:0:3} |g" "$output_dir/exe_start"
 #0x1a249
 sed -i -e 's|\x0F\x85\xFA\x01\x00\x00\x8D\x85|\x90\x90\x90\x90\x90\x90\x8D\x85|' "$output_dir/exe_start"
 #0x1a25e
@@ -79,21 +84,36 @@ sed -i -e 's|\x74\x59\x83\xFF\xFF\x89\xBD|\xEB\x59\x83\xFF\xFF\x89\xBD|' "$outpu
 #0x18520
 sed -i -e 's|\xC4\x0C\x85\xC0\x74\x4A|\xC4\x0C\x85\xC0\xEB\x4A|' "$output_dir/exe_start"
 #0x1a310
-#sed -i -e 's|\x73\x06\x89\x1D\x50\xB6\x8F\x00|\x73\x00\x90\x90\x50\xB6\x8F\x00|' "$output_dir/exe_start"
+sed -i -e 's|\x73\x06\x89\x1D\x50\xB6\x8F\x00|\x73\x00\x90\x90\x50\xB6\x8F\x00|' "$output_dir/exe_start"
 #0x1a308
-#sed -i -e 's|\x72\x0E\x81\xFF\xE8\x03\x00\x00|\x72\x08\x81\xFF\xE8\x03\x00\x00|' "$output_dir/exe_start"
+sed -i -e 's|\x72\x0E\x81\xFF\xE8\x03\x00\x00|\x72\x08\x81\xFF\xE8\x03\x00\x00|' "$output_dir/exe_start"
+#0x1a5f0
+#Check Kernel size
+#0x1846D
+sed -i -e 's|\x77\x48\x8D\x85\x08|\xEB\x48\x8D\x85\x08|' "$output_dir/exe_start"
+#0x184C1
+sed -i -e 's|\x73\x4A\x8D\x95\x08\xFC\xFF|\xEB\x4A\x8D\x95\x08\xFC\xFF|' "$output_dir/exe_start"
+#0x1a5f0 .26 firmware
+#sed -i -e 's|\x73\x4A\x8D\x95\x1C\xFC\xFF\xFF\x52\x51\x50\x68\x4C\x61\x90\x00|\xEB\x4A\x8D\x95\x1C\xFC\xFF\xFF\x52\x51\x50\x68\x4C\x61\x90\x00|' "./$output_dir/exe_start"
 rplbytes="90 90 90 90 90 90 8d 85"
 [ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- Firmware version check remove error!" && checkerror="y"
 rplbytes="90 90 90 90 90 90 39 9d"
 [ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- OEM check remove error" && checkerror="y"
 rplbytes="eb 59 83 ff ff 89 bd"
 [ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- Kernel check remove error" && checkerror="y"
-rplbytes="c4 0c 85 c0 eb 4a"
-[ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- CRC check remove error" && checkerror="y"
+#rplbytes="c4 0c 85 c0 eb 4a"
+#[ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- CRC check remove error" && checkerror="y"
 #rplbytes="73 00 90 90 50 b6 8f 00"
 #[ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- Urloader update remove error" && checkerror="y"
-#rplbytes="72 08 81 ff e8 03 00 00"
-#[ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- Urloader2 update remove error!" && checkerror="y"
+rplbytes="72 08 81 ff e8 03 00 00"
+[ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- Urloader2 update remove error!" && checkerror="y"
+rplbytes="eb 4a 8d 95 1c fc ff ff 52 51 50 68 4c 61 90 00"
+#[ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- Check kernel size remove error!" && checkerror="y"
+rplbytes="eb 4a 8d 95 08 fc ff"
+[ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- Check kernel size remove error!" && checkerror="y"
+rplbytes="eb 48 8d 85 08"
+[ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- Check2 kernel size remove error!" && checkerror="y"
+
 act_size=`ls -l "$output_dir/kernel.image" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 new_act_size=`ls -l "$kernel_dir/kernel.image" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 act_diff=$((act_size - new_act_size))
