@@ -1729,6 +1729,14 @@ config EXPORT_OEM
 	    (avm, avme, tcom, 1und1, aol, freenet)
 	    In case of option ORI branding will always set to T-Home later through the script.
 
+    config FORCE_VDSL
+	bool "Force VDSL"
+	depends on TYPE_9207570
+	default n
+	help
+		Dont do any change for ADSL to the firmware.
+		ADSL or Annex A PPPoA users usuly shuld not use this setting.
+
 comment "Optional settings for Speed-to-fritz -------------------------------"
 
 menu "Options"
@@ -2254,28 +2262,30 @@ if ! EXPORT_ATA_ONLY
 
     config FORCE_VLAN7
 	bool "Force VLAN7 and tcom ar7.cfg"
-	depends on TYPE_SPEEDPORT_W721V
+	depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W721V )  && FORCE_VDSL
 	default y
 	help
 		Use tcom ar7.cfg and set VLAN7 to yes, password is 0000 and Router IP is 192.168.2.1.
 
+
+
     config FORCE_VINAX_DRV
 	bool "Force PPPoA compatibel vinax driver"
-	depends on TYPE_9207570
+	depends on TYPE_9207570 && ! FORCE_VDSL
 	default y
 	help
 		Use own drv_vinax.co from bulid 15216.
 
     config FORCE_KDSLD_DRV
 	bool "Force PPPoA compatibel kdsld driver"
-	depends on TYPE_9207570
+	depends on TYPE_9207570 && ! FORCE_VDSL
 	default y
 	help
 		Use own drv_vinax.co from bulid 15216.
 
     config WRAP_DSLD
 	bool "Wrap DSLD"
-	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V
+	depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W721V )  && ! FORCE_VDSL
 	default n
 	help
 		wrap DSLD, ...
