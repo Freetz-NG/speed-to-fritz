@@ -62,7 +62,7 @@ output_dir="$(basename "$input_recover_file" | sed -r 's/(.*)\.[^\.]*/\1/')"
 mkdir -p "$output_dir"
 #$HOMEDIR/recoversubscripts/split_image $HOMEDIR $NEWIMG $kernel_dir
 ## the same as split_image but with tar
-$HOMEDIR/recoversubscripts/extract_kernel.image $HOMEDIR $NEWIMG $kernel_dir
+[ "$BUILDRECOVER" = "y" ] || $HOMEDIR/recoversubscripts/extract_kernel.image $HOMEDIR $NEWIMG $kernel_dir
 if ! [ -f "$kernel_dir/kernel.image" ];then
     echo "New kernel.image is missing!"
     sleep 20
@@ -150,7 +150,15 @@ act_size=`ls -l "$input_recover_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-
 new_act_size=`ls -l "$new_recover_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 #echo "actual size= $act_size,  new actual size= $new_act_size" 
 [ $act_size -eq $new_act_size ] || echo "ERROR! Reduce size of kernel.image by: $error_size Bytes." 
-[ $act_size -eq $new_act_size ] && echo "New Recover: $new_recover_file" 
+[ $act_size -eq $new_act_size ] && echo -e "New Recover:\n$new_recover_file\n\
+Transfer this file to windows and start it to push the new firmware to your router.\n\
+This is the 3rd method to update Firmware, in most cases this will be the most \n\
+reliable way to do a firmware update.\n\
+The fastest way is to use the speed-to-fritz LINUX FTP push option.\n\
+Update via Web interface is preferable in some cases, if settings should be\n\
+restored or push FTP transfer did not work because PC network settings ware wrong.\n\
+As alternative you may as well use the ruKernelTool but this tool is not jet \n\
+publicly available."
 if [ "$checkerror" == "y" ]; then
     rm "$new_recover_file"
     echo "No Recover image was built!"
