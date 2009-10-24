@@ -16,7 +16,8 @@ exe_length=($(echo "$kernel_lines" | sed 's/:.*//'))
 
 output_file="$output_dir/exe_start"
 echo " exe_start, start @ 0, length: $exe_length"
-dd if="$input_file" of="$output_file" ibs=1 obs=8192 count=$exe_length 2> /dev/null
+#dd if="$input_file" of="$output_file" ibs=1 obs=8192 count=$exe_length 2> /dev/null
+dd if="$input_file" of="$output_file" ibs=$exe_length obs=8192 count=1 2> /dev/null
 }
 extract_exe_mid()
 {
@@ -27,7 +28,8 @@ msize="53"
 offs=$((act_size - msize))
 output_file="$output_dir/exe_mid"
 echo " exe_mid, start @ $offs, end @ $act_size "
-dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$offs count=$msize 2> /dev/null
+#dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$offs count=$msize 2> /dev/null
+( dd of="/dev/null" ibs=$offs obs=8192 count=1 2> /dev/null && dd of="$output_file" ibs=$msize obs=8192 count=1 2> /dev/null ) < "$input_file"
 echo -n "Firmware version: "
 dd if="$output_file" bs=1 count=16  2> /dev/null | tr -d '[:alpha:]' echo
 }
@@ -41,7 +43,8 @@ offs=$((offs + 65536))
 esize=$((act_size - offs))
 output_file="$output_dir/exe_end"
 echo " exe_end, start @ $offs, length: $esize, end @ $act_size"
-dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$offs count=$esize 2> /dev/null
+#dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$offs count=$esize 2> /dev/null
+( dd of="/dev/null" ibs=$offs obs=8192 count=1 2> /dev/null && dd of="$output_file" ibs=$esize obs=8192 count=1 2> /dev/null ) < "$input_file"
 }
 # Extracts urlader.image candidates from input file, based on bootloader magic
 # string. Applies heuristic check for typical strings occurring in AVM
@@ -57,6 +60,8 @@ bsize=65536
 act_end=$((bootloader_offs + bsize))
 echo " urlader.image, start @ $bootloader_offs, length: $bsize, end @ $act_end"
 dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$bootloader_offs count=$bsize 2> /dev/null
+#( dd bs=$bootloader_offs seek=1 && dd ibs=$bsize obs=8192 count=1 ) < "$input_file" > "$output_file"
+( dd of="/dev/null" ibs=$bootloader_offs obs=8192 count=1 2> /dev/null && dd of="$output_file" ibs=$bsize obs=8192 count=1 2> /dev/null ) < "$input_file"
 grep -iq 'entering passive mode' "$output_file" \
 && grep -iq 'ftp server ready' "$output_file" \
 && echo " file is a possible bootloader candidate" 
@@ -77,11 +82,12 @@ kernel_end=$((bootloder_offs - psize))
 dd_count=$((kernel_end - kernel_offs))
 output_file="$output_dir/kernel.image"
 echo " kernel.image, start @ ${kernel_offs}, length: $dd_count, end @ $kernel_end"
-dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=${kernel_offs} count=$dd_count 2> /dev/null
-
+#dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=${kernel_offs} count=$dd_count 2> /dev/null
+( dd of="/dev/null" ibs=$kernel_offs obs=8192 count=1 2> /dev/null && dd of="$output_file" ibs=$dd_count obs=8192 count=1 2> /dev/null ) < "$input_file"
 output_file="$output_dir/exe_mid"
 echo " exe_mid, start @ $kernel_end, length: $psize, end @ $bootloder_offs "
-dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$kernel_end count=$psize 2> /dev/null
+#dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$kernel_end count=$psize 2> /dev/null
+( dd of="/dev/null" ibs=$kernel_end obs=8192 count=1 2> /dev/null && dd of="$output_file" ibs=$psize obs=8192 count=1 2> /dev/null ) < "$input_file"
 echo -n "Firmware version: "
 dd if="$output_file" bs=1 count=16  2> /dev/null | tr -d '[:alpha:]' | sed 's/-\.//' | sed 's/-//' 
 echo
@@ -119,5 +125,6 @@ dd_count=$((squashfs_offs - kernel_offs + squashfs_length))
 #echo "File sizes: $dd_count"
 output_file="$output_dir/kernel.image"
 echo " kernel.image, start @ ${kernel_offs}, SquashFS @ ${squashfs_offs}, length: $dd_count, end @ $act_size"
-dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=${kernel_offs} count=$dd_count 2> /dev/null
+#dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=${kernel_offs} count=$dd_count 2> /dev/null
+( dd of="/dev/null" ibs=$kernel_offs obs=8192 count=1 2> /dev/null && dd of="$output_file" ibs=$dd_count obs=8192 count=1 2> /dev/null ) < "$input_file"
 }

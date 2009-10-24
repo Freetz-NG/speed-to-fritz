@@ -1,4 +1,5 @@
 #!/bin/bash
+#orig=$SECONDS
 echo "--------------------------------------------------------------------------------"
 HOMEDIR=$(pwd)
 export FWORIGDIR="Firmware.orig"
@@ -164,6 +165,9 @@ if [ "$checkerror" == "y" ]; then
     echo "No Recover image was built!"
     echo
 fi
+#((elasped=SECONDS-orig))
+#echo "elasped time: ${elasped}s"
+
 [ "$BUILDRECOVER" = "y" ] && exit 0
 echo "All done, Press 'ENTER' to finish"
 while !(read -s);do
