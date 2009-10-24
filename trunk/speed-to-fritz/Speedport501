@@ -119,9 +119,13 @@ echo2 "Removing files for further image size reduction:"
 
 $sh_DIR/remove_files_501.sh ${SRC}
 #remove programme menu entry
-DIRI="${SRC}/usr/www/${OEMLINK}/html/de/menus"
-for FILE in `ls "${DIRI}"/*`; do  
-    sed -i -e "/'software','extern'/d" $FILE
+echo2 "Removed software option from file:"
+DIRI="${SRC}/usr/www/${OEM}/html/de/menus"
+for FILE in `ls "${DIRI}"`; do
+    if  `grep -q 'software...extern' "${DIRI}/$FILE"`; then
+     sed -i -e "/'software','extern'/d" ${DIRI}/$FILE
+     echo "   -- $FILE"
+    fi
 done
 #annex A fix
 [ "$ANNEX" ] &&  sed -i -e "s/CONFIG_ANNEX=\".*$/CONFIG_ANNEX=\"${ANNEX}\"/g" "${SRC}/etc/init.d/rc.conf"
