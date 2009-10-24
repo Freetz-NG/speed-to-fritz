@@ -15,6 +15,16 @@ if [ "$ORI" == "y" ]; then
     sleep 5
     exit 0
 fi
+if [ "$BUILDRECOVER" = "y" ]; then
+ echo "--------------------------------------------------------------------------------"
+ echo
+ echo "If you don't want a recover firmware you can use 'Control C'"
+ echo "or better disable this Option within Speed-to-fritz menu."
+ echo "Generation of recover firmware takes about two times as"
+ echo "long as it did take to build the patched firmware."
+ echo
+ echo "--------------------------------------------------------------------------------"
+fi
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
 RECOVERIMG7113="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7113.04.67.recover-image.exe"
@@ -61,7 +71,7 @@ fi
 if ! [ -f "$input_recover_file" ];then
     echo "AVM $input_recover_file file is missing!"
     sleep 20
-    exit 1
+    exit 
 fi
 $HOMEDIR/recoversubscripts/split_recover $HOMEDIR $input_recover_file $output_dir
 new_recover_file="$kernel_dir/$(echo "$NEWIMG" | sed -r 's/.image//' | sed -r 's/fw_//' | sed -r 's/C_//').exe"
