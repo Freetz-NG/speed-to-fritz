@@ -1842,8 +1842,9 @@ config EXPORT_RPL_ASSIST
 config EXPORT_REMOVE_HELP
 	bool "Help files (remove)"
 #	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM
-	default n if ! TYPE_SPEEDPORT_W721V
-	default y if ( ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V )
+	default n if ! TYPE_SPEEDPORT_W721V  && ! TYPE_SPEEDPORT_W501V
+	default y if ( ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V ) || TYPE_SPEEDPORT_W501V
+
 	help
 		Set this to 'y' if you like to remove help pages to save space, normal this is "y".
 config EXPORT_REMOVE_KIDS
@@ -2133,7 +2134,7 @@ if ! EXPORT_ATA_ONLY
 	depends on ! TYPE_TCOM_7570_XX && ! TYPE_9207570 && ! TYPE_SPEEDPORT_W721V && ! EXPORT_FORCE_DSL_MULTI_ANNEX
 	bool "Add DSL expert pages"
 	default n if  TYPE_DSL 
-	default y if  ! TYPE_DSL 
+	default y if  ! TYPE_DSL && ! TYPE_SPEEDPORT_W501V
 	help
 		Use this additional option to add expert-pages for DSL settings,
 		only usable on "All In One" or similar firmwares.
@@ -2187,15 +2188,17 @@ if ! EXPORT_ATA_ONLY
 	depends on TYPE_SPEEDPORT_W721V
 	default n
 	help
+		For normal this is "n", only with some very bad ADSL connections this may be needed.
+		Use ADSL or VINAX DRIVER from second AVM source firmware specified in SRC2_IMG.
     config FORCE_TCOM_DSL
 	bool "Force T-Home (V)DSL driver"
 	depends on ! TYPE_SPEEDPORT_W721V  
-	default n if ! TYPE_9207570
-	default y if TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V  
+	default n if ! TYPE_9207570 && ! TYPE_SPEEDPORT_W501V && ! TYPE_SPEEDPORT_W503V && ! TYPE_SPEEDPORT_W722V
+	default y if TYPE_9207570 || TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V  
 	help
 		For normal this is "n", only with some very bad ADSL connections this may be needed.
-		Use ADSL or VINAX DRIVER from second AVM source firmware specified in SRC2_IMG.
  endif
+
     config USE_SRC2_DSL
 	bool "Use 2nd AVM source (V)DSL driver"
 	depends on SOURCE2

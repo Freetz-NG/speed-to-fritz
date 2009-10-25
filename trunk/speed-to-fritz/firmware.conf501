@@ -2,9 +2,11 @@
 ############################################################################################################################
 # Speedport W501V requires AVM's Fritz!Box Fon WLAN 7140 firmware                                                          #
 ############################################################################################################################
-TCOM_IMG="http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport_W501V/fw_Speedport_W501V_v_28.04.38.image"
-AVM_IMG="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/deutsch_a-ch/fritz.box_fon_wlan_7140.annexa.39.04.43.image"
+TCOM_W501_38="http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W501V/fw_Speedport_W501V_v_28.04.38.image"
+AVM_7140_43="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/firmware/deutsch_a-ch/fritz.box_fon_wlan_7140.annexa.39.04.43.zip mirror http://www.hostarea.de/server-01/Januar-de288cff9c.zip"
 #--------------------------------------------------------------------------------------------------------------------------
+TCOM_IMG="$TCOM_W501_38"
+AVM_IMG="$AVM_7140_43"
 EXPORT_REMOVE_HELP="y"
 FORCE_TCOM_DSL="y"
 FORCE_TCOM_PIGLET="y"
@@ -12,3 +14,11 @@ FORCE_TCOM_FON="y"
 EXPORT_REMOVE_MENU_ITEM="y"
 EXPORT_COPY_HEADER="y"
 MOVE_ALL_to_OEM="y"
+SET_EXPERT="y"
+TYPE_SPEEDPORT_W501V="y"
+SPMOD="501"
+TYPE_LANG_DE="y"
+TYPE_ANNEX_B="y"
+ANNEX="B"
+EXPORT_OEM="avm"
+
