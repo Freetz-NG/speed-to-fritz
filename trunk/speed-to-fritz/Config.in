@@ -2272,19 +2272,19 @@ if ! EXPORT_ATA_ONLY
 
 
 
-    config FORCE_VINAX_DRV
-	bool "Force PPPoA compatibel vinax driver"
-	depends on TYPE_9207570 && ! FORCE_VDSL
-	default y
-	help
-		Use own drv_vinax.co from bulid 15216.
+#    config FORCE_VINAX_DRV
+#	bool "Force PPPoA compatibel vinax driver"
+#	depends on TYPE_9207570 && ! FORCE_VDSL
+#	default y
+#	help
+#		Use own drv_vinax.co from bulid 15216.
 
-    config FORCE_KDSLD_DRV
-	bool "Force PPPoA compatibel kdsld driver"
-	depends on TYPE_9207570 && ! FORCE_VDSL
-	default y
-	help
-		Use own drv_vinax.co from bulid 15216.
+#    config FORCE_KDSLD_DRV
+#	bool "Force PPPoA compatibel kdsld driver"
+#	depends on TYPE_9207570 && ! FORCE_VDSL
+#	default y
+#	help
+#		Use own drv_vinax.co from bulid 15216.
 
     config WRAP_DSLD
 	bool "Wrap DSLD"
