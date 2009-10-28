@@ -1,8 +1,8 @@
-This Version is adjusted for the use with speed-to-fritz and freetz.
+This Version is adjusted for the use with speed-to-fritz and speed.
 
 X Applications:
 
-1. Click start icon (freetzlinux pinguin) on desktop, menu, ...   
+1. Click start icon (speedlinux pinguin) on desktop, menu, ...   
 	or use startup.bat found in your installation directory.
 2. Wait until LINUX boot process is finished. 
 		Use Console-NT (Donald duck icon), 

@@ -12,9 +12,9 @@ set /p name=<connection2Name.txt
 
 if Exist connection3Name.txt echo More as two TAP adapters found, You should delete some of the additional adapters first!
 if Exist connection3Name.txt goto pause1
-echo Tap Adapter %name% renamed to TAPfreetzLinux2 
+echo Tap Adapter %name% renamed to TAPspeedLinux2 
 
-netsh interface set interface name="%name%" newname="TAPfreetzLinux2" 
+netsh interface set interface name="%name%" newname="TAPspeedLinux2" 
 
 if Exist NetCfgInstance1Id.txt del NetCfgInstance*Id.txt
 if Exist connection1Name.txt del connection*Name.txt

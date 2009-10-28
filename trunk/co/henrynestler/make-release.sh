@@ -73,8 +73,8 @@ ln -s ${ALL_BASE}/upstream ${COLINUX_INSTALL}/
 cd ${COLINUX_INSTALL}
 
 #makensis -DBFIN_BASE colinux.nsi
-#cp freetzLinux.exe ${BASE}/freetzLinux-${COLINUX_VER}-freetzLinux-base-${ANDLINUX_VER}.exe
+#cp speedLinux.exe ${BASE}/speedLinux-${COLINUX_VER}-speedLinux-base-${ANDLINUX_VER}.exe
 makensis -DBFIN_LITE colinux.nsi
-#cp freetzLinux.exe ${BASE}/freetzLinux-${COLINUX_VER}-freetzLinux-lite-${ANDLINUX_VER}.exe
-mv freetzLinux.exe /mnt/win/upstream/freetzLinux-${ANDLINUX_VER}.exe
-#mv freetzLinux.exe /and/freetzLinux-${ANDLINUX_VER}.exe
+#cp speedLinux.exe ${BASE}/speedLinux-${COLINUX_VER}-speedLinux-lite-${ANDLINUX_VER}.exe
+mv speedLinux.exe /mnt/win/upstream/speedLinux-${ANDLINUX_VER}.exe
+#mv speedLinux.exe /and/speedLinux-${ANDLINUX_VER}.exe
