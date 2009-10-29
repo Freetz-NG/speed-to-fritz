@@ -136,6 +136,11 @@ fi
 echo "  -- PPPoA compatible VINAX DSL Driver is in use!"
 [ "${FORCE_KDSLD_DRV}" = "y" ] && cp -fdrp ${HOMEDIR}/addon/tmp/modules/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
 echo "  -- PPPoA compatible KDSLDMOD Driver is in use!"
+
+[ "${FORCE_VINAX_DRV_77}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax" &&\
+echo "  -- 75.04.77 compatible VINAX DSL Driver is in use!"
+[ "${FORCE_KDSLD_DRV_77}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
+echo "  -- 75.04.77 compatible KDSLDMOD Driver is in use!"
 #v3 dect fix
 sed -i -e 's|_488.hex|.hex|' "${SRC}/etc/init.d/rc.S" 
 sed -i -e '/piglet_use_pll3_clk=1 \\/d' "${SRC}/etc/init.d/rc.S" 

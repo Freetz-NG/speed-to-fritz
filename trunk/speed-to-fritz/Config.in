@@ -380,9 +380,10 @@ config AVM_7570_15216
    string
       default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.76-15216.image"
 
+# May be forwarded via PMs 
 config AVM_7570_77
    string
-      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.77.image"
+      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.77.zip mirror http://www.hostarea.de/server-10/Oktober-78b72a4e63.zip"
 
 config AVM_7570_15446
    string
@@ -545,6 +546,8 @@ config TYPE_TCOM_7570_XX
 choice
 	prompt "T-Home 7570 alternative firmware"
 	depends on TYPE_TCOM_7570_XX
+	default TYPE_TCOM_7570_77
+	
 	config TYPE_TCOM_7570_70
 		bool "AVM_7570_70 en-de.75.04.70 used as T-Home firmware"
 
@@ -1027,7 +1030,7 @@ config TYPE_AVM_7570_XX
 choice
 	prompt "Any 7570 firmware"
 		depends on  TYPE_AVM_7570_XX
-		default TYPE_AVM_7570_15316
+		default TYPE_AVM_7570_77
 
 	config TYPE_AVM_7570_70
 		bool "AVM_7570_70 en-de.75.04.70"
@@ -1765,7 +1768,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
  config EXPORT_BUILDRECOVER
 	bool "Build Recover firmware"
 	depends on ! ORI
-	default y
+	default n
 	help
 		This reconcates a AVM Recover firmware with changed kernel.image.
 		Not in every case the size of the new kernel.image will fit.
@@ -2270,8 +2273,6 @@ if ! EXPORT_ATA_ONLY
 	help
 		Use tcom ar7.cfg and set VLAN7 to yes, password is 0000 and Router IP is 192.168.2.1.
 
-
-
 #    config FORCE_VINAX_DRV
 #	bool "Force PPPoA compatibel vinax driver"
 #	depends on TYPE_9207570 && ! FORCE_VDSL
@@ -2285,6 +2286,20 @@ if ! EXPORT_ATA_ONLY
 #	default y
 #	help
 #		Use own drv_vinax.co from bulid 15216.
+
+    config FORCE_VINAX_DRV_77
+	bool "Force 75.04.77 compatibel vinax driver"
+	depends on ( TYPE_TCOM_7570_15446 || TYPE_TCOM_7570_77 ) && ! FORCE_VDSL
+	default y
+	help
+		Use own drv_vinax.co from bulid 15446.
+
+    config FORCE_KDSLD_DRV_77
+	bool "Force 75.04.77 compatibel kdsld driver"
+	depends on ( TYPE_TCOM_7570_15446 || TYPE_TCOM_7570_77 ) && ! FORCE_VDSL
+	default y
+	help
+		Use own drv_vinax.co from bulid 15446.
 
     config WRAP_DSLD
 	bool "Wrap DSLD"
