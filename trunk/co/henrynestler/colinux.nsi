@@ -17,7 +17,7 @@
 ;  SetCompressor /SOLID lzma
 ;#getcolinux versio
   !include "coLinux_def.inc"
-  !define PUBLISHER "speedlinux.sourceforge.net"
+  !define PUBLISHER "freetzlinux.sourceforge.net"
   !define DOCU "http://wiki.ip-phone-forum.de/skript:installing_freetzlinux"
 
   ;General
@@ -136,7 +136,7 @@ Var FS_FORMATIEREN_Value
   !insertmacro MUI_PAGE_INSTFILES
 
   !define MUI_FINISHPAGE_LINK "Visit the speedLinux website"
-  !define MUI_FINISHPAGE_LINK_LOCATION "http://speedlinux.sourceforge.net"
+  !define MUI_FINISHPAGE_LINK_LOCATION "http://freetzlinux.sourceforge.net"
   !define MUI_FINISHPAGE_SHOWREADME "README.TXT"
 
   !insertmacro MUI_PAGE_FINISH
