@@ -1,3 +1,6 @@
+We changed the naming from freetzlinux to speedlinux.
+(To avoid mistakes because the name 'freetz-linux' is now in use by: Silent-Tears)
+
 This Version is adjusted for the use with speed-to-fritz and speed.
 
 X Applications:
