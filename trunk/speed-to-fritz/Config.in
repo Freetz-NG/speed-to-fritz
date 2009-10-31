@@ -18,7 +18,6 @@ mainmenu " Configuration"
 config TCOM_SINUS_27
     string 
     default "http://hilfe.telekom.de/dlp/eki/downloads/Sinus%20W%20500%20V/fw_SinusW500V_27_04_27.zip ./Firmware.orig/Sinus_W_500V.27.04.27.image"
-
 config TCOM_W501_38
    string 
     default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W501V/fw_Speedport_W501V_v_28.04.38.image"
@@ -144,6 +143,11 @@ config AVM_7150_57
 config AVM_7150_71
     string
     default "ftp://ftp.avm.de/fritz.box/fritzfon.7150/firmware/fritz.fon_7150.annexb.38.04.71.image mirror http://download.avm.de/fritz.box/fritzfon.7150/firmware/fritz.fon_7150.annexb.38.04.71.image"
+
+config AVM_7150_77
+    string
+    default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.fon.7150/FRITZ.Fon_7150.AnnexB.38.04.77.image"
+
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM 7170 Firmware
 
@@ -780,6 +784,12 @@ choice
 		help
 			FRITZ! release: 71
 
+	config TYPE_7150_77
+		bool "AVM_7150_77 38.04.77"
+		depends on ( TYPE_SINUS_W500V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE )
+		help
+			FRITZ! release: 77
+
 	config TYPE_7240_76
 		bool "AVM_7240_76 73.04.76"
 		depends on ( TYPE_9207570 || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
@@ -1169,7 +1179,10 @@ choice
 		bool "AVM_7150_57 38.04.57"
 
 	config TYPE_SRC3_AVM_7150_71
-		bool "AVM_7150_58 38.04.71"
+		bool "AVM_7150_77 38.04.71"
+
+	config TYPE_SRC3_AVM_7150_77
+		bool "AVM_7150_77 38.04.77"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7170 Firmware
 
@@ -1475,6 +1488,7 @@ config AVM_IMG
 	default "$AVM_7141_76" 				if TYPE_7141_76 && ( EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7150_57" 				if TYPE_7150_57 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7150_71" 				if TYPE_7150_71 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL ) || ( TYPE_SINUS_W500V && ! TYPE_LABOR ) 
+	default "$AVM_7150_77" 				if TYPE_7150_77 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL ) || ( TYPE_SINUS_W500V && ! TYPE_LABOR ) 
 	default "$AVM_7170_A76en" 			if ! TYPE_LANG_DE && ! TYPE_7170_B76en && ! TYPE_7170_A76en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 #	default "$AVM_7170_67" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7170_76" 				if ! TYPE_ANNEX_A && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V ) && ! TYPE_LABOR && TYPE_LANG_DE
@@ -1550,6 +1564,7 @@ config SRC2_IMG
 	default "$AVM_7140_76" 			if TYPE_SRC3_AVM_7140_76
 	default "$AVM_7150_57" 			if TYPE_SRC3_AVM_7150_57
 	default "$AVM_7150_71" 			if TYPE_SRC3_AVM_7150_71
+	default "$AVM_7150_77" 			if TYPE_SRC3_AVM_7150_77
 	default "$AVM_7170_50" 			if TYPE_SRC3_AVM_7170_50
 	default "$AVM_7170_A76en" 		if TYPE_SRC3_AVM_7170_A76en
 	default "$AVM_7170_B76en" 		if TYPE_SRC3_AVM_7170_B76en

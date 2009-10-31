@@ -1,6 +1,13 @@
 #!/bin/bash
  # include modpatch function
  . ${include_modpatch}
+#move freenet oem dir to avm
+if ! [ -d "$1/etc/default.${SORCE_PRODUKT}/avm" ]; then
+ [ -d "$1/etc/default.${SORCE_PRODUKT}/freenet" ] && mv "$1/etc/default.${SORCE_PRODUKT}/freenet" "$1/etc/default.${SORCE_PRODUKT}/avm"
+fi
+if ! [ -d "$1/usr/www/avm" ]; then
+ [ -d "$1/usr/www/freenet" ] &&  mv "$1/usr/www/freenet" "$1/usr/www/avm"
+fi
 for DIR in ${OEMLIST}; do
     if [ -d "$1"/usr/www/$DIR ] ; then
 	[ "$DIR" = "all" ] && rm -fd -R "$1"/usr/www/$OEM
