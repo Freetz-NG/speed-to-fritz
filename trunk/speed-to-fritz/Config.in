@@ -52,6 +52,10 @@ config TCOM_W722_14111
     string
     default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W722V/Speedport_W_722V.AnnexB.80.04.74-14111.image"
 
+config TCOM_W722_76
+    string
+    default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W722V/Speedport_W_722V_V_80.04.76.image"
+
 config TCOM_W900_57
     string
      default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20900V/fw_Speedport_W900V_v34.04.57.image"
@@ -79,7 +83,6 @@ config TCOM_W920_74
 config TCOM_W920_78
     string
     default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.78.image"
-
 config TCOM_W920_13048
     string
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.63-13048.zip mirror http://www.hostarea.de/server-01/Januar-25c121e202.zip"
@@ -430,7 +433,7 @@ choice
 		bool "Speedport W721V"
 
 #	config TYPE_SPEEDPORT_W722V
-#		bool "W722V keine funktion!"
+#		bool "W722V not useabel!"
 
 	config TYPE_SPEEDPORT_W900V
 		bool "Speedport W900V"
@@ -1380,9 +1383,12 @@ choice
 		bool "TCOM_W721_74 64.04.74"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-	config TYPE_SRC3_TCOM_W722_14111
-		bool "TCOM_W721_14111 64.04.74-1411"
+	config TYPE_SRC3_TCOM_W722_76
+		bool "TCOM_W722_76 80.04.76"
 
+	config TYPE_SRC3_TCOM_W722_14111
+		bool "TCOM_W722_14111 80.04.74-1411"
+		
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	config TYPE_SRC3_TCOM_W900_57
 		bool "TCOM_W900_57 34.04.57"
@@ -1445,7 +1451,8 @@ config TCOM_IMG
 	default "$TCOM_W503_78" 		if ( TYPE_TCOM_W503V_78 ) &&TYPE_SPEEDPORT_W503V
 	default "$TCOM_W721_60" 		if ( TYPE_TCOM_W721V_60 ) && ( TYPE_SPEEDPORT_W721V )
 	default "$TCOM_W721_74" 		if ( ! TYPE_TCOM_W721V_60 ) && ( TYPE_SPEEDPORT_W721V )
-	default "$TCOM_W722_14111" 		if ( ! TYPE_TCOM_W722V_14111 ) && ( TYPE_SPEEDPORT_W722V )
+#	default "$TCOM_W722_14111" 		if ( ! TYPE_TCOM_W722V_14111 ) && ( TYPE_SPEEDPORT_W722V )
+	default "$TCOM_W722_76" 		if ( TYPE_SPEEDPORT_W722V )
 	default "$TCOM_W900_57" 		if TYPE_SPEEDPORT_W900V
 #	default "$TCOM_W920_74" 		if ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 )
 	default "$TCOM_W920_78" 		if ORI && ( TYPE_9207570 )
@@ -1635,6 +1642,8 @@ config SRC2_IMG
 	default "$TCOM_W701_57" 		if TYPE_SRC3_TCOM_W701_57
 	default "$TCOM_W721_60" 		if TYPE_SRC3_TCOM_W721_60
 	default "$TCOM_W721_74" 		if TYPE_SRC3_TCOM_W721_74
+	default "$TCOM_W722_76" 		if TYPE_SRC3_TCOM_W722_76
+	default "$TCOM_W722_14111" 		if TYPE_SRC3_TCOM_W722_14111
 	default "$TCOM_W900_57" 		if TYPE_SRC3_TCOM_W900_57
 	default "$TCOM_W920_58" 		if TYPE_SRC3_TCOM_W920_58
 	default "$TCOM_W920_63" 		if TYPE_SRC3_TCOM_W920_63
