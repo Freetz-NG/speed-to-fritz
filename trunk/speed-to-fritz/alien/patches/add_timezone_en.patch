@@ -7,7 +7,7 @@
 +<input type="hidden" name="time:settings/tz_dst_enabled" value="<? query time:settings/tz_dst_enabled ?>" id="uiPostTZ_DstEnabled" disabled>
 --- system/timeZone.html	1969-12-31 19:00:00.000000000 -0500
 +++ system/timeZone.html	2009-01-22 10:31:57.000000000 -0500
-@@ -0,0 +1,53 @@
+@@ -0,0 +1,54 @@
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
 +{?de.system.timeZone.html:5TimeZone?}
@@ -31,6 +31,7 @@
 +<option value="300" >GMT Minus 5</option>
 +<option value="270" >GMT Minus 4,5</option>
 +<option value="240" >GMT Minus 4</option>
++<option value="210" >GMT Minus 3,5</option>
 +<option value="180" >GMT Minus 3</option>
 +<option value="120" >GMT Minus 2</option>
 +<option value="60" >GMT Minus 1</option>
