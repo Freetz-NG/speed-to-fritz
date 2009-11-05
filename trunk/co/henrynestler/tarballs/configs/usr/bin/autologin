@@ -1,0 +1,10 @@
+#!/bin/bash
+exec 0</dev/$1 1>/dev/$1 2>&1
+cat /etc/issue
+shift
+exec $*
+#chmod +x /sbin/autologin
+#1:2345:respawn:/sbin/autologin tty1 login -f freetz
+#1:2345:respawn:/sbin/getty 38400 tty1
+#ln -s $(/usr/bin/konsole)
+#/etc/inittab

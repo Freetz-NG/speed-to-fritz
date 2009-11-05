@@ -36,19 +36,17 @@ cp ./getlanid.vbs ../bfin-colinux/trunk/and/getlanid.vbs
 cp ./settapip.bat ../bfin-colinux/trunk/and/settapip.bat
 echo "---------------------------------------------------------------------------------------------------------------"
 cd ../bfin-colinux/trunk
+COLINUX_SRC_VER=$(find upstream -name 'coLinux-*.src.tar.gz' | LC_ALL=C sort | tail -n1 | sed 's:.*coLinux-\(.*\).src.tar.gz:\1:')
 
-
-COLINUX_VER=$(find upstream -name 'coLinux-*.src.tar.gz' | LC_ALL=C sort | tail -n1 | sed 's:.*coLinux-\(.*\).src.tar.gz:\1:')
-VER="${COLINUX_VER%-*}"
-DATE="${COLINUX_VER##*-}"
-echo "colinux version: $VER"
-echo "colinux date: $DATE"
-tar zxf ./upstream/coLinux-${COLINUX_VER}.src.tar.gz
-cp ./colinux-${DATE}/src/colinux/os/winnt/user/install/colinux.nsi ./patches/1/colinux.nsi
+VER_SRC="${COLINUX_SRC_VER%-*}"
+DATE_SRC="${COLINUX_SRC_VER##*-}"
+echo "colinux src.tar.gz version: $VER_SRC"
+echo "colinux src.tar.gz date: $DATE_SRC"
+tar zxf ./upstream/coLinux-${COLINUX_SRC_VER}.src.tar.gz
+cp ./colinux-${DATE_SRC}/src/colinux/os/winnt/user/install/colinux.nsi ./patches/1/colinux.nsi
 #----------------------------------------------------------------
 #----------------------------------------------------------------
 cd patches
-#./0makediff.sh
 VERZEICHNISS1="./1" #original
 VERZEICHNISS2="./2" #changed
 DESTPATH_UND_NAME="colinux/coLinux/src/src/colinux/os/winnt/user/install"
@@ -63,14 +61,27 @@ sed -i -e "/diff/d" ./$PATCHFILE_NAME
 #----------------------------------------------------------------
 
 cd ../and
-#rm ../upstream/coLinux-$COLINUX_VER.exe
-7z a -sfx ../upstream/coLinux-$COLINUX_VER.exe .
+#How to build:
+#  - Get current source from branch devel, for example from
+#    http://www.colinux.org/snapshots/devel-colinux-20090927.tar.gz
+#  - Copy all files from directory "patch" into the colinux source
+#    directory "patch". Some files are added and replaced.
+#  - Copy config from "conf/linux-2.6.26-config" into the colinux source
+#    directory "conf". Some files are replaced.
+#  - Run ./configure && make clean && make && make package
+
+
+
+
+rm ../upstream/coLinux-$COLINUX_EXE_VER.exe
+7z a -sfx ../upstream/coLinux-$COLINUX_EXE_VER.exe .
 cd ..
 
 echo "Please wait ...... see logfile: $home/log"  
-./make-release.sh $version > $home/log
 
-#rm ./upstream/coLinux-$COLINUX_VER.exe
+./make-release.sh $version $COLINUX_VER $COLINUX_SRC_VER $COLINUX_EXE_VER   > $home/log
+
+#rm ./upstream/coLinux-$COLINUX_EXE_VER.exe
 #rm ./tarballs/andlinux-configs.tar
 #rm ./tarballs/init.tar
 

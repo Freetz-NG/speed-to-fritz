@@ -4,17 +4,21 @@ set -e
 
 cd ${0%/*}
 
-ANDLINUX_VER=$1
+SPEEDLINUX_VER=$1
 #COLINUX_VER=$(find upstream -name 'coLinux-*.exe' | LC_ALL=C sort | tail -n1 | sed 's:.*coLinux-\(.*\).exe:\1:')
-COLINUX_VER=$(find upstream -name 'coLinux-*.src.tar.gz' | LC_ALL=C sort | tail -n1 | sed 's:.*coLinux-\(.*\).src.tar.gz:\1:')
-VER="${COLINUX_VER%-*}"
-#DATE="$(echo "${COLINUX_VER##*-}" | grep [0123456789])"
-DATE="${COLINUX_VER##*-}"
-echo "colinux version: $VER"
-echo "colinux date: $DATE"
+#COLINUX_SRC_VER=$(find upstream -name 'coLinux-*.src.tar.gz' | LC_ALL=C sort | tail -n1 | sed 's:.*coLinux-\(.*\).src.tar.gz:\1:')
+COLINUX_VER=$2
+COLINUX_SRC_VER=$3
+COLINUX_EXE_VER=$4
+
+VER_SRC="${COLINUX_SRC_VER%-*}"
+#DATE_SRC="$(echo "${COLINUX_SRC_VER##*-}" | grep [0123456789])"
+DATE_SRC="${COLINUX_SRC_VER##*-}"
+echo "colinux old version: $VER_SRC"
+echo "colinux old date: $DATE_SRC"
 
 ALL_BASE=${PWD}
-BASE=${ALL_BASE}/${ANDLINUX_VER}
+BASE=${ALL_BASE}/${SPEEDLINUX_VER}
 
 # Create our working tree
 cd ${ALL_BASE}
@@ -35,14 +39,14 @@ tar cf init.tar -C init .
 
 # Extract the CoLinux src and binary packages
 cd ${BASE}/coLinux
-tar zxf ../../upstream/coLinux-${COLINUX_VER}.src.tar.gz
-mv colinux-${DATE} src
+tar zxf ../../upstream/coLinux-${COLINUX_SRC_VER}.src.tar.gz
+mv colinux-${DATE_SRC} src
 cd src
 . bin/build-common.sh --get-vars
 cd ..
 mkdir bin
 cd bin
-7z x -y ../../../upstream/coLinux-${COLINUX_VER}.exe
+7z x -y ../../../upstream/coLinux-${COLINUX_EXE_VER}.exe
 
 # Apply our customizations
 cd ${BASE}
@@ -73,8 +77,8 @@ ln -s ${ALL_BASE}/upstream ${COLINUX_INSTALL}/
 cd ${COLINUX_INSTALL}
 
 #makensis -DBFIN_BASE colinux.nsi
-#cp speedLinux.exe ${BASE}/speedLinux-${COLINUX_VER}-speedLinux-base-${ANDLINUX_VER}.exe
+#cp speedLinux.exe ${BASE}/speedLinux-${COLINUX_VER}-speedLinux-base-${SPEEDLINUX_VER}.exe
 makensis -DBFIN_LITE colinux.nsi
-#cp speedLinux.exe ${BASE}/speedLinux-${COLINUX_VER}-speedLinux-lite-${ANDLINUX_VER}.exe
-mv speedLinux.exe /mnt/win/upstream/speedLinux-${ANDLINUX_VER}.exe
-#mv speedLinux.exe /and/speedLinux-${ANDLINUX_VER}.exe
+#cp speedLinux.exe ${BASE}/speedLinux-${COLINUX_VER}-speedLinux-lite-${SPEEDLINUX_VER}.exe
+mv speedLinux.exe /mnt/win/upstream/speedLinux-${SPEEDLINUX_VER}.exe
+#mv speedLinux.exe /and/speedLinux-${SPEEDLINUX_VER}.exe
