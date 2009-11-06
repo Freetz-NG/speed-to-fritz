@@ -70,6 +70,7 @@ mountpath=`cat ./colinux.settings | grep CL_COFSPFAD | cut -d = -f 2 | sed -e 's
 #echo "Mountpath: $mountpath"
 cat <<EOSF >/freetz-colinux-setup/setup.sh
 #!/bin/bash
+exec 2> speedsetup.log
 NewUser=$CL_NEWUSER
 mountuser=$CL_SAMBAUSER
 mountpassword=$CL_SAMBAUSERPW
@@ -101,14 +102,14 @@ if [ "\${mountuser}" != "" ] && [ "\${mountuser}" != ""  ]; then
     echo "password=\$mountpassword" >> /etc/smbpasswd
     echo "---------- added mount '\$mountshare' samba via rc.local"
     sleep 1
-    sed -i -e "/mnt.win/d" "/etc/fstab"    
+    sed -i -e "/mnt.win/d" "/etc/fstab"
  fi
 else
  if [ -e /etc/fstab ]; then 
-    sed -i -e "/mnt.win/d" "/etc/fstab"    
+    sed -i -e "/mnt.win/d" "/etc/fstab"
     echo "/dev/cofs0 /mnt/win cofs uid=\${User_uid},gid=\${User_uid} 0 0" >> /etc/fstab 
     echo "---------- added \${NewUser} with uid=\${User_uid} to cofs mount im /etc/fstab"
-    sed -e "/mount/d" < /etc/rc.local > /tmp/rc.local
+    sed -e "/mount/d" < /etc/rc.local > /tmp/rc.local 
     mv -f /tmp/rc.local /etc/rc.local
     chmod 755 /etc/rc.local
     sleep 1
@@ -116,12 +117,12 @@ else
  fi
 fi
 if [ -e /etc/hosts ]; then
-    sed -i -e "s|192.168.11.1|$CL_WINIP|" /etc/hosts
+    sed -i -e "s|192.168.11.1|$CL_WINIP|" /etc/hosts 
     echo "---------- added windows-host IP"
     sleep 1
 fi
 if [ -e /etc/init.d/launcher ]; then
-    sed -i -e "s|192.168.11.1|$CL_WINIP|" /etc/init.d/launcher
+    sed -i -e "s|192.168.11.1|$CL_WINIP|" /etc/init.d/launcher 
     echo "---------- added lancher IP"
     sleep 1
 fi
@@ -130,7 +131,7 @@ sed -i -e "/# set DISPLAY/d" \
     -e "/export DISPLAY=/d" \
     -e "/export ESPEAKER=/d" \
     -e "/export PULSE_SERVER=/d" \
-    -e "/umask 022/d" /etc/profile
+    -e "/umask 022/d" /etc/profile 
 cat >> /etc/profile << EOF
 # set DISPLAY env variable
 export DISPLAY=192.168.11.1:0.0
@@ -138,12 +139,12 @@ export ESPEAKER=192.168.11.1:16001
 export PULSE_SERVER=192.168.11.1
 umask 022
 EOF
-sed -i -e "s|192.168.11.1|$CL_WINIP|g" /etc/profile
+sed -i -e "s|192.168.11.1|$CL_WINIP|g" /etc/profile 
 echo "---------- added X Server IPs to /etc/profile"
 sleep 1
 # andlinx old version
 if [ -e /usr/local/sbin/launcher.pl ]; then
-    sed -e "s/windowsPathPrefix = .*;/windowsPathPrefix = \\"\\$mountpath\\";/" < /usr/local/sbin/launcher.pl > /tmp/launcher.pl
+    sed -e "s/windowsPathPrefix = .*;/windowsPathPrefix = \\"\\$mountpath\\";/" < /usr/local/sbin/launcher.pl > /tmp/launcher.pl 
     mv -f /tmp/launcher.pl /usr/local/sbin/launcher.pl
     chmod 755 /usr/local/sbin/launcher.pl
     echo "---------- added launcher mount prefix"
@@ -152,7 +153,7 @@ fi
 echo "/usr/local/sbin/launcher.pl" > /etc/winterm
 #cat /usr/local/sbin/launcher.pl | grep "windowsPathPrefix ="
 if [ -e /usr/local/sbin/launcher.pl ] && ! grep -qs "2081" /usr/local/sbin/launcher.pl; then
-    sed -i -e 's| 81,| 2081,|' "/usr/local/sbin/launcher.pl"
+    sed -i -e 's| 81,| 2081,|' "/usr/local/sbin/launcher.pl" 
     echo "---------- added launcher port 2080"
     sleep 1
 fi
@@ -164,11 +165,11 @@ echo "---------- added /etc/andlinux/launcher-conf.pl"
 echo "---------- added /etc/andlinux/xsession_cmd"
 sleep 1
 if [ -e /etc/ssh/sshd_config ]; then
-    sed -i -e 's/PasswordAuthentication.*/PasswordAuthentication yes/' "/etc/ssh/sshd_config"
+    sed -i -e 's/PasswordAuthentication.*/PasswordAuthentication yes/' "/etc/ssh/sshd_config" 
     sed -i -e 's/PermitEmptyPasswords.*/PermitEmptyPasswords yes/' "/etc/ssh/sshd_config"
     sed -i -e 's/X11Forwarding.*/X11Forwarding yes/' "/etc/ssh/sshd_config"
     sed -i -e 's/PermitRootLogin.*/PermitRootLogin yes/' "/etc/ssh/sshd_config"
-#    sed -i -e '/X11Forwarding yes/a\
+#    sed -i -e '/X11Forwarding yes/a\ 
 #X11UseLocalhost yes' "/etc/ssh/sshd_config"
     echo "---------- added setup sshd_config"
     sleep 1
@@ -187,7 +188,7 @@ then
     -e "s/^TimedLoginDelay=.*/TimedLoginDelay=10/" \\
     -e "s/^Enable=.*/Enable=true/" \\
     -e "s/^AllowRemoteAutoLogin=.*/AllowRemoteAutoLogin=true/" \\
-    -e "s/^0=Standard.*/0=inactive/" /etc/gdm/gdm-cdd.conf
+    -e "s/^0=Standard.*/0=inactive/" /etc/gdm/gdm-cdd.conf 
 else
  [ -f /usr/share/gdm/defaults.conf ] && cp /usr/share/gdm/defaults.conf /etc/gdm/gdm.conf
  if [ -f /etc/gdm/gdm.conf ]
@@ -200,7 +201,7 @@ else
     -e "s/^TimedLoginDelay=.*/TimedLoginDelay=10/" \\
     -e "s/^Enable=.*/Enable=true/" \\
     -e "s/^AllowRemoteAutoLogin=.*/AllowRemoteAutoLogin=true/" \\
-    -e "s/^0=Standard.*/0=inactive/" /etc/gdm/gdm.conf
+    -e "s/^0=Standard.*/0=inactive/" /etc/gdm/gdm.conf 
  fi
 fi
 #######################################################################
@@ -226,7 +227,7 @@ then
     -e "s/^#?Enable=.*/Enable=true/" \\
     -e "s/^#?LoginMode=.*/LoginMode=DefaultRemote/" \\
     -e "s/^StaticServers=.*/StaticServers=#:0/" \\
-    -e "s/^ReserveServers=.*/ReserveServers=#:1,:2,:3/" /etc/kde3/kdm/kdmrc
+    -e "s/^ReserveServers=.*/ReserveServers=#:1,:2,:3/" /etc/kde3/kdm/kdmrc 
 elif [ -f /etc/kde4/kdm/kdmrc ]
 then
     # Configure KDM-KDE4 autologin
@@ -238,7 +239,7 @@ then
     -e "s/^#?Enable=.*/Enable=true/" \\
     -e "s/^#?LoginMode=.*/LoginMode=DefaultRemote/" \\
     -e "s/^StaticServers=.*/StaticServers=#:0/" \\
-    -e "s/^ReserveServers=.*/ReserveServers=#:1,:2,:3/" /etc/kde4/kdm/kdmrc
+    -e "s/^ReserveServers=.*/ReserveServers=#:1,:2,:3/" /etc/kde4/kdm/kdmrc 
 fi
 #######################################################################
 # X : KDM (KDE)
@@ -247,12 +248,12 @@ fi
 if [ -f /etc/kde3/kdm/Xaccess ]
 then
  # allow any host XDMCP
- sed -i -r -e "/window/c \*	#any host can get a login window" /etc/kde3/kdm/Xaccess
+ sed -i -r -e "/window/c \*	#any host can get a login window" /etc/kde3/kdm/Xaccess 
 fi
 if [ -f /etc/kde4/kdm/Xaccess ]
 then
  # allow any host XDMCP
- sed -i -r -e "/window/c \*	#any host can get a login window" /etc/kde4/kdm/Xaccess
+ sed -i -r -e "/window/c \*	#any host can get a login window" /etc/kde4/kdm/Xaccess 
 fi
 echo "---------- added kde conf"
 sleep 1
@@ -276,7 +277,7 @@ sleep 1
 if [ -f /etc/pulse/client.conf ]
 then
  # pulse audio client  ; default-server = 192.168.0.1
- sed -i -r -e "/default-server/c \default-server = ${CL_WINIP}" /etc/pulse/client.conf
+ sed -i -r -e "/default-server/c \default-server = ${CL_WINIP}" /etc/pulse/client.conf 
     echo "---------- added pulse audio clinet default-server to /etc/pulse/client.conf"
     sleep 1
 fi
@@ -304,12 +305,12 @@ ctl.pulse {
 EOF
 #remove root password
 if [ -e /etc/shadow ]; then
-    sed -i -e 's/root:.*/root::12823:0:99999:7:::/' "/etc/shadow"
+    sed -i -e 's/root:.*/root::12823:0:99999:7:::/' "/etc/shadow" 
     echo "---------- removed root password!"
     sleep 1
 fi
 if [ -e /etc/sudoers ]; then
-    sed -i -e 's/#.*\%/\%/' "/etc/sudoers"
+    sed -i -e 's/#.*\%/\%/' "/etc/sudoers" 
 fi
 if [ -e /etc/sudoers ] && ! grep -qs "\${NewUser}" /etc/sudoers; then
  echo "\${NewUser} ALL=(ALL) ALL" >> "/etc/sudoers" 
@@ -317,7 +318,7 @@ if [ -e /etc/sudoers ] && ! grep -qs "\${NewUser}" /etc/sudoers; then
     sleep 1
 fi
 if [ -e /usr/bin/startwindowsterminalsession ]; then
-    sed -i -e "/sux - /d" "/usr/bin/startwindowsterminalsession"
+    sed -i -e "/sux - /d" "/usr/bin/startwindowsterminalsession" 
     echo "sux - \${NewUser} \$(cat /etc/winterm)" >> "/usr/bin/startwindowsterminalsession"
     echo "---------- added \${NewUser} to /usr/bin/startwindowsterminalsession"
     sleep 1
@@ -404,17 +405,22 @@ SETEOF
 #fi
 chmod 777 /setpw
 #set password via /etc/rc.local
+chmod 777 /etc/rc.local
 [ -f /etc/rc.local ] || echo "#!/bin/sh" >> /etc/rc.local
+sed -i -e "/network/d" /etc/rc.local
 grep -q '#!.bin.sh' /etc/rc.local || echo "#!/bin/sh" >> /etc/rc.local
 sed -i -e "/#!.bin.sh/a\\
 rm -f \\/mnt\\/and\\/firstboot.txt #####\\n\\
 \\/setpw #####\\n\\
+if ! [ -d \\/var\\/run\\/network ]; then mkdir -p \\/var\\/run\\/network\\/ && \\/etc\\/init.d\\/networking restart;fi\\n\\
 sed -i -e \\"\\/#####\\/d\\" \/etc\/rc.local" /etc/rc.local
+grep -q 'exit' /etc/rc.local || echo "exit 0" >> /etc/rc.local
 ### move aditional start scripts to user directory
 mv /freetz.sh  /home/\${NewUser}/freetz.sh
 mv /install-tools2  /home/\${NewUser}/install-tools2
 mv /download_speed-to-fritz.sh  /home/\${NewUser}/download_speed-to-fritz.sh
 EOSF
+#<-- end setup.sh
 if [ "$CL_FORMATIEREN" = "y" ]; then
 
 echo 	"- Clean files in /var/log (don't remove files! Set the size to zero.)"

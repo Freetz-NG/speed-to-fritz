@@ -42,11 +42,18 @@ rm -f "$TMP"1
 rm -f "$INDEX"*
 rm -f $LISTING
 CO_SUBDIR="autobuild"
+#------------------------------------------
+#------------------------------------------
+TESTING=""
+#------------------------------------------
+#------------------------------------------
+if  [ "$TESTING" == "y" ]; then
 ### -->!!!<--
-#CO_SUBDIR="testing/kernel-2.6.26"
+ CO_SUBDIR="testing/kernel-2.6.26"
+### -->!!!<--
 #http://www.henrynestler.com/colinux/testing/kernel-2.6.26/packages/
 #http://www.henrynestler.com/colinux/autobuild/devel-20090926/
-### -->!!!<--
+fi
 wget --no-remove-listing "http://www.henrynestler.com/colinux/$CO_SUBDIR" 
 cat $INDEX.html | grep 'devel-' | sed -e "s|\/\">.*$||" | sed -e "s|^.*devel-||" > $LISTING
 rm -f "$INDEX"*
@@ -56,11 +63,13 @@ read DVERSION < $TMP
 echo "coVersion: $DVERSION"
 LINUX_VERSION="2.6.25.20"
 CO_SUBDIR2="devel-$DVERSION"
+if  [ "$TESTING" == "y" ]; then
 ### -->!!!<--
-#LINUX_VERSION="2.6.26"
-#DVERSION="20091104"
-#CO_SUBDIR2="packages"
+ LINUX_VERSION="2.6.26"
+ DVERSION="20091104"
+ CO_SUBDIR2="packages"
 ### -->!!!<--
+fi
 export COLINUX_VER="0.8.0-$DVERSION"
 sleep 3
 sed -i -e "/$DVERSION/d" $TMP
@@ -89,13 +98,15 @@ do
     && return 0
 done
 }
-[ -f ./colinux-$COLINUX_VER.src.tgz ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/colinux-$COLINUX_VER.src.tgz"
+if  [ "$TESTING" != "y" ]; then
+ [ -f ./colinux-$COLINUX_VER.src.tgz ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/colinux-$COLINUX_VER.src.tgz"
 #sleep 10
+fi
 [ -f ./daemons-$COLINUX_VER.dbg.zip ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/daemons-$COLINUX_VER.dbg.zip"
 [ -f ./daemons-$COLINUX_VER.zip ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/daemons-$COLINUX_VER.zip"
 [ -f ./modules-$LINUX_VERSION-co-$COLINUX_VER.tgz ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/modules-$LINUX_VERSION-co-$COLINUX_VER.tgz" || get_older_modules
 [ -f ./vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip" || get_older_vmlinux
-#[ -f ./patches-$LINUX_VERSION-$COLINUX_VER.tar.gz ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/patches-$LINUX_VERSION-$COLINUX_VER.tar.gz"
+[ -f ./patches-$LINUX_VERSION-$COLINUX_VER.tar.gz ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/patches-$LINUX_VERSION-$COLINUX_VER.tar.gz"
 
       
 rm -f $TMP
