@@ -1768,13 +1768,11 @@ comment "Optional settings for Speed-to-fritz -------------------------------"
 
 menu "Options"
 
-if ! EXPORT_TYPE_LOCAL_MODEL
-
- config  ORI
+config  ORI
 	bool "Restore original T-Home firmware"
+	depends on ! EXPORT_TYPE_LOCAL_MODEL
 	default n
 	select EXPORT_FORCE_CLEAR_FLASH
-
 	help
 		Set this to "y" if you want to flash back to the original firmware.
 		Speedport my be rebooting, in this case:
@@ -1784,12 +1782,12 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		Only one network card should be installed, or you specify the IF option as well.
 		Keep in mind if the Speedport is not responding, the Speedport may use the alternative IP.
 		Use IP option to change this. 
- config PUSHCONF
+config PUSHCONF
 	bool "Push firmware to box via FTP"
 	default y
 	help
 		Do an automatic upload after firmware is patched. 
- config EXPORT_BUILDRECOVER
+config EXPORT_BUILDRECOVER
 	bool "Build Recover firmware"
 	depends on ! ORI
 	default n
@@ -1800,31 +1798,29 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		Resulting windows executabel can be usesd in the same way as 
 		original Recover.
 		
- config EXPORT_ADD_OLD_DECTMENU
+config EXPORT_ADD_OLD_DECTMENU
 	bool "DECT menu (add)"
-	depends on TYPE_SPEEDPORT_W900V || TYPE_SINUS_W500V  || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
+	depends on ! EXPORT_TYPE_LOCAL_MODEL && ( TYPE_SPEEDPORT_W900V || TYPE_SINUS_W500V  || TYPE_LOCAL_TCOM )
 	default y
 	help
 		Traditional DECT menu gives maximum functionality, both menu's can be used at the same time.
- config EXPORT_ADD_7150_DECTMNUE
+config EXPORT_ADD_7150_DECTMNUE
 	bool "DECT 7150 menu (add)"
-	depends on TYPE_SPEEDPORT_W900V  || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
+	depends on ! EXPORT_TYPE_LOCAL_MODEL && ( TYPE_SPEEDPORT_W900V  || TYPE_LOCAL_TCOM )
 	default y
 	help
 		Add some parts of DECT menu pages originating from 7150 .56, this patch is usable with .57 AVM version or similar versions.
- config EXPORT_ADD_MODINFOICON
+config EXPORT_ADD_MODINFOICON
 	bool "Add modinfo icon on status page"
-	default y if ! TYPE_SPEEDPORT_W721V
+	default y if ! EXPORT_TYPE_LOCAL_MODEL && ( ! TYPE_SPEEDPORT_W721V )
 	help
 		Add modinfo icon on status page, modinfo button is always displayed.
- config EXPORT_REMOVE_MENU_ITEM
+config EXPORT_REMOVE_MENU_ITEM
 	bool "Unusable menu's (remove)"
 	default y
 	help
 		Set this to 'y' if you like to remove Fon3 (or more depending on the type of box) from some menus. 
 		Both source files must be without leading "#", diff result is in directory ./LogSRC_SRC2
-endif
-
 config EXPORT_COPY_HEADER
 	bool "COPY HEADER"
 	default y
@@ -1905,6 +1901,7 @@ config EXPORT_DO_GSM_PATCH
 	default n
 	help
 		Enables GSM page without device plugged in. Usual a GSM modem shows only up if the device is plugged in.
+###--->AVM Modells 7XXX
 if EXPORT_TYPE_LOCAL_MODEL
  config EXPORT_DONT_REM_SIGNATUR
 	bool "Don't remove red wariniges on statuspage"
@@ -1946,6 +1943,8 @@ if EXPORT_TYPE_LOCAL_MODEL
 	    This removes the autoupdate tab, usual there is no need to have this tab at all,
 	    but on firmwares with very little changes you may keep ths tab.
 endif
+### AVM Modells 7XXX<---
+
 config FORCE_SRC2_DECTDRIVER
 	bool "Use DECT driver from 2nd AVM firmware"
 	depends on TYPE_9207570 || EXPORT_TYPE_LOCAL_MODEL
@@ -1968,6 +1967,7 @@ config SAVE_SRC2_DECTDRIVER
 		Save DECT driver to local directory ./addon/tmp/XXXX/.....
 		V3 firmware DECT driver canït be used with W920, ...
 
+###---> NO AVM Modells 7XXX
 if ! EXPORT_TYPE_LOCAL_MODEL
  config EXPORT_ADD_ONLINECOUNTER
 	depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V  || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ! TYPE_SPEEDPORT_W721V
@@ -2116,6 +2116,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		HWR 159 = FB Fon WLAN 7112
 		HWR 168 = Fritz_Box_3270v3
 endif
+###---> NO AVM Modells 7XXX
 
 config VERBOSE
 	string
@@ -2156,6 +2157,7 @@ config EXPORT_ATA_ONLY
 		In Case of W501, no fon will be usable with this option.
 ####
 if ! EXPORT_ATA_ONLY
+###---> NO AVM Modells 7XXX
  if ! EXPORT_TYPE_LOCAL_MODEL
     config EXPORT_ADD_DSL_EXPERT_MNUE
 	depends on ! TYPE_TCOM_7570_XX && ! TYPE_9207570 && ! TYPE_SPEEDPORT_W721V && ! EXPORT_FORCE_DSL_MULTI_ANNEX
@@ -2225,8 +2227,9 @@ if ! EXPORT_ATA_ONLY
 	help
 		For normal this is "n", only with some very bad ADSL connections this may be needed.
  endif
+ ### NO AVM Modells 7XXX<---
 
-    config USE_SRC2_DSL
+ config USE_SRC2_DSL
 	bool "Use 2nd AVM source (V)DSL driver"
 	depends on SOURCE2
 	default y if EXPORT_TYPE_LOCAL_MODEL
@@ -2234,7 +2237,7 @@ if ! EXPORT_ATA_ONLY
 	
 	help
 		Use (V)DSL DRIVER from second AVM source firmware specified in SRC2_IMG.
-    config USE_OWN_DSL
+ config USE_OWN_DSL
 	bool "Use own (V)DSL driver"
 	default n
 	help
@@ -2242,7 +2245,7 @@ if ! EXPORT_ATA_ONLY
 		WXXX is the respective speedport type, the files here are a saved DSL driver from before.
 		No files get removed within this directory so if you do more than one save with different settings
 		more files may be within this directory than really wanted.
-    config SAVE_SRC2_DSL
+ config SAVE_SRC2_DSL
 	bool "Save 2nd AVM source (V)DSL driver"
 	depends on SOURCE2
 	default n
@@ -2251,7 +2254,7 @@ if ! EXPORT_ATA_ONLY
 		WXXX is the respective Speedport type.
 		No files get removed within this directory so if you do more than one save with different settings
 		more files may be within this directory than really wanted.
-    config SAVE_AVM_DSL
+ config SAVE_AVM_DSL
 	bool "Save AVM (V)DSL driver"
 	depends on ! TYPE_9207570 || TYPE_SPEEDPORT_W721V
 	default n
@@ -2260,7 +2263,7 @@ if ! EXPORT_ATA_ONLY
 		No files get removed within this directory so if you do more than one save with different settings
 		more files may be within this directory than realy wanted.
 		Save (V)DSL DRIVER from AVM source to ./addon/tmp/WXXX.
-    config REMOVE_ANNEX_B_DSL_DRIVER
+ config REMOVE_ANNEX_B_DSL_DRIVER
 	bool "Remove Annex B driver on 72XX firmware"
 	depends on EXPORT_TYPE_LOCAL_MODEL && TYPE_ANNEX_A
 #	depends on EXPORT_TYPE_LOCAL_MODEL
@@ -2269,7 +2272,7 @@ if ! EXPORT_ATA_ONLY
 		Annex B driver will be removed if it is a 72XX firmware.
 		Boxes with 8MB lack of space, so set this option with older boxes.
 		Answering machine may have no space left to record if not set.
-    config REMOVE_ANNEX_A_DSL_DRIVER
+ config REMOVE_ANNEX_A_DSL_DRIVER
 	bool "Remove Annex A driver on 72XX firmware"
 	depends on EXPORT_TYPE_LOCAL_MODEL && TYPE_ANNEX_B
 #	depends on EXPORT_TYPE_LOCAL_MODEL
@@ -2279,6 +2282,7 @@ if ! EXPORT_ATA_ONLY
 		Boxes with 8MB lack of space, so set this option with older boxes.
 		Answering machine may have no space left to record if not set.
 
+ ###---> NO AVM Modells 7XXX
  if ! EXPORT_TYPE_LOCAL_MODEL
 
     config SAVE_TCOM_DSL
@@ -2355,9 +2359,11 @@ if ! EXPORT_ATA_ONLY
 			default n 
 	endif
  endif
+ ### NO AVM Modells 7XXX<---
 endif
-
+### Ende NO ATA <-- 
 if ! EXPORT_TYPE_LOCAL_MODEL
+
  #config EXPORT_SETATM
  #
  #	depends on   ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W721 ) && ! TYPE_TCOM_7570_XX
