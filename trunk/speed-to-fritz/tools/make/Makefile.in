@@ -26,6 +26,7 @@ TOOLS+=find-squashfs
 #TOOLS+=lzma2eva
 TOOLS+=squashfs
 TOOLS+=squashfs3
+TOOLS+=squashfs4
 TOOLS+=tichksum
 TOOLS+=fakeroot
 #TOOLS+=xdelta
