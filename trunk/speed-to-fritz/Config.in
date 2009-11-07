@@ -432,8 +432,8 @@ choice
 	config TYPE_SPEEDPORT_W721V
 		bool "Speedport W721V"
 
-#	config TYPE_SPEEDPORT_W722V
-#		bool "W722V not useabel!"
+	config TYPE_SPEEDPORT_W722V
+		bool "W722V only for testing"
 
 	config TYPE_SPEEDPORT_W900V
 		bool "Speedport W900V"
