@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="07"; Monat="11"; Jahr="09"
+Tag="08"; Monat="11"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -497,9 +497,16 @@ case "$1" in
     	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
 	[ "$FBMOD" == "" ] && export FBMOD="7170"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
-	export HWID="134"
+	export HWID="152"
 	export HWRevision="${HWID}.1.1.0"
-	export CONFIG_INSTALL_TYPE="ar7_8MB_xilinx_4eth_2ab_isdn_pots_wlan_13200"
+	export CONFIG_INSTALL_TYPE="ur8_16MB_xilinx_4eth_2ab_isdn_te_pots_wlan_usb_host_57937"
+#
+export CONFIG_AB_COUNT="2"
+export CONFIG_ETH_COUNT="4"
+
+
+
+#
 	export CONFIG_XILINX="y"
 	export CONFIG_BOX_FEEDBACK="n"
 	export CONFIG_LED_NO_DSL_LED="n"
@@ -508,15 +515,15 @@ case "$1" in
 	export CONFIG_TR064=""
 	export CONFIG_TR069=""
 	export CONFIG_IsdnNT="0" 
-	export CONFIG_Usb="0" 
-	export CONFIG_UsbHost="0" 
-	export CONFIG_UsbStorage="0"
-	export CONFIG_UsbWlan="0"
-	export CONFIG_UsbPrint="0"
+	export CONFIG_Usb="1" 
+	export CONFIG_UsbHost="1" 
+	export CONFIG_UsbStorage="1"
+	export CONFIG_UsbWlan="1"
+	export CONFIG_UsbPrint="1"
 	export CONFIG_Debug="0"
 	export CONFIG_jffs2_size="32"
-	export CONFIG_RAMSIZE="32"
-	export CONFIG_ROMSIZE="8"
+	export CONFIG_ROMSIZE="16"
+	export CONFIG_RAMSIZE="128"
 	export CONFIG_AB_COUNT="2"
 	export CONFIG_ETH_COUNT="4"
 	export CONFIG_MAILER="y"
@@ -528,9 +535,8 @@ case "$1" in
 	#is TE Terminal Equipt
 	export CONFIG_IsdnTE="1"
 	export CONFIG_Pots="1"
-	export kernel_size="7798784"
 #additional, not in use on W701 but on 7170
-	export CONFIG_DSL_UR8="y"
+	export CONFIG_DSL_UR8="n"
         export CONFIG_EXPERT="y"
 	export CONFIG_GDB="n"
 	export CONFIG_GDB_FULL="n"
@@ -540,23 +546,44 @@ case "$1" in
 	export CONFIG_SERVICEPORTAL_URL="none"
 	export CONFIG_USB_HOST_AVM="n"
 	export CONFIG_USB_STORAGE="y"
-	export CONFIG_USB_PRINT_SERV="n"
-	export CONFIG_USB_STORAGE="n"
+	export CONFIG_USB_PRINT_SERV="y"
+	export CONFIG_USB_STORAGE="y"
 	export CONFIG_USB_STORAGE_USERS="n"
-	export CONFIG_USB_WLAN_AUTH="y"
-	export CONFIG_VDSL="y"
-	export CONFIG_VINAX="y"
-	export CONFIG_VLYNQ="y"
-	export CONFIG_VLYNQ0="0"
-	export CONFIG_VLYNQ1="0"
-#	export CONFIG_VLYNQ_PARAMS=""
-	export CONFIG_WLAN="n"
+	export CONFIG_USB_WLAN_AUTH="n"
+#-->new
+	export CONFIG_USB_HOST_TI="n"
+	export CONFIG_USB_STORAGE_SPINDOWN="n"
+	export CONFIG_USB_INTERNAL_HUB="n"
+	export CONFIG_DECT2="n"
+	export CONFIG_USB="n"
+	export CONFIG_CAPI_POTS="y"
+	export CONFIG_CAPI_TE="y"
+	export CONFIG_CAPI_MIPS="n"
+	export CONFIG_CAPI_NT="n"
+	export CONFIG_CAPI_XILINX="y"
+	export CONFIG_CAPI_UBIK="n"
+	export CONFIG_CAPI="y"
+
+	export CONFIG_WLAN_WPS="y"
+	export CONFIG_WLAN_TCOM_PRIO="y"
+	export CONFIG_WLAN_WDS="y"
+	export CONFIG_WLAN_TXPOWER="y"
+#<--new
+	export CONFIG_WLAN="y"
 	export CONFIG_WLAN_1130TNET="n"
 	export CONFIG_WLAN_1350TNET="n"
 	export CONFIG_WLAN_GREEN="n"
-	export CONFIG_WLAN_IPTV="n"
-	export CONFIG_WLAN_MADWIFI="n"
+	export CONFIG_WLAN_IPTV="y"
+	export CONFIG_WLAN_MADWIFI="y"
 	export CONFIG_WLAN_OPENWIFI="n"
+	export CONFIG_VDSL="y"
+	export CONFIG_VINAX="y"
+	export CONFIG_VLYNQ="n"
+	export CONFIG_VLYNQ0="3"
+	export CONFIG_VLYNQ1="0"
+#	export CONFIG_VLYNQ_PARAMS="vlynq_reset_bit_0"
+
+
 	export CONFIG_ATA="y" #no ATA possible with this harware  
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA_FULL="y"
@@ -569,8 +596,14 @@ case "$1" in
 	export UNSQUASHFS_TOOL="unsquashfs4-lzma"
 	export UNSQUASHFS="${TOOLS_DIR}/${UNSQUASHFS_TOOL}"
 	export MKSQUASHFS_TOOL="mksquashfs4-lzma"
-	export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
+	export MKSQUASHFS_OPTIONS="-noappend -all-root -info -no-progress -no-exports -no-exports"
 	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
+	export kernel_start=0x9F020000
+	export kernel_size="16121856"
+	export filesystem_start="0x9F000000"
+	export filesystem_size="0"
+	export urlader_start="0x9F000000"
+	export urlader_size="131072"
     ;;
     
 

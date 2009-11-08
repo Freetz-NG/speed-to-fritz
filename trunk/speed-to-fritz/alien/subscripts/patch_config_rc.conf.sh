@@ -60,6 +60,19 @@ export CONFIG_VINAX=\"${CONFIG_VINAX}\"" "${1}/etc/init.d/rc.conf"
 #[ "$CONFIG_TAM" ] &&  sed -i -e "s/CONFIG_TAM=\".*$/CONFIG_TAM=\"${CONFIG_TAM}\"/g" "${1}/etc/init.d/rc.conf"
 #[ "$CONFIG_ACCESSORY_URL" ] &&  sed -i -e "s/CONFIG_ACCESSORY_URL=\".*$/CONFIG_ACCESSORY_URL=\"${CONFIG_ACCESSORY_URL}\"/g" "${1}/etc/init.d/rc.conf"
 
+#W722
+[ "$CONFIG_USB_HOST_TI" ] &&  sed -i -e "s/CONFIG_USB_HOST_TI=\".*$/CONFIG_USB_HOST_TI=\"${CONFIG_USB_HOST_TI}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_USB_STORAGE_SPINDOWN" ] &&  sed -i -e "s/CONFIG_USB_STORAGE_SPINDOWN=\".*$/CONFIG_USB_STORAGE_SPINDOWN=\"${CONFIG_USB_STORAGE_SPINDOWN}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_USB_INTERNAL_HUB" ] &&  sed -i -e "s/CONFIG_USB_INTERNAL_HUB=\".*$/CONFIG_USB_INTERNAL_HUB=\"${CONFIG_USB_INTERNAL_HUB}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_USB" ] &&  sed -i -e "s/CONFIG_USB=\".*$/CONFIG_USB=\"${CONFIG_USB}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_CAPI_MIPS" ] &&  sed -i -e "s/CONFIG_CAPI_MIPS=\".*$/CONFIG_CAPI_MIPS=\"${CONFIG_CAPI_MIPS}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_CAPI_UBIK" ] &&  sed -i -e "s/CONFIG_CAPI_UBIK=\".*$/CONFIG_CAPI_UBIK=\"${CONFIG_CAPI_UBIK}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_CAPI" ] &&  sed -i -e "s/CONFIG_CAPI=\".*$/CONFIG_CAPI=\"${CONFIG_CAPI}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_WLAN_TCOM_PRIO" ] &&  sed -i -e "s/CONFIG_WLAN_TCOM_PRIO=\".*$/CONFIG_WLAN_TCOM_PRIO=\"${CONFIG_WLAN_TCOM_PRIO}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_WLAN_WDS" ] &&  sed -i -e "s/CONFIG_WLAN_WDS=\".*$/CONFIG_WLAN_WDS=\"${CONFIG_WLAN_WDS}\"/g" "${1}/etc/init.d/rc.conf"
+[ "$CONFIG_WLAN_TXPOWER" ] &&  sed -i -e "s/CONFIG_WLAN_TXPOWER=\".*$/CONFIG_WLAN_TXPOWER=\"${CONFIG_WLAN_TXPOWER}\"/g" "${1}/etc/init.d/rc.conf"
+#[ "$" ] &&  sed -i -e "s/=\".*$/=\"${}\"/g" "${1}/etc/init.d/rc.conf"
+
 #W920
 [ "$CONFIG_VINAX_TRACE" ] && ! `grep -q 'CONFIG_VINAX_TRACE=' "${1}/etc/init.d/rc.conf"` &&\
 sed -i -e "/CONFIG_VINAX/a\
