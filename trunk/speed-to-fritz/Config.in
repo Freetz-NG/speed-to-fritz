@@ -314,9 +314,13 @@ config AVM_PHONE_7270_V3_15195
    string
    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7270/fritz_box-labor-7270v3-15195.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabPHONE.AnnexB.74.04.97-15195.image"
 
+config AVM_CORE_7270_15220
+   string
+   default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabCORE.AnnexB.54.04.98-15220.zip mirror http://h.imagehost.org/dl/c8d334f59db42f87b9471c6313529703/0433/FRITZ_Box_Fon_WLAN_7270_LabCORE_AnnexB_54_04_98-15220.zip"
+
 config AVM_CORE_7270_V3_15220
    string
-   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_streaming_stick/FRITZ.Box_Fon_WLAN_7270_LabCORE.AnnexB.54.04.98-15220.zip mirror http://www.hostarea.de/server-11/November-e1449b8e4b.zip"
+   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_streaming_stick/FRITZ.Box_Fon_WLAN_7270_v3_LabCORE.AnnexB.74.04.98-15220.zip mirror http://www.hostarea.de/server-11/November-e1449b8e4b.zip"
 
 config AVM_CORE_7270_15627
    string
@@ -981,8 +985,16 @@ choice
 			and fixes various software problems, e.g. answering machine and
 			facsimile reception.
 
+	config TYPE_7270_CORE_15220
+		bool "AVM_7270_CORE_15220  7270-54.04.98-15220 (Streaming Stick)"
+		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		help
+			FRITZ! Streaming Stick: This release adds support for streaming of
+			media content via AVM WLAN USB Stick v1.1. External software for
+			the USB-Stick is necessary and is part of the ZIP-file.
+
 	config TYPE_7270_V3_CORE_15220
-		bool "AVM_7270_V3_CORE_15220  7270-54.04.98-15220 (Streaming Stick)"
+		bool "AVM_7270_V3_CORE_15220  7270-74.04.98-15220 (Streaming Stick)"
 		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! Streaming Stick: This release adds support for streaming of
@@ -1154,8 +1166,8 @@ choice
 		default TYPE_SRC3_AVM_7570_72           	if ! EXPORT_TYPE_LOCAL_MODEL && ! TYPE_9207570
 		default TYPE_SRC3_AVM_7270_V3_76        	if EXPORT_TYPE_LOCAL_MODEL && TYPE_7270v3
 		default TYPE_SRC3_AVM_7141_76           	if EXPORT_TYPE_LOCAL_MODEL && TYPE_7141
-		default TYPE_SRC3_TCOM_W920_78   		if TYPE_9207570 && FORCE_VDSL
-		default TYPE_SRC3_AVM_CORE_7270_15627   	if TYPE_9207570 && ! FORCE_VDSL
+		default TYPE_SRC3_TCOM_W920_78   		if TYPE_9207570
+#		default TYPE_SRC3_AVM_CORE_7270_15627   	if TYPE_9207570 && ! FORCE_VDSL
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 ### 7113 Firmware
@@ -1309,8 +1321,11 @@ choice
 	config TYPE_SRC3_AVM_DSL_7270_15335
 		bool "AVM_7270_15335 54.04.99-15335"
 
+	config TYPE_SRC3_AVM_CORE_7270_15220
+		bool "AVM_7270_CORE_15220 54.04.98-15220 (Streaming Stick)"
+
 	config TYPE_SRC3_AVM_CORE_7270_V3_15220
-		bool "AVM_7270_V3_CORE_15220 54.04.98-15220 (Streaming Stick)"
+		bool "AVM_7270_V3_CORE_15220 74.04.98-15220 (Streaming Stick)"
 
 	config TYPE_SRC3_AVM_CORE_7270_15627
 		bool "AVM_7270_CORE_15627 54.04.98-15627 (Streaming Stick)"
@@ -1475,7 +1490,7 @@ config TCOM_IMG
 	default "$TCOM_W900_57" 		if TYPE_SPEEDPORT_W900V
 #	default "$TCOM_W920_74" 		if ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 )
 	default "$TCOM_W920_78" 		if ORI && ( TYPE_9207570 )
-	default "$AVM_7570_15316"		if ( ! ORI && ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 )
+	default "$AVM_7570_77"			if ( ! ORI && ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 )
 	default "$TCOM_W920_58" 		if TYPE_58 && ( TYPE_9207570 )
 	default "$TCOM_W920_63" 		if TYPE_TCOM_BETA_63 && ( TYPE_9207570 )
 	default "$TCOM_W920_70" 		if TYPE_TCOM_BETA_70 && ( TYPE_9207570 )
@@ -1532,7 +1547,7 @@ config AVM_IMG
 
 #	default "$AVM_7240_76"				if ( TYPE_7240_76 ) && ( EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7240_76"				if ( TYPE_7240_76 )
-	default "$AVM_CORE_7270_V3_15220"		if ( TYPE_9207570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE && ! FORCE_VDSL
+	default "$AVM_CORE_7270_15220"			if ( TYPE_9207570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE && ! FORCE_VDSL
 	default "$AVM_CORE_7270_15627"			if ( TYPE_9207570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE && FORCE_VDSL
 #	default "$AVM_7270_76"				if ( TYPE_9207570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 #	default "$AVM_7270_67m" 			if ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && ! TYPE_LANG_DE
@@ -1546,6 +1561,7 @@ config AVM_IMG
 	default "$AVM_7270_76"				if ( TYPE_7270_76 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_76m" 			if ( TYPE_7270_76m ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL ) 
 	default "$AVM_7270_V3_76"			if ( TYPE_7270_V3_76 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_CORE_7270_15220"			if ( TYPE_7270_CORE_15220 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_CORE_7270_V3_15220"		if ( TYPE_7270_V3_CORE_15220 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_CORE_7270_15627"			if ( TYPE_7270_CORE_15627 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_CORE_7270_V3_15627"		if ( TYPE_7270_V3_CORE_15627 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
@@ -1622,6 +1638,7 @@ config SRC2_IMG
 	default "$AVM_7240_76" 			if TYPE_SRC3_AVM_7240_76
 	default "$AVM_7270_76" 			if TYPE_SRC3_AVM_7270_76
 	default "$AVM_7270_V3_76" 		if TYPE_SRC3_AVM_7270_V3_76
+	default "$AVM_CORE_7270_15220" 		if TYPE_SRC3_AVM_CORE_7270_15220
 	default "$AVM_CORE_7270_V3_15220" 	if TYPE_SRC3_AVM_CORE_7270_V3_15220
 	default "$AVM_CORE_7270_15627" 		if TYPE_SRC3_AVM_CORE_7270_15627
 	default "$AVM_CORE_7270_V3_15627" 	if TYPE_SRC3_AVM_CORE_7270_V3_15627
@@ -1695,7 +1712,7 @@ config TYPE_LABOR_TYPE
         default "76" 		if TYPE_7170_76 || TYPE_7270_76
         default "76m" 		if TYPE_7170_76m || TYPE_7270_76m
         default "76V3" 		if TYPE_7270_V3_76
-	default "CORE"	 	if TYPE_7270_CORE_V3_15220 || TYPE_7270_CORE_15627 || TYPE_7270_CORE_V3_15627 || TYPE_7240_CORE_15627 || TYPE_7240_CORE_V3_15627
+	default "CORE"	 	if TYPE_7270_CORE_V3_15220 || TYPE_7270_CORE_15220 || TYPE_7270_CORE_15627 || TYPE_7270_CORE_V3_15627 || TYPE_7240_CORE_15627 || TYPE_7240_CORE_V3_15627
         default "BETA"	 	if TYPE_7270_PRE_215620 || TYPE_7270_PRE_V3_215620 || TYPE_7240_PRE_215620
         default "13948" 	if TYPE_7170_13948
         default "13486" 	if TYPE_7270_13486
@@ -1967,13 +1984,22 @@ if EXPORT_TYPE_LOCAL_MODEL
 endif
 ### AVM Modells 7XXX<---
 
-config FORCE_SRC2_DECTDRIVER
-	bool "Use DECT driver from 2nd AVM firmware"
+config FORCE_DST_DECTDRIVER
+	bool "Use DECT driver from 1st T-Home firmware"
 	depends on TYPE_9207570 || EXPORT_TYPE_LOCAL_MODEL
 	default y if ! FORCE_VDSL && ! EXPORT_TYPE_LOCAL_MODEL
 	help
+		Use DECT driver from 1nd T-Home source.
+		V3 firmware DECT driver canït be used with W920 
+
+config FORCE_SRC2_DECTDRIVER
+	bool "Use DECT driver from 2nd AVM firmware"
+	depends on TYPE_9207570 || EXPORT_TYPE_LOCAL_MODEL
+	default n
+	help
 		Use DECT driver from 2nd AVM source.
 		V3 firmware DECT driver canït be used with W920 
+
 config FORCE_OWN_DECTDRIVER
 	bool "Use own DECT driver from ./addon/tmp/XXXX/"
 	depends on TYPE_9207570 || EXPORT_TYPE_LOCAL_MODEL
@@ -2339,14 +2365,14 @@ if ! EXPORT_ATA_ONLY
 
     config FORCE_VINAX_DRV_77
 	bool "Force 75.04.77 compatibel vinax driver"
-	depends on ( TYPE_TCOM_7570_15446 || TYPE_TCOM_7570_77 ) && ! FORCE_VDSL
+	depends on TYPE_9207570 && ! FORCE_VDSL
 	default y
 	help
 		Use own drv_vinax.co from bulid 15446.
 
     config FORCE_KDSLD_DRV_77
 	bool "Force 75.04.77 compatibel kdsld driver"
-	depends on ( TYPE_TCOM_7570_15446 || TYPE_TCOM_7570_77 ) && ! FORCE_VDSL
+	depends on TYPE_9207570 && ! FORCE_VDSL
 	default y
 	help
 		Use own drv_vinax.co from bulid 15446.

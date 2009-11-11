@@ -122,6 +122,9 @@ if [ "${SAVE_SRC2_DECTDRIVER}" = "y" ]; then
     cp -fdrp "${SRC_2}"/lib/modules/dectfw_secondlevel.hex --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
     echo "  -- 2nd AVM Firmware DECT Driver saved to: ./addon/tmp/W920"
 fi
+[ "${FORCE_DST_DECTDRIVER}" = "y" ] && cp -fdrp "${DST}"/lib/modules/dectfw_firstlevel.hex --target-directory="${SRC}"/lib/modules &&\
+cp -fdrp "${DST}"/lib/modules/dectfw_secondlevel.hex --target-directory="${SRC}"/lib/modules &&\
+echo "  -- DECT Driver was taken from 1st source (t-home firmware)."
 [ "${FORCE_SRC2_DECTDRIVER}" = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/dectfw_firstlevel.hex --target-directory="${SRC}"/lib/modules &&\
 cp -fdrp "${SRC_2}"/lib/modules/dectfw_secondlevel.hex --target-directory="${SRC}"/lib/modules &&\
 echo "  -- DECT Driver was taken from 2nd AVM source."
@@ -231,7 +234,7 @@ echo "  -- Xilinx Piglet_noemif.ko driver was taken from the original t-home fir
 sed -i -e 's/piglet_enable_button=2/piglet_enable_button=3/' "${SRC}/etc/init.d/rc.S" 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # set led definition 
-if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ ${FORCE_TCOM_LEDDRIVER} = "y" ]; then
+if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ "${FORCE_TCOM_LEDDRIVER}" = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
     cp -fdrp "${DST}"/lib/libled* --target-directory="${SRC}"/lib
     cp -fdrp "${DST}"/bin/led* --target-directory="${SRC}"/bin
@@ -239,7 +242,7 @@ if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] 
     cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
     echo "  -- LED Driver was taken from the original t-com firmware"
 fi
-if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ ${FORCE_SRC2_LEDDRIVER} = "y" ]; then
+if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ "${FORCE_SRC2_LEDDRIVER}" = "y" ]; then
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
     cp -fdrp "${SRC_2}"/lib/libled* --target-directory="${SRC}"/lib
     cp -fdrp "${SRC_2}"/bin/led* --target-directory="${SRC}"/bin
