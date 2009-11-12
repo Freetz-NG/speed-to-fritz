@@ -314,4 +314,10 @@ $sh_DIR/add_vdslprofilepage.sh "${SRC}"
 #remove kids and help
 [ "${REMOVE_KIDS}" = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
 [ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
+#fix ADSL interface accsess restrictions
+#cp -f \/var\/flash\/ar7.cfg \/var\/tmp\/ar7.cfg\
+#cp -f \/var\/tmp\/ar7.cfg \/var\/flash\/ar7.cfg\
+sed -i -e "/ \/etc\/init.d\/rc.conf/a\
+sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg\
+cat \/var\/flash\/ar7.cfg\ | grep ifacectl && echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"
 echo "********************************************************************************"
