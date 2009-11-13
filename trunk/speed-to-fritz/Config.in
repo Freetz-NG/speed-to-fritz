@@ -1,4 +1,4 @@
-comment "General settings for Speed-to-fritz --------------------------------"
+comment "G7eneral settings for Speed-to-fritz --------------------------------"
 mainmenu " Configuration"
 ### General help for syntax used within this Config.in File see: /tools/config/kconfig-language.txt
 ### If alternative download link is a pointer, then the first filename is needed with .zip extension.
@@ -468,7 +468,7 @@ choice
 #		select SET_FREETZ_REVISION
 
 	config TYPE_7570
-		bool "AVM 7570"
+		bool "AVM 7570 (or pure 7570 on W920V)"
 
 	config TYPE_7141
 		bool "AVM 7141"
@@ -677,7 +677,6 @@ endchoice
 comment  "--------------------------------------------------------------------"
 choice
 	prompt "Select firmware default language (optional)"
-		default TYPE_LANG_DE
 	help
 	    The selected firmware language is usual the one used by the AVM firmware.
 	    If 1st AVM and 2nd AVM firmware is a multilingual firmware, one of this firmware languages can be forced, but this is only possible with 7270 or 7570 firmwares.
@@ -1172,8 +1171,8 @@ endchoice
 comment  "--------------------------------------------------------------------"
 config SOURCE2
 	bool "2nd AVM Type firmware (optional)"
-	default y if EXPORT_TYPE_LOCAL_MODEL || TYPE_9207570
-	default n if ! EXPORT_TYPE_LOCAL_MODEL
+	default y if EXPORT_TYPE_LOCAL_MODEL || TYPE_SPEEDPORT_W920V
+	default n if ! EXPORT_TYPE_LOCAL_MODEL || TYPE_7570
 	help
 		Enable this if you need a second AVM or T-Home firmware, this may be needed with some options.
 		Not all listed firmwares are usable. 
@@ -1512,8 +1511,8 @@ config TCOM_IMG
 	default "$TCOM_W722_76" 		if ( TYPE_SPEEDPORT_W722V )
 	default "$TCOM_W900_57" 		if TYPE_SPEEDPORT_W900V
 #	default "$TCOM_W920_74" 		if ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 )
-	default "$TCOM_W920_78" 		if ORI && ( TYPE_9207570 )
-	default "$AVM_7570_77"			if ( ! ORI && ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 )
+	default "$TCOM_W920_78" 		if ORI && ( TYPE_SPEEDPORT_W900V )
+	default "$AVM_7570_77"			if ( TYPE_7570 && ! TYPE_TCOM_7570_77 ) || (( ! ORI && ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 ))
 	default "$TCOM_W920_58" 		if TYPE_58 && ( TYPE_9207570 )
 	default "$TCOM_W920_63" 		if TYPE_TCOM_BETA_63 && ( TYPE_9207570 )
 	default "$TCOM_W920_70" 		if TYPE_TCOM_BETA_70 && ( TYPE_9207570 )
@@ -1567,14 +1566,14 @@ config AVM_IMG
 #	default "$AVM_AIO_7170_13679"			if TYPE_7170_AIO_13679 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_GAMING_7170_11435"		if TYPE_7170_GAMING_11435 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_MINI_7170_14935"			if TYPE_7170_MINI_14935 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
-
 #	default "$AVM_7240_76"				if ( TYPE_7240_76 ) && ( EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7240_76"				if ( TYPE_7240_76 )
-	default "$AVM_CORE_7270_15627"			if ( TYPE_9207570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
-#	default "$AVM_CORE_7270_15627"			if ( TYPE_9207570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE && FORCE_VDSL
-#	default "$AVM_7270_76"				if ( TYPE_9207570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
-#	default "$AVM_7270_67m" 			if ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && ! TYPE_LANG_DE
-	default "$AVM_7270_76m" 			if ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && ! TYPE_LANG_DE
+	default "$AVM_7570_77"				if ( TYPE_7570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX
+	default "$AVM_CORE_7270_15627"			if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
+#	default "$AVM_CORE_7270_15627"			if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE && FORCE_VDSL
+#	default "$AVM_7270_76"				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
+#	default "$AVM_7270_67m" 			if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && ! TYPE_LANG_DE
+	default "$AVM_7270_76m" 			if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && ! TYPE_LANG_DE
 	default "$AVM_7270_59" 				if ( TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_59" 				if ( TYPE_7270_59 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_58"	 			if ( TYPE_7270_58 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL ) 
@@ -1791,13 +1790,12 @@ config EXPORT_FORCE_MULTI_COUNTRY
 config EXPORT_OEM
 	string
 	default "tcom" if ORI || TYPE_SPEEDPORT_W721V 
-	default "avm" if ( TYPE_LANG_DE && ! TYPE_67m && ! TYPE_76m && ! TYPE_AVM_7570_XX && ! EXPORT_FORCE_MULTI_LANGUAGE )
-	#default "avm" if TYPE_LANG_A_CH
-	default "avme" if ( ! TYPE_LANG_DE  || TYPE_67m || TYPE_76m || TYPE_AVM_7570_XX ) && ! EXPORT_FORCE_MULTI_LANGUAGE   
+	default "avm" if ( TYPE_LANG_DE && ! TYPE_7570 && ! TYPE_67m && ! TYPE_76m && ! TYPE_AVM_7570_XX && ! EXPORT_FORCE_MULTI_LANGUAGE )
+	default "avme" if TYPE_7570 || (( ! TYPE_LANG_DE  || TYPE_67m || TYPE_76m || TYPE_AVM_7570_XX  ) && ! EXPORT_FORCE_MULTI_LANGUAGE )
  
 config EXPORT_FORCE_LANGUAGE
 	string
-	default "en" if ! TYPE_LANG_DE && ( TYPE_AVM_7570_XX || TYPE_TCOM_7570_XX )
+	default "en" if TYPE_LANG_EN || ( ! TYPE_LANG_DE && ( TYPE_AVM_7570_XX || TYPE_TCOM_7570_XX ))
 	default "de" if TYPE_LANG_DE && ( TYPE_AVM_7570_XX || TYPE_TCOM_7570_XX )
 	default "fr" if TYPE_LANG_FR
 	default "es" if TYPE_LANG_ES
