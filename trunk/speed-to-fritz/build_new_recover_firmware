@@ -28,6 +28,7 @@ if [ "$BUILDRECOVER" = "y" ]; then
 fi
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
+RECOVERIMG5050="ftp://ftp.avm.de/fritz.box/fritzbox.fon_5050/x_misc/fritz.box_fon_5050.12.04.31.recover-image.exe"
 RECOVERIMG7113="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7113.04.67.recover-image.exe"
 #RECOVERIMG7140="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/x_misc/deutsch/fritz.box_fon_wlan_7140.annexb.04.33.recover-image.exe"
 RECOVERIMG7140="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/x_misc/english/annex_b/FRITZ.Box_Fon_WLAN_7140.AnnexB.en.04.67.recover-image.exe"
@@ -37,8 +38,10 @@ RECOVERIMG7170="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/x_misc/deutsch
 RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/english/FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it-fr.04.76.recover-image.exe"
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
-[ "${FBMOD}" == "5050" ] && R_IMG="$RECOVERIMG7150"
+[ "${FBMOD}" == "5050" ] && R_IMG="$RECOVERIMG7170"
+#[ "${FBMOD}" == "5050" ] && R_IMG="$RECOVERIMG5050"
 #alternative one may perhaps use this line instead
+#[ "${FBMOD}" == "5050" ] && R_IMG="$RECOVERIMG7150"
 #[ "${FBMOD}" == "5050" ] && R_IMG="$RECOVERIMG7140"
 [ "${FBMOD}" == "7113" ] && R_IMG="$RECOVERIMG7113"
 [ "${FBMOD}" == "5140" ] && R_IMG="$RECOVERIMG7140"
@@ -90,6 +93,7 @@ if [ ${SPNUM:3:1} == "X" ]; then
  sed -i -e "s|FRITZ!Box Fon WLAN ${FBMOD}|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_start"
 else
  sed -i -e "s|FRITZ!Box Fon WLAN ${FBMOD}|FRITZ!Box Fon WLAN ${SPNUM:0:4}|g" "$output_dir/exe_start"
+ sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Fon WLAN ${SPNUM:0:4}|g" "$output_dir/exe_start"
 fi
 #0x1a249
 sed -i -e 's|\x0F\x85\xFA\x01\x00\x00\x8D\x85|\x90\x90\x90\x90\x90\x90\x8D\x85|' "$output_dir/exe_start"
@@ -125,7 +129,7 @@ rplbytes="72 08 81 ff e8 03 00 00"
 [ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- Urloader2 update remove error!" && checkerror="y"
 rplbytes="eb 4a 8d 95 1c fc ff ff 52 51 50 68 4c 61 90 00"
 #[ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- Check kernel size remove error!" && checkerror="y"
-if [ ${R_IMG} != ${RECOVERIMG7140} ]; then
+if ! ( [ "${R_IMG}" == "${RECOVERIMG7140}" ] || [ "${R_IMG}" == "${RECOVERIMG5050}" ] ) ; then
  rplbytes="eb 4a 8d 95 08 fc ff"
  [ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- Check kernel size remove error!" && checkerror="y"
  rplbytes="eb 48 8d 85 08"
@@ -149,15 +153,17 @@ cat $output_dir/zerro.image >>$new_recover_file
 cat $output_dir/exe_mid >>$new_recover_file
 cat $output_dir/urlader.image >>$new_recover_file
 cat $output_dir/exe_end >>$new_recover_file
-if  ! `cat "$new_recover_file" | grep -q "FRITZ!Box Speedp. W${SPNUM:0:3}V"`; then
- echo "-- Text not changed to: FRITZ!Box Speedp. W${SPNUM:0:3}V"
+if [ ${SPNUM:3:1} == "X" ]; then
+ if  ! `cat "$new_recover_file" | grep -q "FRITZ!Box Speedp. W${SPNUM:0:3}V"`; then
+  echo "-- Text not changed to: FRITZ!Box Speedp. W${SPNUM:0:3}V"
+ fi
 fi
 chmod -x $new_recover_file
 act_size=`ls -l "$input_recover_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 new_act_size=`ls -l "$new_recover_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 #echo "actual size= $act_size,  new actual size= $new_act_size" 
 [ $act_size -eq $new_act_size ] || echo "ERROR! Reduce size of kernel.image by: $error_size Bytes." 
-[ $act_size -eq $new_act_size ] && echo -e "New Recover:\n$new_recover_file\n\
+[ $act_size -eq $new_act_size ] && [ -f "$new_recover_file" ] && echo -e "New Recover:\n$new_recover_file\n\
 Transfer this file to windows and start it to push the new firmware to your router.\n\
 This is the 3rd method to update Firmware, in most cases this will be the most \n\
 reliable way to do a firmware update.\n\
