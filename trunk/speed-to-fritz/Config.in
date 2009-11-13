@@ -1,4 +1,4 @@
-comment "G7eneral settings for Speed-to-fritz --------------------------------"
+comment "General settings for Speed-to-fritz --------------------------------"
 mainmenu " Configuration"
 ### General help for syntax used within this Config.in File see: /tools/config/kconfig-language.txt
 ### If alternative download link is a pointer, then the first filename is needed with .zip extension.
