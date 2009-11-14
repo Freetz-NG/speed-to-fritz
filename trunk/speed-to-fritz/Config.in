@@ -479,17 +479,60 @@ choice
 	config TYPE_7570
 		bool "AVM 7570 (or pure 7570 on W920V)"
 
-	config TYPE_7141
-		bool "AVM 7141"
+	config TYPE_7390
+		bool "AVM 7390"
 
 	config TYPE_7270v3
 		bool "AVM 7270v3"
 
-	config TYPE_7240v2
+	config TYPE_7270
+		bool "AVM 7270"
+
+	config TYPE_7240
 		bool "AVM 7240"
+
+	config TYPE_7170
+		bool "AVM 7170"
+
+	config TYPE_7150
+		bool "AVM 7150"
+
+	config TYPE_7113
+		bool "AVM 7113"
+
+	config TYPE_7141
+		bool "AVM 7141"
+
+	config TYPE_7140
+		bool "AVM 7140"
+
+	config TYPE_7050
+		bool "AVM 7050"
+
+	config TYPE_5140
+		bool "AVM 5140"
+
+	config TYPE_5130
+		bool "AVM 5130"
+
+	config TYPE_5050
+		bool "AVM 5050"
+
+	config TYPE_5012
+		bool "AVM 5012"
+
+	config TYPE_5010
+		bool "AVM 5010"
+
+	config TYPE_FBFW
+		bool "AVM FB Fon WLAN"
+
+	config TYPE_FBFO
+		bool "AVM FB Fon"
 
 	config LOCAL_X_MODEL
 		bool "Any AVM custom model"
+
 
 endchoice
 if LOCAL_X_MODEL
@@ -501,7 +544,7 @@ if LOCAL_X_MODEL
 		    then insert the firmware names for 1st AVM and 2nd AVM firmware.
 endif
 
-if  TYPE_7141 || TYPE_7270v3 || TYPE_7240v2 || LOCAL_X_MODEL
+if  TYPE_7390 || TYPE_7270v3 || TYPE_7270 || TYPE_7240 || TYPE_7170 || TYPE_7150 || TYPE_7113 || TYPE_7141 || TYPE_7140 || TYPE_7050 || TYPE_5140 || TYPE_5130 || TYPE_5050 || TYPE_5012 || TYPE_5010 || TYPE_FBFW || TYPE_FBFO || LOCAL_X_MODEL
     config EXPORT_TYPE_LOCAL_MODEL
 	bool
 	default y
@@ -525,9 +568,23 @@ if ! LOCAL_X_MODEL
 	default "920"		if TYPE_SPEEDPORT_W920V
 	default "7570"		if TYPE_7570
 	default "500"		if TYPE_SINUS_W500V
-	default "7270v3"	if TYPE_7270v3
-	default "7240v2"	if TYPE_7240v2
+	default "7390"		if TYPE_7390
+	default "7273"		if TYPE_7270v3
+	default "7270"		if TYPE_7270
+	default "7240"		if TYPE_7240
+	default "7170"		if TYPE_7170
+	default "7150"		if TYPE_7150
+	default "7113"		if TYPE_7113
 	default "7141"		if TYPE_7141
+	default "7140"		if TYPE_7140
+	default "7050"		if TYPE_7050
+	default "5140"		if TYPE_5140
+	default "5130"		if TYPE_5130
+	default "5050"		if TYPE_5050
+	default "5012"		if TYPE_5012
+	default "5010"		if TYPE_5010
+	default "FBFW"		if TYPE_FBFW
+	default "FBFO"		if TYPE_FBFO
 endif
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1856,6 +1913,7 @@ config SET_OEM
 	    Branding should be left as it is, but if needed you may specify your own.
 	    You can only specify a branding implemented within the AVM firmware used!
 	    (avm, avme, tcom, 1und1, aol, freenet)
+	    (OEM is the same as 'firmware_version' within FTP ADAM environment. )
 	    In case of option ORI branding will always set to T-Home later through the script.
 
 config EXPORT_OEM
