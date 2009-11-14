@@ -17,12 +17,15 @@ echo "export CONFIG_jffs2_size=\"${CONFIG_jffs2_size}\"" >> incl_var
 echo "export ANNEX=\"${ANNEX}\"" >> incl_var
 echo "export avm_Lang=\"${avm_Lang}\"" >> incl_var
 echo "export SKRIPT_DATE=\"${SKRIPT_DATE}\"" >> incl_var
+echo "export AVM_VERSION_MAJOR=\"${AVM_VERSION_MAJOR}\"" >> incl_var
+echo "export TCOM_VERSION_MAJOR=\"${TCOM_VERSION_MAJOR}\"" >> incl_var
 echo "export AVM_VERSION=\"${AVM_VERSION}\"" >> incl_var
 echo "export TCOM_VERSION=\"${TCOM_VERSION}\"" >> incl_var
 echo "export SPNUM=\"${SPNUM}\"" >> incl_var
 echo "export CLASS=\"${CLASS}\"" >> incl_var
 echo "export TCOM_SUBVERSION=\"${TCOM_SUBVERSION}\"" >> incl_var
 echo "export AVM_SUBVERSION=\"${AVM_SUBVERSION}\"" >> incl_var
+
 echo "export firmwareconf_file_name=\"${firmwareconf_file_name}\"" >> incl_var
 echo "export cml=\"${cml}\"" >> incl_var
 echo "export Options=\"${Options}\"" >> incl_var

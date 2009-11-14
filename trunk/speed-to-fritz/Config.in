@@ -1900,7 +1900,8 @@ config EXPORT_OEM
 config EXPORT_FORCE_LANGUAGE
 	string
 	default "en" if TYPE_LANG_EN || ( ! TYPE_LANG_DE && ( TYPE_AVM_7570_XX || TYPE_TCOM_7570_XX ))
-	default "de" if TYPE_LANG_DE && ( TYPE_AVM_7570_XX || TYPE_TCOM_7570_XX )
+	default "de" if TYPE_LANG_DE
+#	&& ( TYPE_AVM_7570_XX || TYPE_TCOM_7570_XX )
 	default "fr" if TYPE_LANG_FR
 	default "es" if TYPE_LANG_ES
 	default "it" if TYPE_LANG_IT
@@ -1952,12 +1953,22 @@ config EXPORT_BUILDRECOVER
 	bool "Build Recover firmware"
 	depends on ! ORI
 	default n
+	select EXPORT_PATCH_OEM
+	select EXPORT_REMOVE_SOME_LANGUAGE
 	help
 		This reconcates a AVM Recover firmware with changed kernel.image.
 		Not in every case the size of the new kernel.image will fit.
 		In some cases therfore no Recover Firmware will be genareted.
 		Resulting windows executabel can be usesd in the same way as 
 		original Recover.
+
+config EXPORT_PATCH_OEM
+	bool "Force branding"
+	default n
+	help
+	    Force branding, sets the selected branding (OEM) within the firmware,
+	    environment settings are not taken in acount any more!
+	    Recover firmware needs this option to be set on!
 		
 config EXPORT_ADD_OLD_DECTMENU
 	bool "DECT menu (add)"
@@ -2039,6 +2050,55 @@ config EXPORT_REMOVE_KIDS
 	default y if ( ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V )
 	help
 		Set this to 'y' if you like to remove kids pages to save space, normal this is "n".
+config REMOVE_ANNEX_B_DSL_DRIVER
+	bool "Remove Annex B driver on 72XX firmware"
+	depends on TYPE_ANNEX_A
+	default n
+	help
+		Annex B driver will be removed if it is a 72XX firmware.
+		Boxes with 8MB lack of space, so set this option with older boxes.
+		Answering machine may have no space left to record if not set.
+config REMOVE_ANNEX_A_DSL_DRIVER
+	bool "Remove Annex A driver on 72XX firmware"
+	depends on TYPE_ANNEX_B
+	default n
+	help
+		Annex A driver will be removed if it is a 72XX firmware.
+		Boxes with 8MB lack of space, so set this option with older boxes.
+		Answering machine may have no space left to record if not set.
+
+config EXPORT_REMOVE_SOME_LANGUAGE
+	bool "Force single language"
+	default y if EXPORT_BUILDRECOVER
+	default n
+	help
+		Language driver will be removed if it is a 72XX firmware.
+		Boxes with 8MB lack of space, so set this option with older boxes.
+		Answering machine may have no space left to record if not set.
+		
+	if EXPORT_REMOVE_SOME_LANGUAGE
+		config EXPORT_REMOVE_DE
+			bool "Remove language de if possibel"
+			default y if EXPORT_BUILDRECOVER
+			default n 
+		config EXPORT_REMOVE_EN
+			bool "Remove language en if possibel"
+			default y if EXPORT_BUILDRECOVER
+			default n 
+		config EXPORT_REMOVE_ES
+			bool "Remove language es if possibel"
+			default y if EXPORT_BUILDRECOVER
+			default n 
+		config EXPORT_REMOVE_IT
+			bool "Remove language it if possibel"
+			default y if EXPORT_BUILDRECOVER
+			default n 
+		config EXPORT_REMOVE_FR
+			bool "Remove language fr if possibel"
+			default y if EXPORT_BUILDRECOVER
+			default n 
+	endif
+
 config EXPORT_PATCH_PORTRULE
 	bool "Enable portforwarding to box itself (remove refuse destination IP 0.0.0.0)"
 	default n
@@ -2461,26 +2521,6 @@ if ! EXPORT_ATA_ONLY
 		No files get removed within this directory so if you do more than one save with different settings
 		more files may be within this directory than realy wanted.
 		Save (V)DSL DRIVER from AVM source to ./addon/tmp/WXXX.
- config REMOVE_ANNEX_B_DSL_DRIVER
-	bool "Remove Annex B driver on 72XX firmware"
-	depends on EXPERT_MOD 
-	depends on EXPORT_TYPE_LOCAL_MODEL && TYPE_ANNEX_A
-#	depends on EXPORT_TYPE_LOCAL_MODEL
-	default n
-	help
-		Annex B driver will be removed if it is a 72XX firmware.
-		Boxes with 8MB lack of space, so set this option with older boxes.
-		Answering machine may have no space left to record if not set.
- config REMOVE_ANNEX_A_DSL_DRIVER
-	bool "Remove Annex A driver on 72XX firmware"
-	depends on EXPERT_MOD 
-	depends on EXPORT_TYPE_LOCAL_MODEL && TYPE_ANNEX_B
-#	depends on EXPORT_TYPE_LOCAL_MODEL
-	default n
-	help
-		Annex A driver will be removed if it is a 72XX firmware.
-		Boxes with 8MB lack of space, so set this option with older boxes.
-		Answering machine may have no space left to record if not set.
 
  ###---> NO AVM Modells 7XXX
  if ! EXPORT_TYPE_LOCAL_MODEL

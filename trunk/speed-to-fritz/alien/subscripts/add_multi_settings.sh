@@ -226,13 +226,19 @@ if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
    sed -i -e 's/CONFIG_MULTI_LANGUAGE="n"/CONFIG_MULTI_LANGUAGE="y"/' "${SRC}"/etc/init.d/rc.conf
    echo "-- Adding mulilingual pages from t-Home or 2nd AVM firmware ..."
    #copy language datbase
-   LanguageList="de en it es fr de"
+   LanguageList="en it es fr de"
    for DIR in $LanguageList; do
-    if [ -d "${DST}/etc/default.${DEST_PRODUKT}"/${OEML}/$DIR ]; then
+    if [ -d "${DST}/etc/default.${DEST_PRODUKT}/${OEML}/$DIR" ]; then
      cp -fdrp "${DST}/etc/default.${DEST_PRODUKT}"/${OEML}/$DIR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  Copy language directory from t-Home firmware: $DIR"
     fi 
-    if [ -d "${SRC_2}/etc/default.${SORCE_2_PRODUKT}"/${OEML2}/$DIR ]; then
-     cp -fdrp "${SRC_2}/etc/default.${SORCE_2_PRODUKT}"/${OEML2}/$DIR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  Copy language directory from 2nd AVM firmware: $DIR"
+    if [ -d "${SRC_2}/etc/default.${SORCE_2_PRODUKT}/${OEML2}/$DIR" ]; then
+     cp -fdrp "${SRC_2}/etc/default.${SORCE_2_PRODUKT}/${OEML2}/$DIR" "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  Copy language directory from 2nd AVM firmware: $DIR"
+    fi 
+    if [ -d "${DST}/usr/share/tam/msg/default/$DIR" ]; then
+     cp -fdrp "${DST}/usr/share/tam/msg/default/$DIR" "${SRC}/usr/share/tam/msg/default/$DIR" && echo2 "  Copy TAM language directory from t-Home firmware: $DIR"
+    fi 
+    if [ -d "${SRC_2}/usr/share/tam/msg/default/$DIR" ]; then
+     cp -fdrp "${SRC_2}/usr/share/tam/msg/default/$DIR" "${SRC}/usr/share/tam/msg/default/$DIR" && echo2 "  Copy TAM language directory from 2nd AVM firmware: $DIR"
     fi 
    done
    LanguageList="en it es fr de"
@@ -249,5 +255,19 @@ if [ "${FORCE_LANGUAGE}" != "de" ]; then
    #[ -f "${SRC}"/etc/htmltext_de.db ] || echo -e "-- \033[1mAttention:\033[0m 1st Firmware is not usabel for force language!" && sleep 7
    [ "${FORCE_LANGUAGE}" != "" ] && [ -f "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "  copy: database ${FORCE_LANGUAGE}"
    [ "${FORCE_LANGUAGE}" != "" ] && [ -f "${SRC_2}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${SRC_2}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "  copy: database ${FORCE_LANGUAGE}"
+fi
+if [ "${REMOVE_SOME_LANGUAGE}" = "y" ]; then
+    [ "${REMOVE_EN}" = "y" ] && LanguageList="en "
+    [ "${REMOVE_DE}" = "y" ] && LanguageList+="de "
+    [ "${REMOVE_IT}" = "y" ] && LanguageList+="it "
+    [ "${REMOVE_ES}" = "y" ] && LanguageList+="es "
+    [ "${REMOVE_FR}" = "y" ] && LanguageList+="fr "
+   for DIR in $LanguageList; do
+    if [ "${DIR}" != "$avm_Lang" ]; then
+     [ -d "${DST}/etc/default.${DEST_PRODUKT}"/${OEMLINK}/$DIR ] && rm -fdR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  Removed language directory: $DIR"
+     [ -f "${DST}"/etc/htmltext_$DIR.db ] && rm -fr "${SRC}"/etc/htmltext_$DIR.db && echo -e "-- Language database $DIR removed."
+     [ -d "${SRC}/usr/share/tam/msg/default/$DIR" ] && rm -fdR "${SRC}/usr/share/tam/msg/default/$DIR" && echo2 "  Removed TAM language directory: $DIR"
+    fi
+   done
 fi
 exit 0

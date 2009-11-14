@@ -9,6 +9,8 @@ export NEWDIR="$HOMEDIR/$FWNEWDIR"
 FBMOD="7170"
 SPNUM="900"
 NEWIMG="fw_C_Speedport_900_34.04.57-0_Fritz_Box_DECT_W900V_29.04.76-0-sp2fr-09.10.14-r-593M-946_OEM-avm_de.image"
+AVM_New_version="XX.XX.XX"
+TCOM_New_version="XX.XX.XX"
 #above settings are not in use if ./incl_var is included
 . ./incl_var
 if [ "$ORI" == "y" ]; then
@@ -38,24 +40,28 @@ RECOVERIMG7170="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/x_misc/deutsch
 RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/english/FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it-fr.04.76.recover-image.exe"
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
+#5010, 5012, FB Fon und FB Fon WLAN
+[ "${FBMOD}" == "FBDW" ] && R_IMG="$RECOVERIMG7170"
+[ "${FBMOD}" == "FBFo" ] && R_IMG="$RECOVERIMG7170"
+[ "${FBMOD}" == "5010" ] && R_IMG="$RECOVERIMG7170"
+[ "${FBMOD}" == "5012" ] && R_IMG="$RECOVERIMG7170"
 #5140, IAD5130, 7050
+[ "${FBMOD}" == "5130" ] && R_IMG="$RECOVERIMG7170"
 [ "${FBMOD}" == "5140" ] && R_IMG="$RECOVERIMG7170"
 [ "${FBMOD}" == "7050" ] && R_IMG="$RECOVERIMG7170"
-[ "${FBMOD}" == "5130" ] && R_IMG="$RECOVERIMG7170"
+#5050
 [ "${FBMOD}" == "5050" ] && R_IMG="$RECOVERIMG7170"
-#[ "${FBMOD}" == "5050" ] && R_IMG="$RECOVERIMG5050"
-#alternative one may perhaps use this line instead
-#[ "${FBMOD}" == "5050" ] && R_IMG="$RECOVERIMG7150"
-#[ "${FBMOD}" == "5050" ] && R_IMG="$RECOVERIMG7140"
-[ "${FBMOD}" == "7113" ] && R_IMG="$RECOVERIMG7113"
-[ "${FBMOD}" == "5140" ] && R_IMG="$RECOVERIMG7140"
-[ "${FBMOD}" == "7140" ] && R_IMG="$RECOVERIMG7140"
-[ "${FBMOD}" == "7141" ] && R_IMG="$RECOVERIMG7141"
-[ "${FBMOD}" == "7150" ] && R_IMG="$RECOVERIMG7150"
+#7113, 7140, 7141, 7150
+[ "${FBMOD}" == "7113" ] && R_IMG="$RECOVERIMG7170"
+[ "${FBMOD}" == "7140" ] && R_IMG="$RECOVERIMG7170"
+[ "${FBMOD}" == "7141" ] && R_IMG="$RECOVERIMG7170"
+[ "${FBMOD}" == "7150" ] && R_IMG="$RECOVERIMG7170"
 #for all newer 8mb boxes
 [ "${FBMOD}" == "7170" ] && R_IMG="$RECOVERIMG7170"
 #for all 16MB boxes
 [ "${FBMOD}" == "7270" ] && R_IMG="$RECOVERIMG7270"
+#7270v3
+[ "${FBMOD}" == "7273" ] && R_IMG="$RECOVERIMG7270"
 #for 7570
 [ "${FBMOD}" == "7570" ] && R_IMG="$RECOVERIMG7270"
 #for W501
@@ -88,16 +94,19 @@ fi
 $HOMEDIR/recoversubscripts/split_recover $HOMEDIR $input_recover_file $output_dir
 new_recover_file="$kernel_dir/$(echo "$NEWIMG" | sed -r 's/.image//' | sed -r 's/fw_//' | sed -r 's/C_//').exe"
 #new_recover_file="$kernel_dir/Speedport_W${SPNUM}V.recover-image.exe"
-echo "--------------------------------------------------------------------------------"
+
 [ "${SPNUM}" == "500" ] && sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box    Sinus ${SPNUM:0:3} |g" "$output_dir/exe_start"
 [ "${SPNUM}" == "501" ] && sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_start"
 SPNUM+="X"
 if [ ${SPNUM:3:1} == "X" ]; then
  sed -i -e "s|FRITZ!Box Fon WLAN ${FBMOD}|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_end"
  sed -i -e "s|FRITZ!Box Fon WLAN ${FBMOD}|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_start"
+     sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_start"
+     sed -i -e "s|FRITZ!Box Fon WLAN 7270|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_start"
 else
  sed -i -e "s|FRITZ!Box Fon WLAN ${FBMOD}|FRITZ!Box Fon WLAN ${SPNUM:0:4}|g" "$output_dir/exe_start"
- sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Fon WLAN ${SPNUM:0:4}|g" "$output_dir/exe_start"
+     sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Fon WLAN ${SPNUM:0:4}|g" "$output_dir/exe_start"
+     sed -i -e "s|FRITZ!Box Fon WLAN 7270|FRITZ!Box Fon WLAN ${SPNUM:0:4}|g" "$output_dir/exe_start"
 fi
 #0x1a249
 sed -i -e 's|\x0F\x85\xFA\x01\x00\x00\x8D\x85|\x90\x90\x90\x90\x90\x90\x8D\x85|' "$output_dir/exe_start"
@@ -149,6 +158,20 @@ if [ $act_size -lt $new_act_size ]; then
     echo "ERROR!! New kernel.image does not fit into recover firmware." && checkerror="y"
     [ -n "$kernel_size" ] && [ "$kernel_diff_size" -gt 0 ] && echo  "Space within the recover firmware is smaller as in the flash by: $kernel_diff_size Bytes."
 fi
+
+AVM_New_version="$AVM_VERSION_MAJOR.$AVM_VERSION"
+#TCOM_New_version="$TCOM_VERSION_MAJOR.$TCOM_VERSION"
+#echo "New recoverversion: $AVM_New_version"
+#echo "New tcom recoverversion: $TCOM_New_version"
+OldRversion="$(dd if=$output_dir/exe_mid bs=1 count=16  2> /dev/null)"
+OldRversion_C="$(dd if=$output_dir/exe_mid bs=1 count=16  2> /dev/null | sed 's/-//' | tr -d '[:alpha:]' | sed 's/-\.//' )"
+New_Rversion=$AVM_New_version$(dd if=$output_dir/exe_mid bs=1 count=16  2> /dev/null | sed 's/-it/   /' | sed 's/-en/   /' | sed 's/-fr/   /' | sed 's/-sp/   /' | sed 's/ \./  /' | sed "s|$OldRversion_C||")
+echo "New recoverversion: .$New_Rversion."
+#echo "Old recoverversion : .$OldRversion."
+#echo "Old recoverversionC: .$OldRversion_C."
+sed -i -e "s|$OldRversion|$New_Rversion|" "$output_dir/exe_mid"
+
+
 dd if=/dev/zero bs=1 count=$act_diff >$output_dir/zerro.image 2> /dev/null
 #echo "concat all parts ..."
 cat $output_dir/exe_start >$new_recover_file

@@ -3,4 +3,10 @@
 # only the HWrevision number is diffent.
 # see Config.in for all possible HWR numbers.
 # dependant diffent setting are made in sp-to-fritz.sh
-. $HOMEDIR/Speedport920
+#. $HOMEDIR/Speedport920
+
+# add kapselung and annex settings page if missing
+$sh_DIR/add_multi_settings.sh
+#remove kids and help
+[ "${REMOVE_KIDS}" = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
+[ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"

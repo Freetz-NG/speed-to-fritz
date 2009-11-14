@@ -320,4 +320,5 @@ $sh_DIR/add_vdslprofilepage.sh "${SRC}"
 sed -i -e "/ \/etc\/init.d\/rc.conf/a\
 sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg\
 cat \/var\/flash\/ar7.cfg\ | grep ifacectl && echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"
+
 echo "********************************************************************************"

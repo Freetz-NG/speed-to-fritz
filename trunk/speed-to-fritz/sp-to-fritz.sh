@@ -1193,7 +1193,11 @@ else
  # <-- Only Tcom
 fi
 #-->All firmwares, if patches added here the are applied to tcom firmware with option "restore original" as well!
-# patch portrule to enable forwarding to box itself 
+# patch portrule to enable forwarding to box itself
+#--------------------------------------------------------------------------------------------------------------- 
+# set OEM via rc.S not via environment
+[ "$PATCH_OEM" = "y" ] && $sh_DIR/patch_oem.sh "${SRC}"
+# add default route
 [ "$PATCH_PORTRULE" = "y" ] && $sh2_DIR/patch_portrule "${SRC}"
 # add s2f config file
 [ "$ADD_S2F_CONF" = "y" ] && subscripts2/add_s2f_configfile "${SRC}" && $TAR xvzf packages/s2f_flash.tgz -C "${SRC}" 2> /dev/null
