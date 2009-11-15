@@ -18,6 +18,11 @@ if [ "$ORI" == "y" ]; then
     sleep 5
     exit 0
 fi
+if [ "$PATCH_OEM" != "y" ]; then
+    echo "Option 'Force branding' was not selectet!"
+    sleep 5
+    exit 0
+fi
 if [ "$BUILDRECOVER" = "y" ]; then
  echo "--------------------------------------------------------------------------------"
  echo

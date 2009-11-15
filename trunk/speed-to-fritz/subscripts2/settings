@@ -25,11 +25,9 @@ echo "export SPNUM=\"${SPNUM}\"" >> incl_var
 echo "export CLASS=\"${CLASS}\"" >> incl_var
 echo "export TCOM_SUBVERSION=\"${TCOM_SUBVERSION}\"" >> incl_var
 echo "export AVM_SUBVERSION=\"${AVM_SUBVERSION}\"" >> incl_var
-
 echo "export firmwareconf_file_name=\"${firmwareconf_file_name}\"" >> incl_var
 echo "export cml=\"${cml}\"" >> incl_var
 echo "export Options=\"${Options}\"" >> incl_var
-
 echo "export FWBASE=\"${FWBASE}\"" >> incl_var
 echo "export P_DIR=\"${P_DIR}\"" >> incl_var
 echo "export sh_DIR=\"${sh_DIR}\"" >> incl_var
@@ -52,6 +50,8 @@ echo "export SET_UP=\"${SET_UP}\"" >> incl_var
 echo "export PUSHCONF=\"${PUSHCONF}\"" >> incl_var
 echo "export kernel_size=\"${kernel_size}\"" >> incl_var
 echo "export ORI=\"${ORI}\"" >> incl_var
+echo "export PATCH_OEM=\"${PATCH_OEM}\"" >> incl_var
+
 
 sed -i -e "s|${HOMEDIR}|\${HOMEDIR}|" incl_var
 
