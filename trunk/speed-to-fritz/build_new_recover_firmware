@@ -60,6 +60,7 @@ RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/english
 [ "${FBMOD}" == "7170" ] && R_IMG="$RECOVERIMG7170"
 #for all 16MB boxes
 [ "${FBMOD}" == "7270" ] && R_IMG="$RECOVERIMG7270"
+[ "${FBMOD}" == "7240" ] && R_IMG="$RECOVERIMG7270"
 #7270v3
 [ "${FBMOD}" == "7273" ] && R_IMG="$RECOVERIMG7270"
 #for 7570
@@ -68,6 +69,11 @@ RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/english
 [ "${SPNUM}" == "501" ] && R_IMG="$RECOVERIMG7170"
 #for a Sinus500 
 [ "${SPNUM}" == "500" ] && R_IMG="$RECOVERIMG7170"
+if  [ "$R_IMG" == "" ];then
+    R_IMG="$RECOVERIMG7170"
+    echo "No special original recover firmware selected, 7170 used as default!"
+    sleep 5
+fi
 #-------------------------------------------------------------------------------------------------
 input_recover_file="$FWBASE/$(echo $R_IMG | sed -e "s/.*\///")"
 #echo "R_IMG: $R_IMG"
