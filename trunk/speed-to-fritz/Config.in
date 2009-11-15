@@ -751,16 +751,16 @@ choice
 		bool "de - german"
 	config TYPE_LANG_EN
 		bool "en - english"
-		depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_9207570 || TYPE_LOCAL_TCOM
+		depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_9207570 || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL 
 	config TYPE_LANG_IT
 		bool "it - italian"
-		depends on EXPERT_MOD && ( TYPE_9207570 || TYPE_LOCAL_TCOM )
+		depends on EXPERT_MOD && ( TYPE_9207570 || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL )
 	config TYPE_LANG_ES
 		bool "es - spanish"
-		depends on EXPERT_MOD && ( TYPE_9207570 || TYPE_LOCAL_TCOM )
+		depends on EXPERT_MOD && ( TYPE_9207570 || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL )
 	config TYPE_LANG_FR
 		bool "fr - french"
-		depends on EXPERT_MOD && ( TYPE_9207570 || TYPE_LOCAL_TCOM )
+		depends on EXPERT_MOD && ( TYPE_9207570 || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL )
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_FORCE_DSL_MULTI_ANNEX 
@@ -2052,7 +2052,7 @@ config EXPORT_REMOVE_KIDS
 		Set this to 'y' if you like to remove kids pages to save space, normal this is "n".
 config REMOVE_ANNEX_B_DSL_DRIVER
 	bool "Remove Annex B driver on 72XX firmware"
-	depends on TYPE_ANNEX_A
+	depends on TYPE_ANNEX_A || EXPORT_FORCE_DSL_MULTI_ANNEX 
 	default n
 	help
 		Annex B driver will be removed if it is a 72XX firmware.
@@ -2060,7 +2060,7 @@ config REMOVE_ANNEX_B_DSL_DRIVER
 		Answering machine may have no space left to record if not set.
 config REMOVE_ANNEX_A_DSL_DRIVER
 	bool "Remove Annex A driver on 72XX firmware"
-	depends on TYPE_ANNEX_B
+	depends on TYPE_ANNEX_B || EXPORT_FORCE_DSL_MULTI_ANNEX 
 	default n
 	help
 		Annex A driver will be removed if it is a 72XX firmware.
