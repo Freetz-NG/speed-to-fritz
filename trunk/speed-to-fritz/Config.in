@@ -308,7 +308,6 @@ config AVM_PRE_7270_15656
 config AVM_PRE_7270_V3_15656
    string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270v3-15656.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3.Labor.74.04.78-15656.image"
-
 config AVM_DSL_7270_15335
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-15335.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabDSL.AnnexB.54.04.99-15335.image"
@@ -745,8 +744,11 @@ choice
 	prompt "Select firmware default language (optional)"
 	help
 	    The selected firmware language is usual the one used by the AVM firmware.
-	    If 1st AVM and 2nd AVM firmware is a multilingual firmware, one of this firmware languages can be forced, but this is only possible with 7270 or 7570 firmwares.
-	    The resulting text within the generated firmware may be not completely in this language, text not found in the selected language will be displayed in german or english.
+	    If 1st AVM and 2nd AVM firmware is a multilingual firmware, one of this firmware languages 
+	    can be forced, but this is only possible with 7270 or 7570 firmwares.
+	    The resulting text within the generated firmware may be not completely in this language, 
+	    text not found in the selected language will be displayed in german or english,
+	    if fallback language german or english is removed some text will be missing.
 	config TYPE_LANG_DE
 		bool "de - german"
 	config TYPE_LANG_EN
@@ -1644,7 +1646,7 @@ config AVM_IMG
 	default "$AVM_7150_57" 				if TYPE_7150_57 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7150_71" 				if TYPE_7150_71 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL ) || ( TYPE_SINUS_W500V && ! TYPE_LABOR ) 
 	default "$AVM_7150_77" 				if TYPE_7150_77 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL ) || ( TYPE_SINUS_W500V && ! TYPE_LABOR ) 
-	default "$AVM_7170_A76en" 			if ! TYPE_LANG_DE && ! TYPE_7170_B76en && ! TYPE_7170_A76en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7170_A76en" 			if ! TYPE_LANG_DE && ! TYPE_7170_B76en && ! TYPE_7170_A76en && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
 #	default "$AVM_7170_67" 				if ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7170_76" 				if ! TYPE_ANNEX_A && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7170_A76" 			if TYPE_ANNEX_A && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V ) && ! TYPE_LABOR && TYPE_LANG_DE
@@ -2075,27 +2077,30 @@ config EXPORT_REMOVE_SOME_LANGUAGE
 		Language driver will be removed if it is a 72XX firmware.
 		Boxes with 8MB lack of space, so set this option with older boxes.
 		Answering machine may have no space left to record if not set.
+		The resulting text within the generated firmware may be not completely in this language, 
+		text not found in the selected language will be displayed in german or english,
+		if fallback language german or english is removed some text will be missing.
 		
 	if EXPORT_REMOVE_SOME_LANGUAGE
 		config EXPORT_REMOVE_DE
 			bool "Remove language de if possibel"
-			default y if EXPORT_BUILDRECOVER
+			default y if EXPORT_BUILDRECOVER && ! TYPE_LANG_DE
 			default n 
 		config EXPORT_REMOVE_EN
 			bool "Remove language en if possibel"
-			default y if EXPORT_BUILDRECOVER
+			default y if EXPORT_BUILDRECOVER && ! TYPE_LANG_EN
 			default n 
 		config EXPORT_REMOVE_ES
 			bool "Remove language es if possibel"
-			default y if EXPORT_BUILDRECOVER
+			default y if EXPORT_BUILDRECOVER && ! TYPE_LANG_ES
 			default n 
 		config EXPORT_REMOVE_IT
 			bool "Remove language it if possibel"
-			default y if EXPORT_BUILDRECOVER
+			default y if EXPORT_BUILDRECOVER && ! TYPE_LANG_IT
 			default n 
 		config EXPORT_REMOVE_FR
 			bool "Remove language fr if possibel"
-			default y if EXPORT_BUILDRECOVER
+			default y if EXPORT_BUILDRECOVER && ! TYPE_LANG_FR
 			default n 
 	endif
 
