@@ -264,8 +264,8 @@ if [ "${REMOVE_SOME_LANGUAGE}" = "y" ]; then
     [ "${REMOVE_FR}" = "y" ] && LanguageList+="fr "
    for DIR in $LanguageList; do
     if [ "${DIR}" != "$avm_Lang" ]; then
-     [ -d "${DST}/etc/default.${DEST_PRODUKT}"/${OEMLINK}/$DIR ] && rm -fdR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  Removed language directory: $DIR"
-     [ -f "${DST}"/etc/htmltext_$DIR.db ] && rm -fr "${SRC}"/etc/htmltext_$DIR.db && echo -e "-- Language database $DIR removed."
+     [ -d "${SRC}/etc/default.${DEST_PRODUKT}"/${OEM}/$DIR ] && rm -fdR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEM}/$DIR" && echo2 "  Removed language directory: $DIR"
+     [ -f "${SRC}/etc/htmltext_$DIR.db" ] && rm -fr "${SRC}/etc/htmltext_$DIR.db" && echo -e "-- Language database $DIR removed."
      [ -d "${SRC}/usr/share/tam/msg/default/$DIR" ] && rm -fdR "${SRC}/usr/share/tam/msg/default/$DIR" && echo2 "  Removed TAM language directory: $DIR"
     fi
    done
