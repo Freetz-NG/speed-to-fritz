@@ -49,7 +49,9 @@ else
 			echo "   ${CNT}. --- ${IMG[$CNT]}"
 			let CNT=$CNT+1 
 		done
-		echo -n "   Select index of firmware image to use: "; read -n 1 SELECT; echo
+		NN=2
+		[ $IMG_CNTS -lt 10 ] &&  NN=1
+		echo -n "   Select index of firmware image to use: "; read -n $NN SELECT; echo
 		echo
 		if [ $SELECT -gt 0 ] && [ $SELECT -lt $CNT ]; then
 		    echo -n "   Your selection: '${IMG[$SELECT]}'. Correct (y/n)? "; read -n 1 -s YESNO; echo

@@ -872,7 +872,7 @@ export CONFIG_ETH_COUNT="4"
 	export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
 	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
 	;;
-"7240v2")
+"7240")
 	export SPMOD="$1"
 	export CLASS=""
 	export SPNUM="7240"
@@ -1080,7 +1080,7 @@ if [ "$ORI" != "y" ]; then
  . Speedport503;;
  "7141")
  . SxAVMx7141;;
- "7240v2")
+ "7240")
  . SxAVMx7240v2;;
  "7270v3")
  . SxAVMx7270v3;;
