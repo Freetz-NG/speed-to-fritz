@@ -49,28 +49,33 @@ TESTING=""
 #------------------------------------------
 if  [ "$TESTING" == "y" ]; then
 ### -->!!!<--
- CO_SUBDIR="testing/kernel-2.6.26"
-### -->!!!<--
-#http://www.henrynestler.com/colinux/testing/kernel-2.6.26/packages/
-#http://www.henrynestler.com/colinux/autobuild/devel-20090926/
-fi
-wget --no-remove-listing "http://www.henrynestler.com/colinux/$CO_SUBDIR" 
-cat $INDEX.html | grep 'devel-' | sed -e "s|\/\">.*$||" | sed -e "s|^.*devel-||" > $LISTING
-rm -f "$INDEX"*
-tac $LISTING > $TMP
-rm -f $LISTING
-read DVERSION < $TMP
-echo "coVersion: $DVERSION"
-LINUX_VERSION="2.6.25.20"
-CO_SUBDIR2="devel-$DVERSION"
-if  [ "$TESTING" == "y" ]; then
-### -->!!!<--
- LINUX_VERSION="2.6.26"
- DVERSION="20091104"
+ LINUX_VERSION="2.6.26.8"
+ CO_SUBDIR="testing/kernel-$LINUX_VERSION"
+ DVERSION="20091115"
+ export COLINUX_VER="0.8.0-$DVERSION"
+ #modulversion
+ M_COLINUX_VER="0.8.0-20091116-2"
+ #vmlinuxversion
+ V_COLINUX_VER="0.8.0-20091116-2"
  CO_SUBDIR2="packages"
+# http://www.henrynestler.com/colinux/testing/kernel-2.6.26.8/packages/modules-2.6.26.8-co-0.8.0-20091108.tgz
+ cp -f version_test version 
 ### -->!!!<--
+else
+ cp -f version_normal version 
+ wget --no-remove-listing "http://www.henrynestler.com/colinux/$CO_SUBDIR" 
+ cat $INDEX.html | grep 'devel-' | sed -e "s|\/\">.*$||" | sed -e "s|^.*devel-||" > $LISTING
+ rm -f "$INDEX"*
+ tac $LISTING > $TMP
+ rm -f $LISTING
+ read DVERSION < $TMP
+ echo "coVersion: $DVERSION"
+ LINUX_VERSION="2.6.25.20"
+ CO_SUBDIR2="devel-$DVERSION"
+ export COLINUX_VER="0.8.0-$DVERSION"
+ M_COLINUX_VER="$COLINUX_VER"
+ V_COLINUX_VER="$COLINUX_VER"
 fi
-export COLINUX_VER="0.8.0-$DVERSION"
 sleep 3
 sed -i -e "/$DVERSION/d" $TMP
 cp $TMP "$TMP"1 
@@ -81,7 +86,7 @@ do
     read DVERSION_PRI < ./$TMP
     echo "Zeile: $DVERSION_PRI"
     sed -i -e "/$DVERSION_PRI/d" "$TMP" 
-    wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/devel-$DVERSION/modules-$LINUX_VERSION-co-0.8.0-$DVERSION_PRI.tgz" \
+    wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/devel-$DVERSION_PRI/modules-$LINUX_VERSION-co-0.8.0-$DVERSION_PRI.tgz" \
     && mv "./modules-$LINUX_VERSION-co-0.8.0-$DVERSION_PRI.tgz" "./modules-$LINUX_VERSION-co-$COLINUX_VER.tgz" \
     && return 0
 done
@@ -93,7 +98,7 @@ do
     read DVERSION_PRI < "$TMP"1
     echo "Zeile: $DVERSION_PRI"
     sed -i -e "/$DVERSION_PRI/d" "$TMP"1 
-    wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/devel-$DVERSION/vmlinux-$LINUX_VERSION-co-0.8.0-$DVERSION_PRI.zip" \
+    wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/devel-$DVERSION_PRI/vmlinux-$LINUX_VERSION-co-0.8.0-$DVERSION_PRI.zip" \
     && mv "./vmlinux-$LINUX_VERSION-co-0.8.0-$DVERSION_PRI.zip" "./vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip" \
     && return 0
 done
@@ -104,11 +109,12 @@ if  [ "$TESTING" != "y" ]; then
 fi
 [ -f ./daemons-$COLINUX_VER.dbg.zip ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/daemons-$COLINUX_VER.dbg.zip"
 [ -f ./daemons-$COLINUX_VER.zip ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/daemons-$COLINUX_VER.zip"
-[ -f ./modules-$LINUX_VERSION-co-$COLINUX_VER.tgz ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/modules-$LINUX_VERSION-co-$COLINUX_VER.tgz" || get_older_modules
-[ -f ./vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip" || get_older_vmlinux
+[ -f ./modules-$LINUX_VERSION-co-$COLINUX_VER.tgz ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/modules-$LINUX_VERSION-co-$M_COLINUX_VER.tgz" || get_older_modules
+[ -f ./vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/vmlinux-$LINUX_VERSION-co-$V_COLINUX_VER.zip" || get_older_vmlinux
 [ -f ./patches-$LINUX_VERSION-$COLINUX_VER.tar.gz ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/patches-$LINUX_VERSION-$COLINUX_VER.tar.gz"
+[ -f ./modules-$LINUX_VERSION-co-$COLINUX_VER.tgz ] || mv "./modules-$LINUX_VERSION-co-$M_COLINUX_VER.tgz" ./modules-$LINUX_VERSION-co-$COLINUX_VER.tgz
+[ -f ./vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip ] || mv "./vmlinux-$LINUX_VERSION-co-$V_COLINUX_VER.zip" ./vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip
 
-      
 rm -f $TMP
 rm -f "$TMP"1
 echo "====================================================================================================="
@@ -116,8 +122,12 @@ echo "==========================================================================
 export home=$(pwd)
 cd ../bfin-colinux-ori/trunk/upstream
 # use devel only in us if some files would be missing in last release
-[ -f coLinux-20090927.exe ] || wget "http://www.henrynestler.com/colinux/testing/devel-0.8.0/20090927-Snapshot/devel-coLinux-20090927.exe"
-[ -f devel-coLinux-20090927.exe ] && mv ./devel-coLinux-20090927.exe ./coLinux-20090927.exe
+#--------------------------------------------------------------------
+DEVEL_VER="20091108"
+#--------------------------------------------------------------------
+
+[ -f coLinux-${DEVEL_VER}.exe ] || wget "http://www.henrynestler.com/colinux/testing/devel-0.8.0/${DEVEL_VER}-Snapshot/devel-coLinux-${DEVEL_VER}.exe"
+[ -f devel-coLinux-${DEVEL_VER}.exe ] && mv ./devel-coLinux-${DEVEL_VER}.exe ./coLinux-${DEVEL_VER}.exe
 #this would be the old stabile
 ###[ -f coLinux-0.7.3.exe ] || wget "http://www.henrynestler.com/colinux/releases/0.7.3/coLinux-0.7.3.exe"
 #[ -f coLinux-0.7.3-src.tgz ] || wget "http://www.henrynestler.com/colinux/releases/0.7.3/coLinux-0.7.3-src.tgz"
@@ -185,6 +195,11 @@ rm mkSparse.exe
 rm spSize.exe
 rm vmlinux
 echo "====================================================================================================="
-./build-and-installer.sh  
+./build-and-installer.sh
 sleep 10
-#./pack.sh 
+#./pack.sh
+if  [ "$TESTING" == "y" ]; then
+ cp -f version version_test
+else
+ cp -f version version_normal
+fi
