@@ -15,6 +15,53 @@ esac
 item_count=$((item_count + 1))
 done
 }
+function fwselect_ftp()
+{
+DLD_PATH="${1%/*}/"
+! `echo $1 | grep -q '@'` && `echo $1 | grep -q 'update.avm.de'` && DLD_PATH="ftp://jason:274jgjg85hh36@${DLD_PATH##*//}"
+IMG_REQ="${1##*/}"
+DLD_DIR="$2"
+IMG_DESC="$3"
+IMG_TPL=$( echo "$IMG_REQ" | sed -e 's/\...\.image/\.\*\.image/' )
+DLD_TPL="${DLD_PATH}/${IMG_TPL}"
+echo "-- Checking ftp.avm.de for latest firmware file ..."
+rm -f $DLD_DIR/.listing
+wget --spider --no-remove-listing -P "$DLD_DIR" "$DLD_PATH" 2>&1 > /dev/null
+if [ ! -e $DLD_DIR/.listing ]; then
+	echo "-- Could not retrieve listing from ftp.avm.de."
+	eval "export $4=${IMG_REQ}"
+	sleep 5
+	return 1
+else
+	IMG_LIST=$( cat "$DLD_DIR/.listing" | grep -wo "FRITZ.*.image" )
+	IMG_CNTS=$( cat "$DLD_DIR/.listing" | grep -wc "FRITZ.*.image" )
+	SELECT=0
+	YESNO="y"
+	if [ $IMG_CNTS -gt 1 ]; then
+		YESNO="n"
+		echo "-- More than one match for '*.image' found:"
+		echo
+	fi
+	while [ "$YESNO" != "y" ]; do
+		CNT=1
+		for IMG_FILE in $IMG_LIST; do
+			IMG[$CNT]="$IMG_FILE"
+			echo "   ${CNT}. --- ${IMG[$CNT]}"
+			let CNT=$CNT+1 
+		done
+		echo -n "   Select index of firmware image to use: "; read -n 1 SELECT; echo
+		echo
+		if [ $SELECT -gt 0 ] && [ $SELECT -lt $CNT ]; then
+		    echo -n "   Your selection: '${IMG[$SELECT]}'. Correct (y/n)? "; read -n 1 -s YESNO; echo
+		    echo
+		fi
+	done
+	if [ "$YESNO" = "y" ] && [ $SELECT -gt 0 ]; then
+		eval "export $4=${DLD_PATH}${IMG[$SELECT]}"
+	fi
+fi
+return 0 
+}
 #########################################################################
 #                                                                       #
 # Function fwselect()                                                   #
@@ -37,12 +84,19 @@ DLD_TPL="$1"
 DLD_DIR="$2"
 IMG_DESC="$3"
 IMG_DESC2="$4"
-MIRROR_DLD_TPL="$5"
-FILENAME_DLD_TPL="$6"
-IMG_REQ="${1##*/}"
-DLD_PATH="${1%/*}"
-EXT="${1##*.}"
-MIRROR_DLD_PATH="${5%/*}"
+if [ "$5" == "select" ]; then
+    fwselect_ftp "$DLD_TPL" "$DLD_DIR" "$IMG_DESC" "DLD_TPL"
+    MIRROR_DLD_PATH=""
+    MIRROR_DLD_TPL=""
+    FILENAME_DLD_TPL=""
+else
+    MIRROR_DLD_PATH="${5%/*}"
+    MIRROR_DLD_TPL="$5"
+    FILENAME_DLD_TPL="$6"
+fi
+IMG_REQ="${DLD_TPL##*/}"
+DLD_PATH="${DLD_TPL%/*}"
+EXT="${DLD_TPL##*.}"
 #echo "test----------------------------"
 #echo "DLD_TPL:$1" 
 #echo "MIRROR_DLD_TPL:$5" 
