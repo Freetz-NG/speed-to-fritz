@@ -82,7 +82,7 @@ config TCOM_W920_74
 
 config TCOM_W920_78
     string
-    default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.78.image"
+    default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.78.image" 
 config TCOM_W920_13048
     string
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20920V/Speedport_W_920V.AnnexB.65.04.63-13048.zip mirror http://www.hostarea.de/server-01/Januar-25c121e202.zip"
@@ -304,6 +304,7 @@ config AVM_IPV6_7270_V3_15316
 config AVM_PRE_7270_15696
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270-15696.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.78-15696.image"
+#    default "ftp://jason:274jgjg85hh36@update.avm.de/labor/RC/FRITZ.Box_Fon_WLAN_7270.AnnexB.54.04.78-15696.image mirror select"
 
 config AVM_PRE_7270_V3_15696
    string
@@ -370,6 +371,7 @@ config AVM_7570_14354
       default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.94-14354M.image"
 
 config AVM_7570_14375
+
    string
       default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de.75.04.94-14375M.image"
 
@@ -404,7 +406,6 @@ config AVM_7570_15216
 config AVM_7570_15446
    string
       default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.77-15446.image"
-
 
 # May be forwarded via PMs 
 config AVM_7570_77
@@ -873,7 +874,19 @@ choice
 #			FRITZ!Lab WLAN: This release reduces the power consumption when
 #			no more Wifi clients are connected, and avoids channels with
 #			interference.
-#----MOVED
+#<--MOVED
+	config TYPE_7141_76
+		bool "AVM_7141_76 40.04.76"
+		depends on ( EXPORT_TYPE_LOCAL_MODEL )
+		help
+			FRITZ! release: 70
+
+#	config TYPE_7140_76en
+#		bool "AVM_7140_76en 39.04.76"
+#		depends on ( EXPORT_TYPE_LOCAL_MODEL )
+#		help
+#			FRITZ! release: 76
+
 	config TYPE_7150_57
 		bool "AVM_7150_57 38.04.57"
 		depends on ( TYPE_SINUS_W500V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE )
@@ -891,38 +904,6 @@ choice
 		depends on ( TYPE_SINUS_W500V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE )
 		help
 			FRITZ! release: 77
-
-	config TYPE_7240_76
-		bool "AVM_7240_76 73.04.76"
-		depends on ( TYPE_9207570 || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-		help
-			FRITZ! release: 76
-
-	config TYPE_7240_PHONE_15195
-		bool "AVM_7240_PHONE_15195 LabPHONE_73.04.97-15195 (MT-D)"
-		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-		help
-			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
-			and fixes various software problems, e.g. answering machine and
-			facsimile reception.
-
-	config TYPE_7240_PRE_15696
-		bool "AVM_7240_PRE_15696 73.04.78-15696 (BETA)"
-		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-		help
-			FRITZ!Lab Prerelease:
-
-	config TYPE_7270_58
-		bool "AVM_7270_58 54.04.58"
-		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && TYPE_LANG_DE
-		help
-			FRITZ! release: 58
-
-	config TYPE_7270_59
-		bool "AVM_7270_59 54.04.59"
-		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-		help
-			FRITZ! release: 59
 
 #	config TYPE_7113_61
 #		bool "7113_61"
@@ -960,12 +941,6 @@ choice
 		help
 			FRITZ! release: 13948
 
-#	config TYPE_7270_67
-#		bool "7270_67"
-#		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-#		help
-#			FRITZ! release: 67
-
 	config TYPE_7170_76
 		bool "AVM_7170_76 29.04.76"
 		depends on ( ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
@@ -978,52 +953,64 @@ choice
 		help
 			FRITZ! release: 70
 
-	config TYPE_7141_76
-		bool "AVM_7141_76 40.04.76"
-		depends on ( EXPORT_TYPE_LOCAL_MODEL )
+	config TYPE_7240_PRE_15696
+		bool "AVM_7240_PRE_15696 73.04.78-15696 (BETA)"
+		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
-			FRITZ! release: 70
+			FRITZ!Lab Prerelease:
 
-#	config TYPE_7140_76en
-#		bool "AVM_7140_76en 39.04.76"
-#		depends on ( EXPORT_TYPE_LOCAL_MODEL )
+	config TYPE_7270_58
+		bool "AVM_7270_58 54.04.58"
+		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && TYPE_LANG_DE
+		depends on EXPERT_MOD 
+		help
+			FRITZ! release: 58
+
+	config TYPE_7270_59
+		bool "AVM_7270_59 54.04.59"
+		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on EXPERT_MOD 
+		help
+			FRITZ! release: 59
+
+	config TYPE_7270_PRE_15696
+		bool "AVM_7270_PRE_15696 54.04.78-15696 (BETA)"
+		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		help
+			FRITZ!Lab Prerelease:
+			
+	config TYPE_7270_V3_PRE_15696
+		bool "AVM_7270_V3_PRE_15696 7270v3 74.04.78-15696 (BETA)"
+		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		help
+			FRITZ!Lab Prerelease:
+
+#	config TYPE_7270_67
+#		bool "7270_67"
+#		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 #		help
-#			FRITZ! release: 76
+#			FRITZ! release: 67
+
+	config TYPE_7240_76
+		bool "AVM_7240_76 73.04.76"
+		depends on ( TYPE_9207570 || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on EXPERT_MOD 
+		help
+			FRITZ! release: 76
 
 	config TYPE_7270_76
 		bool "AVM_7270_76 54.04.76"
 		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on EXPERT_MOD 
 		help
 			FRITZ! release: 76
 
 	config TYPE_7270_V3_76
 		bool "AVM_7270_V3_76 74.04.76 media no plugins"
 		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on EXPERT_MOD 
 		help
 			FRITZ! release: 76
-
-	config TYPE_7270_DSL_15335
-		bool "AVM_7270_DSL_15335 Labor-DSL_54.04.99-15335"
-		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-		help
-			FRITZ!Lab DSL: This release optimises the DSL (Digital Subscriber
-			 Line) software and adds related graphs.
-	config TYPE_7270_WLAN_14080
-		bool "AVM_7270_WLAN_14080 Labor-WLAN_54.04.98-14080"
-		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-		help
-			FRITZ!Lab WLAN: This release reduces the power consumption when
-			no more Wifi clients are connected, and avoids channels with
-			interference.
-
-	config TYPE_7270_AURA_14142
-		bool "AVM_7270_AURA_14142 LabAURA_54.04.95-14142"
-		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-		help
-			FRITZ!Lab AURA: Thanks to AVM USB Remote Architecture (AURA),
-			all devices connected to FRITZ!Box behave as if they were connected
-			directly to your PC.
-
 	config TYPE_7270_IPV6_15316
 		bool "AVM_7270_IPV6_15316 LabIPV6_54.04.94-15316"
 		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
@@ -1052,17 +1039,13 @@ choice
 #			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
 #			(Internet Protocol Version 6) and 6to4 tunnels.
 
-	config TYPE_7270_PRE_15696
-		bool "AVM_7270_PRE_15696 54.04.78-15696 (BETA)"
+	config TYPE_7240_PHONE_15195
+		bool "AVM_7240_PHONE_15195 LabPHONE_73.04.97-15195 (MT-D)"
 		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
-			FRITZ!Lab Prerelease:
-			
-	config TYPE_7270_V3_PRE_15696
-		bool "AVM_7270_V3_PRE_15696 7270v3 74.04.78-15696 (BETA)"
-		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-		help
-			FRITZ!Lab Prerelease:
+			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
+			and fixes various software problems, e.g. answering machine and
+			facsimile reception.
 
 	config TYPE_7270_PHONE_15195
 		bool "AVM_7270_PHONE_15195 LabPHONE_54.04.97-15195 (MT-D)"
@@ -1083,6 +1066,7 @@ choice
 	config TYPE_7270_CORE_15220
 		bool "AVM_7270_CORE_15220  7270-54.04.98-15220 (Streaming Stick)"
 		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on EXPERT_MOD 
 		help
 			FRITZ! Streaming Stick: This release adds support for streaming of
 			media content via AVM WLAN USB Stick v1.1. External software for
@@ -1091,6 +1075,7 @@ choice
 	config TYPE_7270_V3_CORE_15220
 		bool "AVM_7270_V3_CORE_15220  7270-74.04.98-15220 (Streaming Stick)"
 		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on EXPERT_MOD 
 		help
 			FRITZ! Streaming Stick: This release adds support for streaming of
 			media content via AVM WLAN USB Stick v1.1. External software for
@@ -1112,6 +1097,33 @@ choice
 			media content via AVM WLAN USB Stick v1.1. External software for
 			the USB-Stick is necessary and is part of the ZIP-file.
 
+	config TYPE_7270_DSL_15335
+		bool "AVM_7270_DSL_15335 Labor-DSL_54.04.99-15335"
+		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		help
+			FRITZ!Lab DSL: This release optimises the DSL (Digital Subscriber
+			 Line) software and adds related graphs.
+
+	config TYPE_7270_WLAN_14080
+		bool "AVM_7270_WLAN_14080 Labor-WLAN_54.04.98-14080"
+		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on EXPERT_MOD 
+		help
+			FRITZ!Lab WLAN: This release reduces the power consumption when
+			no more Wifi clients are connected, and avoids channels with
+			interference.
+
+	config TYPE_7270_AURA_14142
+		bool "AVM_7270_AURA_14142 LabAURA_54.04.95-14142"
+		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on EXPERT_MOD 
+		help
+			FRITZ!Lab AURA: Thanks to AVM USB Remote Architecture (AURA),
+			all devices connected to FRITZ!Box behave as if they were connected
+			directly to your PC.
+
+
+
 #	config TYPE_7270_GAMING
 #		bool "7270_GAMING"
 #		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
@@ -1124,9 +1136,11 @@ choice
 #	config TYPE_7270_UMTS_13265
 #		bool "7270_UMTS_13265"
 #		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+
 	config TYPE_7270_13486
 		bool "AVM_7270_13486 Labor_54.04.70-13486"
 		depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on EXPERT_MOD 
 		help
 			FRITZ!Labor, was first the only one usable with ADSL on a W920
 			select SET_FREETZ_REVISION
@@ -1776,7 +1790,7 @@ config SRC2_IMG
 	default "$AVM_DSL_7270_15335"		if TYPE_SRC3_AVM_DSL_7270_15335
 	default "$AVM_PRE_7240_15696"		if TYPE_SRC3_AVM_PRE_7240_15696
 	default "$AVM_PRE_7270_15696"		if TYPE_SRC3_AVM_PRE_7270_15696
-	default "$AVM_PRE_7270_V3_15696"	if TYPE_SRC3_AVM_PRE_7270_V3_15696
+	default "$AVM_PRE_7270_V3_15696"		if TYPE_SRC3_AVM_PRE_7270_V3_15696
 	default "$AVM_PHONE_7240_15195"		if TYPE_SRC3_AVM_PHONE_7240_15195
 	default "$AVM_PHONE_7270_15195"		if TYPE_SRC3_AVM_PHONE_7270_15195
 	default "$AVM_PHONE_7270_V3_15195"	if TYPE_SRC3_AVM_PHONE_7270_V3_15195
@@ -1823,36 +1837,41 @@ config SRC2_IMG
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+config TYPE_V3_OR_7240
+	bool
+	default y	if TYPE_7270_V3_76 || TYPE_7270_V3_CORE_15220 || TYPE_7270_V3_CORE_15627 || TYPE_7270_V3_PHONE_15195 || TYPE_7270_V3_PRE_15696 || TYPE_7270_V3_IPV6_15316 || \
+			TYPE_7240_76 || TYPE_7240_CORE_15627 || TYPE_7240_CORE_V3_15627 || TYPE_7240_PHONE_15195 || TYPE_7240_PRE_15696
+
 config TYPE_LABOR_TYPE
 	string
-        default "58" 		if TYPE_7113_58 || TYPE_7270_58
-        default "59" 		if TYPE_7170_59 || TYPE_7270_59
-        default "A59" 		if TYPE_7170_A59 || TYPE_7270_A59
-        default "61" 		if TYPE_7113_61
-        default "67" 		if TYPE_7270_67
-        default "67m" 		if TYPE_7170_67m ||  TYPE_7270_67m
-        default "68" 		if TYPE_7113_68
-        default "76" 		if TYPE_7170_76 || TYPE_7113_76
-        default "77" 		if TYPE_7170_77 || TYPE_7113_77
-        default "70" 		if TYPE_7170_70 || TYPE_7270_70
-        default "A76" 		if TYPE_7170_A76 || TYPE_7270_A76
-        default "76m" 		if TYPE_7170_76m || TYPE_7270_76m
-        default "76V3" 		if TYPE_7270_V3_76
-	default "CORE"	 	if TYPE_7270_CORE_V3_15220 || TYPE_7270_CORE_15220 || TYPE_7270_CORE_15627 || TYPE_7270_CORE_V3_15627 || TYPE_7240_CORE_15627 || TYPE_7240_CORE_V3_15627
-        default "BETA"	 	if TYPE_7270_PRE_15696 || TYPE_7270_PRE_V3_15696 || TYPE_7240_PRE_15696
-        default "13948" 	if TYPE_7170_13948
-        default "13486" 	if TYPE_7270_13486
-        default "DSL" 		if TYPE_7270_DSL_15335 || TYPE_7170_DSL_14119
-        default "GAMING" 	if TYPE_7270_GAMING || TYPE_7170_GAMING_11435
-        default "PHONE" 	if TYPE_7240_PHONE_15195 || TYPE_7270_PHONE_15195 || TYPE_7270_PHONE_V3_15195 || TYPE_7170_PHONE
-        default "WLAN" 		if TYPE_7270_WLAN_14080 || TYPE_7170_WLAN
-        default "IPV6" 		if TYPE_7270_IPV6 || TYPE_7170_IPV6
-        default "UMTS" 		if TYPE_7270_UMTS_13265 || TYPE_7170_UMTS
+	default "58" 		if TYPE_7113_58 || TYPE_7270_58
+	default "59" 		if TYPE_7170_59 || TYPE_7270_59
+	default "A59" 		if TYPE_7170_A59 || TYPE_7270_A59
+	default "61" 		if TYPE_7113_61
+	default "67" 		if TYPE_7270_67
+	default "67m" 		if TYPE_7170_67m ||  TYPE_7270_67m
+	default "68" 		if TYPE_7113_68
+	default "76" 		if TYPE_7170_76 || TYPE_7113_76
+	default "77" 		if TYPE_7170_77 || TYPE_7113_77
+	default "70" 		if TYPE_7170_70 || TYPE_7270_70
+	default "A76" 		if TYPE_7170_A76 || TYPE_7270_A76
+	default "76m" 		if TYPE_7170_76m || TYPE_7270_76m
+	default "763V3" 	if TYPE_7270_V3_76
+	default "CORE"	 	if TYPE_7270_CORE_V3_15220 || TYPE_7270_CORE_15220 || TYPE_7270_CORE_15627 || TYPE_7270_V3_CORE_15627 || TYPE_7240_CORE_15627 || TYPE_7240_V3_CORE_15627
+	default "BETA"	 	if TYPE_7270_PRE_15696 || TYPE_7270_V3_PRE_15696 || TYPE_7240_PRE_15696
+	default "13948" 	if TYPE_7170_13948
+	default "13486" 	if TYPE_7270_13486
+	default "DSL" 		if TYPE_7270_DSL_15335 || TYPE_7170_DSL_14119
+	default "GAMING" 	if TYPE_7270_GAMING || TYPE_7170_GAMING_11435
+	default "PHONE" 	if TYPE_7240_PHONE_15195 || TYPE_7270_PHONE_15195 || TYPE_7270_V3_PHONE_15195 || TYPE_7170_PHONE
+	default "WLAN" 		if TYPE_7270_WLAN_14080 || TYPE_7170_WLAN
+	default "IPV6" 		if TYPE_7270_IPV6 || TYPE_7170_IPV6 || TYPE_7270_V3_IPV6_15316 || TYPE_7270_IPV6_15316
+	default "UMTS" 		if TYPE_7270_UMTS_13265 || TYPE_7170_UMTS
 	default "MINI" 		if TYPE_7270_MINI_67 || TYPE_7170_MINI_14935
-	default "AIO" 		if TYPE_7270_AIO_14543 || TYPE_7170_AIO_13679 
-	default "VPN" 		if TYPE_7270_VPN || TYPE_7170_VPN 
-        default "AURA_14142" 	if TYPE_7270_AURA_14142
-        default "IPV6_15316" 	if TYPE_7270_IPV6_15316
+	default "AIO" 		if TYPE_7270_AIO_14543 || TYPE_7170_AIO_13679
+	default "VPN" 		if TYPE_7270_VPN || TYPE_7170_VPN
+	default "AURA_14142" 	if TYPE_7270_AURA_14142
+	default "IPV6_15316" 	if TYPE_7270_IPV6_15316
 	default "298" 		if TYPE_298
 	default "7570_70" 	if TYPE_AVM_7570_70
 	default "7570_72" 	if TYPE_AVM_7570_72
@@ -2178,8 +2197,9 @@ endif
 config FORCE_DST_DECTDRIVER
 	bool "Use DECT driver from 1st T-Home firmware"
 	depends on TYPE_9207570 || EXPORT_TYPE_LOCAL_MODEL
-	depends on EXPERT_MOD 
-	default y if ! FORCE_VDSL && ! EXPORT_TYPE_LOCAL_MODEL
+#	depends on EXPERT_MOD 
+	default y if TYPE_V3_OR_7240 && ! EXPORT_TYPE_LOCAL_MODEL
+	default n if ! TYPE_V3_OR_7240 || EXPORT_TYPE_LOCAL_MODEL
 	help
 		Use DECT driver from 1nd T-Home source.
 		V3 firmware DECT driver canït be used with W920 
