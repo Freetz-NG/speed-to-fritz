@@ -36,12 +36,7 @@ else
 	IMG_LIST=$( cat "$DLD_DIR/.listing" | grep -wo "FRITZ.*.image" )
 	IMG_CNTS=$( cat "$DLD_DIR/.listing" | grep -wc "FRITZ.*.image" )
 	SELECT=0
-	YESNO="y"
-	if [ $IMG_CNTS -gt 1 ]; then
-		YESNO="n"
-		echo "-- More than one match for '*.image' found:"
-		echo
-	fi
+	YESNO="n"
 	while [ "$YESNO" != "y" ]; do
 		CNT=1
 		for IMG_FILE in $IMG_LIST; do
@@ -49,8 +44,7 @@ else
 			echo "   ${CNT}. --- ${IMG[$CNT]}"
 			let CNT=$CNT+1 
 		done
-		NN=2
-		[ $IMG_CNTS -lt 10 ] &&  NN=1
+		NN=2 && [ $IMG_CNTS -lt 10 ] &&  NN=1
 		echo -n "   Select index of firmware image to use: "; read -n $NN SELECT; echo
 		echo
 		if [ $SELECT -gt 0 ] && [ $SELECT -lt $CNT ]; then
@@ -58,9 +52,7 @@ else
 		    echo
 		fi
 	done
-	if [ "$YESNO" = "y" ] && [ $SELECT -gt 0 ]; then
-		eval "export $4=${DLD_PATH}${IMG[$SELECT]}"
-	fi
+	[ "$YESNO" = "y" ] && [ $SELECT -gt 0 ] && eval "export $4=${DLD_PATH}${IMG[$SELECT]}"
 fi
 return 0 
 }
@@ -81,6 +73,25 @@ return 0
 #                                                                       #
 #########################################################################
 function fwselect()
+{
+DLD_TPL="$1"
+IMG_REQ="${DLD_TPL##*/}"
+DLD_PATH="${DLD_TPL%/*}"
+DLD_DIR="$2"
+fwselect_ "$1" "$2" "$3" "$4" "$5" "$6"
+if [ $? -ne 0 ]; then
+`echo $1 | grep -q 'ftp://'` && fwselect_ "$1" "$2" "$3" "$4" "select" "$6"
+fi
+if [ $? -ne 0 ]; then
+echo "-- Unable to retrieve file '$IMG_REQ'" 
+echo "   Check your internet connection!"
+echo "In some cases the download won't start even the file exists on the server."
+echo "In such cases please download the file to the directory first:"
+echo "      $DLD_DIR"
+eval "$4=''"
+fi
+}
+function fwselect_()
 {
 DLD_TPL="$1"
 DLD_DIR="$2"
@@ -144,7 +155,11 @@ else #<--alternative local filename --
   fi
  fi #<--alternative local filename --
 fi
-
+if [ -f "$DLD_DIR/$IMG_REQ" ]; then
+    act_size=`ls -l "$DLD_DIR/$IMG_REQ" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
+    #echo "size: $act_size"
+    [  "$act_size" == "0" ] && rm -f $DLD_DIR/$IMG_REQ
+fi
 if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
     if [ "$EXT" = "zip" ] || [ "$EXT" = "ZIP" ]; then
 	IMG_REQ1="${IMG_REQ%.*}"
@@ -157,7 +172,7 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 		IMG_EXTRACTED="${FILENAME_DLD_TPL##*/}"
 	else
 	#<--look for file supplied via Config.in as 2nd parameter
-#-->only used if more than one .image file is within the zipfile-->
+	#-->only used if more than one .image file is within the zipfile-->
 		IMG_EXTRACTED=`ls "$DLD_DIR/$IMG_REQ1" | grep  'image'`
 		IMG_CNTS=`ls "$DLD_DIR/$IMG_REQ1" | grep -c 'image'`
 		SELECT=0
@@ -181,20 +196,14 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 		    fi
 		    [ "$YESNO" = "y" ] && IMG_EXTRACTED="${IMG[$SELECT]}"
 		done
-#<--only used if more than one .image file is within the zipfile
+	#<--only used if more than one .image file is within the zipfile
 	fi #<--look for file supplied via Config.in as 2nd parameter
 		#workaround problem with filenames including SPC
 		IMG_EXTRACTED_SPC="$(echo $IMG_EXTRACTED | sed -e "s/ /-/")" 
 		mv "$DLD_DIR/$IMG_REQ1/$IMG_EXTRACTED" "$DLD_DIR/$IMG_EXTRACTED_SPC" 
 		if [ -f "$DLD_DIR/$IMG_EXTRACTED_SPC" ]; then
-	
-		 #if [ "$MIRROR_DLD_TPL" == "" ]; then
-#			    sed -i -e "s|$DLD_TPL mirror $MIRROR_DLD_TPL.*$|$DLD_TPL \./$FWORIGDIR/$IMG_EXTRACTED $MIRROR_DLD_TPL\"|" "$HOMEDIR/Config.in"
-#			    sed -i -e "s|$DLD_TPL mirror $MIRROR_DLD_TPL.*$|$DLD_TPL \./$FWORIGDIR/$IMG_EXTRACTED $MIRROR_DLD_TPL\"|" "$HOMEDIR/$firmwareconf_file_name"
-#         		else	
 		echo "$IMG_EXTRACTED" | grep -q ' ' || ([ "$MIRROR_DLD_TPL" == "" ] && sed -i -e "s|\"$DLD_TPL\"|\"$DLD_TPL \./$FWORIGDIR/$IMG_EXTRACTED_SPC\"|" "$HOMEDIR/Config.in")
 		[ "$MIRROR_DLD_TPL" == "" ] && sed -i -e "s|\"$DLD_TPL\"|\"$DLD_TPL \./$FWORIGDIR/$IMG_EXTRACTED_SPC\"|" "$HOMEDIR/$firmwareconf_file_name"
-		 #fi
 		 # workaroud because LaborCORE zip includes now DOS filenames with !, delite did hang.
 		 for file in $(ls "$DLD_DIR/$IMG_REQ1"); do
 		    #echo "$file"
@@ -204,34 +213,19 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 		 rmdir  --ignore-fail-on-non-empty "$DLD_DIR/$IMG_REQ1" > /dev/null 2>&1
 #####		 rm -f "$DLD_DIR/$IMG_REQ"
 		fi
-		#correct filename if skript is used again    
-#		sed -i -e "s|$DLD_TPL\"|$DLD_DIR/$IMG_EXTRACTED\" \n\
-#speed-to-freetz skript changed above name, because the original file was a ZIP, \n\
-#original name was:\n\
-#$IMG_DESC=\"$DLD_TPL\" \n\
-#|" "$HOMEDIR/$firmwareconf_file_name"
-	echo "image extracted: $IMG_EXTRACTED_SPC"
-
+		echo "image extracted: $IMG_EXTRACTED_SPC"
 		eval "$4=$IMG_EXTRACTED_SPC"
 		return 0
      else
 		eval "$4=$IMG_REQ"
+		#echo "existing image: $IMG_REQ"
 		return 0
-
     fi
 fi
-echo "-- Unable to retrieve file '$IMG_REQ'" 
-echo "   Check your internet connection!"
-echo "In some cases the download won't start even the file exists on the server."
-echo "It is better to keep the source images local in any case."
-echo "In such cases please download the file to the directory:"
-echo "      $DLD_DIR"
+#echo "No image"
 eval "$4=''"
-sleep 20; exit 1
+return 1
 }
-
-
-
 #########################################################################
 #                                                                       #
 # Function pushconfig()                                                 #
