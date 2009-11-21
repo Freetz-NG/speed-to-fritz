@@ -16,7 +16,7 @@ rm -rf "$TEMPDIR"
 # Check if images/directories exist or download file
 #get tcom source
 if [ -n "$SPIMG" ]; then
- fwselect "$SPIMG_PATH" "$FWBASE" "TCOM_IMG" "SPIMG"  "$MIRROR_SPIMG_PATH" "$FILENAME_SPIMG_PATH"
+ fwselect "$SPIMG_PATH" "$FWBASE" "TCOM_IMG" "SPIMG"  "$MIRROR_SPIMG_PATH" "$FILENAME_SPIMG_PATH" "${SPNUM}V"
  if [ -z "$SPIMG" ]; then
 	echo "No image for processing. Exit"
 	sleep 20; exit 1
@@ -24,7 +24,7 @@ if [ -n "$SPIMG" ]; then
 fi
 #get sorce 1
 #if [ -n "$FBIMG" ]; then
- fwselect "$FBIMG_PATH" "$FWBASE" "AVM_IMG" "FBIMG" "$MIRROR_FBIMG_PATH" "$FILENAME_FBIMG_PATH"
+ fwselect "$FBIMG_PATH" "$FWBASE" "AVM_IMG" "FBIMG" "$MIRROR_FBIMG_PATH" "$FILENAME_FBIMG_PATH" "$FBMOD"
  if [ -z "$FBIMG" ]; then 
 	echo "No image for processing. Exit"
 	sleep 20; exit 1
@@ -32,7 +32,7 @@ fi
 #fi
 #get sorce 2
 if [ -n "$FBIMG_2" ]; then
-	fwselect "$FBIMG_2_PATH" "$FWBASE" "SRC2_IMG" "FBIMG_2" "$MIRROR_FBIMG_2_PATH" "$FILENAME_FBIMG_2_PATH"
+	fwselect "$FBIMG_2_PATH" "$FWBASE" "SRC2_IMG" "FBIMG_2" "$MIRROR_FBIMG_2_PATH" "$FILENAME_FBIMG_2_PATH" "NO_NUMBER"
 	if [ -z "$FBIMG_2" ]; then
 		echo "No image for processing. Exit"
 		sleep 20; exit 1

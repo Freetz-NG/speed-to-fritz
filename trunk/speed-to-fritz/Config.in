@@ -49,7 +49,7 @@ config TCOM_W721_64_04_60
 
 config TCOM_W721_64_04_74
     string
-    default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W721V/fw_SpeedportW721_v_64.04.74.image"
+    default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W721V/fw_SpeedportW721V_v_64.04.74.image"
 
 config TCOM_W722_14111
     string
@@ -171,8 +171,8 @@ config AVM_7150_29_04_59
 
 config AVM_MINI_7170_14935
     string
-    default "http://update.avm.de/7170_Mini_Firmware/deutsch/fritz_box_29.04.76-14936.image"
-    
+    default "http://update.avm.de/7170_Mini_Firmware/deutsch/fritz_box_29.04.76-14935.image"
+
 config AVM_7170_58_04_76
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7170.AnnexA.58.04.76.image"
@@ -181,9 +181,9 @@ config AVM_7170_29_04_76
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.76.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.76.image"
 
-config AVM_7170_29_04_78
+config AVM_7170_29_04_77
   string
-    default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7170sl/FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.78.image"
+    default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7170sl/FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.77.image"
 
 config AVM_7170_en_58_04_76
     string
@@ -254,7 +254,7 @@ config AVM_7270_54_04_76
 
 config AVM_7273_74_04_76
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.76.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.76.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.76.image"
 
 config AVM_7270_13486
     string
@@ -338,7 +338,7 @@ config AVM_7570_75_04_70
 
 config AVM_7570_15316
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7570_75.04.7270_IPv6_en/fritzbox_lab_15316__7570.zip"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7570_7270_IPv6_en/fritzbox_lab_15316__7570.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL_LabIPV6.en-de-fr.75.04.94-15316.image"
 
 config AVM_7570_75_04_72
     string
@@ -927,8 +927,8 @@ choice
 		help
 			FRITZ! release: 70
 
-	config TYPE_7170_29_04_78
-		bool "AVM 7170 29.04.78"
+	config TYPE_7170_29_04_77
+		bool "AVM 7170 29.04.77"
 		depends on ( TYPE_7170 || ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! release: 70
@@ -1604,7 +1604,7 @@ config AVM_IMG
 	default "$AVM_7170_en_58_04_76" 			if TYPE_7170_en_58_04_76 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_en_29_04_76" 			if TYPE_7170_en_29_04_76 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_29_04_76" 				if TYPE_7170_29_04_76 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_7170_29_04_78" 				if TYPE_7170_29_04_78 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7170_29_04_77" 				if TYPE_7170_29_04_77 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_13948" 				if TYPE_7170_13948 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_DSL_7170_14119"				if TYPE_7170_DSL_14119 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_GAMING_7170_11435"			if TYPE_7170_GAMING_11435 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
@@ -1685,7 +1685,7 @@ config SRC2_IMG
 	default "$AVM_7113_60_04_68" 			if TYPE_SRC3_AVM_7113_60_04_68
 	default "$AVM_7113_60_04_77" 			if TYPE_SRC3_AVM_7113_60_04_77
 	default "$AVM_7170_29_04_76" 			if TYPE_SRC3_AVM_7170_29_04_76
-	default "$AVM_7170_29_04_78" 			if TYPE_SRC3_AVM_7170_29_04_78
+	default "$AVM_7170_29_04_77" 			if TYPE_SRC3_AVM_7170_29_04_77
 	default "$AVM_7141_40_04_76" 			if TYPE_SRC3_AVM_7141_40_04_76
 	default "$AVM_7170_13948" 			if TYPE_SRC3_AVM_7170_13948
 	default "$AVM_DSL_7170_14119"			if TYPE_SRC3_AVM_DSL_7170_14119
@@ -1789,7 +1789,7 @@ config TYPE_LABOR_TYPE
 	default "67" 		if TYPE_7270_54_04_76
 	default "68" 		if TYPE_7113_60_04_68
 	default "76" 		if TYPE_7170_29_04_76 || TYPE_7113_76
-	default "77" 		if TYPE_7170_29_04_78 || TYPE_7113_60_04_77
+	default "77" 		if TYPE_7170_29_04_77 || TYPE_7113_60_04_77
 	default "70" 		if TYPE_7170_70 || TYPE_7270_54_04_70
 	default "A76" 		if TYPE_7170_58_04_76 || TYPE_7270_A76
 	default "76m" 		if TYPE_7270_m_54_04_76
