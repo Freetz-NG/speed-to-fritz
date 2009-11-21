@@ -93,16 +93,16 @@ if [ $? -ne 0 ]; then
     X_minorversion=""
     export X_X=`echo $IMG_REQ_OLD | grep '.04.' | sed -e 's|-|\.|' | sed -e 's|_|\.|' | sed -e 's|M||' | sed 's/.*\(...04.*\)/\1/'`
     if `echo "${X_X:15:5}" | grep -q 'image'` || `echo "${X_X:15:3}" | grep -q 'zip'` || `echo "${X_X:15:3}" | grep -q 'ZIP'` ; then
-     X_version=${X_X:0:14}
+     X_version=${X_X:0:2}
      X_minorversion=${X_X:6:2}
      X_subversion=${X_X:9:5}
-     echo "Ori_Version:$X_version Ori_Subversion:$X_subversion  MinorVersion:$X_minorversion"
-    else
-     echo "${X_X:9:5}" | grep -q 'image' && X_version=${X_X:0:8}
-     echo "${X_X:9:3}" | grep -q 'zip' && X_version=${X_X:0:8}
-     echo "${X_X:9:3}" | grep -q 'ZIP' && X_version=${X_X:0:8}
-     X_minorversion=${X_version:6:2}
-     echo "Ori_Version:$X_version MinorVersion:$X_minorversion"
+     echo "Ori_Version:$X_version.04.$X_minorversion-$X_subversion"
+    else 
+	if `echo "${X_X:9:5}" | grep -q 'image'` || `echo "${X_X:9:3}" | grep -q 'zip'` || `echo "${X_X:9:3}" | grep -q 'ZIP'` ; then
+    	    X_version=${X_X:0:2}
+    	    X_minorversion=${X_X:6:2}
+    	    echo "Ori_Version:$X_version.04.$X_minorversion"
+	fi
     fi
  `  echo $1 | grep -q 'ftp://'` && fwselect_ "$1" "$2" "$3" "$4" "select" "$6"
     if [ $? -ne 0 ]; then
@@ -122,28 +122,32 @@ if [ $? -ne 0 ]; then
 	Y_version=""
 	Y_subversion=""
 	Y_minorversion=""
+	MULTI="_"
+	MULTI_T='"'
+	`echo $IMG_REQ_OLD | grep -q 'en-de'` && `echo $IMG_REQ | grep -q 'en-de'` && MULTI="m" && MULTI_T=".en-de"
+	
 	X_Y=`echo $IMG_REQ | grep '.04.' | sed -e 's|-|\.|g' | sed -e 's|_|\.|g' | sed -e 's|M||' | sed 's/.*\(...04.*\)/\1/'`
 	if [ "X_Y" != "" ] && [ "X_X" != "" ] ; then 
     	    if `echo "${X_Y:15:5}" | grep -q 'image'` || `echo "${X_Y:15:3}" | grep -q 'zip'` || `echo "${X_Y:15:3}" | grep -q 'ZIP'` ; then
-		Y_version=${X_Y:0:14}
+		Y_version=${X_Y:0:2}
 		Y_minorversion=${X_Y:6:2}
 		Y_subversion=${X_Y:9:5}
-		echo "Version:$Y_version Subversion:$Y_subversion MinorVersion:$Y_minorversion"
+		echo "Version:${MULTI}$Y_version.04.$Y_minorversion-$Y_subversion"
     	    else
-		echo "${X_Y:9:5}" | grep -q 'image' && Y_version=${X_Y:0:8}
-		echo "${X_Y:9:3}" | grep -q 'zip' && Y_version=${X_Y:0:8}
-		echo "${X_Y:9:3}" | grep -q 'ZIP' && Y_version=${X_Y:0:8}
-		Y_minorversion=${Y_version:6:2}
-		echo "Version:$Y_version MinorVersion:$Y_minorversion"
+    	        if `echo "${X_Y:9:5}" | grep -q 'image'` || `echo "${X_Y:9:3}" | grep -q 'zip'` || `echo "${X_Y:9:3}" | grep -q 'ZIP'` ; then
+		Y_version=${X_Y:0:2}
+		Y_minorversion=${X_Y:6:2}
+		echo "Version:${MULTI}$Y_version.04.$Y_minorversion"
+		fi
     	    fi
-	    if [ "$X_version" != "" ] && [ "$Y_version" != "" ]; then 
-		X_X_version=`echo $X_version | sed -e 's|\.|_|g'`
-		Y_Y_version=`echo $Y_version | sed -e 's|\.|_|g'`
-		sed -i -e "s|$X_X_version|$Y_Y_version|g" "${HOMEDIR}"/Config.in
-		sed -i -e "s|$X_version|$Y_version|g" "${HOMEDIR}"/Config.in
+	    if [ "$X_version" != "" ] && [ "$Y_version" != "" ] && [ "$X_version$X_minorversion" != "$Y_version$Y_minorversion" ]; then 
+		echo "Config.in changed, diff saved to Config.in.diff"
+		sed -i -e "s|$X_version\.04\.$X_minorversion${MULTI_T}|$Y_version\.04\.$Y_minorversion${MULTI_T}|g" "${HOMEDIR}"/Config.in
+		sed -i -e "s|${MULTI}${X_version}_04_${X_minorversion}|${MULTI}${Y_version}_04_${Y_minorversion}|g" "${HOMEDIR}"/Config.in
 	    fi
-	    if [ "$X_subversion" != "" ] && [ "$Y_subversion" != "" ] ; then 
-		sed -i -e "s|$X_subversion|$Y_subversion|g" "${HOMEDIR}"/Config.in
+	    if [ "$X_subversion" != "" ] && [ "$Y_subversion" != "" ] && [ "$X_subversion" != "$Y_subversion" ] ; then 
+		sed -i -e "s|$X_subversion${MULTI_T}|$Y_subversion${MULTI_T}|g" "${HOMEDIR}"/Config.in
+		sed -i -e "s|_$X_subversion|_$Y_subversion|g" "${HOMEDIR}"/Config.in
 	    fi
 	fi
     diff -Naur "${HOMEDIR}"/Config.in.ori "${HOMEDIR}"/Config.in > "${HOMEDIR}"/Config.in.diff
