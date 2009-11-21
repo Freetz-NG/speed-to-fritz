@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="18"; Monat="11"; Jahr="09"
+Tag="21"; Monat="11"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -196,7 +196,7 @@ export CONFIG_ATA_FULL="n"
 #                   "721" (for SP W721V)
 #                   "900" (for SP W900V)
 #                  "7240" (for AVM 7270)
-#                "7270v3" (for AVM 7270v3)
+#                 "7270" (for AVM 7270v3)
 #                     "*" (for Any user TYPE)
 ##########################################################################
 function set_model()
@@ -826,7 +826,7 @@ export CONFIG_ETH_COUNT="4"
 	export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
 	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
 	;;
-"7270v3")
+"7273")
 	export CLASS=""
 	export SPNUM="7270"
 	export PROD="7270plus" 
@@ -953,7 +953,7 @@ export CONFIG_ETH_COUNT="4"
 	export CONFIG_ETH_COUNT="1"
 	export CONFIG_Pots="1"
 	export CONFIG_IsdnNT="0"
-	export CONFIG_IsdnTE="0"
+	export CONFIG_IsdnTE="1"
 	export CONFIG_Usb="0" 
 	export CONFIG_UsbHost="1" 
 	export CONFIG_UsbStorage="1"
@@ -1082,7 +1082,7 @@ if [ "$ORI" != "y" ]; then
  . SxAVMx7141;;
  "7240")
  . SxAVMx7240v2;;
- "7270v3")
+ "7273")
  . SxAVMx7270v3;;
  *)
  . SxxxAVM;;

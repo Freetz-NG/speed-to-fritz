@@ -28,7 +28,7 @@ echo "-- Checking ftp.avm.de for latest firmware file ..."
 rm -f $DLD_DIR/.listing
 wget --spider --no-remove-listing -P "$DLD_DIR" "$DLD_PATH" 2>&1 > /dev/null
 if [ ! -e $DLD_DIR/.listing ]; then
-	echo "-- Could not retrieve listing from ftp.avm.de."
+	echo "-- Could not retrieve listing from ftp.avm.de"
 	eval "export $4=${IMG_REQ}"
 	sleep 5
 	return 1
@@ -54,7 +54,7 @@ else
 	done
 	[ "$YESNO" = "y" ] && [ $SELECT -gt 0 ] && eval "export $4=${DLD_PATH}${IMG[$SELECT]}"
 fi
-return 0 
+return 0
 }
 #########################################################################
 #                                                                       #
@@ -67,6 +67,7 @@ return 0
 #   $4:         image description 2                                     #
 #   $5:         mirror download link                                    #
 #   $6:         alternativ local filename                               #
+#   $7:         firmware number  XXXX or NO_NUMBER                      #
 #                                                                       #
 # fwselect() returns name of selected image in variable                 #
 # name referenced by var_by_ref ($4)                                    #
@@ -78,17 +79,74 @@ DLD_TPL="$1"
 IMG_REQ="${DLD_TPL##*/}"
 DLD_PATH="${DLD_TPL%/*}"
 DLD_DIR="$2"
+FW_TYPE="$7"
+if [ "$6" != "mirror" ]; then
+     [ -z "$6" ] || IMG_REQ=$6
+fi
 fwselect_ "$1" "$2" "$3" "$4" "$5" "$6"
 if [ $? -ne 0 ]; then
-`echo $1 | grep -q 'ftp://'` && fwselect_ "$1" "$2" "$3" "$4" "select" "$6"
-fi
-if [ $? -ne 0 ]; then
-echo "-- Unable to retrieve file '$IMG_REQ'" 
-echo "   Check your internet connection!"
-echo "In some cases the download won't start even the file exists on the server."
-echo "In such cases please download the file to the directory first:"
-echo "      $DLD_DIR"
-eval "$4=''"
+    IMG_REQ_OLD=$IMG_REQ
+    DLD_TPL_OLD=$DLD_TPL
+    #echo ":1:$IMG_REQ_OLD"
+    X_version=""
+    X_subversion=""
+    X_minorversion=""
+    export X_X=`echo $IMG_REQ_OLD | grep '.04.' | sed -e 's|-|\.|' | sed -e 's|_|\.|' | sed -e 's|M||' | sed 's/.*\(...04.*\)/\1/'`
+    if `echo "${X_X:15:5}" | grep -q 'image'` || `echo "${X_X:15:3}" | grep -q 'zip'` || `echo "${X_X:15:3}" | grep -q 'ZIP'` ; then
+     X_version=${X_X:0:14}
+     X_minorversion=${X_X:6:2}
+     X_subversion=${X_X:9:5}
+     echo "Ori_Version:$X_version Ori_Subversion:$X_subversion  MinorVersion:$X_minorversion"
+    else
+     echo "${X_X:9:5}" | grep -q 'image' && X_version=${X_X:0:8}
+     echo "${X_X:9:3}" | grep -q 'zip' && X_version=${X_X:0:8}
+     echo "${X_X:9:3}" | grep -q 'ZIP' && X_version=${X_X:0:8}
+     X_minorversion=${X_version:6:2}
+     echo "Ori_Version:$X_version MinorVersion:$X_minorversion"
+    fi
+ `  echo $1 | grep -q 'ftp://'` && fwselect_ "$1" "$2" "$3" "$4" "select" "$6"
+    if [ $? -ne 0 ]; then
+	echo "-- Unable to retrieve file '$IMG_REQ'" 
+	echo "   Check your internet connection!"
+	echo "In some cases the download won't start even the file exists on the server."
+	echo "In such cases please download the file to the directory first:"
+	echo "      $DLD_DIR"
+	eval "$4=''"
+	return 1
+    fi 
+	IMG_REQ="${DLD_TPL##*/}"
+	#echo ":2:$IMG_REQ"
+	cp "${HOMEDIR}"/Config.in "${HOMEDIR}"/Config.in.ori
+	sed -i -e "s|$DLD_TPL_OLD|$DLD_TPL|g" "${HOMEDIR}"/Config.in
+	sed -i -e "s|$IMG_REQ_OLD|$IMG_REQ|g" "${HOMEDIR}"/Config.in
+	Y_version=""
+	Y_subversion=""
+	Y_minorversion=""
+	X_Y=`echo $IMG_REQ | grep '.04.' | sed -e 's|-|\.|g' | sed -e 's|_|\.|g' | sed -e 's|M||' | sed 's/.*\(...04.*\)/\1/'`
+	if [ "X_Y" != "" ] && [ "X_X" != "" ] ; then 
+    	    if `echo "${X_Y:15:5}" | grep -q 'image'` || `echo "${X_Y:15:3}" | grep -q 'zip'` || `echo "${X_Y:15:3}" | grep -q 'ZIP'` ; then
+		Y_version=${X_Y:0:14}
+		Y_minorversion=${X_Y:6:2}
+		Y_subversion=${X_Y:9:5}
+		echo "Version:$Y_version Subversion:$Y_subversion MinorVersion:$Y_minorversion"
+    	    else
+		echo "${X_Y:9:5}" | grep -q 'image' && Y_version=${X_Y:0:8}
+		echo "${X_Y:9:3}" | grep -q 'zip' && Y_version=${X_Y:0:8}
+		echo "${X_Y:9:3}" | grep -q 'ZIP' && Y_version=${X_Y:0:8}
+		Y_minorversion=${Y_version:6:2}
+		echo "Version:$Y_version MinorVersion:$Y_minorversion"
+    	    fi
+	    if [ "$X_version" != "" ] && [ "$Y_version" != "" ]; then 
+		X_X_version=`echo $X_version | sed -e 's|\.|_|g'`
+		Y_Y_version=`echo $Y_version | sed -e 's|\.|_|g'`
+		sed -i -e "s|$X_X_version|$Y_Y_version|g" "${HOMEDIR}"/Config.in
+		sed -i -e "s|$X_version|$Y_version|g" "${HOMEDIR}"/Config.in
+	    fi
+	    if [ "$X_subversion" != "" ] && [ "$Y_subversion" != "" ] ; then 
+		sed -i -e "s|$X_subversion|$Y_subversion|g" "${HOMEDIR}"/Config.in
+	    fi
+	fi
+    diff -Naur "${HOMEDIR}"/Config.in.ori "${HOMEDIR}"/Config.in > "${HOMEDIR}"/Config.in.diff
 fi
 }
 function fwselect_()
@@ -148,7 +206,24 @@ else #<--alternative local filename --
 			wget --passive-ftp -P "$DLD_DIR" "$DLD_TPL" 2>&1
 			;;
 		http://*)
+#			echo "  html download ..."
+#			DLD_TPL_NEW=""
+#			rm -f $DLD_DIR/404*
 			wget -P "$DLD_DIR" "$DLD_TPL" 2>&1
+#			if [ ! -e $DLD_DIR/404.html ]; then
+#			    # follows if last digit of miniorversion is diffent
+#			    DLD_TPL_NEW=`wget --spider -P "$DLD_DIR" "$DLD_TPL" 2>&1 | grep 'Location:' | sed -e 's/Location://' | sed -e 's/ //' | sed 's/\(ZIP\).*/\1/' | sed 's/\(zip\).*/\1/'`
+#			    if ! `echo "$DLD_TPL_NEW" | grep -q '404.html' `;then
+#			     if [ "$DLD_TPL_NEW" != "" ] && [ "$DLD_TPL_NEW" != "$DLD_TPL" ]; then
+#				echo ":old   :$DLD_TPL"
+#				echo ":select:$DLD_TPL_NEW"
+#				cp "${HOMEDIR}"/Config.in "${HOMEDIR}"/Config_ori.in
+#				sed -i -e "s|"$DLD_TPL.*$"|$DLD_TPL_NEW\"|g" "${HOMEDIR}"/Config.in
+#				diff -Naur "${HOMEDIR}"/Config_ori.in "${HOMEDIR}"/Config.in >> "${HOMEDIR}"/diff-config.in
+#				IMG_REQ="${DLD_TPL_NEW##*/}"
+#			    fi
+#			   fi
+#			fi
 			;;
 	esac
     fi
