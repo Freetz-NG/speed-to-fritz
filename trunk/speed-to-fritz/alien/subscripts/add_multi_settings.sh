@@ -233,7 +233,7 @@ if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
     [ "${REMOVE_FR}" != "y" ] && LanguageList+="fr "
    for DIR in $LanguageList; do
     if [ -d "${DST}/etc/default.${DEST_PRODUKT}/${OEML}/$DIR" ]; then
-     cp -fdrp "${DST}/etc/default.${DEST_PRODUKT}"/${OEML}/$DIR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  Copy language directory from t-Home firmware: $DIR"
+     cp -fdrp "${DST}/etc/default.${DEST_PRODUKT}/${OEML}/$DIR" "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  Copy language directory from t-Home firmware: $DIR"
     fi 
     if [ -d "${SRC_2}/etc/default.${SORCE_2_PRODUKT}/${OEML2}/$DIR" ]; then
      cp -fdrp "${SRC_2}/etc/default.${SORCE_2_PRODUKT}/${OEML2}/$DIR" "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  Copy language directory from 2nd AVM firmware: $DIR"
@@ -244,6 +244,15 @@ if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
     if [ -d "${SRC_2}/usr/share/tam/msg/default/$DIR" ]; then
      cp -fdrp "${SRC_2}/usr/share/tam/msg/default/$DIR" "${SRC}/usr/share/tam/msg/default/$DIR" && echo2 "  Copy TAM language directory from 2nd AVM firmware: $DIR"
     fi 
+    if [ -d "${SRC}/usr/share/tam/msg/default/de" ]; then
+     for FILE in `ls "${SRC}/usr/share/tam/msg/default/de"`; do
+      if [ -f "${SRC}/usr/share/tam/msg/default/de/${FILE}" ]; then
+       if ! [ -f "${SRC}/usr/share/tam/msg/default/$DIR/${FILE}" ]; then
+        cp -fdrp "${SRC}/usr/share/tam/msg/default/de/$FILE" --target-directory="${SRC}/usr/share/tam/msg/default/$DIR" && echo2 "  Copy TAM language directory from t-Home firmware: $DIR"
+       fi
+      fi
+     done
+    fi
     FileList="/usr/share/telefon/tam-$DIR.html /usr/share/telefon/fax-$DIR.html /usr/share/telefon/tam-$DIR.txt /usr/share/telefon/fax-$DIR.txt"
     for Langufile in $FileList; do
      if [ -f "${DST}/$Langufile" ]; then
@@ -264,7 +273,7 @@ if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
     fi
    done
    FileList="root_ca.pem root_ca_ta.pem root_ca_mnet.pem"
-    for ca_file in $FileList; do
+   for ca_file in $FileList; do
      [ -f "${DST}/etc/default.${DEST_PRODUKT}/${OEML}/$ca_file" ] && cp -f "${DST}/etc/default.${DEST_PRODUKT}/${OEML}/$ca_file" "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$ca_file" && echo2 "  Copy: $ca_file"
      [ -f "${SRC_2}/etc/default.${SORCE_2_PRODUKT}/${OEML2}/$ca_file" ] && cp -f "${SRC_2}/etc/default.${SORCE_2_PRODUKT}/${OEML2}/$ca_file" "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$ca_file" && echo2 "  Copy: $ca_file"
    done 
