@@ -19,7 +19,7 @@ else
 TOOLS_DOT_CONFIG:=.config
 endif
 
-TOOLS+=tar
+#TOOLS+=tar
 TOOLS+=busybox-tools
 TOOLS+=find-squashfs
 #TOOLS+=lzma
