@@ -226,7 +226,11 @@ if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
    sed -i -e 's/CONFIG_MULTI_LANGUAGE="n"/CONFIG_MULTI_LANGUAGE="y"/' "${SRC}"/etc/init.d/rc.conf
    echo "-- Adding mulilingual pages from t-Home or 2nd AVM firmware ..."
    #copy language datbase
-   LanguageList="en it es fr de"
+   #LanguageList="en it es fr"
+    [ "${REMOVE_EN}" != "y" ] && LanguageList="en "
+    [ "${REMOVE_IT}" != "y" ] && LanguageList+="it "
+    [ "${REMOVE_ES}" != "y" ] && LanguageList+="es "
+    [ "${REMOVE_FR}" != "y" ] && LanguageList+="fr "
    for DIR in $LanguageList; do
     if [ -d "${DST}/etc/default.${DEST_PRODUKT}/${OEML}/$DIR" ]; then
      cp -fdrp "${DST}/etc/default.${DEST_PRODUKT}"/${OEML}/$DIR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  Copy language directory from t-Home firmware: $DIR"
@@ -243,14 +247,14 @@ if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
     FileList="/usr/share/telefon/tam-$DIR.html /usr/share/telefon/fax-$DIR.html /usr/share/telefon/tam-$DIR.txt /usr/share/telefon/fax-$DIR.txt"
     for Langufile in $FileList; do
      if [ -f "${DST}/$Langufile" ]; then
-      cp -f "${DST}/$Langufile" "${SRC}/$Langufile" && echo2 "  Copy: $Langufile"
+      cp -fdrp "${DST}/$Langufile" "${SRC}/$Langufile" && echo2 "  Copy: $Langufile"
      fi 
-     if [ -d "${SRC_2}/$Langufile" ]; then
-      cp -f "${SRC_2}/$Langufile" "${SRC}/$Langufile" && echo2 "  Copy $Langufile"
+     if [ -f "${SRC_2}/$Langufile" ]; then
+      cp -fdrp "${SRC_2}/$Langufile" "${SRC}/$Langufile" && echo2 "  Copy: $Langufile"
      fi 
     done
    done
-   LanguageList="en it es fr de"
+   #LanguageList="en it es fr"
    for lang in $LanguageList; do
     if ! [ -f "${SRC}"/etc/htmltext_$lang.db ];then
      [ -f "${SRC}"/etc/htmltext_de.db ] && [ -f "${SRC_2}"/etc/htmltext_$lang.db ] && cp -fdrp "${SRC_2}"/etc/htmltext_$lang.db --target-directory="${SRC}"/etc &&\
