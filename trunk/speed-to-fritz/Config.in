@@ -1936,7 +1936,7 @@ config EXPORT_ADD_7150_DECTMNUE
 		Add some parts of DECT menu pages originating from 7150 .56, this patch is usable with .57 AVM version or similar versions.
 config EXPORT_ADD_MODINFOICON
 	bool "Add modinfo icon on status page"
-	default y if ! EXPORT_TYPE_LOCAL_MODEL && ( ! TYPE_SPEEDPORT_W721V )
+	default y if ( ! TYPE_SPEEDPORT_W721V )
 	help
 		Add modinfo icon on status page, modinfo button is always displayed.
 config EXPORT_REMOVE_MENU_ITEM
@@ -1945,56 +1945,6 @@ config EXPORT_REMOVE_MENU_ITEM
 	help
 		Set this to 'y' if you like to remove Fon3 (or more depending on the type of box) from some menus. 
 		Both source files must be without leading "#", diff result is in directory ./LogSRC_SRC2
-config EXPORT_COPY_HEADER
-	bool "COPY HEADER"
-	default y
-	help
-		Set this to 'y' if you like to include  fw_header980.gif (new version) fw_header.gif (old version)
-		AVM minor version >= 47 uses the new file, if you do not want to copy both 
-		files you can remove one of this files in  ./addon/tmp/images.
-config EXPORT_ADD_MACSETTING
-	bool "Add MAC settings to internet page"
-	default y
-	help
-		Readds MAC setting options to internet setuppage as it ware present on Versions XX.XX.70.
-config EXPORT_ADD_PHONESEND
-	bool "Add Phonebook send button"
-	default y
-	help
-		Adds Phonebook send button.
-		
-config EXPORT_SET_PMAXTIMEOUT
-	bool "Set Timeout for reconnect to 3600"
-	depends on EXPERT_MOD 
-	default n
-	help
-		Set Timeout on internet setup page for reconnect from 900 to 3600.
-config EXPORT_DO_LOOKUP_PATCH
-	bool "Include reverse lookup patch"
-	depends on ! EXPORT_TYPE_LOCAL_MODEL
-	default y
-	help
-		Add reverse lookup patch for Germany.
-config EXPORT_ADD_SUPPORT
-	bool "Support menu-item (add)"
-	depends on ! TYPE_SPEEDPORT_W501V
-	default y
-	help
-		Set this to 'y' if you like to add url and hidden support page. 
-config EXPORT_RPL_ASSIST
-	bool "Assistant menu-item (replace)"
-	depends on ! TYPE_SPEEDPORT_W501V
-	default y
-	help
-		Set this to 'y' if you like to replace the assistant menu-item with enhanced settings. 
-config EXPORT_REMOVE_HELP
-	bool "Help files (remove)"
-#	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM
-	default n if ! TYPE_SPEEDPORT_W721V  && ! TYPE_SPEEDPORT_W501V
-	default y if ( ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V ) || TYPE_SPEEDPORT_W501V
-
-	help
-		Set this to 'y' if you like to remove help pages to save space, normal this is "y".
 config EXPORT_REMOVE_KIDS
 	bool "Kids files (remove)"
 #	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM
@@ -2074,6 +2024,60 @@ config EXPORT_BUGFIX_FONCONFIG
 #	default y if TYPE_AIO
 	help
 		Set this to 'y' if you like to correct some wrong letters on the fon config pages, normal this is "n".
+config EXPORT_COPY_HEADER
+	bool "COPY HEADER"
+	default y
+	help
+		Set this to 'y' if you like to include  fw_header980.gif (new version) fw_header.gif (old version)
+		AVM minor version >= 47 uses the new file, if you do not want to copy both 
+		files you can remove one of this files in  ./addon/tmp/images.
+# In use within sp-to-fritz.sh
+config EXPORT_ADD_MACSETTING
+	bool "Add MAC settings to internet page"
+	default y
+	help
+		Readds MAC setting options to internet setuppage as it ware present on Versions XX.XX.70.
+config EXPORT_ADD_PHONESEND
+	bool "Add Phonebook send button"
+	default y
+	help
+		Adds Phonebook send button.
+# In use within sp-to-fritz.sh
+config EXPORT_SET_PMAXTIMEOUT
+	bool "Set Timeout for reconnect to 3600"
+	depends on EXPERT_MOD 
+	default n
+	help
+		Set Timeout on internet setup page for reconnect from 900 to 3600.
+# In use within sp-to-fritz.sh
+config EXPORT_DO_LOOKUP_PATCH
+	bool "Include reverse lookup patch"
+	default y
+	help
+		Add reverse lookup patch for Germany.
+# In use within sp-to-fritz.sh
+config EXPORT_ADD_SUPPORT
+	bool "Support menu-item (add)"
+	depends on ! TYPE_SPEEDPORT_W501V
+	default y
+	help
+		Set this to 'y' if you like to add url and hidden support page.
+# In use within sp-to-fritz.sh		
+config EXPORT_RPL_ASSIST
+	bool "Assistant menu-item (replace)"
+	depends on ! TYPE_SPEEDPORT_W501V
+	default y
+	help
+		Set this to 'y' if you like to replace the assistant menu-item with enhanced settings. 
+# In use within sp-to-fritz.sh
+config EXPORT_REMOVE_HELP
+	bool "Help files (remove)"
+#	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM
+	default n if ! TYPE_SPEEDPORT_W721V  && ! TYPE_SPEEDPORT_W501V
+	default y if ( ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V ) || TYPE_SPEEDPORT_W501V
+help
+		Set this to 'y' if you like to remove help pages to save space, normal this is "y".
+# In use within sp-to-fritz.sh
 config EXPORT_DO_GSM_PATCH
 	depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM )
 	depends on EXPERT_MOD 
@@ -2160,10 +2164,8 @@ config SAVE_SRC2_DECTDRIVER
 	help
 		Save DECT driver to local directory ./addon/tmp/XXXX/.....
 		V3 firmware DECT driver canït be used with W920, ...
-
-###---> NO AVM Modells 7XXX
-if ! EXPORT_TYPE_LOCAL_MODEL
- config EXPORT_ADD_ONLINECOUNTER
+# In use within sp-to-fritz.sh
+config EXPORT_ADD_ONLINECOUNTER
 	depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V  || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ! TYPE_SPEEDPORT_W721V
 	bool "Onlinecounter volume patch"
 	default n 
@@ -2171,7 +2173,8 @@ if ! EXPORT_TYPE_LOCAL_MODEL
  #	default y if  ! ( TYPE_DSL )
 	help
 		Patch ONLINECOUNTER for 7270.
-
+###---> NO AVM Modells 7XXX
+if ! EXPORT_TYPE_LOCAL_MODEL
  config SET_NAME
 	bool "Own product name (setup)"
 	depends on EXPERT_MOD 
@@ -2360,6 +2363,7 @@ config EXPORT_ATA_ONLY
 if ! EXPORT_ATA_ONLY
 ###---> NO AVM Modells 7XXX
  if ! EXPORT_TYPE_LOCAL_MODEL
+ # In use within sp-to-fritz.sh
     config EXPORT_ADD_DSL_EXPERT_MNUE
 	depends on ! TYPE_TCOM_7570_XX && ! TYPE_9207570 && ! TYPE_SPEEDPORT_W721V && ! EXPORT_FORCE_DSL_MULTI_ANNEX
 	bool "Add DSL expert pages"
@@ -2561,7 +2565,6 @@ if ! EXPORT_ATA_ONLY
 endif
 ### Ende NO ATA <-- 
 if ! EXPORT_TYPE_LOCAL_MODEL
-
  #config EXPORT_SETATM
  #
  #	depends on   ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W721 ) && ! TYPE_TCOM_7570_XX
@@ -2622,7 +2625,6 @@ if ! EXPORT_TYPE_LOCAL_MODEL
  #	default "1" 	if VDSL
  #	default "2" 	if ADSL
 
-
  comment "SYSTEM Options -----------------------------------------------------"
  config COPY_TCOM_BIN
 	bool "Keep T-Home libs and binary files"
@@ -2671,7 +2673,6 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	default n  
 	help
 		For normal this is "n", but for firmwares with minor versions less then 50 "y" works better.
-
  config USE_SRC2_FON
 	bool "Use 2nd AVM source FON driver"
 	depends on EXPERT_MOD 
@@ -2680,6 +2681,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	default n
 	help
 		Use FON DRIVER from second source firmware specified in SRC2_IMG.
+ # In use within sp-to-fritz.sh
  config COPY_ADDON_TMP_to_ORI
 	bool "Copy addon/tmp with option -u"
 	depends on EXPERT_MOD 
@@ -2688,7 +2690,6 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	help
 		Set this to 'y' if you like to include all files within the directory
 		./addon/tmp/squashfs-root in combination with option -u.
-
  config UPDATE_DEPMOD
 	bool "Update module dependency information"
 	depends on EXPERT_MOD 
@@ -2715,7 +2716,6 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	help
 		Set this to "y" if normal 7270 firmwares in combination with multilingual firmwares are used, but usual this is not needed.
 		WWW "avm" directory is moved to "$OEM"
-		
  config EXPORT_CONFIG_TR069
 	bool "Enable TR069 disable ATA"
 	depends on EXPERT_MOD 
@@ -2729,7 +2729,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		You must set OEM to the branding you use.  
 		Autoconfiguration is only set on if AVM firmware supports this option!.
 		ATA is disabled if tr069 is turned on.
-		
+ # In use within sp-to-fritz.sh		
  config EXPORT_CONFIG_TR064
 	bool "Enable LAN autoconfiguration TR064"
 	default n if ! TYPE_9207570
@@ -2751,6 +2751,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		It is mainly added for testing W920, W920 original firmware does not log to the console
 		but if the kernel is replaced with AVM kernel the log is present.
 endif
+# In use within sp-to-fritz.sh
 config SRC2_KERNEL
 	bool "Take kernel from 2nd AVM source"
 	depends on EXPERT_MOD 
@@ -2761,6 +2762,7 @@ config SRC2_KERNEL
 		but it can be used in combination with the option restore original firmware as well.
 		It is mainly added for testing W920, W920 original firmware does not log to the console
 		but if the kernel is replaced with AVM kernel the log is present.
+# In use within sp-to-fritz.sh
 config COPY_ADDON_TMP
 	bool "Copy addon/tmp"
 	depends on EXPERT_MOD 
@@ -2945,12 +2947,13 @@ endmenu
 #comment "Preset some GUI settings -------------------------------------------"
 
 menu "Preset GUI settings"
-
+# In use within sp-to-fritz.sh
 config SET_EXPERT
 	bool "Set expert view as default"
 	default y
 	help
 	    This is usual set to no, within the AVM GUI. 
+# In use within sp-to-fritz.sh
 config SET_ALLPROVIDERS
 	bool "Enable all providers"
 	depends on EXPERT_MOD 
@@ -2962,7 +2965,7 @@ endmenu
 #comment "Addons for Speed-to-fritz ------------------------------------------"
 
 menu "Addons"
-
+# In use within sp-to-fritz.sh
 config EXPORT_ADD_KAID
 	bool "Add kaid for XBOX"
 	depends on EXPERT_MOD 
