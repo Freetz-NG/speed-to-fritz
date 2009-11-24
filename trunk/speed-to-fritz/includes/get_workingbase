@@ -23,7 +23,7 @@ if [ -n "$SPIMG" ]; then
  fi
 fi
 #get sorce 1
-if [ -n "$FBIMG" ]; then
+if [ "$ORI" != "y" ]; then
  fwselect "$FBIMG_PATH" "$FWBASE" "AVM_IMG" "FBIMG" "$MIRROR_FBIMG_PATH" "$FILENAME_FBIMG_PATH" "$FBMOD"
  if [ -z "$FBIMG" ]; then 
 	echo "No image for processing. Exit"

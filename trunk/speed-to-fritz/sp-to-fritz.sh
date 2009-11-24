@@ -214,12 +214,10 @@ if [ "$TCOM_IMG" ]; then
  export SPIMG_PATH="$(get_item "$TCOM_IMG" "0")"
  export SPIMG="$(echo $SPIMG_PATH | sed -e "s/.*\///")"
 fi
-if [ "$SRC_IMG" != "" ]; then
 export FILENAME_FBIMG_PATH="$(get_item "$AVM_IMG" "1")" 
 export MIRROR_FBIMG_PATH="$(get_item "$AVM_IMG" "2")"
 export FBIMG_PATH="$(get_item "$AVM_IMG" "0")"
 export FBIMG="$(echo $FBIMG_PATH | sed -e "s/.*\///")"
-fi
 case "$1" in
 "500")
 	export SPNUM="500"
