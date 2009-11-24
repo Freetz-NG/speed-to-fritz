@@ -3073,7 +3073,9 @@ config SET_FREETZ_REVISION
 #### <-- END ! ORI
 endif
 comment "--------------------------------------------------------------------"
-
+config SAVED_CONF
+        bool 
+        default y
 comment "If you save or load the configuration with a different name, you must"
 comment "save with name 'Firmware.conf' again, only this file name is in use."
 #( do not remove the following line)

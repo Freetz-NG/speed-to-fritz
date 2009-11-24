@@ -36,10 +36,17 @@ EOF
 chmod 755 "./incl_var"
 fi
 #[ -f "./${firmwareconf_file_name}.tar" ] && tar --overwirte  -xf "${firmwareconf_file_name}"
-make 
+make
+if ! `cat "./Firmware.conf" | grep -q 'SAVED_CONF=y'`; then
+    echo "You must save configuration to './Firmware.conf' when exiting the menu!"
+    echo "Run './start' again."
+    sleep 5
+    exit 0
+fi
 #. FirmwareConfStrip
 ### tells speed to fritz not to use commandline options 
 ./sp-to-fritz.sh -z
 #sleep 20
+
 
 
