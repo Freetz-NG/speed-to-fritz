@@ -405,8 +405,11 @@ config AVM_7570_75_04_77
 #( do not remove the following line)
 ### FIRMWARE_CONFIG_ENDE ###
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPERT_MOD
 	bool "Expert user (all options)"
+	depends on ! ORI
 	default n
 	help
 	    Turns on all possible options within this menue.
@@ -414,14 +417,51 @@ config EXPERT_MOD
 	    in most cases.
 	    Use defaults if you don't know for what reason 
 	    you want a special selection.
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+config  ORI
+	bool "Restore original T-Home firmware"
+	depends on ! EXPORT_TYPE_LOCAL_MODEL
+	default n
+	select EXPORT_FORCE_CLEAR_FLASH
+	help
+		Set this to "y" if you want to flash back to the original firmware.
+		Speedport my be rebooting, in this case:
+		If your PC network card is set to DHCP and you did restart the PC you must set the PC net card to:
+		IP 192.168.178.19 
+		MASK 255.255.0.0
+		Only one network card should be installed, or you specify the IF option as well.
+		Keep in mind if the Speedport is not responding, the Speedport may use the alternative IP.
+		Use IP option to change this. 
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+config EXPORT_BUILDRECOVER
+	bool "Build recover firmware"
+#	depends on ! ORI
+	default n
+	select EXPORT_PATCH_OEM
+	select EXPORT_REMOVE_SOME_LANGUAGE
+	help
+		This reconcates a AVM Recover firmware with changed kernel.image.
+		Not in every case the size of the new kernel.image will fit.
+		In some cases therfore no Recover Firmware will be genareted.
+		Resulting windows executabel can be usesd in the same way as 
+		original Recover.
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+config PUSHCONF
+	bool "Push firmware to box via FTP"
+	default y
+	help
+		Do an automatic upload after firmware is patched. 
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config FORCE_VDSL
 	bool "Force VDSL"
+	depends on ! ORI
 	depends on TYPE_9207570 
 	default n
 	help
 		Dont do any change for ADSL to the firmware.
 		ADSL or Annex A PPPoA users usuly shuld not use this setting.
-
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 comment "Select router TYPE -------------------------------------------------"
 ### ATTENTION! Most variables set up here are in use by various scripts later, so do not change,
 ### except numbers within variable names corresponding to the above firmware names.
@@ -520,7 +560,6 @@ choice
 
 	config LOCAL_X_MODEL
 		bool "Any AVM custom model"
-
 
 endchoice
 if LOCAL_X_MODEL
@@ -632,6 +671,7 @@ config TCOM_LOCAL
 
 config TYPE_TCOM_7570_XX 
 	bool "Select a special 7570 firmware as T-Home firmware (optional) --->"
+	depends on ! ORI
 	depends on TYPE_9207570 && ! TYPE_TCOMBETA
 	default n
 	help
@@ -736,6 +776,7 @@ endchoice
 #comment "Select language and annex (optional) -------------------------------"
 comment  "--------------------------------------------------------------------"
 choice
+	depends ! ORI
 	prompt "Select firmware default language (optional)"
 	help
 	    The selected firmware language is usual the one used by the AVM firmware.
@@ -762,6 +803,7 @@ endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_FORCE_DSL_MULTI_ANNEX 
 	bool "Force Multi annex (optional)"
+	depends on ! ORI
 #	depends on ( TYPE_SRC3_AVM_7570_XX || TYPE_TCOM_7570_XX || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ! TYPE_AVM_7570_XX
 	depends on ( ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
 	default y
@@ -772,6 +814,7 @@ config EXPORT_FORCE_DSL_MULTI_ANNEX
 choice
 	depends ! EXPORT_FORCE_DSL_MULTI_ANNEX && ! TYPE_AVM_7570_XX
 	bool "Annex"
+	depends on ! ORI
 	default TYPE_ANNEX_B if ! EXPORT_TYPE_LOCAL_MODEL
 	default TYPE_ANNEX_A if EXPORT_TYPE_LOCAL_MODEL
 	config TYPE_ANNEX_B
@@ -818,6 +861,7 @@ comment  "--------------------------------------------------------------------"
 #### If types are added here the script file /subscripts/settings has to be edited as well to represent the new Labor versions too. 
 config TYPE_LABOR
 	bool "Select a special AVM firmware (optional) --->"
+	depends on ! ORI
 	depends on ( TYPE_SINUS_W500V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W900V || TYPE_9207570 || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) 
 	default y if EXPORT_TYPE_LOCAL_MODEL
 	default n if ! EXPORT_TYPE_LOCAL_MODEL
@@ -1132,6 +1176,7 @@ config AVM_LOCAL
 	Enter the name of your custom type AVM firmware, in the same manner with path/filename as usually.
 config TYPE_AVM_7570_XX
 		bool "Select a special 7570 AVM firmware as 2nd firmware (optional) --->"
+		depends on ! ORI
 		depends on ( TYPE_9207570 || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) && ! TYPE_LABOR
 		help
 			Enable this to compile the mod based on an special AVM 7570 firmware.
@@ -1230,6 +1275,7 @@ endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 comment  "--------------------------------------------------------------------"
 config SOURCE2
+	depends on ! ORI
 	bool "2nd AVM Type firmware (optional)"
 	default y if EXPORT_TYPE_LOCAL_MODEL || TYPE_SPEEDPORT_W920V
 	default n if ! EXPORT_TYPE_LOCAL_MODEL || TYPE_7570
@@ -1584,6 +1630,7 @@ config TCOM_IMG
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config AVM_IMG
+	depends on ! ORI
 	string
 	default "$AVM_7140_39_04_43"				if TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
 	default "$AVM_7140_39_04_76"				if TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
@@ -1660,8 +1707,8 @@ config AVM_IMG
 	default "$AVM_LOCAL"						if TYPE_LOCAL_AVM && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config SRC2_IMG
+	depends on ! ORI
 	string
-
 	default "$AVM_7150_38_04_27" 			if TYPE_SRC3_AVM_7150_38_04_27
 	default "$AVM_7150_38_04_32" 			if TYPE_SRC3_AVM_7150_38_04_32
 	default "$AVM_7140_39_04_43" 			if TYPE_SRC3_AVM_7140_39_04_43
@@ -1877,45 +1924,13 @@ config EXPORT_OEM
 	    (avm, avme, tcom, 1und1, aol, freenet)
 	    In case of option ORI branding will always set to T-Home later through the script.
 
-#comment "Optional settings for Speed-to-fritz -------------------------------"
-
 menu "Options"
-
-config  ORI
-	bool "Restore original T-Home firmware"
-	depends on ! EXPORT_TYPE_LOCAL_MODEL
-	default n
-	select EXPORT_FORCE_CLEAR_FLASH
-	help
-		Set this to "y" if you want to flash back to the original firmware.
-		Speedport my be rebooting, in this case:
-		If your PC network card is set to DHCP and you did restart the PC you must set the PC net card to:
-		IP 192.168.178.19 
-		MASK 255.255.0.0
-		Only one network card should be installed, or you specify the IF option as well.
-		Keep in mind if the Speedport is not responding, the Speedport may use the alternative IP.
-		Use IP option to change this. 
-config PUSHCONF
-	bool "Push firmware to box via FTP"
-	default y
-	help
-		Do an automatic upload after firmware is patched. 
-config EXPORT_BUILDRECOVER
-	bool "Build Recover firmware"
-#	depends on ! ORI
-	default n
-	select EXPORT_PATCH_OEM
-	select EXPORT_REMOVE_SOME_LANGUAGE
-	help
-		This reconcates a AVM Recover firmware with changed kernel.image.
-		Not in every case the size of the new kernel.image will fit.
-		In some cases therfore no Recover Firmware will be genareted.
-		Resulting windows executabel can be usesd in the same way as 
-		original Recover.
-
+comment "Optional settings for Speed-to-fritz -------------------------------"
+###---> no restore original firmware
+if ! ORI
 config EXPORT_PATCH_OEM
 	bool "Force branding"
-	default n
+	default y
 	help
 	    Force branding, sets the selected branding (OEM) within the firmware,
 	    environment settings are not taken in acount any more!
@@ -2563,6 +2578,7 @@ if ! EXPORT_ATA_ONLY
  ### NO AVM Modells 7XXX<---
 endif
 ### Ende NO ATA <-- 
+### NO AVM Modells 7XXX--->
 if ! EXPORT_TYPE_LOCAL_MODEL
  #config EXPORT_SETATM
  #
@@ -2749,6 +2765,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		but it can be used in combination with the option restore original firmware as well.
 		It is mainly added for testing W920, W920 original firmware does not log to the console
 		but if the kernel is replaced with AVM kernel the log is present.
+ ### ENDE NO AVM Modells 7XXX <---
 endif
 # In use within sp-to-fritz.sh
 config SRC2_KERNEL
@@ -2769,6 +2786,8 @@ config COPY_ADDON_TMP
 	default n
 	help
 		Set this to 'y' if you like to include all files within the directory ./addon/tmp/squashfs-root.
+###<--- ENDE no restore original firmware
+endif
 config EXPORT_FORCE_CLEAR_FLASH
 	bool "Clear mtd3 and mtd4"
 	default y
@@ -2943,6 +2962,9 @@ config EXPORT_IPADDRESS
 
 endmenu
 
+#### ---> ! ORI
+if ! ORI
+
 #comment "Preset some GUI settings -------------------------------------------"
 
 menu "Preset GUI settings"
@@ -3048,7 +3070,8 @@ config SET_FREETZ_REVISION
 	    help
 		This is the revision number used if freetz is started via
 		start-freetz.sh.
-
+#### <-- END ! ORI
+endif
 comment "--------------------------------------------------------------------"
 
 comment "If you save or load the configuration with a different name, you must"

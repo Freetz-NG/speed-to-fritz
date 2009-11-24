@@ -70,8 +70,6 @@ fi
 [  -e "${FBDIR_2}/var/install" ] && [ -n "$FB2_kernel_sizeR" ] && echo2 "-- 2nd     # Kernelsize:	$FB2_kernel_sizeR"
 
 if [  -e "${SPDIR}/var/install" ]; then
-
-
  if [ "$ORI" != "y" ]; then
   if [ "$OEM" = "avme" ] && [ "$avm_Lang" != "en" ]; then
   echo "-- AVM  firmware image version is: $AVM_VERSION-$AVM_SUBVERSION"
@@ -101,34 +99,37 @@ if [  -e "${SPDIR}/var/install" ]; then
  MODULESDEP_DIR=${MODULESDEP_DIR%%/modules.dep*} # von links bis zu /modules.dep
  export TCOM_KernelVersion=${MODULESDEP_DIR##*/} # von rechts bis zum letzten /
  echo2 "-- T-Home Kernel version is: $TCOM_KernelVersion"
-
- MODULESDEP_DIR="$(find ${SRC}/lib/modules -name modules.dep)" # find file 
- MODULESDEP_DIR=${MODULESDEP_DIR%%/modules.dep*} # von links bis zu /modules.dep
- export KernelVersion=${MODULESDEP_DIR##*/} # von rechts bis zum letzten /
- echo2 "-- AVM  Kernel version is: $KernelVersion"
- if [ "$TCOM_KernelVersion" != "$KernelVersion" ]; then
-  export DifferentKernelVersion="y"
-  echo "ATTENTION! Kernel version of AVM and T-Home Firmware differ!"
-  echo "You can't use options like:"
-  echo "'Force use of t-com piglet driver' or 'Force use of T-Home fon driver."
-  sleep 5
+ if [  -e "${FBDIR}/var/install" ]; then
+  MODULESDEP_DIR="$(find ${SRC}/lib/modules -name modules.dep)" # find file 
+  MODULESDEP_DIR=${MODULESDEP_DIR%%/modules.dep*} # von links bis zu /modules.dep
+  export KernelVersion=${MODULESDEP_DIR##*/} # von rechts bis zum letzten /
+  echo2 "-- AVM  Kernel version is: $KernelVersion"
+  if [ "$TCOM_KernelVersion" != "$KernelVersion" ]; then
+   export DifferentKernelVersion="y"
+   echo "ATTENTION! Kernel version of AVM and T-Home Firmware differ!"
+   echo "You can't use options like:"
+   echo "'Force use of t-com piglet driver' or 'Force use of T-Home fon driver."
+   sleep 5
+  fi
+  echo2 "--------------------------------------------------------------------------------"
  fi
- echo2 "--------------------------------------------------------------------------------"
  # Get uClib version
  UCLIB_DIR="$(find ${DST}/lib -name *libuClibc-*.so)" # find file 
  UCLIB_DIR=${UCLIB_DIR##*-} # von rechts bis zu -
  export TCOM_uClibVersion=${UCLIB_DIR%%.so*} # von links bis zu .so
  echo2 "-- T-Home  uClib version is: $TCOM_uClibVersion"
- UCLIB_DIR="$(find ${SRC}/lib -name *libuClibc-*.so)" # find file 
- UCLIB_DIR=${UCLIB_DIR##*-} # von rechts bis zu -
- export uClibVersion=${UCLIB_DIR%%.so*} # von links bis zu .so
- echo2 "-- AVM   uClib version is: $uClibVersion"
- [ "$uClibVersion" ] || echo "WARNING! AVM uClib version not found!"
- if [ "$TCOM_uClibVersion" != "$uClibVersion" ]; then
-  export DifferentuClibVersion="y"
-  echo "WARNING! uClib version of AVM and T-Home firmware differ!"
-  sleep 2
- fi
+ if [  -e "${FBDIR}/var/install" ]; then
+  UCLIB_DIR="$(find ${SRC}/lib -name *libuClibc-*.so)" # find file 
+  UCLIB_DIR=${UCLIB_DIR##*-} # von rechts bis zu -
+  export uClibVersion=${UCLIB_DIR%%.so*} # von links bis zu .so
+  echo2 "-- AVM   uClib version is: $uClibVersion"
+  [ "$uClibVersion" ] || echo "WARNING! AVM uClib version not found!"
+  if [ "$TCOM_uClibVersion" != "$uClibVersion" ]; then
+   export DifferentuClibVersion="y"
+   echo "WARNING! uClib version of AVM and T-Home firmware differ!"
+   sleep 2
+  fi
+ fi  
 #else
 #export kernel_size="${FB_kernel_sizeR}"
 fi

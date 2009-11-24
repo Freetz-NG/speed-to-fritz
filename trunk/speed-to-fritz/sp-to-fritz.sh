@@ -97,8 +97,8 @@ export TAR_OPTIONS="--owner=0 --group=0 --mode=0755 --format=oldgnu"
 ##--> temporarily use system tar to unpack avm images 
 #export UNTAR="$(which tar)"
 ## dont use options
-#export TAR_RFS_OPTIONS=""
-#export TAR_OPTIONS=""
+export TAR_RFS_OPTIONS=""
+export TAR_OPTIONS=""
 ## set this to y if sp-to-fritz.sh is split in future versions
 #export FAKEROOT_WRAP="y"
 ##<-- temporaril
@@ -214,10 +214,12 @@ if [ "$TCOM_IMG" ]; then
  export SPIMG_PATH="$(get_item "$TCOM_IMG" "0")"
  export SPIMG="$(echo $SPIMG_PATH | sed -e "s/.*\///")"
 fi
+if [ "$SRC_IMG" != "" ]; then
 export FILENAME_FBIMG_PATH="$(get_item "$AVM_IMG" "1")" 
 export MIRROR_FBIMG_PATH="$(get_item "$AVM_IMG" "2")"
 export FBIMG_PATH="$(get_item "$AVM_IMG" "0")"
 export FBIMG="$(echo $FBIMG_PATH | sed -e "s/.*\///")"
+fi
 case "$1" in
 "500")
 	export SPNUM="500"
@@ -1160,6 +1162,8 @@ if [ "$ORI" != "y" ]; then
  [ "$DONT_PATCH_TOOLS" != "y" ] && $sh_DIR/patch_tools.sh "${SRC}"
  # update modules dependencies
  [ "$UPDATE_DEPMOD" = y ] && $sh_DIR/update-module-deps.sh "${SRC}" "${KernelVersion}"
+ # add info to /usr/bin/system_status
+ $sh2_DIR/patch_system_status "${SRC}"
  #export download links
  $HOMEDIR/extract_rpllist.sh	
  #packing takes place on SPDIR
@@ -1195,18 +1199,16 @@ fi
 #-->All firmwares, if patches added here the are applied to tcom firmware with option "restore original" as well!
 # patch portrule to enable forwarding to box itself
 #--------------------------------------------------------------------------------------------------------------- 
+ # add s2f config file
+ [ "$ADD_S2F_CONF" = "y" ] && subscripts2/add_s2f_configfile "${SRC}" && $TAR xvzf packages/s2f_flash.tgz -C "${SRC}" 2> /dev/null
+ # add default route
+ [ "$PATCH_PORTRULE" = "y" ] && $sh2_DIR/patch_portrule "${SRC}"
 # set OEM via rc.S not via environment
 [ "$PATCH_OEM" = "y" ] && $sh_DIR/patch_oem.sh "${SRC}"
-# add default route
-[ "$PATCH_PORTRULE" = "y" ] && $sh2_DIR/patch_portrule "${SRC}"
-# add s2f config file
-[ "$ADD_S2F_CONF" = "y" ] && subscripts2/add_s2f_configfile "${SRC}" && $TAR xvzf packages/s2f_flash.tgz -C "${SRC}" 2> /dev/null
 # add own files 
 [ "$ADD_OWN" = "y" ] && $TAR c -C custom/rootfs . 2>/dev/null | $TAR x -C "${SRC}" 2> /dev/null
 # add dropbear files 
 [ "$ADD_PKG_DROPBEAR" = "y" ] && $TAR xvzf packages/dropbear.tgz -C "${SRC}" 2> /dev/null
-# add info to /usr/bin/system_status
-$sh2_DIR/patch_system_status "${SRC}"
 # dont set kernel annex args, if it is a multi annex firmware
 readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
 [ "$DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"

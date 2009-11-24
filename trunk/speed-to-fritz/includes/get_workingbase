@@ -23,13 +23,13 @@ if [ -n "$SPIMG" ]; then
  fi
 fi
 #get sorce 1
-#if [ -n "$FBIMG" ]; then
+if [ -n "$FBIMG" ]; then
  fwselect "$FBIMG_PATH" "$FWBASE" "AVM_IMG" "FBIMG" "$MIRROR_FBIMG_PATH" "$FILENAME_FBIMG_PATH" "$FBMOD"
  if [ -z "$FBIMG" ]; then 
 	echo "No image for processing. Exit"
 	sleep 20; exit 1
  fi
-#fi
+fi
 #get sorce 2
 if [ -n "$FBIMG_2" ]; then
 	fwselect "$FBIMG_2_PATH" "$FWBASE" "SRC2_IMG" "FBIMG_2" "$MIRROR_FBIMG_2_PATH" "$FILENAME_FBIMG_2_PATH" "NO_NUMBER"
@@ -41,8 +41,8 @@ fi
 echo "********************************************************************************"
 echo -e "\033[1mPhase 2:\033[0m Unpack and extract files from images."
 echo "********************************************************************************"
+echo "Extracting image files to temporary directories ..."
 if [ -n "$SPIMG" ]; then
- echo "Extracting image files to temporary directories ..."
  echo "-- Unpacking $SPIMG to:"
  echo "      $SPDIR"
  fw_unpack "$FWBASE/$SPIMG" "$SPDIR"
@@ -54,18 +54,18 @@ if [ -n "$SPIMG" ]; then
 	sleep 20; exit 1
  fi
 fi
-echo "-- Unpacking $FBIMG to:"
-echo "      $FBDIR"
-fw_unpack "$FWBASE/$FBIMG" "$FBDIR"
-
-if [ $? -ne 0 ]; then
+if [ -n "$FBIMG" ]; then
+ echo "-- Unpacking $FBIMG to:"
+ echo "      $FBDIR"
+ fw_unpack "$FWBASE/$FBIMG" "$FBDIR"
+ if [ $? -ne 0 ]; then
 	echo "Something went wrong while extracting $FBIMG to $FBDIR"
 	rm -rf "$SPDIR"
 	rm -rf "$FBDIR"
 	rm -rf "$FBDIR_2"
 	sleep 20; exit 1
+ fi
 fi
-
 if [ -n "$FBIMG_2" ]; then
  echo "-- Unpacking $FBIMG_2 to:"
 	echo "      $FBDIR_2"
