@@ -25,7 +25,7 @@ echo \"echo annex ${ANNEX} > \/proc\/sys\/urlader\/environment\" >>\/var\/post_i
 sed -i -e "s|^newFWver=.*$|newFWver=${AVM_VERSION}|" "${1}"/var/install
 sed -i -e "s|# Versioninfo:.*$|${SP_Vesioninfo}|" "${1}"/var/install
 sed -i -e "s|# Checkpoint:.*$|${SP_Checkpoint}|" "${1}"/var/install
-sed -i -e "s|kernel_size=.*$|${SP_kernel_size}|" "${1}"/var/install
+sed -i -e "s|kernel_size=[1-9].*$|${SP_kernel_size}|" "${1}"/var/install
 
 [ ${kernel_start} ] && sed -i -e "s|kernel_start=.*$|kernel_start=${kernel_start}|" "${1}"/var/install
 [ ${urlader_size} ] && sed -i -e "s|urlader_size=.*$|urlader_size=${urlader_size}|" "${1}"/var/install
