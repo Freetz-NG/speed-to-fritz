@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="26"; Monat="11"; Jahr="09"
+Tag="27"; Monat="11"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -97,8 +97,9 @@ export TAR_OPTIONS="--owner=0 --group=0 --mode=0755 --format=oldgnu"
 ##--> temporarily use system tar to unpack avm images 
 #export UNTAR="$(which tar)"
 ## dont use options
-export TAR_RFS_OPTIONS=""
-export TAR_OPTIONS=""
+#### lead to 'Puefsummenfeher' if firmware is updatet via GUI
+#### export TAR_RFS_OPTIONS=""
+#### export TAR_OPTIONS=""
 ## set this to y if sp-to-fritz.sh is split in future versions
 #export FAKEROOT_WRAP="y"
 ##<-- temporaril
