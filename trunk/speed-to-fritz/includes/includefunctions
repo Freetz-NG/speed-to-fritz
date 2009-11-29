@@ -588,7 +588,6 @@ function modunsqfs()
 	fi
 }
 
-
 #untar and unSQUASHFS firmware
 function fw_unpack()
 {
@@ -708,32 +707,17 @@ fw_pack()
     RAW_HIDDEN_MOD="${KERNEL_MOD_DIR}/${RAW_HIDDEN_FILE}"
     ROOTFS_TAR="${NEWDIR}/${3}.rootfs.tar"
     # Do we have the tool ?
-    if [ ! -x "$FAKEROOT" ]; then
-	echo  "cannot find the tool $FAKEROOT_TOOL"
-	return 1
-    fi
-    if [ ! -x "$TICHKSUM" ]; then
-	echo  "cannot find the tool $TICHKSUM_TOOL"
-	return 1
-    fi
-    if [ ! -x "$MKSQUASHFS" ]; then
-	echo "cannot find the tool $MKSQUASHFS_TOOL"
-	return 1
-    fi
-    if [ ! -x "$MKSQUASHFS" ]; then
-	echo "cannot find $MKSQUASHFS_TOOL"
-	return 1    
-    fi
-    if [ ! -x "$TAR" ]; then
-	echo  "cannot find the tool $TAR_TOOL"
-	return 1
-    fi
+    [ ! -x "$FAKEROOT" ] && echo  "cannot find the tool $FAKEROOT_TOOL" && return 1
+    [ ! -x "$TICHKSUM" ] && echo  "cannot find the tool $TICHKSUM_TOOL" && return 1
+    [ ! -x "$MKSQUASHFS" ] && echo "cannot find the tool $MKSQUASHFS_TOOL" && return 1
+    [ ! -x "$MKSQUASHFS" ] && echo "cannot find $MKSQUASHFS_TOOL" && return 1
+    [ ! -x "$TAR" ] && echo  "cannot find the tool $TAR_TOOL" && return 1
     chmod -R +xr "${DIR}"
     [ -d "$MOD_DIR" ] && rm -fd -R "$MOD_DIR"
     mkdir "$MOD_DIR"
     if [ ! -d "$KERNEL_MOD_DIR" ]; then 
-    mkdir "$KERNEL_MOD_DIR"
-    cp -fdpr "$DIR/$RAW_KERNEL_FILE" --target-directory="$KERNEL_MOD_DIR"
+	mkdir "$KERNEL_MOD_DIR"
+	cp -fdpr "$DIR/$RAW_KERNEL_FILE" --target-directory="$KERNEL_MOD_DIR"
     fi
     if [ ! -d "$FIRMWARE_MOD_DIR" ]; then
 	mkdir "$FIRMWARE_MOD_DIR"
@@ -748,39 +732,19 @@ fw_pack()
 	VARTAR_MOD="${FILESYSTEM_MOD_DIR}/var.tar"
 	cp -fdpr "$DIR/var.tar" --target-directory="$KERNEL_MOD_DIR"
 	"$TAR" -c $TAR_OPTIONS -C "$DIR/var.tar" . > "$VARTAR_MOD" || return 1
-	if [ ! -s "$VARTAR_MOD" ]; then
-	    echo "Packing of var.tar failed"
-	    return 1
-	fi
+	[ ! -s "$VARTAR_MOD" ] && echo "Packing of var.tar failed" && return 1
     fi
     [ "$VERBOSE" = "-v" ] && echo "Squashfs filesystem blocksize: $FILESYSTEM_BLOCKSIZE"
-    echo "Creating filesystem image, be patient ..."
-    if [ ${FAKEROOT_ON} = "y" ] && [ "${FAKEROOT_WRAP}" != "y" ]; then 
-	"$FAKEROOT" -s fakechroot.save -- $MAKEDEVS -d $MAKEDEVS_FILE $FILESYSTEM_MOD_DIR > $DIR/mkdev.log 2>&1
-	# Possible race condition: save file must become available in file system.
-	# This can take an instant, so wait if necessary.
-	until [ -r fakechroot.save ]; do sleep 0.1; done
-	"$FAKEROOT" -i fakechroot.save -- $MKSQUASHFS $FILESYSTEM_MOD_DIR/* $RAW_HIDDEN_MOD $MKSQUASHFS_OPTIONS -b $FILESYSTEM_BLOCKSIZE > $DIR/filesystem.log 2>&1
-	[ "$ADD_USBROOT" = "y" ] && "$FAKEROOT" -i fakechroot.save -- "$TAR" cf "${ROOTFS_TAR}" $TAR_RFS_OPTIONS -C $FILESYSTEM_MOD_DIR/. . 2> $DIR/filesystem.log 2>&1
-	[ -f "${ROOTFS_TAR}" ] && echo "USBROOT file: ${ROOTFS_TAR}"
-	rm -f fakechroot.save
-    else
-	[ "$MAKE_DEV" = "y" ] && $MAKEDEVS -d $MAKEDEVS_FILE $FILESYSTEM_MOD_DIR > $MOD_DIR/mkdev.log 2>&1
-	$MKSQUASHFS $FILESYSTEM_MOD_DIR/* $RAW_HIDDEN_MOD $MKSQUASHFS_OPTIONS -b $FILESYSTEM_BLOCKSIZE > $DIR/filesystem.log 2>&1
-	[ "$ADD_USBROOT" = "y" ] && "$TAR" cf "${ROOTFS_TAR}" $TAR_RFS_OPTIONS -C $FILESYSTEM_MOD_DIR/. . 2> $DIR/filesystem.log 2>&1
-    fi
+    [ "$MAKE_DEV" = "y" ] && $MAKEDEVS -d $MAKEDEVS_FILE $FILESYSTEM_MOD_DIR > $HOMEDIR/mkdev.log 2>&1
+    $MKSQUASHFS $FILESYSTEM_MOD_DIR/* $RAW_HIDDEN_MOD $MKSQUASHFS_OPTIONS -b $FILESYSTEM_BLOCKSIZE > $HOMEDIR/filesystem.log 2>&1
+    [ "$ADD_USBROOT" = "y" ] && strace -o./strace.log -q -ewrite "$TAR" cf "${ROOTFS_TAR}" $TAR_RFS_OPTIONS -C $FILESYSTEM_MOD_DIR/. . 2> $HOMEDIR/tarusbroot.log 2>&1
     [ -f "${ROOTFS_TAR}" ] && echo "USBROOT file: ${ROOTFS_TAR}"
-    if [ ! -s "$RAW_HIDDEN_MOD" ]; then
-	echo "Creation of filesystem failed"
-	return 1
-    fi
+    [ ! -s "$RAW_HIDDEN_MOD" ] && echo "Creation of filesystem failed" && return 1
+    echo
     echo "Merging kernel image"
     dd if="$RAW_KERNEL_MOD" of="$KERNEL_MOD" bs=256 conv=sync 2> /dev/null
     cat "$RAW_HIDDEN_MOD" >> "$KERNEL_MOD"
-    if [ ! -s "$KERNEL_MOD" ]; then
-	echo "Kernel merging failed"
-	return 1
-    fi
+    [ ! -s "$KERNEL_MOD" ] && echo "Kernel merging failed" && return 1
     let act_kernel_size="$(wc -c < "$KERNEL_MOD")"
     let DIFF="act_kernel_size-kernel_size"
     if [ $act_kernel_size -gt $kernel_size ]; then
@@ -826,4 +790,37 @@ function readConfig()
 	fi
 
 	return 0
+}
+function printprogress(){
+if [ "$2" == "WaitForStart" ]; then
+ while ! `ps -l | grep -q "$1"`; do
+    echo -n  " "
+    sleep 2
+ done
+fi
+echo -e -n "\r"
+while `ps -l | grep -q "$1"`; do
+    echo -e -n "["
+    for ((i=0; i<=count; i++))
+    do
+	echo -e -n "="
+    done
+    echo -e -n ">"
+    for ((i=count; i<76; i++))
+    do
+	echo -e -n " "
+    done
+    echo -e -n "]\r"
+    let count=count+1
+    if [ "$count" == "77" ]; then
+	count="1"
+    fi
+    sleep 2
+done 
+echo -e -n "]\r"
+for ((i=0; i<82; i++))
+do
+	echo -e -n " "
+done
+echo -e -n "\r"
 }
