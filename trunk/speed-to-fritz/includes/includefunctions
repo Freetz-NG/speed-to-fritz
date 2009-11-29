@@ -741,7 +741,7 @@ fw_pack()
     [ -f "${ROOTFS_TAR}" ] && echo "USBROOT file: ${ROOTFS_TAR}"
     [ ! -s "$RAW_HIDDEN_MOD" ] && echo "Creation of filesystem failed" && return 1
     echo
-    echo "Merging kernel image"
+    #echo "Merging kernel image"
     dd if="$RAW_KERNEL_MOD" of="$KERNEL_MOD" bs=256 conv=sync 2> /dev/null
     cat "$RAW_HIDDEN_MOD" >> "$KERNEL_MOD"
     [ ! -s "$KERNEL_MOD" ] && echo "Kernel merging failed" && return 1

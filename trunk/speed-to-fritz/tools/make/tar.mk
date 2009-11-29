@@ -26,11 +26,14 @@ $(TAR_DIR)/src/tar: $(TAR_DIR)/.configured
 		-C $(TAR_DIR) all
 	touch -c $@
 
-$(TOOLS_DIR)/tar: $(TAR_DIR)/src/tar
-	cp $(TAR_DIR)/src/tar $(TOOLS_DIR)/tar
-	strip $(TOOLS_DIR)/tar
+$(TOOLS_DIR)/oldtar/tar: $(TAR_DIR)/src/tar
+	$(RM) $(TOOLS_DIR)/oldtar/tar
+	$(RM) -r $(TOOLS_DIR)/oldtar
+	mkdir $(TOOLS_DIR)/oldtar
+	cp $(TAR_DIR)/src/tar $(TOOLS_DIR)/oldtar/tar
+	strip $(TOOLS_DIR)/oldtar/tar
 
-tar: $(TOOLS_DIR)/tar
+tar: $(TOOLS_DIR)/oldtar/tar
 
 tar-source: $(TAR_DIR)/.unpacked
 
@@ -41,4 +44,5 @@ tar-dirclean:
 	$(RM) -r $(TAR_DIR)
 
 tar-distclean: tar-dirclean
-	$(RM) $(TOOLS_DIR)/tar
+	$(RM) $(TOOLS_DIR)/oldtar/tar
+	$(RM) -r $(TOOLS_DIR)/oldtar
