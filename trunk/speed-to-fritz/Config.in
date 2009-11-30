@@ -2051,6 +2051,16 @@ config EXPORT_PATCH_PORTRULE
 	
 		PLEASE NOTE: 		You will not see these entries any more after a reboot !!
 					But they will remain active, even if not shown in GUI !!
+
+
+config EXPORT_PATCH_EXT_SIP
+        bool "Experimental: Add option to enable external SIP devices to register (Labor only)"
+        default n
+        depends on EXPERT_MOD
+        help
+		Select this to add an checkbox during configuration of an IPPhone which enables registration of external
+		SIP devices
+
 config EXPORT_BUGFIX_FONCONFIG
 	bool "Bugfix for fon config ut8"
 	depends on ( TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V ) && TYPE_LABOR

@@ -1,0 +1,19 @@
+#!/bin/bash
+ . $include_modpatch
+HERE=$(pwd)
+DIRI=$(find $1/usr/www/ -name fon_config) 
+if  [ $DIRI ]; then
+ for dir in $DIRI; do
+ 	echo2 " -- Patching settings in $dir:"
+	cd $dir
+	sed -i '/id="uiPostIPPhoneExtNumber"/ a<Input type="hidden" name="voipextension:settings/extension<? echo $var:DeviceIsdnPort ?>/reg_from_outside" value="" id="uiPostIPPhoneExtRegFromOutside" disabled>' fon_config_End.frm
+	sed -i '/jslEnable("uiPostIPPhoneExtNumber")/ ajslCopyValue( "uiPostIPPhoneExtRegFromOutside", "uiIPPhoneExtRegFromOutside"); jslEnable("uiPostIPPhoneExtRegFromOutside");' fon_config_End.js
+	sed -i '/id="uiShowOutgoingMsn"/ i<? if eq "$var:TechType" "IPPHONE" ` \n<tr><td class="c1"><span >reg_from_outside</span></td>\n<td class="c2">\n<? if eq "$var:IPPhoneExtRegFromOutside" "1"\n`\nyes\n` `\nno\n` ?>\n</td></tr>\n` ?>' fon_config_End.html
+	sed -i '/id="uiIPPhoneExtNumber"/ a<input type="hidden" name="var:IPPhoneExtRegFromOutside" value="<? echo $var:IPPhoneExtRegFromOutside ?>" id="uiIPPhoneExtRegFromOutside">' fon_config.frm
+	sed -i '/jslCopyValue( "uiIPPhoneExtNumber", "uiDevicePort")/ ajslCopyValue( "uiIPPhoneExtRegFromOutside", "uiRegFromOutside");' fon_config_IPPhone_1.js
+	sed -i "/<\/table\>/ i<tr style=\"padding-top:15px;padding-bottom:15px\;\"\>\n<td style=\"width: 190px\; height:30px\;\"\>Registrierung v. Extern<\/td\>\n<td\><input type=\"checkbox\" name=\"reg_from_outside\" id=\"uiRegFromOutside\" value=\"0\" onclick='\(this.value=\(this.checked\)? \"1\" : \"0\"\)'></td\>\n</tr\>" fon_config_IPPhone_1.html
+ done
+fi
+cd $HERE
+exit 0
+

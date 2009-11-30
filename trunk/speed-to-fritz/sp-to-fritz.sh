@@ -1214,6 +1214,8 @@ readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
 [ "$DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
 # make firmware installable via GUI
 $sh_DIR/patch_install.sh "${SPDIR}"
+# first approach to make external SIP registration configurable on WebUI
+[ "$PATCH_EXT_SIP" = "y" ] && $sh2_DIR/patch_sip_from_extern "${SRC}"
 #<--All firmwares
 . $inc_DIR/testerror
 [ ${FAKEROOT_ON} = "n" ] && chmod -R 777 "${FBDIR}"
