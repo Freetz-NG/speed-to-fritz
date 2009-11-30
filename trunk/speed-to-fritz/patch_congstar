@@ -1,0 +1,12 @@
+#!/bin/bash
+RC701="congstar_komplett_Box.AnnexB.04.69.recover-image.zip mirror http://congstar.custhelp.com/cgi-bin/congstar.cfg/php/enduser/fattach_get.php?p_sid=WtObzfOj&p_li=&p_accessibility=0&p_redirect=&p_tbl=9&p_id=549&p_created=1253088328&p_olh=0"
+R5050="ftp://ftp.avm.de/fritz.box/fritzbox.fon_5050/x_misc/fritz.box_fon_5050.12.04.31.recover-image.exe"
+R7113="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7113.04.67.recover-image.exe"
+#R7140="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/x_misc/deutsch/fritz.box_fon_wlan_7140.annexb.04.33.recover-image.exe"
+R7140="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/x_misc/english/annex_b/FRITZ.Box_Fon_WLAN_7140.AnnexB.en.04.67.recover-image.exe"
+R7141="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7141/x_misc/deutsch/fritz.box_fon_wlan_7141.04.76.recover-image.exe"
+R7150="ftp://ftp.avm.de/fritz.box/fritzfon.7150/x_misc/FRITZ.Fon_7150.AnnexB.04.71.recover-image.exe"
+R7170="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7170.04.76.recover-image.exe"
+R7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/english/FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it-fr.04.76.recover-image.exe"
+./patch_ori_recover_firmware "$RC701"
+
