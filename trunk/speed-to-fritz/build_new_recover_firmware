@@ -35,6 +35,7 @@ if [ "$BUILDRECOVER" = "y" ]; then
 fi
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
+RECOVERIMGC701="congstar_komplett_Box.AnnexB.04.69.recover-image.zip mirror http://congstar.custhelp.com/cgi-bin/congstar.cfg/php/enduser/fattach_get.php?p_sid=WtObzfOj&p_li=&p_accessibility=0&p_redirect=&p_tbl=9&p_id=549&p_created=1253088328&p_olh=0"
 RECOVERIMG5050="ftp://ftp.avm.de/fritz.box/fritzbox.fon_5050/x_misc/fritz.box_fon_5050.12.04.31.recover-image.exe"
 RECOVERIMG7113="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7113.04.67.recover-image.exe"
 #RECOVERIMG7140="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/x_misc/deutsch/fritz.box_fon_wlan_7140.annexb.04.33.recover-image.exe"
@@ -80,10 +81,15 @@ if  [ "$R_IMG" == "" ];then
     sleep 5
 fi
 #-------------------------------------------------------------------------------------------------
-input_recover_file="$FWBASE/$(echo $R_IMG | sed -e "s/.*\///")"
+. $inc_DIR/includefunctions
 #echo "R_IMG: $R_IMG"
+export FILENAME_R_IMG_PATH="$(get_item "$R_IMG" "1")" 
+export MIRROR_R_IMG_PATH="$(get_item "$R_IMG" "2")"
+export R_IMG_PATH="$(get_item "$R_IMG" "0")"
+fwselect "$R_IMG_PATH" "$FWBASE" "R_IMG" "R_IMG"  "$MIRROR_R_IMG_PATH" "$FILENAME_R_IMG_PATH" "${SPNUM}V"
+input_recover_file="$FWBASE/$(echo $R_IMG | sed -e "s/.*\///")"
+[ -z "$input_recover_file " ] && echo "No image for processing. Exit" && sleep 20 && exit 1
 #echo "input_recover_file: $input_recover_file"
-[ -f $input_recover_file ] || wget -P "$FWBASE" "$R_IMG"
 #-------------------------------------------------------------------------------------------------
 kernel_dir="$NEWDIR"
 mkdir -p "$kernel_dir"
