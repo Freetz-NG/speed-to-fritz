@@ -17,11 +17,6 @@ AVM_New_version="XX.XX.XX"
 TCOM_New_version="XX.XX.XX"
 #above settings are not in use if ./incl_var is included
 . ./incl_var
-if [ "$ORI" == "y" ]; then
-    echo "Option 'Restore original' was selectet, use the original AVM Recover instead!"
-    sleep 5
-    exit 0
-fi
 if [ "$PATCH_OEM" != "y" ]; then
     echo "Option 'Force branding' was not selectet!"
     sleep 5
@@ -189,11 +184,10 @@ AVM_New_version="$AVM_VERSION_MAJOR.$AVM_VERSION"
 OldRversion="$(dd if=$output_dir/exe_mid bs=1 count=16  2> /dev/null)"
 OldRversion_C="$(dd if=$output_dir/exe_mid bs=1 count=16  2> /dev/null | sed 's/-//' | tr -d '[:alpha:]' | sed 's/-\.//' )"
 New_Rversion=$AVM_New_version$(dd if=$output_dir/exe_mid bs=1 count=16  2> /dev/null | sed 's/-it/   /' | sed 's/-en/   /' | sed 's/-fr/   /' | sed 's/-sp/   /' | sed 's/ \./  /' | sed "s|$OldRversion_C||")
-echo "New recoverversion: .$New_Rversion."
+[ "$ORI" != "y" ] && echo "New recoverversion: .$New_Rversion."
 #echo "Old recoverversion : .$OldRversion."
 #echo "Old recoverversionC: .$OldRversion_C."
-sed -i -e "s|$OldRversion|$New_Rversion|" "$output_dir/exe_mid"
-
+[ "$ORI" != "y" ] && sed -i -e "s|$OldRversion|$New_Rversion|" "$output_dir/exe_mid"
 
 dd if=/dev/zero bs=1 count=$act_diff >$output_dir/zerro.image 2> /dev/null
 #echo "concat all parts ..."

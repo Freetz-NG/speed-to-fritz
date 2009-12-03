@@ -31,12 +31,13 @@ if [ -n "$FBIMG_2" ]; then
     exit 1
  fi
 fi
-# find the number in SORCE_PRODUKT 
-FBMOD=${SORCE_PRODUKT##*Fritz_Box_}
-FBMOD=${FBMOD%%_*}
-export FBMOD=`echo ${FBMOD} | tr -d '[:alpha:]'`
-#echo "Fritz!Box firmware mod is: ${FBMOD}"
-
+if [ "$ORI" != "y" ]; then
+    # find the number in SORCE_PRODUKT 
+    FBMOD=${SORCE_PRODUKT##*Fritz_Box_}
+    FBMOD=${FBMOD%%_*}
+    export FBMOD=`echo ${FBMOD} | tr -d '[:alpha:]'`
+    #echo "Fritz!Box firmware mod is: ${FBMOD}"
+fi
 export OEMLINK="avm"
 [ -d "${SRC}"/usr/www/avme ] && export OEMLINK="avme"
 #echo "OEMLINK: ${OEMLINK}"

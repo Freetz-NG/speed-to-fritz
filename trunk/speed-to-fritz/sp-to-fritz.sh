@@ -1098,7 +1098,6 @@ if [ "$ORI" != "y" ]; then
  #tar Firmware.conf 
  [ -f "${SRC}"/etc/Firmware.conf ] && tar --owner=0 --group=0 --mode=0755 -cf "./Firmware.conf.tar" "$firmwareconf_file_name"
  mv -f .unstripped $firmwareconf_file_name
- sleep 5
  #bug in home.js, causes mailfunction with tcom firmware, status page is empty
  [ "$DONT_ADD_HOMEFIX" != "y" ] && $sh_DIR/fix_homebug.sh
  #add missing files for tr064
@@ -1179,7 +1178,8 @@ if [ "$ORI" != "y" ]; then
 else
  # --> Only Tcom firmware with otion "restore original"
  #add addons
- export OEM="tcom"
+ readConfig "OEM" "OEM_DEFAULT" "${DST}/etc/init.d"
+ #export OEM="tcom"
  [ "$COPY_ADDON_TMP_to_ORI" = "y" ] &&  cp -fdpr  ./addon/tmp/squashfs-root/*  --target-directory="${DST}"
  #exchange kernel
  [ "$XCHANGE_KERNEL" = "y" ] && cp -rfv "${FBDIR}/kernel.raw" "${SPDIR}/kernel.raw"
@@ -1194,17 +1194,23 @@ else
  echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
  # patch update pages 
  $sh_DIR/patch_tools.sh "${DST}"
+ #copy Firmware.conf
+ cp -f $firmwareconf_file_name .unstripped
+ . FirmwareConfStrip
+ #tar Firmware.conf 
+ [ -f ..unstripped ] && tar --owner=0 --group=0 --mode=0755 -cf "./Firmware.conf.tar" "$firmwareconf_file_name"
+ mv -f .unstripped $firmwareconf_file_name
  # <-- Only Tcom
 fi
 #-->All firmwares, if patches added here the are applied to tcom firmware with option "restore original" as well!
 # patch portrule to enable forwarding to box itself
 #--------------------------------------------------------------------------------------------------------------- 
- # add s2f config file
- [ "$ADD_S2F_CONF" = "y" ] && subscripts2/add_s2f_configfile "${SRC}" && $TAR xvzf packages/s2f_flash.tgz -C "${SRC}" 2> /dev/null
- # add default route
- [ "$PATCH_PORTRULE" = "y" ] && $sh2_DIR/patch_portrule "${SRC}"
+# add s2f config file
+[ "$ADD_S2F_CONF" = "y" ] && subscripts2/add_s2f_configfile "${SRC}" && $TAR xvzf packages/s2f_flash.tgz -C "${SRC}" 2> /dev/null
+# add default route
+[ "$PATCH_PORTRULE" = "y" ] && $sh2_DIR/patch_portrule "${SRC}"
 # set OEM via rc.S not via environment
-[ "$PATCH_OEM" = "y" ] && $sh_DIR/patch_oem.sh "${SRC}"
+[ "$PATCH_OEM" = "y" ] && $sh2_DIR/patch_OEMandMyIP "${DST}"
 # add own files 
 [ "$ADD_OWN" = "y" ] && $TAR c -C custom/rootfs . 2>/dev/null | $TAR x -C "${SRC}" 2> /dev/null
 # add dropbear files 
