@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="03"; Monat="12"; Jahr="09"
+Tag="04"; Monat="12"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -1198,7 +1198,7 @@ else
  cp -f $firmwareconf_file_name .unstripped
  . FirmwareConfStrip
  #tar Firmware.conf 
- [ -f ..unstripped ] && tar --owner=0 --group=0 --mode=0755 -cf "./Firmware.conf.tar" "$firmwareconf_file_name"
+ [ -f ./Firmware.conf.tar ] && tar --owner=0 --group=0 --mode=0755 -cf "./Firmware.conf.tar" "$firmwareconf_file_name"
  mv -f .unstripped $firmwareconf_file_name
  # <-- Only Tcom
 fi

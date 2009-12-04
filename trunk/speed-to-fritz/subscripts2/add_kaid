@@ -12,7 +12,7 @@ KAID_DIR1="${IMG_REQ%.tar.gz*}"
 if ! [ -f "$KAID_DIR/$KAID_DIR1/kaid"  ]; then
     [ -f "$DLD_DIR/$IMG_REQ"  ] || wget -P "$DLD_DIR" "$DLD_TPL" 2>&1 
     echo " -- unpacking Xlink kai engine ..."
-    "$TAR" -xif "$DLD_DIR/$IMG_REQ" -C "$KAID_DIR" 
+    tar -xif "$DLD_DIR/$IMG_REQ" -C "$KAID_DIR"
 fi
 if ! [ -f "$KAID_DIR/$KAID_DIR1/kaid"  ]; then
     echo "You must download the $DLD_TPL to $DLD_DIR first!"
