@@ -1177,11 +1177,12 @@ if [ "$ORI" != "y" ]; then
  echo "********************************************************************************"
 else
  # --> Only Tcom firmware with otion "restore original"
- #add addons
+ # get OEM from original Firmware
  readConfig "OEM" "OEM_DEFAULT" "${DST}/etc/init.d"
  #export OEM="tcom"
+ # add addons
  [ "$COPY_ADDON_TMP_to_ORI" = "y" ] &&  cp -fdpr  ./addon/tmp/squashfs-root/*  --target-directory="${DST}"
- #exchange kernel
+ # exchange kernel
  [ "$XCHANGE_KERNEL" = "y" ] && cp -rfv "${FBDIR}/kernel.raw" "${SPDIR}/kernel.raw"
  [ "$SRC2_KERNEL" = "y" ] && cp -rfv "${FBDIR_2}/kernel.raw" "${FBDIR}/kernel.raw"
  echo "Assembling original TCOM Firmware for transfer via FTP and Webinterface ..."
@@ -1194,11 +1195,10 @@ else
  echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
  # patch update pages 
  $sh_DIR/patch_tools.sh "${DST}"
- #copy Firmware.conf
+ # Copy stripped Firmware.conf to Firmware.conf.tar
  cp -f $firmwareconf_file_name .unstripped
  . FirmwareConfStrip
- #tar Firmware.conf 
- [ -f ./Firmware.conf.tar ] && tar --owner=0 --group=0 --mode=0755 -cf "./Firmware.conf.tar" "$firmwareconf_file_name"
+ [ -f $firmwareconf_file_name ] && tar --owner=0 --group=0 --mode=0755 -cf "./Firmware.conf.tar" "$firmwareconf_file_name"
  mv -f .unstripped $firmwareconf_file_name
  # <-- Only Tcom
 fi
