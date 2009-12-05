@@ -225,7 +225,6 @@ config AVM_PHONE_7240_15195
 config AVM_PRE_7240_15892
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7240_vorschau_release_candidate/fritzbox-labor-7240-15892.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7240.Labor.73.04.78-15892.image"
-###------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM 7270 Firmware
 
 config AVM_7240_54_04_58
@@ -235,6 +234,8 @@ config AVM_7240_54_04_58
 config AVM_7240_54_04_59
     string
     default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.59.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.59.image"
+
+###------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 config AVM_7270_m54_04_76
     string
@@ -295,6 +296,10 @@ config AVM_PRE_7273_15892
 config AVM_DSL_7270_15852
     string
     default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-15852.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabDSL.AnnexB.54.04.99-15852.image"
+
+config AVM_DSL_7273_15852
+    string
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-7270v3-15852.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabDSL.AnnexB.74.04.99-15852.image"
 
 config AVM_PHONE_7270_15195
    string
@@ -1039,14 +1044,14 @@ choice
 			FRITZ! release: 76
 			
 	config TYPE_7270_IPV6_15316
-		bool "AVM 7270 15316 IPv6"
+		bool "AVM 7270 15316.en-de-fr IPv6"
 		depends on ( TYPE_7270 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
 			(Internet Protocol Version 6) and 6to4 tunnels.
 
 	config TYPE_7273_IPV6_15316
-		bool "AVM 7270v3 15316 IPv6"
+		bool "AVM 7270v3 15316.en-de-fr IPv6"
 		depends on ( TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
@@ -1131,6 +1136,13 @@ choice
 
 	config TYPE_7270_DSL_15852
 		bool "AVM 7270 15852 Labor-DSL"
+		depends on ( TYPE_7270 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		help
+			FRITZ!Lab DSL: This release optimises the DSL (Digital Subscriber
+			 Line) software and adds related graphs.
+
+	config TYPE_7273_DSL_15852
+		bool "AVM 7270v3 15852 Labor-DSL"
 		depends on ( TYPE_7270 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab DSL: This release optimises the DSL (Digital Subscriber
@@ -1379,7 +1391,7 @@ choice
 		bool "AVM 7170 14119 (DSL-Labor)"
 
 	config TYPE_SRC3_AVM_MINI_7170_14935
-		bool "AVM 7170 MINI 14935"
+		bool "AVM 7170 14935 MINI"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7240 Firmware
 
@@ -1426,13 +1438,16 @@ choice
 		bool "AVM 7270 14543 (AIO)"
 
 	config TYPE_SRC3_AVM_IPV6_7273_15316
-		bool "AVM 7270v3 15316 (IPV6)"
+		bool "AVM 7270v3 15316.en-de-fr (IPV6)"
 
 	config TYPE_SRC3_AVM_IPV6_7270_15316
-		bool "AVM 7270 15316.en-de-es-it-fr (IPV6)"
+		bool "AVM 7270 15316.en-de-fr (IPV6)"
 
 	config TYPE_SRC3_AVM_DSL_7270_15852
 		bool "AVM 7270 15852 Labor DSL"
+
+	config TYPE_SRC3_AVM_DSL_7273_15852
+		bool "AVM 7270v3 15852 Labor DSL"
 
 	config TYPE_SRC3_AVM_CORE_7270_15220
 		bool "AVM 7270 15220 (Streaming Stick)"
@@ -1479,7 +1494,7 @@ choice
 		bool "AVM 7570 75.04.77.en-de-fr"
 
 	config TYPE_SRC3_AVM_7570_75_04_78
-		bool "AVM 7570 75.04.77.en-de-fr"
+		bool "AVM 7570 75.04.78.en-de-fr"
 
 	config TYPE_SRC3_AVM_7570_15316
 		bool "AVM 7570 15316.en-de-fr"
@@ -1687,6 +1702,7 @@ config AVM_IMG
 	default "$AVM_CORE_7273_15627"				if ( TYPE_7273_CORE_15627 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_13486"				if ( TYPE_7270_13486 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_DSL_7270_15852"				if ( TYPE_7270_DSL_15852 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_DSL_7273_15852"				if ( TYPE_7273_DSL_15852 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_AIO_7270_14543"				if ( TYPE_7270_AIO_14543 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_WLANX_7270_14080"				if ( TYPE_7270_WLAN_14080 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_AURA_7270_14142"				if ( TYPE_7270_AURA_14142 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
@@ -1774,6 +1790,7 @@ config SRC2_IMG
 	default "$AVM_IPV6_7270_15316"			if TYPE_SRC3_AVM_IPV6_7270_15316
 	default "$AVM_IPV6_72XX"				if TYPE_SRC3_AVM_IPV6_72XX
 	default "$AVM_DSL_7270_15852"			if TYPE_SRC3_AVM_DSL_7270_15852
+	default "$AVM_DSL_7273_15852"			if TYPE_SRC3_AVM_DSL_7273_15852
 	default "$AVM_PRE_7240_15892"			if TYPE_SRC3_AVM_PRE_7240_15892
 	default "$AVM_PRE_7270_15892"			if TYPE_SRC3_AVM_PRE_7270_15892
 	default "$AVM_PRE_72XX"					if TYPE_SRC3_AVM_PRE_72XX
@@ -1860,7 +1877,7 @@ config TYPE_LABOR_TYPE
 	default "BETA"	 	if TYPE_7270_PRE_15892 || TYPE_7273_PRE_15892 || TYPE_7240_PRE_15892 || TYPE_72XX_PRE
 	default "13948" 	if TYPE_7170_13948
 	default "13486" 	if TYPE_7270_13486
-	default "DSL" 		if TYPE_7270_DSL_15852 || TYPE_7170_DSL_14119
+	default "DSL" 		if TYPE_7270_DSL_15852 || TYPE_7273_DSL_15852 || TYPE_7170_DSL_14119
 	default "GAMING" 	if TYPE_7270_GAMING || TYPE_7170_GAMING_11435
 	default "PHONE" 	if TYPE_7240_PHONE_15195 || TYPE_7270_PHONE_15195 || TYPE_7273_PHONE_15195 || TYPE_7170_PHONE || TYPE_72XX_PHONE
 	default "WLAN" 		if TYPE_7270_WLAN_14080 || TYPE_7170_WLAN
