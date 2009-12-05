@@ -83,6 +83,9 @@ if [ "${FORCE_DSL_MULTI_ANNEX}" = "y" ]; then
   for file_n in atm.html adsl.html bits.html overview.html; do
 	sed -i -e 's|$var:Annex .|A B|'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n"
 	sed -i -e 's|<? query box:settings/expertmode/activated ?>|1|'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n"
+	# with Firmware-Version 54.04.99-15852 names are changed 
+	# dslsnrset.* labor_dsl*
+	### sed -i -e 's|uiDoLaborDSLPage()|uiDoSNRPage()|'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n"
   done 
   for file_n in /html/de/first/basic_first.js /html/de/first/basic_first.frm /html/de/help/hilfe_internet_dslsnrset.html; do
     if [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ] && ! [ -f "${SRC}/usr/www/${OEMLINK}/$file_n" ]; then
@@ -197,6 +200,11 @@ jslSetChecked("uiViewAnnexB", n==1);\
     fi
   done
  fi # <-- ? 1st firmware multiannex
+#  for EXT in frm js html; do
+#    FILE="${SRC}/usr/www/${OEMLINK}/html/de/internet/labor_dsl.$EXT"
+#    FILE_2="${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.$EXT"
+#    [ -f $FILE_2 ] && mv -f $FILE_2 $FILE
+#  done
 fi # <-- Multiannex 
 #----------------------------------------------------------------------------------------------------
 # --> multilanguage
@@ -308,4 +316,35 @@ if ! [ -f "${SRC}/etc/htmltext_de.db" ] ; then
     [ -L "${SRC}/etc/htmltext.db" ] && rm -fd -R "${SRC}/etc/htmltext.db"
     ln -s /etc/htmltext_$FORCE_LANGUAGE.db  "${SRC}/etc/htmltext.db"
 fi
+#-------------------------------
+# enable some setting usual only set if OEM is avme
+# should be moved to a extra script 
+FILE="${SRC}/usr/www/${OEMLINK}/html/de/internet/internet_expert.html"
+if [ -f "$FILE" ]; then
+    sed -i -e 's|if eq $var:OEM avme|if eq avme avme|g'  "$FILE"
+    grep -q 'if eq avme avme' "$FILE" && echo2 "-- enable setting for OEM avm on: internet_expert.html"
+fi
+FILE="${SRC}/usr/www/${OEMLINK}/html/de/internet/internet_expert.js"
+if [ -f "$FILE" ]; then
+    sed -i -e 's|//Init|Init|g' "$FILE"
+    sed -i -e 's|//jsl|jsl|g' "$FILE"
+    sed -i -e 's|// jsl|jsl|g' "$FILE"
+fi
+FILE="${SRC}/usr/www/${OEMLINK}/html/de/internet/authform.frm"
+if [ -f "$FILE" ]; then
+    sed -i -e 's|if eq $var:OEM avme|if eq avme avme|g'  "$FILE"
+    grep -q 'if eq avme avme' "$FILE" && echo2 "-- enable setting for OEM avm on: authform.frm"
+fi
+FILE="${SRC}/usr/www/${OEMLINK}/html/de/internet/authform.js"
+if [ -f "$FILE" ]; then
+    sed -i -e 's|if eq $var:OEM avme|if eq avme avme|g'  "$FILE"
+    sed -i -e "s|if (oem != 'avme'|if ('avm' != 'avm'|g"  "$FILE"
+    grep -q 'if eq avme avme' "$FILE" && echo2 "-- enable setting for OEM avm on: authform.js"
+fi
+# add Annex option also for oem avm
+#if [ -f "${SRC}/usr/www/${OEMLINK}/html/logincheck.html" ]; then
+#    sed -i -e 's|if (oem == "avme") {|if ( "avme" == "avme") {|'  "${SRC}/usr/www/${OEMLINK}/html/logincheck.html"
+#    grep -q '( "avme" == "avme")' "${SRC}/usr/www/${OEMLINK}/html/logincheck.html" && echo2 "-- enable select ANNEX for OEM avm"
+#    sed -i -e 's|var AnnexSet="1";|AnnexSet="<? query sar:settings\/IsAnnexSet ?>";|'  "${SRC}/usr/www/${OEMLINK}/html/logincheck.html"
+#fi
 exit 0
