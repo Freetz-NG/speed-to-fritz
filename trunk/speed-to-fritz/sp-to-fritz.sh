@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="05"; Monat="12"; Jahr="09"
+Tag="06"; Monat="12"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -894,7 +894,10 @@ export CONFIG_ETH_COUNT="4"
 	export CONFIG_ATA_NOPASSTHROUGH="y"
 	export CONFIG_PROV_DEFAULT="y"
 	export CONFIG_FON_IPPHONE="y"
+	export CONFIG_CAPI="y"
+	export CONFIG_CAPI_POTS="n"
 	export CONFIG_CAPI_NT="n"
+	export CONFIG_CAPI_TE="n"
 	export CONFIG_VERSION_MAJOR="73"
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA="n"  
@@ -905,7 +908,7 @@ export CONFIG_ETH_COUNT="4"
 	#----
 	export CONFIG_AB_COUNT="2"
 	export CONFIG_ETH_COUNT="4"
-	export CONFIG_Pots="1"
+	export CONFIG_Pots="0"
 	export CONFIG_IsdnNT="0"
 	export CONFIG_IsdnTE="0"
 	export CONFIG_Usb="1" 
