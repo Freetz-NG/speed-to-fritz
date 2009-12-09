@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="06"; Monat="12"; Jahr="09"
+Tag="09"; Monat="12"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -1168,6 +1168,8 @@ if [ "$ORI" != "y" ]; then
  $sh2_DIR/patch_system_status "${SRC}"
  #export download links
  $HOMEDIR/extract_rpllist.sh	
+ # set OEM via rc.S not via environment
+ [ "$PATCH_OEM" = "y" ] && $sh2_DIR/patch_OEMandMyIP "${SRC}"
  #packing takes place on SPDIR
  export SPDIR="${FBDIR}"
  #--> Add patches here if the shold not be applayed with Option restore original!
@@ -1198,6 +1200,8 @@ else
  echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
  # patch update pages 
  $sh_DIR/patch_tools.sh "${DST}"
+ # set OEM via rc.S not via environment
+ [ "$PATCH_OEM" = "y" ] && $sh2_DIR/patch_OEMandMyIP "${DST}"
  # Copy stripped Firmware.conf to Firmware.conf.tar
  cp -f $firmwareconf_file_name .unstripped
  . FirmwareConfStrip
@@ -1212,8 +1216,6 @@ fi
 [ "$ADD_S2F_CONF" = "y" ] && subscripts2/add_s2f_configfile "${SRC}" && $TAR xvzf packages/s2f_flash.tgz -C "${SRC}" 2> /dev/null
 # add default route
 [ "$PATCH_PORTRULE" = "y" ] && $sh2_DIR/patch_portrule "${SRC}"
-# set OEM via rc.S not via environment
-[ "$PATCH_OEM" = "y" ] && $sh2_DIR/patch_OEMandMyIP "${DST}"
 # add own files 
 [ "$ADD_OWN" = "y" ] && $TAR c -C custom/rootfs . 2>/dev/null | $TAR x -C "${SRC}" 2> /dev/null
 # add dropbear files 

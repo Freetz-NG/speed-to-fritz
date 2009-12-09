@@ -1,8 +1,11 @@
 #!/bin/bash
  . $include_modpatch
-	sed -i -e "/export CONFIG_ENVIRONMENT_PATH=\/proc\/sys\/urlader/a \
-	echo firmware_version ${OEM} > \$CONFIG_ENVIRONMENT_PATH\/environment \
-	echo my_ipaddress 192.168.178.1 > \$CONFIG_ENVIRONMENT_PATH\/environment" "${1}/etc/init.d/rc.S"
-	grep -q "echo firmware_version ${OEM} >" "${1}/etc/init.d/rc.S" && echo "-- OEM (Branding) set via firmware to: $OEM" 
-	grep -q "echo my_ipaddress 192.168.178.1 >" "${1}/etc/init.d/rc.S" && echo "-- my_ipaddress set via firmware to: 192.168.178.1" 
- exit 0
+sed -i -e "/export CONFIG_ENVIRONMENT_PATH=\/proc\/sys\/urlader/a \
+echo firmware_version ${OEM} >\$CONFIG_ENVIRONMENT_PATH\/environment\n\
+echo kernel_args console=ttyS0,38400 >\$CONFIG_ENVIRONMENT_PATH\/environment\n\
+echo my_ipaddress 192.168.178.1 >\$CONFIG_ENVIRONMENT_PATH\/environment" "${1}/etc/init.d/rc.S"
+grep -q "echo firmware_version ${OEM} >" "${1}/etc/init.d/rc.S" && echo "-- OEM (Branding) set via firmware to: $OEM" 
+grep -q "echo my_ipaddress 192.168.178.1 >" "${1}/etc/init.d/rc.S" && echo "-- my_ipaddress set via firmware to: 192.168.178.1" 
+[ "$ANNEX" == "A" ] && sed -i -e "s/kernel_args console/kernel_args annex=$ANNEX console/" "${1}/etc/init.d/rc.S"
+grep -q "kernel_args annex=A console" "${1}/etc/init.d/rc.S" && echo "-- ANNEX set via firmware to: A" 
+exit 0

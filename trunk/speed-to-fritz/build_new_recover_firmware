@@ -34,7 +34,7 @@ if [ "$BUILDRECOVER" = "y" ]; then
 fi
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
-RECOVERIMGC701="congstar_komplett_Box.AnnexB.04.69.recover-image.zip mirror http://congstar.custhelp.com/cgi-bin/congstar.cfg/php/enduser/fattach_get.php?p_sid=WtObzfOj&p_li=&p_accessibility=0&p_redirect=&p_tbl=9&p_id=549&p_created=1253088328&p_olh=0"
+RECOVERIMGC503="congstar_komplett_Box.AnnexB.04.69.recover-image.zip mirror http://congstar.custhelp.com/cgi-bin/congstar.cfg/php/enduser/fattach_get.php?p_sid=WtObzfOj&p_li=&p_accessibility=0&p_redirect=&p_tbl=9&p_id=549&p_created=1253088328&p_olh=0"
 RECOVERIMG5050="ftp://ftp.avm.de/fritz.box/fritzbox.fon_5050/x_misc/fritz.box_fon_5050.12.04.31.recover-image.exe"
 RECOVERIMG7113="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7113.04.67.recover-image.exe"
 #RECOVERIMG7140="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7140/x_misc/deutsch/fritz.box_fon_wlan_7140.annexb.04.33.recover-image.exe"
@@ -74,6 +74,8 @@ RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/english
 [ "${SPNUM}" == "501" ] && R_IMG="$RECOVERIMG7170"
 #for a Sinus500 
 [ "${SPNUM}" == "500" ] && R_IMG="$RECOVERIMG7170"
+#for a W503 
+#[ "${SPNUM}" == "503" ] && R_IMG="$RECOVERIMGC503"
 if  [ "$R_IMG" == "" ];then
     R_IMG="$RECOVERIMG7170"
     echo "No special original recover firmware selected, 7170 used as default!"
