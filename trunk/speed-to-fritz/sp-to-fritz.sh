@@ -89,7 +89,8 @@ export TICHKSUM="${TOOLS_DIR}/${TICHKSUM_TOOL}"
 export RMTICHKSUM_TOOL="rmtichksum"
 export RMTICHKSUM="${TOOLS_DIR}/${RMTICHKSUM_TOOL}"
 export TAR_TOOL="oldtar/tar"
-export TAR_TOOL="tar"
+#!!!!!
+###export TAR_TOOL="tar"
 export TAR="${TOOLS_DIR}/${TAR_TOOL}"
 export UNTAR="${TOOLS_DIR}/${TAR_TOOL}"
 export NEW_WRAP="n"
@@ -99,8 +100,8 @@ export TAR_OPTIONS="--owner=0 --group=0 --mode=0755 --format=oldgnu"
 #export UNTAR="$(which tar)"
 ## dont use options
 #### lead to 'Puefsummenfeher' if firmware is updatet via GUI
-export TAR_RFS_OPTIONS=""
-export TAR_OPTIONS=""
+#export TAR_RFS_OPTIONS=""
+#export TAR_OPTIONS=""
 ## set this to y if sp-to-fritz.sh is split in future versions
 #export FAKEROOT_WRAP="y"
 ##<-- temporaril
