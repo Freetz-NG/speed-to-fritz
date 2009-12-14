@@ -185,13 +185,13 @@ config AVM_7170_29_04_77
   string
     default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7170sl/FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.77.image"
 
-config AVM_7170_en_58_04_76
+config AVM_7170_en_58_04_78
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.76.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.76.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.78.image"
 
-config AVM_7170_en_29_04_76
+config AVM_7170_en_29_04_78
     string
-    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_b/FRITZ.Box_Fon_WLAN_7170.AnnexB.en.29.04.76.image mirror http://download.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_b/FRITZ.Box_Fon_WLAN_7170.AnnexB.en.29.04.76.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_b/FRITZ.Box_Fon_WLAN_7170.AnnexB.en.29.04.78.image"
 
 config AVM_BETA_65_04_7170_13679
     string
@@ -955,14 +955,14 @@ choice
 		help
 			FRITZ! release: 76 Annex A
 
-	config TYPE_7170_en_58_04_76
-		bool "AVM 7170 58.04.76 en Annex A"
+	config TYPE_7170_en_58_04_78
+		bool "AVM 7170 58.04.78 en Annex A"
 		depends on (TYPE_7170 || ! TYPE_TCOM_W721SPECIAL &&  TYPE_SPEEDPORT_W721V && TYPE_LANG_EN ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL
 		help
 			FRITZ! release: 76 Annex A english
 
-	config TYPE_7170_en_29_04_76
-		bool "AVM 7170 29.04.76 en"
+	config TYPE_7170_en_29_04_78
+		bool "AVM 7170 29.04.78 en Annex B"
 		depends on ( TYPE_7170 || ! TYPE_TCOM_W721SPECIAL &&  TYPE_SPEEDPORT_W721V && TYPE_LANG_EN ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL
 		help
 			FRITZ! release: 76 Annex B english
@@ -1370,7 +1370,7 @@ choice
 ### 7170 Firmware
 
 	config TYPE_SRC3_AVM_7150_29_04_59
-		bool "AVM 7150 29.04.59"
+		bool "AVM 7150 38.04.59"
 
 	config TYPE_SRC3_AVM_7170_58_04_76
 		bool "AVM 7170 29.04.76 (Annex A)"
@@ -1381,11 +1381,11 @@ choice
 	config TYPE_SRC3_AVM_7170_29_04_77
 		bool "AVM 7170 29.04.77"
 
-	config TYPE_SRC3_AVM_7170_en_58_04_76
-		bool "AVM 7170 58.04.76 (english, Annex A)"
+	config TYPE_SRC3_AVM_7170_en_58_04_78
+		bool "AVM 7170 58.04.78 en (english, Annex A)"
 
-	config TYPE_SRC3_AVM_7170_en_29_04_76
-		bool "AVM 7170 29.04.76 (english, Annex B)"
+	config TYPE_SRC3_AVM_7170_en_29_04_78
+		bool "AVM 7170 29.04.78 en (english, Annex B)"
 
 	config TYPE_SRC3_AVM_DSL_7170_14119
 		bool "AVM 7170 14119 (DSL-Labor)"
@@ -1671,12 +1671,12 @@ config AVM_IMG
 	default "$AVM_7150_38_04_57" 				if TYPE_7150_38_04_57 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7150_38_04_71" 				if TYPE_7150_38_04_71 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL ) || ( TYPE_SINUS_W500V && ! TYPE_LABOR ) 
 	default "$AVM_7150_38_04_77" 				if TYPE_7150_38_04_77 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL ) || ( TYPE_SINUS_W500V && ! TYPE_LABOR ) 
-	default "$AVM_7170_en_58_04_76" 			if ! TYPE_LANG_DE && ! TYPE_7170_en_29_04_76 && ! TYPE_7170_en_58_04_76 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
+	default "$AVM_7170_en_58_04_78" 			if ! TYPE_LANG_DE && ! TYPE_7170_en_29_04_78 && ! TYPE_7170_en_58_04_78 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )
 	default "$AVM_7170_29_04_76" 				if ! TYPE_ANNEX_A && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7170_58_04_76" 				if TYPE_ANNEX_A && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7170_58_04_76" 				if ( TYPE_7170_58_04_76 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V )) || ( TYPE_SPEEDPORT_W721V && ! TYPE_LABOR )
-	default "$AVM_7170_en_58_04_76" 			if TYPE_7170_en_58_04_76 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_7170_en_29_04_76" 			if TYPE_7170_en_29_04_76 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7170_en_58_04_78" 			if TYPE_7170_en_58_04_78 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7170_en_29_04_78" 			if TYPE_7170_en_29_04_78 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_29_04_76" 				if TYPE_7170_29_04_76 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_29_04_77" 				if TYPE_7170_29_04_77 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_13948" 				if TYPE_7170_13948 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
@@ -1752,8 +1752,8 @@ config SRC2_IMG
 	default "$AVM_7150_38_04_71" 			if TYPE_SRC3_AVM_7150_38_04_71
 	default "$AVM_7150_38_04_77" 			if TYPE_SRC3_AVM_7150_38_04_77
 	default "$AVM_7170_58_04_50" 			if TYPE_SRC3_AVM_7170_58_04_50
-	default "$AVM_7170_en_58_04_76" 		if TYPE_SRC3_AVM_7170_en_58_04_76
-	default "$AVM_7170_en_29_04_76" 		if TYPE_SRC3_AVM_7170_en_29_04_76
+	default "$AVM_7170_en_58_04_78" 		if TYPE_SRC3_AVM_7170_en_58_04_78
+	default "$AVM_7170_en_29_04_78" 		if TYPE_SRC3_AVM_7170_en_29_04_78
 	default "$AVM_7170_58_04_58" 			if TYPE_SRC3_AVM_7170_58
 	default "$AVM_7170_58_04_59" 			if TYPE_SRC3_AVM_7170_58_04_59
 	default "$AVM_7170_58_04_76" 			if TYPE_SRC3_AVM_7170_58_04_76
