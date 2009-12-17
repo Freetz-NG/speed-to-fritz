@@ -167,9 +167,8 @@ alias symbol:pcmlink_ul_openslots pcmlink' "${SRC}"/lib/modules/$KernelVersion/m
 
 ## Default: ggfs. notweniger pcmlink-Treiber wird von modprobe automatisch
 ## ueber kernel-dependencys ermittelt und vor dem isdn-treiber gestartet
-sed -i -e '/modprobe ${pcm_link} ${pcm_link_params}/d' "${SRC}/etc/init.d/rc.S" 
-# v3 
-rm -fdr "${SRC}"/lib/modules/c55fw.hex
+## sed -i -e '/modprobe ${pcm_link} ${pcm_link_params}/d' "${SRC}/etc/init.d/rc.S" 
+## rm -fdr "${SRC}"/lib/modules/c55fw.hex
 
 #DSL skripts--->
 #copy VDSL Skript
