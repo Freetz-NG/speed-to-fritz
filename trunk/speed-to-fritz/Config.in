@@ -883,9 +883,9 @@ comment  "--------------------------------------------------------------------"
 config TYPE_LABOR
 	bool "Select a special AVM firmware (optional) --->"
 	depends on ! ORI
-	depends on ( TYPE_SINUS_W500V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W900V || TYPE_9207570 || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL ) 
-	default y if EXPORT_TYPE_LOCAL_MODEL
-	default n if ! EXPORT_TYPE_LOCAL_MODEL
+	depends on ( TYPE_SINUS_W500V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W900V || TYPE_9207570 || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL )
+	default y if EXPORT_TYPE_LOCAL_MODEL || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE )
+	default n if ! EXPORT_TYPE_LOCAL_MODEL && ! ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE )
 	help
 		Enable this to compile the mod based on an special AVM firmware.
 		The actual final release version should not be selected. It is preselected anyway! 
