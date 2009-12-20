@@ -208,10 +208,10 @@ else #<--alternative local filename --
     if ! [ -f "$DLD_DIR/$IMG_REQ" ]; then
 	case "$MIRROR_DLD_PATH" in
 		ftp://*)
-			do_download "$DLD_DIR/$IMG_REQ" "$MIRROR_DLD_TPL"
+			wget --passive-ftp --output-document="$DLD_DIR/$IMG_REQ" "$MIRROR_DLD_TPL" 2>&1
 			;;
 		http://*)
-			wget -P "$DLD_DIR/$IMG_REQ" "$MIRROR_DLD_TPL" 2>&1
+			wget --output-document="$DLD_DIR/$IMG_REQ" "$MIRROR_DLD_TPL" 2>&1
 			;;
 	esac
     fi
@@ -230,7 +230,8 @@ else #<--alternative local filename --
 		    done
 			;;
 		ftp://*)
-			do_download "$DLD_DIR" "$DLD_TPL"
+			#do_download "$DLD_DIR" "$DLD_TPL"
+			wget --passive-ftp -P "$DLD_DIR" "$DLD_TPL" 2>&1
 			;;
 		http://*)
 #			echo "  html download ..."
