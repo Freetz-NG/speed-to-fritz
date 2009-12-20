@@ -994,6 +994,11 @@ return 0
 }
 # get commandline options to variables
 . $inc_DIR/processcomline
+# make sure both downloadlinks are used 
+sed -i -e 's|http://download.avm.de/|@AVM/|g' $HOMEDIR/Config.in
+# 2> /dev/null
+sed -i -e 's|ftp://ftp.avm.de/|@AVM/|g' $HOMEDIR/Config.in
+# 2> /dev/null
 # menuconfig uses Firmware.conf as Firmwareconfigfile and export must be adjusted
 eval "$(sed -e 's|EXPORT_|export |' $HOMEDIR/${firmwareconf_file_name})"
 echo "Firmware configuration taken from: ${firmwareconf_file_name}"

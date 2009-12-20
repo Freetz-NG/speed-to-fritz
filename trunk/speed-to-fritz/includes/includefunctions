@@ -15,6 +15,19 @@ esac
 item_count=$((item_count + 1))
 done
 }
+do_download()
+{
+  # $1 = full download URL, $2 = target directory
+  wget -t2 --timeout=20 --passive-ftp -P "$1" "$2"
+  wget_result=$?
+  if [ "$wget_result" != "0" ]; then
+    echo "Download failed - $2  ->  error code $wget_result" >&2
+    fname=$(basename $2)
+    rm -f $1/$fname
+    return $wget_result
+  fi
+  #echo "Download succeeded - $2  ->  saved to folder $1"
+}
 function fwselect_ftp()
 {
 DLD_PATH="${1%/*}/"
@@ -195,19 +208,29 @@ else #<--alternative local filename --
     if ! [ -f "$DLD_DIR/$IMG_REQ" ]; then
 	case "$MIRROR_DLD_PATH" in
 		ftp://*)
-			wget --passive-ftp --output-document="$DLD_DIR/$IMG_REQ" "$MIRROR_DLD_TPL" 2>&1
+			do_download "$DLD_DIR/$IMG_REQ" "$MIRROR_DLD_TPL"
 			;;
 		http://*)
-			wget --output-document="$DLD_DIR/$IMG_REQ" "$MIRROR_DLD_TPL" 2>&1
+			wget -P "$DLD_DIR/$IMG_REQ" "$MIRROR_DLD_TPL" 2>&1
 			;;
 	esac
     fi
     #<---use mirrorimage
-  else
+    else
     if ! [ -f "$DLD_DIR/$IMG_REQ" ]; then
 	case "$DLD_PATH" in
+		@AVM*)
+		    # Fill array 'sites' with download server URLs, first primary site (if specified)
+		    DLD_0=${DLD_PATH/@AVM\//}
+		    sites[0]=ftp://ftp.avm.de/$DLD_0
+		    sites[1]=http://download.avm.de/$DLD_0
+		    # Loop over servers until a download succeeds or all requests have failed.
+		    for i in ${sites[@]} ; do
+			    do_download "$DLD_DIR" "$i/$IMG_REQ" && break
+		    done
+			;;
 		ftp://*)
-			wget --passive-ftp -P "$DLD_DIR" "$DLD_TPL" 2>&1
+			do_download "$DLD_DIR" "$DLD_TPL"
 			;;
 		http://*)
 #			echo "  html download ..."
@@ -440,11 +463,11 @@ if ! [ $FORCE_CLEAR_FLASH ]; then
 		 -Y "quote SETENV HWRevision  $HWRevision" \
 		 -Y "quote SETENV kernel_args $kernel_args" \
 		 -Y "quote SETENV annex $ANNEX" \
-		 -Y "quote SETENV jffs2_size	$CONFIG_jffs2_size" \
 		-Y "quote REBOOT" \
 		-u adam2 -p adam2 \
 		-C ${IPADDRESS} \
 		"${IMAGEDIR}"/kernel.image mtd1
+#		 -Y "quote SETENV jffs2_size	$CONFIG_jffs2_size" \
 #not cygwin
 else
 ping_params="-c1 -w1"
@@ -475,8 +498,6 @@ quote SETENV ProductID  $CONFIG_PRODUKT
 quote SETENV HWRevision  $HWRevision
 quote SETENV kernel_args $kernel_args
 quote SETENV annex $ANNEX
-quote SETENV jffs2_size	$CONFIG_jffs2_size
-! #quote SETENV ptest $PTEST
 quote REBOOT
 quit
 EOT
@@ -484,6 +505,7 @@ fi
 # this may be needed if the Box is about to recover
 #quote SETENV jffs2_size	$CONFIG_jffs2_size
 #quote SETENV kernel_args	idle=4
+#quote SETENV ptest $PTEST
 
 
 # HWRevision 
@@ -559,7 +581,6 @@ debug
 hash
 quote MEDIA FLSH
 quote SETENV my_ipaddress 192.168.178.1
-quote SETENV jffs2_size 32
 quote SETENV firmware_version $OEM
 quote SETENV autoload yes
 quote SETENV my_ipaddress $IPADDRESS
@@ -567,7 +588,6 @@ quote SETENV ProductID  $CONFIG_PRODUKT
 quote SETENV HWRevision  $HWRevision
 quote SETENV kernel_args $kernel_args
 quote SETENV annex $ANNEX
-quote SETENV jffs2_size	$CONFIG_jffs2_size
 quote REBOOT
 quit
 
@@ -576,6 +596,8 @@ fi
 return 0
 }
 
+#quote SETENV jffs2_size 32
+#quote SETENV jffs2_size	$CONFIG_jffs2_size
 
 function modunsqfs()
 {
