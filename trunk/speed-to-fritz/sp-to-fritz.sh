@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="20"; Monat="12"; Jahr="09"
+Tag="21"; Monat="12"; Jahr="09"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -995,10 +995,8 @@ return 0
 # get commandline options to variables
 . $inc_DIR/processcomline
 # make sure both downloadlinks are used 
-sed -i -e 's|http://download.avm.de/|@AVM/|g' $HOMEDIR/Config.in
-# 2> /dev/null
-sed -i -e 's|ftp://ftp.avm.de/|@AVM/|g' $HOMEDIR/Config.in
-# 2> /dev/null
+## sed -i -e 's|http://download.avm.de/|@AVM/|g' $HOMEDIR/Config.in
+## sed -i -e 's|ftp://ftp.avm.de/|@AVM/|g' $HOMEDIR/Config.in
 # menuconfig uses Firmware.conf as Firmwareconfigfile and export must be adjusted
 eval "$(sed -e 's|EXPORT_|export |' $HOMEDIR/${firmwareconf_file_name})"
 echo "Firmware configuration taken from: ${firmwareconf_file_name}"
