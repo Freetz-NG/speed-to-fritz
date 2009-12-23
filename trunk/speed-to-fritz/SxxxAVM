@@ -28,8 +28,8 @@ if [ ${ATA_ONLY} = "n" ]; then
  if ! [ -d "${SRC}/lib/modules/dsp_ur8"  ]; then
   find_dslfirmware "${SRC}" "  -- AVM source 1 DSL Driver:"
   SRC_ANNEX_FIRMWARE="$ANNEX_FIRMWARE"
-  find_dslfirmware ${SRC_2} "  -- AVM source 2 DSL Driver:"
-  SRC_2_ANNEX_FIRMWARE="$ANNEX_FIRMWARE"
+  [ -n "$FBIMG_2" ] && find_dslfirmware ${SRC_2} "  -- AVM source 2 DSL Driver:"
+  [ -n "$FBIMG_2" ] && SRC_2_ANNEX_FIRMWARE="$ANNEX_FIRMWARE"
   [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}"${SRC_ANNEX_FIRMWARE}  ] && cp -fdrp "${SRC}"${SRC_ANNEX_FIRMWARE}  ./addon/tmp/modules/dsl.bin &&\
   echo "  -- AVM source 1 DSL Driver saved as: ./addon/tmp/modules/dsl.bin"
   [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"${SRC_2_ANNEX_FIRMWARE}  ] && cp -fdrp "${SRC_2}"${SRC_2_ANNEX_FIRMWARE}  ./addon/tmp/modules/dsl.bin &&\
