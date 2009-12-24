@@ -405,7 +405,7 @@ config AVM_7570_15011
 
 config AVM_7570_75_04_76
     string
-    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.76.image"
+    default "http://www.hostarea.de/server-12/Dezember-7e154a57c5.zip mirror ./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.76.image"
 
 config AVM_7570_15216
    string
