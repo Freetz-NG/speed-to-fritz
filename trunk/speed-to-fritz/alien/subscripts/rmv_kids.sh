@@ -1,13 +1,9 @@
 #!/bin/bash
  . $include_modpatch
 for DIR in ${OEMLIST}; do
-# if [ "$DIR" = "avme" ] ; then
-#  export HTML="$DIR/$avm_Lang/html"
-# else
-  export HTML="$DIR/html"
-# fi
+    HTML="$DIR/html"
     DSTI="usr/www/$HTML/de"
-    if [ -d "$1"${DSTI} ] ; then
+    if [ -d "$1"/${DSTI} ] ; then
 #-------------------------------------------------------------------------------------------------------
 # if `cat "$1/$DSTI/menus/menu2_internet.html" | grep -q 'userlist'` ; then
 	echo2 "   -- Removing lines from:"
