@@ -413,9 +413,10 @@ config AVM_7570_15216
    string
       default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.76-15216.image"
 
+config AVM_7570_15245
    string
-      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.75.04.76-15254.zip mirror http://www.hostarea.de/server-12/Dezember-6ffaeeee14.zip"
-#      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.75.04.76-15254.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373537305f7644534c2e37352e30342e37362d31353235342e7a6970.zip"
+      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.75.04.76-15245.zip mirror http://www.hostarea.de/server-12/Dezember-6ffaeeee14.zip"
+	#      default "FRITZ.Box_Fon_WLAN_7570_vDSL.75.04.76-15245.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373537305f7644534c2e37352e30342e37362d31353235342e7a6970.zip"
 
 config AVM_7570_15446
    string
@@ -749,8 +750,8 @@ choice
 	config TYPE_TCOM_7570_15216
 		bool "AVM 7570 15216.en-de-fr"
 
-	config TYPE_TCOM_7570_15254
-		bool "AVM 7570 75.04.76-15254 1und1"
+	config TYPE_TCOM_7570_15245
+		bool "AVM 7570 75.04.76-15245 1und1"
 
 	config TYPE_TCOM_7570_15316
 		bool "AVM 7570 15316.en-de-fr"
@@ -1330,8 +1331,8 @@ choice
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
-	config TYPE_AVM_7570_15254
-		bool "AVM 7570 75.04.76-15254 1und1"
+	config TYPE_AVM_7570_15245
+		bool "AVM 7570 75.04.76-15245 1und1"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920	
 
@@ -1596,8 +1597,8 @@ choice
 	config TYPE_SRC3_AVM_7570_15216
 		bool "AVM 7570 15216.en-de-fr"
 
-	config TYPE_SRC3_AVM_7570_15254
-		bool "AVM 7570 75.04.76-15254 1und1"
+	config TYPE_SRC3_AVM_7570_15245
+		bool "AVM 7570 75.04.76-15245 1und1"
 
 	config TYPE_SRC3_AVM_7570_15316
 		bool "AVM 7570 15316.en-de-fr"
@@ -1734,7 +1735,7 @@ config TCOM_IMG
 	default "$AVM_7570_14771" 			if TYPE_TCOM_7570_14771 && ( TYPE_9207570 || ORI  )
 	default "$AVM_7570_14965" 			if TYPE_TCOM_7570_14965 && ( TYPE_9207570 || ORI  )
 	default "$AVM_7570_15216" 			if TYPE_TCOM_7570_15216 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_15254" 			if TYPE_TCOM_7570_15254 && ( TYPE_9207570 || ORI  )
+	default "$AVM_7570_15245" 			if TYPE_TCOM_7570_15245 && ( TYPE_9207570 || ORI  )
 	default "$AVM_7570_15446" 			if TYPE_TCOM_7570_15446 && ( TYPE_9207570 || ORI  )
 	default "$AVM_7141_40_04_76"		if TYPE_7141
 	default "$AVM_7240_73_04_80"		if TYPE_7240
@@ -1824,7 +1825,7 @@ config AVM_IMG
 	default "$AVM_7570_14771"					if ( TYPE_AVM_7570_14771 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_7570_15011"					if ( TYPE_AVM_7570_15011 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_7570_15216"					if ( TYPE_AVM_7570_15216 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
-	default "$AVM_7570_15254"					if ( TYPE_AVM_7570_15254 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
+	default "$AVM_7570_15245"					if ( TYPE_AVM_7570_15245 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_7570_15446"					if ( TYPE_AVM_7570_15446 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_LOCAL"						if TYPE_LOCAL_AVM && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7570_LOCAL"					if TYPE_LOCAL_AVM_7570 && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
@@ -1906,7 +1907,7 @@ config SRC2_IMG
 	default "$AVM_7570_14964" 				if TYPE_SRC3_AVM_7570_14964
 	default "$AVM_7570_15011" 				if TYPE_SRC3_AVM_7570_15011
 	default "$AVM_7570_15216" 				if TYPE_SRC3_AVM_7570_15216
-	default "$AVM_7570_15254" 				if TYPE_SRC3_AVM_7570_15254
+	default "$AVM_7570_15245" 				if TYPE_SRC3_AVM_7570_15245
 	default "$AVM_7570_15446" 				if TYPE_SRC3_AVM_7570_15446
 	default "$TCOM_SINUS_27_04_27" 			if TYPE_SRC3_TCOM_W500_27
 	default "$TCOM_W501_28_04_38" 			if TYPE_SRC3_TCOM_W501_28_04_38
@@ -1998,7 +1999,7 @@ config TYPE_LABOR_TYPE
 	default "7570_14964" 	if TYPE_AVM_7570_14964
 	default "7570_15011" 	if TYPE_AVM_7570_15011
 	default "7570_15216" 	if TYPE_AVM_7570_15216
-	default "7570_15254" 	if TYPE_AVM_7570_15254
+	default "7570_15245" 	if TYPE_AVM_7570_15245
 	default "7570_15446" 	if TYPE_AVM_7570_15446
 	default "LOCAL"		if TYPE_LOCAL_AVM
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
