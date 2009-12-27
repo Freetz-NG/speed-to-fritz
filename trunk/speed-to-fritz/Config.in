@@ -411,12 +411,12 @@ config AVM_7570_75_04_76
 
 config AVM_7570_15216
    string
-      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.76-15216.image"
+    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.76-15216.image"
 
 config AVM_7570_15245
    string
-      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.75.04.76-15245.zip mirror http://www.hostarea.de/server-12/Dezember-6ffaeeee14.zip"
-	#      default "FRITZ.Box_Fon_WLAN_7570_vDSL.75.04.76-15245.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373537305f7644534c2e37352e30342e37362d31353235342e7a6970.zip"
+    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.75.04.76.zip mirror http://www.hostarea.de/server-12/Dezember-8e8d17206a.zip"
+    #      default "*.zip mirror http://upload.crunkbass.de/*.zip"
 
 config AVM_7570_15446
    string
@@ -751,7 +751,7 @@ choice
 		bool "AVM 7570 15216.en-de-fr"
 
 	config TYPE_TCOM_7570_15245
-		bool "AVM 7570 75.04.76-15245 1und1"
+		bool "AVM 7570 75.04.76 1und1 15245"
 
 	config TYPE_TCOM_7570_15316
 		bool "AVM 7570 15316.en-de-fr"
@@ -1332,7 +1332,7 @@ choice
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_15245
-		bool "AVM 7570 75.04.76-15245 1und1"
+		bool "AVM 7570 75.04.76 1und1 15245"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920	
 
@@ -1598,7 +1598,7 @@ choice
 		bool "AVM 7570 15216.en-de-fr"
 
 	config TYPE_SRC3_AVM_7570_15245
-		bool "AVM 7570 75.04.76-15245 1und1"
+		bool "AVM 7570 75.04.76 1und1 15245"
 
 	config TYPE_SRC3_AVM_7570_15316
 		bool "AVM 7570 15316.en-de-fr"
