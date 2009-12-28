@@ -14,7 +14,6 @@ for DIR in ${OEMLIST}; do
  fi
 done 
 #copy net*
-echo "-- Adding TR064 setup pages..."
 
 if [ "$avm_Lang" = "en" ] ; then
 TR064TXT1="Autommatc setup is aloud within the LAN (TR-064)"
