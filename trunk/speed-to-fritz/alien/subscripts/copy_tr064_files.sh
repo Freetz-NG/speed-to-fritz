@@ -1,18 +1,20 @@
 #!/bin/bash
  . $include_modpatch
+echo "-- Adding TR064 setup pages..."
 # copy missing files in OEM dir 
 for DIR in ${OEMLIST}; do
  if [ -d "${DST}/etc/default.${DEST_PRODUKT}/${DIR}" ]; then
   for FILE in $(ls "${DST}/etc/default.${DEST_PRODUKT}/${DIR}"); do
-    if [ -f "${DST}/etc/default.${DEST_PRODUKT}/${DIR}/${FILE}" ]; then
-     if ! [ -f "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$FILE" ]; then
-      cp -fdrp "${DST}/etc/default.${DEST_PRODUKT}"/${DIR}/$FILE "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$FILE" && echo2 "  copy file from 2nd FW: $FILE"
+    if  [ -f "${DST}/etc/default.${DEST_PRODUKT}/${DIR}/${FILE}" ]; then
+     if ! [ -f "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$FILE" ] && ! [ -L "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$FILE" ]; then
+       cp -fdrp "${DST}/etc/default.${DEST_PRODUKT}"/${DIR}/$FILE "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$FILE" && echo2 "  copy file from 2nd FW: $FILE"
      fi
-    fi 
+    fi
   done
  fi
 done 
 #copy net*
+echo "-- Adding TR064 setup pages..."
 
 if [ "$avm_Lang" = "en" ] ; then
 TR064TXT1="Autommatc setup is aloud within the LAN (TR-064)"
@@ -24,7 +26,6 @@ fi
 
 if [ -f "${SRC}/usr/www/avm/html/de/system/net.html" ]; then
 if ! [ $(grep -q 'Tr064' "${SRC}/usr/www/avm/html/de/system/net.html" ) ]; then 
-echo "-- Adding TR064 setup pages..."
 sed -i -e '/FWChange/a\
 <\/div><\/div><\/div><\/div><\/div><\/div>\
 \` ?>\
