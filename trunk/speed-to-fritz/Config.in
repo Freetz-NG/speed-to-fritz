@@ -2520,10 +2520,7 @@ config EXPORT_ATA_ONLY
 		In Case of W501, no fon will be usable with this option.
 ####
 if ! EXPORT_ATA_ONLY
-###---> NO AVM Modells 7XXX
- if ! EXPORT_TYPE_LOCAL_MODEL
- # In use within sp-to-fritz.sh
-    config EXPORT_ADD_DSL_EXPERT_MNUE
+ config EXPORT_ADD_DSL_EXPERT_MNUE
 	depends on ! TYPE_TCOM_7570_XX && ! TYPE_9207570 && ! TYPE_SPEEDPORT_W721V && ! EXPORT_FORCE_DSL_MULTI_ANNEX
 	bool "Add DSL expert pages"
 	default n if  TYPE_DSL 
@@ -2531,6 +2528,9 @@ if ! EXPORT_ATA_ONLY
 	help
 		Use this additional option to add expert-pages for DSL settings,
 		only usable on "All In One" or similar firmwares.
+###---> NO AVM Modells 7XXX
+ if ! EXPORT_TYPE_LOCAL_MODEL
+ # In use within sp-to-fritz.sh
     config EXPORT_ADD_VDSL_PROFILE
 	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V
 	depends on EXPERT_MOD 
