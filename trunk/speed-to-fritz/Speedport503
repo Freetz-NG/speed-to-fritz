@@ -156,14 +156,24 @@ fi' "${SRC}/etc/init.d/rc.S"
 [ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#$sh_DIR/patch_leddef_W503.sh "${SRC}" "${DST}"
 # set led definition 
-#if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ ${FORCE_TCOM_LEDDRIVER} = "y" ]; then
-#    cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
-#    cp -fdrp "${DST}"/lib/led* --target-directory="${SRC}"/lib
-#    cp -fdrp "${DST}"/bin/led* --target-directory="${SRC}"/bin
-#    echo "  -- LED Driver was taken from the original t-com firmware!"
-#fi
-#$sh_DIR/patch_leddef_7270.sh "${SRC}" "${DST}"
+if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ "${FORCE_TCOM_LEDDRIVER}" = "y" ]; then
+    cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
+    cp -fdrp "${DST}"/lib/libled* --target-directory="${SRC}"/lib
+    cp -fdrp "${DST}"/bin/led* --target-directory="${SRC}"/bin
+    cp -fr "${DST}"/bin/update_led_on ${SRC}/bin/update_led_on
+    cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
+    echo "  -- LED Driver was taken from the original t-com firmware"
+fi
+if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ "${FORCE_SRC2_LEDDRIVER}" = "y" ]; then
+    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
+    cp -fdrp "${SRC_2}"/lib/libled* --target-directory="${SRC}"/lib
+    cp -fdrp "${SRC_2}"/bin/led* --target-directory="${SRC}"/bin
+    cp -fr "${SRC_2}"/bin/update_led_on ${SRC}/bin/update_led_on
+    cp -fr "${SRC_2}"/bin/update_led_off ${SRC}/bin/update_led_off
+    echo "  -- LED Driver was taken from AVM source 2 firmware"
+fi
 # 503 
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 503
 #remove FON3 menus

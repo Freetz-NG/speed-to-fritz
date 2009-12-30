@@ -1702,7 +1702,7 @@ config TCOM_IMG
 	default "$TCOM_W501_28_04_38" 		if TYPE_SPEEDPORT_W501V
 	default "$TCOM_W701_33_04_57" 		if ( ! TYPE_CONGSTAR ) && ( TYPE_SPEEDPORT_W701V )
 	default "$CONGSTAR_W701_33_04_58"	if TYPE_CONGSTAR_W701V_58 && ( TYPE_SPEEDPORT_W701V )
-	default "$TCOM_W503_66_04_66" 		if TYPE_SPEEDPORT_W503V
+	default "$TCOM_W503_66_04_66" 		if ( ! TYPE_TCOM_W503V_64_04_78 ) && TYPE_SPEEDPORT_W503V
 	default "$TCOM_W503_66_04_68" 		if ( TYPE_TCOM_W503V_64_04_78 ) && TYPE_SPEEDPORT_W503V
 	default "$TCOM_W721_64_04_60" 		if ( TYPE_TCOM_W721_64_04_60 ) && ( TYPE_SPEEDPORT_W721V )
 	default "$TCOM_W721_64_04_74" 		if ( ! TYPE_TCOM_W721_64_04_60 ) && ( TYPE_SPEEDPORT_W721V )
@@ -2812,17 +2812,17 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 
  config FORCE_TCOM_LEDDRIVER
 	bool "Force use of T-Home LED driver"
-	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V
-	default y if ! TYPE_9207570 || TYPE_SPEEDPORT_W721V
-	default n if TYPE_9207570 && ! TYPE_SPEEDPORT_W721V
+	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V
+	default y if ! TYPE_9207570 && ! TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W721V 
+	default n if TYPE_9207570 && ! TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V
 	help
 		For normal this is "n", but you my use the T-Home driver, definition of LEDs differ, not all LEDS are usable.
 
  config FORCE_SRC2_LEDDRIVER
 	bool "Force use of AVM source 2 LED driver"
-	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V
-	default n if ! TYPE_9207570 || TYPE_SPEEDPORT_W721V
-	default y if FORCE_VDSL && TYPE_9207570 && ! TYPE_SPEEDPORT_W721V
+	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V
+	default n if ! TYPE_9207570 || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V 
+	default y if FORCE_VDSL && TYPE_9207570 && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W503V
  	
 	help
 		For normal this is "n", but you my use AVM source 2 driver, definition of LEDs differ.
