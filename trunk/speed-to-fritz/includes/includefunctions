@@ -748,7 +748,8 @@ fw_pack()
     fi
     # Remove left over Subversion directories
     find "$DIR" -type d -name .svn | xargs rm -rf
-    FILESYSTEM_BLOCKSIZE="$((1<<$(od -i -N 1 -j 34 "$FILESYSTEM" | sed -n -e '1s#.* ##' -e 1p)))"
+    [ "$(od -c -N 1 -j 0 "$FILESYSTEM" | sed -n -e '1s/.* //' -e 1p)" == "h" ] && FILESYSTEM_BLOCKSIZE="$((1<<$(od -i -N 1 -j 34 "$FILESYSTEM" | sed -n -e '1s#.* ##' -e 1p)))"
+    [ "$(od -c -N 1 -j 0 "$FILESYSTEM" | sed -n -e '1s/.* //' -e 1p)" == "s" ] && FILESYSTEM_BLOCKSIZE="$((1<<$(od -i -N 1 -j 35 "$FILESYSTEM" | sed -n -e '1s/.* //' -e 1p)))"
     if [ "$PACK_VARTAR" = "y" ]; then
 	# Pack var.tar (use old tar for compatibility)
 	echo2 "Packing var.tar"
