@@ -427,6 +427,16 @@ config AVM_7570_75_04_77
       default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.77.zip mirror http://www.hostarea.de/server-10/Oktober-78b72a4e63.zip"
 
 ### Not available only in use by AVM <--
+### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+### 7390 AVM Firmware
+### 7390 AVM Firmware
+### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#15936
+config AVM_7390_84_04_81
+   string
+      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7390_vDSL.84.04.81.zip mirror http://www.hostarea.de/server-12/Dezember-8bfff7e46f.zip"
+### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #( do not remove the following line)
 ### FIRMWARE_CONFIG_ENDE ###
@@ -446,7 +456,7 @@ config EXPERT_MOD
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config  ORI
 	bool "Restore original T-Home firmware"
-	depends on ! EXPORT_TYPE_LOCAL_MODEL
+	depends on ! EXPORT_TYPE_LOCAL_MODEL || TYPE_7390
 	default n
 	select EXPORT_FORCE_CLEAR_FLASH
 	help
@@ -534,7 +544,7 @@ choice
 		bool "AVM 7570 (or pure 7570 on W920V)"
 
 	config TYPE_7390
-		bool "AVM 7390"
+		bool "AVM 7390 only for testing"
 
 	config TYPE_7273
 		bool "AVM 7270v3"
@@ -1555,6 +1565,10 @@ choice
 
 	config TYPE_SRC3_AVM_PRE_7273_15892
 		bool "AVM 7270v3 15892 Prerelease"
+
+	config TYPE_SRC3_AVM_PRE_7390_15936
+		bool "AVM 7390 15936"
+
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 Firmware
 
@@ -1740,6 +1754,7 @@ config TCOM_IMG
 	default "$AVM_7141_40_04_76"		if TYPE_7141
 	default "$AVM_7240_73_04_80"		if TYPE_7240
 	default "$AVM_7273_74_04_80"		if TYPE_7273
+	default "$AVM_7390_84_04_81"		if TYPE_7390
 	default "$TCOM_LOCAL"	 			if TYPE_LOCAL_TCOM
 	default "$TCOM_7570_LOCAL"	 		if TYPE_LOCAL_TCOM_7570
 
@@ -1805,6 +1820,8 @@ config AVM_IMG
 	default "$AVM_PRE_72XX"					if ( TYPE_72XX_PRE) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PRE_7273_15892"				if ( TYPE_7273_PRE_15892 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PRE_7270_15892"				if ( TYPE_7270_PRE_15892 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+
+	default "$AVM_7390_84_04_81"				if TYPE_7390
 
 	default "$AVM_7570_75_04_70"				if ( TYPE_AVM_7570_75_04_70 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_7570_75_04_72"				if ( TYPE_AVM_7570_75_04_72 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
@@ -1890,6 +1907,7 @@ config SRC2_IMG
 	default "$AVM_PHONE_7240_15992"			if TYPE_SRC3_AVM_PHONE_7240_15992
 	default "$AVM_PHONE_7270_15992"			if TYPE_SRC3_AVM_PHONE_7270_15992
 	default "$AVM_PHONE_7273_15992"			if TYPE_SRC3_AVM_PHONE_7273_15992
+	default "$AVM_PHONE_7390_15936"			if TYPE_SRC3_AVM_PHONE_7390_15936
 	default "$AVM_PHONE_72XX"				if TYPE_SRC3_AVM_PHONE_72XX
 	default "$AVM_7570_75_04_70" 			if TYPE_SRC3_AVM_7570_75_04_70
 	default "$AVM_7570_75_04_72" 			if TYPE_SRC3_AVM_7570_75_04_72
@@ -2243,6 +2261,14 @@ config EXPORT_DO_GSM_PATCH
 	help
 		Enables GSM page without device plugged in. Usual a GSM modem shows only up if the device is plugged in.
 ###--->AVM Modells 7XXX
+config EXPORT_DONT_LINK_OENDIRS
+	bool "Don't replace OEM directorys with links"
+	default n if ! EXPORT_TYPE_LOCAL_MODEL && ! TYPE_SPEEDPORT_W722V && ! TYPE_7390
+	default y if EXPORT_TYPE_LOCAL_MODEL || TYPE_SPEEDPORT_W722V || TYPE_7390
+	help
+		If this is set to "y" nothing is changed in respect of OEM directorys, 
+		set this to "n" if OEM avme or avm is in use, usual you can set this
+		to "n" without any noticabel diffence in functionality.
 if EXPORT_TYPE_LOCAL_MODEL
  config EXPORT_DONT_REM_SIGNATUR
 	bool "Don't remove red wariniges on statuspage"
@@ -2255,13 +2281,6 @@ if EXPORT_TYPE_LOCAL_MODEL
 	help
 		If this is set to "y" nothing is changed on Install text pages. 
 		Install skript is still modified to set correct ANNEX type.
- config EXPORT_DONT_LINK_OENDIRS
-	bool "Don't replace OEM directorys with links"
-	default y
-	help
-		If this is set to "y" nothing is changed in respect of OEM directorys, 
-		set this to "n" if OEM avme or avm is in use, usual you can set this
-		to "n" without any noticabel diffence in functionality.
  config EXPORT_DONT_PATCH_TAMFIX
 	bool "Don't applay tam bug fix"
 	default y
