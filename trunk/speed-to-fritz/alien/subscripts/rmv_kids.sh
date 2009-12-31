@@ -5,21 +5,27 @@ for DIR in ${OEMLIST}; do
     DSTI="usr/www/$HTML/de"
     if [ -d "$1"/${DSTI} ] ; then
 #-------------------------------------------------------------------------------------------------------
-# if `cat "$1/$DSTI/menus/menu2_internet.html" | grep -q 'userlist'` ; then
+#ls: cannot access /home/freetz/sp/727/speed-to-fritz/FBDIR/squashfs-root/usr/www/avm/html/de/home/user*.*: No such file or directory
+#ls: cannot access /home/freetz/sp/727/speed-to-fritz/FBDIR/squashfs-root/usr/www/1und1/html/de/home/user*.*: No such file or directory
+#ls: cannot access /home/freetz/sp/727/speed-to-fritz/FBDIR/squashfs-root/usr/www/freenet/html/de/home/user*.*: No such file or directory
+ if [ -f $DSTI/menus/menu2.inc ]; then
 	echo2 "   -- Removing lines from:"
 	echo2 "      $DSTI/menus/menu2.inc"
 	sed -i -e "/^.*Kindersicherung.*$/d" "$1"/$DSTI/menus/menu2.inc
+ fi
+ if [ -f $DSTI/menus/menu2_internet.inc ]; then
 	echo2 "      $DSTI/menus/menu2_internet.inc"
 	sed -i -e "/^.*Kindersicherung.*$/d" "$1"/$DSTI/menus/menu2_internet.inc
- 
+ fi
 	for EXT in frm html js; do
 		echo2 "      $DSTI/internet/internet.$EXT"
 		sed -i -e "s/'userlist'/'inetstat'/g"  "$1"/$DSTI/internet/internet.$EXT
 	done
-
+ if [ -f $DSTI/internet/inetstat.js ]; then
 	echo2 "      $DSTI/internet/inetstat.js"
 	sed -i -e "/^.*userlist.*$/d" "$1"/$DSTI/internet/inetstat.js
-
+ fi
+ if [ -f $DSTI/menus/menu2_homehome.html ]; then
 	echo2 "      $DSTI/menus/menu2_internet.html"
 	sed -i -e "/^.*class7 'LSubitem'.*$/,/^.*useradd2.*$/d"  "$1"/$DSTI/menus/menu2_internet.html
 	sed -i -e "/^.*'userlist'.*$/d" "$1"/$DSTI/menus/menu2_internet.html
@@ -27,43 +33,42 @@ for DIR in ${OEMLIST}; do
 	#sed -i -e "/^.*var:class7.*$/d" "$1"/$DSTI/menus/menu2_internet.html
 	#sed -i -e "/^<? if eq <? .* ?> pppoe \`$/{N;/^<? if eq <? .* ?> pppoe \`\n. ?>*$/d}" "$1"/$DSTI/menus/menu2_internet.html
 	#sed -i -e "/^.*var:class5 'LSubitem'.*$/i <? if eq <? query connection0:settings/type ?> pppoe \`\n<? if eq \$var:pagename internet \`<? setvariable var:class4 'LSubitemaktiv' ?>\` ?>\n\` ?>" "$1"/$DSTI/menus/menu2_internet.html
-
 	echo2 "      $DSTI/menus/menu2_homehome.html"
 	sed -i -e "/^.* userlist .*$/,/^.*'userlist'.*$/d" "$1"/$DSTI/menus/menu2_homehome.html
 	sed -i -e "/^.*LSubitem.*$/{N;/^.*LSubitem.*\n. ?>*$/d}" "$1"/$DSTI/menus/menu2_homehome.html
-
+ fi
+ if [ -f $DSTI/help/home.inc ]; then
 	echo2 "      $DSTI/help/home.inc"
 	sed -i -e "/^.*Kindersicherung.*$/d" "$1"/$DSTI/help/home.inc
 	echo2 "      $DSTI/help/home.html"
 	sed -i -e "/^.*hilfe_kindersicherung.*$/d" "$1"/$DSTI/help/home.html
+ fi
+ echo2 "   -- Removing files:"
+ for FFILE in `ls "$1"/$DSTI/help/hilfe_kindersicherung_*.html` ; do 
+	FILE="${FFILE##*/}"
+	[ -f "$1"/$DSTI/help/${FILE} ] && rm -f "$1"/$DSTI/help/${FILE} && echo2 "      $DSTI/help/${FILE}"
+ done
+ for EXT in hrml js frm ; do 
+		FFILE="$1/$DSTI/internet/pp_user.$EXT"
+		FILE="${FFILE##*/}"
+		[ -f "$1"/$DSTI/internet/${FILE} ] && rm -f "$1"/$DSTI/internet/${FILE} && echo2 "      $DSTI/internet/${FILE}"
 
-	echo2 "   -- Removing files:"
+		FFILE="$1/$DSTI/internet/userlist.$EXT"
+		FILE="${FFILE##*/}"
+		[ -f "$1"/$DSTI/internet/${FILE} ] && rm -f "$1"/$DSTI/internet/${FILE} && echo2 "      $DSTI/internet/${FILE}"
 
-	for FFILE in `ls "$1"/$DSTI/help/hilfe_kindersicherung_*.html` ; do 
+		FFILE="$1/$DSTI/internet/.$EXT"
+		FILE="${FFILE##*/}"
+		[ -f "$1"/$DSTI/internet/${FILE} ] && rm -f "$1"/$DSTI/internet/${FILE} && echo2 "      $DSTI/internet/${FILE}"
+
+		FFILE="$1/$DSTI/home/userlist.$EXT"
+		FILE="${FFILE##*/}"
+		[ -f "$1"/$DSTI/home/${FILE} ] && rm -f "$1"/$DSTI/home/${FILE} && echo2 "      $DSTI/home/${FILE}"
+
+		FFILE="$1/$DSTI/home/useradd2.$EXT"
 		FILE="${FFILE##*/}" 
-		echo2 "      $DSTI/help/${FILE}"
-		rm -f "$1"/$DSTI/help/${FILE}
-	done
-
-	for FFILE in `ls "$1"/$DSTI/internet/pp_user.*` ; do 
-		FILE="${FFILE##*/}" 
-		echo2 "      $DSTI/internet/${FILE}"
-		rm -f "$1"/$DSTI/internet/${FILE}
-	done
-
-	for FFILE in `ls "$1"/$DSTI/internet/user*.*` ; do 
-		FILE="${FFILE##*/}" 
-		echo2 "      $DSTI/internet/${FILE}"
-		rm -f "$1"/$DSTI/internet/${FILE}
-	done
-
-	for FFILE in `ls "$1"/$DSTI/home/user*.*` ; do 
-		FILE="${FFILE##*/}" 
-		echo2 "      $DSTI/home/${FILE}"
-		rm -f "$1"/$DSTI/home/${FILE}
-	done
-
-#fi
+		[ -f "$1"/$DSTI/home/${FILE} ] && rm -f "$1"/$DSTI/home/${FILE} && echo2 "      $DSTI/home/${FILE}"
+ done
 #-------------------------------------------------------------------------------------------------------
     fi
 done
