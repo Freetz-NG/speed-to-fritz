@@ -523,7 +523,7 @@
 +<li class="tabs_on"><a href="javascript:uiDoCancel()">Anmelden</a></li>
 +</ul>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
-+<p class="mb10">Sie können DECT-Telefone an der FRITZ!Box an- und abmelden. Zum Anmelden eines DECT-Telefons müssen Sie die System-PIN (im Lieferzustand: 0000) am Mobilteil eingeben. Weiterhin können Sie die Bezeichnumg der Schnurlostelefone (DECT) in der FRITZ!Box ändern.</p>
++<p class="mb10">Sie können DECT-Telefone an der FRITZ!Box an- und abmelden. Zum Anmelden eines DECT-Telefons müssen Sie die System-PIN (im Lieferzustand: 0000) am Mobilteil eingeben. Weiterhin können Sie die Bezeichnung der Schnurlostelefone (DECT) in der FRITZ!Box ändern.</p>
 +<table id="tHandsets" class="tborder">
 +<tr>
 +<th class="c1">Nummer</th>
