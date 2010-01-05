@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="04"; Monat="01"; Jahr="10"
+Tag="05"; Monat="01"; Jahr="10"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -1389,6 +1389,8 @@ if [ "$ORI" != "y" ]; then
  [ "$DONT_REM_SIGNATUR" != "y" ] && $sh_DIR/rmv_signatur.sh "${SRC}"
  #remove autoupdate tab
  [ "$DONT_REM_AUTOUPDATETAB" != "y" ] && $sh_DIR/remove_autoupdatetab.sh "${SRC}"
+ # add_regext in GUI
+ [ "$ADD_REGEXT_GUI" != "y" ] && $sh_DIR/add_ext_in_gui.sh "${SRC}"
  # patch update pages 
  [ "$DONT_PATCH_TOOLS" != "y" ] && $sh_DIR/patch_tools.sh "${SRC}"
  # update modules dependencies
