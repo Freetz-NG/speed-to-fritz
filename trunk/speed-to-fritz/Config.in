@@ -664,7 +664,7 @@ endif
 comment  "--------------------------------------------------------------------"
 config TYPE_TCOMBETA
 	bool "Select a special T-Home firmware (optional) --->"
-	depends on TYPE_9207570
+	depends on TYPE_9207570 && ! ( TYPE_7570 && ORI )
 	default n
 	help
 		Enable this to compile the mod based on an special AVM firmware.
@@ -707,15 +707,14 @@ config TCOM_LOCAL
 
 config TYPE_TCOM_7570_XX 
 	bool "Select a special 7570 firmware as T-Home firmware (optional) --->"
-	depends on ! ORI
-	depends on TYPE_9207570 && ! TYPE_TCOMBETA
+	depends on ! ORI || ( TYPE_9207570 && ! TYPE_TCOMBETA && ! ORI ) || ( TYPE_7570 && ORI )
 	default n
 	help
 		Enable this to compile the mod based on an special AVM firmware.
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 choice
 	prompt "T-Home 7570 alternative firmware"
-	depends on TYPE_TCOM_7570_XX
+	depends on TYPE_TCOM_7570_XX 
 	default TYPE_TCOM_7570_75_04_78
 	
 	config TYPE_TCOM_7570_75_04_70
