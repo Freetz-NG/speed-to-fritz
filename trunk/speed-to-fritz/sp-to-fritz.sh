@@ -221,6 +221,8 @@ export FILENAME_FBIMG_PATH="$(get_item "$AVM_IMG" "1")"
 export MIRROR_FBIMG_PATH="$(get_item "$AVM_IMG" "2")"
 export FBIMG_PATH="$(get_item "$AVM_IMG" "0")"
 export FBIMG="$(echo $FBIMG_PATH | sed -e "s/.*\///")"
+
+
 case "$1" in
 "500")
 	export SPNUM="500"
@@ -240,8 +242,9 @@ case "$1" in
 	export CONFIG_LED_NO_DSL_LED="n"
 	export CONFIG_DECT_ONOFF="n"
 	export CONFIG_VOL_COUNTER="y"
-	export CONFIG_TR064=""
-	export CONFIG_TR069=""
+# is set via menu
+#	export CONFIG_TR064=""
+#	export CONFIG_TR069=""
 	export CONFIG_IsdnNT="0" 
 	export CONFIG_IsdnTE="0" 
 	export CONFIG_Usb="0" 
@@ -271,8 +274,9 @@ case "$1" in
 	  export CONFIG_VDSL="n"
 	  export CONFIG_LABOR_DSL="n"
 	fi 
-	[ "$CONFIG_TR064" == "" ] && export CONFIG_TR064="n"
-	[ "$CONFIG_TR069" == "" ] && export CONFIG_TR069="n"
+# is set via menu
+#	[ "$CONFIG_TR064" == "" ] && export CONFIG_TR064="n"
+#	[ "$CONFIG_TR069" == "" ] && export CONFIG_TR069="n"
 	[ "$HOSTNAME" == "" ] && export HOSTNAME="fritz.box"
 	[ "$NEWNAME" == "" ] && export NEWNAME="FRITZ!Box Fon WLAN Sinus W 500V"
 	;;
@@ -295,8 +299,9 @@ case "$1" in
 	export CONFIG_LED_NO_DSL_LED="n"
 	export CONFIG_DECT_ONOFF="n"
 	export CONFIG_VOL_COUNTER="y"
-	export CONFIG_TR064=""
-	export CONFIG_TR069=""
+# is set via menu
+#	export CONFIG_TR064=""
+#	export CONFIG_TR069=""
 	export CONFIG_IsdnNT="0" 
 	export CONFIG_IsdnTE="0" 
 	export CONFIG_Usb="0" 
@@ -357,8 +362,9 @@ case "$1" in
 	export CONFIG_LED_NO_DSL_LED="n"
 	export CONFIG_DECT_ONOFF="n"
 	export CONFIG_VOL_COUNTER="y"
-	export CONFIG_TR064=""
-	export CONFIG_TR069=""
+# is set via menu
+#	export CONFIG_TR064=""
+#	export CONFIG_TR069=""
 	export CONFIG_IsdnNT="0" 
 	export CONFIG_Usb="0" 
 	export CONFIG_UsbHost="0" 
@@ -429,8 +435,9 @@ case "$1" in
 	export CONFIG_LED_NO_DSL_LED="n"
 	export CONFIG_DECT_ONOFF="n"
 	export CONFIG_VOL_COUNTER="y"
-	export CONFIG_TR064=""
-	export CONFIG_TR069=""
+# is set via menu
+#	export CONFIG_TR064=""
+#	export CONFIG_TR069=""
 	export CONFIG_IsdnNT="0" 
 	export CONFIG_Usb="0" 
 	export CONFIG_UsbHost="0" 
@@ -515,8 +522,9 @@ export CONFIG_ETH_COUNT="4"
 	export CONFIG_LED_NO_DSL_LED="n"
 	export CONFIG_DECT_ONOFF="n"
 	export CONFIG_VOL_COUNTER="y"
-	export CONFIG_TR064=""
-	export CONFIG_TR069=""
+# is set via menu
+#	export CONFIG_TR064=""
+#	export CONFIG_TR069=""
 	export CONFIG_IsdnNT="0" 
 	export CONFIG_Usb="1" 
 	export CONFIG_UsbHost="1" 
@@ -636,7 +644,9 @@ export CONFIG_PRODUKT_NAME="FRITZ!Box Fon WLAN 7390"
 export CONFIG_WLAN_GREEN="y"
 export CONFIG_AUDIO="n"
 export CONFIG_CODECS_IN_PCMROUTER="n"
-export CONFIG_TR064="y"
+# is set via menu
+#[ "$CONFIG_TR064" == "" ] && export CONFIG_TR064="n"
+#[ "$CONFIG_TR069" == "" ] && export CONFIG_TR069="n"
 export CONFIG_CAPI_POTS="y"
 export CONFIG_CAPI_TE="y"
 export CONFIG_USB_INTERNAL_HUB="n"
@@ -704,7 +714,8 @@ export CONFIG_PLUGIN="n"
 export CONFIG_VLYNQ0="3"
 export CONFIG_ACCESSORY_URL=""
 export CONFIG_QOS_METER="y"
-export CONFIG_TR069="y"
+# is set via menu
+#export CONFIG_TR069="y"
 export CONFIG_WLAN_OPENWIFI="n"
 export CONFIG_LUA="n"
 export CONFIG_ATA_FULL="n"
@@ -850,8 +861,9 @@ export CONFIG_ETH_COUNT="4"
 	export CONFIG_LED_NO_DSL_LED="n"
 	export CONFIG_DECT_ONOFF="n"
 	export CONFIG_VOL_COUNTER="y"
-	export CONFIG_TR064=""
-	export CONFIG_TR069=""
+# is set via menu
+#	export CONFIG_TR064=""
+#	export CONFIG_TR069=""
 	export CONFIG_IsdnNT="0" 
 	export CONFIG_Usb="0" 
 	export CONFIG_UsbHost="0" 
@@ -941,8 +953,9 @@ export CONFIG_ETH_COUNT="4"
 	export CONFIG_LED_NO_DSL_LED="n"
 	export CONFIG_DECT_ONOFF="n"
 	export CONFIG_VOL_COUNTER="y"
-	export CONFIG_TR064=""
-	export CONFIG_TR069=""
+# is set via menu
+#	export CONFIG_TR064=""
+#	export CONFIG_TR069=""
 	export CONFIG_UsbWlan="0"
 	export CONFIG_Debug="0"
 	export CONFIG_jffs2_size="32"
@@ -1257,11 +1270,15 @@ $sh2_DIR/del_zip "${AVM_AIO_7170_13014}" "${AVM_AIO_7270_13014}" "13014"
 # create backup for final compare
 [ "$DO_FINAL_DIFF" = "y" ] || [ "$DO_FINAL_KDIFF3_2" = "y" ] || [ "$DO_FINAL_KDIFF3_3" = "y" ] && mkdir -p "${TEMPDIR}" && cp -fdpr "${FBDIR}"/*  --target-directory="${TEMPDIR}"  
 # do a compare of AVM and AVM 2nd
-[ "$TYPE_LOCAL_MODEL" == "y" ] && [ "$DO_KDIFF3_3" = "y" ] && kdiff3 "${FBDIR}" "${FBDIR_2}"
+[ -n "$TYPE_LOCAL_MODEL" ] && [ "$TYPE_LOCAL_MODEL" == "y" ] && [ "$DO_KDIFF3_3" = "y" ] && kdiff3 "${FBDIR}" "${FBDIR_2}"
 # do a compare of TCOM and AVM
-[ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$DO_KDIFF3_2" = "y" ] && kdiff3 "${SPDIR}" "${FBDIR}"
+if [ -n "$TYPE_LOCAL_MODEL" ] || [ "$TYPE_LOCAL_MODEL" != "y" ]; then
+    [ "$DO_KDIFF3_2" = "y" ] && kdiff3 "${SPDIR}" "${FBDIR}"
+fi
 # do a compare of source 1 (TCOM) , 2 (AVM) and 3
-[ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$DO_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${FBDIR_2}" "${FBDIR}"
+if [ -n "$TYPE_LOCAL_MODEL" ] || [ "$TYPE_LOCAL_MODEL" != "y" ]; then
+    [ "$DO_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${FBDIR_2}" "${FBDIR}"
+fi
 # do a compare of avm and 3
 [ "$DO_DIFF" = "y" ] && ./0diff "${FBDIR}" "${FBDIR_2}" "./logAVMto3"
 # do a compare of tcom and 3
@@ -1318,9 +1335,12 @@ if [ "$ORI" != "y" ]; then
  . SxAVMx7240v2;;
  "7273")
  . SxAVMx7270v3;;
+ "7390")
+ . SxAVMx7390;;
  *)
  . SxxxAVM;;
  esac
+ echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
  #copy Firmware.conf into image
  cp -f $firmwareconf_file_name .unstripped
  . FirmwareConfStrip
@@ -1396,9 +1416,9 @@ if [ "$ORI" != "y" ]; then
  # update modules dependencies
  [ "$UPDATE_DEPMOD" = y ] && $sh_DIR/update-module-deps.sh "${SRC}" "${KernelVersion}"
  # add info to /usr/bin/system_status
- $sh2_DIR/patch_system_status "${SRC}"
+ [ "$DONT_ADD_MODINFO" != "y" ] && $sh2_DIR/patch_system_status "${SRC}"
  #export download links
- $HOMEDIR/extract_rpllist.sh	
+ $HOMEDIR/extract_rpllist.sh
  # set OEM via rc.S not via environment
  [ "$PATCH_OEM" = "y" ] && $sh2_DIR/patch_OEMandMyIP "${SRC}"
  #packing takes place on SPDIR
@@ -1407,7 +1427,6 @@ if [ "$ORI" != "y" ]; then
  # If patches should only be applyed to a special type, then add this patches
  # on the end of individual files like "Speedport920".
  #<-- Add patches here - end!
- echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
  echo "********************************************************************************"
  echo -e "\033[1mPhase 9:\033[0m Patch install."
  echo "********************************************************************************"
@@ -1460,7 +1479,7 @@ $sh_DIR/patch_install.sh "${SPDIR}"
 # first approach to make external SIP registration configurable on WebUI
 [ "$PATCH_EXT_SIP" = "y" ] && $sh2_DIR/patch_sip_from_extern "${SRC}"
 #<--All firmwares
-. $inc_DIR/testerror
+#. $inc_DIR/testerror
 [ ${FAKEROOT_ON} = "n" ] && chmod -R 777 "${FBDIR}"
 echo "********************************************************************************"
 echo -e "\033[1mPhase 10:\033[0m Pack and deliver."
@@ -1469,7 +1488,9 @@ echo "**************************************************************************
 exec 2> /dev/null
 [ "$DO_FINAL_DIFF" = "y" ] && ./0diff "${SPDIR}" "${TEMPDIR}" "./logFINALtoAVM"
 [ "$DO_FINAL_DIFF_SRC2" = "y" ] && ./0diff "${SPDIR}" "${FBDIR_2}" "./logFINALto3"
-[ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$DO_FINAL_KDIFF3_2" = "y" ] && kdiff3 "${SPDIR}" "${TEMPDIR}"
+if [ -n "$TYPE_LOCAL_MODEL" ] || [ "$TYPE_LOCAL_MODEL" != "y" ];then
+    [ "$DO_FINAL_KDIFF3_2" = "y" ] && kdiff3 "${SPDIR}" "${TEMPDIR}"
+fi
 [ "$DO_FINAL_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${FBDIR_2}" "${TEMPDIR}"
 #[ "$TYPE_LOCAL_MODEL" == "y" ] && [ "$DO_FINAL_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${TEMPDIR}"
 [ "$DO_NOT_STOP_ON_ERROR" = "n" ] && exec 2>"${HOMEDIR}/${ERR_LOGFILE}"

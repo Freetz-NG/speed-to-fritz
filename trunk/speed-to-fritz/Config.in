@@ -707,7 +707,7 @@ config TCOM_LOCAL
 
 config TYPE_TCOM_7570_XX 
 	bool "Select a special 7570 firmware as T-Home firmware (optional) --->"
-	depends on ! ORI || ( TYPE_9207570 && ! TYPE_TCOMBETA && ! ORI ) || ( TYPE_7570 && ORI )
+	depends on ( TYPE_9207570 && ! TYPE_TCOMBETA && ! ORI ) || ( TYPE_7570 && ORI )
 	default n
 	help
 		Enable this to compile the mod based on an special AVM firmware.
@@ -1046,7 +1046,7 @@ choice
 			
 	config TYPE_7273_PRE_15892
 		bool "AVM 7270v3 15892 (BETA)"
-		depends on ( TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_7390 || TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help 
 			FRITZ!Lab Prerelease:
 
@@ -1090,14 +1090,14 @@ choice
 
 	config TYPE_7273_74_04_76
 		bool "AVM 7270v3 74.04.76"
-		depends on ( TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_7390 || TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		depends on EXPERT_MOD 
 		help
 			FRITZ! release: 76
 
 	config TYPE_7273_74_04_80
 		bool "AVM 7270v3 74.04.80"
-		depends on ( TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_7390 || TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 #		depends on EXPERT_MOD 
 		help
 			FRITZ! release: 80
@@ -1111,7 +1111,7 @@ choice
 
 	config TYPE_7273_IPV6_15316
 		bool "AVM 7270v3 15316.en-de-fr IPv6"
-		depends on ( TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_7390 || TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
 			(Internet Protocol Version 6) and 6to4 tunnels.
@@ -1139,7 +1139,7 @@ choice
 
 	config TYPE_7273_PHONE_15992
 		bool "AVM 7270v3 15992 (Phone)"
-		depends on ( TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_7390 || TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
 			and fixes various software problems, e.g. answering machine and
@@ -1170,7 +1170,7 @@ choice
 
 	config TYPE_7273_CORE_15220
 		bool "AVM 7270v3 15220 (Streaming Stick)"
-		depends on ( TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_7390 || TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		depends on EXPERT_MOD 
 		help
 			FRITZ! Streaming Stick: This release adds support for streaming of
@@ -1187,7 +1187,7 @@ choice
 
 	config TYPE_7273_CORE_15627
 		bool "AVM 7270v3 15627 (Streaming Stick)"
-		depends on ( TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_7390 || TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! Streaming Stick: This release adds support for streaming of
 			media content via AVM WLAN USB Stick v1.1. External software for
@@ -1202,7 +1202,7 @@ choice
 
 	config TYPE_7273_DSL_15852
 		bool "AVM 7270v3 15852 Labor-DSL"
-		depends on ( TYPE_7270 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_7390 || TYPE_7270 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab DSL: This release optimises the DSL (Digital Subscriber
 			 Line) software and adds related graphs.
@@ -2275,7 +2275,7 @@ if EXPORT_TYPE_LOCAL_MODEL
 	help
 		Remove red wariniges on statuspage, (signatur)
  config EXPORT_DONT_PATCH_TOOLS
-	bool "Don't patch install pages"
+	bool "Don't patch GUI install pages"
 	default n
 	help
 		If this is set to "y" nothing is changed on Install text pages. 
@@ -2908,16 +2908,6 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		Autoconfiguration is only set on if AVM firmware supports this option!.
 		ATA is disabled if tr069 is turned on.
  # In use within sp-to-fritz.sh		
- config EXPORT_CONFIG_TR064
-	bool "Enable LAN autoconfiguration TR064"
-	default n if ! TYPE_9207570
-	default y if TYPE_9207570
-	help
-		Set this to "y" if you want TR64 turned on, in most cases
-		your box will function normal again, so do not use this option
-		expect you be aware of this case.
-		Autoconfiguration from within the internal LAN is only 
-		set on if AVM firmware supports this option!.
  config XCHANGE_KERNEL
 	bool "Xchange kernel between T-Home and avm source"
 	depends on EXPERT_MOD 
@@ -2931,6 +2921,30 @@ if ! EXPORT_TYPE_LOCAL_MODEL
  ### ENDE NO AVM Modells 7XXX <---
 endif
 # In use within sp-to-fritz.sh
+config EXPORT_CONFIG_TR064
+	bool "Enable LAN autoconfiguration TR064"
+	depends on EXPERT_MOD 
+	default n
+#	default n if ! TYPE_9207570
+#	default y if TYPE_9207570
+	help
+		Set this to "y" if you want TR64 turned on, in most cases
+		your box will function normal again, so do not use this option
+		expect you be aware of this case.
+		Autoconfiguration from within the internal LAN is only 
+		set on if AVM firmware supports this option!.
+config EXPORT_CONFIG_TR069
+	bool "Enable LAN autoconfiguration TR069"
+	depends on EXPERT_MOD 
+	default n
+#	default n if ! TYPE_9207570
+#	default y if TYPE_9207570
+	help
+		Set this to "y" if you want TR69 turned on, in most cases
+		your box will function normal again, so do not use this option
+		expect you be aware of this case.
+		Autoconfiguration from within the internal LAN is only 
+		set on if AVM firmware supports this option!.
 config SRC2_KERNEL
 	bool "Take kernel from 2nd AVM source"
 	depends on EXPERT_MOD 
