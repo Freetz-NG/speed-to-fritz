@@ -91,8 +91,8 @@ if [  -e "${SPDIR}/var/install" ]; then
   export avm_Lang=$tcom_Lang
  fi
  #force default language 
- [ "$FORCE_LANGUAGE" != "" ] && sed -i -e "s|language ..|language $FORCE_LANGUAGE|" "${SRC}"/etc/default.language
- [ "$FORCE_LANGUAGE" != "" ] && export avm_Lang="$FORCE_LANGUAGE"
+ [ "$FORCE_LANGUAGE" != "" ] && [ -f "${SRC}/etc/default.language" ] && sed -i -e "s|language ..|language $FORCE_LANGUAGE|" "${SRC}"/etc/default.language
+ [ "$FORCE_LANGUAGE" != "" ] && [ -f "${SRC}/etc/default.language" ] && export avm_Lang="$FORCE_LANGUAGE"
  echo2 "--------------------------------------------------------------------------------"
  #get Kernel version
  MODULESDEP_DIR="$(find ${DST}/lib/modules -name modules.dep)" # find file 
