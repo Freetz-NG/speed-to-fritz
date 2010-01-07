@@ -671,7 +671,7 @@ function fw_unpack()
 	fi
 	echo2 "remove tichksum"
 	"$RMTICHKSUM" -f "${DESTDIR}/kernel.image" > /dev/null
-	if [ ! "0" =  "`cat ${DESTDIR}/var/tmp/filesystem.image | wc -c`" ]; then
+	if [ -f ${DESTDIR}/var/tmp/filesystem.image ] && [ ! "0" =  "`cat ${DESTDIR}/var/tmp/filesystem.image | wc -c`" ]; then
             cp "$DESTDIR"/var/tmp/filesystem.image "$DESTDIR"/filesystem.image
     	    echo2 "Hidden Root detected! Concat kernel.image and filesystem.image"
     	    "$RMTICHKSUM" -f "${DESTDIR}/filesystem.image" > /dev/null
