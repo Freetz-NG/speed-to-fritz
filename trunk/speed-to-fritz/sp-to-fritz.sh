@@ -1414,7 +1414,7 @@ if [ "$ORI" != "y" ]; then
 else
  # --> Only Tcom firmware with otion "restore original"
  # get OEM from original Firmware
- readConfig "OEM" "OEM_DEFAULT" "${DST}/etc/init.d"
+ readConfig "OEM_DEFAULT" "OEM" "${DST}/etc/init.d"
  #export OEM="tcom"
  # add addons
  [ "$COPY_ADDON_TMP_to_ORI" = "y" ] &&  cp -fdpr  ./addon/tmp/squashfs-root/*  --target-directory="${DST}"
