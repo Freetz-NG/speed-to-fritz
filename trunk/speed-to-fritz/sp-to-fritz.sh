@@ -832,7 +832,7 @@ export CONFIG_ETH_COUNT="4"
 	export MKSQUASHFS_OPTIONS="-noappend -all-root -info -no-progress -no-exports -no-sparse"
 	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
 	export kernel_start=0x9F020000
-	export kernel_size="16121856"
+	export kernel_size="15597568"
 	export filesystem_start="0x9F000000"
 	export filesystem_size="0"
 	export urlader_start="0x9F000000"
@@ -843,7 +843,6 @@ export CONFIG_ETH_COUNT="4"
 #mtd2	0x9F000000,0x9F020000
 #mtd3	0x9FF00000,0x9FF80000
 #mtd4	0x9FF80000,0xA0000000
-    
 
 "503")
 	export SPMOD="503"
@@ -1434,8 +1433,9 @@ else
  # --> Only Tcom firmware with otion "restore original"
  # get OEM from original Firmware
  readConfig "OEM_DEFAULT" "OEM" "${DST}/etc/init.d"
- [ -d "${DST}/usr/www/$OEM" ] &&  export OEM="avme"
- [ -d "${DST}/usr/www/$OEM" ] &&  export OEM="tcom"
+ [ -d "${DST}/usr/www/avme" ] &&  export OEM="avme"
+ [ -d "${DST}/usr/www/tcom" ] &&  export OEM="tcom"
+ [ -d "${DST}/usr/www/congstar" ] &&  export OEM="congstar"
  # add addons
  [ "$COPY_ADDON_TMP_to_ORI" = "y" ] &&  cp -fdpr  ./addon/tmp/squashfs-root/*  --target-directory="${DST}"
  # exchange kernel
