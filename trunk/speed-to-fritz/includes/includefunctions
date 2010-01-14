@@ -302,7 +302,7 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 	#<--only used if more than one .image file is within the zipfile
 	fi #<--look for file supplied via Config.in as 2nd parameter
 		#workaround problem with filenames including SPC
-		IMG_EXTRACTED_SPC="$(echo $IMG_EXTRACTED | sed -e "s/ /-/")" 
+		IMG_EXTRACTED_SPC="$(echo $IMG_EXTRACTED | sed -e "s/ /-/g")" 
 		mv "$DLD_DIR/$IMG_REQ1/$IMG_EXTRACTED" "$DLD_DIR/$IMG_EXTRACTED_SPC" 
 		if [ -f "$DLD_DIR/$IMG_EXTRACTED_SPC" ]; then
 		echo "$IMG_EXTRACTED" | grep -q ' ' || ([ "$MIRROR_DLD_TPL" == "" ] && sed -i -e "s|\"$DLD_TPL\"|\"$DLD_TPL \./$FWORIGDIR/$IMG_EXTRACTED_SPC\"|" "$HOMEDIR/Config.in")

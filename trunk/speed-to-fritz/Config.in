@@ -39,6 +39,10 @@ config CONGSTAR_W701_33_04_58
     string
     default "http://cms.congstar.de/uploads/tx_templavoila/congstar_DSL-Box.AnnexB.33.04.58.zip"
 
+config CONGSTAR_W503_66_04_69
+    string
+    default "http://cms.congstar.de/uploads/tx_templavoila/congstar_komplett_Box.AnnexB.66.04.69.zip"
+
 config TCOM_W701_33_04_57
     string
     default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport%20W%20701%20V/fw_Speedport_W701V_v33.04.57.image"
@@ -434,7 +438,8 @@ config AVM_7570_75_04_77
 #15936
 config AVM_7390_84_04_81
    string
-      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7390_vDSL.84.04.81.zip mirror http://www.hostarea.de/server-12/Dezember-8bfff7e46f.zip"
+#      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7390_vDSL.84.04.81.zip mirror http://www.hostarea.de/server-12/Dezember-8bfff7e46f.zip"
+     default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7390.AnnexB.84.04.81.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373339302e416e6e6578422e38342e30342e38312e7a6970.zip"
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -774,7 +779,6 @@ choice
 	config TYPE_TCOM_7570_75_04_78
 		bool "AVM 7570 75.04.78.en-de-fr 15564"
 
-
 	config TYPE_LOCAL_TCOM_7570
 		bool "CUSTOM 7570 firmware"
 endchoice
@@ -794,23 +798,25 @@ config TYPE_CONGSTAR
 	help
 		Enable this to compile the mod based on an special AVM firmware.
 choice
-	prompt "Congstar alternative firmware"
+	prompt "Select congstar alternative firmware"
 		depends on TYPE_CONGSTAR
 	config TYPE_CONGSTAR_W701V_58
 		bool "CONGSTAR W701V DSL-Box.AnnexB.33.04.58"
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config TYPE_TCOM_W503SPECIAL
-	bool "Select a special T-Home firmware (optional) --->"
+	bool "Select a special T-Home or congstar firmware (optional) --->"
 	depends on TYPE_SPEEDPORT_W503V
 	default n
 	help
 		Enable this to compile the mod based on an special AVM firmware.
 choice
-	prompt "W503 firmware"
+	prompt "Select W503 or congstar firmware"
 		depends on TYPE_TCOM_W503SPECIAL
 	config TYPE_TCOM_W503V_64_04_78
 		bool "TCOM W503V 64.04.78"
+	config TYPE_CONGSTAR_W503_66_04_69
+		bool "CONGSTAR W503V DSL-Box.AnnexB.66.04.69"
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config TYPE_TCOM_W721SPECIAL
@@ -820,7 +826,7 @@ config TYPE_TCOM_W721SPECIAL
 	help
 		Enable this to compile the mod based on an special AVM firmware.
 choice
-	prompt "W721 firmware"
+	prompt "Select W721 firmware"
 		depends on TYPE_TCOM_W721SPECIAL
 	config TYPE_TCOM_W721_64_04_60
 		bool "TCOM W721V 64.04.60"
@@ -1685,6 +1691,9 @@ choice
 
 	config TYPE_SRC3_TCOM_W920_13571
 		bool "TCOM W920 13571"
+		
+	config TYPE_SRC3_CONGSTAR_W503_66_04_69
+		bool "CONGSTAR W503 66.04.69"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	config TYPE_LOCAL_TCOM_IMAGE
 		bool "TCOM LOCAL IMAGE"
@@ -1715,8 +1724,9 @@ config TCOM_IMG
 	default "$TCOM_W501_28_04_38" 		if TYPE_SPEEDPORT_W501V
 	default "$TCOM_W701_33_04_57" 		if ( ! TYPE_CONGSTAR ) && ( TYPE_SPEEDPORT_W701V )
 	default "$CONGSTAR_W701_33_04_58"	if TYPE_CONGSTAR_W701V_58 && ( TYPE_SPEEDPORT_W701V )
-	default "$TCOM_W503_66_04_66" 		if ( ! TYPE_TCOM_W503V_64_04_78 ) && TYPE_SPEEDPORT_W503V
+	default "$TCOM_W503_66_04_66" 		if ( ! TYPE_TCOM_W503V_64_04_78 && ! TYPE_CONGSTAR_W503_66_04_69 ) && TYPE_SPEEDPORT_W503V
 	default "$TCOM_W503_66_04_68" 		if ( TYPE_TCOM_W503V_64_04_78 ) && TYPE_SPEEDPORT_W503V
+	default "$CONGSTAR_W503_66_04_69" 	if ( TYPE_CONGSTAR_W503_66_04_69 ) && TYPE_SPEEDPORT_W503V
 	default "$TCOM_W721_64_04_60" 		if ( TYPE_TCOM_W721_64_04_60 ) && ( TYPE_SPEEDPORT_W721V )
 	default "$TCOM_W721_64_04_74" 		if ( ! TYPE_TCOM_W721_64_04_60 ) && ( TYPE_SPEEDPORT_W721V )
 	default "$TCOM_W722_14111" 		if ( TYPE_TCOM_W722V_14111 ) && ( TYPE_SPEEDPORT_W722V )
@@ -1931,6 +1941,7 @@ config SRC2_IMG
 	default "$TCOM_W501_66_04_65" 			if TYPE_SRC3_TCOM_W501_66_04_65
 	default "$TCOM_W503_66_04_66" 			if TYPE_SRC3_TCOM_W503_66_04_66
 	default "$TCOM_W503_66_04_68" 			if TYPE_SRC3_TCOM_W503_66_04_68
+	default "$CONGSTAR_W503_66_04_69" 		if TYPE_SRC3_CONGSTAR_W503_66_04_69
 	default "$TCOM_W701_33_04_57" 			if TYPE_SRC3_TCOM_W701_33_04_57
 	default "$TCOM_W721_64_04_60" 			if TYPE_SRC3_TCOM_W721_64_04_60
 	default "$TCOM_W721_64_04_74" 			if TYPE_SRC3_TCOM_W721_64_04_74
