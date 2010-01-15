@@ -430,6 +430,14 @@ config AVM_7570_75_04_77
    string
       default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.77.zip mirror http://www.hostarea.de/server-10/Oktober-78b72a4e63.zip"
 
+config AVM_7570_16068
+   string
+      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.75.04.80-16068.image"
+
+config AVM_7570_16087
+   string
+      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.80-16087.image"
+
 ### Not available only in use by AVM <--
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7390 AVM Firmware
@@ -778,6 +786,12 @@ choice
 
 	config TYPE_TCOM_7570_75_04_78
 		bool "AVM 7570 75.04.78.en-de-fr 15564"
+
+	config TYPE_TCOM_7570_16068
+		bool "AVM 7570 75.04.80 16068"
+
+	config TYPE_TCOM_7570_16087
+		bool "AVM 7570 75.04.80.en-de-fr 16087"
 
 	config TYPE_LOCAL_TCOM_7570
 		bool "CUSTOM 7570 firmware"
@@ -1356,6 +1370,16 @@ choice
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
+	config TYPE_AVM_7570_16068
+		bool "AVM 7570 75.04.80 16068"
+		help
+		FRITZ! : 7570 release multilingual, for used in combination with W920
+
+	config TYPE_AVM_7570_16087
+		bool "AVM 7570 75.04.80.en-de-fr 16087"
+		help
+		FRITZ! : 7570 release multilingual, for used in combination with W920
+
 	config TYPE_AVM_7570_15446
 		bool "AVM 7570 15446.en-de-fr"
 		help
@@ -1631,6 +1655,12 @@ choice
 	config TYPE_SRC3_AVM_7570_75_04_78
 		bool "AVM 7570 75.04.78.en-de-fr 15564"
 
+	config TYPE_SRC3_AVM_7570_16068
+		bool "AVM 7570 75.04.80 16068"
+
+	config TYPE_SRC3_AVM_7570_16087
+		bool "AVM 7570 75.04.80.en-de-fr 16087"
+
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	config TYPE_SRC3_TCOM_W500_27
 		bool "TCOM Sinus W500V 27.04.27"
@@ -1760,6 +1790,8 @@ config TCOM_IMG
 	default "$AVM_7570_15216" 			if TYPE_TCOM_7570_15216 && ( TYPE_9207570 || ORI  )
 	default "$AVM_7570_15245" 			if TYPE_TCOM_7570_15245 && ( TYPE_9207570 || ORI  )
 	default "$AVM_7570_15446" 			if TYPE_TCOM_7570_15446 && ( TYPE_9207570 || ORI  )
+	default "$AVM_7570_16068" 			if TYPE_TCOM_7570_16068 && ( TYPE_9207570 || ORI  )
+	default "$AVM_7570_16087" 			if TYPE_TCOM_7570_16087 && ( TYPE_9207570 || ORI  )
 	default "$AVM_7141_40_04_76"		if TYPE_7141
 	default "$AVM_7240_73_04_80"		if TYPE_7240
 	default "$AVM_7273_74_04_80"		if TYPE_7273
@@ -1936,6 +1968,8 @@ config SRC2_IMG
 	default "$AVM_7570_15216" 				if TYPE_SRC3_AVM_7570_15216
 	default "$AVM_7570_15245" 				if TYPE_SRC3_AVM_7570_15245
 	default "$AVM_7570_15446" 				if TYPE_SRC3_AVM_7570_15446
+	default "$AVM_7570_16068" 				if TYPE_SRC3_AVM_7570_16068
+	default "$AVM_7570_16087" 				if TYPE_SRC3_AVM_7570_16087
 	default "$TCOM_SINUS_27_04_27" 			if TYPE_SRC3_TCOM_W500_27
 	default "$TCOM_W501_28_04_38" 			if TYPE_SRC3_TCOM_W501_28_04_38
 	default "$TCOM_W501_66_04_65" 			if TYPE_SRC3_TCOM_W501_66_04_65
