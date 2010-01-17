@@ -175,7 +175,7 @@ config AVM_7150_29_04_59
 
 config AVM_MINI_7170_14935
     string
-    default "http://update.avm.de/7170_Mini_Firmware/deutsch/fritz_box_29.04.76-14935.image"
+    default "http://update.avm.de/7170_Mini_Firmware/deutsch/fritz_box_29_04_76-14935.image"
 
 config AVM_7170_58_04_76
     string
