@@ -1433,8 +1433,8 @@ else
  # --> Only Tcom firmware with otion "restore original"
  # get OEM from original Firmware
  readConfig "OEM_DEFAULT" "OEM" "${DST}/etc/init.d"
- [ -d "${DST}/usr/www/avme" ]&& export OEM="avme"
- [ -d "${DST}/usr/www/tcom" ]&& export OEM="tcom"
+ [ -d "${DST}/usr/www/avme" ] && export OEM="avme"
+ [ -d "${DST}/usr/www/tcom" ] && export OEM="tcom"
  for BRANDING in congstar 1und1 ; do 
   if [ -d "${DST}/usr/www/$BRANDING" ]; then
     KEY="x"
