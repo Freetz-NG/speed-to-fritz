@@ -1370,16 +1370,6 @@ choice
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
-	config TYPE_AVM_7570_16068
-		bool "AVM 7570 75.04.80 16068"
-		help
-		FRITZ! : 7570 release multilingual, for used in combination with W920
-
-	config TYPE_AVM_7570_16087
-		bool "AVM 7570 75.04.80.en-de-fr 16087"
-		help
-		FRITZ! : 7570 release multilingual, for used in combination with W920
-
 	config TYPE_AVM_7570_15446
 		bool "AVM 7570 15446.en-de-fr"
 		help
@@ -1387,6 +1377,16 @@ choice
 
 	config TYPE_AVM_7570_75_04_78
 		bool "AVM 7570 75.04.78.en-de-fr 15564"
+		help
+		FRITZ! : 7570 release multilingual, for used in combination with W920
+
+	config TYPE_AVM_7570_16068
+		bool "AVM 7570 75.04.80 16068"
+		help
+		FRITZ! : 7570 release multilingual, for used in combination with W920
+
+	config TYPE_AVM_7570_16087
+		bool "AVM 7570 75.04.80.en-de-fr 16087"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
@@ -1885,6 +1885,8 @@ config AVM_IMG
 	default "$AVM_7570_15216"					if ( TYPE_AVM_7570_15216 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_7570_15245"					if ( TYPE_AVM_7570_15245 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_7570_15446"					if ( TYPE_AVM_7570_15446 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
+	default "$AVM_7570_16068"					if ( TYPE_AVM_7570_16068 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
+	default "$AVM_7570_16087"					if ( TYPE_AVM_7570_16087 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_LOCAL"						if TYPE_LOCAL_AVM && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7570_LOCAL"					if TYPE_LOCAL_AVM_7570 && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2122,7 +2124,6 @@ config EXPORT_OEM
 menu "Options"
 comment "Optional settings for Speed-to-fritz -------------------------------"
 ###---> no restore original firmware
-if ! ORI
 config EXPORT_PATCH_OEM
 	bool "Force branding"
 	default y
@@ -2131,6 +2132,7 @@ config EXPORT_PATCH_OEM
 	    environment settings are not taken in acount any more!
 	    Recover firmware needs this option to be set on!
 		
+if ! ORI
 config EXPORT_ADD_OLD_DECTMENU
 	bool "DECT menu (add)"
 	depends on ! EXPORT_TYPE_LOCAL_MODEL && ( TYPE_SPEEDPORT_W900V || TYPE_SINUS_W500V  || TYPE_LOCAL_TCOM )
