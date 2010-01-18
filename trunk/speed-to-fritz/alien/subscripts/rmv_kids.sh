@@ -5,15 +5,12 @@ for DIR in ${OEMLIST}; do
     DSTI="usr/www/$HTML/de"
     if [ -d "$1"/${DSTI} ] ; then
 #-------------------------------------------------------------------------------------------------------
-#ls: cannot access /home/freetz/sp/727/speed-to-fritz/FBDIR/squashfs-root/usr/www/avm/html/de/home/user*.*: No such file or directory
-#ls: cannot access /home/freetz/sp/727/speed-to-fritz/FBDIR/squashfs-root/usr/www/1und1/html/de/home/user*.*: No such file or directory
-#ls: cannot access /home/freetz/sp/727/speed-to-fritz/FBDIR/squashfs-root/usr/www/freenet/html/de/home/user*.*: No such file or directory
- if [ -f $DSTI/menus/menu2.inc ]; then
+ if [ -f "$1"/$DSTI/menus/menu2.inc ]; then
 	echo2 "   -- Removing lines from:"
 	echo2 "      $DSTI/menus/menu2.inc"
 	sed -i -e "/^.*Kindersicherung.*$/d" "$1"/$DSTI/menus/menu2.inc
  fi
- if [ -f $DSTI/menus/menu2_internet.inc ]; then
+ if [ -f "$1"/$DSTI/menus/menu2_internet.inc ]; then
 	echo2 "      $DSTI/menus/menu2_internet.inc"
 	sed -i -e "/^.*Kindersicherung.*$/d" "$1"/$DSTI/menus/menu2_internet.inc
  fi
@@ -21,11 +18,11 @@ for DIR in ${OEMLIST}; do
 		echo2 "      $DSTI/internet/internet.$EXT"
 		sed -i -e "s/'userlist'/'inetstat'/g"  "$1"/$DSTI/internet/internet.$EXT
 	done
- if [ -f $DSTI/internet/inetstat.js ]; then
+ if [ -f "$1"/$DSTI/internet/inetstat.js ]; then
 	echo2 "      $DSTI/internet/inetstat.js"
 	sed -i -e "/^.*userlist.*$/d" "$1"/$DSTI/internet/inetstat.js
  fi
- if [ -f $DSTI/menus/menu2_homehome.html ]; then
+ if [ -f "$1"/$DSTI/menus/menu2_homehome.html ]; then
 	echo2 "      $DSTI/menus/menu2_internet.html"
 	sed -i -e "/^.*class7 'LSubitem'.*$/,/^.*useradd2.*$/d"  "$1"/$DSTI/menus/menu2_internet.html
 	sed -i -e "/^.*'userlist'.*$/d" "$1"/$DSTI/menus/menu2_internet.html
@@ -37,7 +34,7 @@ for DIR in ${OEMLIST}; do
 	sed -i -e "/^.* userlist .*$/,/^.*'userlist'.*$/d" "$1"/$DSTI/menus/menu2_homehome.html
 	sed -i -e "/^.*LSubitem.*$/{N;/^.*LSubitem.*\n. ?>*$/d}" "$1"/$DSTI/menus/menu2_homehome.html
  fi
- if [ -f $DSTI/help/home.inc ]; then
+ if [ -f "$1"/$DSTI/help/home.inc ]; then
 	echo2 "      $DSTI/help/home.inc"
 	sed -i -e "/^.*Kindersicherung.*$/d" "$1"/$DSTI/help/home.inc
 	echo2 "      $DSTI/help/home.html"
