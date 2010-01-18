@@ -1439,7 +1439,7 @@ else
     while [ "$KEY" != "y" ]; do
 	echo
 	echo
-	echo -n "  This firmware can be used diffent Bandings. Use '$BRANDING' as Brandung (y/n)? "; read -n 1 -s YESNO; echo
+	echo -n "  This firmware can be used with diffent brandings. Use '$BRANDING' as brandung (y/n)? "; read -n 1 -s YESNO; echo
 	[ "$YESNO" = "y" ] || [ "$YESNO" = "n" ] &&  KEY="y"
         [ "$KEY" = "x" ] && echo "wrong key!"
 	[ "$YESNO" = "y" ] && export OEM="$BRANDING"
