@@ -987,7 +987,7 @@ export CONFIG_ETH_COUNT="4"
 	fi 
 	export kernel_size="7798784"
 	;;
-"920"|"7570") 
+"920"|"7570")
   if [ "$1" == "920" ]; then
 	export CLASS="Speedport"
 	export SPNUM="920"
@@ -1312,9 +1312,7 @@ if [ "$ORI" != "y" ]; then
  #enable ext2
  [ "$ENABLE_EXT2" = "y" ] && $sh2_DIR/patch_ext2 "${SRC}" "${DST}"
  case "$SPMOD" in
- "7570")
- . SxAVMx7570;;
- "920")
+ "920" | "7570")
  . Speedport920;;
  "907")
  . Speedport907;;
@@ -1334,7 +1332,7 @@ if [ "$ORI" != "y" ]; then
  . SxAVMx7240v2;;
  "7273")
  . SxAVMx7270v3;;
- "7390")
+"7390")
  . SxAVMx7390;;
  *)
  . SxxxAVM;;
