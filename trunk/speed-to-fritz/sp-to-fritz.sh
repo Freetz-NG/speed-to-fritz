@@ -1433,9 +1433,20 @@ else
  # --> Only Tcom firmware with otion "restore original"
  # get OEM from original Firmware
  readConfig "OEM_DEFAULT" "OEM" "${DST}/etc/init.d"
- [ -d "${DST}/usr/www/avme" ] &&  export OEM="avme"
- [ -d "${DST}/usr/www/tcom" ] &&  export OEM="tcom"
- [ -d "${DST}/usr/www/congstar" ] &&  export OEM="congstar"
+ for BRANDING in avme tcom congstar 1und1 ; do 
+  if [ -d "${DST}/usr/www/$BRANDING" ]; then
+    KEY="x"
+    while [ "$KEY" != "y" ]; do
+	echo
+	echo
+	echo -n "  This firmware can be used diffent Bandings. Use '$BRANDING' as Brandung (y/n)? "; read -n 1 -s YESNO; echo
+	[ "$YESNO" = "y" ] || [ "$YESNO" = "n" ] &&  KEY="y"
+        [ "$KEY" = "x" ] && echo "wrong key!"
+	[ "$YESNO" = "y" ] && export OEM="$BRANDING"
+    done
+  fi
+ [ "$YESNO" = "y" ] && break
+ done
  # add addons
  [ "$COPY_ADDON_TMP_to_ORI" = "y" ] &&  cp -fdpr  ./addon/tmp/squashfs-root/*  --target-directory="${DST}"
  # exchange kernel
