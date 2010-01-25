@@ -950,6 +950,10 @@ choice
 		default TYPE_7270_CORE_15627 if TYPE_9207570 && ! FORCE_VDSL
 		default TYPE_7270_CORE_15627 if TYPE_9207570 && FORCE_VDSL
 		default TYPE_7240_73_04_80 if TYPE_7240
+		#->(only for testing)
+		default TYPE_7390_84_04_81 if TYPE_7390 
+		default TYPE_W722_80_04_76 if TYPE_SPEEDPORT_W722V
+		#<--
 
 		
 #----MOVED TO PLACE IN ORDER FOR DEFAULTS if is not available 
@@ -1259,7 +1263,19 @@ choice
 		depends on TYPE_7270 || TYPE_9207570 || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL
 		help
 			FRITZ! : release 76 multilingual
+#-->only for testing
+	config TYPE_7390_84_04_81
+		bool "AVM 7390 84.04.81 (only for testing)"
+		depends on TYPE_7390
+		help 
+			FRITZ!Lab Prerelease:
 
+	config TYPE_W722_80_04_76
+		bool "AVM W722 80.04.76 (only for testing)"
+		depends on TYPE_SPEEDPORT_W722V
+		help 
+			FRITZ!Lab Prerelease:
+#<--
 	config TYPE_LOCAL_AVM
 		bool "CUSTOM AVM LOCAL firmware"
 		help
@@ -1862,8 +1878,6 @@ config AVM_IMG
 	default "$AVM_PRE_7273_15892"				if ( TYPE_7273_PRE_15892 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PRE_7270_15892"				if ( TYPE_7270_PRE_15892 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 
-	default "$AVM_7390_84_04_81"				if TYPE_7390
-
 	default "$AVM_7570_75_04_70"				if ( TYPE_AVM_7570_75_04_70 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_7570_75_04_72"				if ( TYPE_AVM_7570_75_04_72 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_7570_75_04_76"				if ( TYPE_AVM_7570_75_04_76 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
@@ -1889,6 +1903,11 @@ config AVM_IMG
 	default "$AVM_7570_16087"					if ( TYPE_AVM_7570_16087 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_LOCAL"						if TYPE_LOCAL_AVM && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7570_LOCAL"					if TYPE_LOCAL_AVM_7570 && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
+# -->only for testing
+	default "$AVM_7390_84_04_81"					if TYPE_7390_84_04_81
+#	default "$AVM_7390_84_04_81"					if TYPE_7390
+	default "$TCOM_W722_80_04_76" 					if TYPE_W722_80_04_76
+#<--
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config SRC2_IMG
 	depends on ! ORI

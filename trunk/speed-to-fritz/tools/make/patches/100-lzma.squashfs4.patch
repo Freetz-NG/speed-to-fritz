@@ -1,19 +1,16 @@
 --- squashfs-tools/Makefile	2009-04-04 22:03:36.000000000 -0400
 +++ squashfs-tools/Makefile	2009-11-07 18:07:24.000000000 -0500
-@@ -1,4 +1,4 @@
--INSTALL_DIR = /usr/local/bin
-+INSTALL_DIR:=$(TOOLS_DIR)
+@@ -4,10 +4,10 @@
  
- INCLUDEDIR = .
+ CFLAGS := -I$(INCLUDEDIR) -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_GNU_SOURCE -O2
  
-@@ -6,8 +6,8 @@
- 
- all: mksquashfs unsquashfs
+-all: mksquashfs unsquashfs
++all: mksquashfs4-lzma unsquashfs4-lzma
  
 -mksquashfs: mksquashfs.o read_fs.o sort.o swap.o pseudo.o
 -	$(CC) mksquashfs.o read_fs.o sort.o swap.o pseudo.o -lz -lpthread -lm -o $@
 +mksquashfs4-lzma: mksquashfs.o read_fs.o sort.o swap.o pseudo.o
-+	$(CXX) mksquashfs.o read_fs.o sort.o -L$(LZMA_DIR) -llzma swap.o pseudo.o -lz -lpthread -lm -o $@
++	$(CXX) mksquashfs.o read_fs.o sort.o  swap.o pseudo.o -L$(LZMA_DIR) -llzma -lz -lpthread -lm -o $@
  
  mksquashfs.o: mksquashfs.c squashfs_fs.h mksquashfs.h global.h sort.h squashfs_swap.h Makefile
  

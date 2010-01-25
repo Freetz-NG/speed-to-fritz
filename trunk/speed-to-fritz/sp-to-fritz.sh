@@ -603,9 +603,13 @@ export CONFIG_ETH_COUNT="4"
 	# needs different tool
 	export UNSQUASHFS_TOOL="unsquashfs4-lzma"
 	export UNSQUASHFS="${TOOLS_DIR}/${UNSQUASHFS_TOOL}"
-	export MKSQUASHFS_TOOL="mksquashfs4-lzma"
-	export MKSQUASHFS_OPTIONS="-noappend -all-root -info -no-progress -no-exports -no-sparse"
+	export MKSQUASHFS_TOOL="mksquashfs3-lzma"
 	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
+	export MKSQUASHFS_OPTIONS="-be -noappend -all-root -info -no-progress -no-exports -no-sparse"
+# results in zlib error -3
+#	export MKSQUASHFS_TOOL="mksquashfs4-lzma"
+#	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
+#	export MKSQUASHFS_OPTIONS="-noappend -all-root -info -no-progress -no-exports -no-sparse"
 	export kernel_start=0x9F020000
 	export kernel_size="16121856"
 	export filesystem_start="0x9F000000"
@@ -828,9 +832,13 @@ export CONFIG_ETH_COUNT="4"
 	# needs different tool
 	export UNSQUASHFS_TOOL="unsquashfs4-lzma"
 	export UNSQUASHFS="${TOOLS_DIR}/${UNSQUASHFS_TOOL}"
-	export MKSQUASHFS_TOOL="mksquashfs4-lzma"
-	export MKSQUASHFS_OPTIONS="-noappend -all-root -info -no-progress -no-exports -no-sparse"
+	export MKSQUASHFS_TOOL="mksquashfs3-lzma"
 	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
+	export MKSQUASHFS_OPTIONS="-be -noappend -all-root -info -no-progress -no-exports -no-sparse"
+# results in zlib error -3
+#	export MKSQUASHFS_TOOL="mksquashfs4-lzma"
+#	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
+#	export MKSQUASHFS_OPTIONS="-noappend -all-root -info -no-progress -no-exports -no-sparse"
 	export kernel_start=0x9F020000
 	export kernel_size="15597568"
 	export filesystem_start="0x9F000000"
@@ -934,6 +942,16 @@ export CONFIG_ETH_COUNT="4"
 	  export CONFIG_VDSL="n"
 	  export CONFIG_LABOR_DSL="n"
 	fi 
+	# needs different tool
+	export UNSQUASHFS_TOOL="unsquashfs4-lzma"
+	export UNSQUASHFS="${TOOLS_DIR}/${UNSQUASHFS_TOOL}"
+	export MKSQUASHFS_TOOL="mksquashfs3-lzma"
+	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
+	export MKSQUASHFS_OPTIONS="-le -noappend -all-root -info -no-progress -no-exports -no-sparse"
+# results in zlib error -3
+#	export MKSQUASHFS_TOOL="mksquashfs4-lzma"
+#	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
+#	export MKSQUASHFS_OPTIONS="-noappend -all-root -info -no-progress -no-exports -no-sparse"
     ;;
 
 "900"|"907") 
@@ -1062,9 +1080,8 @@ export CONFIG_ETH_COUNT="4"
 	export urlader_size="131072"
 
 	# needs differnet tool
-	export MKSQUASHFS_TOOL="mksquashfs3-lzma"
-	export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
-	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
+	export UNSQUASHFS_TOOL="unsquashfs3-lzma"
+	export UNSQUASHFS="${TOOLS_DIR}/${UNSQUASHFS_TOOL}"
 	;;
 "7273")
 	export CLASS=""
@@ -1106,7 +1123,6 @@ export CONFIG_ETH_COUNT="4"
 	export kernel_size="16121856"
 	export urlader_start="0x90000000"
 	export urlader_size="131072"
-
 	# needs different tool
 	export MKSQUASHFS_TOOL="mksquashfs3-lzma"
 	export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
