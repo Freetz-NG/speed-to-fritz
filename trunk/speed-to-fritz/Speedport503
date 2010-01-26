@@ -16,10 +16,11 @@ fi
 
 rm -f "${SRC}"/lib/modules/micro*
 rm -f "${SRC}"/lib/modules/dect*
-rm -f "${SRC}"/lib/modules/c55*
 rm -f "${SRC}"/usr/bin/dect*
 rm -f "${SRC}"/usr/bin/usb*
 rm -f "${SRC}"/bin/usb*
+# pcmlink boot error, da modul nicht kompatibel ist
+rm -f "${SRC}"/lib/modules/c55*
 
 cp -fdrp "${DST}"/lib/modules/bitfile* --target-directory="${SRC}"/lib/modules &&\
 
@@ -216,3 +217,4 @@ $sh_DIR/add_multi_settings.sh
 
 echo "********************************************************************************"
 
+#/var/flash/fx_def

@@ -675,7 +675,7 @@ endif
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #comment "Select T-Home firmware, 1st Firmware (optional) --------------------"
 comment  "--------------------------------------------------------------------"
-config TYPE_TCOMBETA
+config TYPE_BETATCOM
 	bool "Select a special T-Home firmware (optional) --->"
 	depends on TYPE_9207570 && ! ( TYPE_7570 && ORI )
 	default n
@@ -683,28 +683,28 @@ config TYPE_TCOMBETA
 		Enable this to compile the mod based on an special AVM firmware.
 choice
 	prompt "T-Home alternative firmware"
-		depends on TYPE_TCOMBETA
-		default TYPE_TCOM_BETA_65_04_78
+		depends on TYPE_BETATCOM
+		default TYPE_BETA_TCOM_65_04_78
 	
-	config TYPE_TCOM_BETA_65_04_58
+	config TYPE_BETA_TCOM_65_04_58
 		bool "TCOM BETA 65.04.58"
 
-	config TYPE_TCOM_BETA_65_04_63
+	config TYPE_BETA_TCOM_65_04_63
 		bool "TCOM BETA 65.04.63"
 
-	config TYPE_TCOM_BETA_65_04_70
+	config TYPE_BETA_TCOM_65_04_70
 		bool "TCOM BETA 65.04.70"
 
-	config TYPE_TCOM_BETA_65_04_71
+	config TYPE_BETA_TCOM_65_04_71
 		bool "TCOM BETA 65.04.71"
 
-	config TYPE_TCOM_BETA_65_04_74
+	config TYPE_BETA_TCOM_65_04_74
 		bool "TCOM BETA 65.04.74"
 
-	config TYPE_TCOM_BETA_65_04_78
+	config TYPE_BETA_TCOM_65_04_78
 		bool "TCOM BETA 65.04.78"
 
-	config TYPE_TCOM_BETA_13571
+	config TYPE_BETA_TCOM_13571
 		bool "TCOM BETA 13571"
 
 	config TYPE_LOCAL_TCOM
@@ -720,7 +720,7 @@ config TCOM_LOCAL
 
 config TYPE_TCOM_7570_XX 
 	bool "Select a special 7570 firmware as T-Home firmware (optional) --->"
-	depends on ( TYPE_9207570 && ! TYPE_TCOMBETA && ! ORI ) || ( TYPE_7570 && ORI )
+	depends on ( TYPE_9207570 && ! TYPE_BETATCOM && ! ORI ) || ( TYPE_7570 && ORI )
 	default n
 	help
 		Enable this to compile the mod based on an special AVM firmware.
@@ -805,7 +805,7 @@ config TCOM_7570_LOCAL
 	this is the name of the 1st firmware fitting completely to the hardware in use.
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-config TYPE_CONGSTAR
+config TYPE_SPECIALCONGSTAR
 	bool "Select a special Congstar firmware (optional) --->"
 	depends on TYPE_SPEEDPORT_W701V
 	default n
@@ -813,12 +813,12 @@ config TYPE_CONGSTAR
 		Enable this to compile the mod based on an special AVM firmware.
 choice
 	prompt "Select congstar alternative firmware"
-		depends on TYPE_CONGSTAR
+		depends on TYPE_SPECIALCONGSTAR
 	config TYPE_CONGSTAR_W701V_58
 		bool "CONGSTAR W701V DSL-Box.AnnexB.33.04.58"
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-config TYPE_TCOM_W503SPECIAL
+config TYPE_SPECIALW503_TCOM
 	bool "Select a special T-Home or congstar firmware (optional) --->"
 	depends on TYPE_SPEEDPORT_W503V
 	default n
@@ -826,14 +826,14 @@ config TYPE_TCOM_W503SPECIAL
 		Enable this to compile the mod based on an special AVM firmware.
 choice
 	prompt "Select W503 or congstar firmware"
-		depends on TYPE_TCOM_W503SPECIAL
+		depends on TYPE_SPECIALW503_TCOM
 	config TYPE_TCOM_W503V_64_04_78
 		bool "TCOM W503V 64.04.78"
 	config TYPE_CONGSTAR_W503_66_04_69
 		bool "CONGSTAR W503V DSL-Box.AnnexB.66.04.69"
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-config TYPE_TCOM_W721SPECIAL
+config TYPE_SPECIALW721_TCOM
 	bool "Select a special T-Home firmware (optional) --->"
 	depends on TYPE_SPEEDPORT_W721V
 	default n
@@ -841,7 +841,7 @@ config TYPE_TCOM_W721SPECIAL
 		Enable this to compile the mod based on an special AVM firmware.
 choice
 	prompt "Select W721 firmware"
-		depends on TYPE_TCOM_W721SPECIAL
+		depends on TYPE_SPECIALW721_TCOM
 	config TYPE_TCOM_W721_64_04_60
 		bool "TCOM W721V 64.04.60"
 endchoice
@@ -877,7 +877,7 @@ endchoice
 config EXPORT_FORCE_DSL_MULTI_ANNEX 
 	bool "Force Multi annex (optional)"
 	depends on ( ! ORI && ! TYPE_SPEEDPORT_W900V && ! TYPE_SPEEDPORT_W701V && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
-	default y
+	default n
 	help
 	    To make this work you must have a firmware that supplies the needed feature, firmware with minor version > 70 (7270 like).
 	    In case of 7170 Firmwares, it is usual better to stay without this optin because the drivers are optimized for a special annex type.
@@ -944,8 +944,8 @@ choice
 	prompt "Select Labor or any other non default firmware."
 		depends on TYPE_LABOR
 		default TYPE_7270_54_04_80 if EXPORT_TYPE_LOCAL_MODEL && ! TYPE_7141
-		default TYPE_7170_29_04_80 if ( EXPORT_TYPE_LOCAL_MODEL && TYPE_7141 ) || ( ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V )
-		default TYPE_7170_58_04_80 if ( ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V )
+		default TYPE_7170_29_04_80 if ( EXPORT_TYPE_LOCAL_MODEL && TYPE_7141 ) || ( ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V )
+		default TYPE_7170_58_04_80 if ( ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V )
 		default TYPE_7270_AIO_14543 if ! EXPORT_TYPE_LOCAL_MODEL
 		default TYPE_7270_CORE_15627 if TYPE_9207570 && ! FORCE_VDSL
 		default TYPE_7270_CORE_15627 if TYPE_9207570 && FORCE_VDSL
@@ -968,7 +968,7 @@ choice
 
 #	config TYPE_7170_AIO_13679
 #		bool "7170 13679 - Alles in einem pre-release"
-#		depends on (TYPE_7170 || TYPE_TCOM_W721SPECIAL || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+#		depends on (TYPE_7170 || TYPE_SPECIALW721_TCOM || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 #		help
 #			FRITZ!Lab AIO: This release combines several software improvements.
 #			Therefore AIO means All-In-One. As of now, it contains various
@@ -976,7 +976,7 @@ choice
 #			reception and DECT-support and expands NAS functionality.
 	config TYPE_7170_DSL_14119
 		bool "AVM 7170 14119 Labor-DSL"
-		depends on (TYPE_7170 || ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on (TYPE_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab DSL: This release optimises the DSL (Digital Subscriber
 			 Line) software and adds related graphs.
@@ -1008,43 +1008,43 @@ choice
 
 #	config TYPE_7170_58_04_59
 #		bool "AVM 7170 58.04.59 Annex A"
-#		depends on ( TYPE_7170 || TYPE_TCOM_W721SPECIAL ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL
+#		depends on ( TYPE_7170 || TYPE_SPECIALW721_TCOM ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL
 #		help
 #			FRITZ! release: 59 Annex A
 
 	config TYPE_7170_58_04_76
 		bool "AVM 7170 58.04.76 Annex A"
-		depends on TYPE_7170 || TYPE_LANG_DE && ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V  || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL
+		depends on TYPE_7170 || TYPE_LANG_DE && ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V  || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL
 		help
 			FRITZ! release: 76 Annex A
 
 	config TYPE_7170_en_58_04_78
 		bool "AVM 7170 58.04.78 en Annex A"
-		depends on (TYPE_7170 || ! TYPE_TCOM_W721SPECIAL &&  TYPE_SPEEDPORT_W721V && TYPE_LANG_EN ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL
+		depends on (TYPE_7170 || ! TYPE_SPECIALW721_TCOM &&  TYPE_SPEEDPORT_W721V && TYPE_LANG_EN ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL
 		help
 			FRITZ! release: 76 Annex A english
 
 	config TYPE_7170_en_29_04_78
 		bool "AVM 7170 29.04.78 en Annex B"
-		depends on ( TYPE_7170 || ! TYPE_TCOM_W721SPECIAL &&  TYPE_SPEEDPORT_W721V && TYPE_LANG_EN ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL
+		depends on ( TYPE_7170 || ! TYPE_SPECIALW721_TCOM &&  TYPE_SPEEDPORT_W721V && TYPE_LANG_EN ) || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL
 		help
 			FRITZ! release: 76 Annex B english
 
 	config TYPE_7170_MINI_14935
 		bool "AVM 7170 14935 mini"
-		depends on ( ! TYPE_TCOM_W721SPECIAL &&  TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( ! TYPE_SPECIALW721_TCOM &&  TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! release: 13948
 
 	config TYPE_7170_29_04_76
 		bool "AVM 7170 29.04.76"
-		depends on ( TYPE_7170 || ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! release: 70
 
 	config TYPE_7170_29_04_77
 		bool "AVM 7170 29.04.77"
-		depends on ( TYPE_7170 || ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		depends on ( TYPE_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! release: 70
 
@@ -1768,7 +1768,7 @@ config TCOM_IMG
 	string
 	default "$TCOM_SINUS_27_04_27" 		if TYPE_SINUS_W500V
 	default "$TCOM_W501_28_04_38" 		if TYPE_SPEEDPORT_W501V
-	default "$TCOM_W701_33_04_57" 		if ( ! TYPE_CONGSTAR ) && ( TYPE_SPEEDPORT_W701V )
+	default "$TCOM_W701_33_04_57" 		if ( ! TYPE_SPECIALCONGSTAR ) && ( TYPE_SPEEDPORT_W701V )
 	default "$CONGSTAR_W701_33_04_58"	if TYPE_CONGSTAR_W701V_58 && ( TYPE_SPEEDPORT_W701V )
 	default "$TCOM_W503_66_04_66" 		if ( ! TYPE_TCOM_W503V_64_04_78 && ! TYPE_CONGSTAR_W503_66_04_69 ) && TYPE_SPEEDPORT_W503V
 	default "$TCOM_W503_66_04_68" 		if ( TYPE_TCOM_W503V_64_04_78 ) && TYPE_SPEEDPORT_W503V
@@ -1778,17 +1778,17 @@ config TCOM_IMG
 	default "$TCOM_W722_14111" 		if ( TYPE_TCOM_W722V_14111 ) && ( TYPE_SPEEDPORT_W722V )
 	default "$TCOM_W722_80_04_76" 		if ( TYPE_SPEEDPORT_W722V )
 	default "$TCOM_W900_34_04_57" 		if TYPE_SPEEDPORT_W900V
-	default "$TCOM_W920_65_04_78" 		if ORI && ( TYPE_SPEEDPORT_W920V && ! TYPE_TCOMBETA )
-#	default "$AVM_7570_75_04_77"		if ( TYPE_7570 && ! TYPE_TCOM_7570_XX ) || ( ! ORI && ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 ))
-	default "$AVM_7570_75_04_78"		if ( TYPE_7570 && ! TYPE_TCOM_7570_XX ) || ( ! ORI && ( ! TYPE_TCOMBETA && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 ))
-	default "$TCOM_W920_65_04_58" 		if TYPE_TCOM_BETA_65_04_58 && ( TYPE_9207570 || ORI  )
-	default "$TCOM_W920_65_04_63" 		if TYPE_TCOM_BETA_65_04_63 && ( TYPE_9207570 || ORI  )
-	default "$TCOM_W920_65_04_70" 		if TYPE_TCOM_BETA_65_04_70 && ( TYPE_9207570 || ORI  )
-	default "$TCOM_W920_65_04_71" 		if TYPE_TCOM_BETA_65_04_71 && ( TYPE_9207570 || ORI  )
-	default "$TCOM_W920_65_04_74" 		if TYPE_TCOM_BETA_65_04_74 && ( TYPE_9207570 || ORI )
-	default "$TCOM_W920_65_04_78" 		if TYPE_TCOM_BETA_65_04_78 && ( TYPE_9207570 || ORI  )
-	default "$TCOM_W920_13048" 		if TYPE_TCOM_BETA_13048 && ( TYPE_9207570 || ORI  )
-	default "$TCOM_W920_13571" 		if TYPE_TCOM_BETA_13571 && ( TYPE_9207570 || ORI  )
+	default "$TCOM_W920_65_04_78" 		if ORI && ( TYPE_SPEEDPORT_W920V && ! TYPE_BETATCOM )
+#	default "$AVM_7570_75_04_77"		if ( TYPE_7570 && ! TYPE_TCOM_7570_XX ) || ( ! ORI && ( ! TYPE_BETATCOM && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 ))
+	default "$AVM_7570_75_04_78"		if ( TYPE_7570 && ! TYPE_TCOM_7570_XX ) || ( ! ORI && ( ! TYPE_BETATCOM && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 ))
+	default "$TCOM_W920_65_04_58" 		if TYPE_BETA_TCOM_65_04_58 && ( TYPE_9207570 || ORI  )
+	default "$TCOM_W920_65_04_63" 		if TYPE_BETA_TCOM_65_04_63 && ( TYPE_9207570 || ORI  )
+	default "$TCOM_W920_65_04_70" 		if TYPE_BETA_TCOM_65_04_70 && ( TYPE_9207570 || ORI  )
+	default "$TCOM_W920_65_04_71" 		if TYPE_BETA_TCOM_65_04_71 && ( TYPE_9207570 || ORI  )
+	default "$TCOM_W920_65_04_74" 		if TYPE_BETA_TCOM_65_04_74 && ( TYPE_9207570 || ORI )
+	default "$TCOM_W920_65_04_78" 		if TYPE_BETA_TCOM_65_04_78 && ( TYPE_9207570 || ORI  )
+	default "$TCOM_W920_13048" 		if TYPE_BETA_TCOM_13048 && ( TYPE_9207570 || ORI  )
+	default "$TCOM_W920_13571" 		if TYPE_BETA_TCOM_13571 && ( TYPE_9207570 || ORI  )
 	default "$AVM_7570_75_04_70" 		if TYPE_TCOM_7570_75_04_70 && ( TYPE_9207570 || ORI )
 	default "$AVM_7570_75_04_72" 		if TYPE_TCOM_7570_75_04_72 && ( TYPE_9207570 || ORI )
 	default "$AVM_7570_75_04_76" 		if TYPE_TCOM_7570_75_04_76 && ( TYPE_9207570 || ORI  )
@@ -2179,7 +2179,7 @@ config EXPORT_REMOVE_KIDS
 	bool "Kids files (remove)"
 #	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM
 	default n if ! TYPE_SPEEDPORT_W721V
-	default y if ( ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V )
+	default y if ( ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V )
 	help
 		Set this to 'y' if you like to remove kids pages to save space, normal this is "n".
 config REMOVE_ANNEX_B_DSL_DRIVER
@@ -2314,7 +2314,7 @@ config EXPORT_REMOVE_HELP
 	bool "Help files (remove)"
 #	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM
 	default n if ! TYPE_SPEEDPORT_W721V  && ! TYPE_SPEEDPORT_W501V
-	default y if ( ! TYPE_TCOM_W721SPECIAL && TYPE_SPEEDPORT_W721V ) || TYPE_SPEEDPORT_W501V
+	default y if ( ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V ) || TYPE_SPEEDPORT_W501V
 help
 		Set this to 'y' if you like to remove help pages to save space, normal this is "y".
 # In use within sp-to-fritz.sh
@@ -2874,8 +2874,8 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	bool "Keep T-Home libs and binary files"
 	depends on TYPE_SPEEDPORT_W721V && XCHANGE_KERNEL
 	depends on EXPERT_MOD 
-	default y if TYPE_TCOM_W721SPECIAL
-	default n if ! TYPE_TCOM_W721SPECIAL
+	default y if TYPE_SPECIALW721_TCOM
+	default n if ! TYPE_SPECIALW721_TCOM
 
 	default y
 	help
@@ -2977,8 +2977,8 @@ if ! EXPORT_TYPE_LOCAL_MODEL
  config XCHANGE_KERNEL
 	bool "Xchange kernel between T-Home and avm source"
 	depends on EXPERT_MOD 
-	default y if ( TYPE_TCOM_W721SPECIAL && ! ORI ) || ( TYPE_SPEEDPORT_W503V && ! ORI )
-	default n if ( ! TYPE_TCOM_W721SPECIAL && ! TYPE_SPEEDPORT_W503V ) || ORI
+	default y if ( TYPE_SPECIALW721_TCOM && ! ORI  ) || ( TYPE_SPEEDPORT_W503V && ! ORI && ! TYPE_CONGSTAR_W503_66_04_69 )
+	default n if ( ! TYPE_SPECIALW721_TCOM && ! TYPE_SPEEDPORT_W503V ) || ORI || TYPE_CONGSTAR_W503_66_04_69
 	help
 		For normal this is "n", but for testing this may be used, this option is dangerous,
 		but it can be used in combination with the option restore original firmware as well.
