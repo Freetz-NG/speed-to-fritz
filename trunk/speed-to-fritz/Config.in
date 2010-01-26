@@ -189,10 +189,6 @@ config AVM_7170_29_04_77
   string
     default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7170sl/FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.77.image"
 
-config AVM_7170_29_04_80_16205
-  string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-16205.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.80-16205.image"
-
 config AVM_7170_en_58_04_78
     string
     default "@AVM/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.78.image"
@@ -201,13 +197,9 @@ config AVM_7170_en_29_04_78
     string
     default "@AVM/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_b/FRITZ.Box_Fon_WLAN_7170.AnnexB.en.29.04.78.image"
 
-config AVM_BETA_65_04_7170_13679
-    string
-    default "p"
-
-config AVM_AIO_7170_13679
-    string
-    default "p"
+config AVM_BETA_7170_16205
+  string
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-16205.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.80-16205.image"
 
 config AVM_7170_13948
     string
@@ -441,7 +433,6 @@ config AVM_7570_16068
 config AVM_7570_16087
    string
       default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.80-16087.image"
-
 ### Not available only in use by AVM <--
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7390 AVM Firmware
@@ -970,14 +961,15 @@ choice
 #			fixes for Wifi (Green AP, sources of interference), Facsimile
 #			reception and DECT-support and expands NAS functionality.
 
-#	config TYPE_7170_AIO_13679
-#		bool "7170 13679 - Alles in einem pre-release"
-#		depends on (TYPE_7170 || TYPE_SPECIALW721_TCOM || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-#		help
-#			FRITZ!Lab AIO: This release combines several software improvements.
-#			Therefore AIO means All-In-One. As of now, it contains various
-#			fixes for Wifi (Green AP, sources of interference), Facsimile
-#			reception and DECT-support and expands NAS functionality.
+	config TYPE_7170_PRE_16205
+		bool "7170 16205 - Alles in einem pre-release"
+		depends on (TYPE_7170 || TYPE_SPECIALW721_TCOM || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		help
+			FRITZ!Lab AIO: This release combines several software improvements.
+			Therefore AIO means All-In-One. As of now, it contains various
+			fixes for Wifi (Green AP, sources of interference), Facsimile
+			reception and DECT-support and expands NAS functionality.
+
 	config TYPE_7170_DSL_14119
 		bool "AVM 7170 14119 Labor-DSL"
 		depends on (TYPE_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
@@ -1051,12 +1043,6 @@ choice
 		depends on ( TYPE_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! release: 70
-
-	config TYPE_7170_29_04_80_16205
-		bool "AVM 7170 29.04.80-16205"
-		depends on ( TYPE_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
-		help
-			FRITZ!Lab Prerelease: 80
 
 	config TYPE_7240_54_04_58
 		bool "AVM 7240 54.04.58"
@@ -1514,9 +1500,6 @@ choice
 	config TYPE_SRC3_AVM_7170_29_04_77
 		bool "AVM 7170 29.04.77"
 
-	config TYPE_SRC3_AVM_7170_29_04_80_16205
-		bool "AVM 7170 29.04.80-16205"
-
 	config TYPE_SRC3_AVM_7170_en_58_04_78
 		bool "AVM 7170 58.04.78 en (english, Annex A)"
 
@@ -1528,6 +1511,10 @@ choice
 
 	config TYPE_SRC3_AVM_MINI_7170_14935
 		bool "AVM 7170 14935 MINI"
+
+	config TYPE_SRC3_AVM_PRE_7170_16205
+		bool "AVM 7170 16205 Prerelease"
+
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7240 Firmware
 
@@ -1845,14 +1832,14 @@ config AVM_IMG
 	default "$AVM_7170_en_29_04_78" 			if TYPE_7170_en_29_04_78 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_29_04_76" 				if ! TYPE_ANNEX_A && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL ) && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7170_58_04_76" 				if TYPE_ANNEX_A && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V ) && ! TYPE_LABOR && TYPE_LANG_DE
-	default "$AVM_7170_58_04_76" 				if ( TYPE_7170_58_04_76 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )) || ( TYPE_SPEEDPORT_W721V && ! TYPE_LABOR ) 
+	default "$AVM_7170_58_04_76" 				if ( TYPE_7170_58_04_76 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )) || ( TYPE_SPEEDPORT_W721V && ! TYPE_LABOR )
 	default "$AVM_7170_29_04_76" 				if TYPE_7170_29_04_76 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_29_04_77" 				if TYPE_7170_29_04_77 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_7170_29_04_80_16205" 			if TYPE_7170_29_04_80_16205 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_13948" 				if TYPE_7170_13948 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_DSL_7170_14119"				if TYPE_7170_DSL_14119 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_GAMING_7170_11435"			if TYPE_7170_GAMING_11435 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_MINI_7170_14935"				if TYPE_7170_MINI_14935 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_BETA_7170_16205"				if TYPE_7170_PRE_16205 && ( TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7240_73_04_76"				if ( TYPE_7240_73_04_76 )
 	default "$AVM_7240_73_04_80"				if ( TYPE_7240_73_04_80 )
 #	default "$AVM_7570_75_04_77"				if ( TYPE_7570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX
@@ -1945,12 +1932,12 @@ config SRC2_IMG
 	default "$AVM_7113_60_04_77" 			if TYPE_SRC3_AVM_7113_60_04_77
 	default "$AVM_7170_29_04_76" 			if TYPE_SRC3_AVM_7170_29_04_76
 	default "$AVM_7170_29_04_77" 			if TYPE_SRC3_AVM_7170_29_04_77
-	default "$AVM_7170_29_04_80_16205" 		if TYPE_SRC3_AVM_7170_29_04_80_16205
 	default "$AVM_7141_40_04_76" 			if TYPE_SRC3_AVM_7141_40_04_76
 	default "$AVM_7170_13948" 			if TYPE_SRC3_AVM_7170_13948
 	default "$AVM_DSL_7170_14119"			if TYPE_SRC3_AVM_DSL_7170_14119
 	default "$AVM_GAMING_7170_11435"		if TYPE_SRC3_AVM_GAMING_7170_11435
 	default "$AVM_MINI_7170_14935"			if TYPE_SRC3_AVM_MINI_7170_14935
+	default "$AVM_BETA_7170_16205"			if TYPE_SRC3_AVM_PRE_7170_16205
 	default "$AVM_LOCAL"					if TYPE_LOCAL_AVM_IMAGE
 	
 	default "$AVM_7270_54_04_57" 			if TYPE_SRC3_AVM_7270_54_04_57
@@ -2066,7 +2053,7 @@ config TYPE_LABOR_TYPE
 	default "76m" 		if TYPE_7270_m54_04_76
 	default "763V3" 	if TYPE_7273_74_04_76
 	default "CORE"	 	if TYPE_7270_CORE_V3_15220 || TYPE_7270_CORE_15220 || TYPE_7270_CORE_15627 || TYPE_7273_CORE_15627 || TYPE_7240_CORE_15627 || TYPE_7240_V3_CORE_15627
-	default "BETA"	 	if TYPE_7270_PRE_15892 || TYPE_7273_PRE_15892 || TYPE_7240_PRE_15892 || TYPE_72XX_PRE
+	default "BETA"	 	if || TYPE_7170_PRE_16205 || TYPE_7270_PRE_15892 || TYPE_7273_PRE_15892 || TYPE_7240_PRE_15892 || TYPE_72XX_PRE
 	default "13948" 	if TYPE_7170_13948
 	default "13486" 	if TYPE_7270_13486
 	default "DSL" 		if TYPE_7270_DSL_15852 || TYPE_7273_DSL_15852 || TYPE_7170_DSL_14119
@@ -2076,7 +2063,7 @@ config TYPE_LABOR_TYPE
 	default "IPV6" 		if TYPE_7270_IPV6 || TYPE_7170_IPV6 || TYPE_7273_IPV6_15316 || TYPE_7270_IPV6_15316 || TYPE_72XX_IPV6
 	default "UMTS" 		if TYPE_7270_UMTS_13265 || TYPE_7170_UMTS
 	default "MINI" 		if TYPE_7270_MINI_67 || TYPE_7170_MINI_14935
-	default "AIO" 		if TYPE_7270_AIO_14543 || TYPE_7170_AIO_13679
+	default "AIO" 		if TYPE_7270_AIO_14543
 	default "VPN" 		if TYPE_7270_VPN || TYPE_7170_VPN
 	default "AURA_14142" 	if TYPE_7270_AURA_14142
 	default "IPV6_15316" 	if TYPE_7270_IPV6_15316

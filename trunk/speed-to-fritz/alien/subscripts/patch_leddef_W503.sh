@@ -41,7 +41,9 @@ echo "SET dect,0 = 15" >/dev/new_led\
 fi|' "${SR1}/etc/init.d/rc.S"
 fi
 
-# W503
+
+if ! [ -f "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ]; then
+# W503 only for .58 firmware
 cat <<EOF > "${SR1}/etc/led.conf"
 
 DEF error,0 = 1,402784896,0,all
@@ -107,6 +109,6 @@ MAP ata,0 TO power,1
 MAP stick_surf,0 TO info,4
 SET power,0 = 1
 EOF
-
+fi
 exit 0
 

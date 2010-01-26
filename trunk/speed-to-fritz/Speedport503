@@ -108,11 +108,14 @@ piglet_bitfilemode=\`/bin/testvalue /var/flash/telefon_misc 4 2638\`\
 if [ -z $piglet_bitfilemode ] ; then piglet_bitfilemode=0 ; fi\
 echo PigletMode: $piglet_bitfilemode\
 piglet_load_params="\\\
-piglet_enable_button=3 \\\
 piglet_bitfilemode=$piglet_bitfilemode \\\
 piglet_use_pll3_clk=1 \\\
 "\
 modprobe Piglet_noemif piglet_bitfile=$piglet_bitfile piglet_potsbitfile=$piglet_potsbitfile $piglet_load_params' "${SRC}/etc/init.d/rc.S"
+
+# macht Fehlermeldung 
+##piglet_enable_button=3 \\\
+
 #rmove dect dev
 #mknod /var/flash/dect_misc c $tffs_major $((0xB0))
 #mknod /var/flash/dect_eeprom c $tffs_major $((0xB1))
@@ -124,8 +127,23 @@ sed -i -e "/dect_misc/,/dmgr_handset_user/d" "${SRC}/etc/init.d/rc.S"
 sed -i -e "/#### USB-Host Config ####/,/#### USB-Client Config ####/d" "${SRC}/etc/init.d/rc.S"
 #remove DECT config
 sed -i -e "s/copy_dect_defaults()/copy_dect()/" "${SRC}/etc/init.d/rc.S"
-sed -i -e "/copy_dect_defaults/d" "${SRC}/etc/init.d/rc.S"
 sed -i -e "/modprobe dect_io/d" "${SRC}/etc/init.d/rc.S"
+sed -i -e "/pcm_link/d" "${SRC}/etc/init.d/rc.S"
+
+#--> workaround but wlan problem is still existant
+#cp   "${SRC}/etc/default.${SORCE_PRODUKT}/congstar/wlan.cfg" --target-directory="/var/flash"
+sed -i -e '/copy_dect_defaults/a \
+if \! [ -f /var/flash/wlan.cfg ]; then\
+ if [ -f /etc/default.${CONFIG_PRODUKT}/${OEM}/wlan.cfg ] ; then\
+  echo "wlan.cfg Defaults: cp /etc/default.${CONFIG_PRODUKT}/${OEM}/wlan.cfg /var/flash/wlan.cfg"\
+  cp /etc/default.${CONFIG_PRODUKT}/${OEM}/wlan.cfg /var/flash/wlan.cfg\
+  cat /var/flash/wlan.cfg\
+ fi\
+fi' "${SRC}/etc/init.d/rc.S"
+sed -i -e "/copy_dect_defaults/d" "${SRC}/etc/init.d/rc.S"
+
+sed -i -e 's!/usr/bin/checkempty /var/flash/${tmp_file_name}; ! [ -f /var/flash/${tmp_file_name} ] || /usr/bin/checkempty /var/flash/${tmp_file_name}; !' "${SRC}/etc/init.d/rc.S"
+#<--woarkaround
 
 #watchdog
 #sed -i -e "s/init-start 120/init-start 240/" "${SRC}/etc/init.d/rc.S"
@@ -150,6 +168,7 @@ echo isdn_reg 8 0 >\/dev\/debug\
 # disable plugin
 rm -f "${SRC}/sbin/start_plugin.sh"
 sed -i -e "/check-plugins/d" "${SRC}/etc/init.d/rc.S"
+sed -i -e "/start_plugin.sh/d" "${SRC}/etc/init.d/rc.S"
 
 #workaround for HWRevision
 if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
