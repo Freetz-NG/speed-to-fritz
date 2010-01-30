@@ -814,7 +814,7 @@ config TYPE_SPECIALCONGSTAR
 choice
 	prompt "Select congstar alternative firmware"
 		depends on TYPE_SPECIALCONGSTAR
-	config TYPE_CONGSTAR_W701V_58
+	config TYPE_STAR_W701V_58
 		bool "CONGSTAR W701V DSL-Box.AnnexB.33.04.58"
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -829,7 +829,7 @@ choice
 		depends on TYPE_SPECIALW503_TCOM
 	config TYPE_TCOM_W503V_64_04_78
 		bool "TCOM W503V 64.04.78"
-	config TYPE_CONGSTAR_W503_66_04_69
+	config TYPE_STAR_W503_66_04_69
 		bool "CONGSTAR W503V DSL-Box.AnnexB.66.04.69"
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1783,10 +1783,10 @@ config TCOM_IMG
 	default "$TCOM_SINUS_27_04_27" 		if TYPE_SINUS_W500V
 	default "$TCOM_W501_28_04_38" 		if TYPE_SPEEDPORT_W501V
 	default "$TCOM_W701_33_04_57" 		if ( ! TYPE_SPECIALCONGSTAR ) && ( TYPE_SPEEDPORT_W701V )
-	default "$CONGSTAR_W701_33_04_58"	if TYPE_CONGSTAR_W701V_58 && ( TYPE_SPEEDPORT_W701V )
-	default "$TCOM_W503_66_04_66" 		if ( ! TYPE_TCOM_W503V_64_04_78 && ! TYPE_CONGSTAR_W503_66_04_69 ) && TYPE_SPEEDPORT_W503V
+	default "$CONGSTAR_W701_33_04_58"	if TYPE_STAR_W701V_58 && ( TYPE_SPEEDPORT_W701V )
+	default "$TCOM_W503_66_04_66" 		if ( ! TYPE_TCOM_W503V_64_04_78 && ! TYPE_STAR_W503_66_04_69 ) && TYPE_SPEEDPORT_W503V
 	default "$TCOM_W503_66_04_68" 		if ( TYPE_TCOM_W503V_64_04_78 ) && TYPE_SPEEDPORT_W503V
-	default "$CONGSTAR_W503_66_04_69" 	if ( TYPE_CONGSTAR_W503_66_04_69 ) && TYPE_SPEEDPORT_W503V
+	default "$CONGSTAR_W503_66_04_69" 	if ( TYPE_STAR_W503_66_04_69 ) && TYPE_SPEEDPORT_W503V
 	default "$TCOM_W721_64_04_60" 		if ( TYPE_TCOM_W721_64_04_60 ) && ( TYPE_SPEEDPORT_W721V )
 	default "$TCOM_W721_64_04_74" 		if ( ! TYPE_TCOM_W721_64_04_60 ) && ( TYPE_SPEEDPORT_W721V )
 	default "$TCOM_W722_14111" 		if ( TYPE_TCOM_W722V_14111 ) && ( TYPE_SPEEDPORT_W722V )
@@ -2995,8 +2995,8 @@ if ! EXPORT_TYPE_LOCAL_MODEL
  config XCHANGE_KERNEL
 	bool "Xchange kernel between T-Home and avm source"
 	depends on EXPERT_MOD 
-	default y if ( TYPE_SPECIALW721_TCOM && ! ORI  ) || ( TYPE_SPEEDPORT_W503V && ! ORI && ! TYPE_CONGSTAR_W503_66_04_69 )
-	default n if ( ! TYPE_SPECIALW721_TCOM && ! TYPE_SPEEDPORT_W503V ) || ORI || TYPE_CONGSTAR_W503_66_04_69
+	default y if ( TYPE_SPECIALW721_TCOM && ! ORI  ) || ( TYPE_SPEEDPORT_W503V && ! ORI && ! TYPE_STAR_W503_66_04_69 )
+	default n if ( ! TYPE_SPECIALW721_TCOM && ! TYPE_SPEEDPORT_W503V ) || ORI || TYPE_STAR_W503_66_04_69
 	help
 		For normal this is "n", but for testing this may be used, this option is dangerous,
 		but it can be used in combination with the option restore original firmware as well.
