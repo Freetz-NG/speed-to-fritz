@@ -339,6 +339,7 @@ config AVM_CORE_7270_15627
 config AVM_CORE_7273_15627
    string
    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_streaming_stick/fritz_box-labor-7270v3-15627.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabCORE.AnnexB.74.04.98-15627.image"
+
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 AVM Firmware
 ### 7570 AVM Firmware
@@ -433,6 +434,10 @@ config AVM_7570_16068
 config AVM_7570_16087
    string
       default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.80-16087.image"
+
+config AVM_7570_16271
+   string
+     default "firmware-avme-en-de-fr-75.04.80-16271M-FRITZ.Box_Fon_WLAN_7570_vDSL.image"
 
 ### Not available only in use by AVM <--
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -792,6 +797,9 @@ choice
 
 	config TYPE_TCOM_7570_16087
 		bool "AVM 7570 75.04.80.en-de-fr 16087"
+
+	config TYPE_TCOM_7570_16271
+		bool "AVM 7570 75.04.80.en-de-fr 16271"
 
 	config TYPE_LOCAL_TCOM_7570
 		bool "CUSTOM 7570 firmware"
@@ -1413,6 +1421,11 @@ choice
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
+	config TYPE_AVM_7570_16271
+		bool "AVM 7570 75.04.80.en-de-fr 16271"
+		help
+		FRITZ! : 7570 release multilingual, for used in combination with W920
+
 
 	config TYPE_LOCAL_AVM_7570
 		bool "CUSTOM 7570 firmware"
@@ -1691,6 +1704,9 @@ choice
 	config TYPE_SRC3_AVM_7570_16087
 		bool "AVM 7570 75.04.80.en-de-fr 16087"
 
+	config TYPE_SRC3_AVM_7570_16271
+		bool "AVM 7570 75.04.80.en-de-fr 16271"
+
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	config TYPE_SRC3_TCOM_W500_27
 		bool "TCOM Sinus W500V 27.04.27"
@@ -1822,6 +1838,7 @@ config TCOM_IMG
 	default "$AVM_7570_15446" 			if TYPE_TCOM_7570_15446 && ( TYPE_9207570 || ORI  )
 	default "$AVM_7570_16068" 			if TYPE_TCOM_7570_16068 && ( TYPE_9207570 || ORI  )
 	default "$AVM_7570_16087" 			if TYPE_TCOM_7570_16087 && ( TYPE_9207570 || ORI  )
+	default "$AVM_7570_16271" 			if TYPE_TCOM_7570_16271 && ( TYPE_9207570 || ORI  )
 	default "$AVM_7141_40_04_76"		if TYPE_7141
 	default "$AVM_7240_73_04_80"		if TYPE_7240
 	default "$AVM_7273_74_04_80"		if TYPE_7273
@@ -1916,6 +1933,7 @@ config AVM_IMG
 	default "$AVM_7570_15446"					if ( TYPE_AVM_7570_15446 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_7570_16068"					if ( TYPE_AVM_7570_16068 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_7570_16087"					if ( TYPE_AVM_7570_16087 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
+	default "$AVM_7570_16271"					if ( TYPE_AVM_7570_16271 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_LOCAL"						if TYPE_LOCAL_AVM && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7570_LOCAL"					if TYPE_LOCAL_AVM_7570 && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W900V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 # -->only for testing
@@ -2009,6 +2027,7 @@ config SRC2_IMG
 	default "$AVM_7570_15446" 				if TYPE_SRC3_AVM_7570_15446
 	default "$AVM_7570_16068" 				if TYPE_SRC3_AVM_7570_16068
 	default "$AVM_7570_16087" 				if TYPE_SRC3_AVM_7570_16087
+	default "$AVM_7570_16271" 				if TYPE_SRC3_AVM_7570_16271
 	default "$TCOM_SINUS_27_04_27" 			if TYPE_SRC3_TCOM_W500_27
 	default "$TCOM_W501_28_04_38" 			if TYPE_SRC3_TCOM_W501_28_04_38
 	default "$TCOM_W501_66_04_65" 			if TYPE_SRC3_TCOM_W501_66_04_65
@@ -2655,6 +2674,17 @@ if ! EXPORT_ATA_ONLY
 	default n
 	help
 		Use PCMLINK from T-Home firmware.
+
+    config FORCE_TCOM_USRMAN
+	bool "Use T-Home USRMAN driver"
+	depends on TYPE_9207570
+	depends on EXPERT_MOD 
+	# && TYPE_AVM_7570_XX
+	default n
+	help
+		Use userman_mod.ko from T-Home firmware.
+
+		
     config FORCE_TCOM_KDSLDMOD
 	bool "Use T-Home KDSLDMOD driver"
 	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V
