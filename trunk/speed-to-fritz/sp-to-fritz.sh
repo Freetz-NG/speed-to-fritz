@@ -831,7 +831,7 @@ export CONFIG_ETH_COUNT="4"
 	fi 
 	# needs different tool
 	export UNSQUASHFS_TOOL="unsquashfs4-lzma"
-		export UNSQUASHFS="${TOOLS_DIR}/${UNSQUASHFS_TOOL}"
+	export UNSQUASHFS="${TOOLS_DIR}/${UNSQUASHFS_TOOL}"
 	export MKSQUASHFS_TOOL="mksquashfs3-lzma"
 	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
 	export MKSQUASHFS_OPTIONS="-be -noappend -all-root -info -no-progress -no-exports -no-sparse"
@@ -1078,10 +1078,10 @@ export CONFIG_ETH_COUNT="4"
 	export urlader_start="0x90000000"
 #	export urlader_size="65536"
 	export urlader_size="131072"
-
 	# needs differnet tool
-	export UNSQUASHFS_TOOL="unsquashfs3-lzma"
-	export UNSQUASHFS="${TOOLS_DIR}/${UNSQUASHFS_TOOL}"
+	export MKSQUASHFS_TOOL="mksquashfs3-lzma"
+	export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
+	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
 	;;
 "7273")
 	export CLASS=""
