@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="make-relase.sh changed."
+comment="* W920, set default in Config.in to multianex again, this was the only relevant cahnge from revision 773 to 774 "
 
 
 

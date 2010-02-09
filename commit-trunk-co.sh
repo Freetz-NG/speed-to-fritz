@@ -1,7 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="freetzlinux Installer: fix, typings in README.txt"
-
+comment="Changed version of speedlinux"
 
 
 

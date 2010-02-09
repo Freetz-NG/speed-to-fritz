@@ -1,6 +1,7 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="revert changes concerning tools directory"
+comment="* 7170 change name BETA to PREVIEW to be compatibel for Freetz"
+
 
 
 
@@ -69,8 +70,13 @@ cd trunk
 #svn delete --force ./speed-to-fritz/alien/patches/add_tam_en.47.patch
 #svn delete --force ./speed-to-fritz/alien/patches/add_tamhelp_en.47.patch
 #svn delete --force ./speed-to-fritz/subscripts2/copy_tr064_files
+#svn delete --force ./speed-to-fritz/alien/subscripts/patch_oem.sh
+#svn delete --force ./speed-to-fritz/subscripts2/patch_portroule
+#svn delete --force ./speed-to-fritz/addon/tmp/modules/dsld/kdsldmod.ko
+#svn delete --force ./speed-to-fritz/addon/tmp/modules/vinax/drv_vinax.ko
 
 #svn revert 
+
 svn add * --force
 
 svn status
@@ -79,6 +85,6 @@ cat ../patch.diff
 echo -n "   Execute Commit?'  (y/n)? "; read -n 1 -s YESNO; echo
 ([ "$YESNO" = "y" ] || [ "$YESNO" = "n" ]) || echo "wrong key!"
 [ "$YESNO" = "y" ] &&   svn commit --message "${date} - ${comment}"
-[ "$YESNO" = "y" ] && sed -i -e "s/svn diff .*$/svn diff -r $SVN_VERSION  > \.\.\/$SVN_VERSION-to-local.diff/" -e "s/cat  \.\..*$/cat  \.\.\/$SVN_VERSION-to-local.diff/" "./diff.sh"
+#[ "$YESNO" = "y" ] && sed -i -e "s/svn diff .*$/svn diff -r $SVN_VERSION  > \.\.\/$SVN_VERSION-to-local.diff/" -e "s/cat  \.\..*$/cat  \.\.\/$SVN_VERSION-to-local.diff/" "./diff.sh"
 
 sleep 10

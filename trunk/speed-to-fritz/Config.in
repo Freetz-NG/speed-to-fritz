@@ -885,7 +885,8 @@ endchoice
 config EXPORT_FORCE_DSL_MULTI_ANNEX 
 	bool "Force Multi annex (optional)"
 	depends on ( ! ORI && ! TYPE_SPEEDPORT_W900V && ! TYPE_SPEEDPORT_W701V && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
-	default n
+	default n if ! TYPE_9207570
+	default y if TYPE_9207570
 	help
 	    To make this work you must have a firmware that supplies the needed feature, firmware with minor version > 70 (7270 like).
 	    In case of 7170 Firmwares, it is usual better to stay without this optin because the drivers are optimized for a special annex type.
