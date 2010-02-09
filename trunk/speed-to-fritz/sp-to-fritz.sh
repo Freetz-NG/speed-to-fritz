@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="06"; Monat="02"; Jahr="10"
+Tag="09"; Monat="02"; Jahr="10"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -831,7 +831,7 @@ export CONFIG_ETH_COUNT="4"
 	fi 
 	# needs different tool
 	export UNSQUASHFS_TOOL="unsquashfs4-lzma"
-	export UNSQUASHFS="${TOOLS_DIR}/${UNSQUASHFS_TOOL}"
+		export UNSQUASHFS="${TOOLS_DIR}/${UNSQUASHFS_TOOL}"
 	export MKSQUASHFS_TOOL="mksquashfs3-lzma"
 	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
 	export MKSQUASHFS_OPTIONS="-be -noappend -all-root -info -no-progress -no-exports -no-sparse"
@@ -943,8 +943,8 @@ export CONFIG_ETH_COUNT="4"
 	  export CONFIG_LABOR_DSL="n"
 	fi 
 	# needs different tool
-	export UNSQUASHFS_TOOL="unsquashfs4-lzma"
-	export UNSQUASHFS="${TOOLS_DIR}/${UNSQUASHFS_TOOL}"
+##	export UNSQUASHFS_TOOL="unsquashfs4-lzma"
+##	export UNSQUASHFS="${TOOLS_DIR}/${UNSQUASHFS_TOOL}"
 	export MKSQUASHFS_TOOL="mksquashfs3-lzma"
 	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
 	export MKSQUASHFS_OPTIONS="-le -noappend -all-root -info -no-progress -no-exports -no-sparse"
