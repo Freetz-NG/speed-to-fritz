@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* 7170 change name BETA to PREVIEW to be compatibel for Freetz"
+comment="* W920: Undo changes made in revision 773."
 
 
 

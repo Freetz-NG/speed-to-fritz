@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* W920, set default in Config.in to multianex again, this was the only relevant cahnge from revision 773 to 774 "
+comment="* Fix 7170 16352 in Config.in"
 
 
 

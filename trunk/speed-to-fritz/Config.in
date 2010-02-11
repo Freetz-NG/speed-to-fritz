@@ -199,7 +199,7 @@ config AVM_7170_en_29_04_78
 
 config AVM_BETA_7170_16352
   string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-16352.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.80-16352.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-16352.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Laobr.29.04.80-16352.image"
 
 config AVM_7170_13948
     string
