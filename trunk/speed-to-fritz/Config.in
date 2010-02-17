@@ -199,7 +199,7 @@ config AVM_7170_en_29_04_78
 
 config AVM_BETA_7170_16352
   string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_vorschau_release_candidate/fritz_box-labor-16352.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Laobr.29.04.80-16352.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7170_vorschau_release_candidate/fritz_box-labor-16352.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Laobr.29.04.80-16352.image"
 
 config AVM_7170_13948
     string
@@ -207,7 +207,7 @@ config AVM_7170_13948
 
 config AVM_DSL_7170_14119
     string
-default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7170_dsl/fritz_box-labor-14119.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.99-14119.image"
+default "http://www.avm.de/de/Service/Service-Portale/Labor/7170_dsl/fritz_box-labor-14119.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.99-14119.image"
 ###------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM 72XX Firmware
 ### AVM 72XX Firmware
@@ -224,11 +224,11 @@ config AVM_7240_73_04_80
 
 #config AVM_PHONE_7240_15195
 #    string
-#    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/MT-D_7240/fritz_box-labor-7240-15195.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7240_LabPHONE.AnnexB.73.04.97-15195.image"
+#    default "http://www.avm.de/de/Service/Service-Portale/Labor/MT-D_7240/fritz_box-labor-7240-15195.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7240_LabPHONE.AnnexB.73.04.97-15195.image"
 
 config AVM_PRE_7240_15892
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7240_vorschau_release_candidate/fritzbox-labor-7240-15892.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7240.Labor.73.04.78-15892.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7240_vorschau_release_candidate/fritzbox-labor-7240-15892.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7240.Labor.73.04.78-15892.image"
 ### AVM 7270 Firmware
 
 config AVM_7240_54_04_58
@@ -247,7 +247,7 @@ config AVM_7270_m54_04_76
 
 config AVM_7270_54_04_70
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_IPv6/fritz_box-labor-15316.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_IPv6/fritz_box-labor-15316.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
 
 config AVM_7270_54_04_76
     string
@@ -271,23 +271,23 @@ config AVM_7270_13486
 
 config AVM_WLANX_7270_14080
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_wlan/fritz_box-labor-14080.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_WLAN_Labor_54.04.98-14080.image" 
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_wlan/fritz_box-labor-14080.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_WLAN_Labor_54.04.98-14080.image" 
 
 config AVM_AURA_7270_14142
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_usb/fritz_box-labor-14142.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabAURA.AnnexB.54.04.95-14142.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_usb/fritz_box-labor-14142.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabAURA.AnnexB.54.04.95-14142.image"
 
 config AVM_AIO_7270_14543
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_release_candidate/fritz_box_labor_7270_14543.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.75-14543.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_release_candidate/fritz_box_labor_7270_14543.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.75-14543.image"
 
 config AVM_IPV6_7270_15316
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_IPv6/fritz_box-labor-15316.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabIPV6.AnnexB.54.04.94-15316.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_IPv6/fritz_box-labor-15316.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabIPV6.AnnexB.54.04.94-15316.image"
 
 config AVM_IPV6_7273_15316
     string
-   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_IPv6/fritz_box-labor-7270v3-15316.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabIPV6.AnnexB.74.04.94-15316.image"
+   default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_IPv6/fritz_box-labor-7270v3-15316.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabIPV6.AnnexB.74.04.94-15316.image"
 
 config AVM_IPV6_72XX
     string
@@ -295,7 +295,7 @@ config AVM_IPV6_72XX
 
 config AVM_PRE_7270_15892
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270-15892.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.78-15892.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270-15892.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.78-15892.image"
 
 config AVM_PRE_72XX
     string
@@ -303,23 +303,23 @@ config AVM_PRE_72XX
 
 config AVM_PRE_7273_15892
    string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270v3-15892.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3.Labor.74.04.78-15892.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270v3-15892.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3.Labor.74.04.78-15892.image"
 
 config AVM_DSL_7270_15852
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-15852.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabDSL.AnnexB.54.04.99-15852.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_dsl/fritz_box-labor-15852.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabDSL.AnnexB.54.04.99-15852.image"
 
 config AVM_DSL_7273_15852
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_dsl/fritz_box-labor-7270v3-15852.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabDSL.AnnexB.74.04.99-15852.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_dsl/fritz_box-labor-7270v3-15852.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabDSL.AnnexB.74.04.99-15852.image"
 
 config AVM_PHONE_7270_16376
    string
-   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270-16376.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_Labor_54.04.80-16376.image"
+   default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_telefonie/fritz_box-labor-7270-16376.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_Labor_54.04.80-16376.image"
 ###
 config AVM_PHONE_7273_16376
    string
-   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_telefonie/fritz_box-labor-7270v3-16376.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_Labor_74.04.80-16376.image"
+   default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_telefonie/fritz_box-labor-7270v3-16376.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_Labor_74.04.80-16376.image"
 config AVM_PHONE_72XX
     string
     default "ftp://update.avm.de/labor/MT-D/FRITZ.Box_Fon_WLAN_7270_LabPHONE.AnnexB.54.04.97-16376.image mirror select"
@@ -330,15 +330,15 @@ config AVM_CORE_7270_15220
 
 config AVM_CORE_7273_15220
    string
-   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_streaming_stick/FRITZ.Box_Fon_WLAN_7270v3_LabCORE.AnnexB.74.04.98-15220.zip mirror http://www.hostarea.de/server-11/November-e1449b8e4b.zip"
+   default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_streaming_stick/FRITZ.Box_Fon_WLAN_7270v3_LabCORE.AnnexB.74.04.98-15220.zip mirror http://www.hostarea.de/server-11/November-e1449b8e4b.zip"
 
 config AVM_CORE_7270_15627
    string
-   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_streaming_stick/fritz_box-labor-15627.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabCORE.AnnexB.54.04.98-15627.image"
+   default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_streaming_stick/fritz_box-labor-15627.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabCORE.AnnexB.54.04.98-15627.image"
 
 config AVM_CORE_7273_15627
    string
-   default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7270_streaming_stick/fritz_box-labor-7270v3-15627.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabCORE.AnnexB.74.04.98-15627.image"
+   default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_streaming_stick/fritz_box-labor-7270v3-15627.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabCORE.AnnexB.74.04.98-15627.image"
 
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 AVM Firmware
@@ -351,7 +351,7 @@ config AVM_7570_75_04_70
 
 config AVM_7570_15316
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Service-Portal/Labor/7570_7270_IPv6_en/fritzbox_lab_15316__7570.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL_LabIPV6.en-de-fr.75.04.94-15316.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7570_7270_IPv6_en/fritzbox_lab_15316__7570.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL_LabIPV6.en-de-fr.75.04.94-15316.image"
 
 config AVM_7570_75_04_72
     string
