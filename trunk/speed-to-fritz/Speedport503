@@ -19,6 +19,9 @@ rm -f "${SRC}"/lib/modules/dect*
 rm -f "${SRC}"/usr/bin/dect*
 rm -f "${SRC}"/usr/bin/usb*
 rm -f "${SRC}"/bin/usb*
+rm -f "${SRC}"/usr/share/ctlmgr/libdect*
+rm -f "${SRC}"/usr/share/ctlmgr/libusb*
+
 # pcmlink boot error, da modul nicht kompatibel ist
 rm -f "${SRC}"/lib/modules/c55*
 

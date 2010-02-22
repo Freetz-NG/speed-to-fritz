@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="17"; Monat="02"; Jahr="10"
+Tag="22"; Monat="02"; Jahr="10"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -499,7 +499,6 @@ case "$1" in
     ;;
     
 "722")
-## neds more updating !!!!!
 	export SPMOD="722"
 	export CLASS="Speedport"
 	export SPNUM="721"
@@ -510,13 +509,6 @@ case "$1" in
 	export HWID="152"
 	export HWRevision="${HWID}.1.1.0"
 	export CONFIG_INSTALL_TYPE="ur8_16MB_xilinx_4eth_2ab_isdn_te_pots_wlan_usb_host_57937"
-#
-export CONFIG_AB_COUNT="2"
-export CONFIG_ETH_COUNT="4"
-
-
-
-#
 	export CONFIG_XILINX="y"
 	export CONFIG_BOX_FEEDBACK="n"
 	export CONFIG_LED_NO_DSL_LED="n"
@@ -562,7 +554,7 @@ export CONFIG_ETH_COUNT="4"
 	export CONFIG_USB_STORAGE_USERS="n"
 	export CONFIG_USB_WLAN_AUTH="n"
 	export CONFIG_USB_HOST_TI="n"
-	export CONFIG_USB_STORAGE_SPINDOWN="n"
+	export CONFIG_USB_STORAGE_SPINDOWN="y"
 	export CONFIG_USB_INTERNAL_HUB="n"
 	export CONFIG_DECT2="n"
 	export CONFIG_USB="n"
@@ -585,7 +577,6 @@ export CONFIG_ETH_COUNT="4"
 	export CONFIG_WLAN_MADWIFI="y"
 	export CONFIG_WLAN_OPENWIFI="n"
 	export CONFIG_VDSL="y"
-	export CONFIG_VINAX="y"
 	export CONFIG_VLYNQ="n"
 	export CONFIG_VLYNQ0="3"
 	export CONFIG_VLYNQ1="0"
@@ -1336,6 +1327,8 @@ if [ "$ORI" != "y" ]; then
  . Speedport707;;
  "721")
  . Speedport721;;
+ "722")
+ . Speedport722;;
  "500")
  . Speedport500;;
  "501")

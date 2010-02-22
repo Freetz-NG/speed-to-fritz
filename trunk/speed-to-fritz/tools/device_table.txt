@@ -100,6 +100,18 @@
 /dev/sde        b       640     0       0       8       65      1       1       16
 /dev/sdf        b       640     0       0       8       80      0       0       -
 /dev/sdf        b       640     0       0       8       81      1       1       16
+/dev/sdg        b       640     0       0       8       96      0       0       -
+/dev/sdg        b       640     0       0       8       97      1       1       16
+/dev/sdh        b       640     0       0       8      112      0       0       -
+/dev/sdh        b       640     0       0       8      113      1       1       16
+/dev/sdi        b       640     0       0       8      128      0       0       -
+/dev/sdi        b       640     0       0       8      129      1       1       16
+/dev/sdj        b       640     0       0       8      144      0       0       -
+/dev/sdj        b       640     0       0       8      145      1       1       16
+/dev/sdk        b       640     0       0       8      160      0       0       -
+/dev/sdk        b       640     0       0       8      161      1       1       16
+/dev/sdl        b       640     0       0       8      176      0       0       -
+/dev/sdl        b       640     0       0       8      177      1       1       16
 
 # All the proprietary devices in the world
 
@@ -136,7 +148,7 @@
 /dev/usblp0	c	666	0	0	180	0	0	0	-
 /dev/userman	c	666	0	0	228	0	0	0	-
 /dev/watchdog	c	666	0	0	242	0	0	0	-
-/dev/ttyUSB	c	666	0	0	188	0	0	1	4
+/dev/ttyUSB	c	666	0	0	188	0	0	1	8
 /dev/fuse	c	666	0	0	10	229	-	-	-
 /dev/misc/fuse	c	666	0	0	10	229	-	-	-
 /dev/mapper/control	c	666	0	0	10	63	-	-	-

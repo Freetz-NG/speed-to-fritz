@@ -21,4 +21,59 @@ fi
 [ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
 
 echo "********************************************************************************"
+# set led definition 
+if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ "${FORCE_SRC2_LEDDRIVER}" = "y" ]; then
+    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
+    cp -fdrp "${SRC_2}"/lib/libled* --target-directory="${SRC}"/lib
+    cp -fdrp "${SRC_2}"/bin/led* --target-directory="${SRC}"/bin
+    cp -fr "${SRC_2}"/bin/update_led_on ${SRC}/bin/update_led_on
+    cp -fr "${SRC_2}"/bin/update_led_off ${SRC}/bin/update_led_off
+    echo "  -- LED Driver was taken from AVM source 2 firmware"
+else
+    cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
+    cp -fdrp "${DST}"/lib/libled* --target-directory="${SRC}"/lib
+    cp -fdrp "${DST}"/bin/led* --target-directory="${SRC}"/bin
+    cp -fr "${DST}"/bin/update_led_on ${SRC}/bin/update_led_on
+    cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
+    echo "  -- LED Driver was taken from the original t-com firmware"
+fi
+
+# 722 
+$sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 722
+
+# remove DECT
+rm -rf "${SRC}"/lib/modules/*_488.hex
+rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/dect_io
+rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/avm_dect
+rm -f "${SRC}"/usr/bin/dect*
+rm -f "${SRC}"/usr/share/ctlmgr/libdect*
+## VDSL treiber
+#/squashfs-root/lib/modules/adsp0_firmware.bin
+#/squashfs-root/lib/modules/adsp1_firmware.bin
+
+
+## xilinx Driver must be for the hardware in use
+#/squashfs-root/lib/modules/bitfile.bit #7390
+#/squashfs-root/lib/modules/bitfile_isdn.bit #W722
+#/squashfs-root/lib/modules/bitfile_pots.bit #W722
+rm -f "${SRC}"/lib/modules/bitfile.bit
+[ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules &&\
+echo "  -- Xilinx isdn bitfile was taken from the original t-home firmware"
+[ -e "${DST}"/lib/modules/microvoip_pots_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_pots_top.bit --target-directory="${SRC}"/lib/modules &&\
+echo "  -- Xilinx pots bitfile was taken from the original t-home firmware"
+
+sed -i -e '/## Fritz_Box_7390/,/## DECT-Anlage/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/dect_firstlevelfile=/,/modprobe Piglet_noemif/d' "${SRC}/etc/init.d/rc.S"
+
+sed -i -e '/modprobe nand/i \
+piglet_bitfile=/lib/modules/bitfile_isdn.bit${HWRevision_BitFileCount}\
+piglet_potsbitfile=/lib/modules/bitfile_pots.bit${HWRevision_BitFileCount}\
+piglet_bitfilemode=\`/bin/testvalue /var/flash/telefon_misc 4 2638\`\
+if [ -z $piglet_bitfilemode ] ; then piglet_bitfilemode=0 ; fi\
+echo PigletMode: $piglet_bitfilemode\
+piglet_load_params="\\\
+piglet_bitfilemode=$piglet_bitfilemode \\\
+"\
+modprobe Piglet_noemif piglet_bitfile=$piglet_bitfile piglet_potsbitfile=$piglet_potsbitfile $piglet_load_params' "${SRC}/etc/init.d/rc.S"
+
 
