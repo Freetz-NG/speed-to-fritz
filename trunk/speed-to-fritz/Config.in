@@ -320,6 +320,15 @@ config AVM_PHONE_7270_16376
 config AVM_PHONE_7273_16376
    string
    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_telefonie/fritz_box-labor-7270v3-16376.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_Labor_74.04.80-16376.image"
+###
+config AVM_NAS_7270_16561
+   string
+   default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_nas/fritz_box-labor-7270-16561.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_16_LabNAS.AnnexB.54.04.80-16561.image"
+###
+config AVM_NAS_7273_16561
+   string
+   default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_nas/fritz_box-labor-7270v3-16561.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabNAS.AnnexB.74.04.80-16561.image"
+###
 config AVM_PHONE_72XX
     string
     default "ftp://update.avm.de/labor/MT-D/FRITZ.Box_Fon_WLAN_7270_LabPHONE.AnnexB.54.04.97-16376.image mirror select"
@@ -1178,6 +1187,19 @@ choice
 			and fixes various software problems, e.g. answering machine and
 			facsimile reception.
 
+	config TYPE_7270_NAS_16561
+		bool "AVM 7270 16561 (LabNAS)"
+		depends on ( TYPE_7270 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		help
+			FRITZ!Lab NAS: This release improves NAS functionality
+
+	config TYPE_7273_NAS_16561
+		bool "AVM 7270v3 16561 (LabNAS)"
+		depends on ( TYPE_7390 || TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		help
+			FRITZ!Lab NAS: This release improves NAS functionality
+
+
 #	config TYPE_7240_PHONE_16376
 #		bool "AVM 7240 16376 (Phone)"
 #		depends on ( TYPE_7240 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL  ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
@@ -1623,6 +1645,12 @@ choice
 	config TYPE_SRC3_AVM_PHONE_7273_16376
 		bool "AVM 7270v3 16376 (Phone)"
 
+	config TYPE_SRC3_AVM_NAS_7270_16561
+		bool "AVM 7270 16561 (LabNAS)"
+
+	config TYPE_SRC3_AVM_NAS_7273_16561
+		bool "AVM 7270v3 16561 (LabNAS)"
+
 	config TYPE_SRC3_AVM_PHONE_72XX
 		bool "AVM 72XX Prerelease, select one"
 
@@ -1904,6 +1932,8 @@ config AVM_IMG
 	default "$AVM_PHONE_7240_16376"				if ( TYPE_7240_PHONE_16376 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PHONE_7270_16376"				if ( TYPE_7270_PHONE_16376 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PHONE_7273_16376"				if ( TYPE_7273_PHONE_16376 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_NAS_7270_16561"				if ( TYPE_7270_NAS_16561 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_NAS_7273_16561"				if ( TYPE_7273_NAS_16561 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PHONE_72XX"				if ( TYPE_72XX_PHONE) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PRE_7240_15892"				if ( TYPE_7240_PRE_15892 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PRE_72XX"					if ( TYPE_72XX_PRE) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
@@ -2004,6 +2034,8 @@ config SRC2_IMG
 	default "$AVM_PHONE_7240_16376"			if TYPE_SRC3_AVM_PHONE_7240_16376
 	default "$AVM_PHONE_7270_16376"			if TYPE_SRC3_AVM_PHONE_7270_16376
 	default "$AVM_PHONE_7273_16376"			if TYPE_SRC3_AVM_PHONE_7273_16376
+	default "$AVM_NAS_7270_16561"			if TYPE_SRC3_AVM_NAS_7270_16561
+	default "$AVM_NAS_7273_16561"			if TYPE_SRC3_AVM_NAS_7273_16561
 	default "$AVM_7390_84_04_81"			if TYPE_SRC3_AVM_PRE_7390_15936
 	default "$AVM_7390_84_04_82"			if TYPE_SRC3_AVM_PRE_7390_16165
 	default "$AVM_PHONE_72XX"				if TYPE_SRC3_AVM_PHONE_72XX
