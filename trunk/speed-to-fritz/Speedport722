@@ -76,4 +76,12 @@ piglet_bitfilemode=$piglet_bitfilemode \\\
 "\
 modprobe Piglet_noemif piglet_bitfile=$piglet_bitfile piglet_potsbitfile=$piglet_potsbitfile $piglet_load_params' "${SRC}/etc/init.d/rc.S"
 
+sed -i -e '/echo init-start 240/a \
+# start loging\
+/bin/dmesg > /var/dmesg-rc.S.log\
+# start telnet deamon with password of web gui\
+/usr/sbin/telnetd -l /sbin/ar7login\
+sleep 50' "${SRC}/etc/init.d/rc.S"
 
+# disable watchdog
+sed -i -e 's|echo init-start 240 >/dev/watchdog|"disable" >/dev/watchdog|' "${SRC}/etc/init.d/rc.S"
