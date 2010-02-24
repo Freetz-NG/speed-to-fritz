@@ -56,6 +56,12 @@ echo "  -- VINAX DSL driver was taken from the original t-com firmware!"
 echo "  -- fw_dcrhp_1150_ap.bin was taken from the original t-home firmware"
 [ -e "${DST}"/lib/modules/microvoip-dsl.bin ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
 echo "  -- microvoip-dsl.bin was taken from the original t-home firmware"
+#use WLAN (not usabele leds to reboots) 
+[ "${FORCE_TCOM_WLANTIAP}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/net/wireless/avm_wlan/wlan/tiap.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/net/wireless/avm_wlan/wlan
+#WPA
+#cp -fdrp "${DST}"/usr/bin/wpa_authenticator --target-directory="${SRC}"/usr/bin
+# copy igdd if not exisant
+[ -e "${SRC}"/sbin/igdd ] || cp -fdrp "${DST}"/sbin/igdd --target-directory="${SRC}"/sbin
 
 if [ ${SAVE_TCOM_DSL} = "y" ]; then
     cp -a "${DST}"/lib/modules/vinax* --target-directory=./addon/tmp/W721/squashfs-root/lib/modules &&\
@@ -71,6 +77,9 @@ if [ ${SAVE_TCOM_DSL} = "y" ]; then
     cp -a "${DST}"/lib/modules/fw_dcrhp_1150_ap.bin --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/lib/modules
     cp -a "${DST}"/lib/modules/microvoip-dsl.bin --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/lib/modules
 fi
+
+/lib/modules/2.6.13.1-ohio/kernel/drivers/net/wireless/avm_wlan/wlan/tiap.ko
+
 
 if [ -d ${SRC_2}/lib/modules ]; then
     MODULESDEP_DIR="$(find ${SRC_2}/lib/modules -name modules.dep)" # find file 
@@ -262,10 +271,40 @@ export CONFIG_VINAX="y"' "${SRC}/etc/init.d/rc.conf"
 #rm -f "${SRC}"/lib/modules/microvoip-dsl.bin
 #<-- ATA only
 fi
-#remove somne unused files
+#remove some unused files
 rm -fdr "${SRC}"/lib/modules/c55fw.hex
 rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/usb
 rm -fdr "${SRC}"/lib/acgenusb*
+rm -fdr "${SRC}"/lib/libavcodec*
+rm -fdr "${SRC}"/lib/libavformat*
+rm -fdr "${SRC}"/lib/libavm_audio*
+rm -fdr "${SRC}"/lib/libmedia*
+rm -fdr "${SRC}"/lib/libavmid3*
+rm -fdr "${SRC}"/sbin/smb*
+rm -fdr "${SRC}"/sbin/stop_media*
+rm -fdr "${SRC}"/sbin/lsusb
+rm -fdr "${SRC}"/sbin/hotplug
+rm -fdr "${SRC}"/etc/hotplug
+rm -fdr "${SRC}"/sbin/hd-idle
+rm -fdr "${SRC}"/sbin/printserv
+rm -fdr "${SRC}"/sbin/mediasrv
+rm -fdr "${SRC}"/usr/share/ctlmgr/libctlusb.so
+rm -fdr "${SRC}"/lib/libacsrpc*
+rm -fdr "${SRC}"/etc/usb*
+rm -fdr "${SRC}"/etc/samba*
+rm -fdr "${SRC}"/etc/minid
+rm -fdr "${SRC}"/bin/aura*
+rm -fdr "${SRC}"/bin/mini*
+rm -fdr "${SRC}"/bin/*plugin
+rm -fdr "${SRC}"/bin/playerd_tables
+#rm -fdr "${SRC}"/bin/openssl_genrsa
+rm -fdr "${SRC}"/etc/init.d/rc.media
+rm -fdr "${SRC}"/etc/init.d/rc.usbhost
+rm -fdr "${SRC}"/etc/init.d/rc.preaudio.sh
+rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/audio
+rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/capi_codec
+rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/scsi
+rm -fdr "${SRC}"/lib/libavcodec*
 
 #workaround for HWRevision
 if [ -f "${SRC}/sbin/start_plugin.sh" ]; then

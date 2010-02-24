@@ -2707,6 +2707,14 @@ if ! EXPORT_ATA_ONLY
 	default n
 	help
 		Use this additional option if new DSL menu pages from alternative firmware-images are used.
+
+#    config FORCE_TCOM_WLANTIAP
+#	bool "Use T-Home WLAN driver"
+#	depends on TYPE_SPEEDPORT_W721V
+#	default y
+#	help
+#		Use WLAN driver from T-Home firmware.
+
     config FORCE_TCOM_PCMLINK
 	bool "Use T-Home PCMLINK driver"
 	depends on TYPE_9207570
