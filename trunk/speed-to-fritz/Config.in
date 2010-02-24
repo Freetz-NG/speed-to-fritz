@@ -447,6 +447,7 @@ config AVM_7570_16087
 config AVM_7570_16271
    string
      default "firmware-avme-en-de-fr-75.04.80-16271M-FRITZ.Box_Fon_WLAN_7570_vDSL.image"
+
 ### Not available only in use by AVM <--
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7390 AVM Firmware
@@ -2124,6 +2125,7 @@ config TYPE_LABOR_TYPE
 	default "BETA"	 	if TYPE_7270_PRE_15892 || TYPE_7273_PRE_15892 || TYPE_7240_PRE_15892 || TYPE_72XX_PRE
 	default "13948" 	if TYPE_7170_13948
 	default "13486" 	if TYPE_7270_13486
+	default "NAS"		if TYPE_7270_NAS_16561 || TYPE_7273_NAS_16561
 	default "DSL" 		if TYPE_7270_DSL_15852 || TYPE_7273_DSL_15852 || TYPE_7170_DSL_14119
 	default "GAMING" 	if TYPE_7270_GAMING || TYPE_7170_GAMING_11435
 	default "PHONE" 	if TYPE_7240_PHONE_16376 || TYPE_7270_PHONE_16376 || TYPE_7273_PHONE_16376 || TYPE_7170_PHONE || TYPE_72XX_PHONE
