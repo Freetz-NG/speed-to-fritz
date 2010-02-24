@@ -2247,6 +2247,12 @@ config EXPORT_REMOVE_MENU_ITEM
 	help
 		Set this to 'y' if you like to remove Fon3 (or more depending on the type of box) from some menus. 
 		Both source files must be without leading "#", diff result is in directory ./LogSRC_SRC2
+config EXPORT_KEEP_USB
+	bool "Keep USB"
+	depends on TYPE_SPEEDPORT_W701V && EXPERT_MOD && ! EXPORT_REMOVE_MENU_ITEM
+	default n
+	help
+	    Only for testing 
 config EXPORT_REMOVE_KIDS
 	bool "Kids files (remove)"
 #	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM
