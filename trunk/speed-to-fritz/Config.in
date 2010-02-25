@@ -187,7 +187,8 @@ config AVM_7170_29_04_76
 
 config AVM_7170_29_04_77
   string
-    default "FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.77.zip mirror http://www.hostarea.de/server-02/Februar-7a08ef1e6c.zip"
+    default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7170sl/FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.77.image"
+#    default "FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.77.zip mirror http://www.hostarea.de/server-02/Februar-7a08ef1e6c.zip"
 
 config AVM_7170_29_04_80
   string
