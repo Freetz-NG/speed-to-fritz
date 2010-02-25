@@ -368,6 +368,13 @@ modprobe Piglet piglet_bitfile=$piglet_bitfile $piglet_load_params' "${SRC}/etc/
 
 sed -i -e '/modprobe Piglet_noemif piglet_bitfile=$piglet_bitfile piglet_potsbitfile=$piglet_potsbitfile $piglet_load_params/d' "${SRC}/etc/init.d/rc.S"
 #echo "--------------------------------------------------------------------------------------------------------------------------------------------------"
+#remove dect and usb 
+sed -i -e '/mknod .var.flash.aura-usb c/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/mknod .var.flash.dect_misc c/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/mknod .var.flash.dect_eeprom c/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/mknod .var.flash.dmgr_handset_user c/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/mknod .var.flash.configd c/d' "${SRC}/etc/init.d/rc.S"
+
 #sleep 10
 fi
 #enable button

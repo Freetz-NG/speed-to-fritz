@@ -37,20 +37,57 @@ else
     cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
     echo "  -- LED Driver was taken from the original t-com firmware"
 fi
+cp -fdrp "${DST}"/dev --target-directory="${SRC}" #this copy is onliy usable if run as root
+[ "${FORCE_TCOM_KDSLDMOD}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
+[ "${FORCE_TCOM_PCMLINK}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2/pcmlink.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2
+[ "${FORCE_TCOM_USRMAN}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/userman/userman_mod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/driver/userman
+[ ${FORCE_TCOM_PIGLET} = "y" ] &&\
+
+cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet_noemif/Piglet_noemif.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet_noemif &&\
+echo "  -- Xilinx Piglet_noemif.ko driver was taken from the original t-home firmware"
+#Fon Driver
+[ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon5/zzz/* --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon5/zzz
+
+if [ "${SAVE_SRC2_KDSLDMOD}" = "y" ]; then
+    mkdir -p ./addon/tmp/W722/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld
+    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld &&\
+    echo "  -- 2nd AVM Firmware kdslmod driver saved to: ./addon/tmp/W722"
+fi
+[ "${FORCE_SRC2_KDSLDMOD}" = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld &&\
+echo "  -- kdslmod Driver was taken from 2nd AVM source."
+
+if [ "${FORCE_OWN_KDSLDMOD}" = "y" ] && ! [ -f ./addon/tmp/W722/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko ]; then
+ echo "You must save kdsld driver form 2nd AVM source before" && sleep 10 && exit 1
+fi
+[ "${FORCE_OWN_KDSLDMOD}" = "y" ] && cp -fdrp ./addon/tmp/W722/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
+echo "  -- kdslmod Driver was taken from local directory ./addon/tmp/W722"
 
 # 722 
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 722
 
 # remove DECT
+#remove dect and usb 
+sed -i -e '/mknod .var.flash.dect_misc c/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/mknod .var.flash.dect_eeprom c/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/mknod .var.flash.dmgr_handset_user c/d' "${SRC}/etc/init.d/rc.S"
+# sed -i -e '/mknod .var.flash.configd c/d' "${SRC}/etc/init.d/rc.S"
+
 rm -rf "${SRC}"/lib/modules/*_488.hex
 rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/dect_io
 rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/avm_dect
+rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/net/nlaudio/nlaudio.ko
 rm -f "${SRC}"/usr/bin/dect*
 rm -f "${SRC}"/usr/share/ctlmgr/libdect*
 ## VDSL treiber
 #/squashfs-root/lib/modules/adsp0_firmware.bin
 #/squashfs-root/lib/modules/adsp1_firmware.bin
 
+[ -e "${DST}"/lib/modules/adsp0_firmware.bin ] && cp -fdrp "${DST}"/lib/modules/adsp0_firmware.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- adsp0_firmware.bin was taken from the original t-home firmware"
+[ -e "${DST}"/lib/modules/adsp1_firmware.bin ] && cp -fdrp "${DST}"/lib/modules/adsp1_firmware.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- adsp1_firmware.bin was taken from the original t-home firmware"
+[ -e "${DST}"/lib/modules/Vx180Code.cbin ] && cp -fdrp "${DST}"/lib/modules/Vx180Code.cbin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- Vx180Codec bitfile was taken from the original t-home firmware"
 
 ## xilinx Driver must be for the hardware in use
 #/squashfs-root/lib/modules/bitfile.bit #7390
@@ -85,3 +122,8 @@ sleep 50' "${SRC}/etc/init.d/rc.S"
 
 # disable watchdog
 sed -i -e 's|echo init-start 240 >/dev/watchdog|"disable" >/dev/watchdog|' "${SRC}/etc/init.d/rc.S"
+
+## change to external SYNC for TE-Mode
+sed -i -e '/## cleanup - if/i \
+## change to external SYNC for TE-Mode\
+echo isdn_reg 8 0 >/dev/debug' "${SRC}/etc/init.d/rc.S"

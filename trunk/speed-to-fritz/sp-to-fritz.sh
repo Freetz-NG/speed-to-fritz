@@ -564,7 +564,7 @@ fi
 	export CONFIG_USB_PRINT_SERV="y"
 	export CONFIG_USB_STORAGE="y"
 	export CONFIG_USB_STORAGE_USERS="n"
-	export CONFIG_USB_WLAN_AUTH="n"
+	export CONFIG_USB_WLAN_AUTH="y"
 	export CONFIG_USB_HOST_TI="n"
 	export CONFIG_USB_STORAGE_SPINDOWN="y"
 	export CONFIG_USB_INTERNAL_HUB="n"
@@ -573,7 +573,7 @@ fi
 	export CONFIG_CAPI_POTS="y"
 	export CONFIG_CAPI_TE="y"
 	export CONFIG_CAPI_MIPS="n"
-	export CONFIG_CAPI_NT="n"
+	export CONFIG_CAPI_NT="y"
 	export CONFIG_CAPI_XILINX="y"
 	export CONFIG_CAPI_UBIK="n"
 	export CONFIG_CAPI="y"
@@ -1469,10 +1469,25 @@ else
  [ "$YESNO" = "y" ] && break
  done
  # add addons
- [ "$COPY_ADDON_TMP_to_ORI" = "y" ] &&  cp -fdpr  ./addon/tmp/squashfs-root/*  --target-directory="${DST}"
- # exchange kernel
- [ "$XCHANGE_KERNEL" = "y" ] && cp -rfv "${FBDIR}/kernel.raw" "${SPDIR}/kernel.raw"
- [ "$SRC2_KERNEL" = "y" ] && cp -rfv "${FBDIR_2}/kernel.raw" "${FBDIR}/kernel.raw"
+ if [ "$COPY_ADDON_TMP_to_ORI" = "y" ]; then
+	find ./addon/tmp/squashfs-root/ -type d -name .svn | xargs rm -rf
+	find ./addon/tmp/squashfs-root/ | while read file; do
+		file="${file##./addon/tmp/squashfs-root/}"
+		file="${DST}"/"$file"
+		[ -d "$file" ] || rm -f "$file"
+	done
+ 	cp -fdprv  ./addon/tmp/squashfs-root/*  --target-directory="${DST}"
+ fi
+ #exchange kernel 
+ if [ "$XCHANGE_KERNEL" = "y" ] ; then 
+ 	echo "-- Take AVM kernel for new image"
+ 	cp -rfv "${FBDIR}/kernel.raw" "${SPDIR}/kernel.raw"
+ elif [ "$SRC2_KERNEL" = "y" ]; then
+ 	echo "-- Take kernel from 2nd AVM source for new image"
+	cp -rfv "${FBDIR_2}/kernel.raw" "${SPDIR}/kernel.raw"
+ #else
+ #	echo "-- Take T-com kernel for new image"
+ fi
  echo "Assembling original TCOM Firmware for transfer via FTP and Webinterface ..."
  echo
  echo "Some changes are made to the original tar file, so it can be used on "
