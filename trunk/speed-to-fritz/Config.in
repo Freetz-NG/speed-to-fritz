@@ -189,6 +189,10 @@ config AVM_7170_29_04_77
   string
     default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7170sl/FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.77.image"
 
+config AVM_7170_29_04_80
+  string
+    default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.80.image"
+
 config AVM_7170_en_58_04_78
     string
     default "@AVM/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_a/FRITZ.Box_Fon_WLAN_7170.AnnexA.en.58.04.78.image"
@@ -1067,6 +1071,13 @@ choice
 		help
 			FRITZ! release: 70
 
+	config TYPE_7170_29_04_80
+		bool "AVM 7170 29.04.80"
+		depends on ( TYPE_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
+		help
+			FRITZ! release: 80
+
+
 	config TYPE_7240_54_04_58
 		bool "AVM 7240 54.04.58"
 		depends on ( TYPE_7270 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && TYPE_LANG_DE
@@ -1546,6 +1557,9 @@ choice
 
 	config TYPE_SRC3_AVM_7170_29_04_77
 		bool "AVM 7170 29.04.77"
+
+	config TYPE_SRC3_AVM_7170_29_04_80
+		bool "AVM 7170 29.04.80"
 
 	config TYPE_SRC3_AVM_7170_en_58_04_78
 		bool "AVM 7170 58.04.78 en (english, Annex A)"
