@@ -348,7 +348,7 @@ config AVM_CORE_7273_15220
 
 config AVM_CORE_7270_16540
    string
-   default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_streaming_stick/fritz_box-labor-16540.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabStreaming_54.04.80-16540.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_streaming_stick/fritz_box-labor-16540.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabStreaming_54.04.80-16540.image"
 
 config AVM_CORE_7273_16540
    string
@@ -954,7 +954,7 @@ comment  "--------------------------------------------------------------------"
 #### If types are added here the script file /subscripts/settings has to be edited as well to represent the new Labor versions too. 
 config TYPE_LABOR
 	bool "Select a special AVM firmware (optional) --->"
-	depends on ! ORI
+	depends on ! ORI || XCHANGE_KERNEL
 	depends on ( TYPE_SINUS_W500V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W900V || TYPE_9207570 || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL )
 	default y if EXPORT_TYPE_LOCAL_MODEL || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE )
 	default n if ! EXPORT_TYPE_LOCAL_MODEL && ! ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE )
@@ -1227,7 +1227,7 @@ choice
 			FRITZ!Lab Prerelease: from autoupdate download, look into directory and present a coice for downloading. 
 
 	config TYPE_7270_CORE_15220
-		bool "AVM 7270 15220(Streaming Stick)"
+		bool "AVM 7270 15220 (Streaming Stick)"
 		depends on ( TYPE_7270 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		depends on EXPERT_MOD 
 		help
@@ -1891,7 +1891,7 @@ config TCOM_IMG
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config AVM_IMG
-	depends on ! ORI
+	depends on ! ORI || XCHANGE_KERNEL
 	string
 	default "$AVM_7140_39_04_43"				if TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
 	default "$AVM_7140_39_04_76"				if TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
@@ -2733,7 +2733,7 @@ if ! EXPORT_ATA_ONLY
 
     config FORCE_TCOM_PCMLINK
 	bool "Use T-Home PCMLINK driver"
-	depends on TYPE_9207570
+	depends on TYPE_9207570 || TYPE_SPEEDPORT_W722V
 	depends on EXPERT_MOD 
 	# && TYPE_AVM_7570_XX
 	default n
@@ -2742,7 +2742,7 @@ if ! EXPORT_ATA_ONLY
 
     config FORCE_TCOM_USRMAN
 	bool "Use T-Home USRMAN driver"
-	depends on TYPE_9207570
+	depends on TYPE_9207570 || TYPE_SPEEDPORT_W722V
 	depends on EXPERT_MOD 
 	# && TYPE_AVM_7570_XX
 	default n
@@ -2752,7 +2752,7 @@ if ! EXPORT_ATA_ONLY
 		
     config FORCE_TCOM_KDSLDMOD
 	bool "Use T-Home KDSLDMOD driver"
-	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V
+	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V  || TYPE_SPEEDPORT_W722V
 	depends on EXPERT_MOD 
 	default n if TYPE_SPEEDPORT_W721V || ( ! TYPE_ANNEX_A && ! EXPORT_FORCE_MULTI_LANGUAGE )
 	default y if TYPE_ANNEX_A || EXPORT_FORCE_MULTI_LANGUAGE
@@ -2761,21 +2761,21 @@ if ! EXPORT_ATA_ONLY
     config FORCE_SRC2_KDSLDMOD
 	bool "Use 2nd AVM source KDSLDMOD driver"
 	depends on EXPERT_MOD 
-	depends on SOURCE2 && TYPE_9207570 || TYPE_SPEEDPORT_W721V 
+	depends on SOURCE2 && TYPE_9207570 || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W722V
 	default n
 	help
 		Use KDSLDMOD from 2nd AVM source firmware, VPN is causing trouble with this option, in most cases ADSL+ needs this option set.
     config FORCE_OWN_KDSLDMOD
 	bool "Use own KSLDMOD driver from ./addon/tmp/WXXX/"
 	depends on EXPERT_MOD 
-	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V
+	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W722V
 	default n
 	help
 		Use KDSLDMOD from local directory ./addon/tmp/WXXX/.....
     config SAVE_SRC2_KDSLDMOD
 	bool "Save 2nd AVM source KDSLDMOD driver to ./addon/tmp/WXXX/"
 	depends on EXPERT_MOD 
-	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V
+	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W722V
 	default n
 	help
 		Save KDSLDMOD to local directory ./addon/tmp/WXXX/.....
@@ -3038,15 +3038,6 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	default n
 	help
 		Use FON DRIVER from second source firmware specified in SRC2_IMG.
- # In use within sp-to-fritz.sh
- config COPY_ADDON_TMP_to_ORI
-	bool "Copy addon/tmp with option -u"
-	depends on EXPERT_MOD 
-	depends on ORI
-	default n
-	help
-		Set this to 'y' if you like to include all files within the directory
-		./addon/tmp/squashfs-root in combination with option -u.
  config UPDATE_DEPMOD
 	bool "Update module dependency information"
 	depends on EXPERT_MOD 
@@ -3086,10 +3077,13 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		You must set OEM to the branding you use.  
 		Autoconfiguration is only set on if AVM firmware supports this option!.
 		ATA is disabled if tr069 is turned on.
+ ### ENDE NO AVM Modells 7XXX <---
+endif
+endif #ORI
  # In use within sp-to-fritz.sh		
  config XCHANGE_KERNEL
 	bool "Xchange kernel between T-Home and avm source"
-	depends on EXPERT_MOD 
+	depends on EXPERT_MOD || ORI
 	default y if ( TYPE_SPECIALW721_TCOM && ! ORI  ) || ( TYPE_SPEEDPORT_W503V && ! ORI && ! TYPE_STAR_W503_66_04_69 )
 	default n if ( ! TYPE_SPECIALW721_TCOM && ! TYPE_SPEEDPORT_W503V ) || ORI || TYPE_STAR_W503_66_04_69
 	help
@@ -3097,8 +3091,17 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		but it can be used in combination with the option restore original firmware as well.
 		It is mainly added for testing W920, W920 original firmware does not log to the console
 		but if the kernel is replaced with AVM kernel the log is present.
- ### ENDE NO AVM Modells 7XXX <---
-endif
+ # In use within sp-to-fritz.sh
+ config COPY_ADDON_TMP_to_ORI
+	bool "Copy addon/tmp"
+#	depends on EXPERT_MOD 
+	depends on ORI
+	default n
+	help
+		Set this to 'y' if you like to include all files within the directory
+		./addon/tmp/squashfs-root in combination with option restore orignal firmware.
+if ORI
+
 # In use within sp-to-fritz.sh
 config EXPORT_CONFIG_TR064
 	bool "Enable LAN autoconfiguration TR064"
@@ -3138,7 +3141,7 @@ config SRC2_KERNEL
 config COPY_ADDON_TMP
 	bool "Copy addon/tmp"
 	depends on EXPERT_MOD 
-	depends on !ORI
+#	depends on !ORI
 	default n
 	help
 		Set this to 'y' if you like to include all files within the directory ./addon/tmp/squashfs-root.
