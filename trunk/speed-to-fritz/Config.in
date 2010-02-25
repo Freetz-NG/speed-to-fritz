@@ -183,11 +183,11 @@ config AVM_7170_58_04_76
 
 config AVM_7170_29_04_76
     string
-    default "@AVM/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.76.image"
+    default "FRITZ.Box_Fon_WLAN_7170.29.04.76.zip mirror http://www.hostarea.de/server-02/Februar-f8d942ced6.zip"
 
 config AVM_7170_29_04_77
   string
-    default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7170sl/FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.77.image"
+    default "FRITZ.Box_Fon_WLAN_7170.AnnexB.29.04.77.zip mirror http://www.hostarea.de/server-02/Februar-7a08ef1e6c.zip"
 
 config AVM_7170_29_04_80
   string
@@ -451,7 +451,6 @@ config AVM_7570_16087
 config AVM_7570_16271
    string
      default "firmware-avme-en-de-fr-75.04.80-16271M-FRITZ.Box_Fon_WLAN_7570_vDSL.image"
-
 ### Not available only in use by AVM <--
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7390 AVM Firmware
