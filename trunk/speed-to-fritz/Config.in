@@ -452,6 +452,19 @@ config AVM_7570_16087
 config AVM_7570_16271
    string
      default "firmware-avme-en-de-fr-75.04.80-16271M-FRITZ.Box_Fon_WLAN_7570_vDSL.image"
+
+config AVM_7570_16068
+   string
+      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.75.04.80-16068.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373537305f7644534c2e37352e30342e38302d31363036382e7a6970.zip"
+
+config AVM_7570_16087
+   string
+      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.80-16087.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373537305f7644534c2e656e2d64652d66722e37352e30342e38302d31363038372e7a6970.zip"
+
+config AVM_7570_16271
+   string
+      default "firmware-avme-en-de-fr-75.04.80-16271M-FRITZ.Box_Fon_WLAN_7570_vDSL.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373537305f7644534c2e656e2d64652d66722d37352e30342e38302d31363237314d2e7a6970.zip"
+
 ### Not available only in use by AVM <--
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7390 AVM Firmware
@@ -746,7 +759,8 @@ config TYPE_TCOM_7570_XX
 choice
 	prompt "T-Home 7570 alternative firmware"
 	depends on TYPE_TCOM_7570_XX 
-	default TYPE_TCOM_7570_75_04_78
+#	default TYPE_TCOM_7570_75_04_78
+	default TYPE_TCOM_7570_16271
 	
 	config TYPE_TCOM_7570_75_04_70
 		bool "AVM 7570 75.04.70.en-de"
@@ -1350,6 +1364,7 @@ choice
 		depends on  TYPE_AVM_7570_XX
 		default TYPE_AVM_7570_75_04_78
 
+
 	config TYPE_AVM_7570_75_04_70
 		bool "AVM 7570 75.04.70.en-de"
 		help
@@ -1853,7 +1868,8 @@ config TCOM_IMG
 	default "$TCOM_W900_34_04_57" 		if TYPE_SPEEDPORT_W900V
 	default "$TCOM_W920_65_04_78" 		if ORI && ( TYPE_SPEEDPORT_W920V && ! TYPE_BETATCOM )
 #	default "$AVM_7570_75_04_77"		if ( TYPE_7570 && ! TYPE_TCOM_7570_XX ) || ( ! ORI && ( ! TYPE_BETATCOM && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 ))
-	default "$AVM_7570_75_04_78"		if ( TYPE_7570 && ! TYPE_TCOM_7570_XX ) || ( ! ORI && ( ! TYPE_BETATCOM && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 ))
+#	default "$AVM_7570_75_04_78"		if ( TYPE_7570 && ! TYPE_TCOM_7570_XX ) || ( ! ORI && ( ! TYPE_BETATCOM && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 ))
+	default "$AVM_7570_16271"		if ( TYPE_7570 && ! TYPE_TCOM_7570_XX ) || ( ! ORI && ( ! TYPE_BETATCOM && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 ))
 	default "$TCOM_W920_65_04_58" 		if TYPE_BETA_TCOM_65_04_58 && ( TYPE_9207570 || ORI  )
 	default "$TCOM_W920_65_04_63" 		if TYPE_BETA_TCOM_65_04_63 && ( TYPE_9207570 || ORI  )
 	default "$TCOM_W920_65_04_70" 		if TYPE_BETA_TCOM_65_04_70 && ( TYPE_9207570 || ORI  )
@@ -2888,9 +2904,9 @@ if ! EXPORT_ATA_ONLY
 
     config WRAP_DSLD
 	bool "Wrap DSLD"
-	depends on EXPERT_MOD 
+#	depends on EXPERT_MOD 
 	depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W721V )  && ! FORCE_VDSL
-	default n
+	default y
 	help
 		wrap DSLD, ...
 	if WRAP_DSLD
@@ -3008,10 +3024,10 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		For normal this is "n", but for firmwares with minor versions less then 50 "y" works better.
 
  config FORCE_TCOM_LEDDRIVER
-	bool "Force use of T-Home LED driver"
+	bool "Force use of orignal LED driver"
 	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V
-	default y if ! TYPE_9207570 && ! TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W721V 
-	default n if TYPE_9207570 && ! TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V
+	default y if ! FORCE_VDSL && ! TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W721V 
+	default n if FORCE_VDSL && ! TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V
 	help
 		For normal this is "n", but you my use the T-Home driver, definition of LEDs differ, not all LEDS are usable.
 
