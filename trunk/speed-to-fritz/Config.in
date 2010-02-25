@@ -346,13 +346,13 @@ config AVM_CORE_7273_15220
    string
    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_streaming_stick/FRITZ.Box_Fon_WLAN_7270v3_LabCORE.AnnexB.74.04.98-15220.zip mirror http://www.hostarea.de/server-11/November-e1449b8e4b.zip"
 
-config AVM_CORE_7270_15627
+config AVM_CORE_7270_16540
    string
-   default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_streaming_stick/fritz_box-labor-15627.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabCORE.AnnexB.54.04.98-15627.image"
+   default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_streaming_stick/fritz_box-labor-16540.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_LabStreaming_54.04.80-16540.image"
 
-config AVM_CORE_7273_15627
+config AVM_CORE_7273_16540
    string
-   default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_streaming_stick/fritz_box-labor-7270v3-15627.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabCORE.AnnexB.74.04.98-15627.image"
+   default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_streaming_stick/fritz_box-labor-7270v3-16540.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_LabStreaming_74.04.80-16540.image"
 
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 AVM Firmware
@@ -969,8 +969,8 @@ choice
 		default TYPE_7170_29_04_80 if ( EXPORT_TYPE_LOCAL_MODEL && TYPE_7141 ) || ( ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V )
 		default TYPE_7170_58_04_80 if ( ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V )
 		default TYPE_7270_AIO_14543 if ! EXPORT_TYPE_LOCAL_MODEL
-		default TYPE_7270_CORE_15627 if TYPE_9207570 && ! FORCE_VDSL
-		default TYPE_7270_CORE_15627 if TYPE_9207570 && FORCE_VDSL
+		default TYPE_7270_CORE_16540 if TYPE_9207570 && ! FORCE_VDSL
+		default TYPE_7270_CORE_16540 if TYPE_9207570 && FORCE_VDSL
 		default TYPE_7240_73_04_80 if TYPE_7240
 		#->(only for testing)
 		default TYPE_7390_84_04_82 if TYPE_7390 
@@ -1244,16 +1244,16 @@ choice
 			media content via AVM WLAN USB Stick v1.1. External software for
 			the USB-Stick is necessary and is part of the ZIP-file.
 
-	config TYPE_7270_CORE_15627
-		bool "AVM 7270 15627 (Streaming Stick)"
+	config TYPE_7270_CORE_16540
+		bool "AVM 7270 16540 (Streaming Stick)"
 		depends on ( TYPE_7270 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! Streaming Stick: This release adds support for streaming of
 			media content via AVM WLAN USB Stick v1.1. External software for
 			the USB-Stick is necessary and is part of the ZIP-file.
 
-	config TYPE_7273_CORE_15627
-		bool "AVM 7270v3 15627 (Streaming Stick)"
+	config TYPE_7273_CORE_16540
+		bool "AVM 7270v3 16540 (Streaming Stick)"
 		depends on ( TYPE_7390 || TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ! Streaming Stick: This release adds support for streaming of
@@ -1496,7 +1496,7 @@ choice
 		default TYPE_SRC3_AVM_7273_74_04_76        	if EXPORT_TYPE_LOCAL_MODEL && TYPE_7273
 		default TYPE_SRC3_AVM_7141_40_04_76           	if EXPORT_TYPE_LOCAL_MODEL && TYPE_7141
 		default TYPE_SRC3_TCOM_W920_65_04_78   		if TYPE_9207570
-#		default TYPE_SRC3_AVM_CORE_7270_15627   	if TYPE_9207570 && ! FORCE_VDSL
+#		default TYPE_SRC3_AVM_CORE_7270_16540   	if TYPE_9207570 && ! FORCE_VDSL
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 ### 7113 Firmware
@@ -1648,11 +1648,11 @@ choice
 	config TYPE_SRC3_AVM_CORE_7273_15220
 		bool "AVM 7270v3 15220 (Streaming Stick)"
 
-	config TYPE_SRC3_AVM_CORE_7270_15627
-		bool "AVM 7270 15627 (Streaming Stick)"
+	config TYPE_SRC3_AVM_CORE_7270_16540
+		bool "AVM 7270 16540 (Streaming Stick)"
 
-	config TYPE_SRC3_AVM_CORE_7273_15627
-		bool "AVM 7270v3 15627 (Streaming Stick)"
+	config TYPE_SRC3_AVM_CORE_7273_16540
+		bool "AVM 7270v3 16540 (Streaming Stick)"
 
 	config TYPE_SRC3_AVM_PHONE_7270_16376
 		bool "AVM 7270 16376 (Phone)"
@@ -1919,7 +1919,7 @@ config AVM_IMG
 	default "$AVM_7240_73_04_80"				if ( TYPE_7240_73_04_80 )
 #	default "$AVM_7570_75_04_77"				if ( TYPE_7570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX
 	default "$AVM_7570_75_04_78"				if ( TYPE_7570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX
-	default "$AVM_CORE_7270_15627"				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
+	default "$AVM_CORE_7270_16540"				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_m54_04_76" 				if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && ! TYPE_LANG_DE
 	default "$AVM_7240_54_04_59" 				if ( TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7240_54_04_59" 				if ( TYPE_7240_54_04_59 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
@@ -1933,8 +1933,8 @@ config AVM_IMG
 	default "$AVM_7273_74_04_80"				if ( TYPE_7273_74_04_80 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_CORE_7270_15220"				if ( TYPE_7270_CORE_15220 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_CORE_7273_15220"				if ( TYPE_7273_CORE_15220 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_CORE_7270_15627"				if ( TYPE_7270_CORE_15627 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_CORE_7273_15627"				if ( TYPE_7273_CORE_15627 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_CORE_7270_16540"				if ( TYPE_7270_CORE_16540 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_CORE_7273_16540"				if ( TYPE_7273_CORE_16540 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_13486"				if ( TYPE_7270_13486 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_DSL_7270_15852"				if ( TYPE_7270_DSL_15852 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_DSL_7273_15852"				if ( TYPE_7273_DSL_15852 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
@@ -2032,8 +2032,8 @@ config SRC2_IMG
 	default "$AVM_7273_74_04_80" 			if TYPE_SRC3_AVM_7273_74_04_80
 	default "$AVM_CORE_7270_15220" 			if TYPE_SRC3_AVM_CORE_7270_15220
 	default "$AVM_CORE_7273_15220" 			if TYPE_SRC3_AVM_CORE_7273_15220
-	default "$AVM_CORE_7270_15627" 			if TYPE_SRC3_AVM_CORE_7270_15627
-	default "$AVM_CORE_7273_15627" 			if TYPE_SRC3_AVM_CORE_7273_15627
+	default "$AVM_CORE_7270_16540" 			if TYPE_SRC3_AVM_CORE_7270_16540
+	default "$AVM_CORE_7273_16540" 			if TYPE_SRC3_AVM_CORE_7273_16540
 	default "$AVM_7270_m54_04_76"	 		if TYPE_SRC3_AVM_7270_m54_04_76
 	default "$AVM_7270_13486"				if TYPE_SRC3_AVM_7270_13486
 	default "$AVM_AIO_7270_14543"			if TYPE_SRC3_AVM_AIO_7270_14543
@@ -2108,7 +2108,7 @@ config TYPE_V3_OR_7240
 	default y	if\
 	TYPE_7273_74_04_76 ||\
 	TYPE_7273_CORE_15220 ||\
-	TYPE_7273_CORE_15627 ||\
+	TYPE_7273_CORE_16540 ||\
 	TYPE_7273_PHONE_16376 ||\
 	TYPE_7273_IPV6_15316 ||\
 	TYPE_7273_PRE_15892 ||\
@@ -2117,8 +2117,8 @@ config TYPE_V3_OR_7240
 	TYPE_72XX_IPV6 ||\
 	TYPE_7240_73_04_76 ||\
 	TYPE_7240_73_04_80 ||\
-	TYPE_7240_CORE_15627 ||\
-	TYPE_7240_CORE_V3_15627 ||\
+	TYPE_7240_CORE_16540 ||\
+	TYPE_7240_CORE_V3_16540 ||\
 	TYPE_7240_PHONE_16376 ||\
 	TYPE_7240_PRE_15892
 
@@ -2136,7 +2136,7 @@ config TYPE_LABOR_TYPE
 	default "A76" 		if TYPE_7170_58_04_76 || TYPE_7270_A76
 	default "76m" 		if TYPE_7270_m54_04_76
 	default "763V3" 	if TYPE_7273_74_04_76
-	default "CORE"	 	if TYPE_7270_CORE_V3_15220 || TYPE_7270_CORE_15220 || TYPE_7270_CORE_15627 || TYPE_7273_CORE_15627 || TYPE_7240_CORE_15627 || TYPE_7240_V3_CORE_15627
+	default "CORE"	 	if TYPE_7270_CORE_V3_15220 || TYPE_7270_CORE_15220 || TYPE_7270_CORE_16540 || TYPE_7273_CORE_16540 || TYPE_7240_CORE_16540 || TYPE_7240_V3_CORE_16540
 	default "PREVIEW"	if TYPE_7170_PRE_16352
 	default "BETA"	 	if TYPE_7270_PRE_15892 || TYPE_7273_PRE_15892 || TYPE_7240_PRE_15892 || TYPE_72XX_PRE
 	default "13948" 	if TYPE_7170_13948
