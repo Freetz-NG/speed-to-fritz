@@ -462,7 +462,7 @@ config AVM_7390_84_04_81
    string
 #      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7390_vDSL.84.04.81.zip mirror http://www.hostarea.de/server-12/Dezember-8bfff7e46f.zip"
      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7390.AnnexB.84.04.81.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373339302e416e6e6578422e38342e30342e38312e7a6970.zip"
-
+#16165
 config AVM_7390_84_04_82
    string
      default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7390/firmware/deutsch/fritz.box_wlan_7390_84.04.82.image"
@@ -1685,7 +1685,7 @@ choice
 		bool "AVM 7390 15936"
 
 	config TYPE_SRC3_AVM_PRE_7390_16165
-		bool "AVM 7390 16195"
+		bool "AVM 7390 16165"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 Firmware
