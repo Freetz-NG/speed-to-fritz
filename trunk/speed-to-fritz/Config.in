@@ -443,18 +443,6 @@ config AVM_7570_75_04_77
 
 config AVM_7570_16068
    string
-      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.75.04.80-16068.image"
-
-config AVM_7570_16087
-   string
-      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.80-16087.image"
-
-config AVM_7570_16271
-   string
-     default "firmware-avme-en-de-fr-75.04.80-16271M-FRITZ.Box_Fon_WLAN_7570_vDSL.image"
-
-config AVM_7570_16068
-   string
       default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.75.04.80-16068.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373537305f7644534c2e37352e30342e38302d31363036382e7a6970.zip"
 
 config AVM_7570_16087
@@ -463,7 +451,8 @@ config AVM_7570_16087
 
 config AVM_7570_16271
    string
-      default "firmware-avme-en-de-fr-75.04.80-16271M-FRITZ.Box_Fon_WLAN_7570_vDSL.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373537305f7644534c2e656e2d64652d66722d37352e30342e38302d31363237314d2e7a6970.zip"
+      default "avme-en-de-fr-75.04.80-16271M-FRITZ.Box_Fon_WLAN_7570_vDSL.zip mirror http://drop.io/download/public/xapjctopcxpag0g9bdym/38f945c1e351e2442590071685857194d6fc7d6f/9ca62330-0515-012d-6f38-f25394371fa5/abf383d0-0516-012d-4369-fdb8aab1dedb/v2/content"
+
 
 ### Not available only in use by AVM <--
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
