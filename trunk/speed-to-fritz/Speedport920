@@ -56,7 +56,7 @@ else
  cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory="${SRC}"/lib/modules/$KernelVersion
  #cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.dep --target-directory="${SRC}"/lib/modules/$KernelVersion
  cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.alias --target-directory="${SRC}"/lib/modules/$KernelVersion
- cp -fdrp "${DST}"/usr/sbin --target-directory="${SRC}"/usr
+ cp -u "${DST}"/usr/sbin/* --target-directory="${SRC}"/usr/sbin
  cp -fdrp "${DST}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
  echo "  -- DSL Driver was taken from the original t-com firmware"
  [ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
@@ -70,7 +70,8 @@ else
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
 #    cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.dep --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.alias --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
-    cp -fdrp "${DST}"/usr/sbin --target-directory=./addon/tmp/W920/squashfs-root/usr
+    cp -fdrp "${DST}"/usr/sbin/dsl* --target-directory=./addon/tmp/W920/squashfs-root/usr/sbin
+    cp -fdrp "${DST}"/usr/sbin/vinax* --target-directory=./addon/tmp/W920/squashfs-root/usr/sbin
     cp -fdrp "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory=./addon/tmp/W920/squashfs-root/usr/share/ctlmgr
     cp -fdrp "${DST}"/usr/share/ctlmgr/libtr064.so --target-directory=./addon/tmp/W920/squashfs-root/usr/share/ctlmgr
  fi
@@ -83,7 +84,8 @@ else
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.symbols --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
 #    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.dep --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.alias --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
-    cp -fdrp "${SRC_2}"/usr/sbin --target-directory=./addon/tmp/W920/squashfs-root/usr
+    cp -fdrp "${SRC_2}"/usr/sbin/dsl* --target-directory=./addon/tmp/W920/squashfs-root/usr/sbin
+    cp -fdrp "${SRC_2}"/usr/sbin/vinax* --target-directory=./addon/tmp/W920/squashfs-root/usr/sbin
     cp -fdrp "${SRC_2}"/usr/share/ctlmgr/libvdsl.so --target-directory=./addon/tmp/W920/squashfs-root/usr/share/ctlmgr
     cp -fdrp "${SRC_2}"/usr/share/ctlmgr/libtr064.so --target-directory=./addon/tmp/W920/squashfs-root/usr/share/ctlmgr
  fi
@@ -94,7 +96,7 @@ else
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.symbols --target-directory="${SRC}"/lib/modules/$KernelVersion
 #    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.dep --target-directory="${SRC}"/lib/modules/$KernelVersion
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.alias --target-directory="${SRC}"/lib/modules/$KernelVersion
-    cp -fdrp "${SRC_2}"/usr/sbin --target-directory="${SRC}"/usr
+    cp -u "${SRC_2}"/usr/sbin/* --target-directory="${SRC}"/usr/sbin
     [ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${SRC_2}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
     [ -f "${SRC}"/usr/share/ctlmgr/libtr064.so ] || cp -fdrp "${SRC_2}"/usr/share/ctlmgr/libtr064.so --target-directory=${SRC}/usr/share/ctlmgr
     cp -fdrp "${SRC_2}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
