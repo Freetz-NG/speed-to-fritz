@@ -66,11 +66,17 @@ if [ -e "$1"/usr/www/${HTML}/de/system/energy.html ]; then
        if `cat "$1"/usr/www/${HTML}/de/system/energy.html | grep -q 'usbleft_val'` ; then
                echo2 "      /usr/www/${HTML}/de/system/energy.html"
                sed -i -e "/\$var:Text23 /,/class=\"backdialog\"/d" "$1"/usr/www/${HTML}/de/system/energy.html
-	       #.49 vesion
+	       #.49 version
                sed -i -e "/\$var:TextUSBZubehoer /,/class=\"backdialog\"/d" "$1"/usr/www/${HTML}/de/system/energy.html
                sed -i -e "/USB-/,/class=\"backdialog\"/d" "$1"/usr/www/${HTML}/de/system/energy.html # all in one
                echo2 "      /usr/www/${HTML}/de/system/energy.js"
-               sed -i -e "/SetPowerDisplay('usb'/,/jslSetSpanText('usbstate', g_txtUsbNotFound)/d" "$1"/usr/www/${HTML}/de/system/energy.js
+               #.80 version
+    		if `cat "$1"/usr/www/${HTML}/de/system/energy.js | grep -q "SetPowerDisplay('usb"` ; then
+            	    sed -i -e '/function SetPowerDisplay/i\
+__Marker__\
+}' "$1"/usr/www/${HTML}/de/system/energy.js
+               sed -i -e "/SetPowerDisplay('usb'/,/__Marker__/d" "$1"/usr/www/${HTML}/de/system/energy.js
+                fi
  fi
 fi
 ##########################################
