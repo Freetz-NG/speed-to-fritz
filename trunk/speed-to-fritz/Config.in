@@ -250,9 +250,9 @@ config AVM_7270_m54_04_76
     string
     default "@AVM/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7270.en-de-es-it-fr.54.04.76.image"
 
-#config AVM_7270_54_04_70
-#    string
-#    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_IPv6/fritz_box-labor-15316.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
+config AVM_7270_54_04_70
+    string
+    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
 
 config AVM_7270_54_04_76
     string
@@ -3013,10 +3013,10 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		For normal this is "n", but for firmwares with minor versions less then 50 "y" works better.
 
  config FORCE_TCOM_LEDDRIVER
-	bool "Force use of orignal LED driver"
+	bool "Force use of T-Home LED driver"
 	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V
-	default y if ! FORCE_VDSL && ! TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W721V 
-	default n if FORCE_VDSL && ! TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V
+	default y if ( ! FORCE_VDSL && TYPE_9207570 ) && ! TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W721V 
+	default n if ( FORCE_VDSL && TYPE_9207570 ) && ! TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V
 	help
 		For normal this is "n", but you my use the T-Home driver, definition of LEDs differ, not all LEDS are usable.
 
