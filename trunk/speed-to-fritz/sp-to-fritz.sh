@@ -1614,6 +1614,7 @@ if [ "$SET_UP" = "n" ]; then
 else
 echo "No output generated, because this was specified via setup! "
 fi
+[ "$RUN_PATCH_DECT" == "y" ] && $HOMEDIR/patch_dect.sh
 # Strip Firmware.conf only if all was completed without error
 # a control C brack will keep the unstripped Firmware.conf 
 # Firmware.conf.tar was generated earlyer.

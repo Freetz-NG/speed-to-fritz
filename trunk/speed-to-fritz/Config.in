@@ -2257,6 +2257,14 @@ config EXPORT_ADD_7150_DECTMNUE
 	default y
 	help
 		Add some parts of DECT menu pages originating from 7150 .56, this patch is usable with .57 AVM version or similar versions.
+config RUN_PATCH_DECT
+	bool "Execute patch for DECT pseudoupdate"
+	depends on TYPE_SPEEDPORT_W900V
+	depends on EXPERT_MOD
+	default n
+	help
+		W900 und Sinus 500 use a external pseudoimage to updat DECT firmware.
+		This update is usual not needed.
 config EXPORT_ADD_MODINFOICON
 	bool "Add modinfo icon on status page"
 	default y if ( ! TYPE_SPEEDPORT_W721V )
