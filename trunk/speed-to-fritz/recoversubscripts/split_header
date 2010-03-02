@@ -26,7 +26,15 @@ abs_split_functions="`find $mod_base -name split_functions`"
 . $abs_split_functions
 # Magic byte sequences prepared for 'hexgrep' usage
 # dont change number of bytes counts are defind within routine
-KERNEL_MAGIC="81 12 ED FE .. .. .. 00 00 00 00 94 01 02 5a 07"
+#alt KERNEL_MAGIC="81 12 ED FE .. .. .. 00 00 00 00 94 01 02 5a 07"
+#neu KERNEL_MAGIC="81 12 ED FE .. .. .. .. 00 00 01 80 01 02 5a 07"
+KERNEL_MAGIC="81 12 ED FE .. .. .. .. .. .. .. .. 01 02 5a 07"
 SQUASHFS_MAGIC="68 73 71 73 .. .. 00 00 .. .. .. .."
+#SQUASHFS_MAGIC="73 71 73 68"
 BOOTLOADER_MAGIC="00 90 80 40"
+#BOOTLOADER_MAGIC="40 80 90 00"
 echo "--------------------------------------------------------------------------------"
+#	/*LITTLE ENDIAN MAGIC*/
+#	uint32_t search = 0x73717368;
+#	/*BIG ENDIAN MAGIC*/
+#	uint32_t search2 = 0x68737173;

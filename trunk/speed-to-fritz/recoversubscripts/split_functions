@@ -105,8 +105,8 @@ kernel_lines="$(tools/hexgrep "$KERNEL_MAGIC" "$input_file")"
 kernel_offs=($(echo "$kernel_lines" | sed 's/:.*//'))
 #echo "kernel offset: $kernel_offs"
 #echo -n "kernel length in hex: "
-#echo "$kernel_lines" | sed -r 's/^[0-9]+:.{12}(.*).{27}/\1/'
-kernel_length=($(hex2dec "$(echo "$kernel_lines" | sed -r 's/^[0-9]+:.{12}(.*).{27}/\1/')"))
+#echo "$kernel_lines" | sed -r 's/^[0-9]+:.{12}(.*).{24}/\1/'
+kernel_length=($(hex2dec "$(echo "$kernel_lines" | sed -r 's/^[0-9]+:.{12}(.*).{24}/\1/')"))
 #echo "kernel length in decimal: $kernel_length"
 squashfs_lines="$(tools/hexgrep "$SQUASHFS_MAGIC" "$input_file")"
 #echo "squashfs magic line: $squashfs_lines"

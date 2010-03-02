@@ -43,7 +43,9 @@ RECOVERIMG7141="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7141/x_misc/deutsch
 RECOVERIMG7150="ftp://ftp.avm.de/fritz.box/fritzfon.7150/x_misc/FRITZ.Fon_7150.AnnexB.04.71.recover-image.exe"
 RECOVERIMG7170="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7170.04.76.recover-image.exe"
 RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/english/FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it-fr.04.76.recover-image.exe"
+#RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270_v3/x_misc/deutsch/fritz.box_fon_wlan_7270_v3.04.80.recover-image.exe"
 RECOVERIMG7390="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.82.recover-image.exe"
+#RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.82.recover-image.exe"
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
 #5010, 5012, FB Fon und FB Fon WLAN
@@ -132,6 +134,19 @@ else
      sed -i -e "s|FRITZ!Box Fon WLAN 7270|FRITZ!Box Fon WLAN ${SPNUM:0:4}|g" "$output_dir/exe_start"
 fi
 #0x1a249
+sed -i -e 's|\x85\xC0\x59\x0F\x85\xFA\x01\x00\x00\x8D\x85|\x85\xC0\x59\x90\x90\x90\x90\x90\x90\x8D\x85|' "$output_dir/exe_start"
+#.80
+sed -i -e 's|\x85\xC0\x59\x0F\x85\xEF\x01\x00\x00\x8D\x85|\x85\xC0\x59\x90\x90\x90\x90\x90\x90\x8D\x85|' "$output_dir/exe_start"
+#	test eax,eax pop eax => 85 C0 59
+#	jz => 0F 85
+#sed -i -e 's| 85 C0 59     0F 85    EF 01 00 00 8D 85
+#0x1a25e
+sed -i -e 's|\x85\xC0\x59\x0F\x85\x26\x02\x00\x00\x39\x9D|\x85\xC0\x59\x90\x90\x90\x90\x90\x90\x39\x9D|' "$output_dir/exe_start"
+#.80
+sed -i -e 's|\x85\xC0\x59\x0F\x85\x20\x02\x00\x00\x39\x9D|\x85\xC0\x59\x90\x90\x90\x90\x90\x90\x39\x9D|' "$output_dir/exe_start"
+#sed -i -e 's| 85 C0 59     0F 85    20 02 00 00 39 9D
+#0x1a684
+#0x1a249
 sed -i -e 's|\x0F\x85\xFA\x01\x00\x00\x8D\x85|\x90\x90\x90\x90\x90\x90\x8D\x85|' "$output_dir/exe_start"
 #0x1a25e
 sed -i -e 's|\x0F\x85\x26\x02\x00\x00\x39\x9D|\x90\x90\x90\x90\x90\x90\x39\x9D|' "$output_dir/exe_start"
@@ -143,12 +158,18 @@ sed -i -e 's|\xC4\x0C\x85\xC0\x74\x4A|\xC4\x0C\x85\xC0\xEB\x4A|' "$output_dir/ex
 sed -i -e 's|\x73\x06\x89\x1D\x50\xB6\x8F\x00|\x73\x00\x90\x90\x50\xB6\x8F\x00|' "$output_dir/exe_start"
 #0x1a308
 sed -i -e 's|\x72\x0E\x81\xFF\xE8\x03\x00\x00|\x72\x08\x81\xFF\xE8\x03\x00\x00|' "$output_dir/exe_start"
+#.80
+sed -i -e 's|\x72\x0B\x39\x7D\x08\x73\x06\x89|\x72\x05\x39\x7D\x08\x73\x06\x89|' "$output_dir/exe_start"
 #0x1a5f0
 #Check Kernel size
 #0x1846D
 sed -i -e 's|\x77\x48\x8D\x85\x08|\xEB\x48\x8D\x85\x08|' "$output_dir/exe_start"
+#.80
+sed -i -e 's|\x77\x45\x8D\x85\x10|\xEB\x45\x8D\x85\x10|' "$output_dir/exe_start"
 #0x184C1
 sed -i -e 's|\x73\x4A\x8D\x95\x08\xFC\xFF|\xEB\x4A\x8D\x95\x08\xFC\xFF|' "$output_dir/exe_start"
+#.80
+sed -i -e 's|\x00\x3B\xC8\x73\x4A\x8D\x95|\x00\x3B\xC8\xEB\x4A\x8D\x95|' "$output_dir/exe_start"
 #0x1a5f0 .26 firmware
 #sed -i -e 's|\x73\x4A\x8D\x95\x1C\xFC\xFF\xFF\x52\x51\x50\x68\x4C\x61\x90\x00|\xEB\x4A\x8D\x95\x1C\xFC\xFF\xFF\x52\x51\x50\x68\x4C\x61\x90\x00|' "./$output_dir/exe_start"
 rplbytes="90 90 90 90 90 90 8d 85"
@@ -162,14 +183,24 @@ rplbytes="eb 59 83 ff ff 89 bd"
 #rplbytes="73 00 90 90 50 b6 8f 00"
 #[ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- Urloader update remove error!" && checkerror="y"
 rplbytes="72 08 81 ff e8 03 00 00"
-[ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- Urloader2 update remove error!" && checkerror="y"
-rplbytes="eb 4a 8d 95 1c fc ff ff 52 51 50 68 4c 61 90 00"
+rplbytes1="72 05 39 7d 08 73 06 89" 
+if ! ( [ "$rplbytes" == "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] || \
+ [ "$rplbytes1" == "$(tools/hexgrep "$rplbytes1" "$output_dir/exe_start" | sed 's/.*://')" ] ) ; then 
+ echo "-- Urloader2 update remove error!" && checkerror="y"
+fi
+#rplbytes="eb 4a 8d 95 1c fc ff ff 52 51 50 68 4c 61 90 00"
 #[ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- Check kernel size remove error!" && checkerror="y"
 if ! ( [ "${R_IMG}" == "${RECOVERIMG7140}" ] || [ "${R_IMG}" == "${RECOVERIMG5050}" ] ) ; then
- rplbytes="eb 4a 8d 95 08 fc ff"
+ {
+ rplbytes="00 3b c8 eb 4a 8d 95"
  [ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- Check kernel size remove error!" && checkerror="y"
  rplbytes="eb 48 8d 85 08"
- [ "$rplbytes" != "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] && echo "-- Check2 kernel size remove error!" && checkerror="y"
+ rplbytes1="eb 45 8d 85 10"
+ if ! ( [ "$rplbytes" == "$(tools/hexgrep "$rplbytes" "$output_dir/exe_start" | sed 's/.*://')" ] || \
+ [ "$rplbytes1" == "$(tools/hexgrep "$rplbytes1" "$output_dir/exe_start" | sed 's/.*://')" ] ) ; then
+ echo "-- Check2 kernel size remove error!" && checkerror="y"
+ fi
+ }
 fi
 act_size=`ls -l "$output_dir/kernel.image" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 new_act_size=`ls -l "$kernel_dir/kernel.image" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
