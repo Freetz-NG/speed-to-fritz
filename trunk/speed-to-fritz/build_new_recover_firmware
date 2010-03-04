@@ -127,15 +127,17 @@ new_recover_file="$kernel_dir/Speedport_W${SPNUM}V.recover-image.exe"
 [ "${SPNUM}" == "501" ] && sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_start"
 SPNUM+="X"
 if [ ${SPNUM:3:1} == "X" ]; then
- sed -i -e "s|FRITZ!Box Fon WLAN ${FBMOD}|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_end"
- sed -i -e "s|FRITZ!Box Fon WLAN ${FBMOD}|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_start"
-     sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_start"
-     sed -i -e "s|FRITZ!Box Fon WLAN 7270|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_start"
+ sed -i -e "s|FRITZ!Box Fon WLAN ....|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_end"
+ sed -i -e "s|FRITZ!Box Fon WLAN ....|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_start"
+#     sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_start"
+#     sed -i -e "s|FRITZ!Box Fon WLAN 7270|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_start"
 else
- sed -i -e "s|FRITZ!Box Fon WLAN ${FBMOD}|FRITZ!Box Fon WLAN ${SPNUM:0:4}|g" "$output_dir/exe_start"
-     sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Fon WLAN ${SPNUM:0:4}|g" "$output_dir/exe_start"
-     sed -i -e "s|FRITZ!Box Fon WLAN 7270|FRITZ!Box Fon WLAN ${SPNUM:0:4}|g" "$output_dir/exe_start"
+ sed -i -e "s|FRITZ!Box Fon WLAN ....|FRITZ!Box Fon WLAN ${SPNUM:0:4}|g" "$output_dir/exe_start"
+#     sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Fon WLAN ${SPNUM:0:4}|g" "$output_dir/exe_start"
+#     sed -i -e "s|FRITZ!Box Fon WLAN 7270|FRITZ!Box Fon WLAN ${SPNUM:0:4}|g" "$output_dir/exe_start"
 fi
+ sed -i -e "s|FRITZ!Box Speedp. W${SPNUM:0:3}V v3|FRITZ!Box Speedp. W${SPNUM:0:3}V   |g" "$output_dir/exe_end"
+ sed -i -e "s|FRITZ!Box Speedp. W${SPNUM:0:3}V v3|FRITZ!Box Speedp. W${SPNUM:0:3}V   |g" "$output_dir/exe_start"
 #sed is much faster as ipsr! for replacing!
 #example: ./ipsr/ipsr s 0x85C0590F85FA0100008D85 0x85C0590F85FA0100008D85 "$output_dir/exe_start"
 #	test eax,eax pop eax => 85 C0 59
@@ -210,10 +212,10 @@ AVM_New_version="$AVM_VERSION_MAJOR.$AVM_VERSION"
 OldRversion="$(dd if=$output_dir/exe_mid bs=1 count=16  2> /dev/null)"
 OldRversion_C="$(dd if=$output_dir/exe_mid bs=1 count=16  2> /dev/null | sed 's/-//' | tr -d '[:alpha:]' | sed 's/-\.//' )"
 New_Rversion=$AVM_New_version$(dd if=$output_dir/exe_mid bs=1 count=16  2> /dev/null | sed 's/-it/   /' | sed 's/-en/   /' | sed 's/-fr/   /' | sed 's/-sp/   /' | sed 's/ \./  /' | sed "s|$OldRversion_C||")
-##[ "$ORI" != "y" ] && echo "New recoverversion: .$New_Rversion."
+[ "$ORI" != "y" ] && echo "New recoverversion: .$New_Rversion."
 #echo "Old recoverversion : .$OldRversion."
 #echo "Old recoverversionC: .$OldRversion_C."
-##[ "$ORI" != "y" ] && sed -i -e "s|$OldRversion|$New_Rversion|" "$output_dir/exe_mid"
+[ "$ORI" != "y" ] && sed -i -e "s|$OldRversion|$New_Rversion|" "$output_dir/exe_mid"
 
 dd if=/dev/zero bs=1 count=$act_diff >$output_dir/zerro.image 2> /dev/null
 #echo "concat all parts ..."
