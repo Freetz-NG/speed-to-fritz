@@ -6,11 +6,10 @@ abs_split_header="`find -name split_header`"
 new_output_file="new_$output_dir1.exe"
 output_dir="$mod_base/$output_dir1"
 mkdir -p "$output_dir"
-#---------------------------------------------
+
 extract_exe_start
 extract_kernel_plus_mid
-#extract_kernel_image
-#extract_exe_mid
+#extract_kernel_image not working correctly
 extract_bootloader
 extract_exe_end
 

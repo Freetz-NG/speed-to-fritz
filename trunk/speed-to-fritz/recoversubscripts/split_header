@@ -29,12 +29,38 @@ abs_split_functions="`find $mod_base -name split_functions`"
 #alt KERNEL_MAGIC="81 12 ED FE .. .. .. 00 00 00 00 94 01 02 5a 07"
 #neu KERNEL_MAGIC="81 12 ED FE .. .. .. .. 00 00 01 80 01 02 5a 07"
 KERNEL_MAGIC="81 12 ED FE .. .. .. .. .. .. .. .. 01 02 5a 07"
-SQUASHFS_MAGIC="68 73 71 73 .. .. 00 00 .. .. .. .."
-#SQUASHFS_MAGIC="73 71 73 68"
-BOOTLOADER_MAGIC="00 90 80 40"
-#BOOTLOADER_MAGIC="40 80 90 00"
-echo "--------------------------------------------------------------------------------"
-#	/*LITTLE ENDIAN MAGIC*/
-#	uint32_t search = 0x73717368;
+KERNEL_MAGIC_2="0x8112edfe"
+KERNEL_MAGIC_3="81 12 ED FE"
 #	/*BIG ENDIAN MAGIC*/
-#	uint32_t search2 = 0x68737173;
+SQUASHFS_MAGIC="68 73 71 73 .. .. 00 00 .. .. .. .."
+BOOTLOADER_MAGIC="00 90 80 40"
+BOOTLOADER_MAGIC_2="0x00908040"
+#	/*LITTLE ENDIAN MAGIC*/
+SQUASHFS_MAGIC_L="73 71 73 68 00 00 .. .. .. .. .. .."
+BOOTLOADER_MAGIC_L="40 80 90 00"
+BOOTLOADER_MAGIC_L_2="0x40809000"
+FV="0x2E30342E" #= .04.
+ENDEES="0x656e2d64652d" #=en-de-es
+echo "--------------------------------------------------------------------------------"
+echo "Look for kernel start and end ..."
+bootloder_start_at="$(recoversubscripts/ipsr p "$BOOTLOADER_MAGIC_2" "$input_file")" || \
+bootloder_start_at=$(recoversubscripts/ipsr p "$BOOTLOADER_MAGIC_L_2" "$input_file")
+bootloder_start_at=$((bootloder_start_at + 1))
+echo "bootloader start at: $bootloder_start_at"
+kernel_end_at=$(recoversubscripts/ipsr p "$ENDEES" "$input_file") || \
+kernel_end_at=$(recoversubscripts/ipsr p "$FV" "$input_file")
+kernel_end_at=$((kernel_end_at - 1))
+#echo "kernel end at: $kernel_end_at"
+kernel_start_at=$(recoversubscripts/ipsr p "$KERNEL_MAGIC_2" "$input_file")
+kernel_start_at=$((kernel_start_at + 1))
+echo "kernel start at: $kernel_start_at"
+
+
+psize=$((bootloder_start_at - kernel_end_at))
+#old way
+if [ "$kernel_end_at" == "1" ]; then
+ psize=53
+ kernel_end_at=$((bootloder_start_at - psize))
+fi
+kernel_end=$kernel_end_at
+echo "kernel end at: $kernel_end_at"
