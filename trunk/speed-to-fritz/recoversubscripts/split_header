@@ -45,10 +45,10 @@ echo "Look for kernel start and end ..."
 bootloder_start_at="$(recoversubscripts/ipsr p "$BOOTLOADER_MAGIC_2" "$input_file")" || \
 bootloder_start_at=$(recoversubscripts/ipsr p "$BOOTLOADER_MAGIC_L_2" "$input_file")
 bootloder_start_at=$((bootloder_start_at + 1))
-#echo "bootloader start at: $bootloder_start_at"
+echo "bootloader start at: $bootloder_start_at"
 kernel_end_at=$(recoversubscripts/ipsr p "$FV" "$input_file") && \
 kernel_end_at=$((kernel_end_at - 1))
-echo "kernel end at: $kernel_end_at"
+#echo "kernel end at: $kernel_end_at"
 kernel_start_at=$(recoversubscripts/ipsr p "$KERNEL_MAGIC_2" "$input_file")
 kernel_start_at=$((kernel_start_at + 1))
 echo "kernel start at: $kernel_start_at"

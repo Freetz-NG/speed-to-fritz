@@ -50,8 +50,8 @@ return false;\
 }\
 var g_HelpPagesOnBox = new Array(|' "${DSTI}"/help/popup.html
 
-
-    sed -i -e 's|if (g_HelpUrl != "")|var topic = "<? echo $var:pagename ?>";\
+    sed -i -e '/if (g_HelpUrl != ""/i\
+var topic = "<? echo $var:pagename ?>";\
 if (IsTopicModOnBox(topic))\
 {\
 var h1 = document.getElementById("btnBack");\
@@ -60,8 +60,7 @@ jslDisplay("uiShowOffline",true);\
 var anker = "<? echo $var:anker ?>";\
 if (anker != "") location.hash = anker;\
 return;\
-}\
-if (g_HelpUrl != "")|' "${DSTI}"/help/popup.html
+}' "${DSTI}"/help/popup.html
 
 #    sed -i -e 's|jslDisplay("uiShowError", true);|jslDisplay("uiShowError", true);\n}|' "${DSTI}"/help/popup.html
 
