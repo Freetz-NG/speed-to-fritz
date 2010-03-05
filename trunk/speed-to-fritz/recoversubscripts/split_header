@@ -40,25 +40,23 @@ SQUASHFS_MAGIC_L="73 71 73 68 00 00 .. .. .. .. .. .."
 BOOTLOADER_MAGIC_L="40 80 90 00"
 BOOTLOADER_MAGIC_L_2="0x40809000"
 FV="0x2E30342E" #= .04.
-ENDEES="0x656e2d64652d" #=en-de-es
 echo "--------------------------------------------------------------------------------"
 echo "Look for kernel start and end ..."
 bootloder_start_at="$(recoversubscripts/ipsr p "$BOOTLOADER_MAGIC_2" "$input_file")" || \
 bootloder_start_at=$(recoversubscripts/ipsr p "$BOOTLOADER_MAGIC_L_2" "$input_file")
 bootloder_start_at=$((bootloder_start_at + 1))
-echo "bootloader start at: $bootloder_start_at"
+#echo "bootloader start at: $bootloder_start_at"
 kernel_end_at=$(recoversubscripts/ipsr p "$FV" "$input_file") && \
 kernel_end_at=$((kernel_end_at - 1))
-kernel_end_at=$(recoversubscripts/ipsr p "$ENDEES" "$input_file") && \
-kernel_end_at="1"
-#echo "kernel end at: $kernel_end_at"
+echo "kernel end at: $kernel_end_at"
 kernel_start_at=$(recoversubscripts/ipsr p "$KERNEL_MAGIC_2" "$input_file")
 kernel_start_at=$((kernel_start_at + 1))
 echo "kernel start at: $kernel_start_at"
 
 
 psize=$((bootloder_start_at - kernel_end_at))
-#old way
+#old way, look for old filenames 
+basename "$input_file" | grep -q 'en-de' && kernel_end_at="1"
 if [ "$kernel_end_at" == "1" ]; then
  psize=53
  kernel_end_at=$((bootloder_start_at - psize))

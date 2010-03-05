@@ -14,7 +14,6 @@ exe_length=$kernel_start_at
 echo "exe_length:$exe_length"
 output_file="$output_dir/exe_start"
 echo " exe_start, start @ 0, length: $exe_length"
-#dd if="$input_file" of="$output_file" ibs=1 obs=8192 count=$exe_length 2> /dev/null
 dd if="$input_file" of="$output_file" ibs=$exe_length obs=8192 count=1 2> /dev/null
 }
 extract_exe_end()
@@ -25,10 +24,8 @@ offs=$((bootloder_start_at + 65536))
 esize=$((act_size - offs))
 output_file="$output_dir/exe_end"
 echo " exe_end, start @ $offs, length: $esize, end @ $act_size"
-#dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$offs count=$esize 2> /dev/null
 ( dd of="/dev/null" ibs=$offs obs=8192 count=1 2> /dev/null && dd of="$output_file" ibs=$esize obs=8192 count=1 2> /dev/null ) < "$input_file"
 }
-# Extracts urlader.image candidates from input file, based on bootloader magic
 extract_bootloader()
 {
 echo -e "Extracting bootloader (urlader.image) ..."
@@ -36,7 +33,6 @@ output_file="$output_dir/urlader.image"
 bsize=65536
 act_end=$((bootloder_start_at + bsize))
 echo " urlader.image, start @ $bootloder_start_at, length: $bsize, end @ $act_end"
-dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=$bootloder_start_at count=$bsize 2> /dev/null
 ( dd of="/dev/null" ibs=$bootloder_start_at obs=8192 count=1 2> /dev/null && dd of="$output_file" ibs=$bsize obs=8192 count=1 2> /dev/null ) < "$input_file"
 grep -iq 'entering passive mode' "$output_file" \
 && grep -iq 'ftp server ready' "$output_file" \
