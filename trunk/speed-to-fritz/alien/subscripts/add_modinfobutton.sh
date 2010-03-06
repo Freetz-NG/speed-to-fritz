@@ -25,10 +25,19 @@ if [ -e "${DSTI}"/menus/menu2.html ]; then
     echo "-- Adding 'Info' icon on status page..."
     cp -fdpr  $P_DIR/help1.gif  --target-directory="${DSTI}"/images
     echo2 "      ${DSS}/menus/menu2.html"
-    sed -i -e "/PopHelpEx/i \
+     # fix phone labor 16624
+     if grep -q "jslPopHelpEx('home', ''). title=" "${DSTI}"/menus/menu2.html ;then
+      sed -i -e "/PopHelpEx/i \
+<a href=\"javascript:jslPopHelp('modinfo')\" title=\"Mod Info\" style=\"width:20px;vertical-align:bottom;padding-right:5px;\">\n\ \
+<img src=\"..\/html\/de\/images\/help1.gif\"><span style=\"\">{?de.menus.menu2.html:4626?}<\/span>\n\ \
+<\/a>" "${DSTI}"/menus/menu2.html
+	#all otheres as usual
+      else
+     sed -i -e "/PopHelpEx/i \
 <td title=\"Mod Info\" style=\"width: 20px;\"><a href=\"javascript:jslPopHelp('modinfo')\">\n\ \
 <img src=\"..\/html\/de\/images\/help1.gif\">\n\ \
 <\/a><\/td>" "${DSTI}"/menus/menu2.html
+     fi
  fi
     sed -i -e 's|var g_HelpPagesOnBox = new Array(|var g_ModHelpPagesOnBox = new Array(\
 "modinfo",\
