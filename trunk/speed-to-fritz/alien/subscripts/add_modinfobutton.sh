@@ -136,6 +136,7 @@ cat << 'EOF' >> "${DSTF}"
 ADD_7150_DECTMNUE
 ADD_DSL_EXPERT_MNUE
 USE_OWN_DSL
+USE_SRC2_DSL
 FORCE_TCOM_DSL
 FORCE_TCOM_FON
 MOVE_ALL_XXX
@@ -152,7 +153,7 @@ abgestimmt.	Verwendet wurde das Image-File <b>'IMG0_TCOM'</b>.</li>
 <li><b>AVM Systemimage:</b> Dieses Image wird verwendet, um Systemfunktionen und auch die AVM-Weboberfläche 
 zu ergänzen. Das Image stammt von einer AVM-Hardware, die in der Funktion der Hardware ähnlich ist und die 
 dieselbe Kernel-Version verwendet. Verwendet wurde das Image-File <b>'IMG1_AVM'</b>.</li>
-<li><b>AVM WebUI-Image:</b> Verwendet wurde das Image-File <b>'IMG2_AVM'</b>.</li>
+<li><b>2. AVM-Image:</b> Verwendet wurde das Image-File <b>'IMG2_AVM'</b>.</li>
 <li><b>Kernel-Update:</b> Der AVM Kernel wurde <b>XCHANGE_KERNEL</b>.</li>
 </ul>
 <p></p>
@@ -192,6 +193,7 @@ Status Page shows AVM Product name <b>plus hardware type</b>.</li>
 ADD_7150_DECTMNUE
 ADD_DSL_EXPERT_MNUE
 USE_OWN_DSL
+USE_SRC2_DSL
 FORCE_TCOM_DSL
 FORCE_TCOM_FON
 MOVE_ALL_XXX
@@ -203,9 +205,9 @@ FORCE_CLEAR_FLASH
 <h2>Used Firmware-Versions</h2>
 <p>Following Firmware Images have been used for the WEB-GUI and to enable system functionality:</p>
 <ul>
-<li><b>1st image:</b> This Image is used for the basic driver functions as it is designed for Telekom Hardware.	Image-File <b>'IMG0_TCOM'</b> has been used.</li>
+<li><b>1st Image:</b> This Image is used for the basic driver functions as it is designed for Telekom Hardware.	Image-File <b>'IMG0_TCOM'</b> has been used.</li>
 <li><b>AVM System Image:</b> This image is used to complete system functions and also the AVM WEB-GUI. The image comes from an AVM Hardware that is common to the Telekom Hardware and uses same Kernel version. <b>'IMG1_AVM'</b>.</li> Image has been used.
-<li><b>AVM WebUI-Image:</b> For Speedport W 900V the WEB-GUI may be copied from a separate Image, that is also supporting the special ISDN functionality of this box. <b>'IMG2_AVM'</b>.</li> image has been used.
+<li><b>2nd AVM Image:</b> For Speedport W 900V the WEB-GUI may be copied from a separate Image, that is also supporting the special ISDN functionality of this box. <b>'IMG2_AVM'</b>.</li> image has been used.
 <li><b>Kernel-Update:</b> AVM Firmware kernel has been <b>XCHANGE_KERNEL</b> with t-com kernel.</li>
 </ul>
 <p></p>
@@ -253,6 +255,8 @@ if [ "$avm_Lang" = "de" ]; then
 [ "$USE_OWN_DSL" = "y" ] || sed -i -e "s|USE_OWN_DSL||" "${DSTF}"
 [ "$FORCE_TCOM_DSL" = "y" ] && sed -i -e "s|FORCE_TCOM_DSL|<li><b>DSL-Treiber:</b> Der DSL Treiber wurde aus der t-com Firmware <b>verwendet</b>.</li>|" "${DSTF}"
 [ "$FORCE_TCOM_DSL" = "y" ] || sed -i -e "s|FORCE_TCOM_DSL||" "${DSTF}"
+[ "$USE_SRC2_DSL" = "y" ] && sed -i -e "s|USE_SRC2_DSL|<li><b>DSL-Treiber:</b> Der DSL Treiber wurde aus der 2. AVM Firmware <b>verwendet</b>.</li>|" "${DSTF}"
+[ "$USE_SRC2_DSL" = "y" ] || sed -i -e "s|USE_SRC2_DSL||" "${DSTF}"
 [ "$FORCE_TCOM_FON" = "y" ] && sed -i -e "s|FORCE_TCOM_FON|<li><b>FON-Treiber:</b> Der Telefon Treiber wurde aus der t-com Firmware <b>verwendet</b>.</li>|" "${DSTF}"
 [ "$FORCE_TCOM_FON" = "y" ] || sed -i -e "s|FORCE_TCOM_FON||" "${DSTF}"
 [ "$MOVE_ALL_XXX" = "y" ] && sed -i -e "s|MOVE_ALL_XXX|<li><b>Freetz-Kompatibilität:</b> Das Verzeichnis www/all wurde auf www/$OEM <b>umbenannt</b>.</li>|" "${DSTF}" 
@@ -276,6 +280,7 @@ if [ "$avm_Lang" = "de" ]; then
 [ "$XCHANGE_KERNEL" = "y" ] && sed -i -e "s/XCHANGE_KERNEL/ mit dem der t-com Firmware ersetzt /" "${DSTF}"
 [ "$XCHANGE_KERNEL" = "y" ] || sed -i -e "s/XCHANGE_KERNEL/beibehalten /" "${DSTF}"
 
+
 #charset=utf-8
 Unicode_ut8="n"
 `cat "${1}"/usr/www/$HTML/index.html | grep -q 'charset=utf-8' ` && Unicode_ut8="y" 
@@ -298,6 +303,8 @@ else
 [ "$ADD_DSL_EXPERT_MNUE" = "y" ] || sed -i -e "s|ADD_DSL_EXPERT_MNUE||" "${DSTF}"
 [ "$USE_OWN_DSL" = "y" ] && sed -i -e "s|USE_OWN_DSL|<li><b>DSL-Driver:</b> DSL driver has been <b>replaced</b> with own.</li>|" "${DSTF}" 
 [ "$USE_OWN_DSL" = "y" ] || sed -i -e "s|USE_OWN_DSL||" "${DSTF}"
+[ "$USE_SRC2_DSL" = "y" ] && sed -i -e "s|USE_SRC2_DSL|<li><b>DSL-Driver:</b> DSL driver was taken from <b>2nd AVM</b> Firmware.</li>|" "${DSTF}"
+[ "$USE_SRC2_DSL" = "y" ] || sed -i -e "s|USE_SRC2_DSL||" "${DSTF}"
 [ "$FORCE_TCOM_DSL" = "y" ] && sed -i -e "s|FORCE_TCOM_DSL|<li><b>DSL-Driver:</b> DSL driver was taken from <b>T-com</b> Firmware.</li>|" "${DSTF}" 
 [ "$FORCE_TCOM_DSL" = "y" ] || sed -i -e "s|FORCE_TCOM_DSL||" "${DSTF}"
 [ "$FORCE_TCOM_FON" = "y" ] && sed -i -e "s|FORCE_TCOM_FON|<li><b>FON-Driver:</b> FON driver was taken from <b>T-com</b> Firmware.</li>|" "${DSTF}" 
@@ -321,6 +328,7 @@ else
 [ "$REMOVE_MENU_ITEM" = "y" ] || sed -i -e "s/FONMENU/not adapted/" "${DSTF}"
 [ "$XCHANGE_KERNEL" = "y" ] && sed -i -e "s/XCHANGE_KERNEL/ exchanged /" "${DSTF}" 
 [ "$XCHANGE_KERNEL" = "y" ] || sed -i -e "s/XCHANGE_KERNEL/not exchanged /" "${DSTF}"
+
 #////////////////////////////////////////////////////////////////
 fi
 #-------------------------------------------------------------------------------------------------------------------
