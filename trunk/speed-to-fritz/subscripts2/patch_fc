@@ -1,14 +1,9 @@
 #!/bin/bash
  . $include_modpatch
- echo "-- Applying 'caller id reverse lookup' patch ..."
 
 for DIR in ${OEMLIST}; do
  if [ -d "${1}/usr/www/${DIR}" ]; then
-#  if [ "$DIR" = "avme" ] ; then
-#   html="$avm_Lang/html"
-#  else
    html="html"
-#  fi
   DIRI="${1}/usr/www/${DIR}/$html/de/home" 
   FILE="foncalls.js"
   if ! [ -f "$DIRI/$FILE" ]; then
@@ -17,15 +12,13 @@ for DIR in ${OEMLIST}; do
   if  [ -f "$DIRI/$FILE" ]; then
    if ! `cat $DIRI/$FILE | grep -q "www.dasoertliche.de"` ; then
     echo2 "-- Patching file:"
-    echo2 "      /usr/www/${DIR}/$html/avm_Lang/fon/$FILE"
+    echo2 "      /usr/www/${DIR}/$html/de/fon/$FILE"
     #all versions 
     sed -i -e 's|Callno.gif\\"|Callno.gif\\" style=\\"vertical-align:text-top\\"|' "$DIRI/$FILE"
     #creating actual call
     sed -i -e 's|function uiNummerDisplay|function uiRufnummerInfo (nr) {\
     return "<a href=\\"http://www.dasoertliche.de/Controller?form_name=search_inv\&ph=$(urlencode "+nr+")\\" target=\\"_blank\\" title=\\"Rückwärtssuche bei dasoertliche.de nach "+nr+"\\"><img src=\\"../html/<? echo $var:lang ?>/images/bearbeiten.gif\\" style=\\"vertical-align:text-top\\"></a>";\n}\
 function uiNummerDisplay|' "$DIRI/$FILE"
-
-
     # function uiNummerDisplay 
     # line nr 5
     sed -i -e 's|return g_txtUnbekannt|return g_sym0 + g_txtUnbekannt|' "$DIRI/$FILE"
@@ -48,13 +41,14 @@ function uiNummerDisplay|' "$DIRI/$FILE"
     sed -i -e 's|if (buchentryinfo == "") return "<nobr><a href|if (buchentryinfo == "") return "<nobr>" + "<a href|' "$DIRI/$FILE"
     # line nr 14
     sed -i -e 's|return span(buchentryinfo==""|return (buchentryinfo=="" ? uiRufnummerInfo(nr):g_sym0) + span(buchentryinfo==""|' "$DIRI/$FILE"
-
-
+    # fix 16524
+    sed -i -e 's|return spanEx(tooltip,buchname==""|return (buchname=="" ? uiRufnummerInfo(nr):g_sym0) + spanEx(tooltip,buchname==""|' "$DIRI/$FILE"
    fi
     #convert to ut-8 if AVM Firmware is ut-8
     `cat ${1}/usr/www/${DIR}/$html/index.html | grep -q 'charset=utf-8' ` && sed -i -e 's|Rückwärtssuche|RÃ¼ckwÃ¤rtssuche|' "$DIRI/$FILE"
   fi
  fi
 done
+   grep -q "www.dasoertliche.de" $DIRI/$FILE && echo "-- Applyed 'caller id reverse lookup' patch"
 
 exit 0
