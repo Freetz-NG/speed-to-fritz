@@ -13,6 +13,29 @@ for DIR in ${OEMLIST}; do
    if ! `cat $DIRI/$FILE | grep -q "www.dasoertliche.de"` ; then
     echo2 "-- Patching file:"
     echo2 "      /usr/www/${DIR}/$html/de/fon/$FILE"
+    # fix 16540
+    if ! grep -q "spanEx(" $DIRI/$FILE ;then
+    sed -i -e '/function BuchBtn(name, rufnummer) {/i\
+function spanEx(str1,str2) {\
+return "<nobr><span title=\\""+ str1 + "\\">" + str2 + "<\/span><\/nobr>";\
+}' "$DIRI/$FILE"
+    sed -i -e '/var buchentryinfo = GetBuchEntryInfo(buchname,buchnrtype);/a\
+var tooltip=nr;\
+if (nr!="")\
+tooltip=buchentryinfo+" = "+nr;' "$DIRI/$FILE"
+    sed -i -e 's| title=.""+buchentryinfo+".">"+buchentryinfo+"</a></nobr>";| title=\\""+tooltip+"\\">"+buchentryinfo+"</a></nobr>";|' "$DIRI/$FILE"
+    sed -i -e 's|return span(buchname==""|return spanEx(tooltip,buchname==""|' "$DIRI/$FILE"
+    sed -i -e 's|mytype = GetNodeData|var mytype = GetNodeData|' \
+-e 's|datum = GetNodeData|var datum = GetNodeData|' \
+-e 's|rufnummer = GetNodeData|var rufnummer = GetNodeData|' \
+-e 's|myname = GetNodeData|var myname = GetNodeData|' \
+-e 's|telbooknumbertyp = GetNodeData|var telbooknumbertyp = GetNodeData|' \
+-e 's|myport = GetNodeData|var myport = GetNodeData|' \
+-e 's|route = GetNodeData|var route = GetNodeData|' \
+-e 's|routetype = GetNodeData|var routetype = GetNodeData|' \
+-e 's|dauer = GetNodeData|var dauer = GetNodeData|' \
+-e 's|PortName = GetNodeData|var PortName = GetNodeData|' "$DIRI/$FILE"
+    fi
     #all versions 
     sed -i -e 's|Callno.gif\\"|Callno.gif\\" style=\\"vertical-align:text-top\\"|' "$DIRI/$FILE"
     #creating actual call
@@ -41,7 +64,7 @@ function uiNummerDisplay|' "$DIRI/$FILE"
     sed -i -e 's|if (buchentryinfo == "") return "<nobr><a href|if (buchentryinfo == "") return "<nobr>" + "<a href|' "$DIRI/$FILE"
     # line nr 14
     sed -i -e 's|return span(buchentryinfo==""|return (buchentryinfo=="" ? uiRufnummerInfo(nr):g_sym0) + span(buchentryinfo==""|' "$DIRI/$FILE"
-    # fix 16524
+    # fix 16624
     sed -i -e 's|return spanEx(tooltip,buchname==""|return (buchname=="" ? uiRufnummerInfo(nr):g_sym0) + spanEx(tooltip,buchname==""|' "$DIRI/$FILE"
    fi
     #convert to ut-8 if AVM Firmware is ut-8
