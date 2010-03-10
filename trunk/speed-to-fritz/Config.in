@@ -752,8 +752,8 @@ config TYPE_TCOM_7570_XX
 choice
 	prompt "T-Home 7570 alternative firmware"
 	depends on TYPE_TCOM_7570_XX 
-#	default TYPE_TCOM_7570_75_04_78
-	default TYPE_TCOM_7570_16271
+	default TYPE_TCOM_7570_75_04_81
+#	default TYPE_TCOM_7570_16271
 	
 	config TYPE_TCOM_7570_75_04_70
 		bool "AVM 7570 75.04.70.en-de"
@@ -1358,7 +1358,7 @@ config TYPE_AVM_7570_XX
 choice
 	prompt "Any 7570 firmware"
 		depends on  TYPE_AVM_7570_XX
-		default TYPE_AVM_7570_75_04_78
+		default TYPE_AVM_7570_75_04_81
 
 	config TYPE_AVM_7570_75_04_70
 		bool "AVM 7570 75.04.70.en-de"
@@ -1455,11 +1455,6 @@ choice
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
-	config TYPE_AVM_7570_75_04_81
-		bool "AVM 7570 75.04.81"
-		help
-		FRITZ! : 7570 release multilingual, for used in combination with W920
-
 	config TYPE_AVM_7570_16068
 		bool "AVM 7570 75.04.80 16068"
 		help
@@ -1472,6 +1467,11 @@ choice
 
 	config TYPE_AVM_7570_16271
 		bool "AVM 7570 75.04.80.en-de-fr 16271"
+		help
+		FRITZ! : 7570 release multilingual, for used in combination with W920
+
+	config TYPE_AVM_7570_75_04_81
+		bool "AVM 7570 75.04.81 16542"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
@@ -1759,9 +1759,6 @@ choice
 	config TYPE_SRC3_AVM_7570_75_04_78
 		bool "AVM 7570 75.04.78.en-de-fr 15564"
 
-	config TYPE_SRC3_AVM_7570_75_04_81
-		bool "AVM 7570 75.04.81"
-
 	config TYPE_SRC3_AVM_7570_16068
 		bool "AVM 7570 75.04.80 16068"
 
@@ -1770,6 +1767,9 @@ choice
 
 	config TYPE_SRC3_AVM_7570_16271
 		bool "AVM 7570 75.04.80.en-de-fr 16271"
+
+	config TYPE_SRC3_AVM_7570_75_04_81
+		bool "AVM 7570 75.04.81 16542"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	config TYPE_SRC3_TCOM_W500_27
@@ -1938,7 +1938,7 @@ config AVM_IMG
 	default "$AVM_7240_73_04_76"				if ( TYPE_7240_73_04_76 )
 	default "$AVM_7240_73_04_80"				if ( TYPE_7240_73_04_80 )
 #	default "$AVM_7570_75_04_77"				if ( TYPE_7570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX
-	default "$AVM_7570_75_04_78"				if ( TYPE_7570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX
+#	default "$AVM_7570_75_04_78"				if ( TYPE_7570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX
 	default "$AVM_7570_75_04_81"				if ( TYPE_7570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX
 	default "$AVM_CORE_7270_16540"				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_m54_04_76" 				if ( TYPE_SPEEDPORT_W920V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && ! TYPE_LANG_DE
@@ -2905,14 +2905,14 @@ if ! EXPORT_ATA_ONLY
 #		Use own drv_vinax.co from bulid 15216.
 
     config FORCE_VINAX_DRV_77
-	bool "Force 75_04_78 compatibel vinax driver"
+	bool "Force 75_04_81 compatibel vinax driver"
 	depends on TYPE_9207570 && ! FORCE_VDSL
 	default y
 	help
 		Use own drv_vinax.co from bulid 15446.
 
     config FORCE_KDSLD_DRV_77
-	bool "Force 75_04_78 compatibel kdsld driver"
+	bool "Force 75_04_81 compatibel kdsld driver"
 	depends on TYPE_9207570 && ! FORCE_VDSL
 	default y
 	help

@@ -103,6 +103,8 @@ else
     echo "  -- DSL Driver was taken from 3. firmware"
  fi
 fi
+
+
 [ "${USE_OWN_DSL}" = "y" ] && cp -fdrp ./addon/tmp/W920/squashfs-root/* --target-directory="${SRC}" &&\
 echo "  -- VINAX DSL Driver was taken from local directory ./addon/tmp/W920"
 if [ "${SAVE_SRC2_KDSLDMOD}" = "y" ]; then
@@ -144,9 +146,9 @@ echo "  -- PPPoA compatible VINAX DSL Driver is in use!"
 echo "  -- PPPoA compatible KDSLDMOD Driver is in use!"
 
 [ "${FORCE_VINAX_DRV_77}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax" &&\
-echo "  -- 75.04.77 compatible VINAX DSL Driver is in use!"
+echo "  -- 75.04.81 compatible VINAX DSL Driver is in use!"
 [ "${FORCE_KDSLD_DRV_77}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
-echo "  -- 75.04.77 compatible KDSLDMOD Driver is in use!"
+echo "  -- 75.04.81 compatible KDSLDMOD Driver is in use!"
 #v3 dect fix
 sed -i -e 's|_488.hex|.hex|' "${SRC}/etc/init.d/rc.S" 
 sed -i -e '/piglet_use_pll3_clk=1 \\/d' "${SRC}/etc/init.d/rc.S" 
@@ -330,5 +332,10 @@ echo "  -- DSL Annex A Driver was removed from ${SORCE_PRODUKT}!"
 sed -i -e "/ \/etc\/init.d\/rc.conf/a\
 sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg\
 cat \/var\/flash\/ar7.cfg\ | grep ifacectl && echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"
+#---
+[ -f "${SRC}"/lib/libpng.so.3.32.0 ] || cp -fdrp "${DST}"/lib/libpng.so.3.32.0* --target-directory=${SRC}/lib
+[ -f "${SRC}"/lib/libexif.so.12.3.0 ] || cp -fdrp "${DST}"/lib/libexif.so.12.3.0* --target-directory=${SRC}/lib
+[ -f "${SRC}"/lib/libsqlite3-3.6.16.so.0.8.6 ] || cp -fdrp "${DST}"/lib/libsqlite* --target-directory=${SRC}/lib
+
 
 echo "********************************************************************************"
