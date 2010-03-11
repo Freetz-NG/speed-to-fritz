@@ -1470,6 +1470,8 @@ else
   fi
  [ "$YESNO" = "y" ] && break
  done
+ # adjust Firmware.conf to the correct OEM 
+ sed -i -e "s|EXPORT_OEM=.*$|EXPORT_OEM=${OEM}|" $firmwareconf_file_name
  # add addons
  if [ "$COPY_ADDON_TMP_to_ORI" = "y" ]; then
 	find ./addon/tmp/squashfs-root/ -type d -name .svn | xargs rm -rf

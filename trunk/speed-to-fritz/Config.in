@@ -2216,10 +2216,10 @@ config EXPORT_FORCE_MULTI_COUNTRY
 	help
 	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!
 	    To make this work you must have a T-Home or 2nd AVM firmware that supplies the needed feature, some text may be wrong or missing!.
-
 config EXPORT_OEM
 	string
-	default "tcom" if ORI || TYPE_SPEEDPORT_W721V 
+	#!!! In case of ORI: in same cases OEM is set later in sp-to-fritz.sh !!!
+	default "tcom" if ( ORI && ! TYPE_AVM_7570_XX ) || TYPE_SPEEDPORT_W721V 
 	default "avm" if ( TYPE_LANG_DE && ! TYPE_7270_m54_04_76 && ! TYPE_AVM_7570_XX && ! EXPORT_FORCE_MULTI_LANGUAGE )
 	default "avme" if ( ! TYPE_LANG_DE  || TYPE_7270_m54_04_76 || TYPE_AVM_7570_XX  ) && ! EXPORT_FORCE_MULTI_LANGUAGE
  
