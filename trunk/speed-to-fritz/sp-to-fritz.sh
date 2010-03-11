@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="10"; Monat="03"; Jahr="10"
+Tag="11"; Monat="03"; Jahr="10"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -1450,6 +1450,8 @@ if [ "$ORI" != "y" ]; then
  echo "********************************************************************************"
 else
  # --> Only Tcom firmware with otion "restore original"
+ readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${DST}/etc/init.d"
+ readConfig "MULTI_LANGUAGE" "MULTI_LANGUAGE" "${DST}/etc/init.d"
  # get OEM from original Firmware
  readConfig "OEM_DEFAULT" "OEM" "${DST}/etc/init.d"
  [ -d "${DST}/usr/www/avme" ] && export OEM="avme"
@@ -1548,14 +1550,13 @@ fi
 PANNEX="_annex${ANNEX}"
 [ "$DSL_MULTI_ANNEX" == "y" ] && PANNEX=""
 readConfig "MULTI_LANGUAGE" "MULTI_LANGUAGE" "${SRC}/etc/init.d"
-#Language="_${FORCE_LANGUAGE}"
 Language="_${avm_Lang}"
 [ "$MULTI_LANGUAGE" == "y" ] && Language=""
 [ "$FORCE_CLEAR_FLASH" == "y" ] && CLEAR="C_" || CLEAR="" 
 [ "$CLASS" != "" ] && CLASS+="_"
 [ "$SPNUM" != "" ] && SPNUM+="_"
 [ "$ORI" != "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}-${act_firmwareconf_size}_OEM-${OEM}${PANNEX}${Language}.image"
-[ "$ORI" == "y" ] && export NEWIMG="${SPIMG}_OriginalTcomAdjusted${PANNEX}${Language}.image"
+[ "$ORI" == "y" ] && export NEWIMG="${SPIMG}_OriginalFirmwareAdjusted${PANNEX}${Language}.image"
 [ "$ATA_ONLY" = "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}-${act_firmwareconf_size}_OEM-${OEM}_ATA-ONLY${Language}.image"
 #only AVM + 2nd AVM Firmware was in use
 [ "$TYPE_LOCAL_MODEL" == "y" ] && export NEWIMG="fw_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_2_VERSION_MAJOR}.${AVM_2_VERSION}-${AVM_2_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}-${act_firmwareconf_size}_OEM-${OEM}${PANNEX}${Language}.image"
