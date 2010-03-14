@@ -918,8 +918,8 @@ choice
 	depends ! EXPORT_FORCE_DSL_MULTI_ANNEX && ! TYPE_AVM_7570_XX
 	bool "Annex"
 	depends on ! ORI
-	default TYPE_ANNEX_B if ! EXPORT_TYPE_LOCAL_MODEL
-	default TYPE_ANNEX_A if EXPORT_TYPE_LOCAL_MODEL
+	default TYPE_ANNEX_B if ! EXPORT_TYPE_LOCAL_MODEL || TYPE_7390
+	default TYPE_ANNEX_A if EXPORT_TYPE_LOCAL_MODEL && ! TYPE_7390
 	config TYPE_ANNEX_B
 		bool "B"
 	help
@@ -966,8 +966,8 @@ config TYPE_LABOR
 	bool "Select a special AVM firmware (optional) --->"
 	depends on ! ORI || XCHANGE_KERNEL
 	depends on ( TYPE_SINUS_W500V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W900V || TYPE_9207570 || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL )
-	default y if EXPORT_TYPE_LOCAL_MODEL || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE )
-	default n if ! EXPORT_TYPE_LOCAL_MODEL && ! ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE )
+	default y if EXPORT_TYPE_LOCAL_MODEL || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE ) || TYPE_7390
+	default n if ! EXPORT_TYPE_LOCAL_MODEL && ! ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE ) && ! TYPE_7390
 	help
 		Enable this to compile the mod based on an special AVM firmware.
 		The actual final release version should not be selected. It is preselected anyway! 
@@ -1493,8 +1493,8 @@ comment  "--------------------------------------------------------------------"
 config SOURCE2
 	depends on ! ORI
 	bool "2nd AVM Type firmware (optional)"
-	default y if EXPORT_TYPE_LOCAL_MODEL || TYPE_SPEEDPORT_W920V
-	default n if ! EXPORT_TYPE_LOCAL_MODEL || TYPE_7570
+	default y if ( EXPORT_TYPE_LOCAL_MODEL || TYPE_SPEEDPORT_W920V )  && ! TYPE_7390
+	default n if ! EXPORT_TYPE_LOCAL_MODEL || TYPE_7390
 	help
 		Enable this if you need a second AVM or T-Home firmware, this may be needed with some options.
 		Not all listed firmwares are usable. 
@@ -2733,8 +2733,8 @@ if ! EXPORT_ATA_ONLY
  config EXPORT_ADD_DSL_EXPERT_MNUE
 	depends on ! TYPE_TCOM_7570_XX && ! TYPE_9207570 && ! TYPE_SPEEDPORT_W721V && ! EXPORT_FORCE_DSL_MULTI_ANNEX
 	bool "Add DSL expert pages"
-	default n if  TYPE_DSL 
-	default y if  ! TYPE_DSL && ! TYPE_SPEEDPORT_W501V
+	default n if  TYPE_DSL  || TYPE_7390
+	default y if  ! TYPE_DSL && ! TYPE_SPEEDPORT_W501V && ! TYPE_7390
 	help
 		Use this additional option to add expert-pages for DSL settings,
 		only usable on "All In One" or similar firmwares.

@@ -220,7 +220,6 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
   #[ "$avm_Lang" = "en" ] && sed -i -e 's/# FREETZ_TYPE_ANNEX_A.*/FREETZ_TYPE_ANNEX_A=y/' "./.config" 2> /dev/null
   #[ "$avm_Lang" = "en" ] && sed -i -e 's/FREETZ_TYPE_LANG_DE=.*/# FREETZ_TYPE_LANG_EN is not set/' "./.config" 2> /dev/null
   #[ "$avm_Lang" = "en" ] && sed -i -e 's/FREETZ_TYPE_ANNEX_B=.*/# FREETZ_TYPE_ANNEX_A is not set/' "./.config" 2> /dev/null
-
   #7570 -->
   if [ "$SPNUM" = "7570" ]; then
     [ "$MULTI_LANGUAGE" = "y" ] && sed -i -e "s/default FREETZ_TYPE_LANG_DE/default FREETZ_TYPE_LANG_EN/" "./Config.in" 2> /dev/null
@@ -231,12 +230,25 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
     # replace patches that had to be fixed
     cp -fdrp  $HOMEDIR/freetz/patches/7270/en/* --target-directory=./patches/7270/en 2> /dev/null
   #7570 <--
+  fi
+  #7390 -->
+  if [ "$FBMOD" = "7390" ] || [ "$FBMOD" = "W722" ] ; then
+    echo "FREETZ_TYPE_FON_WLAN_7270=y" >> "./.config" 2> /dev/null
+    sed -i -e 's|FREETZ_TYPE_FON_WLAN_7390|FREETZ_TYPE_FON_WLAN_7270|' "./Config.in" 2> /dev/null
+#    echo "FREETZ_FUSIV=y" >> "./.config" 2> /dev/null
+    echo "config FREETZ_FUSIV" >> "./Config.in" 2> /dev/null
+    echo "	bool" >> "./Config.in" 2> /dev/null
+    echo "	default y" >> "./Config.in" 2> /dev/null
+    # replace patches that had to be fixed
+    cp -fdrp  $HOMEDIR/freetz/patches/7270/de/* --target-directory=./patches/7270/de 2> /dev/null
+    cp -fdrp  $HOMEDIR/freetz/patches/cond/* --target-directory=./patches/cond 2> /dev/null
+  # 7390 <--
   else
     [ "$SPNUM" = "500" ] && echo "FREETZ_TYPE_WLAN_${FBMOD}=y" >> "./.config" 2> /dev/null
     [ "$SPNUM" = "500" ] || echo "FREETZ_TYPE_FON_WLAN_${FBMOD}=y" >> "./.config" 2> /dev/null
     #woraround if Final was selected as Labor
     if [ "$TYPE_LABOR_TYPE" != "7270_13486" ] && [ "$TYPE_LABOR_TYPE" != "58" ] && [ "$TYPE_LABOR_TYPE" != "59" ] && [ "$TYPE_LABOR_TYPE" != "67" ] && [ "$TYPE_LABOR_TYPE" != "70" ]; then
-     sed -i -e "s/default FREETZ_TYPE_LABOR_MI.*/default FREETZ_TYPE_LABOR_$TYPE_LABOR_TYPE/" "./Config.in" 2> /dev/null
+     [ "$TYPE_LABOR" = "y" ] && sed -i -e "s/default FREETZ_TYPE_LABOR_MI.*/default FREETZ_TYPE_LABOR_$TYPE_LABOR_TYPE/" "./Config.in" 2> /dev/null
      [ "$TYPE_LABOR" = "y" ] && echo "FREETZ_TYPE_LABOR=y" >> "./.config" 2> /dev/null
      [ "$TYPE_LABOR" = "y" ] && echo "FREETZ_TYPE_LABOR_$TYPE_LABOR_TYPE=y" >> "./.config" 2> /dev/null
     fi  
@@ -250,7 +262,8 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
 done
 #echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 #sed -i -e 's|\(${FIRMWAREVERSION}${SUBVERSION}\).|\1.${SVN_FREETZ_VERSION}.|' "./fwmod" 2> /dev/null
-sed -i -e 's|${FIRMWAREVERSION}${SUBVERSION}.|${FIRMWAREVERSION}${SUBVERSION}${SVN_FREETZ_VERSION}.|' "./fwmod" 2> /dev/null
+sed -i -e 's|${FIRMWARE
+[21~VERSION}${SUBVERSION}.|${FIRMWAREVERSION}${SUBVERSION}${SVN_FREETZ_VERSION}.|' "./fwmod" 2> /dev/null
 #sed -i -e "s/${FIRMWAREVERSION}\${SUBVERSION}./\${FIRMWAREVERSION}\${SUBVERSION}\${SVN_FREETZ_VERSION}./" "./fwmod" 
 #2> /dev/null
 sed -i -e "/echo \"export modimage=/d" "./fwmod" 2> /dev/null
@@ -261,6 +274,32 @@ SVN_FREETZ_VERSION=\"\$\(svnversion . | tr \":\" \"_\"\)\"" "./fwmod" 2> /dev/nu
 sed -i -e "/modimage=/a\
 echo \"export modimage=\\\\\"\${modimage}\\\\\"\" >\.\/freetz_var 2> \/dev\/null\n\
 echo \"export EXPORT_FREETZ_REVISION=\\\\\"\${SVN_FREETZ_VERSION}\\\\\"\" >>\.\/freetz_var 2> \/dev\/null" "./fwmod" 2> /dev/null
+
+#echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+# 7390 / W722 adaptions
+if ! grep -q 'FREETZ_FUSIV' "./fwmod" ;then
+sed -i -e '/# Dot-include .modpatch. shell function/i\
+if [ "$FREETZ_FUSIV" == "y" ]; then\
+	UNSQUASHFS_TOOL="unsquashfs4-lzma"\
+	MKSQUASHFS_TOOL="mksquashfs3-lzma"\
+	MKSQUASHFS_OPTIONS="-be -noappend -all-root -info -no-progress -no-exports -no-sparse"\
+	echo "  Fusiv is selected"\
+fi' "./fwmod" 2> /dev/null
+fi
+if ! grep -q 'squashfs4' "./tools/make/Makefile.in" ;then
+ sed -i -e '/TOOLS+=squashfs3/a\
+TOOLS+=squashfs4' "./fwmod" 2> /dev/null
+fi
+#source
+rm ./source/host-tools/find-squashfs
+cp -fdrp  $TOOLS_DIR/make/patches/100-lzma.squashfs4.patch --target-directory=./tools/make/patches 2> /dev/null
+cp -fdrp  $TOOLS_DIR/make/patches/110-allow-symlinks.squashfs4.patch --target-directory=./tools/make/patches 2> /dev/null
+cp -fdrp  $TOOLS_DIR/make/patches/120-memset-sBlk.squashfs4.patch --target-directory=./tools/make/patches 2> /dev/null
+cp -fdrp  $TOOLS_DIR/make/patches/150-hide_output.squashfs4.patch --target-directory=./tools/make/patches 2> /dev/null
+cp -fdrp  $TOOLS_DIR/make/patches/150-hide_output.squashfs4.patch --target-directory=./tools/make/patches 2> /dev/null
+cp -fdrp  $TOOLS_DIR/make/squashfs4.mk --target-directory=./tools/make 2> /dev/null
+cp -fdrp  $TOOLS_DIR/source/find-squashfs.tar.bz2 --target-directory=./tools/source 2> /dev/null
+#echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 KEY="x"
 while [ "$KEY" != "y" ]; do
  echo 
