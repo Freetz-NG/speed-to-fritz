@@ -806,6 +806,7 @@ function readConfig()
 		if [ -e "$3/rc.conf" ] && `cat "$3/rc.conf" | grep -q "export CONFIG_$1="` ; then
 			VAR=$(echo $1 | sed -e "s/^_//")
 #			echo "VAR: $VAR"
+			sed -i -e "/export CONFIG_VERSION_MAJOR=.10./d" "$3/rc.conf"
 			VAL=`grep -e "export CONFIG_${VAR}=." "$3/rc.conf" | grep -m 1 -o -e "CONFIG_${VAR}=.*" | awk -F "[= ]" '{print $2}' | sed -e "s/\"//g"`
 			eval "export $2=$VAL"
 		else
