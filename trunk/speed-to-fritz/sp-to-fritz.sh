@@ -230,6 +230,7 @@ case "$1" in
 	export CLASS="Sinus"
 #	export FBMOD="7150"
 #	export FBHWRevision="76"
+#	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7150"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
 	export HWID="101"
@@ -285,6 +286,7 @@ case "$1" in
 	export SPNUM="501"
 #	export FBMOD="7140"
 #	export FBHWRevision="107"
+#	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7140"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
 	export HWID="101"
@@ -354,6 +356,7 @@ case "$1" in
 	export PROD="SpeedportW701V"
     	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
+#	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7170"
 	export HWRevision="${HWID}.1.1.0"
 	export CONFIG_INSTALL_TYPE="ar7_8MB_xilinx_4eth_2ab_isdn_pots_wlan_13200"
@@ -437,6 +440,7 @@ fi
 	export SPNUM="721"
 	export PROD="SpeedportW721V"
     	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
+#	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7170"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
 	export HWID="134"
@@ -516,6 +520,7 @@ fi
 	export SPNUM="722"
 	export PROD="SpeedportW722V"
     	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
+#	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7390"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="154"
 	export HWID="152"
@@ -629,6 +634,7 @@ fi
 	export SPNUM="7390"
 	export PROD="7390"
     	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
+#	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7390"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="156"
 	export HWID="156"
@@ -862,6 +868,7 @@ export CONFIG_ETH_COUNT="4"
 	export PROD="SpeedportW503V"
     	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="122"
+#	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7270"
 	export HWID="136"
 	export HWRevision="${HWID}.1.1.0"
@@ -963,6 +970,7 @@ export CONFIG_ETH_COUNT="4"
 	export SPNUM="900"
 	export PROD="DECT_W900V" 
     	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
+#	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7170"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
 	export HWID="102"
@@ -1021,6 +1029,7 @@ export CONFIG_ETH_COUNT="4"
 	export HWID="146"
   fi
 	export SPMOD="$1"
+#	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7270"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="139"
 	export CONFIG_INSTALL_TYPE="ur8_16MB_xilinx_4eth_2ab_isdn_nt_te_pots_wlan_mimo_usb_host_dect_multiannex_13589"
@@ -1092,6 +1101,7 @@ export CONFIG_ETH_COUNT="4"
 	export PROD="7270plus" 
 	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
 	[ "$NEWNAME" == "" ] && export NEWNAME="FRITZ!Box Fon WLAN 7270 v3"
+#	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7270"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="139"
 	export HWID="145"
@@ -1138,6 +1148,7 @@ export CONFIG_ETH_COUNT="4"
 	export PROD="7240"
 	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
 	[ "$NEWNAME" == "" ] && export NEWNAME="FRITZ!Box Fon WLAN 7240"
+#	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7270"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="139"
 	export HWID="144"
@@ -1189,6 +1200,7 @@ export CONFIG_ETH_COUNT="4"
 	export PROD="7141"
 	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
 	[ "$NEWNAME" == "" ] && export NEWNAME="FRITZ!Box Fon WLAN 7141"
+#	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7170"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
 	export HWID="108"
@@ -1229,6 +1241,7 @@ export CONFIG_ETH_COUNT="4"
 	export SPNUM="$1"
 	export PROD="$1" 
 	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
+#	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="$1"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="139"
 	export HWID="139"
