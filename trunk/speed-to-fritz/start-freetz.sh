@@ -198,10 +198,9 @@ while [ "$KEY" != "y" ]; do
   #preset freetz to the same type as speed-to-fritz
   sed -i -e "/Hardwaretype/,/---------/{/.*/d}" "./Config.in" 2> /dev/null
   sed -i -e '/General/a\
-comment "Hardwaretype and language settings"\
-comment "must be the same as in speed2fritz,"\
-comment "annex type is set by speed2fritz!"\
-comment "Disable reverse lookup in freetz."\
+comment "Hardwaretype and language settings must be the same as in speed2fritz."\
+comment "In case of 7570 use 7270 en instead."\
+comment "Annex type is set by speed2fritz afrer freetz."\
 comment "----------------------------------------"' "./Config.in" 2> /dev/null
   sed -i -e "/config FREETZ_SUBVERSION_STRING/,/help/{s/default y/default n/}" "./Config.in" 2> /dev/null
   sed -i -e "/config FREETZ_TYPE_FON_WLAN_7270_16MB/,/help/{s/default n/default y/}" "./Config.in" 2> /dev/null
@@ -223,11 +222,14 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
   #[ "$avm_Lang" = "en" ] && sed -i -e 's/FREETZ_TYPE_ANNEX_B=.*/# FREETZ_TYPE_ANNEX_A is not set/' "./.config" 2> /dev/null
 
   #7570 -->
-  if [ "$TYPE_LABOR_TYPE" = "7570_70" ]; then
+  if [ "$SPNUM" = "7570" ]; then
     [ "$MULTI_LANGUAGE" = "y" ] && sed -i -e "s/default FREETZ_TYPE_LANG_DE/default FREETZ_TYPE_LANG_EN/" "./Config.in" 2> /dev/null
     [ "$MULTI_LANGUAGE" = "y" ] && sed -i -e "s/default FREETZ_LANG_EN/default FREETZ_LANG_DE/" "./Config.in" 2> /dev/null
     sed -i -e 's|HTML_LANG_MOD_DIR="${HTML_MOD_DIR}/avme/en|HTML_LANG_MOD_DIR="${HTML_MOD_DIR}/avme|' "./fwmod" 2> /dev/null
+    sed -i -e 's|FREETZ_TYPE_FON_WLAN_7570|FREETZ_TYPE_FON_WLAN_7270|' "./Config.in" 2> /dev/null
     echo "FREETZ_TYPE_FON_WLAN_7270=y" >> "./.config" 2> /dev/null
+    # replace patches that had to be fixed
+    cp -fdrp  $HOMEDIR/freetz/patches/7270/en/* --target-directory=./patches/7270/en 2> /dev/null
   #7570 <--
   else
     [ "$SPNUM" = "500" ] && echo "FREETZ_TYPE_WLAN_${FBMOD}=y" >> "./.config" 2> /dev/null
