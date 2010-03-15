@@ -232,7 +232,7 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
   #7570 <--
   fi
   #7390 -->
-  if [ "$FBMOD" = "7390" ] || [ "$FBMOD" = "W722" ] ; then
+  if [ "$FBMOD" = "7390" ] || [ "$SPNUM" = "722" ] ; then
     echo "FREETZ_TYPE_FON_WLAN_7270=y" >> "./.config" 2> /dev/null
     sed -i -e 's|FREETZ_TYPE_FON_WLAN_7390|FREETZ_TYPE_FON_WLAN_7270|' "./Config.in" 2> /dev/null
 #    echo "FREETZ_FUSIV=y" >> "./.config" 2> /dev/null
@@ -242,6 +242,25 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
     # replace patches that had to be fixed
     cp -fdrp  $HOMEDIR/freetz/patches/7270/de/* --target-directory=./patches/7270/de 2> /dev/null
     cp -fdrp  $HOMEDIR/freetz/patches/cond/* --target-directory=./patches/cond 2> /dev/null
+    # test of kernel replase, stops now with a make error vlmlinux.eva_pad -->
+    TEST_REPLACE_KERNEL="n"
+    if [ "$TEST_REPLACE_KERNEL" == "y" ]; then
+     sed -i -e 's|FREETZ_KERNEL_LAYOUT="ur8"|FREETZ_KERNEL_LAYOUT="fusiv"|' "./.config" 2> /dev/null
+     rm ./make/linux/patches/2.6.19.2/600-cpmac_ioctl.patch
+     rm ./make/linux/patches/2.6.19.2/7270_04.80/120-remove_fusiv.patch
+     KERNEL_DL_LINK="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/opensrc/fritz_box_fon_wlan_7390_source_files.04.82.tar.gz"
+     KERNEL_SOURCE="$(echo $KERNEL_DL_LINK | sed -e "s/.*\///")"
+     KERNEL_SITE="${KERNEL_DL_LINK%/*}"
+     KERNEL_SOURCE="fritz_box_fon_wlan_7390_source_files.04.82.tar.gz"
+     KERNEL_SITE="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/opensrc"
+     # download opensource becaus freez want downlod it for some reason
+     . $inc_DIR/includefunctions
+     export FILENAME_KERNEL_DL_LINK_PATH="$(get_item "$KERNEL_DL_LINK" "1")" 
+     export MIRROR_KERNEL_DL_LINK_PATH="$(get_item "$KERNEL_DL_LINK" "2")"
+     export KERNEL_DL_LINK_PATH="$(get_item "$KERNEL_DL_LINK" "0")"
+     fwselect "$KERNEL_DL_LINK_PATH" "$DL_DIR_ABS/fw" "KERNEL_DL_LINK" "KERNEL_DL_LINK"  "$MIRROR_KERNEL_DL_LINK_PATH" "$FILENAME_KERNEL_DL_LINK_PATH" "${SPNUM}V"
+    fi
+    # <-- test of kernel replase
   # 7390 <--
   else
     [ "$SPNUM" = "500" ] && echo "FREETZ_TYPE_WLAN_${FBMOD}=y" >> "./.config" 2> /dev/null
@@ -254,10 +273,13 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
     fi  
   fi    
   make menuconfig
+  [ -n "$KERNEL_SOURCE" ] && sed -i -e "s/FREETZ_DL_KERNEL_SOURCE=.*$/FREETZ_DL_KERNEL_SOURCE=$KERNEL_SOURCE/" "./.config" 2> /dev/null
+  [ -n "$KERNEL_SOURCE" ] && sed -i -e "s/FREETZ_DL_KERNEL_SITE=.*$/FREETZ_DL_KERNEL_SITE=$KERNEL_SITE/" "./.config" 2> /dev/null
+  [ -n "$KERNEL_SOURCE" ] && sed -i -e "s/FREETZ_DL_KERNEL_SOURCE_MD5=.*$/FREETZ_DL_KERNEL_SOURCE_MD5=\"\"/" "./.config" 2> /dev/null
 
   sed -i -e 's/.*FREETZ_DL_OVERRIDE=.*$/FREETZ_DL_OVERRIDE=y/' "./.config" 2> /dev/null
-  sed -i -e 's/FREETZ_DL_SITE=.*$/FREETZ_DL_SITE=""/' "./.config" 2> /dev/null
-  sed -i -e "s/FREETZ_DL_SOURCE=.*$/FREETZ_DL_SOURCE=$FBIMG/" "./.config" 2> /dev/null
+  [ -n "$FBIMG" ] && sed -i -e 's/FREETZ_DL_SITE=.*$/FREETZ_DL_SITE=""/' "./.config" 2> /dev/null
+  [ -n "$FBIMG" ] && sed -i -e "s/FREETZ_DL_SOURCE=.*$/FREETZ_DL_SOURCE=$FBIMG/" "./.config" 2> /dev/null
  fi
 done
 #echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
@@ -291,7 +313,7 @@ if ! grep -q 'squashfs4' "./tools/make/Makefile.in" ;then
 TOOLS+=squashfs4' "./fwmod" 2> /dev/null
 fi
 #source
-rm ./source/host-tools/find-squashfs
+rm -fd -R ./source/host-tools/find-squashfs
 cp -fdrp  $TOOLS_DIR/make/patches/100-lzma.squashfs4.patch --target-directory=./tools/make/patches 2> /dev/null
 cp -fdrp  $TOOLS_DIR/make/patches/110-allow-symlinks.squashfs4.patch --target-directory=./tools/make/patches 2> /dev/null
 cp -fdrp  $TOOLS_DIR/make/patches/120-memset-sBlk.squashfs4.patch --target-directory=./tools/make/patches 2> /dev/null
