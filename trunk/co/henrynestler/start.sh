@@ -52,21 +52,21 @@ if  [ "$TESTING" == "y" ]; then
 #http://www.henrynestler.com/colinux/testing/kernel-2.6.33/packages/20100305/
  LINUX_VERSION="2.6.33"
  CO_SUBDIR="testing/kernel-$LINUX_VERSION"
- DVERSION="20100305"
+ DVERSION="20100321"
  TMP=$DVERSION
  export COLINUX_VER="0.8.0-$DVERSION"
  #modulversion
  
- M_COLINUX_VER="0.8.0-20100305"
+ M_COLINUX_VER="0.8.0-$DVERSION"
  #vmlinuxversion
- V_COLINUX_VER="0.8.0-20100305"
+ V_COLINUX_VER="0.8.0-$DVERSION"
  CO_SUBDIR2="packages"
- [ -f vmlinux-2.6.33-co-0.8.0-20100305.zip ] || wget "http://www.henrynestler.com/colinux/testing/kernel-2.6.33/packages/20100305/vmlinux-2.6.33-co-0.8.0-20100305.zip"
- [ -f modules-2.6.33-co-0.8.0-20100305.tgz ] || wget "http://www.henrynestler.com/colinux/testing/kernel-2.6.33/packages/20100305/modules-2.6.33-co-0.8.0-20100305.tgz"
- [ -f daemons-0.8.0-20100305.dbg.zip ] || wget "http://www.henrynestler.com/colinux/testing/kernel-2.6.33/packages/20100305/daemons-0.8.0-20100305.dbg.zip"
- [ -f daemons-0.8.0-20100305.zip ] || wget "http://www.henrynestler.com/colinux/testing/kernel-2.6.33/packages/20100305/daemons-0.8.0-20100305.zip"
- [ -f linux-2.6.33-co-20100305.patch.gz ] || wget "http://www.henrynestler.com/colinux/testing/kernel-2.6.33/linux-2.6.33-co-20100305.patch.gz"
- [ -f patches-2.6.33-20100305.tgz ] || wget " http://www.henrynestler.com/colinux/testing/kernel-2.6.33/patches-2.6.33-20100305.tgz"
+ [ -f vmlinux-2.6.33-co-0.8.0-$DVERSION.zip ] || wget "http://www.henrynestler.com/colinux/testing/kernel-2.6.33/packages/$DVERSION/vmlinux-2.6.33-co-0.8.0-$DVERSION.zip"
+ [ -f modules-2.6.33-co-0.8.0-$DVERSION.tgz ] || wget "http://www.henrynestler.com/colinux/testing/kernel-2.6.33/packages/$DVERSION/modules-2.6.33-co-0.8.0-$DVERSION.tgz"
+ [ -f daemons-0.8.0-$DVERSION.dbg.zip ] || wget "http://www.henrynestler.com/colinux/testing/kernel-2.6.33/packages/$DVERSION/daemons-0.8.0-$DVERSION.dbg.zip"
+ [ -f daemons-0.8.0-$DVERSION.zip ] || wget "http://www.henrynestler.com/colinux/testing/kernel-2.6.33/packages/$DVERSION/daemons-0.8.0-$DVERSION.zip"
+ [ -f linux-2.6.33-co-$DVERSION.patch.gz ] || wget "http://www.henrynestler.com/colinux/testing/kernel-2.6.33/linux-2.6.33-co-$DVERSION.patch.gz"
+ [ -f patches-2.6.33-$DVERSION.tgz ] || wget " http://www.henrynestler.com/colinux/testing/kernel-2.6.33/patches-2.6.33-$DVERSION.tgz"
  cp -f version_test version 
 ### -->!!!<--
 else
