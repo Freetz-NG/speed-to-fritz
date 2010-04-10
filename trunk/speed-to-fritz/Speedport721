@@ -400,9 +400,8 @@ $sh_DIR/patch_leddefinition.sh "${SRC}" "${DST}"
 $sh_DIR/add_vdslscale.sh "${SRC}" "${OEMLIST}"
 # 721 
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 721
-#remove FON3 menus
+#remove menus 
 [ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
-
 #Add buchsend button to fon bookpage
 [ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
 

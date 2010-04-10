@@ -5,7 +5,7 @@
 ;Modified 4/20/2008 by Henry Nestler
 
 ;-------------------------------------
-;Modified 12/06/2008 by Johann Pascher
+;Modified 12/06/2008,4/1/2010 by Johann Pascher
 
   !include "MUI.nsh"
   !include "MUI2.nsh"
@@ -40,7 +40,7 @@
   VIAddVersionKey ProductVersion "${VERSION}"
   VIAddVersionKey FileVersion "${VERSION}"
   VIAddVersionKey FileDescription "An optimized virtual Linux system for Windows"
-  VIAddVersionKey LegalCopyright "Copyright @ 2004-2007 ${PUBLISHER}"
+  VIAddVersionKey LegalCopyright "Copyright @ 2004-2010 ${PUBLISHER}"
   VIProductVersion "${LONGVERSION}"
 
   !define MUI_ICON "scripts\andlinux.ico"
@@ -869,7 +869,9 @@ Section -CreateConfigFile
 
 SectionEnd
 
-Section "Shortcuts" Shortcuts
+SectionGroup "Shortcuts" Shortcuts
+
+ Section "Desktop Shortcuts" DescShortcuts
   SetOutPath -
   File scripts\stop.ico
   File scripts\start.ico
@@ -883,6 +885,12 @@ Section "Shortcuts" Shortcuts
   CreateShortCut "C:\Users\Public\Desktop\Terminal.lnk" "$INSTDIR\Launcher\andTerminal.exe" "" "$INSTDIR\Launcher\xfce4_terminal.ico"
 #  CreateShortCut "C:\Users\Public\Desktop\srvstart.lnk" "$INSTDIR\srvstart.bat" "" "$INSTDIR\start.ico"
 #  CreateShortCut "C:\Users\Public\Desktop\svrstop.lnk" "$INSTDIR\srvstop.bat" "" "$INSTDIR\stop.ico"
+
+ SectionEnd
+
+ Section "Internet Explorer Quick Launch" InternetExplorer 
+
+
 #----
   CreateShortCut "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\startup.lnk" "$INSTDIR\startup.bat" "" "$INSTDIR\andlinux.ico"
   CreateShortCut "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\Console (NT).lnk" "$INSTDIR\colinux-console-nt.exe" "" "$INSTDIR\colinux.ico"
@@ -893,9 +901,12 @@ Section "Shortcuts" Shortcuts
 #  CreateShortCut "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\svrstart.lnk" "$INSTDIR\svrstart.bat" "" "$INSTDIR\start.ico"
 #  CreateShortCut "$MYFOLDER\Microsoft\Internet Explorer\Quick Launch\svrstop.lnk" "$INSTDIR\srvstop.bat" "" "$INSTDIR\stop.ico"
 
+ SectionEnd
+
+ Section "Programs Shortcuts" ProgramsShortcuts
 
 
-;  MessageBox MB_OK|MB_ICONINFORMATION $MYFOLDER
+ ;  MessageBox MB_OK|MB_ICONINFORMATION $MYFOLDER
 
 #  CreateShortCut "$SMPROGRAMS\speedLinux\Start speedLinux.lnk" "$INSTDIR\colinux-daemon.exe" "--install-service andLinux @settings.txt" "$INSTDIR\start.ico"
 #  CreateShortCut "$SMPROGRAMS\speedLinux\Stop speedLinux.lnk" "$INSTDIR\colinux-daemon.exe" "--remove-service andLinux" "$INSTDIR\stop.ico"
@@ -933,7 +944,9 @@ Section "Shortcuts" Shortcuts
   CreateShortCut "$SMPROGRAMS\speedLinux\PuTTY root@speedLinux.lnk" "$R0putty.exe" "-X root@$NW_LinIP_Value"
   CreateShortCut "$SMPROGRAMS\speedLinux\PuTTY freetz@speedLinux.lnk" "$R0putty.exe" "-X $NW_USER_Value@$NW_LinIP_Value"
   Pop $R0
-SectionEnd
+ SectionEnd
+SectionGroupEnd
+
 
 Section "Putty" Putty
   File /oname=putty-installer.exe upstream\putty-*-installer.exe
