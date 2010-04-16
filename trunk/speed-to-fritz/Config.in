@@ -2184,8 +2184,8 @@ config TYPE_LABOR_TYPE
 	default "GAMING" 	if TYPE_7270_GAMING || TYPE_7170_GAMING_11435
 	default "PHONE" 	if TYPE_7240_PHONE_16376 || TYPE_7270_PHONE_16624 || TYPE_7273_PHONE_16624 || TYPE_7170_PHONE || TYPE_72XX_PHONE
 	default "WLAN" 		if TYPE_7270_WLAN_14080 || TYPE_7170_WLAN
-	default "IPV6" 		if TYPE_7270_IPV6 || TYPE_7170_IPV6 || TYPE_7273_IPV6_16608 || TYPE_7270_IPV6_16608 || TYPE_72XX_IPV6
-	default "IPV6" 		if TYPE_7270_IPV6 || TYPE_7170_IPV6 || TYPE_7273_IPV6_16908 || TYPE_7270_IPV6_16908 || TYPE_72XX_IPV6
+#	default "IPV6" 		if TYPE_7270_IPV6 || TYPE_7170_IPV6 || TYPE_7273_IPV6_16608 || TYPE_7270_IPV6_16608 || TYPE_72XX_IPV6
+	default "IPV6" 		if TYPE_7270_IPV6 || TYPE_7170_IPV6 || TYPE_7273_IPV6_16608 || TYPE_7270_IPV6_16608 || TYPE_7273_IPV6_16908 || TYPE_7270_IPV6_16908 || TYPE_72XX_IPV6
 	default "UMTS" 		if TYPE_7270_UMTS_13265 || TYPE_7170_UMTS
 	default "MINI" 		if TYPE_7270_MINI_67 || TYPE_7170_MINI_14935
 	default "AIO" 		if TYPE_7270_AIO_14543
@@ -2214,6 +2214,7 @@ config TYPE_LABOR_TYPE
 	default "7570_15245" 	if TYPE_AVM_7570_15245
 	default "7570_15446" 	if TYPE_AVM_7570_15446
 	default "LOCAL"		if TYPE_LOCAL_AVM
+
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 comment  "--------------------------------------------------------------------"
 #comment "Select Multisettings and OEM  (optional) ---------------------------"
@@ -2233,13 +2234,18 @@ config EXPORT_FORCE_MULTI_COUNTRY
 	help
 	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!
 	    To make this work you must have a T-Home or 2nd AVM firmware that supplies the needed feature, some text may be wrong or missing!.
+
+config FORCE_OEM_AVME
+	bool
+	default y 	if TYPE_7273_IPV6_16608 || TYPE_7270_IPV6_16608 || TYPE_7273_IPV6_16908 || TYPE_7270_IPV6_16908 || TYPE_72XX_IPV6 || TYPE_7270_m54_04_81
+
 config EXPORT_OEM
 	string
 	#!!! In case of ORI: in same cases OEM is set later in sp-to-fritz.sh !!!
-	default "tcom" if ( ORI && ! TYPE_AVM_7570_XX ) || TYPE_SPEEDPORT_W721V 
-	default "avm" if ( TYPE_LANG_DE && ! TYPE_7270_m54_04_76 && ! TYPE_AVM_7570_XX && ! EXPORT_FORCE_MULTI_LANGUAGE )
-	default "avme" if ( ! TYPE_LANG_DE  || TYPE_7270_m54_04_76 || TYPE_AVM_7570_XX  ) && ! EXPORT_FORCE_MULTI_LANGUAGE
- 
+	default "tcom" if ( ORI && ! TYPE_AVM_7570_XX && ! FORCE_OEM_AVME) || TYPE_SPEEDPORT_W721V
+	default "avm" if ( TYPE_LANG_DE && ! TYPE_7270_m54_04_76 && ! TYPE_AVM_7570_XX && ! EXPORT_FORCE_MULTI_LANGUAGE && ! FORCE_OEM_AVME )
+	default "avme" if (( ! TYPE_LANG_DE  || TYPE_7270_m54_04_76 || TYPE_AVM_7570_XX  ) && ! EXPORT_FORCE_MULTI_LANGUAGE ) || FORCE_OEM_AVME
+
 config EXPORT_FORCE_LANGUAGE
 	string
 	default "en" if TYPE_LANG_EN || ( ! TYPE_LANG_DE && ( TYPE_AVM_7570_XX || TYPE_TCOM_7570_XX ))
