@@ -1,6 +1,6 @@
 --- etc/hotplug/run_mount.orig	2009-06-27 17:13:01.810087361 +0200
 +++ etc/hotplug/run_mount	2009-06-27 17:13:08.118083969 +0200
-@@ -13,19 +13,9 @@
+@@ -22,19 +22,9 @@
  
  ## Generate a frontend'able 'nice name' to be used as mount point:
  nicename () {
@@ -23,7 +23,7 @@
  }
  ## Simple semaphore stuff:
  ## includes /etc/hotplug/rc.usbsema
-@@ -19,6 +19,37 @@
+@@ -45,6 +45,37 @@
  ## atomic_touch (Filename)
  USBLOCKFILE=/var/USBLOCK_storage
  test -f /etc/hotplug/rc.usbsema && . /etc/hotplug/rc.usbsema
@@ -61,12 +61,11 @@
  ## Actually perform the mount operation...
  ## (TODO Checking the partition for known filesystem types)
  do_mount () {
-@@ -87,7 +87,7 @@
+@@ -101,6 +101,6 @@
  local OLD_UMASK=`umask`
  umask 0
  local new_filesystem=false
--if mount -t vfat -o $READMODE,shortname=winnt,uid=$FTPUID,gid=$FTPGID,$FMASK,$DMASK $DEVNODE $MNTPATH; then
+-if mount -t vfat -o $READMODE,shortname=winnt,uid=$FTPUID,gid=$FTPGID $DEVNODE $MNTPATH; then
 +if mount_fs; then
  new_filesystem=true
  else
- modprobe ext2
