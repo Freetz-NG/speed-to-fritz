@@ -231,7 +231,6 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
     # replace patches that had to be fixed
     cp -fdrp  $HOMEDIR/freetz/patches/7270/en/* --target-directory=./patches/7270/en 2> /dev/null
     cp -fdrp  $HOMEDIR/freetz/patches/cond/* --target-directory=./patches/cond 2> /dev/null
-    echo "cond ------------------------"
   #7570 <--
   fi
   #7390 -->
@@ -244,7 +243,7 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
     echo "	default y" >> "./Config.in" 2> /dev/null
     # replace patches that had to be fixed
     cp -fdrp  $HOMEDIR/freetz/patches/7270/de/* --target-directory=./patches/7270/de 2> /dev/null
-    cp -fdrp  $HOMEDIR/freetz/patches/cond/* --target-directory=./patches/cond 2> /dev/null
+    cp -fdrp  $HOMEDIR/freetz/patches/7390/cond/* --target-directory=./patches/cond 2> /dev/null
     # test of kernel replase, stops now with a make error vlmlinux.eva_pad -->
     TEST_REPLACE_KERNEL="n"
     if [ "$TEST_REPLACE_KERNEL" == "y" ]; then
