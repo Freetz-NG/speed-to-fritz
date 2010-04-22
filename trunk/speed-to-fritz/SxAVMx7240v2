@@ -59,6 +59,23 @@ else
  rm -f "${SRC}"/lib/modules/microvoip-dsl.bin
 #<-- ATA only
 fi
+# set led definition 
+if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ "${FORCE_TCOM_LEDDRIVER}" = "y" ]; then
+    cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
+    cp -fdrp "${DST}"/lib/libled* --target-directory="${SRC}"/lib
+    cp -fdrp "${DST}"/bin/led* --target-directory="${SRC}"/bin
+    cp -fr "${DST}"/bin/update_led_on ${SRC}/bin/update_led_on
+    cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
+    echo "  -- LED Driver was taken from the original t-com firmware"
+fi
+if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ "${FORCE_SRC2_LEDDRIVER}" = "y" ]; then
+    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
+    cp -fdrp "${SRC_2}"/lib/libled* --target-directory="${SRC}"/lib
+    cp -fdrp "${SRC_2}"/bin/led* --target-directory="${SRC}"/bin
+    cp -fr "${SRC_2}"/bin/update_led_on ${SRC}/bin/update_led_on
+    cp -fr "${SRC_2}"/bin/update_led_off ${SRC}/bin/update_led_off
+    echo "  -- LED Driver was taken from AVM source 2 firmware"
+fi
 #save space on 8MB boxes specially
 [ "${REMOVE_ANNEX_B_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin" ] && rm -f "${SRC}"/lib/modules/dsp_ur8/ur8-B-dsl.bin &&\
 echo "  -- DSL Annex B Driver was removed from ${SORCE_PRODUKT}!"
@@ -79,6 +96,11 @@ echo2 "-- copy complete AVM source to destination directory!"
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 7270
 #patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
+#take WLAN from original
+cp -fdrp "${DST}"/lib/modules/wlan_eeprom_hw0.bin --target-directory="${SRC}"/lib/modules &&\
+echo "  -- wlan_eeprom_hw0.bin driver was taken from original 7240 AVM source."
+cp -fdrp "${DST}"/lib/modules/c55fw.hex --target-directory="${SRC}"/lib/modules &&\
+echo "  -- c55fw.hex driver was taken from original 7240 AVM source."
 # add kapselung and annex settings page if missing
 $sh_DIR/add_multi_settings.sh
 cp -fdrp "${DST}"/lib/modules/dectfw_firstlevel_488.hex --target-directory="${SRC}"/lib/modules &&\
