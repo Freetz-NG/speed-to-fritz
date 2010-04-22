@@ -326,7 +326,7 @@ config AVM_PHONE_7270_16999
    string
    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_telefonie/fritz_box-labor-7270-16999.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_Labor_54.04.80-16999.image"
 ###
-config AVM_PHONE_7273_16999
+config AVM_PHONE_7273_16624
    string
    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_telefonie/fritz_box-labor-7270v3-16999.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3_Labor_74.04.80-16624.image"
 ###
@@ -1212,7 +1212,7 @@ choice
 #			(Internet Protocol Version 6) and 6to4 tunnels.
 
 	config TYPE_7270_PHONE_16999
-		bool "AVM 7270 16999(Phone)"
+		bool "AVM 7270 16999 (Phone)"
 		depends on ( TYPE_7240 || TYPE_7270 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
