@@ -3374,7 +3374,7 @@ config ETH_IF
 config SET_IP_ADDRESS_Q
 	bool "Setup a fixed FTP IP Address"
 	help
-		Only set this, this if you know that your ADAM IP was changed!
+		Only set this, if you know that your ADAM IP was changed!
 		This option is only in use with the push option or with ftpXXX.
 
 choice
@@ -3396,8 +3396,25 @@ config EXPORT_IPADDRESS
 	default "192.168.178.1" if TYPE_IP_178
 	default "192.168.2.1" if TYPE_IP_2
 
-endmenu
+comment "Default settings ---------------------------------------------------"
 
+config SET_WLANKEY
+	bool "Setup WLAN default key"
+	default y if EXPORT_FORCE_CLEAR_FLASH
+	default n if ! EXPORT_FORCE_CLEAR_FLASH
+	select EXPORT_PATCH_OEM
+
+config EXPORT_WLANKEY
+	string "Edit this keystring - max 16 char long"
+	default "speedboxspeedbox"
+	depends on SET_WLANKEY
+	help
+		Only set this, if you want that the default security key for WLAN
+		is set. Maximum characters is lmiteted by 16. The original key is
+		written down on the Box level, if the box did have a key.
+		Is recommendendet if clear mdt3/4 is selected.
+
+endmenu
 #### ---> ! ORI
 if ! ORI
 
