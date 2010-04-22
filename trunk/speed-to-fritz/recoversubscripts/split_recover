@@ -1,6 +1,6 @@
 #!/bin/bash
 abs_split_header="`find -name split_header`"
-. $abs_split_header
+. $abs_split_header || exit 1
 #echo "New output directory: $output_dir1"
 #echo "New output file: $new_output_file"
 new_output_file="new_$output_dir1.exe"
@@ -40,3 +40,4 @@ echo "actual size= $act_size,  new actual size= $new_act_size"
 #echo "Add checksum to: kernel.image ..."
 #"$mod_base/tools/tichksum" "$output_dir/kernel.image"
 
+exit 0

@@ -1505,13 +1505,12 @@ else
  #else
  #	echo "-- Take T-com kernel for new image"
  fi
- echo "Assembling original TCOM Firmware for transfer via FTP and Webinterface ..."
+ echo "Assembling original firmware for transfer via FTP and Webinterface ..."
  echo
- echo "Some changes are made to the original tar file, so it can be used on "
- echo "Speedports with AVM Web GUI to flash back to the original T-COM firmware."
- echo "This is always a downgrade, and depending on the amount of difference it is"
- echo "not for sure that it will work in every case, if the router is rebooting after"
- echo "a downgrade via webinterface, you must use a recover tool or CLEAR_ENV"
+ echo "Some changes are made to the original tar file, so it can also be used on"
+ echo "Speedports with AVM Web GUI to flash to the selected firmware."
+ echo "If the router is rebooting because somthing went wrong, do the flashing"
+ echo "via push ftp again, dont restart the PC to keep your network settings."
  echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
  # patch update pages 
  $sh_DIR/patch_tools.sh "${DST}"
@@ -1601,6 +1600,7 @@ if [ "$SET_UP" = "n" ]; then
 	echo "********************************************************************************"
  if [ "$PUSHCONF" = "y" ]; then
 	echo "Flashing firmware image $NEWDIR/kernel.image..."
+	echo -e " \033[1m Dont restart the PC in case the router repeats booting, just repeat the flash action.'\033[0m "
 	echo "********************************************************************************"
 	echo
  	#FTP kann nicht mit zwei Parametern von quote uebergeben,  ${kernel_args} verursacht Fehlermeldung	
