@@ -335,7 +335,7 @@ cat ${HOMEDIR}/ftp.log | grep -q 'No route to host' && \
 echo -e "---------------------------------------------------------- \n\
 Your PC or/and VM machine net-card is not set up correctly \n\
 ---------------------------------------------------------- \n\
-Make sure only one net-card is installed or specify the proper eth0 .. eth5 \n\
+Make sure only one net-card is installed or specify the proper eth0 .. eth9 \n\
 within speed-to-fritz menu options, WLAN-, IDSN- or TV-cards do count as as well. \n\
 If a VM (virtual machine) is in use make sure VM is stared with administrator rights. \n\
 Right click on the VM program and select 'Start as administrator' " && return 1
