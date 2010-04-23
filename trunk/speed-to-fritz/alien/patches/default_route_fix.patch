@@ -1,0 +1,44 @@
+Index: make/onlinechanged-cgi/files/root/etc/onlinechanged/dsld_default_route
+===================================================================
+--- etc/onlinechanged/dsld_default_route	(revision 0)
++++ etc/onlinechanged/dsld_default_route	(revision 0)
+@@ -0,0 +1,33 @@
++#!/bin/sh
++#
++# script to correct strange default route by dsld
++#
++
++#- important variables
++#$1={online]
++#DNS1=
++#DNS2=
++#IPADDR=
++#GATEWAY=
++
++#- debug
++#	exec 1> "/tmp/$(basename "$0").log"
++#	exec 2>&1
++#	echo "`date` -- $(basename "$0") $*"
++#	env | sort
++#	set -x
++
++#- magic
++DEFAULTROUTEIF="`route -n | awk '/^0\.0\.0\.0[[:space:]]+[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+[[:space:]]+0\.0\.0\.0/ {print $8}'`"
++case "$1" in
++	online )
++		if [ "$DEFAULTROUTEIF" = "dsl" ]; then
++		# IPADDR is set by multid, who calls us
++			ifconfig $DEFAULTROUTEIF $IPADDR dstaddr $IPADDR
++		# set this address as 2nd addres for the interface. This is needed for internal port forwarding (voipd).
++			ifconfig $DEFAULTROUTEIF:dsld 169.254.2.1 dstaddr 169.254.2.1
++			route del default 2> /dev/null
++			route add default gw 169.254.2.1 dev $DEFAULTROUTEIF
++		fi
++	;;
++esac
+
+Property changes on: etc\onlinechanged\dsld_default_route
+___________________________________________________________________
+Added: svn:executable
+   + *
+

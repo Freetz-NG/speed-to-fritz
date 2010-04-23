@@ -2414,6 +2414,13 @@ config EXPORT_PATCH_PORTRULE
 		PLEASE NOTE: 		You will not see these entries any more after a reboot !!
 					But they will remain active, even if not shown in GUI !!
 
+config EXPORT_ADD_DEFAULT_ROUTE_FIX
+	bool "Add default route fix skript"
+	default n
+	depends on EXPERT_MOD 
+	help
+	    Fixes a AVM Bug that did not produce problems, see freetz ticket 
+	    http://trac.freetz.org/ticket/783 for more info.
 
 config EXPORT_PATCH_EXT_SIP
         bool "Experimental: Add option to enable external SIP devices to register (Labor only)"
