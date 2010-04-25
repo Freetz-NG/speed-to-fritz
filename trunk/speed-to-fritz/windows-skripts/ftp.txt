@@ -1,0 +1,11 @@
+open 192.168.178.1
+user adam2 adam2
+debug
+binary
+hash
+quote SETENV firmware_version avm
+quote SETENV autoload yes
+quote SETENV my_ipaddress 192.168.178.1
+quote SETENV kernel_args annex=B
+quote SETENV annex B
+quit

@@ -1,0 +1,16 @@
+This directory contines windows batch files.
+
+Exract zip files and transfer them to a windows directory and start the skripts from "Eingabeaufforderung"
+empty.bin must be in the same directory as the patch files.
+push_FTP.bat transfers a kernel.image to the AVM Router usung NCFTP.
+The router Adam IP must be 192.168.178.1
+
+push_FTP_002.bat is the same but Adam IP must be 192.168.2.1
+
+set_branding.bat set branding to "tcom"
+Change the settings inside this file if IP or branding should be differnt.
+ 
+staticIP192.168.178.19.bat sets PC LAN1 to 192.168.178.19
+setDHCP.bat turns DHCP on again.
+ 
+ 
