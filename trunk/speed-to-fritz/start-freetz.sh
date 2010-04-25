@@ -74,17 +74,17 @@ rm -rf "$FBDIR_2"
 rm -rf "$SPDIR"
 rm -rf "$TEMPDIR"
 
-KEY="x"
-while [ "$KEY" != "y" ]; do
- echo
- echo
- echo -n "  Did you run speed-to-fritz to set up the variables in use' (y/n)? "; read -n 1 -s YESNO; echo
- [ "$YESNO" = "y" ] || [ "$YESNO" = "n" ] &&  KEY="y"
- [ "$KEY" = "x" ] && echo "wrong key!"
- [ "$YESNO" = "n" ] && ./start
-    #include variables from last run of speed-to-fritz
- [ "$YESNO" = "n" ] &&. ./incl_var
-done
+#KEY="x"
+#while [ "$KEY" != "y" ]; do
+# echo
+# echo
+# echo -n "  Did you run speed-to-fritz to set up the variables in use' (y/n)? "; read -n 1 -s YESNO; echo
+# [ "$YESNO" = "y" ] || [ "$YESNO" = "n" ] &&  KEY="y"
+# [ "$KEY" = "x" ] && echo "wrong key!"
+# [ "$YESNO" = "n" ] && ./start
+#    #include variables from last run of speed-to-fritz
+# [ "$YESNO" = "n" ] &&. ./incl_var
+#done
 
 echo
 if [ `id -u` -eq 0 ]; then
@@ -98,19 +98,22 @@ if [ `id -u` -eq 0 ]; then
   exit 0
 fi
 cd ..
-KEY="x"
-while [ "$KEY" != "y" ]; do
+if ! [ -e "$HOMEDIR/.freetz_tools_installed" ]; then
+ KEY="x"
+ while [ "$KEY" != "y" ]; do
  echo
  echo "The update and install procedure has to be repeated until all errors are gone!"
  echo
  echo -n "   Do an update and installation of missing tools? (y/n)? "; read -n 1 -s YESNO; echo
  [ "$YESNO" = "n" ] &&  KEY="y"
  [ "$YESNO" = "n" ] || [ "$YESNO" = "y" ] || echo "wrong key!"
-if [ "$YESNO" = "y" ]; then
+  if [ "$YESNO" = "y" ]; then
 	export EXTRAPKG=intltool
 	. $HOMEDIR/install-tools2
- fi
-done
+    touch $HOMEDIR/.freetz_tools_installed
+  fi
+ done
+fi
 KEY="x"
 while [ "$KEY" != "y" ]; do
  echo
@@ -231,6 +234,7 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
     # replace patches that had to be fixed
     cp -fdrp  $HOMEDIR/freetz/patches/7270/en/* --target-directory=./patches/7270/en 2> /dev/null
     cp -fdrp  $HOMEDIR/freetz/patches/cond/* --target-directory=./patches/cond 2> /dev/null
+
   #7570 <--
   fi
   #7390 -->
@@ -268,7 +272,7 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
      KERNEL_SITE="${KERNEL_DL_LINK%/*}"
      #KERNEL_SOURCE="fritz_box_fon_wlan_7390_source_files.04.83.tar.gz"
      #KERNEL_SITE="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/opensrc"
-     # download opensource becaus freez want downlod it for some reason
+     # download opensource because freetz want downlod it for some reason
      . $inc_DIR/includefunctions
      export FILENAME_KERNEL_DL_LINK_PATH="$(get_item "$KERNEL_DL_LINK" "1")" 
      export MIRROR_KERNEL_DL_LINK_PATH="$(get_item "$KERNEL_DL_LINK" "2")"

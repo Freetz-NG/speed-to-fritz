@@ -527,6 +527,16 @@ config EXPORT_BUILDRECOVER
 		Resulting windows executabel can be usesd in the same way as 
 		original Recover.
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+config EXPORT_RUNFREETZ
+	bool "Run Freetz also (./start-freetz.sh)"
+	default n
+	select SET_UP
+	help
+		This Option will setup and run freetz in combination with speed-to-fritz.
+		First speed-to-fritz is run to setup the model and do some preperation.
+		Then ./start-freetz.sh is executed, more info can be found in Ernest015
+		"Anleitung"
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config PUSHCONF
 	bool "Push firmware to box via FTP"
 	default y

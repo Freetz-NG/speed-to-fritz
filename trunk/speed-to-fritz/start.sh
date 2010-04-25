@@ -44,8 +44,11 @@ if ! `cat "./Firmware.conf" | grep -q 'SAVED_CONF=y'`; then
     exit 0
 fi
 #. FirmwareConfStrip
-### tells speed to fritz not to use commandline options 
+### -z tells speed to fritz not to use commandline options 
 ./sp-to-fritz.sh -z
+# run Freetz if it was selected in speed-to-fritz menue.
+. ./incl_var
+[ "$RUNFREETZ" == "y" ] && ./start-freetz.sh
 #sleep 20
 
 
