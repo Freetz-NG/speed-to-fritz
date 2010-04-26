@@ -1,12 +1,11 @@
 #!/bin/bash
 abs_split_header="`find -name split_header`"
-. $abs_split_header || exit 1
+. $abs_split_header
 #echo "New output directory: $output_dir1"
 #echo "New output file: $new_output_file"
 new_output_file="new_$output_dir1.exe"
 output_dir="$mod_base/$output_dir1"
 mkdir -p "$output_dir"
-
 extract_exe_start
 extract_kernel_plus_mid
 #extract_kernel_image not working correctly

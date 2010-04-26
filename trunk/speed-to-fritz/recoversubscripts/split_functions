@@ -89,3 +89,4 @@ echo " kernel.image, start @ ${kernel_offs}, SquashFS @ ${squashfs_offs}, length
 #dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=${kernel_offs} count=$dd_count 2> /dev/null
 ( dd of="/dev/null" ibs=$kernel_offs obs=8192 count=1 2> /dev/null && dd of="$output_file" ibs=$dd_count obs=8192 count=1 2> /dev/null ) < "$input_file"
 }
+# No exit 0 is used as incudefile

@@ -66,4 +66,4 @@ if [ "$kernel_end_at" == "1" ]; then
 fi
 kernel_end=$kernel_end_at
 echo "kernel end at: $kernel_end_at"
-exit 0
+# No exit 0 is used as incudefile
