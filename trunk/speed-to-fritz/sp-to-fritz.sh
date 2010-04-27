@@ -188,7 +188,17 @@ export ATA="y"
 export CONFIG_ATA="${ATA}"
 export CONFIG_ATA_FULL="n"
 #export ANNEX="B"
-##########################################################################
+export ECHO_ROT="\033[31m"
+export ECHO_GRUEN="\033[32m"
+export ECHO_BOLD_GRUEN="\033[47m\033[32m"
+export ECHO_GELB="\033[33m"
+export ECHO_BLAU="\033[34m"
+export ECHO_BOLD_BLAU="\033[47m\033[34m"
+export ECHO_LILA="\033[35m"
+export ECHO_TUERKIS="\033[36m"
+export ECHO_HELL_GRAU="\033[37m"
+export ECHO_BOLD="\033[1m"
+export ECHO_END="\033[0m"
 # function set_model()
 # Sets the model dependent parameters
 # SPMOD ist the only parameter to be changed according to your hardware 
@@ -1452,6 +1462,8 @@ if [ "$ORI" != "y" ]; then
  $HOMEDIR/extract_rpllist.sh
  # set OEM via rc.S not via environment
  [ "$PATCH_OEM" = "y" ] && $sh2_DIR/patch_OEMandMyIP "${SRC}"
+ # fix default route
+ [ "$ADD_DEFAULT_ROUTE_FIX" = "y" ] && $sh_DIR/patch_default_route_fix.sh "${SRC}"
  #packing takes place on SPDIR
  export SPDIR="${FBDIR}"
  #--> Add patches here if the shold not be applayed with Option restore original!
@@ -1524,10 +1536,10 @@ else
  # <-- Only Tcom
 fi
 #-->All firmwares, if patches added here the are applied to tcom firmware with option "restore original" as well!
-# patch portrule to enable forwarding to box itself
 #--------------------------------------------------------------------------------------------------------------- 
 # add s2f config file
 [ "$ADD_S2F_CONF" = "y" ] && subscripts2/add_s2f_configfile "${SRC}" && $TAR xvzf packages/s2f_flash.tgz -C "${SRC}" 2> /dev/null
+# patch portrule to enable forwarding to box itself
 # add default route
 [ "$PATCH_PORTRULE" = "y" ] && $sh2_DIR/patch_portrule "${SRC}"
 # add own files 
@@ -1599,8 +1611,19 @@ if [ "$SET_UP" = "n" ]; then
  [ "$BUILDRECOVER" = "y" ] && $HOMEDIR/build_new_recover_firmware
 	echo "********************************************************************************"
  if [ "$PUSHCONF" = "y" ]; then
+	echo -e "${ECHO_GRUEN}\n\
+Don't restart the PC in case the router is or ends up in a reboot loop, \n\
+repeat the flashing, or repeat the complete script if it did not work in the \n\
+first place. There is no need to power of a router that is in a reboot loop even \n\
+the script asks you to do this. Nothig is damaged if the router ends up or stays \n\
+in a reboot loop, the router is waiting for a firmware on one of the following \n\
+FTP IPs 192.168.178.1 or 192.168.2.1. If you have trouble to establish a \n\
+connection, add to your PC Network settings a static IP 192.168.178.2 and \n\
+mask 255.255.0.0 gateway IP 192.168.178.1.\n\
+If a VM machine is in use be sure you did start the VM as Administrator.$ECHO_END"
+	##########################################################################
+	echo "********************************************************************************"
 	echo "Flashing firmware image $NEWDIR/kernel.image..."
-	echo -e " \033[1m Dont restart the PC in case the router repeats booting, just repeat the flash action.'\033[0m "
 	echo "********************************************************************************"
 	echo
  	#FTP kann nicht mit zwei Parametern von quote uebergeben,  ${kernel_args} verursacht Fehlermeldung	
@@ -1611,7 +1634,7 @@ if [ "$SET_UP" = "n" ]; then
 	echo "********************************************************************************"
  else
 	echo "********************************************************************************"
-	echo -e "You may now use it in regular \033[1mfirmware upgrade\033[0m process."
+	echo -e "You may now use it in regular ${ECHO_BOLD}firmware upgrade$ECHO_END process."
 	echo "Or:"
 	echo " Continue with upload of new kernel.image to speedport via ftp ..."
 	echo " 1. Login to 192.168.178.1 as adam2 (pw adam2)"
@@ -1622,7 +1645,7 @@ if [ "$SET_UP" = "n" ]; then
 	echo " 6. Reboot speedport:   quote REBOOT"
 	echo " 7. Exit ftp:           quit "
 	echo "Or:"
-	echo -e " Use \033[1m./ftpXXX 'ENTER'\033[0m to do the above, if you have a functional netconnection "
+	echo -e " Use $ECHO_BOLD./ftpXXX 'ENTER'$ECHO_END to do the above, if you have a functional netconnection "
 	echo " on this LINUX System to your Speedport, no additional settings are needed."
 	echo "********************************************************************************"
  fi
