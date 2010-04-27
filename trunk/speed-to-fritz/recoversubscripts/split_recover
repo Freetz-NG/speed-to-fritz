@@ -34,9 +34,7 @@ echo "actual size= $act_size,  new actual size= $new_act_size"
 [ $act_size -eq $new_act_size ] || echo "ERROR!!" 
 
 
-##My be neede if kernel.image is used for somthing else
+##The following lines my be neede if kernel.image is used for somthing else
 
 #echo "Add checksum to: kernel.image ..."
 #"$mod_base/tools/tichksum" "$output_dir/kernel.image"
-
-exit 0

@@ -117,7 +117,7 @@ fi
 (cd $RDIR
 make > /dev/null
 )
-$RDIR/split_recover $HOMEDIR $input_recover_file $output_dir || $RDIR/wait_for_enterkey && exit 1
+$RDIR/split_recover $HOMEDIR $input_recover_file $output_dir || . $RDIR/wait_for_enterkey
 #cp -fv "$output_dir/*" ./1
 #cp -v ./1/*  "$output_dir"
 NEWNAME=$(echo "$NEWIMG" | sed -r 's/Speedport_//' | sed -r 's/-r-/-/' | sed -r 's/_OEM-/-/' | sed -r 's/M-/-/' | sed -r 's/-sp2fr-/-/' | sed -r 's/_W...V_/_/' | sed -r 's/_Fritz_Box//' | sed -r 's/_DECT//' | sed -r 's/-0_/_/'| sed -r 's/.image//' | sed -r 's/fw_//' | sed -r 's/C_//' | cut -c-70 | sed -r "s/-$//" )-recover.exe
