@@ -4,8 +4,7 @@ export HOMEDIR="`pwd`"
 FREETZ_REVISION="4824"
 FREETZ_DIR="freetz-trunk-7390"
 rm -fdR  $FREETZ_DIR
-svn co http://svn.freetz.org/trunk $FREETZ_DIR
-# -r $FREETZ_REVISION
+svn co http://svn.freetz.org/trunk $FREETZ_DIR -r $FREETZ_REVISION
 cd $FREETZ_DIR
 # ? ->
 sed -i -e 's|export ac_cv_c_bigendian=no|export ac_cv_c_bigendian=yes|' "$HOMEDIR/$FREETZ_DIR/make/config.mipsel " 2> /dev/null

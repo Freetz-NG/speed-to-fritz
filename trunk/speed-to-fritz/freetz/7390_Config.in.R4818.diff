@@ -75,11 +75,10 @@ Index: Config.in
  	default n
  	help
  		Replace AVM kernel with self-built kernel.
-@@ -532,6 +542,8 @@
+@@ -532,6 +542,7 @@
  		FREETZ_TYPE_FON_WLAN_7270 || \
  		FREETZ_TYPE_FON_WLAN_7270_V3 || \
  		FREETZ_TYPE_FON_WLAN_7570 || \
-+# Sollte eigentlich so sein:	default "16mb_26"		if \
 +		FREETZ_TYPE_FON_WLAN_7390 || \
  		FREETZ_TYPE_WLAN_3270 || \
  		FREETZ_TYPE_WLAN_3270_V3
