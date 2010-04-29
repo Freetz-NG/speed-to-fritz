@@ -1,6 +1,5 @@
-
 #!/bin/bash
-#This skript should do the complete thing, no extra preparation should be needed if it runs within Ubuntu, andLinux or other 
+#This script should do the complete thing, no extra preparation should be needed if it runs within Ubuntu, andLinux or other 
 #debian derivates. 
 #It is recommended to run speed-to-fritz prior to this skript with the wanted firmware combinations
 #so the firmware-versions in use will be downloaded and can be used by freetz later without copying them by hand.
@@ -149,7 +148,7 @@ fi
 done
 echo
 echo
-#Set Freetz /dl Downloaddirectory to windows partition if existent to free up space needed for working, if andLinux is used 
+#Set Freetz /dl downloaddirectory to windows partition if existent to free up space needed for working.
 WinPartitopn="/mnt/win/dl"
 WinPartitopn=`echo "$WinPartitopn" | tr '/' '\/' `
 #echo "WinPartitopn:$WinPartitopn"
@@ -178,9 +177,9 @@ echo "--Image files present in '$DL_DIR_ABS/fw':"
 ls -l $DL_DIR_ABS/fw/*.image 2>&1 | grep -v 'No such file' 
 echo
 echo "Now you can run 'make menuconfig', at the first time a lot of warnings will be displayed!"
-echo "Select '7270', '7170' or '7150' suitable for your speedporttype 'W920, W900, W701 or Sinus 500'"
+echo "Select '7270', '7170' or other type suitable for your router 'W920, W900, W701 Sinus 500 or other.'"
 echo "As next step run 'make'"
-echo "The used firmware has to be copied to the '$DL_DIR_ABS' directory first,"
+echo "Firmware has to be copied to '$DL_DIR_ABS' directory first,"
 echo "if it is not present in ./speed-to-fritz/Firmware.orig at the time of starting this script."
 echo "If you did invoke speed-to-fritz before with the same firmwares in use, all should be present in:"
 echo " '$DL_DIR_ABS/fw' directory without copying the files after this script did run!"
@@ -203,7 +202,6 @@ while [ "$KEY" != "y" ]; do
   sed -i -e "/Hardwaretype/,/---------/{/.*/d}" "./Config.in" 2> /dev/null
   sed -i -e '/General/a\
 comment "Hardwaretype and language settings must be the same as in speed2fritz."\
-comment "In case of 7570 use 7270 en instead."\
 comment "Annex type is set by speed2fritz afrer freetz."\
 comment "----------------------------------------"' "./Config.in" 2> /dev/null
   sed -i -e "/config FREETZ_SUBVERSION_STRING/,/help/{s/default y/default n/}" "./Config.in" 2> /dev/null
@@ -226,70 +224,12 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
   #[ "$avm_Lang" = "en" ] && sed -i -e 's/FREETZ_TYPE_ANNEX_B=.*/# FREETZ_TYPE_ANNEX_A is not set/' "./.config" 2> /dev/null
   #7570 -->
   if [ "$SPNUM" = "7570" ]; then
-    [ "$MULTI_LANGUAGE" = "y" ] && sed -i -e "s/default FREETZ_TYPE_LANG_DE/default FREETZ_TYPE_LANG_EN/" "./Config.in" 2> /dev/null
-    [ "$MULTI_LANGUAGE" = "y" ] && sed -i -e "s/default FREETZ_LANG_EN/default FREETZ_LANG_DE/" "./Config.in" 2> /dev/null
-    sed -i -e 's|HTML_LANG_MOD_DIR="${HTML_MOD_DIR}/avme/en|HTML_LANG_MOD_DIR="${HTML_MOD_DIR}/avme|' "./fwmod" 2> /dev/null
-    sed -i -e 's|FREETZ_TYPE_FON_WLAN_7570|FREETZ_TYPE_FON_WLAN_7270|' "./Config.in" 2> /dev/null
-    echo "FREETZ_TYPE_FON_WLAN_7270=y" >> "./.config" 2> /dev/null
-    # replace patches that had to be fixed
-    cp -fdrp  $HOMEDIR/freetz/patches/7270/en/* --target-directory=./patches/7270/en 2> /dev/null
-    cp -fdrp  $HOMEDIR/freetz/patches/cond/* --target-directory=./patches/cond 2> /dev/null
-
+  echo "7570 is now suported within Freetz!"
   #7570 <--
   fi
   #7390 -->
   if [ "$FBMOD" = "7390" ] || [ "$SPNUM" = "722" ] ; then
-    echo "FREETZ_TYPE_FON_WLAN_7270=y" >> "./.config" 2> /dev/null
-    sed -i -e 's|FREETZ_TYPE_FON_WLAN_7390|FREETZ_TYPE_FON_WLAN_7270|' "./Config.in" 2> /dev/null
-#    echo "FREETZ_FUSIV=y" >> "./.config" 2> /dev/null
-    echo "config FREETZ_FUSIV" >> "./Config.in" 2> /dev/null
-    echo "	bool" >> "./Config.in" 2> /dev/null
-    echo "	default y" >> "./Config.in" 2> /dev/null
-    # replace patches that had to be fixed
-    cp -fdrp  $HOMEDIR/freetz/patches/7270/de/* --target-directory=./patches/7270/de 2> /dev/null
-    cp -fdrp  $HOMEDIR/freetz/patches/7390/cond/* --target-directory=./patches/cond 2> /dev/null
-    # test of kernel replase, stops now with a make error vlmlinux.eva_pad -->
-    TEST_REPLACE_KERNEL="n"
-    if [ "$TEST_REPLACE_KERNEL" == "y" ]; then
-    #FREETZ_KERNEL_CROSS="mipsbe-unknown-linux-gnu-"
-    #FREETZ_TARGET_CROSS="mipsbe-linux-uclibc-"
-
-     #sed -i -e 's|FREETZ_KERNEL_LAYOUT="ur8"|FREETZ_KERNEL_LAYOUT="iks"|' "./.config" 2> /dev/null
-     #sed -i -e 's|mipsel|mipsbe|' "./Config.in" 2> /dev/null
-     #sed -i -e 's|mipsel|mipsbe|' "./make/Makefile.in" 2> /dev/null
-     sed -i -e 's|export ac_cv_c_bigendian=no|export ac_cv_c_bigendian=yes|' "./make/config.mipsel " 2> /dev/null
-     cp -f ./make/config.mipsel ./make/config.mipsbe
-     rm -fd -R ./source/linux/2.6.19.2/
-     rm ./make/linux/patches/2.6.19.2/600-cpmac_ioctl.patch
-     rm ./make/linux/patches/2.6.19.2/7270_04.80/120-remove_fusiv.patch
-     rm ./make/linux/patches/2.6.19.2/100-evaloader.patch
-     rm ./make/linux/Config.ikanos-8mb_26.7270_04.82
-    ( cd $HOMEDIR && cd .. && patch -d "./$FREETZ_DIR" -p0 < "./kernel_7390.patch" && sleep 1 )
-
-     KERNEL_DL_LINK="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/opensrc/fritz_box_fon_wlan_7390_source_files.04.83.tar.gz"
-     #KERNEL_DL_LINK="http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W722V/GPL-Speedport_W722V.tar.gz"
-     KERNEL_SOURCE="$(echo $KERNEL_DL_LINK | sed -e "s/.*\///")"
-     KERNEL_SITE="${KERNEL_DL_LINK%/*}"
-     #KERNEL_SOURCE="fritz_box_fon_wlan_7390_source_files.04.83.tar.gz"
-     #KERNEL_SITE="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/opensrc"
-     # download opensource because freetz want downlod it for some reason
-     . $inc_DIR/includefunctions
-     export FILENAME_KERNEL_DL_LINK_PATH="$(get_item "$KERNEL_DL_LINK" "1")" 
-     export MIRROR_KERNEL_DL_LINK_PATH="$(get_item "$KERNEL_DL_LINK" "2")"
-     export KERNEL_DL_LINK_PATH="$(get_item "$KERNEL_DL_LINK" "0")"
-     fwselect "$KERNEL_DL_LINK_PATH" "$DL_DIR_ABS/fw" "KERNEL_DL_LINK" "KERNEL_DL_LINK"  "$MIRROR_KERNEL_DL_LINK_PATH" "$FILENAME_KERNEL_DL_LINK_PATH" "${SPNUM}V"
-     ( cd $FREETZ_DIR/source/kernel/ref-8mb_26-7270_04.80/linux-2.6.19.2
-     mkdir -p  $FREETZ_DIR/source/linux/2.6.19.2/drivers/video/davinci/
-     touch drivers/video/davinci/Kconfig
-     mkdir -p  drivers/usb/musb/
-     touch drivers/usb/musb/Kconfig
-     mkdir -p fusiv_src/kernel/
-     touch fusiv_src/kernel/Kconfig
-     mkdir -p  drivers/dsl
-     touch drivers/dsl/Kconfig 
-     )
-    fi
-    # <-- test of kernel replase
+    echo "You should use a alternaitv scrit '7390_freetz.sh' to build freetz for 7390 or W722V"
   # 7390 <--
   else
     [ "$SPNUM" = "500" ] && echo "FREETZ_TYPE_WLAN_${FBMOD}=y" >> "./.config" 2> /dev/null
@@ -325,34 +265,6 @@ SVN_FREETZ_VERSION=\"\$\(svnversion . | tr \":\" \"_\"\)\"" "./fwmod" 2> /dev/nu
 sed -i -e "/modimage=/a\
 echo \"export modimage=\\\\\"\${modimage}\\\\\"\" >\.\/freetz_var 2> \/dev\/null\n\
 echo \"export EXPORT_FREETZ_REVISION=\\\\\"\${SVN_FREETZ_VERSION}\\\\\"\" >>\.\/freetz_var 2> \/dev\/null" "./fwmod" 2> /dev/null
-
-#echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-# 7390 / W722 adaptions
-if ! grep -q 'FREETZ_FUSIV' "./fwmod" ;then
-sed -i -e '/# Dot-include .modpatch. shell function/i\
-if [ "$FREETZ_FUSIV" == "y" ]; then\
-	UNSQUASHFS_TOOL="unsquashfs4-lzma"\
-	MKSQUASHFS_TOOL="mksquashfs3-lzma"\
-	MKSQUASHFS_OPTIONS="-be -noappend -all-root -info -no-progress -no-exports -no-sparse"\
-	echo "  Fusiv is selected"\
-fi' "./fwmod" 2> /dev/null
-fi
-if ! grep -q 'squashfs4' "./tools/make/Makefile.in" ;then
- sed -i -e '/TOOLS+=squashfs3/a\
-TOOLS+=squashfs4' "./fwmod" 2> /dev/null
-fi
-#source
-rm -fd -R ./source/host-tools/find-squashfs
-cp -fdrp  $TOOLS_DIR/make/patches/100-lzma.squashfs4.patch --target-directory=./tools/make/patches 2> /dev/null
-cp -fdrp  $TOOLS_DIR/make/patches/110-allow-symlinks.squashfs4.patch --target-directory=./tools/make/patches 2> /dev/null
-cp -fdrp  $TOOLS_DIR/make/patches/120-memset-sBlk.squashfs4.patch --target-directory=./tools/make/patches 2> /dev/null
-cp -fdrp  $TOOLS_DIR/make/patches/150-hide_output.squashfs4.patch --target-directory=./tools/make/patches 2> /dev/null
-cp -fdrp  $TOOLS_DIR/make/patches/150-hide_output.squashfs4.patch --target-directory=./tools/make/patches 2> /dev/null
-cp -fdrp  $TOOLS_DIR/make/squashfs4.mk --target-directory=./tools/make 2> /dev/null
-cp -fdrp  $TOOLS_DIR/source/find-squashfs.tar.bz2 --target-directory=./tools/source 2> /dev/null
-#echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-cp -fdrpv  $TOOLS_DIR/source/fusiv/.config $HOMEDIR/../$FREETZ_DIR/make/linux/Config.ikanos-8mb_26.7270_04.82
-sleep 5
 KEY="x"
 while [ "$KEY" != "y" ]; do
  echo 
