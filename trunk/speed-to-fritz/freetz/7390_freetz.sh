@@ -1,10 +1,11 @@
 #!/bin/bash
 export HOMEDIR="`pwd`"
 #With revision 4818 new squashfs is now in the trunk, we dont need to add it any more.
-FREETZ_REVISION="4818"
+FREETZ_REVISION="4824"
 FREETZ_DIR="freetz-trunk-7390"
 rm -fdR  $FREETZ_DIR
-svn co http://svn.freetz.org/trunk $FREETZ_DIR -r $FREETZ_REVISION
+svn co http://svn.freetz.org/trunk $FREETZ_DIR
+# -r $FREETZ_REVISION
 cd $FREETZ_DIR
 # ? ->
 sed -i -e 's|export ac_cv_c_bigendian=no|export ac_cv_c_bigendian=yes|' "$HOMEDIR/$FREETZ_DIR/make/config.mipsel " 2> /dev/null
@@ -12,6 +13,9 @@ cp -f $HOMEDIR/$FREETZ_DIR/make/config.mipsel $HOMEDIR/$FREETZ_DIR/make/config.m
 # <- ?
 #patch 7390_3.patch aus ticket #673  (Config.in diff removed)
 PATCH="$HOMEDIR/7390_3.2.patch"
+patch -d . -p0 -N --no-backup-if-mismatch < "$PATCH" 2>&1
+#patch 
+PATCH="$HOMEDIR/add_target_option.diff"
 patch -d . -p0 -N --no-backup-if-mismatch < "$PATCH" 2>&1
 #patch add Config in diff
 PATCH="$HOMEDIR/7390_Config.in.R4818.diff"
@@ -26,8 +30,8 @@ patch -d . -p0 -N --no-backup-if-mismatch < "$PATCH" 2>&1
 PATCH="$HOMEDIR/7390_patch_dir.diff"
 patch -d . -p0 -N --no-backup-if-mismatch < "$PATCH" 2>&1
 # set bigendian in fwmod 
-echo -e "\033[31mEndianness is set to -be in ./fwmod.!\033[0m"
-sed -i -e 's|-le|-be|' "./fwmod"
+##echo -e "\033[31mEndianness is set to -be in ./fwmod.!\033[0m"
+##sed -i -e 's|-le|-be|' "./fwmod"
 echo "----------------------------"
 # -> Set Freetz /dl Downloaddirectory to windows partition if existent to free up space needed for working.
 # This part is without funktion if /mnt/win/dl dirictory is not existant.
