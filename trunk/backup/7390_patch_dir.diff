@@ -1,0 +1,492 @@
+diff -Naur patches/196-usbstorage.sh patches/196-usbstorage.sh
+--- patches/196-usbstorage.sh	2010-04-30 09:43:57.000000000 -0400
++++ patches/196-usbstorage.sh	2010-04-30 08:58:05.000000000 -0400
+@@ -8,7 +8,7 @@
+ 	modpatch "$FILESYSTEM_MOD_DIR" "${PATCHES_DIR}/cond/a-ch/usbstorage_7170_a_ch.patch"
+ elif isFreetzType 7170 && isFreetzType LANG_EN; then
+ 	modpatch "$FILESYSTEM_MOD_DIR" "${PATCHES_DIR}/cond/en/usbstorage_7170_en.patch"
+-elif isFreetzType 2170 3130 3131 3170 3270 3270_V3 5124 7140 7141 7150 7170 7240 7270 7270_V3 7570 ; then
++elif isFreetzType 2170 3130 3131 3170 3270 3270_V3 5124 7140 7141 7150 7170 7240 7270 7270_V3 7390 7570 ; then
+ 	modpatch "$FILESYSTEM_MOD_DIR" "${PATCHES_DIR}/cond/usbstorage_${FREETZ_TYPE_STRING}.patch"
+ else
+ 	error 1 "Missing usbstorage patch for $FREETZ_TYPE_STRING - $FREETZ_TYPE_LANG_STRING"
+diff -Naur patches/220-assistant.sh patches/220-assistant.sh
+--- patches/220-assistant.sh	2010-04-30 09:43:57.000000000 -0400
++++ patches/220-assistant.sh	2010-04-30 08:58:05.000000000 -0400
+@@ -18,7 +18,7 @@
+ 	xargs sed -s -i -e '/var:menuAssistent/d'
+ 
+ if [ -e "$HTML_DIR/home/sitemap.html" ]; then
+-	if isFreetzType 3270 3270_V3 7112 7141 7150 7170 7240 7270 7270_V3 7570; then
++	if isFreetzType 3270 3270_V3 7112 7141 7150 7170 7240 7270 7270_V3 7390 7570; then
+ 		modpatch "$FILESYSTEM_MOD_DIR" "${PATCHES_DIR}/cond/${FREETZ_TYPE_LANG_STRING}/remove_assistant_${FREETZ_TYPE_STRING}.patch"
+ 	elif isFreetzType 7140; then
+ 		if isFreetzType LANG_A_CH; then
+diff -Naur patches/7390/100-rc.net-dnsmasq.patch patches/7390/100-rc.net-dnsmasq.patch
+--- patches/7390/100-rc.net-dnsmasq.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/7390/100-rc.net-dnsmasq.patch	2010-04-30 08:58:04.000000000 -0400
+@@ -0,0 +1,14 @@
++--- etc/init.d/rc.net.orig	2010-01-22 19:11:40.000000000 +0100
+++++ etc/init.d/rc.net	2010-01-22 19:11:40.000000000 +0100
++@@ -12,6 +12,11 @@
++ 
++ PATH=/bin:/usr/bin:/sbin:/usr/sbin
++ 
+++# allow wrapper
+++PKG=dnsmasq
+++BASE=/mod/pkg/$PKG
+++PATH=$BASE/usr/lib/$PKG/bin:$PATH
+++
++ case "`uname -r`" in
++   2.6* ) KERNEL_26=yes; ;;
++   *    ) KERNEL_26=no; ;;
+diff -Naur patches/7390/110-rc.S-mknod.patch patches/7390/110-rc.S-mknod.patch
+--- patches/7390/110-rc.S-mknod.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/7390/110-rc.S-mknod.patch	2010-04-30 08:58:04.000000000 -0400
+@@ -0,0 +1,14 @@
++--- etc/init.d/rc.S.orig	2009-09-17 09:18:48.078288387 +0200
+++++ etc/init.d/rc.S	2009-09-17 09:18:48.222750066 +0200
++@@ -217,6 +217,11 @@
++ #########################################################################
++ mknod /var/flash/voip.cfg c $tffs_major $((0x72))
++ mknod /var/flash/voipd_call_stat c $tffs_major $((0x7A))
+++#########################################################################
+++## freetz
+++#########################################################################
+++mknod /var/flash/freetz c $tffs_major $((0x3c))
+++/usr/bin/modload 2>&1 | tee /var/log/mod_load.log
++ ## mknod /var/flash/telefon_msns c $tffs_major $((0x80)) entfaellt mit tecfg v54
++ #########################################################################
++ ## FLASH_FS_ID_MSNLISTE = 0x0080, /*--- /var/flash/telefon_msns ---*/
+diff -Naur patches/7390/120-rc.S-dev.patch patches/7390/120-rc.S-dev.patch
+--- patches/7390/120-rc.S-dev.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/7390/120-rc.S-dev.patch	2010-04-30 08:58:04.000000000 -0400
+@@ -0,0 +1,14 @@
++--- etc/init.d/rc.S.orig	2008-02-22 20:05:11.000000000 +0100
+++++ etc/init.d/rc.S	2008-02-22 20:05:11.000000000 +0100
++@@ -96,8 +96,9 @@
++ ##########################################################################################
++ ## rc.S for 2.6 Kernel
++ ##########################################################################################
++-mount -n /proc
++-mount /var
+++[ -f /dev/.hotplug-cache ] || mount -o nosuid -t tmpfs dev /dev
+++/sbin/makedevs -d /etc/device.table /
+++mount -a
++ ##########################################################################################
++ ##########################################################################################
++ echo init-start 240 >/dev/watchdog
+diff -Naur patches/7390/130-rc.S-logging.patch patches/7390/130-rc.S-logging.patch
+--- patches/7390/130-rc.S-logging.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/7390/130-rc.S-logging.patch	2010-04-30 08:58:04.000000000 -0400
+@@ -0,0 +1,23 @@
++--- etc/init.d/rc.S.orig	2008-02-22 20:05:11.000000000 +0100
+++++ etc/init.d/rc.S	2008-02-22 20:05:11.000000000 +0100
++@@ -102,6 +102,20 @@
++ ##########################################################################################
++ ##########################################################################################
++ echo init-start 240 >/dev/watchdog
+++
+++# Load boot loader kernel_args API
+++. /usr/bin/kernel_args
+++# Backup kernel log ring buffer ASAP, so as not to lose its earliest entries
+++if ka_isActiveVariable SaveKernelRingBuffer; then
+++	ka_decreaseValue SaveKernelRingBuffer
+++	dmesg > /var/dmesg-rc.S.log
+++fi
+++# Initiate inotify-tools file access logging
+++if ka_isActiveVariable InotifyBootAnalysis; then
+++	ka_decreaseValue InotifyBootAnalysis
+++	/etc/init.d/rc.inotify_tools start 
+++fi
+++
++ ##########################################################################################
++ ## aus den kernel parameters die für die module ermitteln
++ ##########################################################################################
+diff -Naur patches/7390/140-rc.S-no_avm_exit.patch patches/7390/140-rc.S-no_avm_exit.patch
+--- patches/7390/140-rc.S-no_avm_exit.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/7390/140-rc.S-no_avm_exit.patch	2010-04-30 08:58:04.000000000 -0400
+@@ -0,0 +1,7 @@
++--- etc/init.d/rc.S.orig	2010-04-29 23:15:08.000000000 +0200
+++++ etc/init.d/rc.S	2010-04-29 23:15:08.000000000 +0200
++@@ -1604,4 +1604,3 @@
++ echo AVMDBG_EOF 1 >/dev/debug
++ fi;
++ #########################################################################
++-exit 0
+diff -Naur patches/7390/200-modules_symlink.sh patches/7390/200-modules_symlink.sh
+--- patches/7390/200-modules_symlink.sh	1969-12-31 19:00:00.000000000 -0500
++++ patches/7390/200-modules_symlink.sh	2010-04-30 08:58:04.000000000 -0400
+@@ -0,0 +1,2 @@
++echo1 "making symlink for modules (-ur8)"
++ln -s 2.6.19.2 ${FILESYSTEM_MOD_DIR}/lib/modules/2.6.19.2-ur8
+diff -Naur patches/7390/290-replace_websrv-remove_igdd.patch patches/7390/290-replace_websrv-remove_igdd.patch
+--- patches/7390/290-replace_websrv-remove_igdd.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/7390/290-replace_websrv-remove_igdd.patch	2010-04-30 08:58:04.000000000 -0400
+@@ -0,0 +1,40 @@
++--- etc/init.d/rc.net.orig	2010-04-29 23:15:07.000000000 +0200
+++++ etc/init.d/rc.net	2010-04-29 23:15:08.000000000 +0200
++@@ -59,9 +59,25 @@
++    WLAN_TEST=0
++ fi
++ 
+++# Do we have a UPnP server (upnpd) or was ist stripped from the firmware?
+++_upnpd=$(basename $(which upnpd) 2> /dev/null)
+++# Does a multid option to start without UPnP device (-U) exist?
+++_multid_upnp=$(/sbin/multid -? 2>&1 | grep upnp)
+++# Does a dsld option to start without igd (-g) exist?
+++_dsld_upnp=$(/sbin/dsld -? 2>&1 | grep igd)
+++# Set multid "no UPnP" option, if
+++#   a) it has the parameter at all AND
+++#   b) upnpd binary does *not* exist
+++[ "$_multid_upnp" ] && [ ! "$_upnpd" ] && MULTIDPARAM="$MULTIDPARAM -U -P"
+++# Set dsld "no igd" option, if
+++#   a) it has the parameter at all AND
+++#   b) upnpd binary does *not* exist
+++[ "$_dsld_upnp" ] && [ ! "$_upnpd" ] && DSLDDPARAM="-g"
+++
++ 
++ upnpdstart()
++ {
+++	 [ "$_upnpd" ] || return;
++    if [ "`pidof upnpd`" = "" ] ; then
++       upnpd $VERBOSEPARAM
++       sleep 1
++@@ -289,9 +305,9 @@
++    if [ "$CONFIG_DSL" ] ; then
++      if [ "`pidof dsld`" = "" ] ; then
++        if [ "$CONFIG_RAMSIZE" = 8 ] ; then
++-         dsld -i -n $NICEPARAM -r 600 $VERBOSEPARAM
+++         dsld -i -n $NICEPARAM -r 600 $VERBOSEPARAM $DSLDDPARAM
++        else
++-         dsld -i -n $NICEPARAM $VERBOSEPARAM
+++         dsld -i -n $NICEPARAM $VERBOSEPARAM $DSLDDPARAM
++        fi
++      fi
++    fi
+diff -Naur patches/7390/301-remove_smbd.patch patches/7390/301-remove_smbd.patch
+--- patches/7390/301-remove_smbd.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/7390/301-remove_smbd.patch	2010-04-30 08:58:04.000000000 -0400
+@@ -0,0 +1,19 @@
++--- etc/init.d/rc.net.orig	2010-04-29 23:15:08.000000000 +0200
+++++ etc/init.d/rc.net	2010-04-29 23:15:08.000000000 +0200
++@@ -73,6 +73,8 @@
++ #   a) it has the parameter at all AND
++ #   b) upnpd binary does *not* exist
++ [ "$_dsld_upnp" ] && [ ! "$_upnpd" ] && DSLDDPARAM="-g"
+++# Do we have a Samba server (smbd) or was ist stripped from the firmware?
+++_smbd=$(basename $(which smbd) 2> /dev/null)
++ 
++ 
++ upnpdstart()
++@@ -316,6 +318,7 @@
++ #we have the samba cfg in /var, so crate them there
++ sambastart()
++ {
+++   [ "$_smbd" ] || return;
++    cd /
++    tar xf /var.tar
++    /bin/smbd
+diff -Naur patches/7390/de/130-foncalls.patch patches/7390/de/130-foncalls.patch
+--- patches/7390/de/130-foncalls.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/7390/de/130-foncalls.patch	2010-04-30 08:58:04.000000000 -0400
+@@ -0,0 +1,28 @@
++--- usr/www/all/html/de/home/foncalls.js.orig	2010-01-21 15:40:39.000000000 +0100
+++++ usr/www/all/html/de/home/foncalls.js	2010-01-22 19:11:41.000000000 +0100
++@@ -358,17 +358,17 @@ var buchentryinfo = GetBuchEntryInfo(buc
++ var tooltip=nr;
++ if (nr!="")
++ tooltip=buchentryinfo+" = "+nr;
++-if (nr=="" && buchname=="") return g_txtUnbekannt;
+++if (nr=="" && buchname=="") return g_sym0 + g_txtUnbekannt;
++ if ("<? query telcfg:settings/UseClickToDial ?>" == "1") {
++-if (nr == "") return span(buchentryinfo);
++-if (buchname == "") {
++-return "<nobr>" +
++-"<a href=\"javascript:Dial('"+nr+"')\" title=\""+nr+"\">"+nr+"</a></nobr>";
++-}
++-return "<nobr><a href=\"javascript:Dial('"+nr+"')\" title=\""+tooltip+"\">"+buchentryinfo+"</a></nobr>";
+++if (nr == "") return g_sym0 + span(buchentryinfo);
+++if (buchname == "") return "<nobr>" + uiRufnummerInfo (nr) +"<a href=\"javascript:Dial('"+nr+"')\" title=\""+nr+"\">"+nr+"</a></nobr>";
+++return "<nobr>" +  g_sym0 + "<a href=\"javascript:Dial('"+nr+"')\" title=\""+buchentryinfo+"\">"+buchentryinfo+"</a></nobr>";
++ } else {
++-return spanEx(tooltip,buchname=="" ? nr:buchentryinfo);
+++return (buchname=="" ? uiRufnummerInfo(nr):g_sym0) + span(buchname=="" ? nr:buchentryinfo);
+++}
++ }
+++function uiRufnummerInfo (nr) {
+++return "<a href=\"http://www.dasoertliche.de/Controller?form_name=search_inv&ph=" + encodeURI (nr) + "\" target=\"_blank\" title=\"R&uuml;ckw&auml;rtssuche bei dasoertliche.de nach "+nr+"\"><img src=\"../html/<? echo $var:lang ?>/images/bearbeiten.gif\"></a>";
++ }
++ function uiRouteDisplay (n, t) {
++ var name;
+diff -Naur patches/7390/de/190-webmenu.patch patches/7390/de/190-webmenu.patch
+--- patches/7390/de/190-webmenu.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/7390/de/190-webmenu.patch	2010-04-30 08:58:04.000000000 -0400
+@@ -0,0 +1,18 @@
++--- usr/www/all/html/de/menus/menu2_homehome.html.orig	2010-04-13 16:40:24.000000000 +0200
+++++ usr/www/all/html/de/menus/menu2_homehome.html	2010-04-29 23:15:08.000000000 +0200
++@@ -59,5 +59,6 @@
++ <? if eq $var:pagename energy `<? setvariable var:classname 'LStatusMenuitemaktivTop' ?>` ?>
++ <? if eq $var:pagename ecosettings `<? setvariable var:classname 'LStatusMenuitemaktivTop' ?>` ?>
++ <li class="<? echo $var:classname ?>"><img class="LMenuPfeil" src="<? echo $var:aktivpfeil ?>"><a href="javascript:jslGoTo('home','energy')">{?de.menus.menu2_homehome.html:105EnergyMonitor?}</a><span class="PTextOnly">{?de.menus.menu2_homehome.html:110EnergyMonitor?}</span></li>
+++<li class="LMenuitemTop" style="margin-top:24px"><img src="<? echo $var:pfeil ?>"> <a href="/cgi-bin/freetz_status" target="_blank">Freetz</a><span class="PTextOnly">Freetz</span></li>
++ <li class="LMenubottom">&nbsp;</li>
++ </ul>
++--- usr/www/all/html/de/menus/menu2_konfig.html.orig	2010-04-13 16:40:10.000000000 +0200
+++++ usr/www/all/html/de/menus/menu2_konfig.html	2010-04-29 23:15:08.000000000 +0200
++@@ -79,5 +79,6 @@
++ <li class="LMenuitemaktivTop"><img class="LMenuPfeil" src="../html/de/images/leer.gif" style="width:7px;"><a href="javascript:jslGoTo('software','extern')">{?txtPrograms?}</a><span class="PTextOnly">{?txtPrograms?}</span></li>
++ ` ?>
++ ` ?>
+++<li class="LMenuitemTop" style="margin-top:24px"><img src="<? echo $var:pfeil ?>"> <a href="/cgi-bin/freetz_status" target="_blank">Freetz</a><span class="PTextOnly">Freetz</span></li>
++ <li class="LMenubottom">&nbsp;</li>
++ </ul>
+diff -Naur patches/7390/de/200-sperre1.patch patches/7390/de/200-sperre1.patch
+--- patches/7390/de/200-sperre1.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/7390/de/200-sperre1.patch	2010-04-30 08:58:04.000000000 -0400
+@@ -0,0 +1,20 @@
++--- usr/www/avm/html/de/fon/sperre1.js.orig	2009-02-25 10:41:49.000000000 +0100
+++++ usr/www/avm/html/de/fon/sperre1.js	2009-02-27 09:02:47.000000000 +0100
++@@ -68,7 +68,7 @@
++ var nummer="";
++ if (jslGetValue("uiViewBereichIncoming") == "")
++ nummer = jslGetValue("uiViewNummer");
++-if (!isZahlRaute(nummer)) {alert(g_mldNonDigits); return;}
+++//if (!isZahlRaute(nummer)) {alert(g_mldNonDigits); return;}
++ var x = IstActionVorhanden(nummer);
++ if (x != "") {
++ if (jslGetValue("uiPostInAction"+x) == "1") {
++@@ -161,7 +161,7 @@
++ }
++ } else {
++ var nummer = jslGetValue("uiViewNummer");
++-if (!isZahlRaute(nummer)) {alert(g_mldNonDigits); return;}
+++//if (!isZahlRaute(nummer)) {alert(g_mldNonDigits); return;}
++ var x = IstActionVorhanden(nummer);
++ if (x != "") {
++ if (jslGetValue("uiPostInAction"+x) == "1") {alert(g_txtAlert_1); return;}
+diff -Naur patches/7390/de/210-notmountable.patch patches/7390/de/210-notmountable.patch
+--- patches/7390/de/210-notmountable.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/7390/de/210-notmountable.patch	2010-04-30 08:58:04.000000000 -0400
+@@ -0,0 +1,22 @@
++--- usr/www/all/html/de/home/home.js.orig	2010-04-13 16:40:31.000000000 +0200
+++++ usr/www/all/html/de/home/home.js	2010-04-29 23:15:08.000000000 +0200
++@@ -723,7 +723,7 @@
++ var nPartTotal = Number(g_usbhost_data.part_count_total);
++ if (isNaN(nPartTotal)) nPartTotal = 0;
++ var unplugOk = parseInt(g_usbhost_data.unplug_ok, 10) == 1;
++-if (nPartTotal > nStor)
+++if (nPartTotal > 0)
++ {
++ if (unplugOk)
++ {
++@@ -731,9 +731,7 @@
++ }
++ else
++ {
++-strStor = "{?de.home.home.js:5308?} ";
++-strStor += "<a href=\"javascript:syslog_jslSubmitFormEx(5);\">{?de.home.home.js:3744?}</a>";
++-strStor = strStor.fontcolor("#cc0000");
+++strStor = "Es wurden " + nStor + " von " + nPartTotal + " Partitionen eingebunden.";
++ }
++ strArr.push(strStor);
++ }
+diff -Naur patches/cond/de/remove_assistant_7390.patch patches/cond/de/remove_assistant_7390.patch
+--- patches/cond/de/remove_assistant_7390.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/cond/de/remove_assistant_7390.patch	2010-04-30 08:58:04.000000000 -0400
+@@ -0,0 +1,97 @@
++--- usr/www/all/html/de/js/basis.js.orig	2010-04-13 16:40:29.000000000 +0200
+++++ usr/www/all/html/de/js/basis.js	2010-04-29 23:22:42.000000000 +0200
++@@ -104,16 +104,16 @@
++ var menu = readCookie("menu");
++ var page = readCookie("page");
++ if (menu == "konfig") {
++-jslGoTo("konfig", "home");
+++jslGoTo("enhsettings", "enhsettings");
++ }
++ else if (menu == "software") {
++-jslGoTo("software", "extern");
+++jslGoTo("enhsettings", "enhsettings");
++ }
++ else if (menu == "enhsettings") {
++ jslGoTo("enhsettings", "enhsettings");
++ }
++ else {
++-jslGoTo("konfig", "home");
+++jslGoTo("enhsettings", "enhsettings");
++ }
++ }
++ function GoToSitemap()
++--- usr/www/all/html/de/home/sitemap.html.orig	2010-04-13 16:40:17.000000000 +0200
+++++ usr/www/all/html/de/home/sitemap.html	2010-04-29 23:22:42.000000000 +0200
++@@ -24,18 +24,6 @@
++ <p class="ml10"><a href="javascript:jslGoTo('home', 'syslog');">{?de.home.sitemap.html:9348?}</a></p>
++ <p class="ml10"><a href="javascript:jslGoTo('home', 'energy');">{?de.home.sitemap.html:65Systemtxt13?}</a></p>
++ </div>
++-<div class="gelb">
++-<p class="mb5 fett"><a href="javascript:jslGoTo('konfig', 'home');">{?txtAssi?}</a></p>
++-<? if eq $var:showFonLotse 1 `
++-<p id="SitemapFonItem" class="ml10"><a href="javascript:DoFonLotse();">{?de.home.sitemap.html:90SitemapText7?}</a></p>
++-` ?>
++-<p id="SitemapFonVoipItem" class="ml10"><a href="javascript:DoVoipFonLotse();">{?de.home.sitemap.html:6343?}</a></p>
++-<? if eq $var:showInternetLotse 1 `
++-<p class="ml10"><a href="javascript:DoInternetLotse();">{?de.home.sitemap.html:2799?}</a></p>
++-` ?>
++-<p class="ml10"><a href="javascript:DoSaveLotse();">{?txtSaveSettings?}</a></p>
++-<p class="ml10"><a href="javascript:DoFirmwareLotse();">{?txtFWUpdate?}</a></p>
++-</div>
++ <? setvariable var:title "{?txtINet?}" ?>
++ <? setvariable var:showsubmenu 1 ?>
++ <? if eq '<? query wlan:settings/WDS_enabled ?>' '1' `
++--- usr/www/all/html/de/menus/menu2_konfig.html.orig	2010-04-29 23:22:42.000000000 +0200
+++++ usr/www/all/html/de/menus/menu2_konfig.html	2010-04-29 23:22:42.000000000 +0200
++@@ -14,18 +14,6 @@
++ <? setvariable var:showmoremenu 0 ?>
++ <? if neq $var:menu 'software' `<? setvariable var:showmoremenu 1 ?>` ?>
++ <? if eq '$var:ShowAssiMenu' 1 `
++-<li class="LMenuitemaktivTop"><img class="LMenuPfeil" src="<? echo `$var:aktivpfeil` ?>"><a href="javascript:jslGoTo('konfig','home')">{?txtAssi?}</a><span class="PTextOnly">{?txtAssi?}</span></li>
++-<? if eq $var:showFonLotse 1 `
++-<li class="LMenuitem" id="FonLotseMenuItem"><img class="LMenuPfeil" src="<? echo $var:subpfeil ?>"><a href="javascript:DoFonLotse();">{?txtDevices?}</a><span class="PTextOnly">{?txtDevices?}</span></li>
++-` ?>
++-<li class="LMenuitem" id="VoipFonLotseMenuItem"><img class="LMenuPfeil" src="<? echo $var:subpfeil ?>"><a href="javascript:DoVoipFonLotse();">{?txtNumbers?}</a><span class="PTextOnly">{?txtNumbers?}</span></li>
++-<? if eq $var:showInternetLotse 1 `
++-<li class="LMenuitem"><img class="LMenuPfeil" src="<? echo $var:subpfeil ?>"><a href="javascript:DoInternetLotse();">{?de.menus.menu2_konfig.html:224?}</a><span class="PTextOnly">{?de.menus.menu2_konfig.html:6612?}</span></li>
++-` ?>
++-<li class="LMenuitem"><img class="LMenuPfeil" src="<? echo $var:subpfeil ?>"><a href="javascript:DoSaveLotse();">{?de.menus.menu2_konfig.html:5885?}</a><span class="PTextOnly">{?de.menus.menu2_konfig.html:9604?}</span></li>
++-<li class="LMenuitem"><img class="LMenuPfeil" src="<? echo $var:subpfeil ?>"><a href="javascript:DoFirmwareLotse();">{?txtFWUpdate?}</a><span class="PTextOnly">{?txtFWUpdate?}</span></li>
++-<li class="LMenuitemTop"><img class="LMenuPfeil" src="<? echo $var:pfeil ?>"><a href="javascript:jslGoTo('enhsettings','enhsettings')">{?txtAdvancedSettings?}</a><span class="PTextOnly">{?txtAdvancedSettings?}</span></li>
++-<li class="LMenuitemTop"><img class="LMenuPfeil" src="../html/de/images/leer.gif" style="width:7px;"><a href="javascript:jslGoTo('software','extern')">{?txtPrograms?}</a><span class="PTextOnly">{?txtPrograms?}</span></li>
++ ` `
++ <? if eq '$var:showmoremenu' '1' `
++ <script type="text/javascript">setMenuPageCookie("enhsettings","enhsettings");</script>
++@@ -74,7 +62,6 @@
++ ` ?>
++ <? if eq '$var:menu' 'software' `
++ <script type="text/javascript">setMenuPageCookie("software","extern");</script>
++-<li class="LMenuitemTop"><img class="LMenuPfeil" src="<? echo `$var:pfeil` ?>"><a href="javascript:jslGoTo('konfig','home')">{?txtAssi?}</a><span class="PTextOnly">{?txtAssi?}</span></li>
++ <li class="LMenuitemTop"><img class="LMenuPfeil" src="<? echo `$var:pfeil` ?>"><a href="javascript:jslGoTo('enhsettings','enhsettings')">{?txtAdvancedSettings?}</a><span class="PTextOnly">{?txtAdvancedSettings?}</span></li>
++ <li class="LMenuitemaktivTop"><img class="LMenuPfeil" src="../html/de/images/leer.gif" style="width:7px;"><a href="javascript:jslGoTo('software','extern')">{?txtPrograms?}</a><span class="PTextOnly">{?txtPrograms?}</span></li>
++ ` ?>
++--- usr/www/all/html/logincheck.html.orig	2010-04-13 16:40:25.000000000 +0200
+++++ usr/www/all/html/logincheck.html	2010-04-29 23:22:42.000000000 +0200
++@@ -251,20 +251,9 @@
++ var user = "<? query connection0:settings/username ?>";
++ var pass = "<? query connection0:settings/password ?>";
++ var type = "<? query connection0:settings/type ?>";
++-if (oem == "otwo") {
++-var BSA_ON=jslGetValue("uiPostBSA_ON");
++-if (BSA_ON=="1" && user.indexOf("o2@") == 0) {
++-jslSetValue("uiPppProvider","O2");
++-jslSetValue("uiO2Mode","2");
++-jslSetValue("uiPostBSA_ON","0");
++-jslSetValue("uiPostPageName", "first_ISP_o2");
++-jslSetValue("uiPostMenu", "first");
++-return true;
++-}
++-}
++ if (user=="" && pass=="" && type=="bridge") {
++-jslSetValue("uiPostPageName", "first_Start_ISP");
++-jslSetValue("uiPostMenu", "first");
+++jslSetValue("uiPostPageName", "home");
+++jslSetValue("uiPostMenu", "home");
++ return true;
++ }
++ }
+diff -Naur patches/cond/de/webmenu-wol-7390.patch patches/cond/de/webmenu-wol-7390.patch
+--- patches/cond/de/webmenu-wol-7390.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/cond/de/webmenu-wol-7390.patch	2010-04-30 08:58:04.000000000 -0400
+@@ -0,0 +1,22 @@
++--- usr/www/all/html/de/menus/menu2_homehome.html.orig	2010-03-02 10:44:58.033237452 +0100
+++++ usr/www/all/html/de/menus/menu2_homehome.html	2010-03-02 10:44:58.873237622 +0100
++@@ -58,6 +58,7 @@
++ <? if eq $var:pagename energy `<? setvariable var:classname 'LStatusMenuitemaktivTop' ?>` ?>
++ <? if eq $var:pagename ecosettings `<? setvariable var:classname 'LStatusMenuitemaktivTop' ?>` ?>
++ <li class="<? echo $var:classname ?>"><img class="LMenuPfeil" src="<? echo $var:aktivpfeil ?>"><a href="javascript:jslGoTo('home','energy')">{?de.menus.menu2_homehome.html:105EnergyMonitor?}</a><span class="PTextOnly">{?de.menus.menu2_homehome.html:110EnergyMonitor?}</span></li>
++-<li class="LMenuitemTop" style="margin-top:24px"><img src="<? echo $var:pfeil ?>"> <a href="/cgi-bin/freetz_status" target="_blank">Freetz</a><span class="PTextOnly">Freetz</span></li>
+++<li class="LMenuitemTop" style="margin-top:24px"><img src="<? echo $var:pfeil ?>"> <a href="/cgi-bin/freetz_status" target="_blank">Freetz Config</a><span class="PTextOnly">Freetz Config</span></li>
+++<li class="LMenuitemTop"><img src="<? echo $var:pfeil ?>"> <a href="/cgi-bin/freetz_wol" target="_blank">Freetz WOL</a><span class="PTextOnly">Freetz WOL</span></li>
++ <li class="LMenubottom">&nbsp;</li>
++ </ul>
++--- usr/www/all/html/de/menus/menu2_konfig.html.orig	2010-03-02 10:44:58.033237452 +0100
+++++ usr/www/all/html/de/menus/menu2_konfig.html	2010-03-02 10:44:58.873237622 +0100
++@@ -79,6 +79,7 @@
++ <li class="LMenuitemaktivTop"><img class="LMenuPfeil" src="../html/de/images/leer.gif" style="width:7px;"><a href="javascript:jslGoTo('software','extern')">{?txtPrograms?}</a><span class="PTextOnly">{?txtPrograms?}</span></li>
++ ` ?>
++ ` ?>
++-<li class="LMenuitemTop" style="margin-top:24px"><img src="<? echo $var:pfeil ?>"> <a href="/cgi-bin/freetz_status" target="_blank">Freetz</a><span class="PTextOnly">Freetz</span></li>
+++<li class="LMenuitemTop" style="margin-top:24px"><img src="<? echo $var:pfeil ?>"> <a href="/cgi-bin/freetz_status" target="_blank">Freetz Config</a><span class="PTextOnly">Freetz Config</span></li>
+++<li class="LMenuitemTop"><img src="<? echo $var:pfeil ?>"> <a href="/cgi-bin/freetz_wol" target="_blank">Freetz WOL</a><span class="PTextOnly">Freetz WOL</span></li>
++ <li class="LMenubottom">&nbsp;</li>
++ </ul>
+diff -Naur patches/cond/usbstorage_7390.patch patches/cond/usbstorage_7390.patch
+--- patches/cond/usbstorage_7390.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/cond/usbstorage_7390.patch	2010-04-30 08:58:04.000000000 -0400
+@@ -0,0 +1,68 @@
++--- etc/hotplug/run_mount.orig	2010-04-13 16:40:07.000000000 +0200
+++++ etc/hotplug/run_mount	2010-04-29 23:18:48.000000000 +0200
++@@ -10,22 +10,43 @@
++ SYSFS=/var/sysfs
++ ## Generate a frontend'able 'nice name' to be used as mount point:
++ nicename () {
++-## Find device's strings, remove/translate evil chars...
++-local MANU=`cat $SYSFS/block/$1/device/vendor|tr -d ' '|tr -c "\na-zA-Z0-9" '-'`
++-local NAME=`cat $SYSFS/block/$1/device/model|tr -d ' '|tr -c "\na-zA-Z0-9" '-'`
++-local PARTHEX=$3
++-if [ $PARTHEX -gt 9 ]; then
++-PARTHEX=`echo $((PARTHEX-10)) | tr "0-5" "A-F"`
++-fi
++-test -z "$NAME" && NAME="Storage"
++-test -n "$MANU" && NAME="$MANU-$NAME"
++-## limit NAME to 30 characters+3 extra characters (-00)
++-NAME=`echo -n "$NAME" | sed -e 's#\(.\{0,30\}\).*#\1#g'`
++-## Build nice name: [Vendor-Product]-<x><y>
++-echo "$NAME-$2$PARTHEX"
+++local NICE=""
+++NICE="uStor`echo $1|sed 's/^..//;s/a/0/;s/b/1/;s/c/2/;s/d/3/;s/e/4/;s/f/5/;s/g/6/;s/h/7/;s/i/8/;s/j/9/'`$3"
+++echo $NICE
++ }
++ USBLOCKFILE=/var/USBLOCK_storage
++ test -f /etc/hotplug/rc.usbsema && . /etc/hotplug/rc.usbsema
+++
+++mount_fs () {
+++ # mount according to type of filesystem 
+++ # return exit code: true - all went well; other - something went wrong 
+++ # gobal variables: 
+++ #  $DEVNODE, $MNTPATH, READMODE, FTPUID, FTPGID 
+++	FSTYPE="vfat"   # default as long as we dont know better 
+++	[[ -x /usr/bin/fstyp ]] && FSTYPE=`/usr/bin/fstyp $DEVNODE` 
+++	
+++	case $FSTYPE in
+++	vfat)
+++		mount -t vfat -o $READMODE,uid=$FTPUID,gid=$FTPGID,fmask=0000,dmask=0000 $DEVNODE $MNTPATH
+++		;;
+++	ext2)
+++		mount -t ext2 $DEVNODE $MNTPATH -o noatime,nodiratime,rw,async
+++		;;
+++	ext3)
+++		mount -t ext3 $DEVNODE $MNTPATH -o noatime,nodiratime,rw,async
+++		;;
+++	ntfs)
+++		/usr/bin/ntfs-3g $DEVNODE $MNTPATH -o force
+++		;;
+++	reiserfs)
+++		mount -t reiserfs $DEVNODE $MNTPATH -o noatime,nodiratime,rw,async
+++		;;
+++	*) # fs type unknown
+++		mount $DEVNODE $MNTPATH
+++		;;
+++	esac
+++}
+++
++ ## Actually perform the mount operation...
++ ## (TODO Checking the partition for known filesystem types)
++ do_mount () {
++@@ -63,7 +84,7 @@
++ local OLD_UMASK=`umask`
++ umask 0
++ local new_filesystem=false
++-if mount -t vfat -o $READMODE,shortname=winnt,uid=$FTPUID,gid=$FTPGID,$FMASK,$DMASK $DEVNODE $MNTPATH; then
+++if mount_fs; then
++ new_filesystem=true
++ else
++ modprobe ext2
