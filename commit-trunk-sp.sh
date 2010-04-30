@@ -1,9 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* W920: Undo changes made in revision 773."
-
-
-
+comment="Update temporary folder to build 7390 freetz."
 
 
 echo "-------------------------------------------------------------------------------------------------------------"
@@ -55,6 +52,8 @@ cd trunk
 #svn delete --force ./speed-to-fritz/conf-920-freetz
 #svn delete --force ./speed-to-fritz/start-920
 #svn delete --force ./speed-to-fritz/modfw.sh
+#svn delete --force ./speed-to-fritz/0r
+#svn delete --force ./speed-to-fritz/kernel_7390.patch
 #svn delete --force ./Config.in
 #svn delete --force ./speed-to-fritz/tools/tar
 #svn delete --force ./speed-to-fritz/tools/conf
@@ -74,6 +73,17 @@ cd trunk
 #svn delete --force ./speed-to-fritz/subscripts2/patch_portroule
 #svn delete --force ./speed-to-fritz/addon/tmp/modules/dsld/kdsldmod.ko
 #svn delete --force ./speed-to-fritz/addon/tmp/modules/vinax/drv_vinax.ko
+#svn delete --force ./speed-to-fritz/recoversubscripts/ipsr
+#svn delete --force ./speed-to-fritz/win/curl.bat
+#svn delete --force ./speed-to-fritz/win/log
+#svn delete --force ./speed-to-fritz/win/push_FTP.zip
+#svn delete --force ./speed-to-fritz/win/setDHCP.zip
+#svn delete --force ./speed-to-fritz/win/set_branding.bat
+#svn delete --force ./speed-to-fritz/win/setstaticIP192_168_178_19.zip
+#svn delete --force ./speed-to-fritz/windows_skripts
+#svn delete --force ./speed-to-fritz/freetz
+#svn delete --force ./speed-to-fritz/freetz/7390-freetz.tar.gz
+#svn delete --force ./speed-to-fritz/freetz/log
 
 #svn revert 
 

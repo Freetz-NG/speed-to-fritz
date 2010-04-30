@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="Changed version of speedlinux"
+comment="installer: Divide shortcuts into sections"
 
 
 
@@ -28,7 +28,6 @@ cd trunk
 #svn delete --force ./co/bfin-colinux-ori/trunk/upstream/putty-0.60-installer.exe
 #svn delete --force ./co/bfin-colinux-ori/trunk/scripts/init.sh
 #svn delete --force ./co/bfin-colinux-ori/trunk/tarballs/configs
-#svn delete --force ./co/bfin-colinux-ori/trunk/make-release.sh
 
 #svn revert 
 svn add * --force
