@@ -822,12 +822,10 @@ function readConfig()
 			sed -i -e "/export CONFIG_VERSION_MAJOR=.10./d" "$3/rc.conf"
 			VAL=`grep -e "export CONFIG_${VAR}=." "$3/rc.conf" | grep -m 1 -o -e "CONFIG_${VAR}=.*" | awk -F "[= ]" '{print $2}' | sed -e "s/\"//g"`
 			eval "export $2=$VAL"
-# -> Fix some old W501, 5010 Firmware cases, contibutetd by: sn9
 		elif [ -e "$3/rc.init" ] && `cat "$3/rc.init" | grep -q "$1="` ; then
 			VAR=$(echo $1 | sed -e "s/^_//")
 			VAL=`sed -e "/VERSION_MAJOR=10/d" "$3/rc.init" | grep -m 1 -o -e "${VAR}=..*$" | awk -F "[= ]" '{print $2}' | sed -e "s/\"//g"`
 			eval "export $2=$VAL"
-# <-
 		else
 			return 1
 		fi
