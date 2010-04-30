@@ -3,12 +3,33 @@ export HOMEDIR="`pwd`"
 #With revision 4818 new squashfs is now in the trunk, we dont need to add it any more.
 FREETZ_REVISION="4824"
 FREETZ_DIR="freetz-trunk-7390"
-rm -fdR  $FREETZ_DIR
-svn co http://svn.freetz.org/trunk $FREETZ_DIR -r $FREETZ_REVISION
+
+#rm -fdR  $FREETZ_DIR
+
+rm -f $HOMEDIR/$FREETZ_DIR/Config.in
+rm -f $HOMEDIR/$FREETZ_DIR/fwmod
+rm -f $HOMEDIR/$FREETZ_DIR/toolchain/Config.in
+rm -f $HOMEDIR/$FREETZ_DIR/toolchain/make/Makefile.in
+rm -f $HOMEDIR/$FREETZ_DIR/toolchain/make/target/uclibc/uclibc.mk
+rm -f $HOMEDIR/$FREETZ_DIR/make/Makefile.in
+rm -f $HOMEDIR/$FREETZ_DIR/make/linux/kernel.mk
+rm -f $HOMEDIR/$FREETZ_DIR/make/linux/Config.iks-16mb_26.7390_04.83
+rm -f $HOMEDIR/$FREETZ_DIR/make/linux/Config.ikanos-8mb_26.7390_04.83
+rm -f $HOMEDIR/$FREETZ_DIR/make/linux/patches/2.6.19.2/7390_04.83/130-revert_skbuff_changes.patch
+rm -f $HOMEDIR/$FREETZ_DIR/make/linux/patches/2.6.19.2/600-cpmac_ioctl.patch
+rm -fdR $HOMEDIR/$FREETZ_DIR/make/linux/patches/2.6.19.2/7390_04.83
+rm -fdR $HOMEDIR/$FREETZ_DIR/patches/7390
+rm -f $HOMEDIR/$FREETZ_DIR/patches/cond/de/webmenu-wol-7390.patch
+
+svn co http://svn.freetz.org/trunk $FREETZ_DIR
+# -r $FREETZ_REVISION
+
 cd $FREETZ_DIR
+
+
 # ? ->
-sed -i -e 's|export ac_cv_c_bigendian=no|export ac_cv_c_bigendian=yes|' "$HOMEDIR/$FREETZ_DIR/make/config.mipsel " 2> /dev/null
-cp -f $HOMEDIR/$FREETZ_DIR/make/config.mipsel $HOMEDIR/$FREETZ_DIR/make/config.mips
+##sed -i -e 's|export ac_cv_c_bigendian=no|export ac_cv_c_bigendian=yes|' "$HOMEDIR/$FREETZ_DIR/make/config.mipsel " 2> /dev/null
+##cp -f $HOMEDIR/$FREETZ_DIR/make/config.mipsel $HOMEDIR/$FREETZ_DIR/make/config.mips
 # <- ?
 #patch 7390_3.patch aus ticket #673  (Config.in diff removed)
 PATCH="$HOMEDIR/7390_3.2.patch"
@@ -16,9 +37,11 @@ patch -d . -p0 -N --no-backup-if-mismatch < "$PATCH" 2>&1
 #patch 
 PATCH="$HOMEDIR/add_target_option.diff"
 patch -d . -p0 -N --no-backup-if-mismatch < "$PATCH" 2>&1
+#sleep 1000
 #patch add Config in diff
 PATCH="$HOMEDIR/7390_Config.in.R4818.diff"
 patch -d . -p0 -N --no-backup-if-mismatch < "$PATCH" 2>&1
+#sleep 1000
 #--> diabele building of modules and kernel
 echo -e "\033[31mMake kernel is disabled!\033[0m" 
 PATCH="$HOMEDIR/disable_kernel_make.patch"

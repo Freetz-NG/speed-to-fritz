@@ -60,10 +60,10 @@ Index: make/linux/patches/2.6.19.2/7390_04.83/150-CONFIG_MIPS_FUSIV.patch
 + # Read KERNELRELEASE from include/config/kernel.release (if it exists)
 + KERNELRELEASE = $(shell cat include/config/kernel.release 2> /dev/null)
 + KERNELVERSION = $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
-Index: make/linux/Config.ikanos-8mb_26.7390_04.83
+Index: make/linux/Config.iks-16mb_26.7390_04.83
 ===================================================================
---- make/linux/Config.ikanos-8mb_26.7390_04.83	1970-01-01 01:00:00.000000000 +0100
-+++ make/linux/Config.ikanos-8mb_26.7390_04.83	2010-04-27 22:00:52.000000000 +0200
+--- make/linux/Config.iks-16mb_26.7390_04.83	1970-01-01 01:00:00.000000000 +0100
++++ make/linux/Config.iks-16mb_26.7390_04.83	2010-04-27 22:00:52.000000000 +0200
 @@ -0,0 +1,1770 @@
 +#
 +# Automatically generated make config: don't edit
