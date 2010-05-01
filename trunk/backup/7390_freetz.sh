@@ -1,7 +1,7 @@
 #!/bin/bash
 export HOMEDIR="`pwd`"
 #With revision 4818 new squashfs is now in the trunk, we dont need to add it any more.
-FREETZ_REVISION="4834"
+FREETZ_REVISION="4846"
 FREETZ_DIR="freetz-trunk-7390" 
 ##rm -fdR  $FREETZ_DIR
 rm -f $HOMEDIR/$FREETZ_DIR/Makefile.in
@@ -44,30 +44,26 @@ cp -f $HOMEDIR/$FREETZ_DIR/make/config.mipsel $HOMEDIR/$FREETZ_DIR/make/config.m
 sed -i -e 's|export ac_cv_c_bigendian=no|export ac_cv_c_bigendian=yes|' "$HOMEDIR/$FREETZ_DIR/make/config.mips " 2> /dev/null
 sed -i -e 's|export ||' "$HOMEDIR/$FREETZ_DIR/make/config.mips " 2> /dev/null
 # <- ?
-
 cd $FREETZ_DIR
 #patch 7390_3.patch aus ticket #673  (Config.in diff removed)
 PATCH="$HOMEDIR/7390_3.2.patch"
-patch -d . -p0 -N --no-backup-if-mismatch < "$PATCH" 2>&1
-#patch 
-PATCH="$HOMEDIR/add_target_option.diff"
 patch -d . -p0 -N --no-backup-if-mismatch < "$PATCH" 2>&1
 #patch add Config in diff
 PATCH="$HOMEDIR/7390_Config.in.R4818.diff"
 patch -d . -p0 -N --no-backup-if-mismatch < "$PATCH" 2>&1
 #--> diabele building of modules and kernel
-echo -e "\033[31mMake kernel is disabled!\033[0m" 
-PATCH="$HOMEDIR/disable_kernel_make.patch"
-patch -d . -p0 -N --no-backup-if-mismatch < "$PATCH" 2>&1
+sed -i -e "s/kernel-precompiled: pkg-echo-start.*$/kernel-precompiled: pkg-echo-start pkg-echo-done/" "$HOMEDIR/$FREETZ_DIR/make/linux/kernel.mk"
+grep -q "kernel-precompiled: pkg-echo-start pkg-echo-done" "$HOMEDIR/$FREETZ_DIR/make/linux/kernel.mk" && echo -e "\033[31mMake kernel is disabled!\033[0m"
 #<--
-# complete patch subdirectory for 7390 based on 7270_labor_phone
-#cp -fdrp  $HOMEDIR/$FREETZ_DIR/patches/7270_labor_phone $HOMEDIR/$FREETZ_DIR/patches/7390
+#patch add be option to fwmod
+PATCH="$HOMEDIR/add_target_option.diff"
+patch -d . -p0 -N --no-backup-if-mismatch < "$PATCH" 2>&1
+grep -q " -be" "$HOMEDIR/$FREETZ_DIR/fwmod" && echo -e "\033[31mBig endianness option found!\033[0m"
+# add complete patch subdirectory for 7390 based on 7270_labor_phone
 PATCH="$HOMEDIR/7390_patch_dir.diff"
 patch -d . -p0 -N --no-backup-if-mismatch < "$PATCH" 2>&1
-# set bigendian in fwmod 
-##echo -e "\033[31mEndianness is set to -be in ./fwmod.!\033[0m"
-##sed -i -e 's|-le|-be|' "./fwmod"
-echo "----------------------------"
+# patch
+sed -i -e 's/jffs|fuse|cifs/jffs|fuse|cifs|yaffs/' "$HOMEDIR/$FREETZ_DIR/root/usr/lib/cgi-bin/mod/mounted.cgi"
 # -> Set Freetz /dl Downloaddirectory to windows partition if existent to free up space needed for working.
 # This part is without funktion if /mnt/win/dl dirictory is not existant.
 WinPartitopn="/mnt/win/dl"

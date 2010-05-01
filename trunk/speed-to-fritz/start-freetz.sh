@@ -4,12 +4,19 @@
 #It is recommended to run speed-to-fritz prior to this skript with the wanted firmware combinations
 #so the firmware-versions in use will be downloaded and can be used by freetz later without copying them by hand.
 #---------------------
-#here you can change the folder name of freetz
-export FREETZ_DIR="freetz-trunk"
 # dont change variables
 export HOMEDIR="`pwd`"
 #include variables from last run of speed-to-fritz
 . ./incl_var
+export FREETZ_DIR="freetz-trunk"
+FREETZ_DL_LINK="http://svn.freetz.org/trunk"
+#7390 or W722-->
+  if [ "$FBMOD" = "7390" ] || [ "$SPNUM" = "722" ] ; then
+    echo "Alternative trunk is used for 7390 or W722V"
+    export FREETZ_DIR="freetz-trunk-7390"
+    FREETZ_DL_LINK="http://svn.freetz.org/branches/oliver/7390"
+  fi    
+# 7390 or W722<--
 export SVN_VERSION="X${FREETZREVISION}"
 if [ "$FIRST_RUN" = "y" ]; then  
 echo "" 
@@ -124,9 +131,9 @@ while [ "$KEY" != "y" ]; do
  echo
  
 if [ "$FREETZREVISION" ]; then
- echo -n "   Execute: 'svn co http://svn.freetz.org/trunk $FREETZ_DIR' -r $FREETZREVISION (y/n)? "; read -n 1 -s YESNO; echo
+ echo -n "   Execute: 'svn co $FREETZ_DL_LINK $FREETZ_DIR' -r $FREETZREVISION (y/n)? "; read -n 1 -s YESNO; echo
 else
- echo -n "   Execute: 'svn co http://svn.freetz.org/trunk $FREETZ_DIR'  (y/n)? "; read -n 1 -s YESNO; echo
+ echo -n "   Execute: 'svn co $FREETZ_DL_LINK $FREETZ_DIR'  (y/n)? "; read -n 1 -s YESNO; echo
 fi
  [ "$YESNO" = "y" ] || [ "$YESNO" = "n" ] &&  KEY="y"
  [ "$KEY" = "x" ] && echo "wrong key!"
@@ -136,10 +143,10 @@ fi
   rm -fdr ./$FREETZ_DIR/fwmod
   echo "Looking for new freetz version, wait ..."
     if [ "$FREETZREVISION" ]; then
-	svn co http://svn.freetz.org/trunk $FREETZ_DIR -r $FREETZREVISION
+	svn co $FREETZ_DL_LINK $FREETZ_DIR -r $FREETZREVISION
 	export SVN_VERSION="$FREETZREVISION"
     else
-	svn co http://svn.freetz.org/trunk $FREETZ_DIR
+	svn co $FREETZ_DL_LINK $FREETZ_DIR
     fi
   #  export Revision=`svn co http://svn.freetz.org/trunk $FREETZ_DIR | grep 'Checked out revision' | tr -d '[:alpha:]' | tr -d '.'| tr -d ' '`
  fi
@@ -202,7 +209,8 @@ while [ "$KEY" != "y" ]; do
   sed -i -e "/Hardwaretype/,/---------/{/.*/d}" "./Config.in" 2> /dev/null
   sed -i -e '/General/a\
 comment "Hardwaretype and language settings must be the same as in speed2fritz."\
-comment "Annex type is set by speed2fritz afrer freetz."\
+comment "Hardwaretype 7390 is used within freetz if W722V was selected."\
+comment "Annex type is set by speed2fritz in a second run afrer freetz."\
 comment "----------------------------------------"' "./Config.in" 2> /dev/null
   sed -i -e "/config FREETZ_SUBVERSION_STRING/,/help/{s/default y/default n/}" "./Config.in" 2> /dev/null
   sed -i -e "/config FREETZ_TYPE_FON_WLAN_7270_16MB/,/help/{s/default n/default y/}" "./Config.in" 2> /dev/null
@@ -229,7 +237,14 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
   fi
   #7390 -->
   if [ "$FBMOD" = "7390" ] || [ "$SPNUM" = "722" ] ; then
-    echo "You should use a alternaitv scrit '7390_freetz.sh' to build freetz for 7390 or W722V"
+    echo "---------------------------------------------"
+    echo "FREETZ_TYPE_FON_WLAN_7390=y" >> "./.config" 2> /dev/null
+    #--> diabele building of modules and kernel
+    sed -i -e "s/kernel-precompiled: pkg-echo-start.*$/kernel-precompiled: pkg-echo-start pkg-echo-done/" "./make/linux/kernel.mk"
+    grep -q "kernel-precompiled: pkg-echo-start pkg-echo-done" "./make/linux/kernel.mk" && echo -e "\033[31mMake kernel is disabled!\033[0m"
+    #<--
+    #done ins in trunk now 4835
+    grep -q " -be" "./fwmod" && echo -e "\033[31mBig endianness option found!\033[0m"
   # 7390 <--
   else
     [ "$SPNUM" = "500" ] && echo "FREETZ_TYPE_WLAN_${FBMOD}=y" >> "./.config" 2> /dev/null
@@ -241,7 +256,9 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
      [ "$TYPE_LABOR" = "y" ] && echo "FREETZ_TYPE_LABOR_$TYPE_LABOR_TYPE=y" >> "./.config" 2> /dev/null
     fi  
   fi    
+
   make menuconfig
+
   [ -n "$KERNEL_SOURCE" ] && sed -i -e "s/FREETZ_DL_KERNEL_SOURCE=.*$/FREETZ_DL_KERNEL_SOURCE=$KERNEL_SOURCE/" "./.config" 2> /dev/null
   [ -n "$KERNEL_SOURCE" ] && sed -i -e "s/FREETZ_DL_KERNEL_SITE=.*$/FREETZ_DL_KERNEL_SITE=$KERNEL_SITE/" "./.config" 2> /dev/null
   [ -n "$KERNEL_SOURCE" ] && sed -i -e "s/FREETZ_DL_KERNEL_SOURCE_MD5=.*$/FREETZ_DL_KERNEL_SOURCE_MD5=\"\"/" "./.config" 2> /dev/null

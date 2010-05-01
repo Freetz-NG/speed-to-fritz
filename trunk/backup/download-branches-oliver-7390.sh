@@ -16,14 +16,12 @@ rm "$HOMEDIR/$FREETZ_DIR/fwmod"
 rm -f $HOMEDIR/$FREETZ_DIR/Makefile.in
 svn co http://svn.freetz.org/branches/oliver/7390 $FREETZ_DIR
 cd $FREETZ_DIR
-
 #--> diabele building of modules and kernel
-echo -e "\033[31mMake kernel is disabled!\033[0m" 
-PATCH="$HOMEDIR/disable_kernel_make.patch"
-patch -d . -p0 -N --no-backup-if-mismatch < "$PATCH" 2>&1
-
-echo -e "\033[31mEndianness is set to -be in ./fwmod.!\033[0m"
-sed -i -e 's|-le|-be|' "$HOMEDIR/$FREETZ_DIR/fwmod"
+sed -i -e "s/kernel-precompiled: pkg-echo-start.*$/kernel-precompiled: pkg-echo-start pkg-echo-done/" "$HOMEDIR/$FREETZ_DIR/make/linux/kernel.mk"
+grep -q "kernel-precompiled: pkg-echo-start pkg-echo-done" "$HOMEDIR/$FREETZ_DIR/make/linux/kernel.mk" && echo -e "\033[31mMake kernel is disabled!\033[0m"
+#<--
+#done ins in trunk now 4835
+grep -q " -be" "$HOMEDIR/$FREETZ_DIR/fwmod" && echo -e "\033[31mBig endianness option found!\033[0m"
 echo "----------------------------"
 # -> Set Freetz /dl Downloaddirectory to windows partition if existent to free up space needed for working.
 # This part is without funktion if /mnt/win/dl dirictory is not existant.

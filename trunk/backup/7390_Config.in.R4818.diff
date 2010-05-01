@@ -25,8 +25,8 @@ Index: toolchain/Config.in
  	bool
  	default n
 diff -Naur Config.in Config.in
---- Config.in	2010-04-30 11:12:03.000000000 -0400
-+++ Config.in	2010-04-30 08:58:22.000000000 -0400
+--- Config.in	2010-05-01 05:26:59.000000000 -0400
++++ Config.in	2010-05-01 02:15:30.000000000 -0400
 @@ -28,6 +28,8 @@
  	bool
  config FREETZ_AVM_VERSION_7270_04_80
@@ -311,7 +311,7 @@ diff -Naur Config.in Config.in
  	default "f483cfab8da97207248f5e0703993a72"	if	FREETZ_TYPE_WLAN_3020
  	default "31653fb1ba044375ab389474951c1cf4"	if	FREETZ_TYPE_WLAN_3030
  	default "1c8dcee29f84c96648aa4b96271c9a16"	if	FREETZ_TYPE_WLAN_3130
-@@ -2832,13 +2874,13 @@
+@@ -2832,25 +2874,65 @@
  
  choice
  	prompt "Toolchains"
@@ -328,36 +328,67 @@ diff -Naur Config.in Config.in
  
  	config FREETZ_BUILD_TOOLCHAIN
  		bool "Build toolchain (requires 4GB diskspace)"
-@@ -2854,7 +2896,6 @@
- 		FREETZ_TYPE_FON_5010 || \
- 		FREETZ_TYPE_FON_5050 || \
- 		FREETZ_TYPE_FON_5140 || \
--		FREETZ_TYPE_FON_5224 || \
- 		FREETZ_TYPE_FON_WLAN || \
- 		FREETZ_TYPE_FON_WLAN_7050 || \
- 		FREETZ_TYPE_FON_WLAN_7112 || \
-@@ -2866,7 +2907,6 @@
- 		FREETZ_TYPE_FON_WLAN_7240 || \
- 		FREETZ_TYPE_FON_WLAN_7270 || \
- 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
--		FREETZ_TYPE_FON_WLAN_7570 || \
- 		FREETZ_TYPE_WLAN_3020 || \
- 		FREETZ_TYPE_WLAN_3030 || \
- 		FREETZ_TYPE_WLAN_3130 || \
-@@ -2876,11 +2916,11 @@
- 		FREETZ_TYPE_WLAN_3270_V3 || \
- 		FREETZ_TYPE_SPEEDPORT_W501V
+ endchoice
  
--#config FREETZ_TARGET_ARCH_BE
--#	bool
--#	default y
--#	depends on \
--#		FREETZ_TYPE_FON_WLAN_7390
++config FREETZ_TARGET_ARCH_LE
++	bool
++	default y
++	depends on \
++		FREETZ_TYPE_2170 || \
++		FREETZ_TYPE_300IP_AS_FON || \
++		FREETZ_TYPE_FON || \
++		FREETZ_TYPE_FON_5010 || \
++		FREETZ_TYPE_FON_5050 || \
++		FREETZ_TYPE_FON_5124 || \
++		FREETZ_TYPE_FON_5140 || \
++		FREETZ_TYPE_FON_WLAN || \
++		FREETZ_TYPE_FON_WLAN_7050 || \
++		FREETZ_TYPE_FON_WLAN_7112 || \
++		FREETZ_TYPE_FON_WLAN_7113 || \
++		FREETZ_TYPE_FON_WLAN_7141 || \
++		FREETZ_TYPE_FON_WLAN_7140 || \
++		FREETZ_TYPE_FON_7150 || \
++		FREETZ_TYPE_FON_WLAN_7170 || \
++		FREETZ_TYPE_FON_WLAN_7240 || \
++		FREETZ_TYPE_FON_WLAN_7270 || \
++		FREETZ_TYPE_FON_WLAN_7570 || \
++		FREETZ_TYPE_FON_WLAN_7270_V3 || \
++		FREETZ_TYPE_WLAN_3020 || \
++		FREETZ_TYPE_WLAN_3030 || \
++		FREETZ_TYPE_WLAN_3130 || \
++		FREETZ_TYPE_WLAN_3131 || \
++		FREETZ_TYPE_WLAN_3170 || \
++		FREETZ_TYPE_WLAN_3270 || \
++		FREETZ_TYPE_WLAN_3270_V3 || \
++		FREETZ_TYPE_SPEEDPORT_W501V
++
 +config FREETZ_TARGET_ARCH_BE
 +	bool
 +	default y
 +	depends on \
 +		FREETZ_TYPE_FON_WLAN_7390
- 
++
  config FREETZ_TARGET_ARCH
+ 	string
+-	default "mipsel"
++	default "mips" if FREETZ_TARGET_ARCH_BE
++	default "mipsel" if FREETZ_TARGET_ARCH_LE
+ 
+ config FREETZ_TARGET_CROSS
+ 	string
+-	default "mipsel-linux-uclibc-"
++	default "mips-linux-uclibc-" if FREETZ_TARGET_ARCH_BE
++	default "mipsel-linux-uclibc-" if FREETZ_TARGET_ARCH_LE
+ 
+ config FREETZ_TARGET_MAKE_PATH
+ 	string
+@@ -2868,7 +2950,8 @@
+ 
+ config FREETZ_KERNEL_CROSS
+ 	string
+-	default "mipsel-unknown-linux-gnu-"
++	default "mips-unknown-linux-gnu-" if FREETZ_TARGET_ARCH_BE
++	default "mipsel-unknown-linux-gnu-" if FREETZ_TARGET_ARCH_LE
+ 
+ config FREETZ_KERNEL_MAKE_PATH
  	string
