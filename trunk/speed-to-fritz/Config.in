@@ -531,6 +531,7 @@ config EXPORT_RUNFREETZ
 	bool "Run Freetz also (./start-freetz.sh)"
 	default n
 	select SET_UP
+	select NOT_VERBOSE
 	help
 		This Option will setup and run freetz in combination with speed-to-fritz.
 		First speed-to-fritz is run to setup the model and do some preperation.
@@ -2725,8 +2726,9 @@ endif
 
 config VERBOSE
 	string
-	default "-v" if VERBOSEETY 
-	default "" if ! VERBOSEETY 
+	default "-v" if ! NOT_VERBOSE
+	default "" if NOT_VERBOSE
+
 config EXPORT_ENABLE_EXT2
 	bool "add ext2 (ext3) driver"
 	depends on EXPERT_MOD 
@@ -3264,11 +3266,11 @@ config EXPORT_FORCE_CLEAR_FLASH
 
 comment "TEST Options -------------------------------------------------------"
 
-config VERBOSEETY
-	bool "Verbose display for debugging"
-	default y
+config NOT_VERBOSE
+	bool "Don't display verbose for debugging"
+	default n
 	help
-		Verbose display for debugging, script may be interrupted if this is set!
+		Do not verbose display for debugging, script may not be interrupted if this is set!
 
 config SET_UP
 	bool "Just do a setup run"

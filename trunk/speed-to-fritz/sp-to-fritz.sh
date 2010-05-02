@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="01"; Monat="05"; Jahr="10"
+Tag="02"; Monat="05"; Jahr="10"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -1651,7 +1651,8 @@ If a VM machine is in use be sure you did start the VM as Administrator.$ECHO_EN
  fi
 
 else
-echo "No output generated, because this was specified via setup! "
+ echo "No output generated, because this was specified via setup! "
+ exit 0
 fi
 [ "$RUN_PATCH_DECT" == "y" ] && $HOMEDIR/patch_dect.sh
 # Strip Firmware.conf only if all was completed without error
