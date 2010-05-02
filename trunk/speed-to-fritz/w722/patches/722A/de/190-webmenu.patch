@@ -1,0 +1,11 @@
+diff -Naur m_startseite.htm m_startseite.htm
+--- usr/www/tcom/html/m_startseite.htm	2009-09-04 09:24:36.000000000 -0400
++++ usr/www/tcom/html/m_startseite.htm	2010-05-02 06:11:37.000000000 -0400
+@@ -46,6 +46,7 @@
+ <DIV class=titel>VERWALTUNG</DIV>
+ <DIV id=but51 onclick="menupkt(51,'hcti_hilfsmittel.htm')" onmouseover="m_high(1,51)" onmouseout="m_high(0,51)">:: Hilfsmittel</DIV>
+ <DIV id=but52 onclick="menupkt(52,'hcti_laden.htm')" onmouseover="m_high(1,52)" onmouseout="m_high(0,52)">:: Laden &amp; Sichern</DIV>
++<DIV id=but53 onclick="gotosite('/cgi-bin/freetz_status')" onmouseover="m_high(1,53)" onmouseout="m_high(0,53)">:: Freetz &amp; Freetz</DIV>
+ <DIV id=but6 onclick="beenden()" onmouseover="m_high(1,6)" onmouseout="m_high(0,6)">:: Beenden</DIV>
+ </DIV>
+ </BODY>

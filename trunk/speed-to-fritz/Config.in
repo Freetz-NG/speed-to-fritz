@@ -987,8 +987,8 @@ config TYPE_LABOR
 	bool "Select a special AVM firmware (optional) --->"
 	depends on ! ORI || XCHANGE_KERNEL
 	depends on ( TYPE_SINUS_W500V || TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_SPEEDPORT_W900V || TYPE_9207570 || TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL )
-	default y if EXPORT_TYPE_LOCAL_MODEL || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE ) || TYPE_7390
-	default n if ! EXPORT_TYPE_LOCAL_MODEL && ! ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE ) && ! TYPE_7390
+	default y if EXPORT_TYPE_LOCAL_MODEL || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE ) || TYPE_7390 || TYPE_SPEEDPORT_W722V
+	default n if ! EXPORT_TYPE_LOCAL_MODEL && ! ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE ) && ! TYPE_7390 && ! TYPE_SPEEDPORT_W722V
 	help
 		Enable this to compile the mod based on an special AVM firmware.
 		The actual final release version should not be selected. It is preselected anyway! 
@@ -2271,8 +2271,8 @@ config FORCE_OEM_AVME
 
 config EXPORT_OEM
 	string
-	#!!! In case of ORI: in same cases OEM is set later in sp-to-fritz.sh !!!
-	default "tcom" if ( ORI && ! TYPE_AVM_7570_XX && ! FORCE_OEM_AVME) || TYPE_SPEEDPORT_W721V
+	#!!! In case of ORI: OEM is set later in sp-to-fritz.sh !!!
+	default "tcom" if ( ORI && ! TYPE_AVM_7570_XX && ! FORCE_OEM_AVME) || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W722V
 	default "avm" if ( TYPE_LANG_DE && ! TYPE_7270_m54_04_76 && ! TYPE_AVM_7570_XX && ! EXPORT_FORCE_MULTI_LANGUAGE && ! FORCE_OEM_AVME )
 	default "avme" if (( ! TYPE_LANG_DE  || TYPE_7270_m54_04_76 || TYPE_AVM_7570_XX  ) && ! EXPORT_FORCE_MULTI_LANGUAGE ) || FORCE_OEM_AVME
 
@@ -2315,7 +2315,7 @@ config EXPORT_PATCH_OEM
 	    environment settings are not taken in acount any more!
 	    Recover firmware needs this option to be set on!
 		
-if ! ORI
+if ! ORI && ! TYPE_SPEEDPORT_W722V
 config EXPORT_ADD_OLD_DECTMENU
 	bool "DECT menu (add)"
 	depends on ! EXPORT_TYPE_LOCAL_MODEL && ( TYPE_SPEEDPORT_W900V || TYPE_SINUS_W500V  || TYPE_LOCAL_TCOM )
@@ -2768,7 +2768,7 @@ config EXPORT_ATA_ONLY
 ####
 if ! EXPORT_ATA_ONLY
  config EXPORT_ADD_DSL_EXPERT_MNUE
-	depends on ! TYPE_TCOM_7570_XX && ! TYPE_9207570 && ! TYPE_SPEEDPORT_W721V && ! EXPORT_FORCE_DSL_MULTI_ANNEX
+	depends on ! TYPE_TCOM_7570_XX && ! TYPE_9207570 && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W722V && ! EXPORT_FORCE_DSL_MULTI_ANNEX
 	bool "Add DSL expert pages"
 	default n if  TYPE_DSL  || TYPE_7390
 	default y if  ! TYPE_DSL && ! TYPE_SPEEDPORT_W501V && ! TYPE_7390
@@ -3187,7 +3187,8 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		ATA is disabled if tr069 is turned on.
  ### ENDE NO AVM Modells 7XXX <---
 endif
-endif #ORI
+endif #ORI && ! TYPE_SPEEDPORT_W722V 
+
  # In use within sp-to-fritz.sh		
  config XCHANGE_KERNEL
 	bool "Xchange kernel between basis and avm source"

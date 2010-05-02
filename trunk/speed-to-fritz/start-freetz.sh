@@ -12,7 +12,7 @@ export FREETZ_DIR="freetz-trunk"
 FREETZ_DL_LINK="http://svn.freetz.org/trunk"
 #7390 or W722-->
   if [ "$FBMOD" = "7390" ] || [ "$SPNUM" = "722" ] ; then
-    echo "Alternative trunk is used for 7390 or W722V"
+    echo "Alternative trunk is used for 7390 or W722V Type A"
     export FREETZ_DIR="freetz-trunk-7390"
     FREETZ_DL_LINK="http://svn.freetz.org/branches/oliver/7390"
   fi    
@@ -140,6 +140,10 @@ fi
  if [ "$YESNO" = "y" ]; then 
   rm -fdr ./$FREETZ_DIR/.config
   rm -fdr ./$FREETZ_DIR/Config.in
+  rm -fdr ./$FREETZ_DIR/toolchain/Config.in
+  rm -fdr ./$FREETZ_DIR/patches/196-usbstorage.sh
+  rm -fdr ./$FREETZ_DIR/patches/220-assistant.sh
+  rm -fdr ./$FREETZ_DIR//make/linux/kernel.mk
   rm -fdr ./$FREETZ_DIR/fwmod
   echo "Looking for new freetz version, wait ..."
     if [ "$FREETZREVISION" ]; then
@@ -205,11 +209,13 @@ while [ "$KEY" != "y" ]; do
 . ../speed-to-fritz/incl_var
 
   echo "Be patient ..."
+	PATCH="$HOMEDIR/w722/W722_Config.diff"
+	patch -d . -p0 -N --no-backup-if-mismatch < "$PATCH" 2>&1
+
   #preset freetz to the same type as speed-to-fritz
   sed -i -e "/Hardwaretype/,/---------/{/.*/d}" "./Config.in" 2> /dev/null
   sed -i -e '/General/a\
 comment "Hardwaretype and language settings must be the same as in speed2fritz."\
-comment "Hardwaretype 7390 is used within freetz if W722V was selected."\
 comment "Annex type is set by speed2fritz in a second run afrer freetz."\
 comment "----------------------------------------"' "./Config.in" 2> /dev/null
   sed -i -e "/config FREETZ_SUBVERSION_STRING/,/help/{s/default y/default n/}" "./Config.in" 2> /dev/null
@@ -239,12 +245,34 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
   if [ "$FBMOD" = "7390" ] || [ "$SPNUM" = "722" ] ; then
     echo "---------------------------------------------"
     echo "FREETZ_TYPE_FON_WLAN_7390=y" >> "./.config" 2> /dev/null
-    #--> diabele building of modules and kernel
-    sed -i -e "s/kernel-precompiled: pkg-echo-start.*$/kernel-precompiled: pkg-echo-start pkg-echo-done/" "./make/linux/kernel.mk"
-    grep -q "kernel-precompiled: pkg-echo-start pkg-echo-done" "./make/linux/kernel.mk" && echo -e "\033[31mMake kernel is disabled!\033[0m"
-    #<--
     #done ins in trunk now 4835
     grep -q " -be" "./fwmod" && echo -e "\033[31mBig endianness option found!\033[0m"
+    if [ "$SPNUM" = "722" ] ; then
+    DISABLE_MODUL_AND_KERNEL_BILDING="n"
+    if [ "$DISABLE_MODUL_AND_KERNEL_BILDING" = "y" ] ; then
+     #--> diabele building of modules and kernel
+     sed -i -e "s/kernel-precompiled: pkg-echo-start.*$/kernel-precompiled: pkg-echo-start pkg-echo-done/" "./make/linux/kernel.mk"
+     grep -q "kernel-precompiled: pkg-echo-start pkg-echo-done" "./make/linux/kernel.mk" && echo -e "\033[31mMake kernel is disabled!\033[0m" 
+     # disable error display if modules dir is not present
+     sed -i -e 's|cd "${KERNEL_REP_DIR}/modules-${FREETZ_KERNEL_LAYOUT}-${FREETZ_KERNEL_REF}-${FREETZ_AVM_VERSION_STRING}"|cd "${KERNEL_REP_DIR}/modules-${FREETZ_KERNEL_LAYOUT}-${FREETZ_KERNEL_REF}-${FREETZ_AVM_VERSION_STRING}" 2>/dev/null|' "./fwmod"
+     # preselect W722
+     echo "FREETZ_TYPE_SPEEDPORT_722A=y" >> "./.config" 2> /dev/null
+    fi
+     #<-- 
+        # copy patches to be usable with 7390 Source and w722 firmware
+	rm ./patches/7390/140-rc.S-no_avm_exit.patch
+	rm ./patches/7390/290-replace_websrv-remove_igdd.patch
+	rm ./patches/7390/301-remove_smbd.patch
+	rm ./patches/7390/de/*
+	rm ./patches/cond/usbstorage_7390.patch
+	cp $HOMEDIR/w722/patches/722A/*.patch ./patches/7390
+	cp $HOMEDIR/w722/patches/722A/de/* ./patches/7390/de
+	cp $HOMEDIR/w722/patches/722A/cond/* ./patches/cond
+	cp -fdrp $HOMEDIR/w722/patches/722A --target-directory="./patches"
+	cp -fdrp $HOMEDIR/w722/make --target-directory="."
+    fi
+    # add tcom as HTML directory as well, if a original tcom firmware is in use we only have tcom
+    sed -i -e "s|for i in all avme/en avme|for i in all avme/en avme tcom|" "./fwmod"
   # 7390 <--
   else
     [ "$SPNUM" = "500" ] && echo "FREETZ_TYPE_WLAN_${FBMOD}=y" >> "./.config" 2> /dev/null
@@ -294,9 +322,9 @@ while [ "$KEY" != "y" ]; do
  [ "$KEY" = "x" ] && echo "wrong key!"
  if [ "$YESNO" = "y" ]; then
   #copy original firmwares from speed-to-fritz to freetz dl 
-  cp -fdprv  "$FWBASE/$FBIMG"   --target-directory=$DL_DIR/fw
+  [ ! -e "$DL_DIR/fw/$FBIMG" ] && cp -fdprv  "$FWBASE/$FBIMG"   --target-directory=$DL_DIR/fw
   echo "Be patient ..."
-  make
+  make 2>&1 | tee $HOMEDIR/make_freetz.log
  fi
 done
 #include freetz variables

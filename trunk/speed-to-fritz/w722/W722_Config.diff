@@ -1,0 +1,365 @@
+diff -Naur patches/196-usbstorage.sh patches/196-usbstorage.sh
+--- patches/196-usbstorage.sh	2010-04-30 09:43:57.000000000 -0400
++++ patches/196-usbstorage.sh	2010-04-30 08:58:05.000000000 -0400
+@@ -8,7 +8,7 @@
+ 	modpatch "$FILESYSTEM_MOD_DIR" "${PATCHES_DIR}/cond/a-ch/usbstorage_7170_a_ch.patch"
+ elif isFreetzType 7170 && isFreetzType LANG_EN; then
+ 	modpatch "$FILESYSTEM_MOD_DIR" "${PATCHES_DIR}/cond/en/usbstorage_7170_en.patch"
+-elif isFreetzType 2170 3130 3131 3170 3270 3270_V3 5124 7140 7141 7150 7170 7240 7270 7270_V3 7390 7570 ; then
++elif isFreetzType 2170 3130 3131 3170 3270 3270_V3 5124 7140 7141 7150 7170 7240 7270 7270_V3 7390 722A 7570 ; then
+ 	modpatch "$FILESYSTEM_MOD_DIR" "${PATCHES_DIR}/cond/usbstorage_${FREETZ_TYPE_STRING}.patch"
+ else
+ 	error 1 "Missing usbstorage patch for $FREETZ_TYPE_STRING - $FREETZ_TYPE_LANG_STRING"
+diff -Naur patches/220-assistant.sh patches/220-assistant.sh
+--- patches/220-assistant.sh	2010-04-30 09:43:57.000000000 -0400
++++ patches/220-assistant.sh	2010-04-30 08:58:05.000000000 -0400
+@@ -18,7 +18,7 @@
+ 	xargs sed -s -i -e '/var:menuAssistent/d'
+ 
+ if [ -e "$HTML_DIR/home/sitemap.html" ]; then
+-	if isFreetzType 3270 3270_V3 7112 7141 7150 7170 7240 7270 7270_V3 7390 7570; then
++	if isFreetzType 3270 3270_V3 7112 7141 7150 7170 7240 7270 7270_V3 7390 722A 7570; then
+ 		modpatch "$FILESYSTEM_MOD_DIR" "${PATCHES_DIR}/cond/${FREETZ_TYPE_LANG_STRING}/remove_assistant_${FREETZ_TYPE_STRING}.patch"
+ 	elif isFreetzType 7140; then
+ 		if isFreetzType LANG_A_CH; then
+diff -Naur Config.in Config.in
+--- Config.in	2010-05-02 11:12:09.000000000 -0400
++++ Config.in	2010-05-02 14:30:58.000000000 -0400
+@@ -30,6 +30,8 @@
+ 	bool
+ config FREETZ_AVM_VERSION_7390_04_83
+ 	bool
++config FREETZ_AVM_VERSION_722A_04_76
++	bool
+ config FREETZ_AVM_VERSION_r7203
+ 	bool
+ 
+@@ -127,6 +129,12 @@
+ 		select FREETZ_BUILD_TOOLCHAIN
+ 		bool "Fon WLAN 7390"
+ 
++	config FREETZ_TYPE_SPEEDPORT_722A
++		select FREETZ_AVM_VERSION_722A_04_76
++		#TODO: download toolchain
++		select FREETZ_BUILD_TOOLCHAIN
++		bool "Speedport W722V Type A"
++
+ 	config FREETZ_TYPE_WLAN_3020
+ 		select FREETZ_AVM_VERSION_04_33
+ 		bool "WLAN 3020"
+@@ -333,6 +341,7 @@
+ 	default "3270_04.80"		if FREETZ_AVM_VERSION_3270_04_80
+ 	default "7270_04.80"		if FREETZ_AVM_VERSION_7270_04_80
+ 	default "7390_04.83"		if FREETZ_AVM_VERSION_7390_04_83
++	default "722A_04.76"		if FREETZ_AVM_VERSION_722A_04_76
+ 	default "r7203"			if FREETZ_AVM_VERSION_r7203
+ 
+ choice
+@@ -437,6 +446,7 @@
+ 	default "7270_v3_labor_phone"				if FREETZ_TYPE_FON_WLAN_7270_V3 && FREETZ_TYPE_LABOR_PHONE
+ 	default "7570"						if FREETZ_TYPE_FON_WLAN_7570
+ 	default "7390"						if FREETZ_TYPE_FON_WLAN_7390
++	default "722A"						if FREETZ_TYPE_SPEEDPORT_722A
+ 	default "W501V"						if FREETZ_TYPE_SPEEDPORT_W501V
+ 	default "custom"					if FREETZ_TYPE_CUSTOM
+ 
+@@ -498,7 +508,7 @@
+ 	depends on \
+ 		FREETZ_SHOW_ADVANCED && \
+ 		FREETZ_REPLACE_KERNEL_AVAILABLE
+-	select FREETZ_MODULE_fuse if (FREETZ_AVM_VERSION_3270_04_80 || FREETZ_AVM_VERSION_7270_04_80 || FREETZ_AVM_VERSION_7390_04_83 )
++	select FREETZ_MODULE_fuse if (FREETZ_AVM_VERSION_3270_04_80 || FREETZ_AVM_VERSION_7270_04_80 || FREETZ_AVM_VERSION_7390_04_83  || FREETZ_AVM_VERSION_722A_04_76 )
+ 	default n
+ 	help
+ 		Replace AVM kernel with self-built kernel.
+@@ -531,7 +541,8 @@
+ config FREETZ_TARGET_REF
+ 	string "Target ref"		if FREETZ_TYPE_CUSTOM
+ 	default "16mb_26"		if \
+-		FREETZ_TYPE_FON_WLAN_7390
++		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A
+ 	default "8mb_26"		if \
+ 		FREETZ_TYPE_FON_5124 || \
+ 		FREETZ_TYPE_FON_WLAN_7112 || \
+@@ -565,7 +576,8 @@
+ config FREETZ_KERNEL_REF
+ 	string "Kernel ref"		if FREETZ_TYPE_CUSTOM
+ 	default "16mb_26"		if \
+-		FREETZ_TYPE_FON_WLAN_7390
++		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A
+ 	default "8mb_26"		if \
+ 		FREETZ_TYPE_FON_5124 || \
+ 		FREETZ_TYPE_FON_WLAN_7112 || \
+@@ -629,7 +641,8 @@
+ 		FREETZ_TYPE_WLAN_3270 || \
+ 		FREETZ_TYPE_WLAN_3270_V3
+ 	default "iks"		if \
+-		FREETZ_TYPE_FON_WLAN_7390
++		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A
+ 
+ config FREETZ_KERNEL_MTD_SIZE
+ 	int "Kernel (64K blocks)"	if FREETZ_TYPE_CUSTOM
+@@ -665,8 +678,9 @@
+ 		FREETZ_TYPE_WLAN_3270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_16MB || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
++		FREETZ_TYPE_FON_WLAN_7570 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
+-		FREETZ_TYPE_FON_WLAN_7570
++		FREETZ_TYPE_SPEEDPORT_722A
+ 	help
+ 		Number of 64K blocks in the kernel mtd device.
+ 
+@@ -698,8 +712,9 @@
+ 		FREETZ_TYPE_FON_WLAN_7240 || \
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+-		FREETZ_TYPE_FON_WLAN_7390 || \
+ 		FREETZ_TYPE_FON_WLAN_7570 || \
++		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_CUSTOM
+ 	default n				if \
+ 		FREETZ_TYPE_2170 || \
+@@ -725,6 +740,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7570
+ 	default n				if \
+ 		FREETZ_TYPE_FON || \
+@@ -764,6 +780,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7570 || \
+ 		FREETZ_TYPE_CUSTOM
+ 	default n			if \
+@@ -803,6 +820,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7570 || \
+ 		FREETZ_TYPE_WLAN_3130 || \
+ 		FREETZ_TYPE_WLAN_3270 || \
+@@ -825,6 +843,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7570 || \
+ 		FREETZ_TYPE_WLAN_3130 || \
+ 		FREETZ_TYPE_WLAN_3131 || \
+@@ -859,6 +878,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7570
+ 	default n
+ 
+@@ -880,6 +900,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7570 || \
+ 		FREETZ_TYPE_WLAN_3131 || \
+ 		FREETZ_TYPE_WLAN_3130 || \
+@@ -1003,6 +1024,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7570 \
+ 		) \
+ 		&& ! ((FREETZ_TYPE_SPEEDPORT_W701V_7170 || FREETZ_TYPE_SPEEDPORT_W900V_7170) && FREETZ_TYPE_LABOR_DSL)
+@@ -1195,6 +1217,7 @@
+ 			FREETZ_TYPE_FON_WLAN_7270 || \
+ 			FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 			FREETZ_TYPE_FON_WLAN_7390 || \
++			FREETZ_TYPE_SPEEDPORT_722A || \
+ 			FREETZ_TYPE_WLAN_3170 \
+ 		) && \
+ 		! FREETZ_TYPE_SPEEDPORT_W701V_7170
+@@ -1235,6 +1258,7 @@
+ 			FREETZ_TYPE_FON_WLAN_7270 || \
+ 			FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 			FREETZ_TYPE_FON_WLAN_7390 || \
++			FREETZ_TYPE_SPEEDPORT_722A || \
+ 			FREETZ_TYPE_WLAN_3170 \
+ 		)
+ 
+@@ -1260,6 +1284,7 @@
+ 		&& ! FREETZ_TYPE_FON_WLAN_7270 \
+ 		&& ! FREETZ_TYPE_FON_WLAN_7270_V3 \
+ 		&& ! FREETZ_TYPE_FON_WLAN_7390 \
++		&& ! FREETZ_TYPE_SPEEDPORT_722A \
+ 		&& ! FREETZ_TYPE_FON_WLAN_7570 \
+ 		&& ! FREETZ_TYPE_WLAN_3131 \
+ 		&& ! FREETZ_TYPE_WLAN_3170
+@@ -1303,6 +1328,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_WLAN_3020 || \
+ 		FREETZ_TYPE_WLAN_3030 || \
+ 		FREETZ_TYPE_WLAN_3130 || \
+@@ -1495,6 +1521,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7240 || \
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7390
+ 	default n
+ 	help
+@@ -1521,6 +1548,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7240 || \
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
+ 		FREETZ_TYPE_SPEEDPORT_W900V_7170
+ 	default n
+@@ -1579,6 +1607,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7240 || \
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7390
+ 	default y if FREETZ_TYPE_FON_WLAN_7270
+ 	default n
+@@ -1697,6 +1726,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7240 || \
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
+ 		FREETZ_TYPE_FON_WLAN_7570 || \
+ 		FREETZ_TYPE_WLAN_3020 || \
+@@ -1720,6 +1750,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7240 || \
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
+ 		FREETZ_TYPE_FON_WLAN_7570 || \
+ 		FREETZ_TYPE_WLAN_3270 || \
+@@ -1754,6 +1785,7 @@
+ 			&& ! FREETZ_TYPE_FON_WLAN_7240 \
+ 			&& ! FREETZ_TYPE_FON_WLAN_7270 \
+ 			&& ! FREETZ_TYPE_FON_WLAN_7270_V3 \
++			&& ! FREETZ_TYPE_SPEEDPORT_722A \
+ 			&& ! FREETZ_TYPE_FON_WLAN_7390 \
+ 			&& ! FREETZ_TYPE_WLAN_3131 \
+ 			&& ! FREETZ_TYPE_WLAN_3170 \
+@@ -1946,6 +1978,7 @@
+ 	default "@AVM/fritz.box/fritzbox.wlan_3270/x_misc/opensrc"			if	FREETZ_AVM_VERSION_3270_04_80
+ 	default "@AVM/fritz.box/fritzbox.fon_wlan_7270/x_misc/opensrc"			if	FREETZ_AVM_VERSION_7270_04_80
+ 	default "@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/opensrc"			if	FREETZ_AVM_VERSION_7390_04_83
++	default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W722V"	if	FREETZ_AVM_VERSION_722A_04_76
+ 	default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport_W501V"	if	FREETZ_AVM_VERSION_r7203
+ 
+ config FREETZ_DL_KERNEL_SOURCE
+@@ -1962,6 +1995,7 @@
+ 	default "fritz_box_wlan_3270_source _files .04.80.tar.gz" if	FREETZ_AVM_VERSION_3270_04_80
+ 	default "fritzbox7270-source-files-04.80.tar.gz"	if	FREETZ_AVM_VERSION_7270_04_80
+ 	default "fritz_box_fon_wlan_7390_source_files.04.83.tar.gz" if	FREETZ_AVM_VERSION_7390_04_83
++	default "GPL-Speedport_W722V.tar.gz"			if	FREETZ_AVM_VERSION_722A_04_76
+ 	default "GPL-r7203-4mb_26-tar.bz2"			if	FREETZ_AVM_VERSION_r7203
+ 
+ config FREETZ_DL_KERNEL_SOURCE_MD5
+@@ -1978,6 +2012,7 @@
+ 	default "a7e605a9f27bf514b232ec9976b9ff98"		if	FREETZ_AVM_VERSION_3270_04_80
+ 	default "bcd49b28a54293e1481b8170b07245e0"		if	FREETZ_AVM_VERSION_7270_04_80
+ 	default "052fb6b9fe418301ad178eb2a5e2e030"		if	FREETZ_AVM_VERSION_7390_04_83
++	default ""						if	FREETZ_AVM_VERSION_722A_04_76
+ 	default "582c74f0959a687c41c1bcfa599ace9c"		if	FREETZ_AVM_VERSION_r7203
+ 
+ config FREETZ_DL_SITE
+@@ -2057,6 +2092,7 @@
+ 	default "@AVM/fritz.box/fritzbox.wlan_3270/firmware/deutsch"		if	FREETZ_TYPE_WLAN_3270
+ 	default "@AVM/fritz.box/fritzbox.wlan_3270_v3/firmware/deutsch"		if	FREETZ_TYPE_WLAN_3270_V3
+ 	default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport_W501V" if	FREETZ_TYPE_SPEEDPORT_W501V
++	default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W722V" if	FREETZ_TYPE_SPEEDPORT_722A
+ 	default "@AVM/fritz.box/..."						if	FREETZ_TYPE_CUSTOM
+ 
+ config FREETZ_DL_SOURCE
+@@ -2157,6 +2193,7 @@
+ 	default "fritz.box_wlan_3270.67.04.80.image"				if	FREETZ_TYPE_WLAN_3270
+ 	default "fritz.box_wlan_3270_v3.96.04.80.image"				if	FREETZ_TYPE_WLAN_3270_V3
+ 	default "fw_Speedport_W501V_v_28.04.38.image"				if	FREETZ_TYPE_SPEEDPORT_W501V
++	default "Speedport_W_722A_V_80.04.76.image"				if	FREETZ_TYPE_SPEEDPORT_722A
+ 	default "fritz.box..."							if	FREETZ_TYPE_CUSTOM
+ 
+ config FREETZ_DL_SOURCE_MD5
+@@ -2213,6 +2250,7 @@
+ 	default "f08942a9679002e21c29bb2cad9ded3e"	if	FREETZ_TYPE_WLAN_3170
+ 	default "b9818513ab538557433719cb86d30e52"	if	FREETZ_TYPE_WLAN_3270
+ 	default "3ab60995ed7d843e8847d53a54170f55"	if	FREETZ_TYPE_WLAN_3270_V3
++	default ""					if	FREETZ_TYPE_SPEEDPORT_722A
+ 	default "f64d17124ba354427a1710d12b35e00f"	if	FREETZ_TYPE_SPEEDPORT_W501V
+ 
+ config FREETZ_DL_SITE2
+@@ -2463,7 +2501,7 @@
+ 
+ config FREETZ_SUBVERSION_STRING
+ 	bool "Add Freetz version to subversion string"
+-	default y if ! FREETZ_TYPE_FON_WLAN_7270
++	default n if ! FREETZ_TYPE_FON_WLAN_7270
+ 	default n
+ 	help
+ 		Add Freetz version to subversion string, e.g. -11945-freetz-devel-2417.
+@@ -2874,13 +2912,13 @@
+ 
+ choice
+ 	prompt "Toolchains"
+-	default FREETZ_DOWNLOAD_TOOLCHAIN if ! (FREETZ_TARGET_IPV6_SUPPORT || FREETZ_TYPE_FON_WLAN_7390)
+-	default FREETZ_BUILD_TOOLCHAIN if (FREETZ_TARGET_IPV6_SUPPORT || FREETZ_TYPE_FON_WLAN_7390)
++	default FREETZ_DOWNLOAD_TOOLCHAIN if ! (FREETZ_TARGET_IPV6_SUPPORT || FREETZ_TYPE_FON_WLAN_7390 || FREETZ_TYPE_SPEEDPORT_722A)
++	default FREETZ_BUILD_TOOLCHAIN if (FREETZ_TARGET_IPV6_SUPPORT || FREETZ_TYPE_FON_WLAN_7390 || FREETZ_TYPE_SPEEDPORT_722A)
+ 	help
+ 		Download Toolchain, build toolchain
+ 
+ 	config FREETZ_DOWNLOAD_TOOLCHAIN
+-		bool "Download and use precompiled toolchain" if ! (FREETZ_TARGET_IPV6_SUPPORT || FREETZ_TYPE_FON_WLAN_7390)
++		bool "Download and use precompiled toolchain" if ! (FREETZ_TARGET_IPV6_SUPPORT || FREETZ_TYPE_FON_WLAN_7390 || FREETZ_TYPE_SPEEDPORT_722A)
+ 
+ 	config FREETZ_BUILD_TOOLCHAIN
+ 		bool "Build toolchain (requires 4GB diskspace)"
+@@ -2922,7 +2960,8 @@
+ 	bool
+ 	default y
+ 	depends on \
+-		FREETZ_TYPE_FON_WLAN_7390
++		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A
+ 
+ config FREETZ_TARGET_ARCH
+ 	string
+diff -Naur toolchain/Config.in toolchain/Config.in
+--- toolchain/Config.in	2010-05-02 11:12:42.000000000 -0400
++++ toolchain/Config.in	2010-05-02 11:11:08.000000000 -0400
+@@ -7,6 +7,7 @@
+ 			FREETZ_TYPE_FON_WLAN_7270 || \
+ 			FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 			FREETZ_TYPE_FON_WLAN_7570  || \
++			FREETZ_TYPE_SPEEDPORT_722A  || \
+ 			FREETZ_TYPE_FON_WLAN_7390 \
+ 			)
+ 	default n
+@@ -41,6 +42,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7570 || \
++		FREETZ_TYPE_SPEEDPORT_722A  || \
+ 		FREETZ_TYPE_FON_WLAN_7390
+ 	default n
+ config FREETZ_TARGET_UCLIBC_VERSION_0_9_30
