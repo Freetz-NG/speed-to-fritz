@@ -480,6 +480,10 @@ config AVM_7390_84_04_82
 config AVM_7390_84_04_83
    string
      default "@AVM/fritz.box/fritzbox.fon_wlan_7390/firmware/deutsch/fritz.box_fon_wlan_7390_84.04.83.image"
+
+config AVM_7390_17003
+   string
+     default "http://www.avm.de/de/Service/Service-Portale/Labor/7390_vorschau_release_candidate/fritzbox-labor-7390-17003.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7390_LabDSL.AnnexB.84.04.83-17003.image"
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1364,6 +1368,12 @@ choice
 		help 
 			FRITZ!Lab Prerelease:
 
+	config TYPE_7390_17003
+		bool "AVM 7390 84.04.83 17003 Prerelase"
+		depends on TYPE_7390 || TYPE_SPEEDPORT_W722V
+		help 
+			FRITZ!Lab Prerelease:
+
 	config TYPE_W722_80_04_76
 		bool "AVM W722 80.04.76 (only for testing)"
 		depends on TYPE_SPEEDPORT_W722V
@@ -1743,6 +1753,9 @@ choice
 	config TYPE_SRC3_AVM_PRE_7390_16925
 		bool "AVM 7390 16925"
 
+	config TYPE_SRC3_AVM_PRE_7390_17003
+		bool "AVM 7390 17003"
+
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 Firmware
 
@@ -2051,7 +2064,7 @@ config AVM_IMG
 	default "$AVM_7390_84_04_81"					if TYPE_7390_84_04_81
 	default "$AVM_7390_84_04_82"					if TYPE_7390_84_04_82
 	default "$AVM_7390_84_04_83"					if TYPE_7390_84_04_83
-#	default "$AVM_7390_84_04_83"					if TYPE_7390
+	default "$AVM_7390_17003"					if TYPE_7390_17003
 	default "$TCOM_W722_80_04_76" 					if TYPE_W722_80_04_76
 #<--
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2122,6 +2135,7 @@ config SRC2_IMG
 	default "$AVM_7390_84_04_81"			if TYPE_SRC3_AVM_PRE_7390_15936
 	default "$AVM_7390_84_04_82"			if TYPE_SRC3_AVM_PRE_7390_16165
 	default "$AVM_7390_84_04_83"			if TYPE_SRC3_AVM_PRE_7390_16925
+	default "$AVM_7390_17003"			if TYPE_SRC3_AVM_PRE_7390_17003
 	default "$AVM_PHONE_72XX"				if TYPE_SRC3_AVM_PHONE_72XX
 	default "$AVM_7570_75_04_70" 			if TYPE_SRC3_AVM_7570_75_04_70
 	default "$AVM_7570_75_04_72" 			if TYPE_SRC3_AVM_7570_75_04_72
