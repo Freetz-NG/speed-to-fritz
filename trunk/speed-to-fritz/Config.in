@@ -302,17 +302,17 @@ config AVM_IPV6_72XX
     string
     default "ftp://update.avm.de/labor/ipv6/FRITZ.Box_Fon_WLAN_7270_16_LabIPV6.54.04.80-16608.image mirror select"
 
-config AVM_PRE_7270_15892
+config AVM_PRE_7270_17091
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270-15892.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.Labor.54.04.78-15892.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270-17091.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v2.Labor.54.04.85-17091.image"
 
 config AVM_PRE_72XX
     string
     default "ftp://update.avm.de/labor/RC/FRITZ.Box_Fon_WLAN_7270.AnnexB.54.04.78-15892.image mirror select"
 
-config AVM_PRE_7273_15892
+config AVM_PRE_7273_17091
    string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270v3-15892.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3.Labor.74.04.78-15892.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270v3-17091.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3.Labor.74.04.85-17091.image"
 
 config AVM_DSL_7270_16750
     string
@@ -1124,14 +1124,14 @@ choice
 		help
 			FRITZ! release: 59
 
-	config TYPE_7270_PRE_15892
-		bool "AVM 7270 15892 (BETA)"
+	config TYPE_7270_PRE_17091
+		bool "AVM 7270 17091 (BETA)"
 		depends on ( TYPE_7240 || TYPE_7270 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
 			FRITZ!Lab Prerelease:
 			
-	config TYPE_7273_PRE_15892
-		bool "AVM 7270v3 15892 (BETA)"
+	config TYPE_7273_PRE_17091
+		bool "AVM 7270v3 17091 (BETA)"
 		depends on ( TYPE_7240 || TYPE_7390 || TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help 
 			FRITZ!Lab Prerelease:
@@ -1722,14 +1722,14 @@ choice
 	config TYPE_SRC3_AVM_PHONE_72XX
 		bool "AVM 72XX Prerelease, select one"
 
-	config TYPE_SRC3_AVM_PRE_7270_15892
-		bool "AVM 7270 15892 Prerelease"
+	config TYPE_SRC3_AVM_PRE_7270_17091
+		bool "AVM 7270 17091 Prerelease"
 
 	config TYPE_SRC3_AVM_PRE_72XX
 		bool "AVM 72XX Prerelease, select one"
 
-	config TYPE_SRC3_AVM_PRE_7273_15892
-		bool "AVM 7270v3 15892 Prerelease"
+	config TYPE_SRC3_AVM_PRE_7273_17091
+		bool "AVM 7270v3 17091 Prerelease"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7390 Firmware
@@ -2017,8 +2017,8 @@ config AVM_IMG
 	default "$AVM_PHONE_72XX"				if ( TYPE_72XX_PHONE) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PRE_7240_15892"				if ( TYPE_7240_PRE_15892 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PRE_72XX"					if ( TYPE_72XX_PRE) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_PRE_7273_15892"				if ( TYPE_7273_PRE_15892 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_PRE_7270_15892"				if ( TYPE_7270_PRE_15892 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_PRE_7273_17091"				if ( TYPE_7273_PRE_17091 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_PRE_7270_17091"				if ( TYPE_7270_PRE_17091 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 
 	default "$AVM_7570_75_04_70"				if ( TYPE_AVM_7570_75_04_70 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
 	default "$AVM_7570_75_04_72"				if ( TYPE_AVM_7570_75_04_72 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V )
@@ -2111,9 +2111,9 @@ config SRC2_IMG
 	default "$AVM_DSL_7270_16750"			if TYPE_SRC3_AVM_DSL_7270_16750
 	default "$AVM_DSL_7273_16750"			if TYPE_SRC3_AVM_DSL_7273_16750
 	default "$AVM_PRE_7240_15892"			if TYPE_SRC3_AVM_PRE_7240_15892
-	default "$AVM_PRE_7270_15892"			if TYPE_SRC3_AVM_PRE_7270_15892
+	default "$AVM_PRE_7270_17091"			if TYPE_SRC3_AVM_PRE_7270_17091
 	default "$AVM_PRE_72XX"					if TYPE_SRC3_AVM_PRE_72XX
-	default "$AVM_PRE_7273_15892"			if TYPE_SRC3_AVM_PRE_7273_15892
+	default "$AVM_PRE_7273_17091"			if TYPE_SRC3_AVM_PRE_7273_17091
 	default "$AVM_PHONE_7240_16376"			if TYPE_SRC3_AVM_PHONE_7240_16376
 	default "$AVM_PHONE_7270_16999"			if TYPE_SRC3_AVM_PHONE_7270_16999
 	default "$AVM_PHONE_7273_16999"			if TYPE_SRC3_AVM_PHONE_7273_16999
@@ -2179,7 +2179,7 @@ config TYPE_V3_OR_7240
 	TYPE_7273_CORE_16540 ||\
 	TYPE_7273_PHONE_16999 ||\
 	TYPE_7273_IPV6_16608 ||\
-	TYPE_7273_PRE_15892 ||\
+	TYPE_7273_PRE_17091 ||\
 	TYPE_72XX_PRE ||\
 	TYPE_72XX_PHONE ||\
 	TYPE_72XX_IPV6 ||\
@@ -2206,7 +2206,7 @@ config TYPE_LABOR_TYPE
 	default "763V3" 	if TYPE_7273_74_04_76
 	default "CORE"	 	if TYPE_7270_CORE_V3_15220 || TYPE_7270_CORE_15220 || TYPE_7270_CORE_16540 || TYPE_7273_CORE_16540 || TYPE_7240_CORE_16540 || TYPE_7240_V3_CORE_16540
 	default "PREVIEW"	if TYPE_7170_PRE_16352
-	default "BETA"	 	if TYPE_7270_PRE_15892 || TYPE_7273_PRE_15892 || TYPE_7240_PRE_15892 || TYPE_72XX_PRE
+	default "BETA"	 	if TYPE_7270_PRE_17091 || TYPE_7273_PRE_17091 || TYPE_7240_PRE_15892 || TYPE_72XX_PRE
 	default "13948" 	if TYPE_7170_13948
 	default "13486" 	if TYPE_7270_13486
 	default "NAS"		if TYPE_7270_NAS_16561 || TYPE_7273_NAS_16561
