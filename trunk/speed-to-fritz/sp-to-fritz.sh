@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="03"; Monat="05"; Jahr="10"
+Tag="05"; Monat="05"; Jahr="10"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -1549,6 +1549,7 @@ fi
 # dont set kernel annex args, if it is a multi annex firmware
 readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
 [ "$DSL_MULTI_ANNEX" == "y" ] && export kernel_args="console=ttyS0,38400"
+# w722 - 7390 need this: export kernel_args="console=ttyS0,115200n8r"
 # make firmware installable via GUI
 $sh_DIR/patch_install.sh "${SPDIR}"
 # first approach to make external SIP registration configurable on WebUI

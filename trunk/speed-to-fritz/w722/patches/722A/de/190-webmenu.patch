@@ -1,11 +1,89 @@
+diff -Naur index.html index.html
+--- usr/www/tcom/html/index.html	2009-09-04 09:24:36.000000000 -0400
++++ usr/www/tcom/html/index.html	2010-05-04 14:54:36.000000000 -0400
+@@ -7,6 +7,7 @@
+ <SCRIPT type="text/javascript" src="/cgi-bin/webcm?getpage=../html/boxconf.js"></SCRIPT>
+ <SCRIPT type="text/javascript">
+ <!--
++top.frames[0].dirty = true;
+ var start_w = 821;
+ var start_h = 707;
+ function chk(){
+@@ -15,6 +16,7 @@
+ if (((typeof prodname)=="string") && prodname.length>0) document.title = prodname + " Konfigurationsprogramm";
+ document.getElementById("startseite").style.visibility = "visible";
+ document.getElementById("status").style.visibility = "visible";
++document.getElementById("but3").style.visibility = "visible";
+ document.getElementById("actionbut").style.visibility = "visible";
+ if (getW()<need_w || getH()<need_h) window.resizeTo(start_w,start_h);
+ if (screen.width > 800 && screen.height > 600){
+@@ -56,6 +58,10 @@
+ start_h = start_h + (need_h - getH());
+ window.resizeTo(start_w,start_h);
+ }
++function gotoFreetz(){
++location.href="/cgi-bin/freetz_status";
++target="_blank";
++}
+ //-->
+ </SCRIPT>
+ <LINK rel="stylesheet" href="/html/style_top.css" type="text/css">
+@@ -83,6 +89,8 @@
+ <DIV id=startseite class="menuhigh">&nbsp;&nbsp;&nbsp;&gt;&gt;&nbsp;Startseite</DIV>
+ <p class="menuseparator">&nbsp;</p>
+ <DIV id=status class="menunormal" onclick="gotosite('/html/top_newstatus.htm')" onmouseover="mousehigh('status',1)" onmouseout="mousehigh('status',0)">&nbsp;&nbsp;&nbsp;&gt;&gt;&nbsp;Status</DIV>
++<p class="menuseparator">&nbsp;</p>
++<DIV id=but3 class="menunormal" onclick="gotoFreetz()" onmouseover="mousehigh('but3',1)" onmouseout="mousehigh('but3',0)">&nbsp;&nbsp;&nbsp;&gt;&gt;&nbsp;Freetz</DIV>
+ </td>
+ <td valign="top">
+ <DIV id=cProd></DIV>
 diff -Naur m_startseite.htm m_startseite.htm
 --- usr/www/tcom/html/m_startseite.htm	2009-09-04 09:24:36.000000000 -0400
-+++ usr/www/tcom/html/m_startseite.htm	2010-05-02 06:11:37.000000000 -0400
-@@ -46,6 +46,7 @@
++++ usr/www/tcom/html/m_startseite.htm	2010-05-04 15:26:14.000000000 -0400
+@@ -10,7 +10,7 @@
+ <SCRIPT type="text/javascript" src="/html/ajax.js"></SCRIPT>
+ <SCRIPT type="text/javascript">
+ <!--
+-var mpkt = new Array(1,2,
++var mpkt = new Array(1,2,3,
+ 32,33,34,41,42,51,52,6);
+ function m_high(high,nr){
+ if (nr!=top.frames[0].m_akt){
+@@ -23,11 +23,28 @@
+ }
+ }
+ top.frames[0].dirty = true;
++
++function menupktFreetz(nr, url){
++var i;
++top.frames[0].m_akt=nr;
++for(i=0;i<top.frames[1].mpkt.length-1;i++){
++delClass(top.frames[1].document.getElementById('but'+top.frames[1].mpkt[i]), 'selected');
++}
++delClass(top.frames[1].document.getElementById('but'+nr), 'highlight');
++addClass(top.frames[1].document.getElementById('but'+nr), 'selected');
++//top.frames[2].location.href = '/cgi-bin/webcm?getpage=../html/'+url;
++href = '/cgi-bin/webcm?getpage=../html/'+url;
++target="_blank";
++}
+ //-->
+ </SCRIPT>
+ <LINK rel="stylesheet" href="/html/style_menu.css" type="text/css">
+ <STYLE type="text/css">
+ #but1 {border-top-style: solid;}
++#but3 {
++height: 24px; line-height: 24px; padding-left: 13px;
++border-color: #000000; border-width: 1px; border-bottom-style: solid; cursor: pointer; font-weight: bold;
++}
+ </STYLE>
+ </HEAD>
+ <BODY>
+@@ -46,6 +63,8 @@
  <DIV class=titel>VERWALTUNG</DIV>
  <DIV id=but51 onclick="menupkt(51,'hcti_hilfsmittel.htm')" onmouseover="m_high(1,51)" onmouseout="m_high(0,51)">:: Hilfsmittel</DIV>
  <DIV id=but52 onclick="menupkt(52,'hcti_laden.htm')" onmouseover="m_high(1,52)" onmouseout="m_high(0,52)">:: Laden &amp; Sichern</DIV>
-+<DIV id=but53 onclick="gotosite('/cgi-bin/freetz_status')" onmouseover="m_high(1,53)" onmouseout="m_high(0,53)">:: Freetz &amp; Freetz</DIV>
++<DIV class=titel>ERWEITERUNG</DIV>
++<DIV id=but3 onclick="menupktFreetz(3,'../cgi-bin/freetz_status')" onmouseover="m_high(1,3)" onmouseout="m_high(0,3)">:: Freetz</DIV>
  <DIV id=but6 onclick="beenden()" onmouseover="m_high(1,6)" onmouseout="m_high(0,6)">:: Beenden</DIV>
  </DIV>
  </BODY>
