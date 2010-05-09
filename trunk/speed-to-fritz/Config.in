@@ -1129,28 +1129,28 @@ choice
 			FRITZ! release: 59
 
 	config TYPE_7270_PRE_17091
-		bool "AVM 7270 17091 (BETA)"
+		bool "AVM 7270 17091 (PREVIEW)"
 		depends on ( TYPE_7240 || TYPE_7270 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
-			FRITZ!Lab Prerelease:
+			FRITZ!Lab (PREVIEW):
 			
 	config TYPE_7273_PRE_17091
-		bool "AVM 7270v3 17091 (BETA)"
+		bool "AVM 7270v3 17091 (PREVIEW)"
 		depends on ( TYPE_7240 || TYPE_7390 || TYPE_7273 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help 
-			FRITZ!Lab Prerelease:
+			FRITZ!Lab (PREVIEW):
 
 	config TYPE_7240_PRE_15892
-		bool "AVM 7240 15892 (BETA)"
+		bool "AVM 7240 15892 (PREVIEW)"
 		depends on ( TYPE_7240 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
-			FRITZ!Lab Prerelease:
+			FRITZ!Lab (PREVIEW):
 
 	config TYPE_72XX_PRE
-		bool "AVM 72XX select from update download (BETA)"
+		bool "AVM 72XX select from update download (PREVIEW)"
 		depends on ( TYPE_7273 || TYPE_7270 || TYPE_7240 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
-			FRITZ!Lab Prerelease: from autoupdate download, look into directory and present a coice for downloading. 
+			FRITZ!Lab (PREVIEW): from autoupdate download, look into directory and present a coice for downloading. 
 
 	config TYPE_7270_54_04_76
 		bool "AVM 7270 54.04.76"
@@ -1217,7 +1217,7 @@ choice
 		bool "AVM 72XX IPv6 select from update download"
 		depends on ( TYPE_7273 || TYPE_7270 || TYPE_7240 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
-			FRITZ!Lab Prerelease: from autoupdate download, look into directory and present a coice for downloading. 
+			FRITZ!Lab (PREVIEW): from autoupdate download, look into directory and present a coice for downloading. 
 
 #	config TYPE_7270_IPV6_14621
 #		bool "AVM 7270 14621 IPv6.en-de-es-it-fr "
@@ -1267,7 +1267,7 @@ choice
 		bool "AVM 72XX select from update download (MT-D)"
 		depends on ( TYPE_7273 || TYPE_7270 || TYPE_7240 || TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL ) && ( TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX )
 		help
-			FRITZ!Lab Prerelease: from autoupdate download, look into directory and present a coice for downloading. 
+			FRITZ!Lab (PREVIEW): from autoupdate download, look into directory and present a coice for downloading. 
 
 	config TYPE_7270_CORE_15220
 		bool "AVM 7270 15220 (Streaming Stick)"
@@ -1354,31 +1354,31 @@ choice
 		bool "AVM 7390 84.04.81 15936 (only for testing)"
 		depends on TYPE_7390 || TYPE_SPEEDPORT_W722V
 		help 
-			FRITZ!Lab Prerelease:
+			FRITZ!Lab (PREVIEW):
 
 	config TYPE_7390_84_04_82
 		bool "AVM 7390 84.04.82 16165 (only for testing)"
 		depends on TYPE_7390 || TYPE_SPEEDPORT_W722V
 		help 
-			FRITZ!Lab Prerelease:
+			FRITZ!Lab (PREVIEW):
 
 	config TYPE_7390_84_04_83
 		bool "AVM 7390 84.04.83 16925 (only for testing)"
 		depends on TYPE_7390 || TYPE_SPEEDPORT_W722V
 		help 
-			FRITZ!Lab Prerelease:
+			FRITZ!Lab (PREVIEW):
 
 	config TYPE_7390_17003
 		bool "AVM 7390 84.04.83 17003 Prerelase"
 		depends on TYPE_7390 || TYPE_SPEEDPORT_W722V
 		help 
-			FRITZ!Lab Prerelease:
+			FRITZ!Lab (PREVIEW):
 
 	config TYPE_W722_80_04_76
 		bool "AVM W722 80.04.76 (only for testing)"
 		depends on TYPE_SPEEDPORT_W722V
 		help 
-			FRITZ!Lab Prerelease:
+			FRITZ!Lab (PREVIEW):
 #<--
 	config TYPE_LOCAL_AVM
 		bool "CUSTOM AVM LOCAL firmware"
@@ -1634,7 +1634,7 @@ choice
 		bool "AVM 7170 14935 MINI"
 
 	config TYPE_SRC3_AVM_PRE_7170_16352
-		bool "AVM 7170 16352 Prerelease"
+		bool "AVM 7170 16352 (PREVIEW)"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7240 Firmware
@@ -1649,7 +1649,7 @@ choice
 #		bool "AVM 7240 16376 Labor (Phone)"
 
 	config TYPE_SRC3_AVM_PRE_7240_15892
-		bool "AVM 7240 15892 Prerelease"
+		bool "AVM 7240 15892 (PREVIEW)"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7270 Firmware
@@ -1688,7 +1688,7 @@ choice
 		bool "AVM 7270 14142 (AURA USB)"
 
 	config TYPE_SRC3_AVM_AIO_7270_14543 
-		bool "AVM 7270 14543 (AIO)"
+		bool "AVM 7270 14543 (PREVIEW)"
 
 	config TYPE_SRC3_AVM_IPV6_7273_16608
 		bool "AVM 7270v3 16608.en-de-fr (IPV6)"
@@ -1730,16 +1730,16 @@ choice
 		bool "AVM 7270v3 16561 (LabNAS)"
 
 	config TYPE_SRC3_AVM_PHONE_72XX
-		bool "AVM 72XX Prerelease, select one"
+		bool "AVM 72XX (PREVIEW), select one"
 
 	config TYPE_SRC3_AVM_PRE_7270_17091
-		bool "AVM 7270 17091 Prerelease"
+		bool "AVM 7270 17091 (PREVIEW)"
 
 	config TYPE_SRC3_AVM_PRE_72XX
-		bool "AVM 72XX Prerelease, select one"
+		bool "AVM 72XX (PREVIEW), select one"
 
 	config TYPE_SRC3_AVM_PRE_7273_17091
-		bool "AVM 7270v3 17091 Prerelease"
+		bool "AVM 7270v3 17091 (PREVIEW)"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7390 Firmware
@@ -2219,8 +2219,7 @@ config TYPE_LABOR_TYPE
 	default "76m" 		if TYPE_7270_m54_04_76
 	default "763V3" 	if TYPE_7273_74_04_76
 	default "CORE"	 	if TYPE_7270_CORE_V3_15220 || TYPE_7270_CORE_15220 || TYPE_7270_CORE_16540 || TYPE_7273_CORE_16540 || TYPE_7240_CORE_16540 || TYPE_7240_V3_CORE_16540
-	default "PREVIEW"	if TYPE_7170_PRE_16352
-	default "BETA"	 	if TYPE_7270_PRE_17091 || TYPE_7273_PRE_17091 || TYPE_7240_PRE_15892 || TYPE_72XX_PRE
+	default "PREVIEW"	if TYPE_7270_PRE_17091 || TYPE_7273_PRE_17091 || TYPE_7170_PRE_16352 || TYPE_7240_PRE_15892 || TYPE_72XX_PRE
 	default "13948" 	if TYPE_7170_13948
 	default "13486" 	if TYPE_7270_13486
 	default "NAS"		if TYPE_7270_NAS_16561 || TYPE_7273_NAS_16561
