@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+<HEAD>
+<TITLE>Menu</TITLE>
+<meta http-equiv="expires" content="0">
+<meta http-equiv="cache-control" content="no-cache">
+<SCRIPT type="text/javascript" src="/html/dom.js"></SCRIPT>
+<SCRIPT type="text/javascript" src="/html/js_menu.js"></SCRIPT>
+<SCRIPT type="text/javascript" src="/html/ajax.js"></SCRIPT>
+<SCRIPT type="text/javascript">
+<!--
+var mpkt = new Array(1,2,3,
+32,33,34,41,42,51,52,6);
+function m_high(high,nr){
+if (nr!=top.frames[0].m_akt){
+if (high==1){
+addClass(document.getElementById("but" + nr), 'highlight');
+}
+else{
+delClass(document.getElementById("but" + nr), 'highlight');
+}
+}
+}
+top.frames[0].dirty = true;
+
+function menupktFreetz(nr, url){
+var i;
+top.frames[0].m_akt=nr;
+for(i=0;i<top.frames[1].mpkt.length-1;i++){
+delClass(top.frames[1].document.getElementById('but'+top.frames[1].mpkt[i]), 'selected');
+}
+delClass(top.frames[1].document.getElementById('but'+nr), 'highlight');
+addClass(top.frames[1].document.getElementById('but'+nr), 'selected');
+//top.frames[2].location.href = '/cgi-bin/webcm?getpage=../html/'+url;
+href = '/cgi-bin/webcm?getpage=../html/'+url;
+target="_blank";
+}
+//-->
+</SCRIPT>
+<LINK rel="stylesheet" href="/html/style_menu.css" type="text/css">
+<STYLE type="text/css">
+#but1 {border-top-style: solid;}
+#but3 {
+height: 24px; line-height: 24px; padding-left: 13px;
+border-color: #000000; border-width: 1px; border-bottom-style: solid; cursor: pointer; font-weight: bold;
+}
+</STYLE>
+</HEAD>
+<BODY>
+<DIV id=frameMenu>
+<DIV id=prod></DIV>
+<DIV id=but1 class="selected" onclick="menupkt(1,'hcti_startseite.htm')" onmouseover="m_high(1,1)" onmouseout="m_high(0,1)">:: Startseite</DIV>
+<DIV class=titel>ASSISTENT</DIV>
+<DIV id=but2 onclick="assistent()" onmouseover="m_high(1,2)" onmouseout="m_high(0,2)">:: Schritt für Schritt</DIV>
+<DIV class=titel>KONFIGURATION</DIV>
+<DIV id=but32 onclick="menupkt(32,'hcti_sicherheit.htm')" onmouseover="m_high(1,32)" onmouseout="m_high(0,32)">:: Sicherheit</DIV>
+<DIV id=but33 onclick="menupkt(33,'hcti_netzwerk.htm')" onmouseover="m_high(1,33)" onmouseout="m_high(0,33)">:: Netzwerk</DIV>
+<DIV id=but34 onclick="menupkt(34,'hcti_telefon.htm')" onmouseover="m_high(1,34)" onmouseout="m_high(0,34)">:: Telefonie</DIV>
+<DIV class=titel>STATUS</DIV>
+<DIV id=but41 onclick="menupkt(41,'hcti_status_uebersicht.htm')" onmouseover="m_high(1,41)" onmouseout="m_high(0,41)">:: Übersicht</DIV>
+<DIV id=but42 onclick="menupkt(42,'hcti_status.htm')" onmouseover="m_high(1,42)" onmouseout="m_high(0,42)">:: Details</DIV>
+<DIV class=titel>VERWALTUNG</DIV>
+<DIV id=but51 onclick="menupkt(51,'hcti_hilfsmittel.htm')" onmouseover="m_high(1,51)" onmouseout="m_high(0,51)">:: Hilfsmittel</DIV>
+<DIV id=but52 onclick="menupkt(52,'hcti_laden.htm')" onmouseover="m_high(1,52)" onmouseout="m_high(0,52)">:: Laden &amp; Sichern</DIV>
+<DIV class=titel>ERWEITERUNG</DIV>
+<DIV id=but3 onclick="menupktFreetz(3,'../cgi-bin/freetz_status')" onmouseover="m_high(1,3)" onmouseout="m_high(0,3)">:: Freetz</DIV>
+<DIV id=but6 onclick="beenden()" onmouseover="m_high(1,6)" onmouseout="m_high(0,6)">:: Beenden</DIV>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,2744 @@
+diff -Naur patches/196-usbstorage.sh patches/196-usbstorage.sh
+--- patches/196-usbstorage.sh	2010-04-30 09:43:57.000000000 -0400
++++ patches/196-usbstorage.sh	2010-04-30 08:58:05.000000000 -0400
+@@ -8,7 +8,7 @@
+ 	modpatch "$FILESYSTEM_MOD_DIR" "${PATCHES_DIR}/cond/a-ch/usbstorage_7170_a_ch.patch"
+ elif isFreetzType 7170 && isFreetzType LANG_EN; then
+ 	modpatch "$FILESYSTEM_MOD_DIR" "${PATCHES_DIR}/cond/en/usbstorage_7170_en.patch"
+-elif isFreetzType 2170 3130 3131 3170 3270 3270_V3 5124 7140 7141 7150 7170 7240 7270 7270_V3 7390 7570 ; then
++elif isFreetzType 2170 3130 3131 3170 3270 3270_V3 5124 7140 7141 7150 7170 7240 7270 7270_V3 7390 722A 7570 ; then
+ 	modpatch "$FILESYSTEM_MOD_DIR" "${PATCHES_DIR}/cond/usbstorage_${FREETZ_TYPE_STRING}.patch"
+ else
+ 	error 1 "Missing usbstorage patch for $FREETZ_TYPE_STRING - $FREETZ_TYPE_LANG_STRING"
+diff -Naur patches/220-assistant.sh patches/220-assistant.sh
+--- patches/220-assistant.sh	2010-04-30 09:43:57.000000000 -0400
++++ patches/220-assistant.sh	2010-04-30 08:58:05.000000000 -0400
+@@ -18,7 +18,7 @@
+ 	xargs sed -s -i -e '/var:menuAssistent/d'
+ 
+ if [ -e "$HTML_DIR/home/sitemap.html" ]; then
+-	if isFreetzType 3270 3270_V3 7112 7141 7150 7170 7240 7270 7270_V3 7390 7570; then
++	if isFreetzType 3270 3270_V3 7112 7141 7150 7170 7240 7270 7270_V3 7390 722A 7570; then
+ 		modpatch "$FILESYSTEM_MOD_DIR" "${PATCHES_DIR}/cond/${FREETZ_TYPE_LANG_STRING}/remove_assistant_${FREETZ_TYPE_STRING}.patch"
+ 	elif isFreetzType 7140; then
+ 		if isFreetzType LANG_A_CH; then
+diff -Naur Config.in Config.in
+--- Config.in	2010-05-12 03:17:30.000000000 -0400
++++ Config.in	2010-05-12 03:22:34.000000000 -0400
+@@ -30,6 +33,8 @@
+ 	bool
+ config FREETZ_AVM_VERSION_7390_04_83
+ 	bool
++config FREETZ_AVM_VERSION_722A_04_76
++	bool
+ config FREETZ_AVM_VERSION_r7203
+ 	bool
+ 
+@@ -127,6 +132,12 @@
+ 		select FREETZ_BUILD_TOOLCHAIN
+ 		bool "Fon WLAN 7390"
+ 
++	config FREETZ_TYPE_SPEEDPORT_722A
++		select FREETZ_AVM_VERSION_722A_04_76
++		#TODO: download toolchain
++		select FREETZ_BUILD_TOOLCHAIN
++		bool "Speedport W722V Type A"
++
+ 	config FREETZ_TYPE_WLAN_3020
+ 		select FREETZ_AVM_VERSION_04_33
+ 		bool "WLAN 3020"
+@@ -171,7 +174,7 @@
+ 	depends on \
+ 		FREETZ_TYPE_FON_WLAN_7270
+ 	select FREETZ_AVMPLUGINS_ENABLED if FREETZ_TYPE_LANG_DE && ! FREETZ_TYPE_LABOR_NAS
+-	default n
++	default y
+ 	help
+ 		Enable this to build an image for boxes with 16 MB flash.
+ 
+@@ -341,6 +261,7 @@
+ 	default "3270_04.80"		if FREETZ_AVM_VERSION_3270_04_80
+ 	default "7270_04.80"		if FREETZ_AVM_VERSION_7270_04_80
+ 	default "7390_04.83"		if FREETZ_AVM_VERSION_7390_04_83
++	default "722A_04.76"		if FREETZ_AVM_VERSION_722A_04_76
+ 	default "r7203"			if FREETZ_AVM_VERSION_r7203
+ 
+ choice
+@@ -445,7 +366,8 @@
+ 	default "7270_v3_labor_phone"				if FREETZ_TYPE_FON_WLAN_7270_V3 && FREETZ_TYPE_LABOR_PHONE
+ 	default "7570"						if FREETZ_TYPE_FON_WLAN_7570
+ 	default "7390"						if FREETZ_TYPE_FON_WLAN_7390 && ! FREETZ_TYPE_LABOR
+-	default "7390_labor_beta"			if FREETZ_TYPE_FON_WLAN_7390 && FREETZ_TYPE_LABOR_BETA
++	default "7390_labor_beta"				if FREETZ_TYPE_FON_WLAN_7390 && FREETZ_TYPE_LABOR_BETA
++	default "722A"						if FREETZ_TYPE_SPEEDPORT_722A
+ 	default "W501V"						if FREETZ_TYPE_SPEEDPORT_W501V
+ 	default "custom"					if FREETZ_TYPE_CUSTOM
+ 
+@@ -507,7 +429,7 @@
+ 	depends on \
+ 		FREETZ_SHOW_ADVANCED && \
+ 		FREETZ_REPLACE_KERNEL_AVAILABLE
+-	select FREETZ_MODULE_fuse if (FREETZ_AVM_VERSION_3270_04_80 || FREETZ_AVM_VERSION_7270_04_80 || FREETZ_AVM_VERSION_7390_04_83 )
++	select FREETZ_MODULE_fuse if (FREETZ_AVM_VERSION_3270_04_80 || FREETZ_AVM_VERSION_7270_04_80 || FREETZ_AVM_VERSION_7390_04_83  || FREETZ_AVM_VERSION_722A_04_76 )
+ 	default n
+ 	help
+ 		Replace AVM kernel with self-built kernel.
+@@ -540,7 +462,8 @@
+ config FREETZ_TARGET_REF
+ 	string "Target ref"		if FREETZ_TYPE_CUSTOM
+ 	default "16mb_26"		if \
+-		FREETZ_TYPE_FON_WLAN_7390
++		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A
+ 	default "8mb_26"		if \
+ 		FREETZ_TYPE_FON_5124 || \
+ 		FREETZ_TYPE_FON_WLAN_7112 || \
+@@ -574,7 +497,8 @@
+ config FREETZ_KERNEL_REF
+ 	string "Kernel ref"		if FREETZ_TYPE_CUSTOM
+ 	default "16mb_26"		if \
+-		FREETZ_TYPE_FON_WLAN_7390
++		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A
+ 	default "8mb_26"		if \
+ 		FREETZ_TYPE_FON_5124 || \
+ 		FREETZ_TYPE_FON_WLAN_7112 || \
+@@ -638,7 +562,8 @@
+ 		FREETZ_TYPE_WLAN_3270 || \
+ 		FREETZ_TYPE_WLAN_3270_V3
+ 	default "iks"		if \
+-		FREETZ_TYPE_FON_WLAN_7390
++		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A
+ 
+ config FREETZ_KERNEL_MTD_SIZE
+ 	int "Kernel (64K blocks)"	if FREETZ_TYPE_CUSTOM
+@@ -674,8 +599,9 @@
+ 		FREETZ_TYPE_WLAN_3270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_16MB || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
++		FREETZ_TYPE_FON_WLAN_7570 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
+-		FREETZ_TYPE_FON_WLAN_7570
++		FREETZ_TYPE_SPEEDPORT_722A
+ 	help
+ 		Number of 64K blocks in the kernel mtd device.
+ 
+@@ -707,8 +633,9 @@
+ 		FREETZ_TYPE_FON_WLAN_7240 || \
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+-		FREETZ_TYPE_FON_WLAN_7390 || \
+ 		FREETZ_TYPE_FON_WLAN_7570 || \
++		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_CUSTOM
+ 	default n				if \
+ 		FREETZ_TYPE_2170 || \
+@@ -734,6 +661,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7570
+ 	default n				if \
+ 		FREETZ_TYPE_FON || \
+@@ -773,6 +701,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7570 || \
+ 		FREETZ_TYPE_CUSTOM
+ 	default n			if \
+@@ -812,6 +741,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7570 || \
+ 		FREETZ_TYPE_WLAN_3130 || \
+ 		FREETZ_TYPE_WLAN_3270 || \
+@@ -834,6 +764,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7570 || \
+ 		FREETZ_TYPE_WLAN_3130 || \
+ 		FREETZ_TYPE_WLAN_3131 || \
+@@ -868,6 +799,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7570
+ 	default n
+ 
+@@ -889,6 +821,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7570 || \
+ 		FREETZ_TYPE_WLAN_3131 || \
+ 		FREETZ_TYPE_WLAN_3130 || \
+@@ -1012,6 +945,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7570 \
+ 		) \
+ 		&& ! ((FREETZ_TYPE_SPEEDPORT_W701V_7170 || FREETZ_TYPE_SPEEDPORT_W900V_7170) && FREETZ_TYPE_LABOR_DSL)
+@@ -1204,6 +1138,7 @@
+ 			FREETZ_TYPE_FON_WLAN_7270 || \
+ 			FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 			FREETZ_TYPE_FON_WLAN_7390 || \
++			FREETZ_TYPE_SPEEDPORT_722A || \
+ 			FREETZ_TYPE_WLAN_3170 \
+ 		) && \
+ 		! FREETZ_TYPE_SPEEDPORT_W701V_7170
+@@ -1244,6 +1179,7 @@
+ 			FREETZ_TYPE_FON_WLAN_7270 || \
+ 			FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 			FREETZ_TYPE_FON_WLAN_7390 || \
++			FREETZ_TYPE_SPEEDPORT_722A || \
+ 			FREETZ_TYPE_WLAN_3170 \
+ 		)
+ 
+@@ -1269,6 +1205,7 @@
+ 		&& ! FREETZ_TYPE_FON_WLAN_7270 \
+ 		&& ! FREETZ_TYPE_FON_WLAN_7270_V3 \
+ 		&& ! FREETZ_TYPE_FON_WLAN_7390 \
++		&& ! FREETZ_TYPE_SPEEDPORT_722A \
+ 		&& ! FREETZ_TYPE_FON_WLAN_7570 \
+ 		&& ! FREETZ_TYPE_WLAN_3131 \
+ 		&& ! FREETZ_TYPE_WLAN_3170
+@@ -1312,6 +1249,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_WLAN_3020 || \
+ 		FREETZ_TYPE_WLAN_3030 || \
+ 		FREETZ_TYPE_WLAN_3130 || \
+@@ -1504,6 +1442,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7240 || \
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7390
+ 	default n
+ 	help
+@@ -1530,6 +1469,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7240 || \
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
+ 		FREETZ_TYPE_SPEEDPORT_W900V_7170
+ 	default n
+@@ -1588,6 +1528,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7240 || \
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7390
+ 	default y if FREETZ_TYPE_FON_WLAN_7270
+ 	default n
+@@ -1706,6 +1647,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7240 || \
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
+ 		FREETZ_TYPE_FON_WLAN_7570 || \
+ 		FREETZ_TYPE_WLAN_3020 || \
+@@ -1729,6 +1671,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7240 || \
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
++		FREETZ_TYPE_SPEEDPORT_722A || \
+ 		FREETZ_TYPE_FON_WLAN_7390 || \
+ 		FREETZ_TYPE_FON_WLAN_7570 || \
+ 		FREETZ_TYPE_WLAN_3270 || \
+@@ -1763,6 +1706,7 @@
+ 			&& ! FREETZ_TYPE_FON_WLAN_7240 \
+ 			&& ! FREETZ_TYPE_FON_WLAN_7270 \
+ 			&& ! FREETZ_TYPE_FON_WLAN_7270_V3 \
++			&& ! FREETZ_TYPE_SPEEDPORT_722A \
+ 			&& ! FREETZ_TYPE_FON_WLAN_7390 \
+ 			&& ! FREETZ_TYPE_WLAN_3131 \
+ 			&& ! FREETZ_TYPE_WLAN_3170 \
+@@ -1955,6 +1899,7 @@
+ 	default "@AVM/fritz.box/fritzbox.wlan_3270/x_misc/opensrc"			if	FREETZ_AVM_VERSION_3270_04_80
+ 	default "@AVM/fritz.box/fritzbox.fon_wlan_7270/x_misc/opensrc"			if	FREETZ_AVM_VERSION_7270_04_80
+ 	default "@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/opensrc"			if	FREETZ_AVM_VERSION_7390_04_83
++	default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W722V"	if	FREETZ_AVM_VERSION_722A_04_76
+ 	default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport_W501V"	if	FREETZ_AVM_VERSION_r7203
+ 
+ config FREETZ_DL_KERNEL_SOURCE
+@@ -1971,6 +1916,7 @@
+ 	default "fritz_box_wlan_3270_source _files .04.80.tar.gz" if	FREETZ_AVM_VERSION_3270_04_80
+ 	default "fritzbox7270-source-files-04.80.tar.gz"	if	FREETZ_AVM_VERSION_7270_04_80
+ 	default "fritz_box_fon_wlan_7390_source_files.04.83.tar.gz" if	FREETZ_AVM_VERSION_7390_04_83
++	default "GPL-Speedport_W722V.tar.gz"			if	FREETZ_AVM_VERSION_722A_04_76
+ 	default "GPL-r7203-4mb_26-tar.bz2"			if	FREETZ_AVM_VERSION_r7203
+ 
+ config FREETZ_DL_KERNEL_SOURCE_MD5
+@@ -1987,6 +1933,7 @@
+ 	default "a7e605a9f27bf514b232ec9976b9ff98"		if	FREETZ_AVM_VERSION_3270_04_80
+ 	default "bcd49b28a54293e1481b8170b07245e0"		if	FREETZ_AVM_VERSION_7270_04_80
+ 	default "052fb6b9fe418301ad178eb2a5e2e030"		if	FREETZ_AVM_VERSION_7390_04_83
++	default "ea392464f5f87ddcf713571c0959f81e"		if	FREETZ_AVM_VERSION_722A_04_76
+ 	default "582c74f0959a687c41c1bcfa599ace9c"		if	FREETZ_AVM_VERSION_r7203
+ 
+ config FREETZ_DL_SITE
+@@ -2065,6 +2012,7 @@
+ 	default "@AVM/fritz.box/fritzbox.wlan_3270/firmware/deutsch"		if	FREETZ_TYPE_WLAN_3270
+ 	default "@AVM/fritz.box/fritzbox.wlan_3270_v3/firmware/deutsch"		if	FREETZ_TYPE_WLAN_3270_V3
+ 	default "http://www.t-home.de/dlp/eki/downloads/Speedport/Speedport_W501V" if	FREETZ_TYPE_SPEEDPORT_W501V
++	default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W722V" if	FREETZ_TYPE_SPEEDPORT_722A
+ 	default "@AVM/fritz.box/..."						if	FREETZ_TYPE_CUSTOM
+ 
+ config FREETZ_DL_SOURCE
+@@ -2168,6 +2116,7 @@
+ 	default "fritz.box_wlan_3270.67.04.80.image"				if	FREETZ_TYPE_WLAN_3270
+ 	default "fritz.box_wlan_3270_v3.96.04.80.image"				if	FREETZ_TYPE_WLAN_3270_V3
+ 	default "fw_Speedport_W501V_v_28.04.38.image"				if	FREETZ_TYPE_SPEEDPORT_W501V
++	default "Speedport_W_722A_V_80.04.76.image"				if	FREETZ_TYPE_SPEEDPORT_722A
+ 	default "fritz.box..."							if	FREETZ_TYPE_CUSTOM
+ 
+ config FREETZ_DL_SOURCE_MD5
+@@ -2224,6 +2173,7 @@
+ 	default "f08942a9679002e21c29bb2cad9ded3e"	if	FREETZ_TYPE_WLAN_3170
+ 	default "b9818513ab538557433719cb86d30e52"	if	FREETZ_TYPE_WLAN_3270
+ 	default "3ab60995ed7d843e8847d53a54170f55"	if	FREETZ_TYPE_WLAN_3270_V3
++	default "9263e2cdebf6770b36dbdf0497e53c3e"	if	FREETZ_TYPE_SPEEDPORT_722A
+ 	default "f64d17124ba354427a1710d12b35e00f"	if	FREETZ_TYPE_SPEEDPORT_W501V
+ 
+ config FREETZ_DL_SITE2
+@@ -2474,7 +2424,7 @@
+ 
+ config FREETZ_SUBVERSION_STRING
+ 	bool "Add Freetz version to subversion string"
+-	default y if ! FREETZ_TYPE_FON_WLAN_7270
++	default n if ! FREETZ_TYPE_FON_WLAN_7270
+ 	default n
+ 	help
+ 		Add Freetz version to subversion string, e.g. -11945-freetz-devel-2417.
+@@ -2885,13 +2835,13 @@
+ 
+ choice
+ 	prompt "Toolchains"
+-	default FREETZ_DOWNLOAD_TOOLCHAIN if ! (FREETZ_TARGET_IPV6_SUPPORT || FREETZ_TYPE_FON_WLAN_7390)
+-	default FREETZ_BUILD_TOOLCHAIN if (FREETZ_TARGET_IPV6_SUPPORT || FREETZ_TYPE_FON_WLAN_7390)
++	default FREETZ_DOWNLOAD_TOOLCHAIN if ! (FREETZ_TARGET_IPV6_SUPPORT || FREETZ_TYPE_FON_WLAN_7390 || FREETZ_TYPE_SPEEDPORT_722A)
++	default FREETZ_BUILD_TOOLCHAIN if (FREETZ_TARGET_IPV6_SUPPORT || FREETZ_TYPE_FON_WLAN_7390 || FREETZ_TYPE_SPEEDPORT_722A)
+ 	help
+ 		Download Toolchain, build toolchain
+ 
+ 	config FREETZ_DOWNLOAD_TOOLCHAIN
+-		bool "Download and use precompiled toolchain" if ! (FREETZ_TARGET_IPV6_SUPPORT || FREETZ_TYPE_FON_WLAN_7390)
++		bool "Download and use precompiled toolchain" if ! (FREETZ_TARGET_IPV6_SUPPORT || FREETZ_TYPE_FON_WLAN_7390 || FREETZ_TYPE_SPEEDPORT_722A)
+ 
+ 	config FREETZ_BUILD_TOOLCHAIN
+ 		bool "Build toolchain (requires 4GB diskspace)"
+@@ -2934,7 +2884,8 @@
+ 	bool
+ 	default y
+ 	depends on \
+-		FREETZ_TYPE_FON_WLAN_7390
++		FREETZ_TYPE_FON_WLAN_7390 || \
++		FREETZ_TYPE_SPEEDPORT_722A
+ 
+ config FREETZ_TARGET_ARCH
+ 	string
+diff -Naur toolchain/Config.in toolchain/Config.in
+--- toolchain/Config.in	2010-05-02 11:12:42.000000000 -0400
++++ toolchain/Config.in	2010-05-02 11:11:08.000000000 -0400
+@@ -7,6 +7,7 @@
+ 			FREETZ_TYPE_FON_WLAN_7270 || \
+ 			FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 			FREETZ_TYPE_FON_WLAN_7570  || \
++			FREETZ_TYPE_SPEEDPORT_722A  || \
+ 			FREETZ_TYPE_FON_WLAN_7390 \
+ 			)
+ 	default n
+@@ -41,6 +42,7 @@
+ 		FREETZ_TYPE_FON_WLAN_7270 || \
+ 		FREETZ_TYPE_FON_WLAN_7270_V3 || \
+ 		FREETZ_TYPE_FON_WLAN_7570 || \
++		FREETZ_TYPE_SPEEDPORT_722A  || \
+ 		FREETZ_TYPE_FON_WLAN_7390
+ 	default n
+ config FREETZ_TARGET_UCLIBC_VERSION_0_9_30
+diff -Naur make/Config.iks-16mb_26.722A_04.76 make/Config.iks-16mb_26.722A_04.76
+--- make/linux/Config.iks-16mb_26.722A_04.76	1969-12-31 19:00:00.000000000 -0500
++++ make/linux/Config.iks-16mb_26.722A_04.76	2010-05-03 09:45:28.000000000 -0400
+@@ -0,0 +1,1745 @@
++#
++# Automatically generated make config: don't edit
++# Linux kernel version: 2.6.19.2
++# Sun Apr 25 00:41:39 2010
++#
++CONFIG_MIPS=y
++
++#
++# Machine selection
++#
++# CONFIG_MIPS_MTX1 is not set
++# CONFIG_MIPS_BOSPORUS is not set
++# CONFIG_MIPS_PB1000 is not set
++# CONFIG_MIPS_PB1100 is not set
++# CONFIG_MIPS_PB1500 is not set
++# CONFIG_MIPS_PB1550 is not set
++# CONFIG_MIPS_PB1200 is not set
++# CONFIG_MIPS_DB1000 is not set
++# CONFIG_MIPS_DB1100 is not set
++# CONFIG_MIPS_DB1500 is not set
++# CONFIG_MIPS_DB1550 is not set
++# CONFIG_MIPS_DB1200 is not set
++# CONFIG_MIPS_MIRAGE is not set
++# CONFIG_BASLER_EXCITE is not set
++# CONFIG_MIPS_COBALT is not set
++# CONFIG_MACH_ADI_FUSIV is not set
++CONFIG_MACH_IKAN_MIPS=y
++# CONFIG_MACH_DECSTATION is not set
++# CONFIG_MIPS_EV64120 is not set
++# CONFIG_MACH_JAZZ is not set
++# CONFIG_LASAT is not set
++# CONFIG_MIPS_ATLAS is not set
++# CONFIG_MIPS_MALTA is not set
++# CONFIG_MIPS_SEAD is not set
++# CONFIG_MIPS_OHIO is not set
++# CONFIG_MIPS_AR7 is not set
++# CONFIG_MIPS_UR8 is not set
++# CONFIG_WR_PPMC is not set
++# CONFIG_MIPS_SIM is not set
++# CONFIG_MOMENCO_JAGUAR_ATX is not set
++# CONFIG_MOMENCO_OCELOT is not set
++# CONFIG_MOMENCO_OCELOT_3 is not set
++# CONFIG_MOMENCO_OCELOT_C is not set
++# CONFIG_MOMENCO_OCELOT_G is not set
++# CONFIG_MIPS_XXS1500 is not set
++# CONFIG_PNX8550_V2PCI is not set
++# CONFIG_PNX8550_JBS is not set
++# CONFIG_DDB5477 is not set
++# CONFIG_MACH_VR41XX is not set
++# CONFIG_PMC_YOSEMITE is not set
++# CONFIG_QEMU is not set
++# CONFIG_MARKEINS is not set
++# CONFIG_SGI_IP22 is not set
++# CONFIG_SGI_IP27 is not set
++# CONFIG_SGI_IP32 is not set
++# CONFIG_SIBYTE_BIGSUR is not set
++# CONFIG_SIBYTE_SWARM is not set
++# CONFIG_SIBYTE_SENTOSA is not set
++# CONFIG_SIBYTE_RHONE is not set
++# CONFIG_SIBYTE_CARMEL is not set
++# CONFIG_SIBYTE_PTSWARM is not set
++# CONFIG_SIBYTE_LITTLESUR is not set
++# CONFIG_SIBYTE_CRHINE is not set
++# CONFIG_SIBYTE_CRHONE is not set
++# CONFIG_SNI_RM200_PCI is not set
++# CONFIG_TOSHIBA_JMR3927 is not set
++# CONFIG_TOSHIBA_RBTX4927 is not set
++# CONFIG_TOSHIBA_RBTX4938 is not set
++CONFIG_MIPS_FUSIV=y
++
++#
++# *** AVM Board PCI Configuration ***
++#
++CONFIG_AVM_PCI_INT_A=y
++# CONFIG_AVM_PCI_INT_B is not set
++# CONFIG_AVM_PCI_INT_C is not set
++CONFIG_AVM_PCI_REQ_AND_GNT_0=y
++# CONFIG_AVM_PCI_REQ_AND_GNT_1 is not set
++# CONFIG_AVM_PCI_REQ_AND_GNT_2 is not set
++CONFIG_AVM_PCI_DEV1_SLOT=14
++CONFIG_AVM_PCI_DEV1_INT=0
++# CONFIG_FUSIV_VX200 is not set
++# CONFIG_FUSIV_VX160 is not set
++# CONFIG_FUSIV_AT300 is not set
++CONFIG_FUSIV_VX180=y
++CONFIG_RWSEM_GENERIC_SPINLOCK=y
++CONFIG_GENERIC_FIND_NEXT_BIT=y
++CONFIG_GENERIC_HWEIGHT=y
++CONFIG_GENERIC_CALIBRATE_DELAY=y
++CONFIG_GENERIC_TIME=y
++CONFIG_SCHED_NO_NO_OMIT_FRAME_POINTER=y
++CONFIG_DMA_NONCOHERENT=y
++CONFIG_DMA_NEED_PCI_MAP_STATE=y
++CONFIG_CPU_BIG_ENDIAN=y
++# CONFIG_CPU_LITTLE_ENDIAN is not set
++CONFIG_SYS_SUPPORTS_BIG_ENDIAN=y
++CONFIG_IRQ_CPU=y
++CONFIG_BOOT_ELF32=y
++CONFIG_MIPS_L1_CACHE_SHIFT=5
++
++#
++# CPU selection
++#
++# CONFIG_CPU_MIPS32_R1 is not set
++CONFIG_CPU_MIPS32_R2=y
++# CONFIG_CPU_MIPS64_R1 is not set
++# CONFIG_CPU_MIPS64_R2 is not set
++# CONFIG_CPU_R3000 is not set
++# CONFIG_CPU_TX39XX is not set
++# CONFIG_CPU_VR41XX is not set
++# CONFIG_CPU_R4300 is not set
++# CONFIG_CPU_R4X00 is not set
++# CONFIG_CPU_TX49XX is not set
++# CONFIG_CPU_R5000 is not set
++# CONFIG_CPU_R5432 is not set
++# CONFIG_CPU_R6000 is not set
++# CONFIG_CPU_NEVADA is not set
++# CONFIG_CPU_R8000 is not set
++# CONFIG_CPU_R10000 is not set
++# CONFIG_CPU_RM7000 is not set
++# CONFIG_CPU_RM9000 is not set
++# CONFIG_CPU_SB1 is not set
++CONFIG_SYS_HAS_CPU_MIPS32_R1=y
++CONFIG_SYS_HAS_CPU_MIPS32_R2=y
++CONFIG_CPU_MIPS32=y
++CONFIG_CPU_MIPSR2=y
++CONFIG_SYS_SUPPORTS_32BIT_KERNEL=y
++CONFIG_CPU_SUPPORTS_32BIT_KERNEL=y
++
++#
++# Kernel type
++#
++CONFIG_32BIT=y
++# CONFIG_64BIT is not set
++CONFIG_PAGE_SIZE_4KB=y
++# CONFIG_PAGE_SIZE_8KB is not set
++# CONFIG_PAGE_SIZE_16KB is not set
++# CONFIG_PAGE_SIZE_64KB is not set
++CONFIG_CPU_HAS_PREFETCH=y
++CONFIG_MIPS_MT_DISABLED=y
++# CONFIG_MIPS_MT_SMP is not set
++# CONFIG_MIPS_MT_SMTC is not set
++# CONFIG_MIPS_VPE_LOADER is not set
++# CONFIG_64BIT_PHYS_ADDR is not set
++CONFIG_CPU_HAS_LLSC=y
++CONFIG_CPU_HAS_SYNC=y
++CONFIG_GENERIC_HARDIRQS=y
++CONFIG_GENERIC_IRQ_PROBE=y
++CONFIG_CPU_SUPPORTS_HIGHMEM=y
++CONFIG_ARCH_FLATMEM_ENABLE=y
++CONFIG_SELECT_MEMORY_MODEL=y
++CONFIG_FLATMEM_MANUAL=y
++# CONFIG_DISCONTIGMEM_MANUAL is not set
++# CONFIG_SPARSEMEM_MANUAL is not set
++CONFIG_FLATMEM=y
++CONFIG_FLAT_NODE_MEM_MAP=y
++# CONFIG_SPARSEMEM_STATIC is not set
++CONFIG_SPLIT_PTLOCK_CPUS=4
++# CONFIG_RESOURCES_64BIT is not set
++# CONFIG_HZ_48 is not set
++# CONFIG_HZ_100 is not set
++# CONFIG_HZ_128 is not set
++CONFIG_HZ_250=y
++# CONFIG_HZ_256 is not set
++# CONFIG_HZ_1000 is not set
++# CONFIG_HZ_1024 is not set
++CONFIG_SYS_SUPPORTS_ARBIT_HZ=y
++CONFIG_HZ=250
++CONFIG_PREEMPT_NONE=y
++# CONFIG_PREEMPT_VOLUNTARY is not set
++# CONFIG_PREEMPT is not set
++CONFIG_LOCKDEP_SUPPORT=y
++CONFIG_STACKTRACE_SUPPORT=y
++CONFIG_DEFCONFIG_LIST="/lib/modules/$UNAME_RELEASE/.config"
++
++#
++# Code maturity level options
++#
++CONFIG_EXPERIMENTAL=y
++CONFIG_BROKEN_ON_SMP=y
++CONFIG_INIT_ENV_ARG_LIMIT=32
++
++#
++# General setup
++#
++CONFIG_LOCALVERSION=""
++CONFIG_LOCALVERSION_AUTO=y
++CONFIG_SWAP=y
++CONFIG_SYSVIPC=y
++# CONFIG_IPC_NS is not set
++# CONFIG_POSIX_MQUEUE is not set
++CONFIG_BSD_PROCESS_ACCT=y
++# CONFIG_BSD_PROCESS_ACCT_V3 is not set
++# CONFIG_TASKSTATS is not set
++# CONFIG_UTS_NS is not set
++# CONFIG_AUDIT is not set
++# CONFIG_IKCONFIG is not set
++# CONFIG_RELAY is not set
++CONFIG_INITRAMFS_SOURCE=""
++CONFIG_CC_OPTIMIZE_FOR_SIZE=y
++CONFIG_SYSCTL=y
++CONFIG_EMBEDDED=y
++# CONFIG_SYSCTL_SYSCALL is not set
++CONFIG_KALLSYMS=y
++# CONFIG_KALLSYMS_ALL is not set
++# CONFIG_KALLSYMS_EXTRA_PASS is not set
++CONFIG_HOTPLUG=y
++CONFIG_PRINTK=y
++CONFIG_BUG=y
++CONFIG_ELF_CORE=y
++CONFIG_BASE_FULL=y
++CONFIG_FUTEX=y
++CONFIG_EPOLL=y
++CONFIG_SHMEM=y
++CONFIG_SLAB=y
++CONFIG_VM_EVENT_COUNTERS=y
++CONFIG_RT_MUTEXES=y
++# CONFIG_TINY_SHMEM is not set
++CONFIG_BASE_SMALL=0
++# CONFIG_SLOB is not set
++
++#
++# Loadable module support
++#
++CONFIG_MODULES=y
++CONFIG_MODULE_UNLOAD=y
++# CONFIG_MODULE_FORCE_UNLOAD is not set
++# CONFIG_MODVERSIONS is not set
++# CONFIG_MODULE_SRCVERSION_ALL is not set
++# CONFIG_KMOD is not set
++
++#
++# Block layer
++#
++CONFIG_BLOCK=y
++# CONFIG_LBD is not set
++# CONFIG_BLK_DEV_IO_TRACE is not set
++# CONFIG_LSF is not set
++
++#
++# IO Schedulers
++#
++CONFIG_IOSCHED_NOOP=y
++# CONFIG_IOSCHED_AS is not set
++# CONFIG_IOSCHED_DEADLINE is not set
++# CONFIG_IOSCHED_CFQ is not set
++# CONFIG_DEFAULT_AS is not set
++# CONFIG_DEFAULT_DEADLINE is not set
++# CONFIG_DEFAULT_CFQ is not set
++CONFIG_DEFAULT_NOOP=y
++CONFIG_DEFAULT_IOSCHED="noop"
++CONFIG_XVMALLOC=m
++CONFIG_RAMZSWAP=m
++
++#
++# Bus options (PCI, PCMCIA, EISA, ISA, TC)
++#
++CONFIG_HW_HAS_PCI=y
++CONFIG_PCI=y
++# CONFIG_PCI_MULTITHREAD_PROBE is not set
++# CONFIG_PCI_DEBUG is not set
++CONFIG_MMU=y
++
++#
++# PCCARD (PCMCIA/CardBus) support
++#
++# CONFIG_PCCARD is not set
++
++#
++# PCI Hotplug Support
++#
++# CONFIG_HOTPLUG_PCI is not set
++
++#
++# Executable file formats
++#
++CONFIG_BINFMT_ELF=y
++# CONFIG_BINFMT_MISC is not set
++CONFIG_TRAD_SIGNALS=y
++
++#
++# Networking
++#
++CONFIG_NET=y
++
++#
++# Networking options
++#
++# CONFIG_NETDEBUG is not set
++CONFIG_PACKET=y
++CONFIG_PACKET_MMAP=y
++CONFIG_UNIX=y
++# CONFIG_NET_KEY is not set
++CONFIG_INET=y
++CONFIG_IP_MULTICAST=y
++# CONFIG_IP_ADVANCED_ROUTER is not set
++CONFIG_IP_FIB_HASH=y
++CONFIG_IP_PNP=y
++CONFIG_IP_PNP_DHCP=y
++CONFIG_IP_PNP_BOOTP=y
++CONFIG_IP_PNP_RARP=y
++# CONFIG_NET_IPIP is not set
++# CONFIG_NET_IPGRE is not set
++CONFIG_IP_MROUTE=y
++CONFIG_IP_PIMSM_V1=y
++CONFIG_IP_PIMSM_V2=y
++# CONFIG_ARPD is not set
++# CONFIG_SYN_COOKIES is not set
++# CONFIG_INET_AH is not set
++# CONFIG_INET_ESP is not set
++# CONFIG_INET_IPCOMP is not set
++# CONFIG_INET_XFRM_TUNNEL is not set
++# CONFIG_INET_TUNNEL is not set
++# CONFIG_INET_XFRM_MODE_TRANSPORT is not set
++# CONFIG_INET_XFRM_MODE_TUNNEL is not set
++# CONFIG_INET_XFRM_MODE_BEET is not set
++# CONFIG_INET_DIAG is not set
++# CONFIG_TCP_CONG_ADVANCED is not set
++CONFIG_TCP_CONG_CUBIC=y
++CONFIG_DEFAULT_TCP_CONG="cubic"
++
++#
++# IP: Virtual Server Configuration
++#
++# CONFIG_IP_VS is not set
++CONFIG_IP_MULTICAST_FASTFORWARD=y
++CONFIG_IPV6=m
++CONFIG_IPV6_PRIVACY=y
++# CONFIG_IPV6_ROUTER_PREF is not set
++# CONFIG_INET6_AH is not set
++# CONFIG_INET6_ESP is not set
++# CONFIG_INET6_IPCOMP is not set
++# CONFIG_IPV6_MIP6 is not set
++# CONFIG_INET6_XFRM_TUNNEL is not set
++# CONFIG_INET6_TUNNEL is not set
++# CONFIG_INET6_XFRM_MODE_TRANSPORT is not set
++# CONFIG_INET6_XFRM_MODE_TUNNEL is not set
++# CONFIG_INET6_XFRM_MODE_BEET is not set
++# CONFIG_INET6_XFRM_MODE_ROUTEOPTIMIZATION is not set
++# CONFIG_IPV6_SIT is not set
++# CONFIG_IPV6_TUNNEL is not set
++# CONFIG_IPV6_MULTIPLE_TABLES is not set
++# CONFIG_NETWORK_SECMARK is not set
++CONFIG_NETFILTER=y
++# CONFIG_NETFILTER_DEBUG is not set
++CONFIG_BRIDGE_NETFILTER=y
++
++#
++# Core Netfilter Configuration
++#
++# CONFIG_NETFILTER_NETLINK is not set
++CONFIG_NETFILTER_XTABLES=y
++# CONFIG_NETFILTER_XT_TARGET_CLASSIFY is not set
++# CONFIG_NETFILTER_XT_TARGET_DSCP is not set
++CONFIG_NETFILTER_XT_TARGET_MARK=y
++CONFIG_NETFILTER_XT_TARGET_NFQUEUE=m
++CONFIG_NETFILTER_XT_TARGET_NOTRACK=m
++CONFIG_NETFILTER_XT_MATCH_COMMENT=m
++# CONFIG_NETFILTER_XT_MATCH_CONNBYTES is not set
++CONFIG_NETFILTER_XT_MATCH_CONNTRACK=y
++# CONFIG_NETFILTER_XT_MATCH_DCCP is not set
++# CONFIG_NETFILTER_XT_MATCH_DSCP is not set
++CONFIG_NETFILTER_XT_MATCH_ESP=m
++CONFIG_NETFILTER_XT_MATCH_HELPER=m
++CONFIG_NETFILTER_XT_MATCH_LENGTH=m
++CONFIG_NETFILTER_XT_MATCH_LIMIT=y
++CONFIG_NETFILTER_XT_MATCH_MAC=y
++CONFIG_NETFILTER_XT_MATCH_MARK=m
++CONFIG_NETFILTER_XT_MATCH_MULTIPORT=y
++# CONFIG_NETFILTER_XT_MATCH_PHYSDEV is not set
++CONFIG_NETFILTER_XT_MATCH_PKTTYPE=m
++CONFIG_NETFILTER_XT_MATCH_QUOTA=m
++CONFIG_NETFILTER_XT_MATCH_REALM=m
++# CONFIG_NETFILTER_XT_MATCH_SCTP is not set
++CONFIG_NETFILTER_XT_MATCH_STATE=y
++# CONFIG_NETFILTER_XT_MATCH_STATISTIC is not set
++# CONFIG_NETFILTER_XT_MATCH_STRING is not set
++CONFIG_NETFILTER_XT_MATCH_TCPMSS=y
++
++#
++# IP: Netfilter Configuration
++#
++CONFIG_IP_NF_CONNTRACK=y
++CONFIG_IP_NF_CT_ACCT=y
++# CONFIG_IP_NF_CONNTRACK_MARK is not set
++# CONFIG_IP_NF_CONNTRACK_EVENTS is not set
++# CONFIG_IP_NF_CT_PROTO_SCTP is not set
++CONFIG_IP_NF_FTP=y
++CONFIG_IP_NF_IRC=m
++# CONFIG_IP_NF_NETBIOS_NS is not set
++CONFIG_IP_NF_TFTP=m
++# CONFIG_IP_NF_AMANDA is not set
++CONFIG_IP_NF_PPTP=m
++CONFIG_IP_NF_H323=m
++CONFIG_IP_NF_SIP=m
++CONFIG_IP_NF_QUEUE=y
++CONFIG_IP_NF_IPTABLES=y
++CONFIG_IP_NF_MATCH_IPRANGE=y
++CONFIG_IP_NF_MATCH_IPP2P=m
++CONFIG_IP_NF_MATCH_LAYER7=m
++# CONFIG_IP_NF_MATCH_LAYER7_DEBUG is not set
++CONFIG_IP_NF_MATCH_TOS=m
++# CONFIG_IP_NF_MATCH_RECENT is not set
++# CONFIG_IP_NF_MATCH_ECN is not set
++CONFIG_IP_NF_MATCH_AH=m
++CONFIG_IP_NF_MATCH_TTL=m
++CONFIG_IP_NF_MATCH_OWNER=y
++# CONFIG_IP_NF_MATCH_ADDRTYPE is not set
++# CONFIG_IP_NF_MATCH_HASHLIMIT is not set
++# CONFIG_IP_NF_MATCH_STEALTH is not set
++CONFIG_IP_NF_FILTER=y
++CONFIG_IP_NF_TARGET_REJECT=y
++CONFIG_IP_NF_TARGET_LOG=y
++# CONFIG_IP_NF_TARGET_ULOG is not set
++CONFIG_IP_NF_TARGET_TCPMSS=y
++CONFIG_IP_NF_NAT=y
++CONFIG_IP_NF_NAT_NEEDED=y
++CONFIG_IP_NF_TARGET_MASQUERADE=y
++CONFIG_IP_NF_TARGET_REDIRECT=y
++CONFIG_IP_NF_TARGET_NETMAP=y
++CONFIG_IP_NF_TARGET_SAME=y
++# CONFIG_IP_NF_TARGET_IDLETIMER is not set
++CONFIG_IP_NF_NAT_SNMP_BASIC=m
++CONFIG_IP_NF_NAT_IRC=m
++CONFIG_IP_NF_NAT_FTP=y
++CONFIG_IP_NF_NAT_TFTP=m
++CONFIG_IP_NF_NAT_PPTP=m
++CONFIG_IP_NF_NAT_H323=m
++CONFIG_IP_NF_NAT_SIP=m
++CONFIG_IP_NF_MANGLE=y
++CONFIG_IP_NF_TARGET_TOS=m
++# CONFIG_IP_NF_TARGET_ECN is not set
++# CONFIG_IP_NF_TARGET_TTL is not set
++# CONFIG_IP_NF_TARGET_TRIGGER is not set
++CONFIG_IP_NF_RAW=m
++CONFIG_IP_NF_ARPTABLES=m
++# CONFIG_IP_NF_ARPFILTER is not set
++# CONFIG_IP_NF_ARP_MANGLE is not set
++# CONFIG_IP_NF_RTSP is not set
++
++#
++# IPv6: Netfilter Configuration (EXPERIMENTAL)
++#
++# CONFIG_IP6_NF_QUEUE is not set
++CONFIG_IP6_NF_IPTABLES=m
++CONFIG_IP6_NF_MATCH_RT=m
++CONFIG_IP6_NF_MATCH_OPTS=m
++CONFIG_IP6_NF_MATCH_FRAG=m
++CONFIG_IP6_NF_MATCH_HL=m
++CONFIG_IP6_NF_MATCH_OWNER=m
++CONFIG_IP6_NF_MATCH_IPV6HEADER=m
++CONFIG_IP6_NF_MATCH_AH=m
++CONFIG_IP6_NF_MATCH_EUI64=m
++CONFIG_IP6_NF_FILTER=m
++CONFIG_IP6_NF_TARGET_LOG=m
++CONFIG_IP6_NF_TARGET_REJECT=m
++CONFIG_IP6_NF_MANGLE=m
++CONFIG_IP6_NF_TARGET_HL=m
++CONFIG_IP6_NF_RAW=m
++
++#
++# Bridge: Netfilter Configuration
++#
++CONFIG_BRIDGE_NF_EBTABLES=y
++CONFIG_BRIDGE_EBT_BROUTE=m
++CONFIG_BRIDGE_EBT_T_FILTER=m
++CONFIG_BRIDGE_EBT_T_NAT=m
++CONFIG_BRIDGE_EBT_802_3=m
++CONFIG_BRIDGE_EBT_AMONG=m
++CONFIG_BRIDGE_EBT_ARP=m
++CONFIG_BRIDGE_EBT_IP=m
++CONFIG_BRIDGE_EBT_LIMIT=m
++CONFIG_BRIDGE_EBT_MARK=m
++CONFIG_BRIDGE_EBT_PKTTYPE=m
++CONFIG_BRIDGE_EBT_STP=m
++CONFIG_BRIDGE_EBT_VLAN=m
++CONFIG_BRIDGE_EBT_ARPREPLY=m
++CONFIG_BRIDGE_EBT_DNAT=m
++CONFIG_BRIDGE_EBT_MARK_T=m
++CONFIG_BRIDGE_EBT_REDIRECT=m
++CONFIG_BRIDGE_EBT_SNAT=m
++# CONFIG_BRIDGE_EBT_LOG is not set
++# CONFIG_BRIDGE_EBT_ULOG is not set
++
++#
++# DCCP Configuration (EXPERIMENTAL)
++#
++# CONFIG_IP_DCCP is not set
++
++#
++# SCTP Configuration (EXPERIMENTAL)
++#
++# CONFIG_IP_SCTP is not set
++
++#
++# TIPC Configuration (EXPERIMENTAL)
++#
++# CONFIG_TIPC is not set
++CONFIG_ATM=y
++CONFIG_ATM_CLIP=y
++# CONFIG_ATM_CLIP_NO_ICMP is not set
++# CONFIG_ATM_LANE is not set
++CONFIG_ATM_BR2684=y
++CONFIG_ATM_BR2684_IPFILTER=y
++CONFIG_BRIDGE=y
++CONFIG_VLAN_8021Q=y
++# CONFIG_DECNET is not set
++CONFIG_LLC=y
++# CONFIG_LLC2 is not set
++# CONFIG_IPX is not set
++# CONFIG_ATALK is not set
++# CONFIG_X25 is not set
++# CONFIG_LAPB is not set
++# CONFIG_ECONET is not set
++# CONFIG_WAN_ROUTER is not set
++
++#
++# QoS and/or fair queueing
++#
++CONFIG_NET_SCHED=y
++# CONFIG_NET_SCH_CLK_JIFFIES is not set
++# CONFIG_NET_SCH_CLK_GETTIMEOFDAY is not set
++# CONFIG_NET_SCH_CLK_CPU is not set
++CONFIG_NET_SCH_CLK_HIGHRESTIMER=y
++
++#
++# Queueing/Scheduling
++#
++CONFIG_NET_SCH_CBQ=m
++CONFIG_NET_SCH_HTB=m
++CONFIG_NET_SCH_HFSC=m
++CONFIG_NET_SCH_ATM=m
++CONFIG_NET_SCH_PRIO=m
++CONFIG_NET_SCH_RED=m
++CONFIG_NET_SCH_SFQ=m
++# CONFIG_NET_SCH_TEQL is not set
++CONFIG_NET_SCH_TBF=m
++# CONFIG_NET_SCH_GRED is not set
++# CONFIG_NET_SCH_DSMARK is not set
++# CONFIG_NET_SCH_NETEM is not set
++CONFIG_NET_SCH_LLQ=m
++# CONFIG_NET_SCH_INGRESS is not set
++
++#
++# Classification
++#
++CONFIG_NET_CLS=y
++CONFIG_NET_CLS_BASIC=m
++CONFIG_NET_CLS_TCINDEX=m
++CONFIG_NET_CLS_ROUTE4=y
++CONFIG_NET_CLS_ROUTE=y
++# CONFIG_NET_CLS_FW is not set
++CONFIG_NET_CLS_U32=m
++# CONFIG_CLS_U32_PERF is not set
++# CONFIG_CLS_U32_MARK is not set
++# CONFIG_NET_CLS_RSVP is not set
++# CONFIG_NET_CLS_RSVP6 is not set
++# CONFIG_NET_EMATCH is not set
++# CONFIG_NET_CLS_ACT is not set
++# CONFIG_NET_CLS_POLICE is not set
++# CONFIG_NET_CLS_IND is not set
++CONFIG_NET_ESTIMATOR=y
++
++#
++# Network testing
++#
++# CONFIG_NET_PKTGEN is not set
++# CONFIG_HAMRADIO is not set
++# CONFIG_IRDA is not set
++CONFIG_BT=m
++CONFIG_BT_L2CAP=m
++# CONFIG_BT_SCO is not set
++CONFIG_BT_RFCOMM=m
++CONFIG_BT_RFCOMM_TTY=y
++CONFIG_BT_BNEP=m
++CONFIG_BT_BNEP_MC_FILTER=y
++CONFIG_BT_BNEP_PROTO_FILTER=y
++# CONFIG_BT_CMTP is not set
++
++#
++# Bluetooth device drivers
++#
++CONFIG_BT_HCIUSB=m
++CONFIG_BT_HCIUSB_SCO=y
++# CONFIG_BT_HCIUART is not set
++# CONFIG_BT_HCIBCM203X is not set
++# CONFIG_BT_HCIBPA10X is not set
++CONFIG_BT_HCIBFUSB=m
++# CONFIG_BT_HCIVHCI is not set
++# CONFIG_IEEE80211 is not set
++CONFIG_WIRELESS_EXT=y
++
++#
++# Device Drivers
++#
++
++#
++# Generic Driver Options
++#
++CONFIG_STANDALONE=y
++CONFIG_PREVENT_FIRMWARE_BUILD=y
++CONFIG_FW_LOADER=m
++# CONFIG_DEBUG_DRIVER is not set
++# CONFIG_SYS_HYPERVISOR is not set
++
++#
++# Connector - unified userspace <-> kernelspace linker
++#
++# CONFIG_CONNECTOR is not set
++
++#
++# Memory Technology Devices (MTD)
++#
++CONFIG_MTD=y
++# CONFIG_MTD_DEBUG is not set
++# CONFIG_MTD_CONCAT is not set
++CONFIG_MTD_PARTITIONS=y
++# CONFIG_MTD_REDBOOT_PARTS is not set
++CONFIG_MTD_CMDLINE_PARTS=y
++
++#
++# User Modules And Translation Layers
++#
++CONFIG_MTD_CHAR=y
++CONFIG_MTD_BLOCK=y
++# CONFIG_FTL is not set
++# CONFIG_NFTL is not set
++# CONFIG_INFTL is not set
++# CONFIG_RFD_FTL is not set
++# CONFIG_SSFDC is not set
++
++#
++# RAM/ROM/Flash chip drivers
++#
++CONFIG_MTD_CFI=y
++# CONFIG_MTD_SPI is not set
++# CONFIG_MTD_JEDECPROBE is not set
++CONFIG_MTD_GEN_PROBE=y
++CONFIG_MTD_CFI_ADV_OPTIONS=y
++CONFIG_MTD_CFI_NOSWAP=y
++# CONFIG_MTD_CFI_BE_BYTE_SWAP is not set
++# CONFIG_MTD_CFI_LE_BYTE_SWAP is not set
++CONFIG_MTD_CFI_GEOMETRY=y
++# CONFIG_MTD_MAP_BANK_WIDTH_1 is not set
++CONFIG_MTD_MAP_BANK_WIDTH_2=y
++CONFIG_MTD_MAP_BANK_WIDTH_4=y
++# CONFIG_MTD_MAP_BANK_WIDTH_8 is not set
++# CONFIG_MTD_MAP_BANK_WIDTH_16 is not set
++# CONFIG_MTD_MAP_BANK_WIDTH_32 is not set
++CONFIG_MTD_CFI_I1=y
++# CONFIG_MTD_CFI_I2 is not set
++# CONFIG_MTD_CFI_I4 is not set
++# CONFIG_MTD_CFI_I8 is not set
++# CONFIG_MTD_OTP is not set
++# CONFIG_MTD_CFI_INTELEXT is not set
++CONFIG_MTD_CFI_AMDSTD=y
++# CONFIG_MTD_CFI_STAA is not set
++CONFIG_MTD_CFI_UTIL=y
++CONFIG_MTD_RAM=y
++# CONFIG_MTD_ROM is not set
++# CONFIG_MTD_ABSENT is not set
++# CONFIG_MTD_OBSOLETE_CHIPS is not set
++
++#
++# Mapping drivers for chip access
++#
++# CONFIG_MTD_COMPLEX_MAPPINGS is not set
++CONFIG_MTD_PHYSMAP=y
++CONFIG_MTD_PHYSMAP_START=0x10000000
++CONFIG_MTD_PHYSMAP_LEN=0x0
++CONFIG_MTD_PHYSMAP_BANKWIDTH=2
++CONFIG_MTD_PLATRAM=y
++
++#
++# Self-contained MTD device drivers
++#
++# CONFIG_MTD_PMC551 is not set
++# CONFIG_MTD_SLRAM is not set
++# CONFIG_MTD_PHRAM is not set
++# CONFIG_MTD_MTDRAM is not set
++# CONFIG_MTD_BLOCK2MTD is not set
++
++#
++# Disk-On-Chip Device Drivers
++#
++# CONFIG_MTD_DOC2000 is not set
++# CONFIG_MTD_DOC2001 is not set
++# CONFIG_MTD_DOC2001PLUS is not set
++
++#
++# NAND Flash Device Drivers
++#
++
++# CONFIG_MTD_NAND is not set
++
++#
++# OneNAND Flash Device Drivers
++#
++# CONFIG_MTD_ONENAND is not set
++
++#
++# Parallel port support
++#
++# CONFIG_PARPORT is not set
++
++#
++# Plug and Play support
++#
++
++#
++# Block devices
++#
++CONFIG_BLK_DEV_VIRTUAL_FAT=m
++CONFIG_BLK_DEV_VIRTUAL_FAT_COUNT=4
++CONFIG_BLK_DEV_VIRTUAL_FAT_BLOCKSIZE=1024
++CONFIG_BLK_DEV_VIRTUAL_FAT_SIZE=1048576
++# CONFIG_BLK_CPQ_DA is not set
++# CONFIG_BLK_CPQ_CISS_DA is not set
++# CONFIG_BLK_DEV_DAC960 is not set
++# CONFIG_BLK_DEV_UMEM is not set
++# CONFIG_BLK_DEV_COW_COMMON is not set
++CONFIG_BLK_DEV_LOOP=m
++# CONFIG_BLK_DEV_CRYPTOLOOP is not set
++CONFIG_BLK_DEV_NBD=m
++# CONFIG_BLK_DEV_SX8 is not set
++# CONFIG_BLK_DEV_UB is not set
++# CONFIG_BLK_DEV_RAM is not set
++# CONFIG_BLK_DEV_INITRD is not set
++# CONFIG_CDROM_PKTCDVD is not set
++# CONFIG_ATA_OVER_ETH is not set
++
++#
++# Misc devices
++#
++# CONFIG_SGI_IOC4 is not set
++# CONFIG_TIFM_CORE is not set
++
++#
++# ATA/ATAPI/MFM/RLL support
++#
++# CONFIG_IDE is not set
++
++#
++# SCSI device support
++#
++# CONFIG_RAID_ATTRS is not set
++CONFIG_SCSI=m
++# CONFIG_SCSI_NETLINK is not set
++CONFIG_SCSI_PROC_FS=y
++
++#
++# SCSI support type (disk, tape, CD-ROM)
++#
++CONFIG_BLK_DEV_SD=m
++# CONFIG_CHR_DEV_ST is not set
++# CONFIG_CHR_DEV_OSST is not set
++CONFIG_BLK_DEV_SR=m
++# CONFIG_BLK_DEV_SR_VENDOR is not set
++CONFIG_CHR_DEV_SG=m
++# CONFIG_CHR_DEV_SCH is not set
++
++#
++# Some SCSI devices (e.g. CD jukebox) support multiple LUNs
++#
++CONFIG_SCSI_MULTI_LUN=y
++# CONFIG_SCSI_CONSTANTS is not set
++# CONFIG_SCSI_LOGGING is not set
++
++#
++# SCSI Transports
++#
++# CONFIG_SCSI_SPI_ATTRS is not set
++# CONFIG_SCSI_FC_ATTRS is not set
++# CONFIG_SCSI_ISCSI_ATTRS is not set
++# CONFIG_SCSI_SAS_ATTRS is not set
++# CONFIG_SCSI_SAS_LIBSAS is not set
++
++#
++# SCSI low-level drivers
++#
++# CONFIG_ISCSI_TCP is not set
++# CONFIG_BLK_DEV_3W_XXXX_RAID is not set
++# CONFIG_SCSI_3W_9XXX is not set
++# CONFIG_SCSI_ACARD is not set
++# CONFIG_SCSI_AACRAID is not set
++# CONFIG_SCSI_AIC7XXX is not set
++# CONFIG_SCSI_AIC7XXX_OLD is not set
++# CONFIG_SCSI_AIC79XX is not set
++# CONFIG_SCSI_AIC94XX is not set
++# CONFIG_SCSI_DPT_I2O is not set
++# CONFIG_SCSI_ARCMSR is not set
++# CONFIG_MEGARAID_NEWGEN is not set
++# CONFIG_MEGARAID_LEGACY is not set
++# CONFIG_MEGARAID_SAS is not set
++# CONFIG_SCSI_HPTIOP is not set
++# CONFIG_SCSI_DMX3191D is not set
++# CONFIG_SCSI_FUTURE_DOMAIN is not set
++# CONFIG_SCSI_IPS is not set
++# CONFIG_SCSI_INITIO is not set
++# CONFIG_SCSI_INIA100 is not set
++# CONFIG_SCSI_STEX is not set
++# CONFIG_SCSI_SYM53C8XX_2 is not set
++# CONFIG_SCSI_QLOGIC_1280 is not set
++# CONFIG_SCSI_QLA_FC is not set
++# CONFIG_SCSI_QLA_ISCSI is not set
++# CONFIG_SCSI_LPFC is not set
++# CONFIG_SCSI_DC395x is not set
++# CONFIG_SCSI_DC390T is not set
++# CONFIG_SCSI_NSP32 is not set
++# CONFIG_SCSI_DEBUG is not set
++
++#
++# Serial ATA (prod) and Parallel ATA (experimental) drivers
++#
++# CONFIG_ATA is not set
++
++#
++# Multi-device support (RAID and LVM)
++#
++CONFIG_MD=y
++# CONFIG_BLK_DEV_MD is not set
++CONFIG_BLK_DEV_DM=m
++# CONFIG_DM_DEBUG is not set
++CONFIG_DM_CRYPT=m
++# CONFIG_DM_SNAPSHOT is not set
++# CONFIG_DM_MIRROR is not set
++# CONFIG_DM_ZERO is not set
++# CONFIG_DM_MULTIPATH is not set
++
++#
++# Fusion MPT device support
++#
++# CONFIG_FUSION is not set
++# CONFIG_FUSION_SPI is not set
++# CONFIG_FUSION_FC is not set
++# CONFIG_FUSION_SAS is not set
++
++#
++# IEEE 1394 (FireWire) support
++#
++# CONFIG_IEEE1394 is not set
++
++#
++# I2O device support
++#
++# CONFIG_I2O is not set
++
++#
++# Network device support
++#
++CONFIG_NETDEVICES=y
++CONFIG_DUMMY=m
++# CONFIG_BONDING is not set
++# CONFIG_EQUALIZER is not set
++CONFIG_TUN=y
++
++#
++# ARCnet devices
++#
++# CONFIG_ARCNET is not set
++
++#
++# PHY device support
++#
++# CONFIG_PHYLIB is not set
++
++#
++# Ethernet (10 or 100Mbit)
++#
++CONFIG_NET_ETHERNET=y
++# CONFIG_MII is not set
++# CONFIG_MIPS_AVALANCHE_USB is not set
++# CONFIG_AVM_CPMAC is not set
++# CONFIG_HAPPYMEAL is not set
++# CONFIG_SUNGEM is not set
++# CONFIG_CASSINI is not set
++# CONFIG_NET_VENDOR_3COM is not set
++# CONFIG_DM9000 is not set
++
++#
++# Tulip family network device support
++#
++# CONFIG_NET_TULIP is not set
++# CONFIG_HP100 is not set
++# CONFIG_NET_PCI is not set
++
++#
++# Ethernet (1000 Mbit)
++#
++# CONFIG_ACENIC is not set
++# CONFIG_DL2K is not set
++# CONFIG_E1000 is not set
++# CONFIG_NS83820 is not set
++# CONFIG_HAMACHI is not set
++# CONFIG_YELLOWFIN is not set
++# CONFIG_R8169 is not set
++# CONFIG_SIS190 is not set
++# CONFIG_SKGE is not set
++# CONFIG_SKY2 is not set
++# CONFIG_SK98LIN is not set
++# CONFIG_TIGON3 is not set
++# CONFIG_BNX2 is not set
++# CONFIG_QLA3XXX is not set
++
++#
++# Ethernet (10000 Mbit)
++#
++# CONFIG_CHELSIO_T1 is not set
++# CONFIG_IXGB is not set
++# CONFIG_S2IO is not set
++# CONFIG_MYRI10GE is not set
++
++#
++# Token Ring devices
++#
++# CONFIG_TR is not set
++
++#
++# Wireless LAN (non-hamradio)
++#
++CONFIG_NET_RADIO=y
++# CONFIG_NET_WIRELESS_RTNETLINK is not set
++
++#
++# Obsolete Wireless cards support (pre-802.11)
++#
++# CONFIG_STRIP is not set
++
++#
++# Wireless 802.11b ISA/PCI cards support
++#
++# CONFIG_IPW2100 is not set
++# CONFIG_IPW2200 is not set
++# CONFIG_HERMES is not set
++# CONFIG_ATMEL is not set
++
++#
++# Prism GT/Duette 802.11(a/b/g) PCI/Cardbus support
++#
++# CONFIG_PRISM54 is not set
++# CONFIG_USB_ZD1201 is not set
++# CONFIG_HOSTAP is not set
++CONFIG_NET_WIRELESS=y
++
++#
++# Wan interfaces
++#
++# CONFIG_WAN is not set
++
++#
++# ATM drivers
++#
++# CONFIG_ATM_DUMMY is not set
++# CONFIG_ATM_TCP is not set
++# CONFIG_ATM_LANAI is not set
++# CONFIG_ATM_ENI is not set
++# CONFIG_ATM_FIRESTREAM is not set
++# CONFIG_ATM_ZATM is not set
++# CONFIG_ATM_NICSTAR is not set
++# CONFIG_ATM_IDT77252 is not set
++# CONFIG_ATM_AMBASSADOR is not set
++# CONFIG_ATM_HORIZON is not set
++# CONFIG_ATM_IA is not set
++# CONFIG_ATM_FORE200E_MAYBE is not set
++# CONFIG_ATM_HE is not set
++# CONFIG_FDDI is not set
++# CONFIG_HIPPI is not set
++CONFIG_PPP=y
++CONFIG_PPP_MULTILINK=y
++CONFIG_PPP_FILTER=y
++CONFIG_PPP_ASYNC=y
++CONFIG_PPP_SYNC_TTY=y
++CONFIG_PPP_DEFLATE=m
++# CONFIG_PPP_BSDCOMP is not set
++CONFIG_PPP_MPPE_MPPC=m
++CONFIG_PPPOE=y
++CONFIG_PPPOATM=y
++# CONFIG_SLIP is not set
++CONFIG_SLHC=y
++# CONFIG_NET_FC is not set
++# CONFIG_SHAPER is not set
++# CONFIG_NETCONSOLE is not set
++# CONFIG_NETPOLL is not set
++# CONFIG_NET_POLL_CONTROLLER is not set
++# CONFIG_REMOTE_FRITZ_CONTROL is not set
++CONFIG_AVM_NET_LINK_AUDIO=m
++
++#
++# ISDN subsystem
++#
++CONFIG_ISDN=y
++
++#
++# Old ISDN4Linux
++#
++# CONFIG_ISDN_I4L is not set
++
++#
++# CAPI subsystem
++#
++CONFIG_ISDN_CAPI=y
++CONFIG_CAPI_OSLIB=y
++# CONFIG_CAPI_OSLIB_DEBUG is not set
++CONFIG_CAPI_CODEC=m
++# CONFIG_CAPI_CODEC_SPEEX is not set
++# CONFIG_CAPI_CODEC_ILBC is not set
++# CONFIG_CAPI_CODEC_G729 is not set
++# CONFIG_CAPI_CODEC_G711 is not set
++# CONFIG_CAPI_CODEC_G726 is not set
++# CONFIG_CAPI_CODEC_VAD is not set
++# CONFIG_CAPI_CODEC_CNG is not set
++CONFIG_CAPI_CODEC_FAX=y
++# CONFIG_AVM_DECT is not set
++# CONFIG_ISDN_DRV_AVMB1_VERBOSE_REASON is not set
++# CONFIG_ISDN_CAPI_MIDDLEWARE is not set
++# CONFIG_ISDN_CAPI_CAPI20 is not set
++
++#
++# CAPI hardware drivers
++#
++
++#
++# Active AVM cards
++#
++CONFIG_CAPI_AVM=y
++# CONFIG_ISDN_DRV_AVMB1_B1PCI is not set
++# CONFIG_ISDN_DRV_AVMB1_B1PCMCIA is not set
++# CONFIG_ISDN_DRV_AVMB1_T1PCI is not set
++# CONFIG_ISDN_DRV_AVMB1_C4 is not set
++CONFIG_ISDN_CAPI_ISDN_NT_PCMLINK=m
++CONFIG_ISDN_NT_PCMLINK_BLK=m
++CONFIG_ISDN_NT_PCMLINK_E1=m
++CONFIG_ISDN_NT_PCMLINK_STACK=m
++CONFIG_ISDN_NT_PCMLINK_ISDN_AB=m
++# CONFIG_ISDN_NT_PCMLINK_DEBUG is not set
++# CONFIG_ISDN_NT_PCMLINK_NO_BCHANNEL is not set
++# CONFIG_ISDN_NT_PCMLINK_FAX is not set
++# CONFIG_ISDN_NT_PCMLINK_COMPRESS is not set
++# CONFIG_ISDN_NT_PCMLINK_MODEM is not set
++# CONFIG_ISDN_NT_PCMLINK_DTMF is not set
++CONFIG_ISDN_NT_PCMLINK_VCTRLS=y
++CONFIG_ISDN_NT_PCMLINK_VCTRLS_NUMBER=5
++CONFIG_ISDN_NT_PCMLINK_FRITZX=y
++
++#
++# Active Eicon DIVA Server cards
++#
++# CONFIG_CAPI_EICON is not set
++
++#
++# Telephony Support
++#
++# CONFIG_PHONE is not set
++
++#
++# Input device support
++#
++# CONFIG_INPUT is not set
++
++#
++# Hardware I/O ports
++#
++# CONFIG_SERIO is not set
++# CONFIG_GAMEPORT is not set
++
++#
++# Character devices
++#
++# CONFIG_VT is not set
++# CONFIG_SERIAL_NONSTANDARD is not set
++
++#
++# Serial drivers
++#
++CONFIG_SERIAL_8250=y
++CONFIG_SERIAL_8250_CONSOLE=y
++CONFIG_SERIAL_8250_CONSOLE_DEFAULTS_TO_STANDARD_TTY=y
++# CONFIG_SERIAL_8250_CONSOLE_MUTE is not set
++# CONFIG_SERIAL_8250_PCI is not set
++CONFIG_SERIAL_8250_NR_UARTS=1
++CONFIG_SERIAL_8250_CONSOLE_UART=0
++CONFIG_SERIAL_8250_RUNTIME_UARTS=1
++# CONFIG_SERIAL_8250_EXTENDED is not set
++
++#
++# Non-8250 serial port support
++#
++CONFIG_SERIAL_CORE=y
++CONFIG_SERIAL_CORE_CONSOLE=y
++# CONFIG_SERIAL_JSM is not set
++CONFIG_UNIX98_PTYS=y
++CONFIG_LEGACY_PTYS=y
++CONFIG_LEGACY_PTY_COUNT=16
++
++#
++# IPMI
++#
++# CONFIG_IPMI_HANDLER is not set
++
++#
++# Watchdog Cards
++#
++# CONFIG_WATCHDOG is not set
++CONFIG_HW_RANDOM=y
++# CONFIG_RTC is not set
++# CONFIG_GEN_RTC is not set
++# CONFIG_DTLK is not set
++# CONFIG_R3964 is not set
++# CONFIG_APPLICOM is not set
++
++#
++# Ftape, the floppy tape device driver
++#
++# CONFIG_DRM is not set
++# CONFIG_RAW_DRIVER is not set
++
++#
++# TPM devices
++#
++# CONFIG_TCG_TPM is not set
++CONFIG_TFFS=y
++CONFIG_TFFS_ENV=y
++# CONFIG_TFFS_CRYPT is not set
++CONFIG_TFFS_MTD_DEVICE_0=3
++CONFIG_TFFS_MTD_DEVICE_1=4
++CONFIG_TFFS_PANIC_LOG=y
++CONFIG_TFFS_PANIC_LOG_ID=96
++# CONFIG_AVM_NET_TRACE is not set
++CONFIG_AVM_POWER=y
++CONFIG_AVM_POWERMETER=y
++# CONFIG_AVM_DECT_IO is not set
++CONFIG_AVM_SAMMEL=y
++CONFIG_AVM_EVENT=y
++# CONFIG_AVM_PUSH_BUTTON is not set
++# CONFIG_AVM_PUSH_BUTTON2 is not set
++# CONFIG_AVM_PUSH_BUTTON3 is not set
++# CONFIG_AVM_PUSH_BUTTON4 is not set
++# CONFIG_AVM_PUSH_BUTTON5 is not set
++# CONFIG_AVM_AUDIO is not set
++CONFIG_AVM_WATCHDOG=y
++CONFIG_AVM_LED_EVENTS=m
++# CONFIG_AVM_LED is not set
++CONFIG_AVM_DEBUG=y
++# CONFIG_AVM_LED_OUTPUT_SHIFT_REGISTER is not set
++CONFIG_AVM_LED_OUTPUT_GPIO=y
++# CONFIG_AVM_LED_OUTPUT_DUAL_GPIO is not set
++CONFIG_AVM_FLASH_UPDATE=m
++# CONFIG_AVM_PIGLET is not set
++CONFIG_AVM_PIGLET_NOEMIF=m
++# CONFIG_AVM_PIGLET_DECT is not set
++CONFIG_AVM_PIGLET_NOEMIF_PROG=14
++CONFIG_AVM_PIGLET_NOEMIF_DONE=8
++CONFIG_AVM_PIGLET_NOEMIF_DATA=12
++CONFIG_AVM_PIGLET_NOEMIF_CLK=11
++CONFIG_AVM_PIGLET_NOEMIF_FPGAOK=6
++CONFIG_UBIK2=m
++CONFIG_UBIK2_DEVELOPMENT_SUPPORT=0
++
++#
++# I2C support
++#
++# CONFIG_I2C is not set
++
++#
++# SPI support
++#
++# CONFIG_SPI is not set
++# CONFIG_SPI_MASTER is not set
++
++#
++# Dallas's 1-wire bus
++#
++# CONFIG_W1 is not set
++
++#
++# Hardware Monitoring support
++#
++# CONFIG_HWMON is not set
++# CONFIG_HWMON_VID is not set
++
++#
++# Multimedia devices
++#
++# CONFIG_VIDEO_DEV is not set
++
++#
++# Digital Video Broadcasting Devices
++#
++# CONFIG_DVB is not set
++# CONFIG_USB_DABUSB is not set
++
++#
++# Graphics support
++#
++CONFIG_FIRMWARE_EDID=y
++# CONFIG_FB is not set
++# CONFIG_BACKLIGHT_LCD_SUPPORT is not set
++
++#
++# Sound
++#
++# CONFIG_SOUND is not set
++
++#
++# USB support
++#
++CONFIG_USB_ARCH_HAS_HCD=y
++CONFIG_USB_ARCH_HAS_OHCI=y
++CONFIG_USB_ARCH_HAS_EHCI=y
++CONFIG_USB=m
++# CONFIG_USB_DEBUG is not set
++
++#
++# Miscellaneous USB options
++#
++CONFIG_USB_DEVICEFS=y
++# CONFIG_USB_BANDWIDTH is not set
++# CONFIG_USB_DYNAMIC_MINORS is not set
++# CONFIG_USB_OTG is not set
++
++#
++# USB Host Controller Drivers
++#
++CONFIG_USB_EHCI_HCD=m
++# CONFIG_USB_EHCI_SPLIT_ISO is not set
++# CONFIG_USB_EHCI_ROOT_HUB_TT is not set
++# CONFIG_USB_EHCI_TT_NEWSCHED is not set
++# CONFIG_USB_ISP116X_HCD is not set
++CONFIG_USB_OHCI_HCD=m
++# CONFIG_USB_OHCI_BIG_ENDIAN is not set
++CONFIG_USB_OHCI_LITTLE_ENDIAN=y
++# CONFIG_USB_UHCI_HCD is not set
++# CONFIG_USB_SL811_HCD is not set
++
++#
++# USB Device Class drivers
++#
++# CONFIG_USB_ACM is not set
++CONFIG_USB_PRINTER=m
++
++#
++# NOTE: USB_STORAGE enables SCSI, and 'SCSI disk support'
++#
++
++#
++# may also be needed; see USB_STORAGE Help for more information
++#
++CONFIG_USB_STORAGE=m
++# CONFIG_USB_STORAGE_DEBUG is not set
++# CONFIG_USB_STORAGE_DATAFAB is not set
++# CONFIG_USB_STORAGE_FREECOM is not set
++# CONFIG_USB_STORAGE_DPCM is not set
++# CONFIG_USB_STORAGE_USBAT is not set
++# CONFIG_USB_STORAGE_SDDR09 is not set
++# CONFIG_USB_STORAGE_SDDR55 is not set
++# CONFIG_USB_STORAGE_JUMPSHOT is not set
++# CONFIG_USB_STORAGE_ALAUDA is not set
++# CONFIG_USB_STORAGE_KARMA is not set
++# CONFIG_USB_LIBUSUAL is not set
++
++#
++# USB Input Devices
++#
++# CONFIG_USB_HID is not set
++
++#
++# USB HID Boot Protocol drivers
++#
++
++#
++# USB Imaging devices
++#
++# CONFIG_USB_MDC800 is not set
++# CONFIG_USB_MICROTEK is not set
++
++#
++# USB Network Adapters
++#
++# CONFIG_USB_CATC is not set
++# CONFIG_USB_KAWETH is not set
++# CONFIG_USB_PEGASUS is not set
++# CONFIG_USB_RTL8150 is not set
++# CONFIG_USB_USBNET is not set
++CONFIG_USB_MON=y
++
++#
++# USB port drivers
++#
++
++#
++# USB Serial Converter support
++#
++CONFIG_USB_SERIAL=m
++CONFIG_USB_SERIAL_GENERIC=y
++# CONFIG_USB_SERIAL_AIRCABLE is not set
++CONFIG_USB_SERIAL_AIRPRIME=m
++# CONFIG_USB_SERIAL_ARK3116 is not set
++# CONFIG_USB_SERIAL_BELKIN is not set
++# CONFIG_USB_SERIAL_WHITEHEAT is not set
++# CONFIG_USB_SERIAL_DIGI_ACCELEPORT is not set
++# CONFIG_USB_SERIAL_CP2101 is not set
++# CONFIG_USB_SERIAL_CYPRESS_M8 is not set
++# CONFIG_USB_SERIAL_EMPEG is not set
++CONFIG_USB_SERIAL_FTDI_SIO=m
++# CONFIG_USB_SERIAL_FUNSOFT is not set
++# CONFIG_USB_SERIAL_VISOR is not set
++CONFIG_USB_SERIAL_IPAQ=m
++# CONFIG_USB_SERIAL_IR is not set
++# CONFIG_USB_SERIAL_EDGEPORT is not set
++# CONFIG_USB_SERIAL_EDGEPORT_TI is not set
++# CONFIG_USB_SERIAL_GARMIN is not set
++# CONFIG_USB_SERIAL_IPW is not set
++# CONFIG_USB_SERIAL_KEYSPAN_PDA is not set
++# CONFIG_USB_SERIAL_KEYSPAN is not set
++# CONFIG_USB_SERIAL_KLSI is not set
++# CONFIG_USB_SERIAL_KOBIL_SCT is not set
++# CONFIG_USB_SERIAL_MCT_U232 is not set
++# CONFIG_USB_SERIAL_MOS7720 is not set
++# CONFIG_USB_SERIAL_MOS7840 is not set
++# CONFIG_USB_SERIAL_NAVMAN is not set
++CONFIG_USB_SERIAL_PL2303=m
++# CONFIG_USB_SERIAL_HP4X is not set
++# CONFIG_USB_SERIAL_SAFE is not set
++# CONFIG_USB_SERIAL_SIERRAWIRELESS is not set
++# CONFIG_USB_SERIAL_TI is not set
++# CONFIG_USB_SERIAL_CYBERJACK is not set
++# CONFIG_USB_SERIAL_XIRCOM is not set
++CONFIG_USB_SERIAL_OPTION=m
++# CONFIG_USB_SERIAL_OMNINET is not set
++
++#
++# USB Miscellaneous drivers
++#
++# CONFIG_USB_EMI62 is not set
++# CONFIG_USB_EMI26 is not set
++# CONFIG_USB_ADUTUX is not set
++# CONFIG_USB_AUERSWALD is not set
++# CONFIG_USB_RIO500 is not set
++# CONFIG_USB_LEGOTOWER is not set
++# CONFIG_USB_LCD is not set
++# CONFIG_USB_LED is not set
++# CONFIG_USB_CYPRESS_CY7C63 is not set
++# CONFIG_USB_CYTHERM is not set
++# CONFIG_USB_PHIDGET is not set
++# CONFIG_USB_IDMOUSE is not set
++# CONFIG_USB_FTDI_ELAN is not set
++# CONFIG_USB_APPLEDISPLAY is not set
++# CONFIG_USB_SISUSBVGA is not set
++# CONFIG_USB_AUTH is not set
++# CONFIG_USB_LD is not set
++# CONFIG_USB_TRANCEVIBRATOR is not set
++# CONFIG_USB_TEST is not set
++
++#
++# USB DSL modem support
++#
++# CONFIG_USB_ATM is not set
++
++#
++# USB Gadget Support
++#
++# CONFIG_USB_GADGET is not set
++
++#
++# MMC/SD Card support
++#
++# CONFIG_MMC is not set
++
++#
++# LED devices
++#
++# CONFIG_NEW_LEDS is not set
++
++#
++# LED drivers
++#
++
++#
++# LED Triggers
++#
++
++#
++# InfiniBand support
++#
++# CONFIG_INFINIBAND is not set
++
++#
++# EDAC - error detection and reporting (RAS) (EXPERIMENTAL)
++#
++
++#
++# Real Time Clock
++#
++CONFIG_RTC_LIB=m
++CONFIG_RTC_CLASS=m
++
++#
++# RTC interfaces
++#
++CONFIG_RTC_INTF_SYSFS=m
++CONFIG_RTC_INTF_PROC=m
++CONFIG_RTC_INTF_DEV=m
++# CONFIG_RTC_INTF_DEV_UIE_EMUL is not set
++
++#
++# RTC drivers
++#
++# CONFIG_RTC_DRV_DS1553 is not set
++# CONFIG_RTC_DRV_DS1742 is not set
++# CONFIG_RTC_DRV_M48T86 is not set
++# CONFIG_RTC_DRV_TEST is not set
++# CONFIG_RTC_DRV_V3020 is not set
++CONFIG_RTC_DRV_AVM_REF_CLOCK=m
++
++#
++# DMA Engine support
++#
++# CONFIG_DMA_ENGINE is not set
++
++#
++# DMA Clients
++#
++
++#
++# DMA Devices
++#
++
++#
++# Synchronous Serial Interfaces (SSI)
++#
++
++#
++# File systems
++#
++CONFIG_EXT2_FS=m
++CONFIG_EXT2_FS_XATTR=y
++# CONFIG_EXT2_FS_POSIX_ACL is not set
++# CONFIG_EXT2_FS_SECURITY is not set
++# CONFIG_EXT2_FS_XIP is not set
++CONFIG_EXT3_FS=m
++CONFIG_EXT3_FS_XATTR=y
++# CONFIG_EXT3_FS_POSIX_ACL is not set
++# CONFIG_EXT3_FS_SECURITY is not set
++# CONFIG_EXT4DEV_FS is not set
++CONFIG_JBD=m
++# CONFIG_JBD_DEBUG is not set
++CONFIG_FS_MBCACHE=m
++CONFIG_REISERFS_FS=m
++# CONFIG_REISERFS_CHECK is not set
++# CONFIG_REISERFS_PROC_INFO is not set
++# CONFIG_REISERFS_FS_XATTR is not set
++# CONFIG_JFS_FS is not set
++# CONFIG_FS_POSIX_ACL is not set
++# CONFIG_XFS_FS is not set
++# CONFIG_GFS2_FS is not set
++# CONFIG_OCFS2_FS is not set
++CONFIG_MINI_FO=m
++# CONFIG_MINIX_FS is not set
++# CONFIG_ROMFS_FS is not set
++CONFIG_INOTIFY=y
++CONFIG_INOTIFY_USER=y
++# CONFIG_QUOTA is not set
++# CONFIG_DNOTIFY is not set
++# CONFIG_AUTOFS_FS is not set
++# CONFIG_AUTOFS4_FS is not set
++CONFIG_FUSE_FS=y
++
++#
++# CD-ROM/DVD Filesystems
++#
++CONFIG_ISO9660_FS=m
++CONFIG_JOLIET=y
++# CONFIG_ZISOFS is not set
++# CONFIG_UDF_FS is not set
++
++#
++# DOS/FAT/NT Filesystems
++#
++CONFIG_FAT_FS=m
++CONFIG_MSDOS_FS=m
++CONFIG_VFAT_FS=m
++CONFIG_FAT_DEFAULT_CODEPAGE=437
++CONFIG_FAT_DEFAULT_IOCHARSET="iso8859-1"
++# CONFIG_NTFS_FS is not set
++
++#
++# Pseudo filesystems
++#
++CONFIG_PROC_FS=y
++CONFIG_PROC_KCORE=y
++CONFIG_PROC_SYSCTL=y
++CONFIG_SYSFS=y
++CONFIG_TMPFS=y
++# CONFIG_TMPFS_POSIX_ACL is not set
++# CONFIG_HUGETLB_PAGE is not set
++CONFIG_RAMFS=y
++# CONFIG_CONFIGFS_FS is not set
++
++#
++# Miscellaneous filesystems
++#
++# CONFIG_ADFS_FS is not set
++# CONFIG_AFFS_FS is not set
++CONFIG_HFS_FS=m
++CONFIG_HFSPLUS_FS=m
++# CONFIG_BEFS_FS is not set
++# CONFIG_BFS_FS is not set
++# CONFIG_EFS_FS is not set
++# CONFIG_YAFFS_FS is not set
++# CONFIG_JFFS_FS is not set
++CONFIG_JFFS2_FS=m
++CONFIG_JFFS2_FS_DEBUG=0
++CONFIG_JFFS2_FS_WRITEBUFFER=y
++# CONFIG_JFFS2_SUMMARY is not set
++# CONFIG_JFFS2_FS_XATTR is not set
++# CONFIG_JFFS2_COMPRESSION_OPTIONS is not set
++CONFIG_JFFS2_ZLIB=y
++CONFIG_JFFS2_RTIME=y
++# CONFIG_JFFS2_RUBIN is not set
++# CONFIG_CRAMFS is not set
++CONFIG_SQUASHFS=y
++# CONFIG_SQUASHFS_CRYPT is not set
++CONFIG_SQUASHFS_EMBEDDED=y
++CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE=3
++CONFIG_SQUASHFS_VMALLOC=y
++# CONFIG_VXFS_FS is not set
++# CONFIG_HPFS_FS is not set
++# CONFIG_QNX4FS_FS is not set
++# CONFIG_SYSV_FS is not set
++# CONFIG_UFS_FS is not set
++
++#
++# Network File Systems
++#
++CONFIG_NFS_FS=y
++CONFIG_NFS_V3=y
++# CONFIG_NFS_V3_ACL is not set
++# CONFIG_NFS_V4 is not set
++CONFIG_NFS_DIRECTIO=y
++CONFIG_NFSD=y
++CONFIG_NFSD_V3=y
++# CONFIG_NFSD_V3_ACL is not set
++# CONFIG_NFSD_V4 is not set
++CONFIG_NFSD_TCP=y
++CONFIG_ROOT_NFS=y
++CONFIG_LOCKD=y
++CONFIG_LOCKD_V4=y
++CONFIG_EXPORTFS=y
++CONFIG_NFS_COMMON=y
++CONFIG_SUNRPC=y
++# CONFIG_RPCSEC_GSS_KRB5 is not set
++# CONFIG_RPCSEC_GSS_SPKM3 is not set
++# CONFIG_SMB_FS is not set
++CONFIG_CIFS=m
++# CONFIG_CIFS_STATS is not set
++# CONFIG_CIFS_WEAK_PW_HASH is not set
++# CONFIG_CIFS_XATTR is not set
++# CONFIG_CIFS_DEBUG2 is not set
++# CONFIG_CIFS_EXPERIMENTAL is not set
++# CONFIG_NCP_FS is not set
++CONFIG_CODA_FS=m
++# CONFIG_CODA_FS_OLD_API is not set
++# CONFIG_AFS_FS is not set
++# CONFIG_9P_FS is not set
++
++#
++# Partition Types
++#
++CONFIG_PARTITION_ADVANCED=y
++# CONFIG_ACORN_PARTITION is not set
++# CONFIG_OSF_PARTITION is not set
++# CONFIG_AMIGA_PARTITION is not set
++# CONFIG_ATARI_PARTITION is not set
++# CONFIG_MAC_PARTITION is not set
++CONFIG_MSDOS_PARTITION=y
++# CONFIG_BSD_DISKLABEL is not set
++# CONFIG_MINIX_SUBPARTITION is not set
++# CONFIG_SOLARIS_X86_PARTITION is not set
++# CONFIG_UNIXWARE_DISKLABEL is not set
++# CONFIG_LDM_PARTITION is not set
++# CONFIG_SGI_PARTITION is not set
++# CONFIG_ULTRIX_PARTITION is not set
++# CONFIG_SUN_PARTITION is not set
++# CONFIG_KARMA_PARTITION is not set
++# CONFIG_EFI_PARTITION is not set
++
++#
++# Native Language Support
++#
++CONFIG_NLS=y
++CONFIG_NLS_DEFAULT="iso8859-1"
++CONFIG_NLS_CODEPAGE_437=m
++# CONFIG_NLS_CODEPAGE_737 is not set
++# CONFIG_NLS_CODEPAGE_775 is not set
++CONFIG_NLS_CODEPAGE_850=m
++# CONFIG_NLS_CODEPAGE_852 is not set
++# CONFIG_NLS_CODEPAGE_855 is not set
++# CONFIG_NLS_CODEPAGE_857 is not set
++# CONFIG_NLS_CODEPAGE_860 is not set
++# CONFIG_NLS_CODEPAGE_861 is not set
++# CONFIG_NLS_CODEPAGE_862 is not set
++# CONFIG_NLS_CODEPAGE_863 is not set
++# CONFIG_NLS_CODEPAGE_864 is not set
++# CONFIG_NLS_CODEPAGE_865 is not set
++# CONFIG_NLS_CODEPAGE_866 is not set
++# CONFIG_NLS_CODEPAGE_869 is not set
++# CONFIG_NLS_CODEPAGE_936 is not set
++# CONFIG_NLS_CODEPAGE_950 is not set
++# CONFIG_NLS_CODEPAGE_932 is not set
++# CONFIG_NLS_CODEPAGE_949 is not set
++# CONFIG_NLS_CODEPAGE_874 is not set
++# CONFIG_NLS_ISO8859_8 is not set
++# CONFIG_NLS_CODEPAGE_1250 is not set
++# CONFIG_NLS_CODEPAGE_1251 is not set
++CONFIG_NLS_ASCII=m
++CONFIG_NLS_ISO8859_1=m
++# CONFIG_NLS_ISO8859_2 is not set
++# CONFIG_NLS_ISO8859_3 is not set
++# CONFIG_NLS_ISO8859_4 is not set
++# CONFIG_NLS_ISO8859_5 is not set
++# CONFIG_NLS_ISO8859_6 is not set
++# CONFIG_NLS_ISO8859_7 is not set
++# CONFIG_NLS_ISO8859_9 is not set
++# CONFIG_NLS_ISO8859_13 is not set
++# CONFIG_NLS_ISO8859_14 is not set
++CONFIG_NLS_ISO8859_15=m
++# CONFIG_NLS_KOI8_R is not set
++# CONFIG_NLS_KOI8_U is not set
++CONFIG_NLS_UTF8=m
++
++#
++# Profiling support
++#
++# CONFIG_PROFILING is not set
++# CONFIG_AVM_SIMPLE_PROFILING is not set
++
++#
++# Kernel hacking
++#
++CONFIG_TRACE_IRQFLAGS_SUPPORT=y
++# CONFIG_PRINTK_TIME is not set
++CONFIG_ENABLE_MUST_CHECK=y
++CONFIG_MAGIC_SYSRQ=y
++# CONFIG_UNUSED_SYMBOLS is not set
++CONFIG_DEBUG_KERNEL=y
++CONFIG_LOG_BUF_SHIFT=14
++CONFIG_DETECT_SOFTLOCKUP=y
++CONFIG_SCHEDSTATS=y
++# CONFIG_DEBUG_SLAB is not set
++# CONFIG_DEBUG_RT_MUTEXES is not set
++# CONFIG_RT_MUTEX_TESTER is not set
++# CONFIG_DEBUG_SPINLOCK is not set
++# CONFIG_DEBUG_MUTEXES is not set
++# CONFIG_DEBUG_RWSEMS is not set
++# CONFIG_DEBUG_LOCK_ALLOC is not set
++# CONFIG_PROVE_LOCKING is not set
++# CONFIG_DEBUG_SPINLOCK_SLEEP is not set
++# CONFIG_DEBUG_LOCKING_API_SELFTESTS is not set
++CONFIG_STACKTRACE=y
++# CONFIG_DEBUG_KOBJECT is not set
++# CONFIG_DEBUG_INFO is not set
++# CONFIG_DEBUG_FS is not set
++# CONFIG_DEBUG_VM is not set
++# CONFIG_DEBUG_LIST is not set
++CONFIG_FORCED_INLINING=y
++# CONFIG_HEADERS_CHECK is not set
++# CONFIG_RCU_TORTURE_TEST is not set
++CONFIG_CROSSCOMPILE=y
++CONFIG_CMDLINE="console=ttyS0,115200n8r"
++# CONFIG_DEBUG_STACK_USAGE is not set
++# CONFIG_KGDB is not set
++# CONFIG_RUNTIME_DEBUG is not set
++# CONFIG_MIPS_UNCACHED is not set
++# CONFIG_DEBUG_LL is not set
++
++#
++# Security options
++#
++
++#
++# PaX
++#
++
++#
++# Miscellaneous hardening features
++#
++# CONFIG_PAX_MEMORY_SANITIZE is not set
++
++#
++# Grsecurity
++#
++# CONFIG_GRKERNSEC is not set
++# CONFIG_KEYS is not set
++# CONFIG_SECURITY is not set
++
++#
++# Cryptographic options
++#
++CONFIG_CRYPTO=y
++CONFIG_CRYPTO_ALGAPI=y
++CONFIG_CRYPTO_BLKCIPHER=m
++CONFIG_CRYPTO_MANAGER=m
++# CONFIG_CRYPTO_HMAC is not set
++# CONFIG_CRYPTO_NULL is not set
++# CONFIG_CRYPTO_MD4 is not set
++# CONFIG_CRYPTO_MD5 is not set
++CONFIG_CRYPTO_SHA1=m
++CONFIG_CRYPTO_SHA256=m
++# CONFIG_CRYPTO_SHA512 is not set
++# CONFIG_CRYPTO_WP512 is not set
++# CONFIG_CRYPTO_TGR192 is not set
++# CONFIG_CRYPTO_ECB is not set
++CONFIG_CRYPTO_CBC=m
++# CONFIG_CRYPTO_DES is not set
++# CONFIG_CRYPTO_BLOWFISH is not set
++# CONFIG_CRYPTO_TWOFISH is not set
++# CONFIG_CRYPTO_SERPENT is not set
++CONFIG_CRYPTO_AES=y
++# CONFIG_CRYPTO_CAST5 is not set
++# CONFIG_CRYPTO_CAST6 is not set
++# CONFIG_CRYPTO_TEA is not set
++CONFIG_CRYPTO_ARC4=m
++# CONFIG_CRYPTO_KHAZAD is not set
++# CONFIG_CRYPTO_ANUBIS is not set
++# CONFIG_CRYPTO_DEFLATE is not set
++# CONFIG_CRYPTO_MICHAEL_MIC is not set
++# CONFIG_CRYPTO_CRC32C is not set
++# CONFIG_CRYPTO_TEST is not set
++
++#
++# Hardware crypto devices
++#
++
++#
++# Library routines
++#
++CONFIG_CRC_CCITT=y
++# CONFIG_CRC16 is not set
++CONFIG_CRC32=y
++# CONFIG_LIBCRC32C is not set
++CONFIG_ZLIB_INFLATE=y
++CONFIG_ZLIB_DEFLATE=y
++CONFIG_LZO_COMPRESS=m
++CONFIG_LZO_DECOMPRESS=m
++CONFIG_PLIST=y
+diff -Naur make/linux/patches/2.6.19.2/722A_04.76/110-hwrev_list.patch make/linux/patches/2.6.19.2/722A_04.76/110-hwrev_list.patch
+--- make/linux/patches/2.6.19.2/722A_04.76/110-hwrev_list.patch	1969-12-31 19:00:00.000000000 -0500
++++ make/linux/patches/2.6.19.2/722A_04.76/110-hwrev_list.patch	2010-05-02 15:44:54.000000000 -0400
+@@ -0,0 +1,22 @@
++--- linux-2.6.19.2/drivers/char/avm_new/Makefile.26.orig	2009-03-25 16:47:43.000000000 +0100
+++++ linux-2.6.19.2/drivers/char/avm_new/Makefile.26	2010-03-15 18:08:58.000000000 +0100
++@@ -104,3 +104,4 @@
++ obj-$(CONFIG_AVM_SAMMEL) += avm.o 
++ 
++ # EXTRA_CFLAGS	+= -g -ggdb -save-temps
+++EXTRA_CFLAGS	+= -DAVM_NEW_HWREV_LIST="\" 118 117 110 114 159 129 162 155 156 115 108 94 127 137 168 122 139 145 167 150 152 165 154 141 135 146 153 143 101 144 136 160 164 170 161 134 120 102 121 104 103 105 95 107 106 128 79 112 131 140 147 148 149 \""
++--- linux-2.6.19.2/drivers/net/avm_cpmac/Makefile.26.orig	2009-08-11 16:02:35.000000000 +0200
+++++ linux-2.6.19.2/drivers/net/avm_cpmac/Makefile.26	2010-03-15 18:08:58.000000000 +0100
++@@ -23,6 +24,10 @@
++ 
++ $(obj)/dummy.o: $(src)/linux_avm_cpmac.h
++ 	touch $(obj)/dummy.o
++-	cp -f $(src)/linux_avm_cpmac.h $(FRITZ_BOX_BUILD_DIR)/$(KERNEL_BUILD)/filesystem/include/linux/avm_cpmac.h
++ 
++-EXTRA_CFLAGS += -DAVM_CPMAC_VERSION="\"`svn info $(src) | grep URL`  -  Revision `svnversion -cn $(src)`  -  `date` \""
+++EXTRA_CFLAGS += -DAVM_CPMAC_VERSION="\"1.124  -  Revision 538:916  -  Mi   9.12.2009  14:07:43\""
+++EXTRA_CFLAGS  += -DAVM_CPMAC_SWITCH_HWREV_LIST="\"79 84 94 95 101 102 103 104 105 107 110 111 115 117 119 120 121 122 125 126 127 131 134 135 136 137 139 140 141 144 145 146 147 148 152 153 156 160 161 164 165 167 168 170\""
+++EXTRA_CFLAGS  += -DAVM_CPMAC_VINAX_HWREV_LIST="\"105 134 135 146 153 \""
+++EXTRA_CFLAGS  += -DAVM_CPMAC_NO_PHY0_HWREV_LIST="\"79 84 138 154\""
+++EXTRA_CFLAGS  += -DAVM_CPMAC_NO_PHY1_HWREV_LIST="\"K 58 60 61 64 65 66 71 78 122 135 136 137 139 141 143 144 145 146 147 148 149 153 160 164 168 170 \""
+++EXTRA_CFLAGS  += -DAVM_CPMAC_NQOS_HWREV_LIST="\" 136 \""
+diff -Naur make/linux/patches/2.6.19.2/722A_04.76/120-remove_fusiv.patch make/linux/patches/2.6.19.2/722A_04.76/120-remove_fusiv.patch
+--- make/linux/patches/2.6.19.2/722A_04.76/120-remove_fusiv.patch	1969-12-31 19:00:00.000000000 -0500
++++ make/linux/patches/2.6.19.2/722A_04.76/120-remove_fusiv.patch	2010-05-01 15:02:27.000000000 -0400
+@@ -0,0 +1,87 @@
++--- linux-2.6.19.2/arch/mips/Kconfig.orig	2008-10-08 14:15:02.000000000 +0200
+++++ linux-2.6.19.2/arch/mips/Kconfig	2010-01-17 15:41:18.000000000 +0100
++@@ -1024,8 +1024,6 @@
++ 	depends on MACH_IKAN_MIPS
++ endchoice
++ 
++-source "fusiv_src/kernel/Kconfig"
++-
++ config RWSEM_GENERIC_SPINLOCK
++ 	bool
++ 	default y
++--- linux-2.6.19.2/Makefile.orig	2010-01-17 15:41:16.000000000 +0100
+++++ linux-2.6.19.2/Makefile	2010-01-17 15:41:18.000000000 +0100
++@@ -145,14 +145,8 @@
++ 
++ srctree		:= $(if $(KBUILD_SRC),$(KBUILD_SRC),$(CURDIR))
++ TOPDIR		:= $(srctree)
++-FUSIV_TOPDIR    := fusiv_src
++ 
++ HPATH           = $(TOPDIR)/include
++-FUSIV_APCODEPATH       = $(TOPDIR)/fusiv_src/kernel/ap_code
++-FUSIV_APINCPATH        = $(TOPDIR)/fusiv_src/kernel/ap_code/inc
++-FUSIV_DRIVERS_INCPATH  = $(TOPDIR)/fusiv_src/kernel/drivers/inc
++-FUSIV_ATM_INCPATH      = $(TOPDIR)/fusiv_src/kernel/drivers/adsl
++-FUSIV_DRIVERS_VOICE    = $(TOPDIR)/fusiv_src/kernel/drivers/voice/ipvoice
++ # FIXME - TOPDIR is obsolete, use srctree/objtree
++ objtree		:= $(CURDIR)
++ src		:= $(srctree)
++@@ -326,20 +320,9 @@
++ LINUXINCLUDE    := -Iinclude \
++                    $(if $(KBUILD_SRC),-Iinclude2 -I$(srctree)/include) \
++ 		   -include include/linux/autoconf.h
++-
++-ifeq ($(TARGET_CPU),ikanos)
++-CPPFLAGS        := -D__KERNEL__ $(LINUXINCLUDE) -I$(FUSIV_DRIVERS_VOICE)/include -I$(FUSIV_APCODEPATH) -I$(FUSIV_APINCPATH) -I$(FUSIV_DRIVERS_INCPATH) -I$(FUSIV_ATM_INCPATH)
++-else
++ CPPFLAGS        := -D__KERNEL__ $(LINUXINCLUDE)
++-endif
++-
++-# Das will Fusiv an flags haben, ich glaube dass wir das nicht benötigen
++-
++ CFLAGS          := -Wall -W -Wno-unused -Wno-sign-compare -Wundef -Wstrict-prototypes -Wno-trigraphs \
++                    -fno-strict-aliasing -fno-common
++-# Das will Fusiv an flags haben, ich glaube dass wir das nicht benötigen
++-# CFLAGS          := -Wall -Wstrict-prototypes -Wno-trigraphs 
++-#
++ AFLAGS          := -D__ASSEMBLY__
++ 
++ # Read KERNELRELEASE from include/config/kernel.release (if it exists)
++@@ -461,7 +444,6 @@
++ net-y		:= net/
++ libs-y		:= lib/
++ core-y		:= usr/
++-fusiv_src-y     := fusiv_src/
++ endif # KBUILD_EXTMOD
++ 
++ ifeq ($(dot-config),1)
++@@ -609,18 +591,17 @@
++ 
++ vmlinux-dirs	:= $(patsubst %/,%,$(filter %/, $(init-y) $(init-m) \
++ 		     $(core-y) $(core-m) $(drivers-y) $(drivers-m) \
++-		     $(net-y) $(fusiv_src-y) $(net-m) $(libs-y) $(libs-m)))
+++		     $(net-y) $(net-m) $(libs-y) $(libs-m)))
++ 
++ vmlinux-alldirs	:= $(sort $(vmlinux-dirs) $(patsubst %/,%,$(filter %/, \
++ 		     $(init-n) $(init-) \
++ 		     $(core-n) $(core-) $(drivers-n) $(drivers-) \
++-		     $(net-n)  $(net-)  $(fusiv_src-y) $(libs-n)    $(libs-))))
+++		     $(net-n)  $(net-) $(libs-n)    $(libs-))))
++ 
++ init-y		:= $(patsubst %/, %/built-in.o, $(init-y))
++ core-y		:= $(patsubst %/, %/built-in.o, $(core-y))
++ drivers-y	:= $(patsubst %/, %/built-in.o, $(drivers-y))
++ net-y		:= $(patsubst %/, %/built-in.o, $(net-y))
++-fusiv_src-y     := $(patsubst %/, %/built-in.o, $(fusiv_src-y))
++ libs-y1		:= $(patsubst %/, %/lib.a, $(libs-y))
++ libs-y2		:= $(patsubst %/, %/built-in.o, $(libs-y))
++ libs-y		:= $(libs-y1) $(libs-y2)
++@@ -653,7 +634,7 @@
++ # System.map is generated to document addresses of all kernel symbols
++ 
++ vmlinux-init := $(head-y) $(init-y)
++-vmlinux-main := $(core-y) $(libs-y) $(drivers-y) $(net-y) $(fusiv_src-y)
+++vmlinux-main := $(core-y) $(libs-y) $(drivers-y) $(net-y)
++ vmlinux-all  := $(vmlinux-init) $(vmlinux-main)
++ vmlinux-lds  := arch/$(ARCH)/kernel/vmlinux.lds
++ 
+diff -Naur make/linux/patches/2.6.19.2/722A_04.76/130-revert_skbuff_changes.patch make/linux/patches/2.6.19.2/722A_04.76/130-revert_skbuff_changes.patch
+--- make/linux/patches/2.6.19.2/722A_04.76/130-revert_skbuff_changes.patch	1969-12-31 19:00:00.000000000 -0500
++++ make/linux/patches/2.6.19.2/722A_04.76/130-revert_skbuff_changes.patch	2010-05-01 15:02:27.000000000 -0400
+@@ -0,0 +1,25 @@
++--- linux-2.6.19.2/net/core/skbuff.c.orig	2009-10-16 10:30:23.000000000 +0200
+++++ linux-2.6.19.2/net/core/skbuff.c	2010-03-15 18:08:58.000000000 +0100
++@@ -418,18 +418,14 @@
++ 
++ void __kfree_skb(struct sk_buff *skb)
++ {   
++-    WARN_ON(in_irq() || irqs_disabled());
++-
++-	if (skb->destructor) {
++-        /* WARN_ON(in_irq()); */
++-		skb->destructor(skb);
++-	}
++-
++ 	dst_release(skb->dst);
++-	skb->dst = 0;
++ #ifdef CONFIG_XFRM
++ 	secpath_put(skb->sp);
++ #endif
+++	if (skb->destructor) {
+++		WARN_ON(in_irq());
+++		skb->destructor(skb);
+++	}
++ #ifdef CONFIG_NETFILTER
++ 	nf_conntrack_put(skb->nfct);
++ #if defined(CONFIG_NF_CONNTRACK) || defined(CONFIG_NF_CONNTRACK_MODULE)
+diff -Naur make/linux/patches/2.6.19.2/722A_04.76/140-platform_c.patch make/linux/patches/2.6.19.2/722A_04.76/140-platform_c.patch
+--- make/linux/patches/2.6.19.2/722A_04.76/140-platform_c.patch	1969-12-31 19:00:00.000000000 -0500
++++ make/linux/patches/2.6.19.2/722A_04.76/140-platform_c.patch	2010-05-01 15:02:27.000000000 -0400
+@@ -0,0 +1,11 @@
++--- linux-2.6.19.2/arch/mips/ikan_mips/platform.c	2010-03-15 18:02:46.000000000 +0100
+++++ linux-2.6.19.2/arch/mips/ikan_mips/platform.c	2010-03-15 17:58:30.000000000 +0100
++@@ -147,7 +147,7 @@ static struct direct_avm_nand_platdata d
++ #endif /*--- #if defined(CONFIG_MTD_NAND_DIRECT_AVM_GPIO) ---*/
++     .adjust_parts = direct_avm_nand_adjust_partitions,
++ 	.parts = direct_avm_nand_partitions,
++-	.num_parts ARRAY_SIZE(direct_avm_nand_partitions),
+++	.num_parts = ARRAY_SIZE(direct_avm_nand_partitions),
++ 	.options = 0, /*--- NAND_USE_FLASH_BBT | NAND_BBT_SCANALLPAGES | NAND_BBT_SCANEMPTY, ---*/
++ 	.chip_delay = 0
++ };
+diff -Naur make/linux/patches/2.6.19.2/722A_04.76/150-CONFIG_MIPS_FUSIV.patch make/linux/patches/2.6.19.2/722A_04.76/150-CONFIG_MIPS_FUSIV.patch
+--- make/linux/patches/2.6.19.2/722A_04.76/150-CONFIG_MIPS_FUSIV.patch	1969-12-31 19:00:00.000000000 -0500
++++ make/linux/patches/2.6.19.2/722A_04.76/150-CONFIG_MIPS_FUSIV.patch	2010-05-01 15:02:27.000000000 -0400
+@@ -0,0 +1,68 @@
++--- linux-2.6.19.2/Makefile.org	2010-03-15 18:25:14.000000000 +0100
+++++ linux-2.6.19.2/Makefile	2010-03-15 18:27:26.000000000 +0100
++@@ -342,6 +342,8 @@ CFLAGS          := -Wall -W -Wno-unused 
++ #
++ AFLAGS          := -D__ASSEMBLY__
++ 
+++CFLAGS		+= -DCONFIG_MIPS_FUSIV
+++
++ # Read KERNELRELEASE from include/config/kernel.release (if it exists)
++ KERNELRELEASE = $(shell cat include/config/kernel.release 2> /dev/null)
++ KERNELVERSION = $(VERSION).$(PATCHLEVEL).$(SUBLEVEL)$(EXTRAVERSION)
++--- linux-2.6.19.2/net/atm/clip.c.orig	2008-09-02 11:49:50.000000000 +0200
+++++ linux-2.6.19.2/net/atm/clip.c	2010-04-25 00:02:15.000000000 +0200
++@@ -40,7 +40,7 @@
++ #include "resources.h"
++ #include "ipcommon.h"
++ #include <net/atmclip.h>
++-#include <netpro/apprehdr.h>
+++//#include <netpro/apprehdr.h>
++ 
++ 
++ #if 0
++--- linux-2.6.19.2/arch/mips/Kconfig.orig       2010-04-25 00:00:19.000000000 +0200
+++++ linux-2.6.19.2/arch/mips/Kconfig    2010-04-25 00:30:25.000000000 +0200
++@@ -179,6 +179,7 @@
++ 	select SYS_HAS_CPU_MIPS32_R1
++ 	select SYS_SUPPORTS_32BIT_KERNEL
++ 	select SYS_SUPPORTS_BIG_ENDIAN
+++	select MIPS_FUSIV
++ 
++ 
++ config MACH_DECSTATION
++@@ -829,6 +831,9 @@
++ 
++ endchoice
++ 
+++config MIPS_FUSIV
+++	bool
+++
++ menu "*** AVM Board PCI Configuration ***"
++ 
++ config AVM_PCI_DEVICE_COUNT
++--- linux-2.6.19.2/arch/mips/pci/pci-fusiv.c.orig	2009-11-12 17:50:13.000000000 +0100
+++++ linux-2.6.19.2/arch/mips/pci/pci-fusiv.c	2010-04-25 00:13:43.000000000 +0200
++@@ -38,7 +38,7 @@
++ #define PCI_MAX_SLOTS 	4
++ 
++ 
++-extern int board_memsize;
+++int xtensa_memsize=0;
++ static spinlock_t fusiv_pci_lock;
++ 
++ static unsigned int first_pci_pin = 21;
++@@ -381,11 +381,11 @@
++ 	  PCI_MBAR_CONF = 0x11;				// standard 
++ #ifdef VX180A
++         /* VX180A Mask and Trans */
++-        if(board_memsize == 32)
+++        if(xtensa_memsize == 32)
++             PCI_IMBAR1_MASK = 0xfe000000; // Inbound memory bar1 mask reg 32M 
++-        else if(board_memsize == 64)
+++        else if(xtensa_memsize == 64)
++             PCI_IMBAR1_MASK = 0xfc000000; // Inbound memory bar1 mask reg 64M 
++-        else if(board_memsize == 128)
+++        else if(xtensa_memsize == 128)
++             PCI_IMBAR1_MASK = 0xf8000000; // Inbound memory bar1 mask reg 128M 
++ 
++         PCI_IMEM1_TRANS = 0x00000000; // Inbound memory1 trans reg SDRAM Address
+diff -Naur patches/722A/100-rc.net-dnsmasq.patch patches/722A/100-rc.net-dnsmasq.patch
+--- patches/722A/100-rc.net-dnsmasq.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/722A/100-rc.net-dnsmasq.patch	2010-05-02 07:30:47.000000000 -0400
+@@ -0,0 +1,14 @@
++--- etc/init.d/rc.net.orig	2010-01-22 19:11:40.000000000 +0100
+++++ etc/init.d/rc.net	2010-01-22 19:11:40.000000000 +0100
++@@ -10,6 +10,11 @@
++ 
++ PATH=/bin:/usr/bin:/sbin:/usr/sbin
++ 
+++# allow wrapper
+++PKG=dnsmasq
+++BASE=/mod/pkg/$PKG
+++PATH=$BASE/usr/lib/$PKG/bin:$PATH
+++
++ case "`uname -r`" in
++   2.6* ) KERNEL_26=yes; ;;
++   *    ) KERNEL_26=no; ;;
+diff -Naur patches/722A/110-rc.S-mknod.patch patches/722A/110-rc.S-mknod.patch
+--- patches/722A/110-rc.S-mknod.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/722A/110-rc.S-mknod.patch	2010-05-02 07:37:39.000000000 -0400
+@@ -0,0 +1,14 @@
++--- etc/init.d/rc.S.orig	2009-09-17 09:18:48.078288387 +0200
+++++ etc/init.d/rc.S	2009-09-17 09:18:48.222750066 +0200
++@@ -938,6 +938,11 @@
++ #########################################################################
++ mknod /var/flash/voip.cfg c $tffs_major $((0x72))
++ mknod /var/flash/voipd_call_stat c $tffs_major $((0x7A))
+++#########################################################################
+++## freetz
+++#########################################################################
+++mknod /var/flash/freetz c $tffs_major $((0x3c))
+++/usr/bin/modload 2>&1 | tee /var/log/mod_load.log
++ ## mknod /var/flash/telefon_msns c $tffs_major $((0x80)) entfaellt mit tecfg v54
++ #########################################################################
++ ## FLASH_FS_ID_MSNLISTE = 0x0080, /*--- /var/flash/telefon_msns ---*/
+diff -Naur patches/722A/120-rc.S-dev.patch patches/722A/120-rc.S-dev.patch
+--- patches/722A/120-rc.S-dev.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/722A/120-rc.S-dev.patch	2010-05-02 07:34:45.000000000 -0400
+@@ -0,0 +1,14 @@
++--- etc/init.d/rc.S.orig	2008-02-22 20:05:11.000000000 +0100
+++++ etc/init.d/rc.S	2008-02-22 20:05:11.000000000 +0100
++@@ -76,8 +76,9 @@
++ ##########################################################################################
++ ## rc.S for 2.6 Kernel
++ ##########################################################################################
++-mount -n /proc
++-mount /var
+++[ -f /dev/.hotplug-cache ] || mount -o nosuid -t tmpfs dev /dev
+++/sbin/makedevs -d /etc/device.table /
+++mount -a
++ ##########################################################################################
++ ##########################################################################################
++ echo init-start 240 >/dev/watchdog
+diff -Naur patches/722A/130-rc.S-logging.patch patches/722A/130-rc.S-logging.patch
+--- patches/722A/130-rc.S-logging.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/722A/130-rc.S-logging.patch	2010-05-02 07:40:03.000000000 -0400
+@@ -0,0 +1,23 @@
++--- etc/init.d/rc.S.orig	2008-02-22 20:05:11.000000000 +0100
+++++ etc/init.d/rc.S	2008-02-22 20:05:11.000000000 +0100
++@@ -82,6 +82,20 @@
++ ##########################################################################################
++ ##########################################################################################
++ echo init-start 240 >/dev/watchdog
+++
+++# Load boot loader kernel_args API
+++. /usr/bin/kernel_args
+++# Backup kernel log ring buffer ASAP, so as not to lose its earliest entries
+++if ka_isActiveVariable SaveKernelRingBuffer; then
+++	ka_decreaseValue SaveKernelRingBuffer
+++	dmesg > /var/dmesg-rc.S.log
+++fi
+++# Initiate inotify-tools file access logging
+++if ka_isActiveVariable InotifyBootAnalysis; then
+++	ka_decreaseValue InotifyBootAnalysis
+++	/etc/init.d/rc.inotify_tools start 
+++fi
+++
++ ##########################################################################################
++ ## aus den kernel parameters die f�r die module ermitteln
++ ##########################################################################################
+diff -Naur patches/722A/290-replace_websrv-remove_igdd.patch patches/722A/290-replace_websrv-remove_igdd.patch
+--- patches/722A/290-replace_websrv-remove_igdd.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/722A/290-replace_websrv-remove_igdd.patch	2010-05-02 09:03:58.000000000 -0400
+@@ -0,0 +1,36 @@
++diff -Naur rc.net rc.net
++--- etc/init.d/rc.net	2009-09-04 09:24:33.000000000 -0400
+++++ etc/init.d/rc.net	2010-05-02 08:41:20.000000000 -0400
++@@ -57,6 +57,20 @@
++    WLAN_TEST=0
++ fi
++ 
+++# Do we have a UPnP server (upnpd) or was ist stripped from the firmware?
+++_upnpd=$(basename $(which upnpd) 2> /dev/null)
+++# Does a multid option to start without UPnP device (-U) exist?
+++_multid_upnp=$(/sbin/multid -? 2>&1 | grep upnp)
+++# Does a dsld option to start without igd (-g) exist?
+++_dsld_upnp=$(/sbin/dsld -? 2>&1 | grep igd)
+++# Set multid "no UPnP" option, if
+++#   a) it has the parameter at all AND
+++#   b) upnpd binary does *not* exist
+++[ "$_multid_upnp" ] && [ ! "$_upnpd" ] && MULTIDPARAM="$MULTIDPARAM -U -P"
+++# Set dsld "no igd" option, if
+++#   a) it has the parameter at all AND
+++#   b) upnpd binary does *not* exist
+++[ "$_dsld_upnp" ] && [ ! "$_upnpd" ] && DSLDDPARAM="-g"
++ 
++ igddstart()
++ {
++@@ -285,9 +285,9 @@
++    if [ "$CONFIG_DSL" ] ; then
++      if [ "`pidof dsld`" = "" ] ; then
++        if [ "$CONFIG_RAMSIZE" = 8 ] ; then
++-         dsld -i -n $NICEPARAM -r 600 $VERBOSEPARAM
+++         dsld -i -n $NICEPARAM -r 600 $VERBOSEPARAM $DSLDDPARAM
++        else
++-         dsld -i -n $NICEPARAM $VERBOSEPARAM
+++         dsld -i -n $NICEPARAM $VERBOSEPARAM $DSLDDPARAM
++        fi
++      fi
++    fi
+diff -Naur patches/722A/301-remove_smbd.patch patches/722A/301-remove_smbd.patch
+--- patches/722A/301-remove_smbd.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/722A/301-remove_smbd.patch	2010-05-02 09:10:28.000000000 -0400
+@@ -0,0 +1,20 @@
++diff -Naur rc.net rc.net
++--- etc/init.d/rc.net	2010-05-02 08:41:20.000000000 -0400
+++++ etc/init.d/rc.net	2010-05-02 08:52:05.000000000 -0400
++@@ -71,6 +71,8 @@
++ #   a) it has the parameter at all AND
++ #   b) upnpd binary does *not* exist
++ [ "$_dsld_upnp" ] && [ ! "$_upnpd" ] && DSLDDPARAM="-g"
+++# Do we have a Samba server (smbd) or was ist stripped from the firmware?
+++_smbd=$(basename $(which smbd) 2> /dev/null)
++ 
++ igddstart()
++ {
++@@ -314,6 +316,7 @@
++ #we have the samba cfg in /var, so crate them there
++ sambastart()
++ {
+++   [ "$_smbd" ] || return;
++    cd /
++    tar xf /var.tar
++    /bin/smbd
+diff -Naur patches/722A/cond/usbstorage_722A.patch patches/722A/cond/usbstorage_722A.patch
+--- patches/722A/cond/usbstorage_722A.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/722A/cond/usbstorage_722A.patch	2010-05-02 12:22:35.000000000 -0400
+@@ -0,0 +1,70 @@
++--- etc/hotplug/run_mount.orig	2009-06-27 17:13:01.810087361 +0200
+++++ etc/hotplug/run_mount	2009-06-27 17:13:08.118083969 +0200
++@@ -19,17 +19,7 @@
++ nicename () {
++-## Find device's strings, remove/translate evil chars...
++-local MANU=`cat $SYSFS/block/$1/device/vendor|tr -d ' '|tr -c "\na-zA-Z0-9" '-'`
++-local NAME=`cat $SYSFS/block/$1/device/model|tr -d ' '|tr -c "\na-zA-Z0-9" '-'`
++-local PARTHEX=$3
++-if [ $PARTHEX -gt 9 ]; then
++-PARTHEX=`echo $((PARTHEX-10)) | tr "0-5" "A-F"`
++-fi
++-test -z "$NAME" && NAME="Storage"
++-test -n "$MANU" && NAME="$MANU-$NAME"
++-## limit NAME to 30 characters+3 extra characters (-00)
++-NAME=`echo -n "$NAME" | sed -e 's#\(.\{0,30\}\).*#\1#g'`
++-## Build nice name: [Vendor-Product]-<x><y>
++-echo "$NAME-$2$PARTHEX"
+++local NICE=""
+++NICE="uStor`echo $1|sed 's/^..//;s/a/0/;s/b/1/;s/c/2/;s/d/3/;s/e/4/;s/f/5/;s/g/6/;s/h/7/;s/i/8/;s/j/9/'`$3"
+++echo $NICE
++ }
++ ## Simple semaphore stuff:
++ ## includes /etc/hotplug/rc.usbsema
++@@ -40,6 +30,37 @@
++ ## atomic_touch (Filename)
++ USBLOCKFILE=/var/USBLOCK_storage
++ test -f /etc/hotplug/rc.usbsema && . /etc/hotplug/rc.usbsema
+++
+++mount_fs () {
+++ # mount according to type of filesystem 
+++ # return exit code: true - all went well; other - something went wrong 
+++ # gobal variables: 
+++ #  $DEVNODE, $MNTPATH, READMODE, FTPUID, FTPGID 
+++	FSTYPE="vfat"   # default as long as we dont know better 
+++	[[ -x /usr/bin/fstyp ]] && FSTYPE=`/usr/bin/fstyp $DEVNODE` 
+++	
+++	case $FSTYPE in
+++	vfat)
+++		mount -t vfat -o $READMODE,uid=$FTPUID,gid=$FTPGID,fmask=0000,dmask=0000 $DEVNODE $MNTPATH
+++		;;
+++	ext2)
+++		mount -t ext2 $DEVNODE $MNTPATH -o noatime,nodiratime,rw,async
+++		;;
+++	ext3)
+++		mount -t ext3 $DEVNODE $MNTPATH -o noatime,nodiratime,rw,async
+++		;;
+++	ntfs)
+++		/usr/bin/ntfs-3g $DEVNODE $MNTPATH -o force
+++		;;
+++	reiserfs)
+++		mount -t reiserfs $DEVNODE $MNTPATH -o noatime,nodiratime,rw,async
+++		;;
+++	*) # fs type unknown
+++		mount $DEVNODE $MNTPATH
+++		;;
+++	esac
+++}
+++
++ ## Actually perform the mount operation...
++ ## (TODO Checking the partition for known filesystem types)
++ do_mount () {
++@@ -75,7 +96,7 @@
++ local OLD_UMASK=`umask`
++ umask 0
++ local new_filesystem=false
++-if mount -t vfat -o $READMODE,shortname=winnt,uid=$FTPUID,gid=$FTPGID $DEVNODE $MNTPATH; then
+++if mount_fs; then
++ new_filesystem=true
++ else
++ if test -x /bin/ntfs-3g ; then
+diff -Naur patches/722A/cond/usbstorage_7390.patch patches/722A/cond/usbstorage_7390.patch
+--- patches/722A/cond/usbstorage_7390.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/722A/cond/usbstorage_7390.patch	2010-05-02 12:22:35.000000000 -0400
+@@ -0,0 +1,70 @@
++--- etc/hotplug/run_mount.orig	2009-06-27 17:13:01.810087361 +0200
+++++ etc/hotplug/run_mount	2009-06-27 17:13:08.118083969 +0200
++@@ -19,17 +19,7 @@
++ nicename () {
++-## Find device's strings, remove/translate evil chars...
++-local MANU=`cat $SYSFS/block/$1/device/vendor|tr -d ' '|tr -c "\na-zA-Z0-9" '-'`
++-local NAME=`cat $SYSFS/block/$1/device/model|tr -d ' '|tr -c "\na-zA-Z0-9" '-'`
++-local PARTHEX=$3
++-if [ $PARTHEX -gt 9 ]; then
++-PARTHEX=`echo $((PARTHEX-10)) | tr "0-5" "A-F"`
++-fi
++-test -z "$NAME" && NAME="Storage"
++-test -n "$MANU" && NAME="$MANU-$NAME"
++-## limit NAME to 30 characters+3 extra characters (-00)
++-NAME=`echo -n "$NAME" | sed -e 's#\(.\{0,30\}\).*#\1#g'`
++-## Build nice name: [Vendor-Product]-<x><y>
++-echo "$NAME-$2$PARTHEX"
+++local NICE=""
+++NICE="uStor`echo $1|sed 's/^..//;s/a/0/;s/b/1/;s/c/2/;s/d/3/;s/e/4/;s/f/5/;s/g/6/;s/h/7/;s/i/8/;s/j/9/'`$3"
+++echo $NICE
++ }
++ ## Simple semaphore stuff:
++ ## includes /etc/hotplug/rc.usbsema
++@@ -40,6 +30,37 @@
++ ## atomic_touch (Filename)
++ USBLOCKFILE=/var/USBLOCK_storage
++ test -f /etc/hotplug/rc.usbsema && . /etc/hotplug/rc.usbsema
+++
+++mount_fs () {
+++ # mount according to type of filesystem 
+++ # return exit code: true - all went well; other - something went wrong 
+++ # gobal variables: 
+++ #  $DEVNODE, $MNTPATH, READMODE, FTPUID, FTPGID 
+++	FSTYPE="vfat"   # default as long as we dont know better 
+++	[[ -x /usr/bin/fstyp ]] && FSTYPE=`/usr/bin/fstyp $DEVNODE` 
+++	
+++	case $FSTYPE in
+++	vfat)
+++		mount -t vfat -o $READMODE,uid=$FTPUID,gid=$FTPGID,fmask=0000,dmask=0000 $DEVNODE $MNTPATH
+++		;;
+++	ext2)
+++		mount -t ext2 $DEVNODE $MNTPATH -o noatime,nodiratime,rw,async
+++		;;
+++	ext3)
+++		mount -t ext3 $DEVNODE $MNTPATH -o noatime,nodiratime,rw,async
+++		;;
+++	ntfs)
+++		/usr/bin/ntfs-3g $DEVNODE $MNTPATH -o force
+++		;;
+++	reiserfs)
+++		mount -t reiserfs $DEVNODE $MNTPATH -o noatime,nodiratime,rw,async
+++		;;
+++	*) # fs type unknown
+++		mount $DEVNODE $MNTPATH
+++		;;
+++	esac
+++}
+++
++ ## Actually perform the mount operation...
++ ## (TODO Checking the partition for known filesystem types)
++ do_mount () {
++@@ -75,7 +96,7 @@
++ local OLD_UMASK=`umask`
++ umask 0
++ local new_filesystem=false
++-if mount -t vfat -o $READMODE,shortname=winnt,uid=$FTPUID,gid=$FTPGID $DEVNODE $MNTPATH; then
+++if mount_fs; then
++ new_filesystem=true
++ else
++ if test -x /bin/ntfs-3g ; then
+diff -Naur 190-webmenu.patch 190-webmenu.patch
+--- patches/722A/de/190-webmenu.patch	1969-12-31 19:00:00.000000000 -0500
++++ patches/722A/de/190-webmenu.patch	2010-05-05 16:42:00.000000000 -0400
+@@ -0,0 +1,89 @@
++diff -Naur index.html index.html
++--- usr/www/tcom/html/index.html	2009-09-04 09:24:36.000000000 -0400
+++++ usr/www/tcom/html/index.html	2010-05-04 14:54:36.000000000 -0400
++@@ -7,6 +7,7 @@
++ <SCRIPT type="text/javascript" src="/cgi-bin/webcm?getpage=../html/boxconf.js"></SCRIPT>
++ <SCRIPT type="text/javascript">
++ <!--
+++top.frames[0].dirty = true;
++ var start_w = 821;
++ var start_h = 707;
++ function chk(){
++@@ -15,6 +16,7 @@
++ if (((typeof prodname)=="string") && prodname.length>0) document.title = prodname + " Konfigurationsprogramm";
++ document.getElementById("startseite").style.visibility = "visible";
++ document.getElementById("status").style.visibility = "visible";
+++document.getElementById("but3").style.visibility = "visible";
++ document.getElementById("actionbut").style.visibility = "visible";
++ if (getW()<need_w || getH()<need_h) window.resizeTo(start_w,start_h);
++ if (screen.width > 800 && screen.height > 600){
++@@ -56,6 +58,10 @@
++ start_h = start_h + (need_h - getH());
++ window.resizeTo(start_w,start_h);
++ }
+++function gotoFreetz(){
+++location.href="/cgi-bin/freetz_status";
+++target="_blank";
+++}
++ //-->
++ </SCRIPT>
++ <LINK rel="stylesheet" href="/html/style_top.css" type="text/css">
++@@ -83,6 +89,8 @@
++ <DIV id=startseite class="menuhigh">&nbsp;&nbsp;&nbsp;&gt;&gt;&nbsp;Startseite</DIV>
++ <p class="menuseparator">&nbsp;</p>
++ <DIV id=status class="menunormal" onclick="gotosite('/html/top_newstatus.htm')" onmouseover="mousehigh('status',1)" onmouseout="mousehigh('status',0)">&nbsp;&nbsp;&nbsp;&gt;&gt;&nbsp;Status</DIV>
+++<p class="menuseparator">&nbsp;</p>
+++<DIV id=but3 class="menunormal" onclick="gotoFreetz()" onmouseover="mousehigh('but3',1)" onmouseout="mousehigh('but3',0)">&nbsp;&nbsp;&nbsp;&gt;&gt;&nbsp;Freetz</DIV>
++ </td>
++ <td valign="top">
++ <DIV id=cProd></DIV>
++diff -Naur m_startseite.htm m_startseite.htm
++--- usr/www/tcom/html/m_startseite.htm	2009-09-04 09:24:36.000000000 -0400
+++++ usr/www/tcom/html/m_startseite.htm	2010-05-04 15:26:14.000000000 -0400
++@@ -10,7 +10,7 @@
++ <SCRIPT type="text/javascript" src="/html/ajax.js"></SCRIPT>
++ <SCRIPT type="text/javascript">
++ <!--
++-var mpkt = new Array(1,2,
+++var mpkt = new Array(1,2,3,
++ 32,33,34,41,42,51,52,6);
++ function m_high(high,nr){
++ if (nr!=top.frames[0].m_akt){
++@@ -23,11 +23,28 @@
++ }
++ }
++ top.frames[0].dirty = true;
+++
+++function menupktFreetz(nr, url){
+++var i;
+++top.frames[0].m_akt=nr;
+++for(i=0;i<top.frames[1].mpkt.length-1;i++){
+++delClass(top.frames[1].document.getElementById('but'+top.frames[1].mpkt[i]), 'selected');
+++}
+++delClass(top.frames[1].document.getElementById('but'+nr), 'highlight');
+++addClass(top.frames[1].document.getElementById('but'+nr), 'selected');
+++//top.frames[2].location.href = '/cgi-bin/webcm?getpage=../html/'+url;
+++href = '/cgi-bin/webcm?getpage=../html/'+url;
+++target="_blank";
+++}
++ //-->
++ </SCRIPT>
++ <LINK rel="stylesheet" href="/html/style_menu.css" type="text/css">
++ <STYLE type="text/css">
++ #but1 {border-top-style: solid;}
+++#but3 {
+++height: 24px; line-height: 24px; padding-left: 13px;
+++border-color: #000000; border-width: 1px; border-bottom-style: solid; cursor: pointer; font-weight: bold;
+++}
++ </STYLE>
++ </HEAD>
++ <BODY>
++@@ -46,6 +63,8 @@
++ <DIV class=titel>VERWALTUNG</DIV>
++ <DIV id=but51 onclick="menupkt(51,'hcti_hilfsmittel.htm')" onmouseover="m_high(1,51)" onmouseout="m_high(0,51)">:: Hilfsmittel</DIV>
++ <DIV id=but52 onclick="menupkt(52,'hcti_laden.htm')" onmouseover="m_high(1,52)" onmouseout="m_high(0,52)">:: Laden &amp; Sichern</DIV>
+++<DIV class=titel>ERWEITERUNG</DIV>
+++<DIV id=but3 onclick="menupktFreetz(3,'../cgi-bin/freetz_status')" onmouseover="m_high(1,3)" onmouseout="m_high(0,3)">:: Freetz</DIV>
++ <DIV id=but6 onclick="beenden()" onmouseover="m_high(1,6)" onmouseout="m_high(0,6)">:: Beenden</DIV>
++ </DIV>
++ </BODY>

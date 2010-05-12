@@ -3,18 +3,26 @@
 #debian derivates. 
 #It is recommended to run speed-to-fritz prior to this skript with the wanted firmware combinations
 #so the firmware-versions in use will be downloaded and can be used by freetz later without copying them by hand.
-#---------------------
+echo
+echo
+echo
+echo "------------------------------------------------------------------------------------------------------------------"
+echo "------------------------------------------------------------------------------------------------------------------"
+echo "------------------------------------------------------------------------------------------------------------------"
 # dont change variables
-DO_COPY="y" # just for testing
 export HOMEDIR="`pwd`"
 #include variables from last run of speed-to-fritz
 . ./incl_var
 export FREETZ_DIR="freetz-trunk"
 FREETZ_DL_LINK="http://svn.freetz.org/trunk"
 #7390 or W722-->
+  DO_COPY="y" # n is just for testing - uses the complet addon patch for freetz W722
   if [ "$FBMOD" = "7390" ] || [ "$SPNUM" = "722" ] ; then
-    echo "Alternative trunk is used for 7390 or W722V Type A"
+    echo -e "\033[32mAlternative trunk is used for 7390 or W722V Type A\033[0m"
     export FREETZ_DIR="freetz-trunk-7390"
+    #patches are at the moment for revision 4869
+    FREETZREVISION="4869"
+    echo -e "\033[31mRevision  is set to: $FREETZREVISION (current patches do need this revision)\033[0m "
     FREETZ_DL_LINK="http://svn.freetz.org/branches/oliver/7390"
   fi    
 # 7390 or W722<--
@@ -22,28 +30,17 @@ export SVN_VERSION="X${FREETZREVISION}"
 if [ "$FIRST_RUN" = "y" ]; then  
 echo "" 
 echo "" 
-echo "" 
-echo "" 
  echo "You must invoke './start' first to set up the firmwaretype and some other parameters needed to run freetz!" 
     sleep 8 
     exit 0 
 fi
-echo
-echo 
-echo 
-echo 
 #START
-echo
-echo
-echo
 echo "------------------------------------------------------------------------------------------------------------------"
 #echo "------------------------------------------------------------------------------------------------------------------"
 #echo "------------------------------------------------------------------------------------------------------------------"
 #echo "ATTENTION! You must run speed-to-fritz with the correct settings of your Speedport first."
 #echo "At the same time you will get the firmwares used with freetz later on."
 #echo "------------------------------------------------------------------------------------------------------------------"
-echo "------------------------------------------------------------------------------------------------------------------"
-echo "------------------------------------------------------------------------------------------------------------------"
 echo "Your settings from the last run of speed-to-fritz:"
 
 echo "Speedporttype=W${SPNUM}V"
@@ -61,7 +58,7 @@ echo
 echo
 echo "The following script should do this for you:"
 echo
-echo "Installing or updating the latest freetz/trunk"
+echo "Installing or updating freetz/trunk"
 echo "Updating your LINUX system and installing missing tools needed for freetz"
 echo "invoking 'make menuconfig'"
 echo "invoking 'make'"

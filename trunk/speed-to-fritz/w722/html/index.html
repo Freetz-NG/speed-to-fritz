@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+<HEAD>
+<TITLE>Konfigurationsprogramm</TITLE>
+<SCRIPT type="text/javascript" src="/html/dom.js"></SCRIPT>
+<SCRIPT type="text/javascript" src="/html/js_top.js"></SCRIPT>
+<SCRIPT type="text/javascript" src="/cgi-bin/webcm?getpage=../html/boxconf.js"></SCRIPT>
+<SCRIPT type="text/javascript">
+<!--
+top.frames[0].dirty = true;
+var start_w = 821;
+var start_h = 707;
+function chk(){
+var need_w = 660;
+var need_h = 490;
+if (((typeof prodname)=="string") && prodname.length>0) document.title = prodname + " Konfigurationsprogramm";
+document.getElementById("startseite").style.visibility = "visible";
+document.getElementById("status").style.visibility = "visible";
+document.getElementById("but3").style.visibility = "visible";
+document.getElementById("actionbut").style.visibility = "visible";
+if (getW()<need_w || getH()<need_h) window.resizeTo(start_w,start_h);
+if (screen.width > 800 && screen.height > 600){
+document.getElementById("cTextChg").innerHTML = "<p>&nbsp;<\/p>";
+}
+else{
+document.getElementById("cTextChg").innerHTML = "<p>Wir empfehlen ihnen für die <b>optimale Benutzung<\/b> dieses Programms<br>" +
+"eine Bildschirmauflösung von <b>min. 1024 x 768 Pixel<\/b> einzustellen oder<br>" +
+"die Einstellung des Vollbildes mit der <b>Taste F11<\/b>, die Sie auf Ihrer PC-<br>" +
+"Tastatur finden.<br>" +
+"Mit der <b>Taste F11<\/b> können Sie das <b>Vollbild ein- und ausschalten<\/b>.<\/p>" +
+"<p>&nbsp;<\/p>";
+}
+}
+function getW(){
+if (self.innerWidth){ //alle Internet-Browser außer IE
+return self.innerWidth;
+}
+else if (document.body){ //IE nicht im strict-Modus
+return document.body.clientWidth;
+}
+return 800;
+}
+function getH(){
+if (self.innerHeight){ //alle Internet-Browser außer IE
+return self.innerHeight;
+}
+else if (document.body){ //IE nicht im strict-Modus
+return document.body.clientHeight;
+}
+return 600;
+}
+function stOk(){
+var need_w = 792;
+var need_h = 557;
+location.href="/html/top_start_passwort.htm";
+window.resizeTo(start_w,start_h);
+start_w = start_w + (need_w - getW());
+start_h = start_h + (need_h - getH());
+window.resizeTo(start_w,start_h);
+}
+function gotoFreetz(){
+location.href="/cgi-bin/freetz_status";
+target="_blank";
+}
+//-->
+</SCRIPT>
+<LINK rel="stylesheet" href="/html/style_top.css" type="text/css">
+<!--[if IE ]>
+<LINK rel="stylesheet" href="/html/style_top_ie.css" type="text/css">
+<![endif]-->
+<STYLE type="text/css">
+html,body {margin:0;height:100%;}
+#browserlist {padding-left: 15px; margin: 0;}
+#Inhalt {height: 100%; vertical-align: middle;}
+</STYLE>
+</HEAD>
+<BODY onload="chk()">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" id="Inhalt">
+<tr>
+<td valign="middle" align="center">
+<table cellpadding="0" cellspacing="0" width="644" id="welcome">
+<tr>
+<td valign="top" id="welcome_in">
+<img src="/html/pic_welcome_b.gif" width="640" height="44" alt="Willkommen">
+<table border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td id="menucol" valign="top">
+<br>
+<DIV id=startseite class="menuhigh">&nbsp;&nbsp;&nbsp;&gt;&gt;&nbsp;Startseite</DIV>
+<p class="menuseparator">&nbsp;</p>
+<DIV id=status class="menunormal" onclick="gotosite('/html/top_newstatus.htm')" onmouseover="mousehigh('status',1)" onmouseout="mousehigh('status',0)">&nbsp;&nbsp;&nbsp;&gt;&gt;&nbsp;Status</DIV>
+<p class="menuseparator">&nbsp;</p>
+<DIV id=but3 class="menunormal" onclick="gotoFreetz()" onmouseover="mousehigh('but3',1)" onmouseout="mousehigh('but3',0)">&nbsp;&nbsp;&nbsp;&gt;&gt;&nbsp;Freetz</DIV>
+</td>
+<td valign="top">
+<DIV id=cProd></DIV>
+<DIV id=cBorderTxt>
+<DIV id=cText>
+<p>&nbsp;</p>
+<b>Willkommen im Konfigurationsprogramm!</b>
+<p>&nbsp;</p>
+<p>Für die erfolgreiche Konfiguration Ihres Gerätes empfehlen wir Ihnen die Verwendung folgender Internet-Browser:</p>
+<p>&nbsp;</p>
+<ul id="browserlist">
+<li>Internet Explorer, ab Version 6</li>
+<li>Firefox, ab Version 2</li>
+<li>Browser 6.0 von T-Home</li>
+</ul>
+<p>&nbsp;</p>
+</DIV>
+<DIV id=cTextChg>
+<p>Die soeben durchgeführte Systemüberprüfung hat ergeben,<br>
+dass in Ihrem Internet-Browser die Javascript-Funktion deaktiviert ist.</p>
+<p>&nbsp;</p>
+<p>Bitte aktivieren Sie in Ihrem Internet-Browser die Javascript-Funktion<br>
+und rufen Sie dann das Konfigurationsprogramm erneut auf.</p>
+<p>&nbsp;</p>
+</DIV>
+</DIV>
+<form name="F1" action="#">
+<DIV id=actionbut><input type="button" name="B1" class="stylebut" onclick="stOk()" onmouseover="highlight(true)" onmouseout="highlight(false)" value="&gt;&gt;&nbsp;Konfiguration starten"></DIV>
+</form>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</BODY>
+</HTML>
