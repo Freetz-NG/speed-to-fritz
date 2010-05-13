@@ -20,8 +20,8 @@ FREETZ_DL_LINK="http://svn.freetz.org/trunk"
   if [ "$FBMOD" = "7390" ] || [ "$SPNUM" = "722" ] ; then
     echo -e "\033[32mAlternative trunk is used for 7390 or W722V Type A\033[0m"
     export FREETZ_DIR="freetz-trunk-7390"
-    #patches are at the moment for revision 4869
-    FREETZREVISION="4869"
+    #patches are at the moment for revision:
+    FREETZREVISION="4883"
     echo -e "\033[31mRevision  is set to: $FREETZREVISION (current patches do need this revision)\033[0m "
     FREETZ_DL_LINK="http://svn.freetz.org/branches/oliver/7390"
   fi    
