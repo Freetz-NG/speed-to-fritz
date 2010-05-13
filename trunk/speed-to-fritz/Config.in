@@ -307,7 +307,7 @@ config AVM_IPV6_72XX
 
 config AVM_PRE_7270_17245
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270-17091.ZIP ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v2.Labor.54.04.85-17091.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270v2-17245.ZIP ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v2.54.04.85-17245.image"
 
 config AVM_PRE_72XX
     string
