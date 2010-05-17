@@ -380,7 +380,7 @@ config AVM_7570_75_04_72
 
 config AVM_7570_75_04_78
     string
-    default "http://supportvente.pt.lu/luxdsl/avm/FRITZ!Box%207570/firmware/75.04.78/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.78.image"
+    default "http://www.filefreak.com/files/143735_kgyuy/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.78.image"
 
 config AVM_7570_75_04_82
     string
