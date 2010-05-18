@@ -319,7 +319,7 @@ diff -Naur Config.in Config.in
  	default n
  	help
  		Add Freetz version to subversion string, e.g. -11945-freetz-devel-2417.
-@@ -2894,13 +2844,13 @@
+@@ -2901,13 +2851,13 @@
  
  choice
  	prompt "Toolchains"
@@ -336,7 +336,7 @@ diff -Naur Config.in Config.in
  
  	config FREETZ_BUILD_TOOLCHAIN
  		bool "Build toolchain (requires 4GB diskspace)"
-@@ -2943,7 +2893,8 @@
+@@ -2950,7 +2900,8 @@
  	bool
  	default y
  	depends on \
