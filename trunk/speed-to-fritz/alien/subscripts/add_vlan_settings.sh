@@ -15,17 +15,20 @@ echo '<input type="hidden" name="sar:settings/vlan_id" value="<? query sar:setti
 <input type="hidden" name="sar:settings/vlan_id" value="<? query sar:settings/vlan_id ?>" id="uiPostVlanId" disabled-->' "${SRC}/usr/www/${OEMLINK}/html/de/internet/internet_expert.frm"
 [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/kabelmodem.js" ] && sed -i -e '/InitSpeed();/a\
 InitVlan();' "${SRC}/usr/www/${OEMLINK}/html/de/internet/kabelmodem.js"
+# differnt in 7270 to 7570
+sed -i -e 's/id="uiPostResalearch">/id="uiPostResalearch" disabled>/' "${SRC}/usr/www/${OEMLINK}/html/de/internet/authform.frm"
+sed -i -e "s/for=.uiViewTcomTargetarch.*$/for=\"uiViewTcomTargetarch\"><span id=\"uiViewIpTvTxt\">IpTV (VLANs aktiv)<\/span><\/label><\/p/" "${SRC}/usr/www/${OEMLINK}/html/de/internet/authform.html"
 
-if  ! [ grep -q "//vdsl && dslverbindung aktiv" "${SRC}/usr/www/${OEMLINK}/html/de/internet/authform.js" ];then
-sed -i -e '/jslSetValue("uiPostPppMode", pppDoGetOnDemand());/i\
-//vdsl && dslverbindung aktiv\
+if  ! [ grep -q "jslSetValue..uiPostResalearch., .1"  "${SRC}/usr/www/${OEMLINK}/html/de/internet/authform.js" ];then
+sed -i -e '/else if (provider == "1u1")/{n;d}' "${SRC}/usr/www/${OEMLINK}/html/de/internet/authform.js"
+sed -i -e '/else if (provider == "1u1")/a\
+{\
 if(jslGetChecked("uiViewAnschlussDsl") || g_expertMode != "1")\
 jslSetValue("uiPostResalearch", "1");\
 else\
 jslSetValue("uiPostResalearch", "0");\
-jslEnable("uiPostResalearch");\' "${SRC}/usr/www/${OEMLINK}/html/de/internet/authform.js"
+jslEnable("uiPostResalearch");' "${SRC}/usr/www/${OEMLINK}/html/de/internet/authform.js"
 fi
-
 
 exit 0
 
