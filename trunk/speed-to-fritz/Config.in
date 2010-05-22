@@ -1373,7 +1373,7 @@ choice
 
 			FRITZ! : release 67 multilingual
 	config TYPE_7270_m54_04_81
-		bool "AVM 7270 54.04.81.en-de-es-it-fr"
+		bool "AVM 7270 54.04.81.en-de-es-it-fr 16838"
 		depends on TYPE_7240 || TYPE_7270 || TYPE_9207570 || TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL
 		help
 			FRITZ! : release 76 multilingual
@@ -1691,9 +1691,6 @@ choice
 	config TYPE_SRC3_AVM_7240_54_04_59
 		bool "AVM 7240 54.04.59 (Annex A+B)"
 
-	config TYPE_SRC3_AVM_7270_m54_04_81
-		bool "AVM 7270 54.04.81.en-de-it-sp-fr"
-
 	config TYPE_SRC3_AVM_7270_54_04_70
 		bool "AVM 7270 54.04.70"
 
@@ -1708,6 +1705,9 @@ choice
 
 	config TYPE_SRC3_AVM_7273_74_04_80
 		bool "AVM 7270v3 74.04.80"
+
+	config TYPE_SRC3_AVM_7270_m54_04_81
+		bool "AVM 7270 54.04.81.en-de-it-sp-fr 16838"
 
 	config TYPE_SRC3_AVM_7270_13486
 		bool "AVM 7270 13486"
@@ -2039,6 +2039,7 @@ config AVM_IMG
 	default "$AVM_7273_74_04_76"				if ( TYPE_7273_74_04_76 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_54_04_80"				if ( TYPE_7270_54_04_80 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7273_74_04_80"				if ( TYPE_7273_74_04_80 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7270_m54_04_81" 				if ( TYPE_7270_m54_04_81 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL ) 
 	default "$AVM_CORE_7270_15220"				if ( TYPE_7270_CORE_15220 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_CORE_7273_15220"				if ( TYPE_7273_CORE_15220 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_CORE_7270_16540"				if ( TYPE_7270_CORE_16540 ) && ( TYPE_9207570 || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W722V || EXPORT_TYPE_LOCAL_MODEL )
@@ -2147,6 +2148,7 @@ config SRC2_IMG
 	default "$AVM_CORE_7270_16540" 			if TYPE_SRC3_AVM_CORE_7270_16540
 	default "$AVM_CORE_7273_16540" 			if TYPE_SRC3_AVM_CORE_7273_16540
 	default "$AVM_7270_m54_04_76"	 		if TYPE_SRC3_AVM_7270_m54_04_76
+	default "$AVM_7270_m54_04_81"	 		if TYPE_SRC3_AVM_7270_m54_04_81
 	default "$AVM_7270_13486"				if TYPE_SRC3_AVM_7270_13486
 	default "$AVM_AIO_7270_14543"			if TYPE_SRC3_AVM_AIO_7270_14543
 	default "$AVM_WLANX_7270_14080"			if TYPE_SRC3_AVM_WLANX_7270_14080
@@ -3513,7 +3515,14 @@ config SET_EXPERT
 config SET_ALLPROVIDERS
 	bool "Enable all providers"
 	depends on EXPERT_MOD 
-	default n
+	default y
+	help
+	    This is usual set to no in most cases, within the AVM GUI. 
+
+config ADD_PROVIDER_AON
+	bool "Add provider AON"
+	depends on EXPERT_MOD 
+	default y
 	help
 	    This is usual set to no in most cases, within the AVM GUI. 
 endmenu

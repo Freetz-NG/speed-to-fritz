@@ -102,12 +102,27 @@ if [ "${FORCE_DSL_MULTI_ANNEX}" = "y" ]; then
   echo "-- Adding timezone pages ..."
   [ "$avm_Lang" = "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_de.patch" )
   [ "$avm_Lang" != "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_en.patch" )
-  for file_n in $file_nLIST; do
+
+  for file_n in "/html/de/internet/dslsnrset.frm /html/de/internet/dslsnrset.html"; do
    [ -f "${SRC}/usr/www/${OEMLINK}/$file_n" ] && rm -f "${SRC}/usr/www/${OEMLINK}/$file_n"
   done
-  echo "-- Adding multiannex pages ..."
+  echo "-- Adding dslsnrset pages ..."
   [ "$avm_Lang" = "de" ] && modpatch "${SRC}/${USRWWW}" "$P_DIR/add_dslsnrset_de.patch"
   [ "$avm_Lang" != "de" ] && modpatch "${SRC}/${USRWWW}" "$P_DIR/add_dslsnrset_en.patch"
+  echo "-- Adding multiannex pages ..."
+  if ! [-f "${SRC}/usr/www/${OEMLINK}/html/de/first/basic_first_Annex.html"]; then
+  # Sprachdatenbank fehlt
+  #    if  [-f "${DST}/usr/www/avme/html/de/first/basic_first_Annex.html"]; then
+  #	for ext in "frm js html"; do
+  #	    [ -f "${DST}/usr/www/avme/html/de/first/basic_first_Annex.$ext" ] && cp -fv "${DST}/usr/www/avne/html/de/first/basic_first_Annex.$ext" "${SRC}/usr/www/${OEMLINK}/html/de/first/basic_first_Annex.$ext"
+  #	done
+  #    else
+	[ -f "${SRC}/usr/www/${OEMLINK}/html/de/first/basic_first_Annex.frm" ] && rm -f "${SRC}/usr/www/${OEMLINK}/html/de/first/basic_first_Annex.frm"
+	[ -f "${SRC}/usr/www/${OEMLINK}/html/de/first/basic_first_Annex.js" ] && rm -f "${SRC}/usr/www/${OEMLINK}/html/de/first/basic_first_Annex.js"
+	[ "$avm_Lang" = "de" ] && modpatch "${SRC}/${USRWWW}" "$P_DIR/add_first_annex_de.patch"
+	[ "$avm_Lang" != "de" ] && modpatch "${SRC}/${USRWWW}" "$P_DIR/add_first_annex_en.patch"
+  #    fi
+  fi
   file_nLIST="$file_nLIST \
 /html/de/system/timeZone.js \
 /html/de/system/timeZone.frm \

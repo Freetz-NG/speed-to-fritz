@@ -20,12 +20,11 @@
 +
 +
 +
-+
-+
 +</ul>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
 +<form method="post" action="/cgi-bin/webcm">
 +<p>
++<input type="hidden" name="sid" value="<? echo $var:sid ?>" id="uiPostSid">
 +<input type="hidden" name="getpage" value="../html/de/menus/menu2.html" />
 +<input type="hidden" name="errorpage" value="../html/de/menus/menu2.html" />
 +<input type="hidden" name="var:pagename" value="vdsl_profile" />
@@ -48,6 +47,7 @@
 +<br>
 +<form method="post" action="/cgi-bin/webcm">
 +<p>
++<input type="hidden" name="sid" value="<? echo $var:sid ?>" id="uiPostSid">
 +<input type="hidden" name="getpage" value="../html/de/menus/menu2.html" />
 +<input type="hidden" name="errorpage" value="../html/de/menus/menu2.html" />
 +<input type="hidden" name="var:pagename" value="vdsl_profile" />
@@ -70,13 +70,13 @@
 +++ internet/vdsl_profile.js	2009-01-22 10:31:49.000000000 -0500
 @@ -0,0 +1,27 @@
 +<!-- ../internet/vdsl_profile.js -->
-+<style type="text/css">
-+<!--
-+#content {width: 580px; margin: auto;}
-+.ac {text-align:center;}
-+.fett {font-weight: bold;}
-+-->
-+</style>
++
++
++
++
++
++
++
 +<script type="text/javascript">
 +<? include ../html/de/js/jsl.js ?>
 +<? include ../html/de/internet/awatch.js ?>

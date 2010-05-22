@@ -1467,6 +1467,8 @@ if [ "$ORI" != "y" ]; then
  [ "$DO_GSM_PATCH" = "y" ] && $sh_DIR/disply_gsm.sh "${SRC}" "${OEMLIST}"
  #enable all providers
  [ "$SET_ALLPROVIDERS" = "y" ] && $sh_DIR/set_allproviders.sh
+ #enable provider AON
+ [ "$ADD_PROVIDER_AON" = "y" ] && $sh_DIR/add_provider_aon.sh
  #set expert view
  [ "$SET_EXPERT" = "y" ] && $sh_DIR/set_expertansicht.sh
  # reverse phonebook lookup

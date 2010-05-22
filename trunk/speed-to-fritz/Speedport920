@@ -314,9 +314,9 @@ fi
 # add kapselung and annex settings page if missing
 $sh_DIR/add_multi_settings.sh
 # add feedback tab with vdsl profile page
-# would need some cleanup and splititng into two files
-#[ "${ADD_VDSL_PROFILE}" = "y" ] && $sh_DIR/add_vdslprofilepage.sh "${SRC}"
 $sh_DIR/add_vdslprofilepage.sh "${SRC}"
+# patch some VLAN settings
+$sh_DIR/add_vlan_setting.sh "${SRC}"
 #remove kids and help
 [ "${REMOVE_KIDS}" = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
 [ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"

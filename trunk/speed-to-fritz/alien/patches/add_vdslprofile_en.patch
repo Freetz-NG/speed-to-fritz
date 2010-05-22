@@ -3,7 +3,7 @@
 @@ -0,0 +1,65 @@
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
-+{?de.internet.vdsl_profile.html:5DSLInfo?}
++VDSL Profils
 +</div></div></div></div></div></div>
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
 +<ul class="tabs">
@@ -11,27 +11,26 @@
 +<li><a href="javascript:uiDoADSLPage()">DSL</a></li>
 +<li><a href="javascript:uiDoBitsPage()">Spectrum</a></li>
 +<li class="tabs_on"><div class="activtab">VdslProf</div></li>
-+<? if eq $var:isMultiAnnex 1 `
-+<? if eq '<? query box:settings/expertmode/activated ?>' '1' `
 +<li><a href="javascript:uiDoSNRPage()">Settings</a></li>
-+` ?>
-+` `
-+<? if neq $var:Annex A `
-+<? if eq '<? query box:settings/expertmode/activated ?>' '1' `
-+<li><a href="javascript:uiDoSNRPage()">Settings</a></li>
-+` ?>
-+` ?>
-+` ?>
++
++
++
++
++
++
++
++
 +</ul>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
 +<form method="post" action="/cgi-bin/webcm">
 +<p>
++<input type="hidden" name="sid" value="<? echo $var:sid ?>" id="uiPostSid">
 +<input type="hidden" name="getpage" value="../html/de/menus/menu2.html" />
 +<input type="hidden" name="errorpage" value="../html/de/menus/menu2.html" />
 +<input type="hidden" name="var:pagename" value="vdsl_profile" />
 +<input type="hidden" name="var:errorpagename" value="vdsl_profile" />
 +<input type="hidden" name="var:menu" value="internet" />
-+{?de.internet.vdsl_profile.html:35Prof?}
+++Select Profil:
 +<select name="vdsl:settings/vdsl_profile" id="vdsl_profile_box">
 +<option value="0">annex17a</option>
 +<option value="1">annex8a</option>
@@ -42,24 +41,25 @@
 +<option value="6">annex17b</option>
 +<option value="7">annex30a</option>
 +</select>
-+<input type="submit" value="Uebernehmen" />
++<input type="submit" value="Submit" />
 +</p>
 +</form>
 +<br>
 +<form method="post" action="/cgi-bin/webcm">
 +<p>
++<input type="hidden" name="sid" value="<? echo $var:sid ?>" id="uiPostSid">
 +<input type="hidden" name="getpage" value="../html/de/menus/menu2.html" />
 +<input type="hidden" name="errorpage" value="../html/de/menus/menu2.html" />
 +<input type="hidden" name="var:pagename" value="vdsl_profile" />
 +<input type="hidden" name="var:errorpagename" value="vdsl_profile" />
 +<input type="hidden" name="var:menu" value="internet" />
-+{?de.internet.vdsl_profile.html:85Filter?}
++Select Filter
 +<select name="vdsl:settings/vdsl_filter" id="vdsl_filter_box">
 +<option value="0">Filter Off</option>
 +<option value="1">ISND Filter</option>
 +<option value="2">POTS Filter</option>
 +</select>
-+<input type="submit" value="Uebernehmen" />
++<input type="submit" value="Submit" />
 +</p>
 +</form>
 +</div></div></div></div></div></div>
@@ -70,13 +70,13 @@
 +++ internet/vdsl_profile.js	2009-01-22 10:31:49.000000000 -0500
 @@ -0,0 +1,27 @@
 +<!-- ../internet/vdsl_profile.js -->
-+<style type="text/css">
-+<!--
-+#content {width: 580px; margin: auto;}
-+.ac {text-align:center;}
-+.fett {font-weight: bold;}
-+-->
-+</style>
++
++
++
++
++
++
++
 +<script type="text/javascript">
 +<? include ../html/de/js/jsl.js ?>
 +<? include ../html/de/internet/awatch.js ?>
