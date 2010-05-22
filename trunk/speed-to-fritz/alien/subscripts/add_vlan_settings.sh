@@ -15,5 +15,17 @@ echo '<input type="hidden" name="sar:settings/vlan_id" value="<? query sar:setti
 <input type="hidden" name="sar:settings/vlan_id" value="<? query sar:settings/vlan_id ?>" id="uiPostVlanId" disabled-->' "${SRC}/usr/www/${OEMLINK}/html/de/internet/internet_expert.frm"
 [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/kabelmodem.js" ] && sed -i -e '/InitSpeed();/a\
 InitVlan();' "${SRC}/usr/www/${OEMLINK}/html/de/internet/kabelmodem.js"
+
+if  ! [ grep -q "//vdsl && dslverbindung aktiv" "${SRC}/usr/www/${OEMLINK}/html/de/internet/authform.js" ];then
+sed -i -e '/jslSetValue("uiPostPppMode", pppDoGetOnDemand());/i\
+//vdsl && dslverbindung aktiv\
+if(jslGetChecked("uiViewAnschlussDsl") || g_expertMode != "1")\
+jslSetValue("uiPostResalearch", "1");\
+else\
+jslSetValue("uiPostResalearch", "0");\
+jslEnable("uiPostResalearch");\' "${SRC}/usr/www/${OEMLINK}/html/de/internet/authform.js"
+fi
+
+
 exit 0
 
