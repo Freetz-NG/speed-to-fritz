@@ -828,7 +828,7 @@ choice
 		bool "AVM 7570 75.04.76 1und1 15245"
 
 	config TYPE_TCOM_7570_16961
-		bool "AVM 7570 16961.en-de-fr"
+		bool "AVM 7570 16961.en-de-fr (IPv6)"
 
 	config TYPE_TCOM_7570_75_04_77
 		bool "AVM 7570 75.04.77.en-de-fr 15324"
@@ -1504,7 +1504,7 @@ choice
 		FRITZ! : 7570 release multilingual, for used in combination with W920	
 
 	config TYPE_AVM_7570_16961
-		bool "AVM 7570 16961.en-de-fr"
+		bool "AVM 7570 16961.en-de-fr (IPv6)"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
@@ -1544,7 +1544,7 @@ choice
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_75_04_82
-		bool "AVM 7570 75.04.81 16542"
+		bool "AVM 7570 75.04.82.en-de-fr 17057"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
@@ -1722,13 +1722,13 @@ choice
 		bool "AVM 7270 14543 (PREVIEW)"
 
 	config TYPE_SRC3_AVM_IPV6_7273_17299
-		bool "AVM 7270v3 17299.en-de-fr (IPV6)"
+		bool "AVM 7270v3 17299.en-de-fr (IPv6)"
 
 	config TYPE_SRC3_AVM_IPV6_7270_17299
-		bool "AVM 7270 17299.en-de-fr (IPV6)"
+		bool "AVM 7270 17299.en-de-fr (IPv6)"
 
 	config TYPE_SRC3_AVM_IPV6_7270_16961
-		bool "AVM 7270 16961.en-de-fr (IPV6)"
+		bool "AVM 7270 16961.en-de-fr (IPv6)"
 
 	config TYPE_SRC3_AVM_DSL_7270_16750
 		bool "AVM 7270 16750 Labor DSL"
@@ -1833,7 +1833,7 @@ choice
 		bool "AVM 7570 75.04.76 1und1 15245"
 
 	config TYPE_SRC3_AVM_7570_16961
-		bool "AVM 7570 16961.en-de-fr"
+		bool "AVM 7570 16961.en-de-fr (IPv6)"
 
 	config TYPE_SRC3_AVM_7570_75_04_77
 		bool "AVM 7570 75.04.77.en-de-fr 15324"
