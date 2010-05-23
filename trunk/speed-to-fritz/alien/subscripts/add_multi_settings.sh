@@ -103,10 +103,9 @@ if [ "${FORCE_DSL_MULTI_ANNEX}" = "y" ]; then
   [ "$avm_Lang" = "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_de.patch" )
   [ "$avm_Lang" != "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_en.patch" )
 
-  for file_n in "/html/de/internet/dslsnrset.frm /html/de/internet/dslsnrset.html"; do
-   [ -f "${SRC}/usr/www/${OEMLINK}/$file_n" ] && rm -f "${SRC}/usr/www/${OEMLINK}/$file_n"
-  done
-  echo "-- Adding dslsnrset pages ..."
+  echo "-- Adding Annex selection to dslsnrset pages ..."
+  [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.frm" ] && rm -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.frm"
+  [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.html" ] && rm -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.html"
   [ "$avm_Lang" = "de" ] && modpatch "${SRC}/${USRWWW}" "$P_DIR/add_dslsnrset_de.patch"
   [ "$avm_Lang" != "de" ] && modpatch "${SRC}/${USRWWW}" "$P_DIR/add_dslsnrset_en.patch"
   echo "-- Adding multiannex pages ..."
