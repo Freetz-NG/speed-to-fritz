@@ -819,9 +819,10 @@ Section -CreateConfigFile
   FileWrite $0 "#   http://www.colinux.org/$\r$\n"
   FileWrite $0 "#   http://wiki.ip-phone-forum.de/freetzlinux:network$\r$\n"
   FileWrite $0 "$\r$\n"
-  FileWrite $0 'exec0="Xming\Xming.exe",":0 -dpi 85 -clipboard -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log"$\r$\n'
-  FileWrite $0 '#exec0="Xming\Xming.exe",":0 -dpi 85 -ac -clipboard -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log -xkbmodel pc105 -xkblayout se"$\r$\n'
-  FileWrite $0 "#exec1=pulseaudio\pulseaudio.exe $\r$\n"
+  FileWrite $0 'exec0="colinux-console-fltk.exe"$\r$\n'
+  FileWrite $0 'exec1="Xming\Xming.exe",":0 -dpi 85 -clipboard -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log"$\r$\n'
+  FileWrite $0 '#exec1="Xming\Xming.exe",":0 -dpi 85 -ac -clipboard -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log -xkbmodel pc105 -xkblayout se"$\r$\n'
+  FileWrite $0 "#exec2=pulseaudio\pulseaudio.exe $\r$\n"
   FileWrite $0 "# Please do not change unless you understand these settings$\r$\n"
   FileWrite $0 "kernel=vmlinux$\r$\n"
   FileWrite $0 "#base.vdi is the complete compressed ubuntu or any other linux$\r$\n"
@@ -854,7 +855,16 @@ Section -CreateConfigFile
   FileWrite $0 '#Dont touch this, is needed for Xming$\r$\n'
   FileWrite $0 'eth1=tuntap,"XmingTAPBridge",$\r$\n'
   FileWrite $0 "#120x80 my be usabel on NT and FTKL Console$\r$\n"
-  FileWrite $0 "cocon=80x40$\r$\n"
+  FileWrite $0 "cocon=80x40x500$\r$\n"
+  FileWrite $0 "#How to use:$\r$\n"
+  FileWrite $0 "#    * Edit this conf file and set the third value in cocon.  For example,$\r$\n"
+  FileWrite $0 "#	for a screen of 80x25 with a scroll back buffer of 475, set cocon=80x25x500$\r$\n"
+  FileWrite $0 "#   * To scroll back and forth, use the mouse-wheel button or the Windows key$\r$\n"
+  FileWrite $0 "#	combined with Page-Up or Page-Down.$\r$\n"
+  FileWrite $0 "#    * Copy/paste operations work with scroll back buffer as well.$\r$\n"
+  FileWrite $0 "#    * When the scroll back buffer is active, the cursor is hidden.$\r$\n"
+  FileWrite $0 "#    * Upon paste, or keyboard hit, the scroll-back is reset.$\r$\n"
+  FileWrite $0 "$\r$\n"
   FileWrite $0 "# Serial configuration$\r$\n"
   FileWrite $0 'ttys0=$NW_COM_Value,"baud=38400 parity=N data=8 stop=1 xon=off odsr=off octs=off idsr=off to=on rts=on dtr=on"$\r$\n'
   FileClose $0
@@ -1267,6 +1277,7 @@ Section -post
   FileWrite $0 "CL_SAMBAUSER=$NW_SAMBAUSER_Value$\n"
   FileWrite $0 "CL_NEWUSERPW=$NW_USERPW_Value$\n"
   FileWrite $0 "CL_SAMBAUSERPW=$NW_SAMBAUSERPW_Value$\n"
+  FileWrite $0 "CL_KERNEL_VERSION=$KERNEL_VERSION$\n"
   FileClose $0
 
   DetailPrint "Passing install settings to andLinux"

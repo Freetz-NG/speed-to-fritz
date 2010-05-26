@@ -76,6 +76,7 @@ mountuser=$CL_SAMBAUSER
 mountpassword=$CL_SAMBAUSERPW
 NewUser_pw=$CL_NEWUSERPW
 mountshare="$(echo $mountpath | sed -e 's|.*\\||')"
+KERNEL_Version="$CL_KERNEL_VERSION"
 #ls
 # Generate ssh keys
 [ -e /etc/ssh/ssh_host_dsa_key ] || ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N ''
@@ -377,15 +378,19 @@ User: root, password: root
 Please log in as root or use 'sudo su', change password, and then update the 
 /etc/issue file, to remove this info.
 
-*  console-nt: paste with WinKey+V
-
-Type: konsole followed by Enter key, this should start konsole if installed.
-
-Then login as normal user via SSH Putty or konsole first then:
-
-./download_speed-to-fritz.sh (will start the latest speed-to-fritz version.)
-
-./freetz.sh  (will start freetz.)
+*  console-nt: Paste with 'WinKey+V'
+*  console-FLTK:
+    * Paste with 'Contl+WinKey+V', copy with 'Contl+WinKey+C'
+    * To scroll back and forth, use the mouse-wheel button or
+      the Windows key combined with Page-Up or Page-Down.
+    * Copy/paste operations work with scroll back buffer as well.
+    * When the scroll back buffer is active, the cursor is hidden
+    * Upon paste, or keyboard hit, the scroll-back is reset.
+Start X-window:
+Type in konsole followed by Enter key, this should start konsole if installed.
+Then login as normal user via SSH Putty or konsole and type in:
+./download_speed-to-fritz.sh (Start's the latest speed-to-fritz version)
+./freetz.sh  (Start of freetz)
 -------------------------------------------------------------------------------
 EOF
 cat <<SETEOF >/setpw
@@ -419,6 +424,10 @@ grep -q 'exit' /etc/rc.local || echo "exit 0" >> /etc/rc.local
 mv /freetz.sh  /home/\${NewUser}/freetz.sh
 mv /install-tools2  /home/\${NewUser}/install-tools2
 mv /download_speed-to-fritz.sh  /home/\${NewUser}/download_speed-to-fritz.sh
+###rebuild moduldependency
+echo "Kernelversion: \$KERNEL_Version"
+/sbin/depmod -a \$KERNEL_Version
+sync
 EOSF
 #<-- end setup.sh
 if [ "$CL_FORMATIEREN" = "y" ]; then

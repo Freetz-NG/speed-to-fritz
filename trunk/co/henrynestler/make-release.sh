@@ -63,6 +63,7 @@ rmdir initrd
 
 # Build the installer
 COLINUX_INSTALL=${BASE}/coLinux/src/src/colinux/os/winnt/user/install
+sed -i -e "s/!define KERNEL_VERSION ..KERNEL_VERSION./!define KERNEL_VERSION \"$LONG_VER\"/" ${COLINUX_INSTALL}/colinux_def.sh
 cd ${BASE}/coLinux/src
 sh ${COLINUX_INSTALL}/colinux_def.sh
 ln -s ${BASE}/coLinux/bin ${COLINUX_INSTALL}/premaid
