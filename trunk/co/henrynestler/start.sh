@@ -140,7 +140,7 @@ do
 done
 }
 if  [ "$TESTING" != "y" ]; then
- #source is only in use for installer version my be an older one
+ # Source is only in use for installer version my be an older one
  [ -f ./colinux-$COLINUX_VER.src.tgz ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/colinux-$COLINUX_VER.src.tgz"
 #sleep 10
 fi

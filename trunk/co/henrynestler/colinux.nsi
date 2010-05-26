@@ -1277,7 +1277,7 @@ Section -post
   FileWrite $0 "CL_SAMBAUSER=$NW_SAMBAUSER_Value$\n"
   FileWrite $0 "CL_NEWUSERPW=$NW_USERPW_Value$\n"
   FileWrite $0 "CL_SAMBAUSERPW=$NW_SAMBAUSERPW_Value$\n"
-  FileWrite $0 "CL_KERNEL_VERSION=$KERNEL_VERSION$\n"
+  FileWrite $0 "CL_KERNEL_VERSION=${KERNEL_VERSION}$\n"
   FileClose $0
 
   DetailPrint "Passing install settings to andLinux"
