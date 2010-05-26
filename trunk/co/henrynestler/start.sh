@@ -140,6 +140,7 @@ do
 done
 }
 if  [ "$TESTING" != "y" ]; then
+ #source is only in use for installer version my be an older one
  [ -f ./colinux-$COLINUX_VER.src.tgz ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/colinux-$COLINUX_VER.src.tgz"
 #sleep 10
 fi
@@ -161,9 +162,8 @@ echo "==========================================================================
 echo "====================================================================================================="
 export home=$(pwd)
 cd ../bfin-colinux-ori/trunk/upstream
-# use devel only in us if some files would be missing in last release
+# use devel.exe - only in use for supplying initrd.gz
 #--------------------------------------------------------------------
-DEVEL_VER="20091108"
 DEVEL_VER="20100523"
 #--------------------------------------------------------------------
 [ -f coLinux-${DEVEL_VER}.exe ] || wget "http://www.henrynestler.com/colinux/testing/devel-0.7.8/${DEVEL_VER}-Snapshot/devel-coLinux-${DEVEL_VER}.exe"
@@ -183,7 +183,7 @@ echo "Old colinux exe version: $COLINUX_EXE_VER"
 [ -d and ] && rm -R and
 mkdir and
 cd and
-#--initrd.gz and colinux-daemon.txt are not includese with new releas so we need them from the old package
+#--initrd.gz and colinux-daemon.txt are not includese with demons.zip 
 7z x -y ../upstream/coLinux-$COLINUX_EXE_VER.exe
 #
 COLINUX_PATCHVER="0.7.3"
