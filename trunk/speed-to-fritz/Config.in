@@ -674,6 +674,7 @@ endif
 if  TYPE_7390 || TYPE_7273 || TYPE_OR_7240_7270 || TYPE_7170 || TYPE_7150 || TYPE_7113 || TYPE_7141 || TYPE_7140 || TYPE_7050 ||\
     TYPE_5140 || TYPE_5130 || TYPE_5050 || TYPE_5012 || TYPE_5010 || TYPE_FBFW || TYPE_FBFO || LOCAL_X_MODEL
     config EXPORT_TYPE_LOCAL_MODEL
+	bool
 	default y
 endif
 # Without 7390, 7240, 7270, 7270v3, 7170, 7113, 7141, 7140, 7150,
@@ -681,6 +682,7 @@ endif
 # TYPE_7050 || TYPE_5140 || TYPE_5130 || TYPE_5050 || TYPE_5012 || TYPE_5010 || TYPE_FBFW || TYPE_FBFO || 
 if  LOCAL_X_MODEL
     config TYPE_AVMX_MODEL
+	bool
 	default y
 endif
 if ! LOCAL_X_MODEL
@@ -3321,8 +3323,11 @@ comment "SYSTEM Options -----------------------------------------------------"
 config FORCE_TCOM_LEDDRIVER
 	bool "Force use of original LED driver"
 	depends on TYPE_OR_7240_7570_920 || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V
-	default y if ( ! FORCE_VDSL && TYPE_9207570 ) && ( ! TYPE_OR_503_722 ) || TYPE_7240
-	default n if ( FORCE_VDSL && TYPE_9207570 ) && ( ! TYPE_OR_503_722 ) && ! TYPE_7240 
+#	default y if ( ! FORCE_VDSL && TYPE_9207570 ) && ( ! TYPE_OR_503_722 ) || TYPE_7240
+#	default n if ( FORCE_VDSL && TYPE_9207570 ) && ( ! TYPE_OR_503_722 ) && ! TYPE_7240 
+	default y if ( ! TYPE_9207570 ) && ( ! TYPE_OR_503_722 ) || TYPE_7240
+	default n if ( TYPE_9207570 ) && ( ! TYPE_OR_503_722 ) && ! TYPE_7240 
+
 	help
 		For normal this is "n", but you my use the original LED driver, definition of LEDs differ, not all LEDS are usable.
 
@@ -3330,7 +3335,8 @@ config FORCE_SRC2_LEDDRIVER
 	bool "Force use of AVM source 2 LED driver"
 	depends on TYPE_9207570 || TYPE_OR_503_722 || TYPE_7240
 	default n if ! TYPE_9207570 || TYPE_OR_503_722 
-	default y if FORCE_VDSL && TYPE_9207570 && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W503V
+#	default y if FORCE_VDSL && TYPE_9207570 && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W503V
+	default y if TYPE_9207570 && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W503V
  	
 	help
 		For normal this is "n", but you my use AVM source 2 driver, definition of LEDs differ.
