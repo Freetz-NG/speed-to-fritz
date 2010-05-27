@@ -821,11 +821,12 @@ if TYPE_LOCAL_TCOM || TYPE_AVMX_MODEL
     bool
     default y
 endif
-if TYPE_LANG_DE || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_TCOM_7570_XX
-    config TYPE_OR_7570XX_MULTIANNEX_DE
+if TYPE_LANG_DE || TYPE_TCOM_7570_XX
+    config TYPE_OR_7570XX_DE
     bool
     default y
 endif
+
 if TYPE_OR_7240_7570_920 || TYPE_OR_503_722_AVMX_LOCALTCOM
     config TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM
     bool
@@ -891,8 +892,13 @@ if TYPE_7273 || TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM
     bool
     default y
 endif
+if TYPE_9207570 || TYPE_OR_503_722_AVMX_LOCALTCOM
+    config TYPE_OR_7570_503_722_920_AVMX_LOCALTCOM
+    bool
+    default y
+endif
 if TYPE_7240 || TYPE_7390 || TYPE_7273 || TYPE_OR_7570_503_722_920_AVMX_LOCALTCOM
-    config TYPE_OR_7240_7273_7570_503_722_AVMX_LOCALTCOM
+    config TYPE_OR_7240_7273_7390_7570_503_722_920_AVMX_LOCALTCOM
     bool
     default y
 endif
@@ -901,6 +907,9 @@ if TYPE_OR_7240_7570_920 || TYPE_OR_503_722_AVMX_LOCALTCOM
     bool
     default y
 endif
+config ORI_FIRMWARE_IS_MULI
+    bool
+    default n
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #comment "Select basis firmware, 1st Firmware (optional) --------------------"
 comment  "--------------------------------------------------------------------"
@@ -1114,8 +1123,8 @@ endchoice
 config EXPORT_FORCE_DSL_MULTI_ANNEX 
 	bool "Force Multi annex (optional)"
 	depends on ( ! ORI && ! TYPE_SPEEDPORT_W900V && ! TYPE_SPEEDPORT_W701V && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
-	default n if ! TYPE_9207570
-	default y if TYPE_9207570
+	default n if ORI_FIRMWARE_IS_MULI
+	default y if ! ORI_FIRMWARE_IS_MULI
 	help
 	    To make this work you must have a firmware that supplies the needed feature, firmware with minor version > 70 (7270 like).
 	    In case of 7170 Firmwares, it is usual better to stay without this optin because the drivers are optimized for a special annex type.
@@ -1200,7 +1209,7 @@ choice
 #----MOVED TO PLACE IN ORDER FOR DEFAULTS if is not available 
 #	config TYPE_7270_AIO_14543
 #		bool "7270_AIO_14543 - Alles in einem pre-release"
-#		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+#		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 #		help
 #			FRITZ!Lab AIO: This release combines several software improvements.
 #			Therefore AIO means All-In-One. As of now, it contains various
@@ -1209,7 +1218,7 @@ choice
 
 	config TYPE_7170_PRE_16352
 		bool "7170 16352 - Alles in einem pre-release"
-		depends on (TYPE_7170 || TYPE_OR_701_721_SPECIAL721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on (TYPE_7170 || TYPE_OR_701_721_SPECIAL721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab AIO: This release combines several software improvements.
 			Therefore AIO means All-In-One. As of now, it contains various
@@ -1218,7 +1227,7 @@ choice
 
 	config TYPE_7170_DSL_14119
 		bool "AVM 7170 14119 Labor-DSL"
-		depends on (TYPE_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_OR_701_721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on (TYPE_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_OR_701_721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab DSL: This release optimises the DSL (Digital Subscriber
 			 Line) software and adds related graphs.
@@ -1299,25 +1308,25 @@ choice
 
 	config TYPE_7170_MINI_14935
 		bool "AVM 7170 14935 mini"
-		depends on ( TYPE_OR_7140_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_OR_701_721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7140_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_OR_701_721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ! release: 13948
 
 	config TYPE_7170_29_04_76
 		bool "AVM 7170 29.04.76"
-		depends on ( TYPE_OR_7140_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_OR_701_721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7140_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_OR_701_721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ! release: 76
 
 	config TYPE_7170_29_04_77
 		bool "AVM 7170 29.04.77"
-		depends on ( TYPE_OR_7140_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_OR_701_721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7140_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_OR_701_721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ! release: 77
 
 	config TYPE_7170_29_04_80
 		bool "AVM 7170 29.04.80"
-		depends on ( TYPE_OR_7140_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_OR_701_721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7140_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_OR_701_721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ! release: 80
 
@@ -1331,113 +1340,117 @@ choice
 
 	config TYPE_7240_54_04_59
 		bool "AVM 7240 54.04.59"
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		depends on EXPERT_MOD 
 		help
 			FRITZ! release: 59
 
 	config TYPE_7270_PRE_17273
 		bool "AVM 7270 17273 (PREVIEW)"
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab (PREVIEW):
 			
 	config TYPE_7273_PRE_17273
 		bool "AVM 7270v3 17273 (PREVIEW)"
-		depends on ( TYPE_OR_7240_7273_7570_503_722_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7273_7390_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help 
 			FRITZ!Lab (PREVIEW):
 
 	config TYPE_7240_PRE_15892
 		bool "AVM 7240 15892 (PREVIEW)"
 
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab (PREVIEW):
 
 	config TYPE_72XX_PRE
 		bool "AVM 72XX select from update download (PREVIEW)"
-		depends on ( TYPE_OR_7270_7273_7570_503_722_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7270_7273_7570_503_722_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab (PREVIEW): from autoupdate download, look into directory and present a coice for downloading. 
 
 	config TYPE_7270_54_04_76
 		bool "AVM 7270 54.04.76"
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		depends on EXPERT_MOD 
 		help
 			FRITZ! release: 76
 
 	config TYPE_7270_54_04_80
 		bool "AVM 7270 54.04.80"
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 #		depends on EXPERT_MOD 
 		help
 			FRITZ! release: 80
 
 	config TYPE_7240_73_04_76
 		bool "AVM 7240 73.04.76"
-		depends on TYPE_7240 || TYPE_AVMX_MODEL || ( TYPE_9207570  && EXPERT_MOD && ( TYPE_OR_7570XX_MULTIANNEX_DE ))
+		depends on TYPE_7240 || TYPE_AVMX_MODEL || ( TYPE_9207570  && EXPERT_MOD && ( TYPE_OR_7570XX_DE ))
 		help
 			FRITZ! release: 76
 
 	config TYPE_7240_73_04_80
 		bool "AVM 7240 73.04.80"
-		depends on TYPE_7240 || TYPE_AVMX_MODEL || ( TYPE_9207570  && EXPERT_MOD && ( TYPE_OR_7570XX_MULTIANNEX_DE ))
+		depends on TYPE_7240 || TYPE_AVMX_MODEL || ( TYPE_9207570  && EXPERT_MOD && ( TYPE_OR_7570XX_DE ))
 		help
 			FRITZ! release: 80
 
 	config TYPE_7273_74_04_76
 		bool "AVM 7270v3 74.04.76"
-		depends on ( TYPE_OR_7240_7273_7570_503_722_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7273_7390_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		depends on EXPERT_MOD 
 		help
 			FRITZ! release: 76
 
 	config TYPE_7273_74_04_80
 		bool "AVM 7270v3 74.04.80"
-		depends on ( TYPE_OR_7240_7273_7570_503_722_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7273_7390_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 #		depends on EXPERT_MOD 
 		help
 			FRITZ! release: 80
 			
 	config TYPE_7270_IPV6_17360
 		bool "AVM 7270 17360.en-de-fr IPv6"
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		select ORI_FIRMWARE_IS_MULI
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
 			(Internet Protocol Version 6) and 6to4 tunnels.
 
 	config TYPE_7270_IPV6_16961
 		bool "AVM 7270 16961.en-de-fr IPv6"
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		select ORI_FIRMWARE_IS_MULI
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
 			(Internet Protocol Version 6) and 6to4 tunnels.
 
 	config TYPE_7273_IPV6_17360
 		bool "AVM 7270v3 17360.en-de-fr IPv6"
-		depends on ( TYPE_OR_7240_7273_7570_503_722_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		select ORI_FIRMWARE_IS_MULI
+		depends on ( TYPE_OR_7240_7273_7390_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
 			(Internet Protocol Version 6) and 6to4 tunnels.
 
 	config TYPE_72XX_IPV6
 		bool "AVM 72XX IPv6 select from update download"
-		depends on ( TYPE_OR_7270_7273_7570_503_722_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7270_7273_7570_503_722_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab (PREVIEW): from autoupdate download, look into directory and present a coice for downloading. 
 
 #	config TYPE_7270_IPV6_14621
 #		bool "AVM 7270 14621 IPv6.en-de-es-it-fr "
-#		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+#		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
+		select ORI_FIRMWARE_IS_MULI
 #		help
 #			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
 #			(Internet Protocol Version 6) and 6to4 tunnels.
 
 	config TYPE_7270_PHONE_16999
 		bool "AVM 7270 16999 (Phone)"
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
 			and fixes various software problems, e.g. answering machine and
@@ -1445,7 +1458,7 @@ choice
 
 	config TYPE_7273_PHONE_16999
 		bool "AVM 7270v3 16999 (Phone)"
-		depends on ( TYPE_OR_7240_7273_7570_503_722_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7273_7390_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
 			and fixes various software problems, e.g. answering machine and
@@ -1453,20 +1466,20 @@ choice
 
 	config TYPE_7270_NAS_16561
 		bool "AVM 7270 16561 (LabNAS)"
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab NAS: This release improves NAS functionality
 
 	config TYPE_7273_NAS_16561
 		bool "AVM 7270v3 16561 (LabNAS)"
-		depends on ( TYPE_OR_7240_7273_7570_503_722_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7273_7390_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab NAS: This release improves NAS functionality
 
 
 #	config TYPE_7240_PHONE_16376
 #		bool "AVM 7240 16376 (Phone)"
-#		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM  ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+#		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM  ) && ( TYPE_OR_7570XX_DE )
 #		help
 #			FRITZ!Lab Phone: This release improves DECT repeating, call lists,
 #			and fixes various software problems, e.g. answering machine and
@@ -1474,13 +1487,13 @@ choice
 
 	config TYPE_72XX_PHONE
 		bool "AVM 72XX select from update download (MT-D)"
-		depends on ( TYPE_OR_7270_7273_7570_503_722_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7270_7273_7570_503_722_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab (PREVIEW): from autoupdate download, look into directory and present a coice for downloading. 
 
 	config TYPE_7270_CORE_15220
 		bool "AVM 7270 15220 (Streaming Stick)"
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		depends on EXPERT_MOD 
 		help
 			FRITZ! Streaming Stick: This release adds support for streaming of
@@ -1489,7 +1502,7 @@ choice
 
 	config TYPE_7273_CORE_15220
 		bool "AVM 7270v3 15220 (Streaming Stick)"
-		depends on ( TYPE_OR_7240_7273_7570_503_722_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7273_7390_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		depends on EXPERT_MOD 
 		help
 			FRITZ! Streaming Stick: This release adds support for streaming of
@@ -1498,7 +1511,7 @@ choice
 
 	config TYPE_7270_CORE_16540
 		bool "AVM 7270 16540 (Streaming Stick)"
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ! Streaming Stick: This release adds support for streaming of
 			media content via AVM WLAN USB Stick v1.1. External software for
@@ -1506,7 +1519,7 @@ choice
 
 	config TYPE_7273_CORE_16540
 		bool "AVM 7270v3 16540 (Streaming Stick)"
-		depends on ( TYPE_OR_7240_7273_7570_503_722_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7273_7390_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ! Streaming Stick: This release adds support for streaming of
 			media content via AVM WLAN USB Stick v1.1. External software for
@@ -1514,21 +1527,21 @@ choice
 
 	config TYPE_7270_DSL_16750
 		bool "AVM 7270 16750 Labor-DSL"
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab DSL: This release optimises the DSL (Digital Subscriber
 			 Line) software and adds related graphs.
 
 	config TYPE_7273_DSL_16750
 		bool "AVM 7270v3 16750 Labor-DSL"
-		depends on ( TYPE_7390 || TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_7390 || TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab DSL: This release optimises the DSL (Digital Subscriber
 			 Line) software and adds related graphs.
 
 	config TYPE_7270_WLAN_14080
 		bool "AVM 7270 14080 Labor-WLAN"
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		depends on EXPERT_MOD 
 		help
 			FRITZ!Lab WLAN: This release reduces the power consumption when
@@ -1537,7 +1550,7 @@ choice
 
 	config TYPE_7270_AURA_14142
 		bool "AVM 7270 14142 Labor AURA"
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		depends on EXPERT_MOD 
 		help
 			FRITZ!Lab AURA: Thanks to AVM USB Remote Architecture (AURA),
@@ -1546,7 +1559,7 @@ choice
 
 	config TYPE_7270_13486
 		bool "AVM 7270 13486"
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_MULTIANNEX_DE )
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		depends on EXPERT_MOD 
 		help
 			FRITZ!Labor, was first the only one usable with ADSL on a W920
@@ -1555,6 +1568,7 @@ choice
 			FRITZ! : release 67 multilingual
 	config TYPE_7270_m54_04_81
 		bool "AVM 7270 54.04.81.en-de-es-it-fr 16838"
+		select ORI_FIRMWARE_IS_MULI
 		depends on TYPE_OR_7240_7570_920 || TYPE_OR_AVMX_LOCALTCOM
 		help
 			FRITZ! : release 76 multilingual
@@ -1616,76 +1630,91 @@ choice
 
 	config TYPE_AVM_7570_75_04_70
 		bool "AVM 7570 75.04.70.en-de"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_75_04_72
 		bool "AVM 7570 75.04.72.en-de"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14031
 		bool "AVM 7570 14031.en-de"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14341
 		bool "AVM 7570 14341.en-de"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14348
 		bool "AVM 7570 14348.en-de"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14354
 		bool "AVM 7570 14354.en-de"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14375
 		bool "AVM 7570 14375.en-de"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14434
 		bool "AVM 7570 14434.en-de"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14685
 		bool "AVM 7570 75.04.76.en-de-fr 14685"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_75_04_76
 		bool "AVM 7570 75.04.76.en-de-fr 14752"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14964
 		bool "AVM 7570 14964.en-de-fr"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_14771
 		bool "AVM 7570 75.04.77.en-de 14771"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920	
 
 	config TYPE_AVM_7570_15011
 		bool "AVM 7570 15011.en-de-fr"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920	
 
 	config TYPE_AVM_7570_15216
 		bool "AVM 7570 15216.en-de-fr"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920	
 
 	config TYPE_AVM_7570_16961
 		bool "AVM 7570 16961.en-de-fr (IPv6)"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
@@ -1696,16 +1725,19 @@ choice
 
 	config TYPE_AVM_7570_75_04_77
 		bool "AVM 7570 75.04.77.en-de-fr 15324"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_15446
 		bool "AVM 7570 15446.en-de-fr"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920	
 
 	config TYPE_AVM_7570_75_04_78
 		bool "AVM 7570 75.04.78.en-de-fr 15564"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
@@ -1716,16 +1748,19 @@ choice
 
 	config TYPE_AVM_7570_16087
 		bool "AVM 7570 75.04.80.en-de-fr 16087"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_16271
 		bool "AVM 7570 75.04.80.en-de-fr 16271"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_75_04_82
 		bool "AVM 7570 75.04.82.en-de-fr 17057"
+		select ORI_FIRMWARE_IS_MULI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
