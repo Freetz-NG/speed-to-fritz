@@ -25,7 +25,7 @@ echo "# Script: $Jahr$Monat$Tag-$(svnversion . | tr ":" "_")" >> .tmpx
 echo "# Automatically generated and stripped" >> .tmpx
 echo -ne $TCOM_IMG_LINK\\n$AVM_IMG_LINK\\n$SRC2_IMG_LINK\\n$TCOM_IMG\\n$AVM_IMG\\n$SRC2_IMG\\n$TYPE_SRC3\\n >> .tmpx
 #sort .tmpx | uniq -u > .tmpx
-sed -i -e '/#/d' -e '/AVM_.*7/d' -e '/CONGSTAR_/d' -e '/TCOM_W/d' -e '/TCOM_SINUS/d' -e '/TCOM_LOCAL/d' -e '/AVM_LOCAL/d' -e '/SRC2_IMG=/d' -e '/SRC3_LOCAL=/d' "$FWC_FILE"
+sed -i -e '/#/d' -e '/AVM_.*7/d' -e '/CONGSTAR_/d' -e '/TCOM_W/d' -e '/TCOM_SINUS/d' -e '/TCOM_LOCAL/d' -e '/AVM_LOCAL/d' -e '/SRC2_IMG=/d' -e '/SRC3_LOCAL=/d' -e '/TYPE_OR.*/d' "$FWC_FILE"
 cat "$FWC_FILE" >> .tmpx
 mv .tmpx "$FWC_FILE"
 sed -i -e '/is not set/d' -e '/^$/d' "$FWC_FILE"

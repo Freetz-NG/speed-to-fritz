@@ -554,7 +554,7 @@ config PUSHCONF
 config FORCE_VDSL
 	bool "Force VDSL"
 	depends on ! ORI
-	depends on TYPE_9207570 
+	depends on TYPE_OR_7570_920 
 	default n
 	help
 		Dont do any change for ADSL to the firmware.
@@ -728,8 +728,8 @@ if TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W722V
     bool
     default y
 endif
-if TYPE_9207570 || TYPE_OR_721_722
-    config TYPE_9207570_721_722
+if TYPE_OR_7570_920 || TYPE_OR_721_722
+    config TYPE_OR_7570_920_721_722
     bool
     default y
 endif
@@ -748,7 +748,7 @@ if TYPE_LOCAL_TCOM || EXPORT_TYPE_LOCAL_MODEL
     bool
     default y
 endif
-if TYPE_9207570 || TYPE_OR_503_722
+if TYPE_OR_7570_920 || TYPE_OR_503_722
     config TYPE_OR_7570_503_722_920
     bool
     default y
@@ -803,17 +803,17 @@ if TYPE_SPEEDPORT_W721V || TYPE_OR_503_701_722_900
     bool
     default y
 endif
-if TYPE_OR_503_701_721_722_900 || TYPE_9207570_LOCALTCOM_LOCALAVM
+if TYPE_OR_503_701_721_722_900 || TYPE_OR_7570_920_LOCALTCOM_LOCALAVM
     config TYPE_OR_7570_721_920_LOCALTCOM_LOCALAVM
     bool
     default y
 endif
 if  TYPE_7570 || TYPE_SPEEDPORT_W920V
-    config TYPE_9207570
+    config TYPE_OR_7570_920
     bool
     default y
 endif
-if TYPE_7240 || TYPE_9207570
+if TYPE_7240 || TYPE_OR_7570_920
     config TYPE_OR_7240_7570_920
     bool
     default y
@@ -839,7 +839,7 @@ if TYPE_7240 || TYPE_7270
     bool
     default y
 endif
-if TYPE_OR_7240_7270 || TYPE_9207570
+if TYPE_OR_7240_7270 || TYPE_OR_7570_920
     config TYPE_OR_7240_7570_920
     bool
     default y
@@ -879,8 +879,8 @@ if TYPE_OR_AVM75XX_TCOM75XX_7570 || TYPE_SPEEDPORT_W501V || TYPE_OR_503_722 || T
     bool
     default y
 endif
-if TYPE_9207570 || TYPE_OR_LOCALTCOM_LOCALAVM
-    config TYPE_9207570_LOCALTCOM_LOCALAVM
+if TYPE_OR_7570_920 || TYPE_OR_LOCALTCOM_LOCALAVM
+    config TYPE_OR_7570_920_LOCALTCOM_LOCALAVM
     bool
     default y
 endif
@@ -894,7 +894,7 @@ if TYPE_7273 || TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM
     bool
     default y
 endif
-if TYPE_9207570 || TYPE_OR_503_722_AVMX_LOCALTCOM
+if TYPE_OR_7570_920 || TYPE_OR_503_722_AVMX_LOCALTCOM
     config TYPE_OR_7570_503_722_920_AVMX_LOCALTCOM
     bool
     default y
@@ -917,7 +917,7 @@ config ORI_FIRMWARE_IS_MULI
 comment  "--------------------------------------------------------------------"
 config TYPE_BETATCOM
 	bool "Select a special basis firmware (optional) --->"
-	depends on TYPE_9207570 && ! ( TYPE_7570 && ORI )
+	depends on TYPE_OR_7570_920 && ! ( TYPE_7570 && ORI )
 	default n
 	help
 		Enable this to compile the mod based on an special AVM firmware.
@@ -960,7 +960,7 @@ config TCOM_LOCAL
 
 config TYPE_TCOM_7570_XX 
 	bool "Select a special 7570 firmware as basis firmware (optional) --->"
-	depends on ( TYPE_9207570 && ! TYPE_BETATCOM && ! ORI ) || ( TYPE_7570 && ORI )
+	depends on ( TYPE_OR_7570_920 && ! TYPE_BETATCOM && ! ORI ) || ( TYPE_7570 && ORI )
 	default n
 	help
 		Enable this to compile the mod based on an special AVM firmware.
@@ -1110,16 +1110,16 @@ choice
 		bool "de - german"
 	config TYPE_LANG_EN
 		bool "en - english"
-		depends on TYPE_OR_AVM75XX_TCOM75XX_7570_501_503_701_721_722_900 || TYPE_9207570_LOCALTCOM_LOCALAVM 
+		depends on TYPE_OR_AVM75XX_TCOM75XX_7570_501_503_701_721_722_900 || TYPE_OR_7570_920_LOCALTCOM_LOCALAVM 
 	config TYPE_LANG_IT
 		bool "it - italian"
-		depends on EXPERT_MOD && ( TYPE_9207570_LOCALTCOM_LOCALAVM )
+		depends on EXPERT_MOD && ( TYPE_OR_7570_920_LOCALTCOM_LOCALAVM )
 	config TYPE_LANG_ES
 		bool "es - spanish"
-		depends on EXPERT_MOD && ( TYPE_9207570_LOCALTCOM_LOCALAVM )
+		depends on EXPERT_MOD && ( TYPE_OR_7570_920_LOCALTCOM_LOCALAVM )
 	config TYPE_LANG_FR
 		bool "fr - french"
-		depends on EXPERT_MOD && ( TYPE_9207570_LOCALTCOM_LOCALAVM )
+		depends on EXPERT_MOD && ( TYPE_OR_7570_920_LOCALTCOM_LOCALAVM )
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_FORCE_DSL_MULTI_ANNEX 
@@ -1182,7 +1182,7 @@ comment  "--------------------------------------------------------------------"
 config TYPE_LABOR
 	bool "Select a special AVM firmware (optional) --->"
 	depends on ! ORI || XCHANGE_KERNEL
-	depends on ( TYPE_SINUS_W500V || TYPE_OR_503_701_721_722_900 || TYPE_9207570_LOCALTCOM_LOCALAVM )
+	depends on ( TYPE_SINUS_W500V || TYPE_OR_503_701_721_722_900 || TYPE_OR_7570_920_LOCALTCOM_LOCALAVM )
 	default y if EXPORT_TYPE_LOCAL_MODEL || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE ) || TYPE_OR_7390_722
 	default n if ! EXPORT_TYPE_LOCAL_MODEL && ! ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE ) && ! TYPE_7390 && ! TYPE_SPEEDPORT_W722V
 	help
@@ -1197,9 +1197,9 @@ choice
 		default TYPE_7170_29_04_80 if TYPE_7140
 		default TYPE_7170_58_04_80 if ( ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V )
 		default TYPE_7270_AIO_14543 if ! EXPORT_TYPE_LOCAL_MODEL
-#		default TYPE_7270_PRE_17273 if TYPE_9207570 && ! FORCE_VDSL
-#		default TYPE_7270_PRE_17273 if TYPE_9207570 && FORCE_VDSL
-		default TYPE_7270_PRE_17273 if TYPE_9207570
+#		default TYPE_7270_PRE_17273 if TYPE_OR_7570_920 && ! FORCE_VDSL
+#		default TYPE_7270_PRE_17273 if TYPE_OR_7570_920 && FORCE_VDSL
+		default TYPE_7270_PRE_17273 if TYPE_OR_7570_920
 		default TYPE_7273_PRE_17273 if TYPE_7240
 		#->(only for testing)
 #		default TYPE_7390_84_04_82 if TYPE_7390
@@ -1388,13 +1388,13 @@ choice
 
 	config TYPE_7240_73_04_76
 		bool "AVM 7240 73.04.76"
-		depends on TYPE_7240 || TYPE_AVMX_MODEL || ( TYPE_9207570  && EXPERT_MOD && ( TYPE_OR_7570XX_DE ))
+		depends on TYPE_7240 || TYPE_AVMX_MODEL || ( TYPE_OR_7570_920  && EXPERT_MOD && ( TYPE_OR_7570XX_DE ))
 		help
 			FRITZ! release: 76
 
 	config TYPE_7240_73_04_80
 		bool "AVM 7240 73.04.80"
-		depends on TYPE_7240 || TYPE_AVMX_MODEL || ( TYPE_9207570  && EXPERT_MOD && ( TYPE_OR_7570XX_DE ))
+		depends on TYPE_7240 || TYPE_AVMX_MODEL || ( TYPE_OR_7570_920  && EXPERT_MOD && ( TYPE_OR_7570XX_DE ))
 		help
 			FRITZ! release: 80
 
@@ -1620,7 +1620,7 @@ config AVM_LOCAL
 config TYPE_AVM_7570_XX
 		bool "Select a special 7570 AVM firmware as 2nd firmware (optional) --->"
 		depends on ! ORI
-		depends on ( TYPE_9207570_LOCALTCOM_LOCALAVM ) && ! TYPE_LABOR
+		depends on ( TYPE_OR_7570_920_LOCALTCOM_LOCALAVM ) && ! TYPE_LABOR
 		help
 			Enable this to compile the mod based on an special AVM 7570 firmware.
 			The actual final release version should not be selected. It is preselected anyway! 
@@ -1798,11 +1798,11 @@ choice
 
 	prompt "All firmwares (not all are useabel)"
 	    depends on SOURCE2
-		default TYPE_SRC3_AVM_7570_75_04_72           	if ! EXPORT_TYPE_LOCAL_MODEL && ! TYPE_9207570
+		default TYPE_SRC3_AVM_7570_75_04_72           	if ! EXPORT_TYPE_LOCAL_MODEL && ! TYPE_OR_7570_920
 		default TYPE_SRC3_AVM_7273_74_04_76        	if EXPORT_TYPE_LOCAL_MODEL && TYPE_7273
 		default TYPE_SRC3_AVM_7141_40_04_76           	if EXPORT_TYPE_LOCAL_MODEL && TYPE_7141
-		default TYPE_SRC3_TCOM_W920_65_04_78   		if TYPE_9207570
-#		default TYPE_SRC3_AVM_CORE_7270_16540   	if TYPE_9207570 && ! FORCE_VDSL
+		default TYPE_SRC3_TCOM_W920_65_04_78   		if TYPE_OR_7570_920
+#		default TYPE_SRC3_AVM_CORE_7270_16540   	if TYPE_OR_7570_920 && ! FORCE_VDSL
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 ### 7113 Firmware
@@ -2173,38 +2173,38 @@ config TCOM_IMG
 	default "$TCOM_W722_80_04_76" 		if ( TYPE_SPEEDPORT_W722V )
 	default "$TCOM_W900_34_04_57" 		if TYPE_SPEEDPORT_W900V
 	default "$TCOM_W920_65_04_78" 		if ORI && ( TYPE_SPEEDPORT_W920V && ! TYPE_BETATCOM )
-#	default "$AVM_7570_75_04_77"		if ( TYPE_7570 && ! TYPE_TCOM_7570_XX ) || ( ! ORI && ( ! TYPE_BETATCOM && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 ))
-	default "$AVM_7570_75_04_82"		if ( TYPE_7570 && ! TYPE_TCOM_7570_XX ) || ( ! ORI && ( ! TYPE_BETATCOM && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 ))
-#	default "$AVM_7570_16271"		if ( TYPE_7570 && ! TYPE_TCOM_7570_XX ) || ( ! ORI && ( ! TYPE_BETATCOM && ! TYPE_TCOM_7570_XX ) && ( TYPE_9207570 ))
-	default "$TCOM_W920_65_04_58" 		if TYPE_BETA_TCOM_65_04_58 && ( TYPE_9207570 || ORI  )
-	default "$TCOM_W920_65_04_63" 		if TYPE_BETA_TCOM_65_04_63 && ( TYPE_9207570 || ORI  )
-	default "$TCOM_W920_65_04_70" 		if TYPE_BETA_TCOM_65_04_70 && ( TYPE_9207570 || ORI  )
-	default "$TCOM_W920_65_04_71" 		if TYPE_BETA_TCOM_65_04_71 && ( TYPE_9207570 || ORI  )
-	default "$TCOM_W920_65_04_74" 		if TYPE_BETA_TCOM_65_04_74 && ( TYPE_9207570 || ORI )
-	default "$TCOM_W920_65_04_78" 		if TYPE_BETA_TCOM_65_04_78 && ( TYPE_9207570 || ORI  )
-	default "$TCOM_W920_13048" 		if TYPE_BETA_TCOM_13048 && ( TYPE_9207570 || ORI  )
-	default "$TCOM_W920_13571" 		if TYPE_BETA_TCOM_13571 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_75_04_70" 		if TYPE_TCOM_7570_75_04_70 && ( TYPE_9207570 || ORI )
-	default "$AVM_7570_75_04_72" 		if TYPE_TCOM_7570_75_04_72 && ( TYPE_9207570 || ORI )
-	default "$AVM_7570_75_04_76" 		if TYPE_TCOM_7570_75_04_76 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_75_04_77" 		if TYPE_TCOM_7570_75_04_77 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_75_04_78" 		if TYPE_TCOM_7570_75_04_78 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_75_04_82" 		if TYPE_TCOM_7570_75_04_82 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_16961" 			if TYPE_TCOM_7570_16961 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_14031" 			if TYPE_TCOM_7570_14031 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_14341" 			if TYPE_TCOM_7570_14341 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_14348" 			if TYPE_TCOM_7570_14348 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_14375" 			if TYPE_TCOM_7570_14375 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_14434" 			if TYPE_TCOM_7570_14434 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_14685" 			if TYPE_TCOM_7570_14685 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_14771" 			if TYPE_TCOM_7570_14771 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_14965" 			if TYPE_TCOM_7570_14965 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_15216" 			if TYPE_TCOM_7570_15216 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_15245" 			if TYPE_TCOM_7570_15245 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_15446" 			if TYPE_TCOM_7570_15446 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_16068" 			if TYPE_TCOM_7570_16068 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_16087" 			if TYPE_TCOM_7570_16087 && ( TYPE_9207570 || ORI  )
-	default "$AVM_7570_16271" 			if TYPE_TCOM_7570_16271 && ( TYPE_9207570 || ORI  )
+#	default "$AVM_7570_75_04_77"		if ( TYPE_7570 && ! TYPE_TCOM_7570_XX ) || ( ! ORI && ( ! TYPE_BETATCOM && ! TYPE_TCOM_7570_XX ) && ( TYPE_OR_7570_920 ))
+	default "$AVM_7570_75_04_82"		if ( TYPE_7570 && ! TYPE_TCOM_7570_XX ) || ( ! ORI && ( ! TYPE_BETATCOM && ! TYPE_TCOM_7570_XX ) && ( TYPE_OR_7570_920 ))
+#	default "$AVM_7570_16271"		if ( TYPE_7570 && ! TYPE_TCOM_7570_XX ) || ( ! ORI && ( ! TYPE_BETATCOM && ! TYPE_TCOM_7570_XX ) && ( TYPE_OR_7570_920 ))
+	default "$TCOM_W920_65_04_58" 		if TYPE_BETA_TCOM_65_04_58 && ( TYPE_OR_7570_920 || ORI  )
+	default "$TCOM_W920_65_04_63" 		if TYPE_BETA_TCOM_65_04_63 && ( TYPE_OR_7570_920 || ORI  )
+	default "$TCOM_W920_65_04_70" 		if TYPE_BETA_TCOM_65_04_70 && ( TYPE_OR_7570_920 || ORI  )
+	default "$TCOM_W920_65_04_71" 		if TYPE_BETA_TCOM_65_04_71 && ( TYPE_OR_7570_920 || ORI  )
+	default "$TCOM_W920_65_04_74" 		if TYPE_BETA_TCOM_65_04_74 && ( TYPE_OR_7570_920 || ORI )
+	default "$TCOM_W920_65_04_78" 		if TYPE_BETA_TCOM_65_04_78 && ( TYPE_OR_7570_920 || ORI  )
+	default "$TCOM_W920_13048" 		if TYPE_BETA_TCOM_13048 && ( TYPE_OR_7570_920 || ORI  )
+	default "$TCOM_W920_13571" 		if TYPE_BETA_TCOM_13571 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_75_04_70" 		if TYPE_TCOM_7570_75_04_70 && ( TYPE_OR_7570_920 || ORI )
+	default "$AVM_7570_75_04_72" 		if TYPE_TCOM_7570_75_04_72 && ( TYPE_OR_7570_920 || ORI )
+	default "$AVM_7570_75_04_76" 		if TYPE_TCOM_7570_75_04_76 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_75_04_77" 		if TYPE_TCOM_7570_75_04_77 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_75_04_78" 		if TYPE_TCOM_7570_75_04_78 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_75_04_82" 		if TYPE_TCOM_7570_75_04_82 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_16961" 			if TYPE_TCOM_7570_16961 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_14031" 			if TYPE_TCOM_7570_14031 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_14341" 			if TYPE_TCOM_7570_14341 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_14348" 			if TYPE_TCOM_7570_14348 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_14375" 			if TYPE_TCOM_7570_14375 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_14434" 			if TYPE_TCOM_7570_14434 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_14685" 			if TYPE_TCOM_7570_14685 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_14771" 			if TYPE_TCOM_7570_14771 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_14965" 			if TYPE_TCOM_7570_14965 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_15216" 			if TYPE_TCOM_7570_15216 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_15245" 			if TYPE_TCOM_7570_15245 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_15446" 			if TYPE_TCOM_7570_15446 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_16068" 			if TYPE_TCOM_7570_16068 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_16087" 			if TYPE_TCOM_7570_16087 && ( TYPE_OR_7570_920 || ORI  )
+	default "$AVM_7570_16271" 			if TYPE_TCOM_7570_16271 && ( TYPE_OR_7570_920 || ORI  )
 	default "$AVM_7141_40_04_76"		if TYPE_7141
 	default "$AVM_7240_73_04_80"		if TYPE_7240
 	default "$AVM_7273_74_04_80"		if TYPE_7273
@@ -2886,8 +2886,8 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 
  config EXPORT_FBHWRevision
 	string
-	depends on SET_FBHWRevision || TYPE_7270_m54_04_76 || ( TYPE_9207570 && ! TYPE_LANG_DE )
-	default "145" if TYPE_7270_m54_04_76 || ( TYPE_9207570 && ! TYPE_LANG_DE )
+	depends on SET_FBHWRevision || TYPE_7270_m54_04_76 || ( TYPE_OR_7570_920 && ! TYPE_LANG_DE )
+	default "145" if TYPE_7270_m54_04_76 || ( TYPE_OR_7570_920 && ! TYPE_LANG_DE )
 	string "type in new HWRevision, see help for more info."
 	    help
 		This is the Hardware revision used instead of the one used in AVM firmware, 
@@ -3023,7 +3023,7 @@ config EXPORT_ATA_ONLY
 	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W721V || TYPE_OR_7570_503_722_920
 	depends on EXPERT_MOD 
 	default n 
-#	default y if ( TYPE_9207570 )
+#	default y if ( TYPE_OR_7570_920 )
  
 	help
 		Use this additional option, if VDSL or ADSL is not needed or not 
@@ -3034,7 +3034,7 @@ config EXPORT_ATA_ONLY
 ####
 if ! EXPORT_ATA_ONLY
  config EXPORT_ADD_DSL_EXPERT_MNUE
-	depends on ! TYPE_TCOM_7570_XX && ! TYPE_9207570 && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W722V && ! EXPORT_FORCE_DSL_MULTI_ANNEX
+	depends on ! TYPE_TCOM_7570_XX && ! TYPE_OR_7570_920 && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W722V && ! EXPORT_FORCE_DSL_MULTI_ANNEX
 	bool "Add DSL expert pages"
 	default n if  TYPE_DSL  || TYPE_7390
 	default y if  ! TYPE_DSL && ! TYPE_SPEEDPORT_W501V && ! TYPE_7390
@@ -3045,7 +3045,7 @@ if ! EXPORT_ATA_ONLY
  if ! EXPORT_TYPE_LOCAL_MODEL
  # In use within sp-to-fritz.sh
     config EXPORT_ADD_VDSL_PROFILE
-	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V
+	depends on TYPE_OR_7570_920 || TYPE_SPEEDPORT_W721V
 	depends on EXPERT_MOD 
 	bool "Replace feedback tab with VDSL profile settings pages"
 	default n
@@ -3068,7 +3068,7 @@ if ! EXPORT_ATA_ONLY
 
     config FORCE_TCOM_PCMLINK
 	bool "Use basis PCMLINK driver"
-	depends on TYPE_9207570 || TYPE_SPEEDPORT_W722V
+	depends on TYPE_OR_7570_920 || TYPE_SPEEDPORT_W722V
 	depends on EXPERT_MOD 
 	# && TYPE_AVM_7570_XX
 	default n
@@ -3077,7 +3077,7 @@ if ! EXPORT_ATA_ONLY
 
     config FORCE_TCOM_USRMAN
 	bool "Use basis USRMAN driver"
-	depends on TYPE_9207570 || TYPE_SPEEDPORT_W722V
+	depends on TYPE_OR_7570_920 || TYPE_SPEEDPORT_W722V
 	depends on EXPERT_MOD 
 	# && TYPE_AVM_7570_XX
 	default n
@@ -3087,7 +3087,7 @@ if ! EXPORT_ATA_ONLY
 		
     config FORCE_TCOM_KDSLDMOD
 	bool "Use basis KDSLDMOD driver"
-	depends on TYPE_9207570 || TYPE_SPEEDPORT_W721V  || TYPE_SPEEDPORT_W722V
+	depends on TYPE_OR_7570_920 || TYPE_SPEEDPORT_W721V  || TYPE_SPEEDPORT_W722V
 	depends on EXPERT_MOD 
 	default n if TYPE_SPEEDPORT_W721V || ( ! TYPE_ANNEX_A && ! EXPORT_FORCE_MULTI_LANGUAGE )
 	default y if TYPE_ANNEX_A || EXPORT_FORCE_MULTI_LANGUAGE
@@ -3096,21 +3096,21 @@ if ! EXPORT_ATA_ONLY
     config FORCE_SRC2_KDSLDMOD
 	bool "Use 2nd AVM source KDSLDMOD driver"
 	depends on EXPERT_MOD 
-	depends on SOURCE2 && TYPE_9207570_721_722
+	depends on SOURCE2 && TYPE_OR_7570_920_721_722
 	default n
 	help
 		Use KDSLDMOD from 2nd AVM source firmware, VPN is causing trouble with this option, in most cases ADSL+ needs this option set.
     config FORCE_OWN_KDSLDMOD
 	bool "Use own KSLDMOD driver from ./addon/tmp/WXXX/"
 	depends on EXPERT_MOD 
-	depends on TYPE_9207570_721_722
+	depends on TYPE_OR_7570_920_721_722
 	default n
 	help
 		Use KDSLDMOD from local directory ./addon/tmp/WXXX/.....
     config SAVE_SRC2_KDSLDMOD
 	bool "Save 2nd AVM source KDSLDMOD driver to ./addon/tmp/WXXX/"
 	depends on EXPERT_MOD 
-	depends on TYPE_9207570_721_722
+	depends on TYPE_OR_7570_920_721_722
 	default n
 	help
 		Save KDSLDMOD to local directory ./addon/tmp/WXXX/.....
@@ -3127,8 +3127,8 @@ if ! EXPORT_ATA_ONLY
 	bool "Force basis (V)DSL driver"
 	depends on ! TYPE_SPEEDPORT_W721V  
 	depends on EXPERT_MOD || TYPE_SPEEDPORT_W501V
-	default n if ! TYPE_9207570 && ! TYPE_SPEEDPORT_W501V && ! TYPE_SPEEDPORT_W503V && ! TYPE_SPEEDPORT_W722V
-	default y if TYPE_9207570 || TYPE_SPEEDPORT_W501V || TYPE_OR_503_722  
+	default n if ! TYPE_OR_7570_920 && ! TYPE_SPEEDPORT_W501V && ! TYPE_SPEEDPORT_W503V && ! TYPE_SPEEDPORT_W722V
+	default y if TYPE_OR_7570_920 || TYPE_SPEEDPORT_W501V || TYPE_OR_503_722  
 	help
 		For normal this is "n", only with some very bad ADSL connections this may be needed.
  endif
@@ -3164,7 +3164,7 @@ if ! EXPORT_ATA_ONLY
 		more files may be within this directory than really wanted.
  config SAVE_AVM_DSL
 	bool "Save AVM (V)DSL driver"
-	depends on ! TYPE_9207570 || TYPE_SPEEDPORT_W721V
+	depends on ! TYPE_OR_7570_920 || TYPE_SPEEDPORT_W721V
 	depends on EXPERT_MOD 
 	default n
 	help
@@ -3188,35 +3188,35 @@ if ! EXPORT_ATA_ONLY
 
     config FORCE_VLAN7
 	bool "Force VLAN7 and tcom ar7.cfg"
-	depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W721V )  && FORCE_VDSL
+	depends on ( TYPE_OR_7570_920 || TYPE_SPEEDPORT_W721V )  && FORCE_VDSL
 	default y
 	help
 		Use tcom ar7.cfg and set VLAN7 to yes, password is 0000 and Router IP is 192.168.2.1.
 
 #    config FORCE_VINAX_DRV
 #	bool "Force PPPoA compatibel vinax driver"
-#	depends on TYPE_9207570 && ! FORCE_VDSL
+#	depends on TYPE_OR_7570_920 && ! FORCE_VDSL
 #	default y
 #	help
 #		Use own drv_vinax.co from bulid 15216.
 
 #    config FORCE_KDSLD_DRV
 #	bool "Force PPPoA compatibel kdsld driver"
-#	depends on TYPE_9207570 && ! FORCE_VDSL
+#	depends on TYPE_OR_7570_920 && ! FORCE_VDSL
 #	default y
 #	help
 #		Use own drv_vinax.co from bulid 15216.
 
     config FORCE_VINAX_DRV_77
 	bool "Force 75_04_82 compatibel vinax driver"
-	depends on TYPE_9207570 && ! FORCE_VDSL
+	depends on TYPE_OR_7570_920 && ! FORCE_VDSL
 	default y
 	help
 		Use own drv_vinax.co from bulid 15446.
 
     config FORCE_KDSLD_DRV_77
 	bool "Force 75_04_82 compatibel kdsld driver"
-	depends on TYPE_9207570 && ! FORCE_VDSL
+	depends on TYPE_OR_7570_920 && ! FORCE_VDSL
 	default y
 	help
 		Use own drv_vinax.co from bulid 15446.
@@ -3224,7 +3224,7 @@ if ! EXPORT_ATA_ONLY
     config WRAP_DSLD
 	bool "Wrap DSLD"
 #	depends on EXPERT_MOD 
-	depends on ( TYPE_9207570 || TYPE_SPEEDPORT_W721V )  && ! FORCE_VDSL
+	depends on ( TYPE_OR_7570_920 || TYPE_SPEEDPORT_W721V )  && ! FORCE_VDSL
 	default y
 	help
 		wrap DSLD, ...
@@ -3323,26 +3323,26 @@ comment "SYSTEM Options -----------------------------------------------------"
 config FORCE_TCOM_LEDDRIVER
 	bool "Force use of original LED driver"
 	depends on TYPE_OR_7240_7570_920 || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V
-#	default y if ( ! FORCE_VDSL && TYPE_9207570 ) && ( ! TYPE_OR_503_722 ) || TYPE_7240
-#	default n if ( FORCE_VDSL && TYPE_9207570 ) && ( ! TYPE_OR_503_722 ) && ! TYPE_7240 
-	default y if ( ! TYPE_9207570 ) && ( ! TYPE_OR_503_722 ) || TYPE_7240
-	default n if ( TYPE_9207570 ) && ( ! TYPE_OR_503_722 ) && ! TYPE_7240 
+#	default y if ( ! FORCE_VDSL && TYPE_OR_7570_920 ) && ( ! TYPE_OR_503_722 ) || TYPE_7240
+#	default n if ( FORCE_VDSL && TYPE_OR_7570_920 ) && ( ! TYPE_OR_503_722 ) && ! TYPE_7240 
+	default y if ( ! TYPE_OR_7570_920 ) && ( ! TYPE_OR_503_722 ) || TYPE_7240
+	default n if ( TYPE_OR_7570_920 ) && ( ! TYPE_OR_503_722 ) && ! TYPE_7240 
 
 	help
 		For normal this is "n", but you my use the original LED driver, definition of LEDs differ, not all LEDS are usable.
 
 config FORCE_SRC2_LEDDRIVER
 	bool "Force use of AVM source 2 LED driver"
-	depends on TYPE_9207570 || TYPE_OR_503_722 || TYPE_7240
-	default n if ! TYPE_9207570 || TYPE_OR_503_722 
-#	default y if FORCE_VDSL && TYPE_9207570 && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W503V
-	default y if TYPE_9207570 && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W503V
+	depends on TYPE_OR_7570_920 || TYPE_OR_503_722 || TYPE_7240
+	default n if ! TYPE_OR_7570_920 || TYPE_OR_503_722 
+#	default y if FORCE_VDSL && TYPE_OR_7570_920 && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W503V
+	default y if TYPE_OR_7570_920 && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W503V
  	
 	help
 		For normal this is "n", but you my use AVM source 2 driver, definition of LEDs differ.
 config FORCE_DST_DECTDRIVER
 	bool "Use DECT driver from 1st basis firmware"
-	depends on TYPE_9207570 || EXPORT_TYPE_LOCAL_MODEL
+	depends on TYPE_OR_7570_920 || EXPORT_TYPE_LOCAL_MODEL
 #	depends on EXPERT_MOD 
 	default y if TYPE_V3_OR_7240 && ! EXPORT_TYPE_LOCAL_MODEL
 	default n if ! TYPE_V3_OR_7240 || EXPORT_TYPE_LOCAL_MODEL
@@ -3353,7 +3353,7 @@ config FORCE_DST_DECTDRIVER
 config FORCE_SRC2_DECTDRIVER
 	bool "Use DECT driver from 2nd AVM firmware"
 	depends on EXPERT_MOD 
-	depends on TYPE_9207570 || EXPORT_TYPE_LOCAL_MODEL
+	depends on TYPE_OR_7570_920 || EXPORT_TYPE_LOCAL_MODEL
 	default n
 	help
 		Use DECT driver from 2nd AVM source.
@@ -3362,7 +3362,7 @@ config FORCE_SRC2_DECTDRIVER
 config FORCE_OWN_DECTDRIVER
 	bool "Use own DECT driver from ./addon/tmp/XXXX/"
 	depends on EXPERT_MOD 
-	depends on TYPE_9207570 || EXPORT_TYPE_LOCAL_MODEL
+	depends on TYPE_OR_7570_920 || EXPORT_TYPE_LOCAL_MODEL
 	default n
 	help
 		Use DECT driver from local directory ./addon/tmp/WXXX/.....
@@ -3370,7 +3370,7 @@ config FORCE_OWN_DECTDRIVER
 config SAVE_SRC2_DECTDRIVER
 	bool "Save 2nd AVM source DECT driver to ./addon/tmp/XXXX/"
 	depends on EXPERT_MOD 
-	depends on TYPE_9207570 || EXPORT_TYPE_LOCAL_MODEL
+	depends on TYPE_OR_7570_920 || EXPORT_TYPE_LOCAL_MODEL
 	default n
 	help
 		Save DECT driver to local directory ./addon/tmp/XXXX/.....
@@ -3390,7 +3390,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		For normal this is "n", but for testing this may be used, webmenu is with errors.
  #config COPY_TCOM_BIN2
  #	bool "Keep all basis bin, sbin, lib"
- #	depends on TYPE_9207570
+ #	depends on TYPE_OR_7570_920
  #	default n
  #	help
  #		For normal this is "n", but for testing this may be used, this option is dangerous.
@@ -3438,7 +3438,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	bool "MOVE avm to OEM"
 	default n
 	depends on EXPERT_MOD 
-	depends on TYPE_9207570
+	depends on TYPE_OR_7570_920
 	help
 		Set this to "y" if normal 7270 firmwares in combination with multilingual firmwares are used, but usual this is not needed.
 		WWW "avm" directory is moved to "$OEM"
@@ -3486,8 +3486,8 @@ config EXPORT_CONFIG_TR064
 	bool "Enable LAN autoconfiguration TR064"
 	depends on EXPERT_MOD 
 	default n
-#	default n if ! TYPE_9207570
-#	default y if TYPE_9207570
+#	default n if ! TYPE_OR_7570_920
+#	default y if TYPE_OR_7570_920
 	help
 		Set this to "y" if you want TR64 turned on, in most cases
 		your box will function normal again, so do not use this option
@@ -3498,8 +3498,8 @@ config EXPORT_CONFIG_TR069
 	bool "Enable LAN autoconfiguration TR069"
 	depends on EXPERT_MOD 
 	default n
-#	default n if ! TYPE_9207570
-#	default y if TYPE_9207570
+#	default n if ! TYPE_OR_7570_920
+#	default y if TYPE_OR_7570_920
 	help
 		Set this to "y" if you want TR69 turned on, in most cases
 		your box will function normal again, so do not use this option
@@ -3779,7 +3779,7 @@ config EXPORT_ADD_USBROOT
 	bool "Add USBROOT"
 	select EXPORT_ENABLE_EXT2
 	depends on EXPERT_MOD 
-	depends on TYPE_SPEEDPORT_W900V || TYPE_9207570 || TYPE_LOCAL_TCOM
+	depends on TYPE_SPEEDPORT_W900V || TYPE_OR_7570_920 || TYPE_LOCAL_TCOM
 	default n
 	help
 		Generate a USB root file for use on a USB stick.
@@ -3817,8 +3817,8 @@ endmenu
 config SET_FREETZ_REVISION
 	bool "Set a freetz revision in use with start-freetz.sh"
 	depends on EXPERT_MOD 
-	default n if ! ( ( TYPE_58  && TYPE_9207570 ) || TYPE_13486 )
-	default y if   ( ( TYPE_58  && TYPE_9207570 ) || TYPE_13486 )
+	default n if ! ( ( TYPE_58  && TYPE_OR_7570_920 ) || TYPE_13486 )
+	default y if   ( ( TYPE_58  && TYPE_OR_7570_920 ) || TYPE_13486 )
 	help
 	    normaly this is not set, but in special cases new revisions of freetz
 	    can't be used in combination with the firmware one wants to use.
@@ -3828,8 +3828,8 @@ config SET_FREETZ_REVISION
  	config  EXPORT_FREETZREVISION
 	    depends on SET_FREETZ_REVISION
 	    string "revision number"
-		    default "2636" if ! TYPE_9207570
-		    default "2600" if TYPE_9207570
+		    default "2636" if ! TYPE_OR_7570_920
+		    default "2600" if TYPE_OR_7570_920
 
 #2750 vor freetz 1.1
 
