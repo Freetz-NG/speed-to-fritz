@@ -3008,6 +3008,42 @@ config EXPORT_ENABLE_EXT2
 		"2.6.19.2" must match the kernel version!  
  		Or you can select a 2nd AVM firmware from which the driver will be taken.
 
+config EXPORT_ADD_VLAN_BRIDGE
+	bool "Enable or add Vlan bridge option"
+	depends on TYPE_OR_7570_503_722_920
+	default y
+	help
+	    Adds or enables settings in GUI for specifing VLANs
+	    
+config EXPORT_RPL_AUTHFORM_WITH_81
+	bool "Use authform page from 7270 multi firmware"
+	depends on TYPE_OR_7570_503_722_920
+	default y
+	select ADD_PROVIDER_AON
+	help
+	    Fixes problms with providersettings, best selection for aon
+config EXPORT_RPL_AUTHFORM_WITH_SR2
+	bool "Use authform page from 2nd AVM source"
+	depends on SOURCE2 || TYPE_OR_7570_503_722_920
+	default n
+	depends on EXPERT_MOD 
+	select ADD_PROVIDER_AON
+	help
+	    Fixes problms with providersettings
+config EXPORT_RPL_AUTHFORM_WITH_DST
+	bool "Use authform page form basis firmware"
+	depends on TYPE_OR_7570_503_722_920
+	default n
+	depends on EXPERT_MOD 
+	select ADD_PROVIDER_AON
+	help
+	 Default for AON and most ADSL Providers
+config ADD_PROVIDER_AON
+	bool "Add provider AON"
+#	depends on EXPERT_MOD 
+	default y
+	help
+	    This is usual set to no in most cases, within the AVM GUI. 
 config EXPORT_USE_SOURCE2_WEBMNUE
 	bool "Use 2nd AVM source webfiles"
 	depends on EXPERT_MOD 
@@ -3740,15 +3776,7 @@ config SET_ALLPROVIDERS
 	default y
 	help
 	    This is usual set to no in most cases, within the AVM GUI. 
-
-config ADD_PROVIDER_AON
-	bool "Add provider AON"
-	depends on EXPERT_MOD 
-	default y
-	help
-	    This is usual set to no in most cases, within the AVM GUI. 
 endmenu
-
 #comment "Addons for Speed-to-fritz ------------------------------------------"
 
 menu "Addons"
