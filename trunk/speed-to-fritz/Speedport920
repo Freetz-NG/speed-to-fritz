@@ -318,6 +318,8 @@ $sh_DIR/add_vlan_settings.sh "${SRC}"
 # add kapselung and annex settings page if missing
 # must be after VLAN settings becaus oem of authform is altered in some cases
 $sh_DIR/add_multi_settings.sh
+#enable provider AON
+[ "$ADD_PROVIDER_AON" = "y" ] && $sh_DIR/add_provider_aon.sh
 #remove kids and help
 [ "${REMOVE_KIDS}" = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
 [ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"

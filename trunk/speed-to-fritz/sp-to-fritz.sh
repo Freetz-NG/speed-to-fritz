@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="29"; Monat="05"; Jahr="10"
+Tag="30"; Monat="05"; Jahr="10"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -1468,8 +1468,6 @@ if [ "$ORI" != "y" ]; then
  [ "$DO_GSM_PATCH" = "y" ] && $sh_DIR/disply_gsm.sh "${SRC}" "${OEMLIST}"
  #enable all providers
  [ "$SET_ALLPROVIDERS" = "y" ] && $sh_DIR/set_allproviders.sh
- #enable provider AON
- [ "$ADD_PROVIDER_AON" = "y" ] && $sh_DIR/add_provider_aon.sh
  #set expert view
  [ "$SET_EXPERT" = "y" ] && $sh_DIR/set_expertansicht.sh
  # reverse phonebook lookup
