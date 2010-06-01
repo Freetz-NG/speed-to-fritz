@@ -1,0 +1,443 @@
+--- internet/internet_expert.html	2010-03-26 07:47:00.000000000 -0400
++++ internet/internet_expert.html	2010-05-21 04:55:58.000000000 -0400
+@@ -2,76 +2,76 @@
+ <div id="content">
+ <div id="showExplain" style="display:none">
+ <div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
+-{?txtINet?}
++Internet
+ </div></div></div></div></div></div>
+ <div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog">
+-<p class="mb10">{?de.internet.internet_expert.html:6090?}<a id="uiViewLink" href="javascript:jslGoTo('internet','gsm')">{?de.internet.internet_expert.html:4064?}</a>{?de.internet.internet_expert.html:6035?}</p>
++<p class="mb10">Currently establishing a connection to the Internet via the mobile telephone network. <br/> <br/>For these settings and how to disable the mobile telephone network mode, see the<a id="uiViewLink" href="javascript:jslGoTo('internet','gsm')">"Mobile Telephone Network" menu</a>page.</p>
+ </div></div></div></div></div></div>
+ </div>
+ <div id="showInternetExpert">
+ <div id="uiDsl1" style="display:none">
+ <div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
+-{?de.internet.internet_expert.html:5?}
++Connection
+ </div></div></div></div></div></div>
+ <div class="backdialog" id="uiAnschlussType"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+-<p class="mb5">{?de.internet.internet_expert.html:10?}</p>
++<p class="mb5">Select whether your Internet connection should be established via DSL or LAN.</p>
+ <p><input type="radio" name="Anschluss" onclick="uiDoAnschluss(0, true)" id="uiViewAnschlussDsl"><b><label for="uiViewAnschlussDsl">
+-{?de.internet.internet_expert.html:2029?}</label></b></p>
+-<p class="ml25 mb5">{?de.internet.internet_expert.html:20?}</p>
++Internet connection via DSL</label></b></p>
++<p class="ml25 mb5">Select this kind of connection if FRITZ!Box is to connect directly using your DSL line.</p>
+ <p><input type="radio" name="Anschluss" onclick="uiDoAnschluss(1, true)" id="uiViewAnschlussWan"><b>
+ <label for="uiViewAnschlussWan">
+-{?de.internet.internet_expert.html:4191?}
++Internet connection via LAN 1
+ </label></b></p>
+ <p class="ml25">
+ <? if eq $var:OEM 1und1 `
+-{?de.internet.internet_expert.html:4352?}
++Select this kind of connection if FRITZ!Box is to be connected to an already existing network (LAN), a cable modem or a DSL router.
+ ` `
+-{?de.internet.internet_expert.html:7320?}
++Select this kind of connection if FRITZ!Box is to be connected to an already existing network (LAN), a cable modem or a DSL router.
+ ` ?>
+ </p>
+ </div></div></div></div></div></div>
+ <div class="backtitel" id="uiAnschlussTypeExt"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foretitel">
+-{?de.internet.internet_expert.html:35?}
++Operating Mode
+ </div></div></div></div></div></div>
+ </div>
+ <div id="uiDsl0" style="display:none">
+ <div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
+-{?de.internet.internet_expert.html:40?}
++Operating Mode
+ </div></div></div></div></div></div>
+ </div>
+ <div class="backdialog" id="uiDslType" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+-<p><input type="radio" name="DslType" onclick="uiDoDslType(10, true)" id="uiViewDslType10">&nbsp;<b><label for="uiViewDslType10">{?de.internet.internet_expert.html:45?}</label></b></p>
+-<p class="ml25 mb5">{?de.internet.internet_expert.html:50?}</p>
+-<p><input type="radio" name="DslType" onclick="uiDoDslType(0, true)" id="uiViewDslType0">&nbsp;<b><label for="uiViewDslType0">{?de.internet.internet_expert.html:55?}</label></b></p>
+-<p class="ml25">{?de.internet.internet_expert.html:60?}</p>
++<p><input type="radio" name="DslType" onclick="uiDoDslType(10, true)" id="uiViewDslType10">&nbsp;<b><label for="uiViewDslType10">Use one Internet connection for all computers (router)</label></b></p>
++<p class="ml25 mb5">All connected network devices share one connection to the Internet</p>
++<p><input type="radio" name="DslType" onclick="uiDoDslType(0, true)" id="uiViewDslType0">&nbsp;<b><label for="uiViewDslType0">Use FRITZ!Box as a DSL modem</label></b></p>
++<p class="ml25">Each connected computer establishes its own Internet connection using its own access software</p>
+ </div></div></div></div></div></div>
+ <div class="backtitel" id="uiDslRouterHead" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foretitel">
+-{?de.internet.internet_expert.html:65?}
++Account Information
+ </div></div></div></div></div></div>
+ <div class="backdialog" id="uiDslRouter" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+-<p class="mb5">{?de.internet.internet_expert.html:70?}</p>
+-<p><input type="radio" name="DslRouter" onclick="uiDoDslType(1, true)" id="uiViewDslType1">&nbsp;<b><label for="uiViewDslType1">{?de.internet.internet_expert.html:75?}</label></b></p>
+-<p><input type="radio" name="DslRouter" onclick="uiDoDslType(2, true)" id="uiViewDslType2">&nbsp;<b><label for="uiViewDslType2">{?de.internet.internet_expert.html:80?}</label></b></p>
++<p class="mb5">Specify whether account information such as a 'User name' and 'Password' is required for Internet access.</p>
++<p><input type="radio" name="DslRouter" onclick="uiDoDslType(1, true)" id="uiViewDslType1">&nbsp;<b><label for="uiViewDslType1">Account information required (PPPoE/PPPoA connection)</label></b></p>
++<p><input type="radio" name="DslRouter" onclick="uiDoDslType(2, true)" id="uiViewDslType2">&nbsp;<b><label for="uiViewDslType2">No account information required (in accordance with RFC 1483/RFC2684)</label></b></p>
+ </div></div></div></div></div></div>
+ <div class="backdialog" id="uiWanType" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+-<p class="mb5">{?de.internet.internet_expert.html:85?}</p>
+-<p><input type="radio" name="WanType" onclick="uiDoWanType(10, true)" id="uiViewWanType10">&nbsp;<label for="uiViewWanType10"><b>{?de.internet.internet_expert.html:90?}</b></label></p>
+-<p><input type="radio" name="WanType" onclick="uiDoWanType(0, true)" id="uiViewWanType0">&nbsp;<label for="uiViewWanType0"><b>{?de.internet.internet_expert.html:95?}</b></label></p>
++<p class="mb5">Specify whether FRITZ!Box is to establish an Internet connection itself or share an existing Internet connection.</p>
++<p><input type="radio" name="WanType" onclick="uiDoWanType(10, true)" id="uiViewWanType10">&nbsp;<label for="uiViewWanType10"><b>Establish own Internet connection (NAT router with PPPoE or IP)</b></label></p>
++<p><input type="radio" name="WanType" onclick="uiDoWanType(0, true)" id="uiViewWanType0">&nbsp;<label for="uiViewWanType0"><b>Share existing Internet connection in the network (IP Client)</b></label></p>
+ </div></div></div></div></div></div>
+ <div class="backtitel" id="uiWanRouterHead"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foretitel">
+-{?de.internet.internet_expert.html:100?}
++Account Information
+ </div></div></div></div></div></div>
+ <div class="backdialog" id="uiWanRouter" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+-<p class="mb5">{?de.internet.internet_expert.html:105?}</p>
+-<p><input type="radio" name="WanRouter" onclick="uiDoWanType(1, true)" id="uiViewWanType1">&nbsp;<label for="uiViewWanType1"><b>{?de.internet.internet_expert.html:110?}</b></label></p>
+-<p><input type="radio" name="WanRouter" onclick="uiDoWanType(2, true)" id="uiViewWanType2">&nbsp;<label for="uiViewWanType2"><b>{?de.internet.internet_expert.html:115?}</b></label></p>
++<p class="mb5">Specify whether account information such as a 'User name' and 'Password' is required for Internet access.</p>
++<p><input type="radio" name="WanRouter" onclick="uiDoWanType(1, true)" id="uiViewWanType1">&nbsp;<label for="uiViewWanType1"><b>Account information required (PPPoE)</b></label></p>
++<p><input type="radio" name="WanRouter" onclick="uiDoWanType(2, true)" id="uiViewWanType2">&nbsp;<label for="uiViewWanType2"><b>No account information required (IP)</b></label></p>
+ </div></div></div></div></div></div>
+ <div class="backtitel" id="uiConnectionHead"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foretitel">
+-{?de.internet.internet_expert.html:120?}
++Connection Settings
+ </div></div></div></div></div></div>
+ <div class="backdialog" id="uiNoWanType" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+-{?de.internet.internet_expert.html:1495?}
+-{?de.internet.internet_expert.html:5503?}
++If you would like to use this mode, first enable the option "All computers are located in the same network" in the menu by clicking <a href="javascript:jslGoTo('system', 'netipadr')">System / Network Settings / IP Addresses</a>.
+ </div></div></div></div></div></div>
+ <div class="backdialog" id="uiAccountData" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+ <!-- Begin of include authform.html -->
+@@ -80,28 +80,28 @@
+ </div></div></div></div></div></div>
+ <div id="uiDslModem" style="display:none">
+ <div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+-<p>{?de.internet.internet_expert.html:145?}</p>
+-<p class="mt10" id="uiShowHinweis" style="display:none">{?de.internet.internet_expert.html:150?}</p>
++<p>FRITZ!Box works as a DSL modem and does not establish an Internet connection of its own. All connected network devices establish their own Internet connections.</p>
++<p class="mt10" id="uiShowHinweis" style="display:none">Note: Internet telephony is only possible in the "Use one Internet connection for all computers (router)" operating mode.</p>
+ </div></div></div></div></div></div>
+ <div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+-<p class="btn25"><input type="checkbox" id="uiViewFullBridge">&nbsp;<label for="uiViewFullBridge">{?de.internet.internet_expert.html:155?}</label></p>
++<p class="btn25"><input type="checkbox" id="uiViewFullBridge">&nbsp;<label for="uiViewFullBridge">Enable Filter for DSL Modem (Recommended)</label></p>
+ <p class="ml25">
+-{?de.internet.internet_expert.html:160?}<br>
+-{?de.internet.internet_expert.html:6933?}
++When this option is enabled, only PPPoE packets are transmitted over DSL. There is no chance that packets can be transferred from files and printers released for sharing with Internet users.<br>
++If this option is disabled, all data packets will be transmitted via DSL. All computers must be located in the same IP network.
+ </p>
+ </div></div></div></div></div></div>
+ <div class="backdialog" id="uiDslModemATMSettings" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+-<p class="mb10">{?de.internet.internet_expert.html:170?}</p>
+-<p class="mb5"><input type="radio" name="DslModemAtm" onclick="uiDoDslModemAtm(0)" id="uiViewDslModemAtmAuto">&nbsp;<label for="uiViewDslModemAtmAuto">{?de.internet.internet_expert.html:175?}</label></p>
+-<p class="mb5"><input type="radio" name="DslModemAtm" onclick="uiDoDslModemAtm(1)" id="uiViewDslModemAtmManu">&nbsp;<label for="uiViewDslModemAtmManu">{?de.internet.internet_expert.html:180?}</label></p>
++<p class="mb10">DSL ATM Settings</p>
++<p class="mb5"><input type="radio" name="DslModemAtm" onclick="uiDoDslModemAtm(0)" id="uiViewDslModemAtmAuto">&nbsp;<label for="uiViewDslModemAtmAuto">Detect all ATM settings automatically</label></p>
++<p class="mb5"><input type="radio" name="DslModemAtm" onclick="uiDoDslModemAtm(1)" id="uiViewDslModemAtmManu">&nbsp;<label for="uiViewDslModemAtmManu">Define ATM settings manually</label></p>
+ <div class="ml25">
+ <table id="tDslModem">
+ <tr>
+-<td><label for="uiViewDslModemVPI">{?de.internet.internet_expert.html:185?}</label></td>
++<td><label for="uiViewDslModemVPI">VPI</label></td>
+ <td><input type="text" size="5" maxlength="3" class="Eingabefeld" id="uiViewDslModemVPI"></td>
+ </tr>
+ <tr>
+-<td><label for="uiViewDslModemVCI">{?de.internet.internet_expert.html:190?}</label></td>
++<td><label for="uiViewDslModemVCI">VCI</label></td>
+ <td><input type="text" size="5" maxlength="5" class="Eingabefeld" id="uiViewDslModemVCI"></td>
+ </tr>
+ </table>
+@@ -109,173 +109,173 @@
+ </div></div></div></div></div></div>
+ </div>
+ <div class="backdialog" id="uiDslIp" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+-<p class="mb10">{?de.internet.internet_expert.html:195?}</p>
++<p class="mb10">The values for the following ATM settings are supplied by your DSL provider.</p>
+ <div class="ml25 mb10">
+ <table id="tDslIp">
+ <tr>
+-<td><label for="uiViewDslIpVPI">{?de.internet.internet_expert.html:200?}</label></td>
++<td><label for="uiViewDslIpVPI">VPI</label></td>
+ <td><input type="text" size="5" maxlength="3" class="Eingabefeld" id="uiViewDslIpVPI"></td>
+ </tr>
+ <tr>
+-<td><label for="uiViewDslIpVCI">{?de.internet.internet_expert.html:205?}</label></td>
++<td><label for="uiViewDslIpVCI">VCI</label></td>
+ <td><input type="text" size="5" maxlength="5" class="Eingabefeld" id="uiViewDslIpVCI"></td>
+ </tr>
+ </table>
+ </div>
+-<p>{?de.internet.internet_expert.html:210?}</p>
+-<p class="ml25"><input type="radio" onclick="uiDoDslIpEncaps(1)" name="DslIpEncaps" id="uiViewDslIpEncaps1">&nbsp;<label for="uiViewDslIpEncaps1">{?de.internet.internet_expert.html:215?}</label></p>
+-<p class="ml50"><input type="checkbox" onclick="uiDoDslIpUseDhcp()" id="uiViewDslIpUseDHCP">&nbsp;<label for="uiViewDslIpUseDHCP">{?de.internet.internet_expert.html:220?}</label></p>
+-<p class="ml75 mb5"><label for="uiViewDslIpHostname" style="margin: 0px 15px 0px 0px">{?de.internet.internet_expert.html:225?}</label>&nbsp;<input type="text" size="32" maxlength="63" id="uiViewDslIpHostname"></p>
+-<p class="ml25"><input type="radio" onclick="uiDoDslIpEncaps(2)" name="DslIpEncaps" id="uiViewDslIpEncaps2">&nbsp;<label for="uiViewDslIpEncaps2">{?de.internet.internet_expert.html:230?}</label></p>
+-<p class="ml25"><input type="radio" onclick="uiDoDslIpEncaps(3)" name="DslIpEncaps" id="uiViewDslIpEncaps3">&nbsp;<label for="uiViewDslIpEncaps3">{?de.internet.internet_expert.html:235?}</label></p>
+-<p class="ml25 mb10"><input type="radio" onclick="uiDoDslIpEncaps(4)" name="DslIpEncaps" id="uiViewDslIpEncaps4">&nbsp;<label for="uiViewDslIpEncaps4">{?de.internet.internet_expert.html:240?}</label></p>
++<p>Encapsulation</p>
++<p class="ml25"><input type="radio" onclick="uiDoDslIpEncaps(1)" name="DslIpEncaps" id="uiViewDslIpEncaps1">&nbsp;<label for="uiViewDslIpEncaps1">Bridged (Routed Bridge Encapsulation)</label></p>
++<p class="ml50"><input type="checkbox" onclick="uiDoDslIpUseDhcp()" id="uiViewDslIpUseDHCP">&nbsp;<label for="uiViewDslIpUseDHCP">Obtain the IP address automatically (DHCP)</label></p>
++<p class="ml75 mb5"><label for="uiViewDslIpHostname" style="margin: 0px 15px 0px 0px">DHCP host name</label>&nbsp;<input type="text" size="32" maxlength="63" id="uiViewDslIpHostname"></p>
++<p class="ml25"><input type="radio" onclick="uiDoDslIpEncaps(2)" name="DslIpEncaps" id="uiViewDslIpEncaps2">&nbsp;<label for="uiViewDslIpEncaps2">Routed IP LLC NLPID (ISO)</label></p>
++<p class="ml25"><input type="radio" onclick="uiDoDslIpEncaps(3)" name="DslIpEncaps" id="uiViewDslIpEncaps3">&nbsp;<label for="uiViewDslIpEncaps3">Routed IP LLC Snap</label></p>
++<p class="ml25 mb10"><input type="radio" onclick="uiDoDslIpEncaps(4)" name="DslIpEncaps" id="uiViewDslIpEncaps4">&nbsp;<label for="uiViewDslIpEncaps4">Routed IP Raw</label></p>
+ <div>
+ <table id="tRFC" style="margin-left: 50px;">
+ <tr>
+-<td><label for="uiViewDslIpIpaddr">{?de.internet.internet_expert.html:245?}</label></td>
++<td><label for="uiViewDslIpIpaddr">IP address</label></td>
+ <td><input type="text" size="16" maxlength="15" id="uiViewDslIpIpaddr"></td>
+ </tr>
+ <tr>
+-<td><label for="uiViewDslIpNetmask">{?de.internet.internet_expert.html:250?}</label></td>
++<td><label for="uiViewDslIpNetmask">Subnet mask</label></td>
+ <td><input type="text" size="16" maxlength="15" id="uiViewDslIpNetmask"></td>
+ </tr>
+ <tr>
+-<td><label for="uiViewDslIpGateway">{?de.internet.internet_expert.html:255?}</label></td>
++<td><label for="uiViewDslIpGateway">Default gateway</label></td>
+ <td><input type="text" size="16" maxlength="15" id="uiViewDslIpGateway"></td>
+ </tr>
+ <tr>
+-<td><label for="uiViewDslIpDns0">{?de.internet.internet_expert.html:260?}</label></td>
++<td><label for="uiViewDslIpDns0">Primary DNS server</label></td>
+ <td><input type="text" size="16" maxlength="15" id="uiViewDslIpDns0"></td>
+ </tr>
+ <tr>
+-<td><label for="uiViewDslIpDns1">{?de.internet.internet_expert.html:265?}</label></td>
++<td><label for="uiViewDslIpDns1">Secondary DNS server</label></td>
+ <td><input type="text" size="16" maxlength="15" id="uiViewDslIpDns1"></td>
+ </tr>
+ </table>
+ </div>
+-<p class="ml25" style="margin-top: 15px;">{?de.internet.internet_expert.html:270?}<? query env:settings/macdsl ?></p>
++<p class="ml25" style="margin-top: 15px;">FRITZ!Box MAC address: <? query env:settings/macdsl ?></p>
+ </div></div></div></div></div></div>
+ <div class="backdialog" id="uiWanBridge" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+-<p class="mb10">{?de.internet.internet_expert.html:275?}</p>
+-<p class="mb10">{?de.internet.internet_expert.html:280?}</p>
+-<p class="mb5"><input type="radio" name="WanBridgeDHCP" onclick="uiDoWanBridgeUseDhcp(1)" id="uiViewWanBridgeUseDHCP">&nbsp;<label for="uiViewWanBridgeUseDHCP">{?de.internet.internet_expert.html:285?}</label></p>
+-<p class="ml25 mb10"><label for="uiViewWanBridgeHostname" style="margin: 0px 15px 0px 0px">{?de.internet.internet_expert.html:290?}</label>&nbsp;<input type="text" size="32" maxlength="63" id="uiViewWanBridgeHostname"></p>
+-<p class="mb5"><input type="radio" name="WanBridgeDHCP" onclick="uiDoWanBridgeUseDhcp(0)" id="uiViewWanBridgeNoDHCP">&nbsp;<label for="uiViewWanBridgeNoDHCP">{?de.internet.internet_expert.html:295?}</label></p>
++<p class="mb10">Enter here the IP settings to be used in your network.</p>
++<p class="mb10">Careful: After changes to these settings are applied, the FRITZ!Box user interface can be reached only via the configured IP address or the IP address assigned by the DHCP server.</p>
++<p class="mb5"><input type="radio" name="WanBridgeDHCP" onclick="uiDoWanBridgeUseDhcp(1)" id="uiViewWanBridgeUseDHCP">&nbsp;<label for="uiViewWanBridgeUseDHCP">Obtain the IP address automatically (DHCP)</label></p>
++<p class="ml25 mb10"><label for="uiViewWanBridgeHostname" style="margin: 0px 15px 0px 0px">DHCP host name</label>&nbsp;<input type="text" size="32" maxlength="63" id="uiViewWanBridgeHostname"></p>
++<p class="mb5"><input type="radio" name="WanBridgeDHCP" onclick="uiDoWanBridgeUseDhcp(0)" id="uiViewWanBridgeNoDHCP">&nbsp;<label for="uiViewWanBridgeNoDHCP">Configure the IP address manually</label></p>
+ <table id="tWanBridgeStatic" class="ml25">
+ <tr>
+-<td><label for="uiViewWanBridgeIpaddr">{?de.internet.internet_expert.html:300?}</label></td>
++<td><label for="uiViewWanBridgeIpaddr">IP address</label></td>
+ <td><input type="text" size="16" maxlength="15" id="uiViewWanBridgeIpaddr"></td>
+ </tr>
+ <tr>
+-<td><label for="uiViewWanBridgeNetmask">{?de.internet.internet_expert.html:305?}</label></td>
++<td><label for="uiViewWanBridgeNetmask">Subnet mask</label></td>
+ <td><input type="text" size="16" maxlength="15" id="uiViewWanBridgeNetmask"></td>
+ </tr>
+ <tr>
+-<td><label for="uiViewWanBridgeGateway">{?de.internet.internet_expert.html:310?}</label></td>
++<td><label for="uiViewWanBridgeGateway">Default gateway</label></td>
+ <td><input type="text" size="16" maxlength="15" id="uiViewWanBridgeGateway"></td>
+ </tr>
+ <tr>
+-<td><label for="uiViewWanBridgeDns0">{?de.internet.internet_expert.html:315?}</label></td>
++<td><label for="uiViewWanBridgeDns0">Primary DNS server</label></td>
+ <td><input type="text" size="16" maxlength="15" id="uiViewWanBridgeDns0"></td>
+ </tr>
+ <tr>
+-<td><label for="uiViewWanBridgeDns1">{?de.internet.internet_expert.html:320?}</label></td>
++<td><label for="uiViewWanBridgeDns1">Secondary DNS server</label></td>
+ <td><input type="text" size="16" maxlength="15" id="uiViewWanBridgeDns1"></td>
+ </tr>
+ </table>
+ </div></div></div></div></div></div>
+ <div class="backdialog" id="uiWanIp" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+-<p class="mb10">{?de.internet.internet_expert.html:325?}</p>
+-<p class="mb5"><input type="radio" name="WanIpDHCP" onclick="uiDoWanIpUseDhcp(1)" id="uiViewWanIpUseDHCP">&nbsp;<label for="uiViewWanIpUseDHCP">{?de.internet.internet_expert.html:330?}</label></p>
+-<p class="ml25 mb10"><label for="uiViewWanIpHostname" style="margin: 0px 15px 0px 0px">{?de.internet.internet_expert.html:335?}</label>&nbsp;<input type="text" size="32" maxlength="63" id="uiViewWanIpHostname"></p>
+-<p class="mb5"><input type="radio" name="WanIpDHCP" onclick="uiDoWanIpUseDhcp(0)" id="uiViewWanIpNoDHCP">&nbsp;<label for="uiViewWanIpNoDHCP">{?de.internet.internet_expert.html:340?}</label></p>
++<p class="mb10">Enter the IP settings here.</p>
++<p class="mb5"><input type="radio" name="WanIpDHCP" onclick="uiDoWanIpUseDhcp(1)" id="uiViewWanIpUseDHCP">&nbsp;<label for="uiViewWanIpUseDHCP">Obtain the IP address automatically (DHCP)</label></p>
++<p class="ml25 mb10"><label for="uiViewWanIpHostname" style="margin: 0px 15px 0px 0px">DHCP host name</label>&nbsp;<input type="text" size="32" maxlength="63" id="uiViewWanIpHostname"></p>
++<p class="mb5"><input type="radio" name="WanIpDHCP" onclick="uiDoWanIpUseDhcp(0)" id="uiViewWanIpNoDHCP">&nbsp;<label for="uiViewWanIpNoDHCP">Configure the IP address manually</label></p>
+ <table id="tWanIp" class="ml25">
+ <tr>
+-<td><label for="uiViewWanIpIpaddr">{?de.internet.internet_expert.html:345?}</label></td>
++<td><label for="uiViewWanIpIpaddr">IP address</label></td>
+ <td><input type="text" size="16" maxlength="15" id="uiViewWanIpIpaddr"></td>
+ </tr>
+ <tr>
+-<td><label for="uiViewWanIpNetmask">{?de.internet.internet_expert.html:350?}</label></td>
++<td><label for="uiViewWanIpNetmask">Subnet mask</label></td>
+ <td><input type="text" size="16" maxlength="15" id="uiViewWanIpNetmask"></td>
+ </tr>
+ <tr>
+-<td><label for="uiViewWanIpGateway">{?de.internet.internet_expert.html:355?}</label></td>
++<td><label for="uiViewWanIpGateway">Default gateway</label></td>
+ <td><input type="text" size="16" maxlength="15" id="uiViewWanIpGateway"></td>
+ </tr>
+ <tr>
+-<td><label for="uiViewWanIpDns0">{?de.internet.internet_expert.html:360?}</label></td>
++<td><label for="uiViewWanIpDns0">Primary DNS server</label></td>
+ <td><input type="text" size="16" maxlength="15" id="uiViewWanIpDns0"></td>
+ </tr>
+ <tr>
+-<td><label for="uiViewWanIpDns1">{?de.internet.internet_expert.html:365?}</label></td>
++<td><label for="uiViewWanIpDns1">Secondary DNS server</label></td>
+ <td><input type="text" size="16" maxlength="15" id="uiViewWanIpDns1"></td>
+ </tr>
+ </table>
+ </div></div></div></div></div></div>
+ <div class="backdialog" id="uiTraffic" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+ <div class="mt10" id="uiTrafficSpeed" style="display:none">
+-<p class="mb5">{?de.internet.internet_expert.html:9072?}</p>
+-<p><input type="radio" name="DslSpeed" onclick="uiDoDslSpeed(0)" id="uiViewDslSpeedAuto">&nbsp;<label for="uiViewDslSpeedAuto">{?de.internet.internet_expert.html:395?}</label></p>
+-<p><input type="radio" name="DslSpeed" onclick="uiDoDslSpeed(1)" id="uiViewDslSpeedManu">&nbsp;<label for="uiViewDslSpeedManu">{?de.internet.internet_expert.html:400?}</label></p>
++<p class="mb5">Prioritization of the network devices requires data about the speed of your DSL line:</p>
++<p><input type="radio" name="DslSpeed" onclick="uiDoDslSpeed(0)" id="uiViewDslSpeedAuto">&nbsp;<label for="uiViewDslSpeedAuto">Set the speeds of the DSL line automatically</label></p>
++<p><input type="radio" name="DslSpeed" onclick="uiDoDslSpeed(1)" id="uiViewDslSpeedManu">&nbsp;<label for="uiViewDslSpeedManu">Set the speeds of the DSL line manually</label></p>
+ <table id="tTraffic" class="ml25">
+ <tr>
+-<td><label for="uiViewDslSpeedUpstream">{?de.internet.internet_expert.html:405?}</label></td>
++<td><label for="uiViewDslSpeedUpstream">Upstream</label></td>
+ <td><input type="text" size="6" maxlength="5" id="uiViewDslSpeedUpstream"></td>
+-<td>{?de.internet.internet_expert.html:410?}</td>
++<td>kBit/s</td>
+ </tr>
+ <tr>
+-<td><label for="uiViewDslSpeedDownstream">{?de.internet.internet_expert.html:415?}</label></td>
++<td><label for="uiViewDslSpeedDownstream">Downstream</label></td>
+ <td><input type="text" size="6" maxlength="5" id="uiViewDslSpeedDownstream"></td>
+-<td>{?de.internet.internet_expert.html:420?}</td>
++<td>kBit/s</td>
+ </tr>
+ </table>
+ </div>
+ </div></div></div></div></div></div>
+ <div class="backdialog" id="uiWanSpeed" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+-<p class="mb5">{?de.internet.internet_expert.html:1359?}</p>
++<p class="mb5">Configure the speed of your DSL line. These values are required to secure the prioritzation of the network devices.</p>
+ <table id="tStream" class="ml25">
+ <tr>
+-<td><label for="uiViewUpstream">{?de.internet.internet_expert.html:435?}</label></td>
++<td><label for="uiViewUpstream">Upstream</label></td>
+ <td><input type="text" size="6" maxlength="5" class="Eingabefeld" id="uiViewUpstream"></td>
+-<td>{?de.internet.internet_expert.html:440?}</td>
++<td>kBit/s</td>
+ </tr>
+ <tr>
+-<td><label for="uiViewDownstream">{?de.internet.internet_expert.html:445?}</label></td>
++<td><label for="uiViewDownstream">Downstream</label></td>
+ <td><input type="text" size="6" maxlength="5" class="Eingabefeld" id="uiViewDownstream"></td>
+-<td>{?de.internet.internet_expert.html:450?}</td>
++<td>kBit/s</td>
+ </tr>
+ </table>
+ </div></div></div></div></div></div>
+ <div class="backdialog" id="uiDslPpp" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+-<p class="mb10"><b>{?de.internet.internet_expert.html:455?}</b></p>
+-<p class="mb10">{?de.internet.internet_expert.html:460?}</p>
+-<p class="mb5"><input type="radio" name="DslPppAtm" onclick="uiDoDslPppAtm(0)" id="uiViewDslPppAtmAuto">&nbsp;<label for="uiViewDslPppAtmAuto">{?de.internet.internet_expert.html:465?}</label></p>
+-<p class="mb5"><input type="radio" name="DslPppAtm" onclick="uiDoDslPppAtm(1)" id="uiViewDslPppAtmManu">&nbsp;<label for="uiViewDslPppAtmManu">{?de.internet.internet_expert.html:470?}</label></p>
++<p class="mb10"><b>DSL ATM Settings</b></p>
++<p class="mb10">Please note that manual settings are required only in special cases. Your DSL provider can tell you which values are required.</p>
++<p class="mb5"><input type="radio" name="DslPppAtm" onclick="uiDoDslPppAtm(0)" id="uiViewDslPppAtmAuto">&nbsp;<label for="uiViewDslPppAtmAuto">Detect all ATM settings automatically</label></p>
++<p class="mb5"><input type="radio" name="DslPppAtm" onclick="uiDoDslPppAtm(1)" id="uiViewDslPppAtmManu">&nbsp;<label for="uiViewDslPppAtmManu">Define ATM settings manually</label></p>
+ <div class="ml25">
+ <table id="tDslPpp">
+ <tr>
+-<td><label for="uiViewDslPppVPI">{?de.internet.internet_expert.html:475?}</label></td>
++<td><label for="uiViewDslPppVPI">VPI</label></td>
+ <td><input type="text" size="5" maxlength="3" class="Eingabefeld" id="uiViewDslPppVPI"></td>
+ </tr>
+ <tr>
+-<td><label for="uiViewDslPppVCI">{?de.internet.internet_expert.html:480?}</label></td>
++<td><label for="uiViewDslPppVCI">VCI</label></td>
+ <td><input type="text" size="5" maxlength="5" class="Eingabefeld" id="uiViewDslPppVCI"></td>
+ </tr>
+ <tr>
+-<td>{?de.internet.internet_expert.html:485?}</td>
++<td>Encapsulation</td>
+ <td>
+-<input type="radio" onclick="uiDoDslPppEncaps(0)" name="DslPppEncaps" id="uiViewDslPppPPPoE">&nbsp;<label for="uiViewDslPppPPPoE">{?de.internet.internet_expert.html:490?}</label><br>
+-<input type="radio" onclick="uiDoDslPppEncaps(1)" name="DslPppEncaps" id="uiViewDslPppPPPoA1">&nbsp;<label for="uiViewDslPppPPPoA1">{?de.internet.internet_expert.html:495?}</label><br>
+-<input type="radio" onclick="uiDoDslPppEncaps(2)" name="DslPppEncaps" id="uiViewDslPppPPPoA2">&nbsp;<label for="uiViewDslPppPPPoA2">{?de.internet.internet_expert.html:500?}</label>
++<input type="radio" onclick="uiDoDslPppEncaps(0)" name="DslPppEncaps" id="uiViewDslPppPPPoE">&nbsp;<label for="uiViewDslPppPPPoE">PPPoE</label><br>
++<input type="radio" onclick="uiDoDslPppEncaps(1)" name="DslPppEncaps" id="uiViewDslPppPPPoA1">&nbsp;<label for="uiViewDslPppPPPoA1">PPPoA/LLC</label><br>
++<input type="radio" onclick="uiDoDslPppEncaps(2)" name="DslPppEncaps" id="uiViewDslPppPPPoA2">&nbsp;<label for="uiViewDslPppPPPoA2">PPPoA/VC-Mux</label>
+ </td>
+ </tr>
+ </table>
+ </div>
+ </div></div></div></div></div></div>
+ <div class="backdialog" id="uiMac" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
+-<p class="mb10">{?de.internet.internet_expert.html:505?}</p>
+-<p class="mb5">{?de.internet.internet_expert.html:510?}</p>
+-<p class="ml25">{?de.internet.internet_expert.html:515?}<input type="text" id="uiViewMac0" size="2" maxlength="2">{?de.internet.internet_expert.html:520?}
++<p class="mb10">FRITZ!Box MAC Address</p>
++<p class="mb5">If your Internet Service Provider expects a special MAC address, enter it here</p>
++<p class="ml25">MAC address:<input type="text" id="uiViewMac0" size="2" maxlength="2">:
+ <input type="text" id="uiViewMac1" size="2" maxlength="2"> :
+ <input type="text" id="uiViewMac2" size="2" maxlength="2"> :
+ <input type="text" id="uiViewMac3" size="2" maxlength="2"> :
+--- internet/internet_expert.js	2010-03-26 07:46:45.000000000 -0400
++++ internet/internet_expert.js	2010-05-21 04:55:59.000000000 -0400
+@@ -24,25 +24,25 @@
+ <? include ../html/de/first/provider.js ?>
+ <? include ../html/de/internet/authform.js ?>
+ <? include ../html/de/internet/ipform.js ?>
+-var g_VPIMustNumber = "{?de.internet.internet_expert.js:5?}";
+-var g_VCIMustNumber = "{?de.internet.internet_expert.js:10?}";
+-var g_VPIOutOfRange = "{?de.internet.internet_expert.js:15?}";
+-var g_VCIOutOfRange = "{?de.internet.internet_expert.js:20?}";
+-var g_NoEncapsModeDefined = "{?de.internet.internet_expert.js:25?}";
+-var g_mldUpStream = "{?de.internet.internet_expert.js:30?}";
+-var g_mldDownStream = "{?de.internet.internet_expert.js:8247?}";
+-var g_mldUpstreamNum = "{?de.internet.internet_expert.js:45?}";
+-var g_mldDownstreamNum = "{?de.internet.internet_expert.js:50?}";
+-var g_mldMacPart = "{?de.internet.internet_expert.js:55?}";
+-var g_mldMacMulti = "{?de.internet.internet_expert.js:60?}";
+-var g_mldHostChar = "{?de.internet.internet_expert.js:65?}";
+-var g_mldKennwortPPPoe = "{?de.internet.internet_expert.js:70?}";
+-var g_mldWanRouter = "{?de.internet.internet_expert.js:75?}";
++var g_VPIMustNumber = "VPI: Illegal entry; only numeric characters are allowed.";
++var g_VCIMustNumber = "VCI: Illegal entry; only numeric characters are allowed.";
++var g_VPIOutOfRange = "VPI: Illegal entry, only entries between 0 and 255 are allowed.";
++var g_VCIOutOfRange = "VCI: Illegal entry, only entries between 32 and 255 are allowed.";
++var g_NoEncapsModeDefined = "No encapsulation defined.";
++var g_mldUpStream = "Warning! The value %1%Upstream% in the Upstream field is very low. Are you sure this value is correct?";
++var g_mldDownStream = "Warning! The value %1%Downstream% in the Downstream field is very low. Are you sure this value is correct?";
++var g_mldUpstreamNum = "Please enter a number in the \"Upstream\" field.";
++var g_mldDownstreamNum = "Please enter a number in the \"Downstream\" field.";
++var g_mldMacPart = "All fields of the MAC address must contain exactly two characters (numerals or the letters A-F).";
++var g_mldMacMulti = "The MAC address may not be a Multicast address.";
++var g_mldHostChar = "Please check the entry for the DHCP host name and remove spaces and other illegal characters.";
++var g_mldKennwortPPPoe = "PPPoE passthrough can only be applied with password protection. If your Internet Service Provider does not require a password, please define any password you like in order to be able to use PPPoE passthrough.";
++var g_mldWanRouter = "After applying the settings, the \"%1%LANAnschluss%\" port of your FRITZ!Box will be the WAN interface (Internet connection). \x0a\x0aAttention: \x0aAfter this the FRITZ!Box user interface can only be accessed via \"%2%andereLANWLANAnschluesse%\".";
+ //var g_txtAlert_1 = "Die VLAN-ID muss einen Wert zwischen 6 und 4095 haben.";
+-var g_mldLan1 = "{?de.internet.internet_expert.js:95?}";
+-var g_mldLan2 = "{?de.internet.internet_expert.js:100?}";
+-var g_mldWLAN = "{?txtWlan?}";
+-var g_mldUSB = "{?de.internet.internet_expert.js:135?}";
++var g_mldLan1 = "LAN 1";
++var g_mldLan2 = "LAN 2, LAN 3, LAN 4";
++var g_mldWLAN = "WLAN";
++var g_mldUSB = "USB";
+ var g_AlleImNetz = "<? query box:settings/lanbridge/activated ?>";
+ var g_secondWindow = "Zweitfenster";
+ var g_DslType = 0; // 0|1|2
+@@ -51,15 +51,7 @@
+ var g_WanRouter = 1; // 1|2
+ var g_OrgWanType=-1;
+ function uiDoOnLoad() {
+-document.title = "{?de.internet.internet_expert.js:145PppoeTitel?}";
+-<? if eq $var:isUsbGsm 1 `
+-var umts = "<? query umts:settings/enabled ?>";
+-if (umts == "1") {
+-jslDisplay("showExplain", true);
+-jslDisplay("showInternetExpert", false);
+-jslDisplay("showExplain1", false);
+-}
+-` ?>
++document.title = "FRITZ!Box account information";
+ enableAfForm(false);
+ var isDsl = "<? echo $var:isDsl ?>";
+ var isAta = "<? echo $var:isAta ?>";

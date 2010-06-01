@@ -5,8 +5,10 @@ if [ "${RPL_AUTHFORM_WITH_81}" == "y" ]; then
  echo "-- Replace authform ..."
  USRWWW="usr/www/${OEMLINK}/html/de"
  rm -f "$SRC/${USRWWW}/internet/authform.js"
+ rm -f "$SRC/${USRWWW}/internet/authform.html"
  PatchfileName="add_authform"
  modpatch "$SRC/${USRWWW}" "$P_DIR/${PatchfileName}.patch"
+ [ "$avm_Lang" = "de" ] &&  modpatch "$SRC/${USRWWW}" "$P_DIR/${PatchfileName}_de.patch"
 fi
 OEML="avm" && [ -d "${DST}"/usr/www/avme ] && OEML="avme"
 OEML2="avm" && [ -d "${SRC_2}"/usr/www/avme ] && OEML2="avme"

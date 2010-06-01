@@ -3021,7 +3021,7 @@ config EXPORT_ADD_VLAN_BRIDGE
 config EXPORT_RPL_AUTHFORM_WITH_81
 	bool "Use authform page from 7270 multi firmware"
 	depends on TYPE_OR_7570_503_722_920
-	default y
+	default n
 	select ADD_PROVIDER_AON
 	help
 	    Fixes problms with providersettings, best selection for aon

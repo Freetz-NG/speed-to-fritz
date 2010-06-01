@@ -24,12 +24,8 @@ for DIR in ${OEMLIST}; do
  fi
  if [ -f "$1"/$DSTI/menus/menu2_homehome.html ]; then
 	echo2 "      $DSTI/menus/menu2_internet.html"
-	sed -i -e "/^.*class7 'LSubitem'.*$/,/^.*useradd2.*$/d"  "$1"/$DSTI/menus/menu2_internet.html
-	sed -i -e "/^.*'userlist'.*$/d" "$1"/$DSTI/menus/menu2_internet.html
-	sed -i -e "s/class7/class4/"  "$1"/$DSTI/menus/menu2_internet.html
-	#sed -i -e "/^.*var:class7.*$/d" "$1"/$DSTI/menus/menu2_internet.html
-	#sed -i -e "/^<? if eq <? .* ?> pppoe \`$/{N;/^<? if eq <? .* ?> pppoe \`\n. ?>*$/d}" "$1"/$DSTI/menus/menu2_internet.html
-	#sed -i -e "/^.*var:class5 'LSubitem'.*$/i <? if eq <? query connection0:settings/type ?> pppoe \`\n<? if eq \$var:pagename internet \`<? setvariable var:class4 'LSubitemaktiv' ?>\` ?>\n\` ?>" "$1"/$DSTI/menus/menu2_internet.html
+	sed -i -e "/^<li class=.<? echo .var:class7 ?>.>/d" "$1"/$DSTI/menus/menu2_internet.html
+	sed -i -e "/^.*user.*$/d" "$1"/$DSTI/menus/menu2_internet.html
 	echo2 "      $DSTI/menus/menu2_homehome.html"
 	sed -i -e "/^.* userlist .*$/,/^.*'userlist'.*$/d" "$1"/$DSTI/menus/menu2_homehome.html
 	sed -i -e "/^.*LSubitem.*$/{N;/^.*LSubitem.*\n. ?>*$/d}" "$1"/$DSTI/menus/menu2_homehome.html

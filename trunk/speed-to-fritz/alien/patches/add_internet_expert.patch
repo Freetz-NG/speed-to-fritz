@@ -1,0 +1,1197 @@
+--- internet/internet_expert.html	1969-12-31 19:00:00.000000000 -0500
++++ internet/internet_expert.html	2010-03-26 07:47:00.000000000 -0400
+@@ -0,0 +1,287 @@
++<!--internet_expert.html-->
++<div id="content">
++<div id="showExplain" style="display:none">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
++{?txtINet?}
++</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog">
++<p class="mb10">{?de.internet.internet_expert.html:6090?}<a id="uiViewLink" href="javascript:jslGoTo('internet','gsm')">{?de.internet.internet_expert.html:4064?}</a>{?de.internet.internet_expert.html:6035?}</p>
++</div></div></div></div></div></div>
++</div>
++<div id="showInternetExpert">
++<div id="uiDsl1" style="display:none">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
++{?de.internet.internet_expert.html:5?}
++</div></div></div></div></div></div>
++<div class="backdialog" id="uiAnschlussType"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class="mb5">{?de.internet.internet_expert.html:10?}</p>
++<p><input type="radio" name="Anschluss" onclick="uiDoAnschluss(0, true)" id="uiViewAnschlussDsl"><b><label for="uiViewAnschlussDsl">
++{?de.internet.internet_expert.html:2029?}</label></b></p>
++<p class="ml25 mb5">{?de.internet.internet_expert.html:20?}</p>
++<p><input type="radio" name="Anschluss" onclick="uiDoAnschluss(1, true)" id="uiViewAnschlussWan"><b>
++<label for="uiViewAnschlussWan">
++{?de.internet.internet_expert.html:4191?}
++</label></b></p>
++<p class="ml25">
++<? if eq $var:OEM 1und1 `
++{?de.internet.internet_expert.html:4352?}
++` `
++{?de.internet.internet_expert.html:7320?}
++` ?>
++</p>
++</div></div></div></div></div></div>
++<div class="backtitel" id="uiAnschlussTypeExt"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foretitel">
++{?de.internet.internet_expert.html:35?}
++</div></div></div></div></div></div>
++</div>
++<div id="uiDsl0" style="display:none">
++<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
++{?de.internet.internet_expert.html:40?}
++</div></div></div></div></div></div>
++</div>
++<div class="backdialog" id="uiDslType" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p><input type="radio" name="DslType" onclick="uiDoDslType(10, true)" id="uiViewDslType10">&nbsp;<b><label for="uiViewDslType10">{?de.internet.internet_expert.html:45?}</label></b></p>
++<p class="ml25 mb5">{?de.internet.internet_expert.html:50?}</p>
++<p><input type="radio" name="DslType" onclick="uiDoDslType(0, true)" id="uiViewDslType0">&nbsp;<b><label for="uiViewDslType0">{?de.internet.internet_expert.html:55?}</label></b></p>
++<p class="ml25">{?de.internet.internet_expert.html:60?}</p>
++</div></div></div></div></div></div>
++<div class="backtitel" id="uiDslRouterHead" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foretitel">
++{?de.internet.internet_expert.html:65?}
++</div></div></div></div></div></div>
++<div class="backdialog" id="uiDslRouter" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class="mb5">{?de.internet.internet_expert.html:70?}</p>
++<p><input type="radio" name="DslRouter" onclick="uiDoDslType(1, true)" id="uiViewDslType1">&nbsp;<b><label for="uiViewDslType1">{?de.internet.internet_expert.html:75?}</label></b></p>
++<p><input type="radio" name="DslRouter" onclick="uiDoDslType(2, true)" id="uiViewDslType2">&nbsp;<b><label for="uiViewDslType2">{?de.internet.internet_expert.html:80?}</label></b></p>
++</div></div></div></div></div></div>
++<div class="backdialog" id="uiWanType" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class="mb5">{?de.internet.internet_expert.html:85?}</p>
++<p><input type="radio" name="WanType" onclick="uiDoWanType(10, true)" id="uiViewWanType10">&nbsp;<label for="uiViewWanType10"><b>{?de.internet.internet_expert.html:90?}</b></label></p>
++<p><input type="radio" name="WanType" onclick="uiDoWanType(0, true)" id="uiViewWanType0">&nbsp;<label for="uiViewWanType0"><b>{?de.internet.internet_expert.html:95?}</b></label></p>
++</div></div></div></div></div></div>
++<div class="backtitel" id="uiWanRouterHead"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foretitel">
++{?de.internet.internet_expert.html:100?}
++</div></div></div></div></div></div>
++<div class="backdialog" id="uiWanRouter" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class="mb5">{?de.internet.internet_expert.html:105?}</p>
++<p><input type="radio" name="WanRouter" onclick="uiDoWanType(1, true)" id="uiViewWanType1">&nbsp;<label for="uiViewWanType1"><b>{?de.internet.internet_expert.html:110?}</b></label></p>
++<p><input type="radio" name="WanRouter" onclick="uiDoWanType(2, true)" id="uiViewWanType2">&nbsp;<label for="uiViewWanType2"><b>{?de.internet.internet_expert.html:115?}</b></label></p>
++</div></div></div></div></div></div>
++<div class="backtitel" id="uiConnectionHead"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foretitel">
++{?de.internet.internet_expert.html:120?}
++</div></div></div></div></div></div>
++<div class="backdialog" id="uiNoWanType" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++{?de.internet.internet_expert.html:1495?}
++{?de.internet.internet_expert.html:5503?}
++</div></div></div></div></div></div>
++<div class="backdialog" id="uiAccountData" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<!-- Begin of include authform.html -->
++<? include ../html/de/internet/authform.html ?>
++<!-- end of include authform.html -->
++</div></div></div></div></div></div>
++<div id="uiDslModem" style="display:none">
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p>{?de.internet.internet_expert.html:145?}</p>
++<p class="mt10" id="uiShowHinweis" style="display:none">{?de.internet.internet_expert.html:150?}</p>
++</div></div></div></div></div></div>
++<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class="btn25"><input type="checkbox" id="uiViewFullBridge">&nbsp;<label for="uiViewFullBridge">{?de.internet.internet_expert.html:155?}</label></p>
++<p class="ml25">
++{?de.internet.internet_expert.html:160?}<br>
++{?de.internet.internet_expert.html:6933?}
++</p>
++</div></div></div></div></div></div>
++<div class="backdialog" id="uiDslModemATMSettings" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class="mb10">{?de.internet.internet_expert.html:170?}</p>
++<p class="mb5"><input type="radio" name="DslModemAtm" onclick="uiDoDslModemAtm(0)" id="uiViewDslModemAtmAuto">&nbsp;<label for="uiViewDslModemAtmAuto">{?de.internet.internet_expert.html:175?}</label></p>
++<p class="mb5"><input type="radio" name="DslModemAtm" onclick="uiDoDslModemAtm(1)" id="uiViewDslModemAtmManu">&nbsp;<label for="uiViewDslModemAtmManu">{?de.internet.internet_expert.html:180?}</label></p>
++<div class="ml25">
++<table id="tDslModem">
++<tr>
++<td><label for="uiViewDslModemVPI">{?de.internet.internet_expert.html:185?}</label></td>
++<td><input type="text" size="5" maxlength="3" class="Eingabefeld" id="uiViewDslModemVPI"></td>
++</tr>
++<tr>
++<td><label for="uiViewDslModemVCI">{?de.internet.internet_expert.html:190?}</label></td>
++<td><input type="text" size="5" maxlength="5" class="Eingabefeld" id="uiViewDslModemVCI"></td>
++</tr>
++</table>
++</div>
++</div></div></div></div></div></div>
++</div>
++<div class="backdialog" id="uiDslIp" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class="mb10">{?de.internet.internet_expert.html:195?}</p>
++<div class="ml25 mb10">
++<table id="tDslIp">
++<tr>
++<td><label for="uiViewDslIpVPI">{?de.internet.internet_expert.html:200?}</label></td>
++<td><input type="text" size="5" maxlength="3" class="Eingabefeld" id="uiViewDslIpVPI"></td>
++</tr>
++<tr>
++<td><label for="uiViewDslIpVCI">{?de.internet.internet_expert.html:205?}</label></td>
++<td><input type="text" size="5" maxlength="5" class="Eingabefeld" id="uiViewDslIpVCI"></td>
++</tr>
++</table>
++</div>
++<p>{?de.internet.internet_expert.html:210?}</p>
++<p class="ml25"><input type="radio" onclick="uiDoDslIpEncaps(1)" name="DslIpEncaps" id="uiViewDslIpEncaps1">&nbsp;<label for="uiViewDslIpEncaps1">{?de.internet.internet_expert.html:215?}</label></p>
++<p class="ml50"><input type="checkbox" onclick="uiDoDslIpUseDhcp()" id="uiViewDslIpUseDHCP">&nbsp;<label for="uiViewDslIpUseDHCP">{?de.internet.internet_expert.html:220?}</label></p>
++<p class="ml75 mb5"><label for="uiViewDslIpHostname" style="margin: 0px 15px 0px 0px">{?de.internet.internet_expert.html:225?}</label>&nbsp;<input type="text" size="32" maxlength="63" id="uiViewDslIpHostname"></p>
++<p class="ml25"><input type="radio" onclick="uiDoDslIpEncaps(2)" name="DslIpEncaps" id="uiViewDslIpEncaps2">&nbsp;<label for="uiViewDslIpEncaps2">{?de.internet.internet_expert.html:230?}</label></p>
++<p class="ml25"><input type="radio" onclick="uiDoDslIpEncaps(3)" name="DslIpEncaps" id="uiViewDslIpEncaps3">&nbsp;<label for="uiViewDslIpEncaps3">{?de.internet.internet_expert.html:235?}</label></p>
++<p class="ml25 mb10"><input type="radio" onclick="uiDoDslIpEncaps(4)" name="DslIpEncaps" id="uiViewDslIpEncaps4">&nbsp;<label for="uiViewDslIpEncaps4">{?de.internet.internet_expert.html:240?}</label></p>
++<div>
++<table id="tRFC" style="margin-left: 50px;">
++<tr>
++<td><label for="uiViewDslIpIpaddr">{?de.internet.internet_expert.html:245?}</label></td>
++<td><input type="text" size="16" maxlength="15" id="uiViewDslIpIpaddr"></td>
++</tr>
++<tr>
++<td><label for="uiViewDslIpNetmask">{?de.internet.internet_expert.html:250?}</label></td>
++<td><input type="text" size="16" maxlength="15" id="uiViewDslIpNetmask"></td>
++</tr>
++<tr>
++<td><label for="uiViewDslIpGateway">{?de.internet.internet_expert.html:255?}</label></td>
++<td><input type="text" size="16" maxlength="15" id="uiViewDslIpGateway"></td>
++</tr>
++<tr>
++<td><label for="uiViewDslIpDns0">{?de.internet.internet_expert.html:260?}</label></td>
++<td><input type="text" size="16" maxlength="15" id="uiViewDslIpDns0"></td>
++</tr>
++<tr>
++<td><label for="uiViewDslIpDns1">{?de.internet.internet_expert.html:265?}</label></td>
++<td><input type="text" size="16" maxlength="15" id="uiViewDslIpDns1"></td>
++</tr>
++</table>
++</div>
++<p class="ml25" style="margin-top: 15px;">{?de.internet.internet_expert.html:270?}<? query env:settings/macdsl ?></p>
++</div></div></div></div></div></div>
++<div class="backdialog" id="uiWanBridge" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class="mb10">{?de.internet.internet_expert.html:275?}</p>
++<p class="mb10">{?de.internet.internet_expert.html:280?}</p>
++<p class="mb5"><input type="radio" name="WanBridgeDHCP" onclick="uiDoWanBridgeUseDhcp(1)" id="uiViewWanBridgeUseDHCP">&nbsp;<label for="uiViewWanBridgeUseDHCP">{?de.internet.internet_expert.html:285?}</label></p>
++<p class="ml25 mb10"><label for="uiViewWanBridgeHostname" style="margin: 0px 15px 0px 0px">{?de.internet.internet_expert.html:290?}</label>&nbsp;<input type="text" size="32" maxlength="63" id="uiViewWanBridgeHostname"></p>
++<p class="mb5"><input type="radio" name="WanBridgeDHCP" onclick="uiDoWanBridgeUseDhcp(0)" id="uiViewWanBridgeNoDHCP">&nbsp;<label for="uiViewWanBridgeNoDHCP">{?de.internet.internet_expert.html:295?}</label></p>
++<table id="tWanBridgeStatic" class="ml25">
++<tr>
++<td><label for="uiViewWanBridgeIpaddr">{?de.internet.internet_expert.html:300?}</label></td>
++<td><input type="text" size="16" maxlength="15" id="uiViewWanBridgeIpaddr"></td>
++</tr>
++<tr>
++<td><label for="uiViewWanBridgeNetmask">{?de.internet.internet_expert.html:305?}</label></td>
++<td><input type="text" size="16" maxlength="15" id="uiViewWanBridgeNetmask"></td>
++</tr>
++<tr>
++<td><label for="uiViewWanBridgeGateway">{?de.internet.internet_expert.html:310?}</label></td>
++<td><input type="text" size="16" maxlength="15" id="uiViewWanBridgeGateway"></td>
++</tr>
++<tr>
++<td><label for="uiViewWanBridgeDns0">{?de.internet.internet_expert.html:315?}</label></td>
++<td><input type="text" size="16" maxlength="15" id="uiViewWanBridgeDns0"></td>
++</tr>
++<tr>
++<td><label for="uiViewWanBridgeDns1">{?de.internet.internet_expert.html:320?}</label></td>
++<td><input type="text" size="16" maxlength="15" id="uiViewWanBridgeDns1"></td>
++</tr>
++</table>
++</div></div></div></div></div></div>
++<div class="backdialog" id="uiWanIp" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class="mb10">{?de.internet.internet_expert.html:325?}</p>
++<p class="mb5"><input type="radio" name="WanIpDHCP" onclick="uiDoWanIpUseDhcp(1)" id="uiViewWanIpUseDHCP">&nbsp;<label for="uiViewWanIpUseDHCP">{?de.internet.internet_expert.html:330?}</label></p>
++<p class="ml25 mb10"><label for="uiViewWanIpHostname" style="margin: 0px 15px 0px 0px">{?de.internet.internet_expert.html:335?}</label>&nbsp;<input type="text" size="32" maxlength="63" id="uiViewWanIpHostname"></p>
++<p class="mb5"><input type="radio" name="WanIpDHCP" onclick="uiDoWanIpUseDhcp(0)" id="uiViewWanIpNoDHCP">&nbsp;<label for="uiViewWanIpNoDHCP">{?de.internet.internet_expert.html:340?}</label></p>
++<table id="tWanIp" class="ml25">
++<tr>
++<td><label for="uiViewWanIpIpaddr">{?de.internet.internet_expert.html:345?}</label></td>
++<td><input type="text" size="16" maxlength="15" id="uiViewWanIpIpaddr"></td>
++</tr>
++<tr>
++<td><label for="uiViewWanIpNetmask">{?de.internet.internet_expert.html:350?}</label></td>
++<td><input type="text" size="16" maxlength="15" id="uiViewWanIpNetmask"></td>
++</tr>
++<tr>
++<td><label for="uiViewWanIpGateway">{?de.internet.internet_expert.html:355?}</label></td>
++<td><input type="text" size="16" maxlength="15" id="uiViewWanIpGateway"></td>
++</tr>
++<tr>
++<td><label for="uiViewWanIpDns0">{?de.internet.internet_expert.html:360?}</label></td>
++<td><input type="text" size="16" maxlength="15" id="uiViewWanIpDns0"></td>
++</tr>
++<tr>
++<td><label for="uiViewWanIpDns1">{?de.internet.internet_expert.html:365?}</label></td>
++<td><input type="text" size="16" maxlength="15" id="uiViewWanIpDns1"></td>
++</tr>
++</table>
++</div></div></div></div></div></div>
++<div class="backdialog" id="uiTraffic" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<div class="mt10" id="uiTrafficSpeed" style="display:none">
++<p class="mb5">{?de.internet.internet_expert.html:9072?}</p>
++<p><input type="radio" name="DslSpeed" onclick="uiDoDslSpeed(0)" id="uiViewDslSpeedAuto">&nbsp;<label for="uiViewDslSpeedAuto">{?de.internet.internet_expert.html:395?}</label></p>
++<p><input type="radio" name="DslSpeed" onclick="uiDoDslSpeed(1)" id="uiViewDslSpeedManu">&nbsp;<label for="uiViewDslSpeedManu">{?de.internet.internet_expert.html:400?}</label></p>
++<table id="tTraffic" class="ml25">
++<tr>
++<td><label for="uiViewDslSpeedUpstream">{?de.internet.internet_expert.html:405?}</label></td>
++<td><input type="text" size="6" maxlength="5" id="uiViewDslSpeedUpstream"></td>
++<td>{?de.internet.internet_expert.html:410?}</td>
++</tr>
++<tr>
++<td><label for="uiViewDslSpeedDownstream">{?de.internet.internet_expert.html:415?}</label></td>
++<td><input type="text" size="6" maxlength="5" id="uiViewDslSpeedDownstream"></td>
++<td>{?de.internet.internet_expert.html:420?}</td>
++</tr>
++</table>
++</div>
++</div></div></div></div></div></div>
++<div class="backdialog" id="uiWanSpeed" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class="mb5">{?de.internet.internet_expert.html:1359?}</p>
++<table id="tStream" class="ml25">
++<tr>
++<td><label for="uiViewUpstream">{?de.internet.internet_expert.html:435?}</label></td>
++<td><input type="text" size="6" maxlength="5" class="Eingabefeld" id="uiViewUpstream"></td>
++<td>{?de.internet.internet_expert.html:440?}</td>
++</tr>
++<tr>
++<td><label for="uiViewDownstream">{?de.internet.internet_expert.html:445?}</label></td>
++<td><input type="text" size="6" maxlength="5" class="Eingabefeld" id="uiViewDownstream"></td>
++<td>{?de.internet.internet_expert.html:450?}</td>
++</tr>
++</table>
++</div></div></div></div></div></div>
++<div class="backdialog" id="uiDslPpp" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class="mb10"><b>{?de.internet.internet_expert.html:455?}</b></p>
++<p class="mb10">{?de.internet.internet_expert.html:460?}</p>
++<p class="mb5"><input type="radio" name="DslPppAtm" onclick="uiDoDslPppAtm(0)" id="uiViewDslPppAtmAuto">&nbsp;<label for="uiViewDslPppAtmAuto">{?de.internet.internet_expert.html:465?}</label></p>
++<p class="mb5"><input type="radio" name="DslPppAtm" onclick="uiDoDslPppAtm(1)" id="uiViewDslPppAtmManu">&nbsp;<label for="uiViewDslPppAtmManu">{?de.internet.internet_expert.html:470?}</label></p>
++<div class="ml25">
++<table id="tDslPpp">
++<tr>
++<td><label for="uiViewDslPppVPI">{?de.internet.internet_expert.html:475?}</label></td>
++<td><input type="text" size="5" maxlength="3" class="Eingabefeld" id="uiViewDslPppVPI"></td>
++</tr>
++<tr>
++<td><label for="uiViewDslPppVCI">{?de.internet.internet_expert.html:480?}</label></td>
++<td><input type="text" size="5" maxlength="5" class="Eingabefeld" id="uiViewDslPppVCI"></td>
++</tr>
++<tr>
++<td>{?de.internet.internet_expert.html:485?}</td>
++<td>
++<input type="radio" onclick="uiDoDslPppEncaps(0)" name="DslPppEncaps" id="uiViewDslPppPPPoE">&nbsp;<label for="uiViewDslPppPPPoE">{?de.internet.internet_expert.html:490?}</label><br>
++<input type="radio" onclick="uiDoDslPppEncaps(1)" name="DslPppEncaps" id="uiViewDslPppPPPoA1">&nbsp;<label for="uiViewDslPppPPPoA1">{?de.internet.internet_expert.html:495?}</label><br>
++<input type="radio" onclick="uiDoDslPppEncaps(2)" name="DslPppEncaps" id="uiViewDslPppPPPoA2">&nbsp;<label for="uiViewDslPppPPPoA2">{?de.internet.internet_expert.html:500?}</label>
++</td>
++</tr>
++</table>
++</div>
++</div></div></div></div></div></div>
++<div class="backdialog" id="uiMac" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
++<p class="mb10">{?de.internet.internet_expert.html:505?}</p>
++<p class="mb5">{?de.internet.internet_expert.html:510?}</p>
++<p class="ml25">{?de.internet.internet_expert.html:515?}<input type="text" id="uiViewMac0" size="2" maxlength="2">{?de.internet.internet_expert.html:520?}
++<input type="text" id="uiViewMac1" size="2" maxlength="2"> :
++<input type="text" id="uiViewMac2" size="2" maxlength="2"> :
++<input type="text" id="uiViewMac3" size="2" maxlength="2"> :
++<input type="text" id="uiViewMac4" size="2" maxlength="2"> :
++<input type="text" id="uiViewMac5" size="2" maxlength="2"></p>
++</div></div></div></div></div></div>
++<? include ../html/de/home/rbb_applycancel.html ?>
++</div>
++</div>
+--- internet/internet_expert.js	1969-12-31 19:00:00.000000000 -0500
++++ internet/internet_expert.js	2010-03-26 07:46:45.000000000 -0400
+@@ -0,0 +1,904 @@
++<!-- ../internet/internet_expert.js -->
++<? setvariable var:contype pppoe ?>
++<style type="text/css">
++<!--
++#tStream td {padding: 1px 15px 1px 0px;}
++#tTraffic td {padding: 1px 15px 1px 0px;}
++#tUser td {padding: 0px;}
++#tDslModem td {padding: 1px 15px 1px 0px;}
++#tDslPpp td {padding: 1px 15px 1px 0px; vertical-align: top;}
++#tDslIp td {padding: 1px 15px 1px 0px;}
++#tRFC td {padding: 1px 15px 1px 0px;}
++#tWanBridgeStatic td {padding: 1px 15px 1px 0px;}
++#tWanBridgeDns td {padding: 1px 15px 1px 0px;}
++#tWanIp td {padding: 1px 15px 1px 0px;}
++.Label {padding-right: 10px;}
++.ml50 {margin-left: 50px;}
++.ml75 {margin-left: 75px;}
++.btn25 {text-indent: -25px; padding-left: 25px;}
++-->
++</style>
++<script type="text/javascript">
++<? include ../html/de/js/val.js ?>
++<? include ../html/de/js/jsl.js ?>
++<? include ../html/de/first/provider.js ?>
++<? include ../html/de/internet/authform.js ?>
++<? include ../html/de/internet/ipform.js ?>
++var g_VPIMustNumber = "{?de.internet.internet_expert.js:5?}";
++var g_VCIMustNumber = "{?de.internet.internet_expert.js:10?}";
++var g_VPIOutOfRange = "{?de.internet.internet_expert.js:15?}";
++var g_VCIOutOfRange = "{?de.internet.internet_expert.js:20?}";
++var g_NoEncapsModeDefined = "{?de.internet.internet_expert.js:25?}";
++var g_mldUpStream = "{?de.internet.internet_expert.js:30?}";
++var g_mldDownStream = "{?de.internet.internet_expert.js:8247?}";
++var g_mldUpstreamNum = "{?de.internet.internet_expert.js:45?}";
++var g_mldDownstreamNum = "{?de.internet.internet_expert.js:50?}";
++var g_mldMacPart = "{?de.internet.internet_expert.js:55?}";
++var g_mldMacMulti = "{?de.internet.internet_expert.js:60?}";
++var g_mldHostChar = "{?de.internet.internet_expert.js:65?}";
++var g_mldKennwortPPPoe = "{?de.internet.internet_expert.js:70?}";
++var g_mldWanRouter = "{?de.internet.internet_expert.js:75?}";
++//var g_txtAlert_1 = "Die VLAN-ID muss einen Wert zwischen 6 und 4095 haben.";
++var g_mldLan1 = "{?de.internet.internet_expert.js:95?}";
++var g_mldLan2 = "{?de.internet.internet_expert.js:100?}";
++var g_mldWLAN = "{?txtWlan?}";
++var g_mldUSB = "{?de.internet.internet_expert.js:135?}";
++var g_AlleImNetz = "<? query box:settings/lanbridge/activated ?>";
++var g_secondWindow = "Zweitfenster";
++var g_DslType = 0; // 0|1|2
++var g_DslRouter = 1; // 1|2
++var g_WanType = 0; // 0|1|2
++var g_WanRouter = 1; // 1|2
++var g_OrgWanType=-1;
++function uiDoOnLoad() {
++document.title = "{?de.internet.internet_expert.js:145PppoeTitel?}";
++<? if eq $var:isUsbGsm 1 `
++var umts = "<? query umts:settings/enabled ?>";
++if (umts == "1") {
++jslDisplay("showExplain", true);
++jslDisplay("showInternetExpert", false);
++jslDisplay("showExplain1", false);
++}
++` ?>
++enableAfForm(false);
++var isDsl = "<? echo $var:isDsl ?>";
++var isAta = "<? echo $var:isAta ?>";
++var oem = "<? echo $var:OEM ?>";
++if (oem == "avme") {
++var expertmode = "<? query box:settings/expertmode/activated ?>";
++jslDisplay("uiDsl0", isAta != "1" || expertmode != "1");
++jslDisplay("uiDsl1", isAta == "1" && expertmode == "1");
++} else {
++jslDisplay("uiDsl0", isDsl == "0" || isAta != "1");
++jslDisplay("uiDsl1", isDsl == "1" && isAta == "1");
++}
++var n = jslGetValue("uiPostAta") == "1" ? 1:0;
++uiDoAnschluss(n, false);
++g_OrgWanType=g_WanType;
++jslDisplay("uiShowHinweis", true);
++}
++function uiDoSave() {
++var rc = false;
++if (jslGetChecked("uiViewAnschlussDsl")) {
++rc = SaveDslType();
++}
++else {
++var ProvVariante = "<? echo $var:OEM ?>";
++var bWanTypeSelected=g_InitWan0 || g_InitWan1 ||g_InitWan2;
++if (ProvVariante == "1und1" || ProvVariante == "avm" || ProvVariante == "otwo") {
++if(jslGetValue("uiPostAta")=="1") {
++if(bWanTypeSelected && (g_WanType!=g_OrgWanType)) {
++<? if eq $var:isTr069 1 `
++jslSetValue( "uiPostTR69Enabled", "0");
++jslEnable( "uiPostTR69Enabled");
++` ?>
++}
++}
++else {
++if(bWanTypeSelected) {
++<? if eq $var:isTr069 1 `
++jslSetValue( "uiPostTR69Enabled", "0");
++jslEnable( "uiPostTR69Enabled");
++` ?>
++}
++}
++}
++rc = SaveWanType();
++if (jslGetChecked("uiViewWanType0")) {
++if (jslGetValue("uiPostAccountEnabled")=="1") {
++jslSetValue("uiPostAccountEnabled","0");
++jslEnable("uiPostAccountEnabled");
++}
++}
++}
++if (rc)
++{
++jslFormSubmitEx("internet", "pppoe");
++}
++}
++function uiDoCancel() {
++jslGoTo("internet", "pppoe");
++}
++function uiDoHelp() {
++jslPopHelp("hilfe_internetdual");
++}
++var g_InitDslType = false;
++var g_InitWanType = false;
++function uiDoAnschluss(n, bOnClick) {
++jslSetChecked("uiViewAnschlussDsl", n==0);
++jslSetChecked("uiViewAnschlussWan", n==1);
++jslDisplay("uiDslType", n==0);
++jslDisplay("uiWanType", n==1);
++jslDisplay("uiAnschlussTypeExt", n!=2);
++switch (n) {
++case 0:
++jslDisplay("uiWanRouterHead", false);
++jslDisplay("uiWanRouter", false);
++jslDisplay("uiConnectionHead", true);
++if (!g_InitDslType) {
++var wanType = jslGetValue("uiPostType");
++var encapsType = jslGetValue("uiPostEncaps");
++switch (encapsType) {
++case "dslencap_pppoe":
++g_DslType = (wanType == "pppoe") ? 1:0;
++break;
++case "dslencap_pppoa":
++case "dslencap_pppoa_llc":
++g_DslType = 1;
++break;
++case "dslencap_ether":
++case "dslencap_ipnlpid":
++case "dslencap_ipsnap":
++case "dslencap_ipraw":
++g_DslType = 2;
++break;
++default:
++g_DslType = 0;
++break;
++}
++g_InitDslType = true;
++}
++uiDoDslType(g_DslType, bOnClick);
++break;
++case 1:
++jslDisplay("uiDslRouterHead", false);
++jslDisplay("uiDslRouter", false);
++if (!g_InitWanType) {
++var wanType = jslGetValue("uiPostType");
++var encapsType = jslGetValue("uiPostEncaps");
++if (wanType == "pppoe") {
++g_WanType = encapsType=="dslencap_ether" ? 2:1;
++} else {
++g_WanType = 0;
++}
++g_InitWanType = true;
++}
++uiDoWanType(g_WanType, bOnClick);
++break;
++}
++}
++var g_InitAccount = false;
++function InitAccount () {
++if (g_InitAccount) return;
++g_InitAccount = true;
++afDoOnLoad();
++}
++var g_InitTraffic = false;
++function InitTraffic () {
++if (g_InitTraffic) return;
++g_InitTraffic = true;
++jslSetChecked("uiViewTraffic", jslGetValue("uiPostTraffic")=="1");
++// DSL-Speed bei Routermode
++jslCopyValue("uiViewDslSpeedUpstream", "uiPostUpstream");
++jslCopyValue("uiViewDslSpeedDownstream", "uiPostDownstream");
++uiDoDslSpeed(jslGetValue("uiPostSpeedManu") == "1" ? 1:0);
++}
++var g_InitRouterBridge = false;
++function InitRouterBridge () {
++if (g_InitRouterBridge) return;
++g_InitRouterBridge = true;
++}
++var g_InitDsl0 = false;
++function InitDsl0 () {
++if (g_InitDsl0) return;
++g_InitDsl0 = true;
++var LanBridge = "<? query box:settings/lanbridge/activated ?>";
++if (LanBridge != "1") {
++jslSetChecked("uiViewFullBridge", true);
++jslDisable("uiViewFullBridge");
++} else {
++jslSetChecked("uiViewFullBridge", jslGetValue("uiPostFullBridge")=="0");
++}
++jslCopyValue("uiViewDslModemVPI", "uiPostVPI");
++jslCopyValue("uiViewDslModemVCI", "uiPostVCI");
++uiDoDslModemAtm(jslGetValue("uiPostAutodetect") == "1" ? 0 : 1);
++}
++var g_InitDsl1 = false;
++function InitDsl1 () {
++if (g_InitDsl1) return;
++g_InitDsl1 = true;
++InitAccount();
++jslCopyValue("uiViewDslPppVPI", "uiPostVPI");
++jslCopyValue("uiViewDslPppVCI", "uiPostVCI");
++InitTraffic();
++//InitRouterBridge();
++var encapsType = jslGetValue("uiPostEncaps");
++//var encapsType auch hier rein?
++switch (encapsType) {
++case "dslencap_pppoe": uiDoDslPppEncaps(0); break;
++case "dslencap_pppoa_llc": uiDoDslPppEncaps(1); break;
++case "dslencap_pppoa": uiDoDslPppEncaps(2); break;
++}
++uiDoDslPppAtm(jslGetValue("uiPostAutodetect") == "1" ? 0 : 1);
++uiOnTraffic();
++}
++var g_InitDsl2 = false;
++function InitDsl2 () {
++if (g_InitDsl2) return;
++g_InitDsl2 = true;
++jslCopyValue("uiViewDslIpVPI", "uiPostVPI");
++jslCopyValue("uiViewDslIpVCI", "uiPostVCI");
++jslSetChecked("uiViewDslIpUseDHCP", (jslGetValue("uiPostSarDhcp") == "1"));
++jslCopyValue("uiViewDslIpHostname", "uiPostHostname");
++jslCopyValue("uiViewDslIpIpaddr","uiPostSarAddr");
++jslCopyValue("uiViewDslIpNetmask","uiPostSarMask");
++jslCopyValue("uiViewDslIpGateway","uiPostSarGate");
++jslCopyValue("uiViewDslIpDns0","uiPostSarDns0");
++jslCopyValue("uiViewDslIpDns1","uiPostSarDns1");
++var encapsType = jslGetValue("uiPostEncaps");
++switch (encapsType) {
++case "dslencap_ether": uiDoDslIpEncaps(1); break;
++case "dslencap_ipnlpid": uiDoDslIpEncaps(2); break;
++case "dslencap_ipsnap": uiDoDslIpEncaps(3); break;
++case "dslencap_ipraw": uiDoDslIpEncaps(4); break;
++default: uiDoDslIpEncaps(0); break;
++}
++InitTraffic();
++}
++function uiDoDslType(n, bOnClick) {
++if (n == 10) n = g_DslRouter;
++jslDisplay("uiDslRouterHead", n==1 || n==2);
++jslDisplay("uiDslRouter", n==1 || n==2);
++jslSetChecked("uiViewDslType0", n==0);
++jslSetChecked("uiViewDslType10", n==1 || n==2);
++jslSetChecked("uiViewDslType1", n==1);
++jslSetChecked("uiViewDslType2", n==2);
++switch (n) {
++case 0:
++g_DslType = n;
++ShowParam(0);
++InitDsl0();
++break;
++case 1:
++g_DslType = n;
++g_DslRouter = n;
++ShowParam(1);
++InitDsl1();
++OnChangeProvider(jslGetValue("uiViewProvider"));
++if (bOnClick == true) {
++//Beim Zurückwechseln auf T-Online bitte den T-Home Haken wieder setzen.
++jslSetChecked("uiViewTcomTargetarch", true);
++}
++break;
++case 2:
++g_DslType = n;
++g_DslRouter = n;
++ShowParam(2);
++InitDsl2();
++break;
++}
++}
++var g_InitSpeed = false;
++function InitSpeed () {
++if (g_InitSpeed) return;
++g_InitSpeed = true;
++jslCopyValue("uiViewUpstream","uiPostUpstream");
++jslCopyValue("uiViewDownstream","uiPostDownstream");
++}
++var g_InitWan0 = false;
++function InitWan0 () {
++if (g_InitWan0) return;
++g_InitWan0 = true;
++jslCopyValue("uiViewWanBridgeHostname","uiPostHostname");
++jslCopyValue("uiViewWanBridgeIpaddr","uiPostIpaddr");
++jslCopyValue("uiViewWanBridgeNetmask","uiPostNetmask");
++jslCopyValue("uiViewWanBridgeGateway","uiPostGateway");
++jslCopyValue("uiViewWanBridgeDns0","uiPostDns0");
++jslCopyValue("uiViewWanBridgeDns1","uiPostDns1");
++uiDoWanBridgeUseDhcp(jslGetValue("uiPostDhcpc") == "1" ? 1:0);
++InitSpeed();
++}
++var g_InitWan1 = false;
++function InitWan1 () {
++if (g_InitWan1) return;
++g_InitWan1 = true;
++InitAccount();
++InitTraffic();
++InitSpeed();
++//InitRouterBridge();
++uiOnTraffic();
++}
++var g_InitWan2 = false;
++function InitWan2 () {
++if (g_InitWan2) return;
++g_InitWan2 = true;
++jslCopyValue("uiViewWanIpHostname","uiPostHostname");
++jslCopyValue("uiViewWanIpIpaddr","uiPostSarAddr");
++jslCopyValue("uiViewWanIpNetmask","uiPostSarMask");
++jslCopyValue("uiViewWanIpGateway","uiPostSarGate");
++jslCopyValue("uiViewWanIpDns0","uiPostSarDns0");
++jslCopyValue("uiViewWanIpDns1","uiPostSarDns1");
++uiDoWanIpUseDhcp(jslGetValue("uiPostSarDhcp") == "1" ? 1:0);
++<? if eq $var:OEM avme `
++//das MAC-Adress-Feld am Ende der Seite soll nicht mehr angezeigt werden.
++var mac = jslGetValue("uiPostMac");
++if (mac.length==17) {
++for (i=0; i<6; i++) jslSetValue("uiViewMac"+i, mac.substr(i*3,2));
++}
++` ?>
++InitTraffic();
++InitSpeed();
++uiOnTraffic();
++}
++function uiDoWanType(n, bOnClick) {
++if (n == 10) n = g_WanRouter;
++jslDisplay("uiNoWanType", n==0 && g_AlleImNetz == "0");
++jslDisplay("uiConnectionHead", !(n==0 && g_AlleImNetz == "0"));
++jslDisplay("uiWanRouterHead", (n==1 || n==2));
++jslDisplay("uiWanRouter", (n==1 || n==2));
++jslSetChecked("uiViewWanType0", n==0);
++jslSetChecked("uiViewWanType10", n==1 || n==2);
++jslSetChecked("uiViewWanType1", n==1);
++jslSetChecked("uiViewWanType2", n==2);
++switch (n) {
++case 0:
++g_WanType = n;
++ShowParam(10);
++InitWan0();
++break;
++case 1:
++g_WanType = n;
++g_WanRouter = n;
++ShowParam(11);
++InitWan1();
++OnChangeProvider(jslGetValue("uiViewProvider"));
++if (bOnClick == true) {
++//Beim Zurückwechseln auf T-Online bitte den T-Home Haken wieder setzen.
++jslSetChecked("uiViewTcomTargetarch", true);
++}
++break;
++case 2:
++g_WanType = n;
++g_WanRouter = n;
++ShowParam(12);
++InitWan2();
++break;
++}
++}
++function SaveDslType() {
++switch (g_DslType) {
++case 0:
++//T-Home-Option soll deaktiviert werden
++jslSetValue("uiPostTcomTargetarch", "0");
++return SaveDslModem();
++case 1: return SaveDslPpp();
++case 2:
++//T-Home-Option soll deaktiviert werden
++jslSetValue("uiPostTcomTargetarch", "0");
++return SaveDslIp();
++}
++return false;
++}
++function SaveWanType() {
++switch (g_WanType) {
++case 0:
++//T-Home-Option soll deaktiviert werden
++jslSetValue("uiPostTcomTargetarch", "0");
++return SaveWanBridge();
++case 1: return SaveWanPpp();
++case 2:
++//T-Home-Option soll deaktiviert werden
++jslSetValue("uiPostTcomTargetarch", "0");
++return SaveWanIp();
++}
++return false;
++}
++function SaveDslModem() {
++var isIpClient = IsIpClient();
++if (jslGetChecked("uiViewDslModemAtmAuto")) {
++jslSetValue("uiPostAutodetect", "1");
++} else {
++var vpi = jslGetValue("uiViewDslModemVPI");
++var vci = jslGetValue("uiViewDslModemVCI");
++if (!valIsZahlVorhanden(vpi)) {alert(g_VPIMustNumber); return false;}
++if ((vpi < 0) || (vpi > 255)) {alert(g_VPIOutOfRange); return false;}
++if (!valIsZahlVorhanden(vci)) {alert(g_VCIMustNumber); return false;}
++if ((vci < 32) || (vci > 65535)) {alert(g_VCIOutOfRange); return false;}
++jslSetValue("uiPostVPI", vpi);
++jslSetValue("uiPostVCI", vci);
++jslSetValue("uiPostAutodetect", "0");
++}
++jslSetValue("uiPostFullBridge", jslGetChecked("uiViewFullBridge") ? "0":"1");
++jslEnable("uiPostFullBridge");
++jslEnable("uiPostAutodetect");
++jslEnable("uiPostVPI");
++jslEnable("uiPostVCI");
++jslSetValue("uiPostAta", "0");
++jslSetValue("uiPostType", "bridge");
++jslSetValue("uiPostActivType", "bridge");
++jslSetValue("uiPostEncaps", "dslencap_pppoe");
++jslEnable("uiPostEncaps");
++if (isIpClient) jslSetValue("uiPostGetPage", "../html/networkchange.html");
++return true;
++}
++function SaveDslPpp() {
++var isIpClient = IsIpClient();
++if (!afDoSave()) return false;
++var provider = jslGetValue("uiViewProvider");
++if (provider != "Inode") {
++var SpeedManu = jslGetChecked("uiViewDslSpeedManu");
++if (SpeedManu && !ValidateSpeed(jslGetValue("uiViewDslSpeedUpstream"), jslGetValue("uiViewDslSpeedDownstream"))) return false;
++if (provider != "congstar" && provider != "O2") {
++if (jslGetChecked("uiViewDslPppAtmAuto")) {
++jslSetValue("uiPostAutodetect", "1");
++jslSetValue("uiPostEncaps", "dslencap_pppoe");
++} else {
++var vpi = jslGetValue("uiViewDslPppVPI");
++var vci = jslGetValue("uiViewDslPppVCI");
++if (!valIsZahlVorhanden(vpi)) {alert(g_VPIMustNumber); return false;}
++if ((vpi < 0) || (vpi > 255)) {alert(g_VPIOutOfRange); return false;}
++if (!valIsZahlVorhanden(vci)) {alert(g_VCIMustNumber); return false;}
++if ((vci < 32) || (vci > 65535)) {alert(g_VCIOutOfRange); return false;}
++if (jslGetChecked("uiViewDslPppPPPoA1")) jslSetValue("uiPostEncaps", "dslencap_pppoa_llc");
++else if (jslGetChecked("uiViewDslPppPPPoA2")) jslSetValue("uiPostEncaps", "dslencap_pppoa");
++else if (jslGetChecked("uiViewDslPppPPPoE")) jslSetValue("uiPostEncaps", "dslencap_pppoe");
++else {alert(g_NoEncapsModeDefined); return false;}
++jslSetValue("uiPostAutodetect", "0");
++jslSetValue("uiPostVPI", vpi);
++jslSetValue("uiPostVCI", vci);
++}
++}
++jslSetValue("uiPostTraffic", jslGetChecked("uiViewTraffic") ? "1":"0");
++jslEnable("uiPostTraffic");
++jslSetValue("uiPostSpeedManu", SpeedManu ? "1":"0");
++jslEnable("uiPostSpeedManu");
++if (SpeedManu) {
++jslCopyValue("uiPostUpstream", "uiViewDslSpeedUpstream");
++jslCopyValue("uiPostDownstream", "uiViewDslSpeedDownstream");
++jslEnable("uiPostUpstream");
++jslEnable("uiPostDownstream");
++}
++}
++jslEnable("uiPostAutodetect");
++jslEnable("uiPostVPI");
++jslEnable("uiPostVCI");
++enableAfForm(true);
++//jslEnable("uiPostRouterBridge");
++jslEnable("uiPostEncaps");
++jslSetValue("uiPostAta", "0");
++jslSetValue("uiPostType", "pppoe");
++jslSetValue("uiPostActivType", "pppoe");
++if (isIpClient) jslSetValue("uiPostGetPage", "../html/networkchange.html");
++return true;
++}
++function SaveDslIp() {
++jslSetValue("uiPostType", "pppoe");
++var isIpClient = IsIpClient();
++var vpi = jslGetValue("uiViewDslIpVPI");
++var vci = jslGetValue("uiViewDslIpVCI");
++if (!valIsZahlVorhanden(vpi)) {alert(g_VPIMustNumber); return false;}
++if ((vpi < 0) || (vpi > 255)) {alert(g_VPIOutOfRange); return false;}
++if (!valIsZahlVorhanden(vci)) {alert(g_VCIMustNumber); return false;}
++if ((vci < 32) || (vci > 65535)) {alert(g_VCIOutOfRange); return false;}
++var SpeedManu = jslGetChecked("uiViewDslSpeedManu");
++if (SpeedManu && !ValidateSpeed(jslGetValue("uiViewDslSpeedUpstream"), jslGetValue("uiViewDslSpeedDownstream"))) return false;
++jslSetValue("uiPostAutodetect", "0");
++jslSetValue("uiPostVPI", vpi);
++jslSetValue("uiPostVCI", vci);
++if (jslGetChecked("uiViewDslIpEncaps1")) {
++if (jslGetChecked("uiViewDslIpUseDHCP")) {
++if (!IsHostname(jslGetValue("uiViewDslIpHostname"))) {alert(g_mldHostChar); return false;}
++jslSetValue("uiPostSarDhcp", "1");
++jslCopyValue("uiPostHostname", "uiViewDslIpHostname");
++jslEnable("uiPostHostname");
++} else {
++if (!ValidateDslIpAdr()) return false;
++jslSetValue("uiPostSarDhcp", "0");
++SaveDslIpAdr();
++}
++jslEnable("uiPostSarDhcp");
++jslSetValue("uiPostEncaps", "dslencap_ether");
++} else if (jslGetChecked("uiViewDslIpEncaps2")) {
++if (!ValidateDslIpAdr()) return false;
++jslSetValue("uiPostEncaps", "dslencap_ipnlpid");
++SaveDslIpAdr();
++} else if (jslGetChecked("uiViewDslIpEncaps3")) {
++if (!ValidateDslIpAdr()) return false;
++jslSetValue("uiPostEncaps", "dslencap_ipsnap");
++SaveDslIpAdr();
++} else if (jslGetChecked("uiViewDslIpEncaps4")) {
++if (!ValidateDslIpAdr()) return false;
++jslSetValue("uiPostEncaps", "dslencap_ipraw");
++SaveDslIpAdr();
++} else {
++alert(g_NoEncapsModeDefined); return false;
++}
++jslEnable("uiPostEncaps");
++jslSetValue("uiPostTraffic", jslGetChecked("uiViewTraffic") ? "1":"0");
++jslEnable("uiPostTraffic");
++jslSetValue("uiPostSpeedManu", SpeedManu ? "1":"0");
++jslEnable("uiPostSpeedManu");
++if (SpeedManu) {
++jslCopyValue("uiPostUpstream", "uiViewDslSpeedUpstream");
++jslCopyValue("uiPostDownstream", "uiViewDslSpeedDownstream");
++jslEnable("uiPostUpstream");
++jslEnable("uiPostDownstream");
++}
++jslEnable("uiPostAutodetect");
++jslEnable("uiPostVPI");
++jslEnable("uiPostVCI");
++jslSetValue("uiPostAta", "0");
++if (isIpClient) jslSetValue("uiPostGetPage", "../html/networkchange.html");
++return true;
++}
++function SaveWanBridge() {
++var changed = false;
++if (jslGetValue("uiPostType") != "bridge" || jslGetValue("uiPostAta") != "1") {
++changed = true;
++}
++if (!ValidateSpeed(jslGetValue("uiViewUpstream"), jslGetValue("uiViewDownstream"))) return false;
++if (jslGetChecked("uiViewWanBridgeUseDHCP")) {
++if (!IsHostname(jslGetValue("uiViewWanBridgeHostname"))) {alert(g_mldHostChar); return false;}
++if (jslGetValue("uiPostDhcpc") != "1") changed = true;
++jslSetValue("uiPostDhcpc", "1");
++jslSetValue("uiPostUseDns", "0");
++jslCopyValue("uiPostHostname", "uiViewWanBridgeHostname");
++jslEnable("uiPostHostname");
++} else {
++if (!ValidateWanBridgeAdr()) return false;
++if (jslGetValue("uiPostDhcpc") != "0" || jslGetValue("uiPostIpaddr") != jslGetValue("uiViewWanBridgeIpaddr")) changed = true;
++jslSetValue("uiPostDhcpc", "0");
++jslSetValue("uiPostUseDns", "1");
++jslCopyValue("uiPostIpaddr", "uiViewWanBridgeIpaddr");
++jslCopyValue("uiPostNetmask", "uiViewWanBridgeNetmask");
++jslCopyValue("uiPostGateway", "uiViewWanBridgeGateway");
++jslCopyValue("uiPostDns0", "uiViewWanBridgeDns0");
++jslCopyValue("uiPostDns1", "uiViewWanBridgeDns1");
++jslEnable("uiPostIpaddr");
++jslEnable("uiPostNetmask");
++jslEnable("uiPostGateway");
++jslEnable("uiPostDns0");
++jslEnable("uiPostDns1");
++doPopWindow();
++}
++jslCopyValue("uiPostUpstream", "uiViewUpstream");
++jslCopyValue("uiPostDownstream", "uiViewDownstream");
++jslEnable("uiPostUpstream");
++jslEnable("uiPostDownstream");
++jslSetValue("uiPostType", "bridge");
++jslSetValue("uiPostActivType", "bridge");
++jslSetValue("uiPostAta", "1");
++jslEnable("uiPostType");
++jslEnable("uiPostDhcpc");
++jslEnable("uiPostUseDns");
++if (changed) {
++jslCopyValue("uiPostNewIpaddr", "uiPostIpaddr");
++jslEnable("uiPostNewIpaddr");
++jslSetValue("uiPostIfMode", jslGetChecked("uiViewWanBridgeUseDHCP") ? "dhcpc" : "static");
++jslSetValue("uiPostGetPage", "../html/networkchange.html");
++}
++return true;
++}
++function SaveWanPpp() {
++var changed = false;
++if (jslGetValue("uiPostType") != "pppoe" || jslGetValue("uiPostAta") != "1") {
++changed = true;
++}
++if (!afDoSave()) return false;
++if (changed && !WanRouterAlert()) return false;
++var traffic = jslGetChecked("uiViewTraffic");
++if (traffic && !ValidateSpeed(jslGetValue("uiViewUpstream"), jslGetValue("uiViewDownstream"))) return false;
++jslSetValue("uiPostTraffic", traffic ? "1":"0");
++jslEnable("uiPostTraffic");
++jslCopyValue("uiPostUpstream", "uiViewUpstream");
++jslCopyValue("uiPostDownstream", "uiViewDownstream");
++jslEnable("uiPostUpstream");
++jslEnable("uiPostDownstream");
++enableAfForm(true);
++jslSetValue("uiPostEncaps","dslencap_pppoe");
++jslEnable("uiPostEncaps");
++jslSetValue("uiPostType", "pppoe");
++jslSetValue("uiPostActivType", "pppoe");
++jslSetValue("uiPostAta", "1");
++if (changed && "<? query interfaces:settings/$var:ethnr/dhcpclient ?>" == "1") {
++jslSetValue("uiPostGetPage", "../html/networkchange.html");
++}
++return true;
++}
++function SaveWanIp() {
++var changed = false;
++if (jslGetValue("uiPostType") != "pppoe" || jslGetValue("uiPostAta") != "1") {
++changed = true;
++}
++if (jslGetChecked("uiViewWanIpUseDHCP")) {
++if (!IsHostname(jslGetValue("uiViewWanIpHostname"))) {alert(g_mldHostChar); return false;}
++jslSetValue("uiPostSarDhcp", "1");
++jslCopyValue("uiPostHostname", "uiViewWanIpHostname");
++} else {
++if (!ValidateWanIpAdr()) return false;
++jslSetValue("uiPostSarDhcp", "0");
++jslCopyValue("uiPostSarAddr", "uiViewWanIpIpaddr");
++jslCopyValue("uiPostSarMask", "uiViewWanIpNetmask");
++jslCopyValue("uiPostSarGate", "uiViewWanIpGateway");
++jslCopyValue("uiPostSarDns0", "uiViewWanIpDns0");
++jslCopyValue("uiPostSarDns1", "uiViewWanIpDns1");
++}
++var traffic = jslGetChecked("uiViewTraffic");
++if (traffic && !ValidateSpeed(jslGetValue("uiViewUpstream"), jslGetValue("uiViewDownstream"))) return false;
++<? if eq $var:OEM avme `
++//das MAC-Adress-Feld am Ende der Seite soll nicht mehr angezeigt werden.
++for (i=0; i<6; i++) {
++var part = jslGetValue("uiViewMac"+i);
++if (!part.match(/^[\dA-F]{2}$/i)) {alert(g_mldMacPart); document.getElementById("uiViewMac"+i).focus(); return false;}
++}
++if (parseInt(jslGetValue("uiViewMac0"),16).toString(2).match(/1$/)) {alert(g_mldMacMulti); document.getElementById("uiViewMac0").focus(); return false;}
++` ?>
++if (changed && !WanRouterAlert()) return false;
++<? if eq $var:OEM avme `
++//das MAC-Adress-Feld am Ende der Seite soll nicht mehr angezeigt werden.
++var mac = "";
++for (i=0; i<6; i++) {
++mac += jslGetValue("uiViewMac"+i)+((i<5) ? ":" : "");
++}
++jslSetValue("uiPostMac", mac);
++jslEnable("uiPostMac");
++` ?>
++jslSetValue("uiPostTraffic", traffic ? "1":"0");
++jslEnable("uiPostTraffic");
++jslCopyValue("uiPostUpstream", "uiViewUpstream");
++jslCopyValue("uiPostDownstream", "uiViewDownstream");
++jslEnable("uiPostUpstream");
++jslEnable("uiPostDownstream");
++jslEnable("uiPostSarDhcp");
++if (jslGetChecked("uiViewWanIpUseDHCP")) {
++jslEnable("uiPostHostname");
++} else {
++jslEnable("uiPostSarAddr");
++jslEnable("uiPostSarMask");
++jslEnable("uiPostSarGate");
++jslEnable("uiPostSarDns0");
++jslEnable("uiPostSarDns1");
++}
++jslSetValue("uiPostEncaps","dslencap_ether");
++jslEnable("uiPostEncaps");
++jslSetValue("uiPostType", "pppoe");
++jslSetValue("uiPostActivType", "pppoe");
++jslSetValue("uiPostAta", "1");
++if (changed && "<? query interfaces:settings/$var:ethnr/dhcpclient ?>" == "1") {
++jslSetValue("uiPostGetPage", "../html/networkchange.html");
++}
++return true;
++}
++function WanRouterAlert () {
++var lan2 = "";
++if (lan2.length > 0) lan2 += ", ";
++lan2 += g_mldWLAN;
++if (g_mldLan2.length > 0) {
++if (lan2.length > 0) lan2 += ", ";
++lan2 += g_mldLan2;
++}
++return confirm(jslPrintf(g_mldWanRouter,g_mldLan1,lan2));
++}
++function ValidateDslIpAdr () {
++return ValidateIpForm180("uiViewDslIp");
++}
++function ValidateWanBridgeAdr () {
++return ValidateIpForm180("uiViewWanBridge");
++}
++function ValidateWanIpAdr () {
++return ValidateIpForm180("uiViewWanIp");
++}
++function ValidateSpeed (upstream, downstream) {
++var numberpattern = /^\d+$/;
++if (upstream.match(numberpattern) == null) {alert(g_mldUpstreamNum); return false;}
++upstream = parseInt(upstream, 10);
++if (upstream < 128) {
++if (confirm(jslPrintf(g_mldUpStream,upstream)) != true) return false;
++}
++if (downstream.match(numberpattern) == null) {alert(g_mldDownstreamNum); return false;}
++downstream = parseInt(downstream, 10);
++if (downstream < 128) {
++if (confirm(jslPrintf(g_mldDownStream,downstream)) != true) return false;
++}
++return true;
++}
++function IsIpClient() {
++return jslGetValue("uiPostType") == "bridge" && jslGetValue("uiPostAta") == "1";
++}
++var g_bShowuiTraffic=false;
++function SaveDslIpAdr() {
++jslCopyValue("uiPostSarAddr", "uiViewDslIpIpaddr");
++jslCopyValue("uiPostSarMask", "uiViewDslIpNetmask");
++jslCopyValue("uiPostSarGate", "uiViewDslIpGateway");
++jslCopyValue("uiPostSarDns0", "uiViewDslIpDns0");
++jslCopyValue("uiPostSarDns1", "uiViewDslIpDns1");
++jslEnable("uiPostSarAddr");
++jslEnable("uiPostSarMask");
++jslEnable("uiPostSarGate");
++jslEnable("uiPostSarDns0");
++jslEnable("uiPostSarDns1");
++}
++function ShowParam(n) {
++jslDisplay("uiAccountData", n==1 || n==11 || n==20);
++jslDisplay("uiDslModem", n==0);
++var bShowDslModemATMSettings=n==0;
++// jslDisplay("uiDslModemATMSettings", bShowDslModemATMSettings);
++var showATM = true;
++if (isProvisionedByUnitedInternet()) {
++showATM = false;
++}
++jslDisplay("uiDslModemATMSettings", bShowDslModemATMSettings && showATM);
++var bShowDslPpp=n==1;
++jslDisplay("uiDslPpp", bShowDslPpp);
++jslDisplay("uiDslPpp", bShowDslPpp && showATM);
++jslDisplay("uiDslIp", n==2);
++jslDisplay("uiWanBridge", n==10 && g_AlleImNetz != "0");
++jslDisplay("uiWanIp", n==12);
++jslDisplay("uiRouterBridge", n==1 || (n==11) || (n==20));
++g_bShowuiTraffic=(n==1 || n==2 || (n==11) || (n==12));
++jslDisplay("uiTraffic", g_bShowuiTraffic);
++jslDisplay("uiTrafficSpeed", n==1 || n==2);
++if (n!=1 && n!=2){
++g_bShowuiTraffic=false;
++jslDisplay("uiTraffic",g_bShowuiTraffic);
++}
++jslDisplay("uiWanSpeed", (n==11 || n==12) || (n==10 && g_AlleImNetz != "0"));
++switch (n) {
++case 10:
++jslEnable("uiViewUpstream");
++jslEnable("uiViewDownstream");
++break;
++case 11:
++case 12:
++uiOnTraffic();
++break;
++}
++<? if eq $var:OEM avme `
++//das MAC-Adress-Feld am Ende der Seite soll nicht mehr angezeigt werden.
++jslDisplay("uiMac", n==12);
++` ?>
++jslSetEnabled("buttonSave", n==0 || n==1 || n==2 || n==11 || n==12 || (n==10 && g_AlleImNetz != "0") || n==20);
++}
++function uiDoDslModemAtm (n) {
++jslSetChecked("uiViewDslModemAtmAuto", (n==0));
++jslSetChecked("uiViewDslModemAtmManu", (n==1));
++jslSetEnabled("uiViewDslModemVPI", n==1);
++jslSetEnabled("uiViewDslModemVCI", n==1);
++}
++function uiDoDslPppAtm (n) {
++jslSetChecked("uiViewDslPppAtmAuto", (n==0));
++jslSetChecked("uiViewDslPppAtmManu", (n==1));
++jslSetEnabled("uiViewDslPppPPPoE", n==1);
++jslSetEnabled("uiViewDslPppPPPoA1", n==1);
++jslSetEnabled("uiViewDslPppPPPoA2", n==1);
++jslSetEnabled("uiViewDslPppVPI", n==1);
++jslSetEnabled("uiViewDslPppVCI", n==1);
++}
++function uiDoDslPppEncaps (n) {
++jslSetChecked("uiViewDslPppPPPoE", (n==0));
++jslSetChecked("uiViewDslPppPPPoA1", (n==1));
++jslSetChecked("uiViewDslPppPPPoA2", (n==2));
++}
++function uiDoDslIpEncaps(n) {
++jslSetChecked("uiViewDslIpEncaps1", (n==1));
++jslSetChecked("uiViewDslIpEncaps2", (n==2));
++jslSetChecked("uiViewDslIpEncaps3", (n==3));
++jslSetChecked("uiViewDslIpEncaps4", (n==4));
++switch (n) {
++case 1:
++jslEnable("uiViewDslIpUseDHCP");
++uiDoDslIpUseDhcp();
++break;
++case 0:
++case 2:
++case 3:
++case 4:
++jslDisable("uiViewDslIpUseDHCP");
++jslDisable("uiViewDslIpHostname");
++enableDslIpAdrs(true);
++break;
++}
++}
++function uiDoDslIpUseDhcp() {
++var b = jslGetChecked("uiViewDslIpUseDHCP");
++jslSetEnabled("uiViewDslIpHostname", b);
++enableDslIpAdrs(!b);
++}
++function enableDslIpAdrs(b) {
++jslSetEnabled("uiViewDslIpIpaddr", b);
++jslSetEnabled("uiViewDslIpNetmask", b);
++jslSetEnabled("uiViewDslIpGateway", b);
++jslSetEnabled("uiViewDslIpDns0", b);
++jslSetEnabled("uiViewDslIpDns1", b);
++}
++function uiDoWanIpUseDhcp(n) {
++jslSetChecked("uiViewWanIpUseDHCP", n==1);
++jslSetChecked("uiViewWanIpNoDHCP", n==0);
++jslSetEnabled("uiViewWanIpHostname", n==1);
++jslSetEnabled("uiViewWanIpIpaddr", n==0);
++jslSetEnabled("uiViewWanIpNetmask", n==0);
++jslSetEnabled("uiViewWanIpGateway", n==0);
++jslSetEnabled("uiViewWanIpDns0", n==0);
++jslSetEnabled("uiViewWanIpDns1", n==0);
++}
++function uiDoWanBridgeUseDhcp(n) {
++jslSetChecked("uiViewWanBridgeUseDHCP", n==1);
++jslSetChecked("uiViewWanBridgeNoDHCP", n==0);
++jslSetEnabled("uiViewWanBridgeHostname", n==1);
++jslSetEnabled("uiViewWanBridgeIpaddr", n==0);
++jslSetEnabled("uiViewWanBridgeNetmask", n==0);
++jslSetEnabled("uiViewWanBridgeGateway", n==0);
++jslSetEnabled("uiViewWanBridgeDns0", n==0);
++jslSetEnabled("uiViewWanBridgeDns1", n==0);
++}
++function uiOnTraffic() {
++jslEnable("uiViewUpstream");
++jslEnable("uiViewDownstream");
++}
++function uiDoDslSpeed (n) {
++jslSetChecked("uiViewDslSpeedAuto", (n==0));
++jslSetChecked("uiViewDslSpeedManu", (n==1));
++jslSetEnabled("uiViewDslSpeedUpstream", (n==1));
++jslSetEnabled("uiViewDslSpeedDownstream", (n==1));
++}
++function enableAfForm (b) {
++jslSetEnabled("uiPostPppUsername", b);
++jslSetEnabled("uiPostPppPassword", b);
++jslSetEnabled("uiPostPppIdleTimeout", b);
++jslSetEnabled("uiPostPppMode", b);
++jslSetEnabled("uiPostPppDisPrev", b);
++jslSetEnabled("uiPostPppDisPrevTime", b);
++jslSetEnabled("uiPostUseSip0", b);
++jslSetEnabled("uiPostUserName0", b);
++jslSetEnabled("uiPostPassword0", b);
++jslSetEnabled("uiPostRegistrar0", b);
++}
++function doPopWindow() {
++var params = "var:ipa="+jslGetValue("uiPostIpaddr")+"&var:maska="+jslGetValue("uiPostNetmask");
++var url = "../cgi-bin/webcm?getpage=../html/de/internet/pp_wanbridge.html&"+params;
++url += "&sid=<? echo $var:sid ?>";
++var ppWindow = window.open(url, g_secondWindow, "width=450,height=250,statusbar,resizable=yes");
++ppWindow.focus();
++}
++function OnChangeProviderEx (id) {
++if(id=="QSC"){
++if (!jslGetChecked("uiViewAnschlussDsl")) {
++//jslDisplay("uiRouterBridge", false);
++}else{
++//jslDisplay("uiRouterBridge", true);
++}
++if(g_bShowuiTraffic)
++jslDisplay("uiTraffic", true);
++}else if(id=="Inode"){
++// Bei Inode werden die Parameter automatisch gesetzt
++//jslDisplay("uiRouterBridge", false);
++if(g_bShowuiTraffic)
++jslDisplay("uiTraffic", false);
++}else{
++//jslDisplay("uiRouterBridge", true);
++if(g_bShowuiTraffic)
++jslDisplay("uiTraffic", true);
++}
++var bShowDslPpp= (id != "Inode" && id != "congstar" ) && jslGetChecked( "uiViewAnschlussDsl");
++//jslDisplay("uiDslPpp",bShowDslPpp);
++var showATM = true;
++if (isProvisionedByUnitedInternet()) {
++showATM = false;
++}
++jslDisplay("uiDslPpp", bShowDslPpp && showATM);
++}
++function IsHostname (name) {
++if (name.match(/[\s\`\~\!\^&\*\(\)=\+\[\]\{\}\\\|\'\"\<\>\?\/;:,@#$]/) != null) return false;
++return true;
++}
++</script>

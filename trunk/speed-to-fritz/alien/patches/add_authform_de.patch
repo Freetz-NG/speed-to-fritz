@@ -1,0 +1,351 @@
+--- internet/authform.html	2010-03-26 07:46:59.000000000 -0400
++++ internet/authform.html	2010-05-21 04:56:03.000000000 -0400
+@@ -1,11 +1,11 @@
+-<p class="mb10" id="uiShowProvider" style="display:none">{?de.internet.authform.html:5afTxt01?}
++<p class="mb10" id="uiShowProvider" style="display:none">Select your Internet Service Provider:
+ <select id="uiViewProvider" onchange="OnChangeProvider(value)" class="Eingabefeld">
+ <? if eq $var:OEM 1und1 `
+-<option value="1u1">{?de.internet.authform.html:1890?}</option>
+-<option value="GMX">{?de.internet.authform.html:9469?}</option>
++<option value="1u1">1&1 Internet</option>
++<option value="GMX">GMX</option>
+ ` ?>
+ <? if eq $var:OEM arcor `
+-<option value="Arcor">{?de.internet.authform.html:1461?}</option>
++<option value="Arcor">Arcor</option>
+ ` ?>
+ <? setvariable var:allprovider 0 ?>
+ <? if eq $var:OEM freenet `<? setvariable var:allprovider 1 ?>` ?>
+@@ -18,43 +18,43 @@
+ ` ?>
+ ` ?>
+ <? if eq $var:allprovider 1 `
+-<option value="1u1">{?de.internet.authform.html:1586?}</option>
+-<option value="Alice">{?de.internet.authform.html:3668?}</option>
+-<option value="AOL">{?de.internet.authform.html:3761?}</option>
+-<option value="Arcor">{?de.internet.authform.html:7014?}</option>
+-<option value="congstar">{?de.internet.authform.html:5395?}</option>
+-<option value="DBD">{?de.internet.authform.html:6774?}</option>
+-<option value="Debitel">{?de.internet.authform.html:7328?}</option>
+-<option value="Freenet">{?de.internet.authform.html:5808?}</option>
+-<option value="GMX">{?de.internet.authform.html:5582?}</option>
+-<option value="Inode">{?de.internet.authform.html:8846?}</option>
+-<option value="Mnet">{?de.internet.authform.html:2386?}</option>
+-<option value="O2">{?de.internet.authform.html:6830?}</option>
+-<option value="QSC">{?de.internet.authform.html:7870?}</option>
+-<option value="Strato">{?de.internet.authform.html:2788?}</option>
+-<option value="TOnline">{?de.internet.authform.html:509?}</option>
+-<option value="Versatel">{?de.internet.authform.html:3639?}</option>
++<option value="1u1">1&1 Internet</option>
++<option value="Alice">Alice (Hansenet)</option>
++<option value="AOL">AOL</option>
++<option value="Arcor">Arcor</option>
++<option value="congstar">congstar</option>
++<option value="DBD">DBD (WiMAX)</option>
++<option value="Debitel">debitel</option>
++<option value="Freenet">freenet</option>
++<option value="GMX">GMX</option>
++<option value="Inode">Inode / UPC</option>
++<option value="Mnet">M-net</option>
++<option value="O2">O2</option>
++<option value="QSC">QSC / Q-DSL home</option>
++<option value="Strato">Strato</option>
++<option value="TOnline">T-Online</option>
++<option value="Versatel">Versatel</option>
+ ` ?>
+ <? if eq $var:OEM avme `
+ <? if eq <? query box:settings/country ?> '043' `
+ <option value="AON">aon</option>
+-<option value="Inode">{?de.internet.authform.html:5817?}</option>
++<option value="Inode">Inode / UPC</option>
+ ` ?>
+ <? if eq <? query box:settings/country ?> '031' `
+-<option value="XS4ALL">{?de.internet.authform.html:8597?}</option>
++<option value="XS4ALL">XS4ALL</option>
+ ` ?>
+ <? if eq '<? query box:settings/country ?>' '0264' `
+ <option value="TNamibiaAdsl">Telecom Namibia - ADSL</option>
+ <option value="TNamibiaWimax">Telecom Namibia - Wimax</option>
+ ` ?>
+ ` ?>
+-<option value="Sonst">{?de.internet.authform.html:110afTxt14?}</option>
++<option value="Sonst">other Internet Service Provider</option>
+ </select>
+ </p>
+ <div class="ml25 mb10">
+ <table id="tPpp">
+ <tr id="UserName">
+-<td class="Label" id="uiTdUserName"><label for="uiViewUsername"><span id="LabelName">{?txtUsername?}</span></label></td>
++<td class="Label" id="uiTdUserName"><label for="uiViewUsername"><span id="LabelName">User name</span></label></td>
+ <td style="width: 300px;">
+ <table id="tUser">
+ <tr>
+@@ -78,52 +78,52 @@
+ <td><input type="text" size="4" maxlength="4" class="Eingabefeld" id="uiViewMitbenutzer"></td>
+ </tr>
+ <tr id="Pin" style="display:none">
+-<td class="Label"><label for="uiViewPin"><span id="LabelPin">{?txtPin?}</span></label></td>
++<td class="Label"><label for="uiViewPin"><span id="LabelPin">PIN</span></label></td>
+ <td><input type="password" size="6" maxlength="32" class="Eingabefeld" id="uiViewPin" onfocus="uiSelect(id);"></td>
+ </tr>
+ <tr id="Pin2" style="display:none">
+-<td class="Label"><label for="uiViewPin2">{?de.internet.authform.html:165afTxt25?}</label></td>
++<td class="Label"><label for="uiViewPin2">PIN confirmation</label></td>
+ <td><input type="password" size="6" maxlength="32" class="Eingabeldfeld" id="uiViewPin2" onfocus="uiSelect(id);"></td>
+ </tr>
+ <tr id="pwd">
+-<td class="Label"><label for="uiViewPassword"><span id="LabelKennwort">{?txtKennwort?}</span></label></td>
++<td class="Label"><label for="uiViewPassword"><span id="LabelKennwort">Password</span></label></td>
+ <td style="width: 300px;"><input type="password" size="14" maxlength="128" class="Eingabefeld" id="uiViewPassword" onfocus="uiSelect(id);"></td>
+ </tr>
+ <tr id="pwd2">
+-<td class="Label"><label for="uiViewPassword2"><span id="LabelKennwort2">{?txtConfirmPassword?}</span></label></td>
++<td class="Label"><label for="uiViewPassword2"><span id="LabelKennwort2">Password confirmation</span></label></td>
+ <td><input type="password" size="14" maxlength="128" class="Eingabeldfeld" id="uiViewPassword2" onfocus="uiSelect(id);"></td>
+ </tr>
+ <tr id="Realm" style="display:none">
+-<td class="Label" id="LabelRealm"><label for="uiViewRealm">{?de.internet.authform.html:180afTxt28?}</label></td>
++<td class="Label" id="LabelRealm"><label for="uiViewRealm">Realm</label></td>
+ <td><input type="text" size="9" maxlength="15" class="Eingabefeld" id="uiViewRealm"></td>
+ </tr>
+ </table>
+ <div id="uiO2" style="display:none">
+-<p class="mb5"><input type="radio" name="Pin" id="uiViewNoPin" onclick="uiCheck(1);">&nbsp;<label for="uiViewNoPin">{?de.internet.authform.html:4195?}</label></p>
+-<p class="mb5"><input type="radio" name="Pin" id="uiViewWithPin" onclick="uiCheck(2);">&nbsp;<label for="uiViewWithPin">{?de.internet.authform.html:5414?}</label></p>
++<p class="mb5"><input type="radio" name="Pin" id="uiViewNoPin" onclick="uiCheck(1);">&nbsp;<label for="uiViewNoPin">Internet connection without a PIN</label></p>
++<p class="mb5"><input type="radio" name="Pin" id="uiViewWithPin" onclick="uiCheck(2);">&nbsp;<label for="uiViewWithPin">Internet Connection with a PIN</label></p>
+ <p class="ml25 mb5" id="uiViewPinArea" style="display:none;">
+-<label for="uiViewPinEdit">{?de.internet.authform.html:2674?}&nbsp;</label><input type="text" value="" size="16" maxlength="15" class="Eingabefeld" id="uiViewPinEdit">
++<label for="uiViewPinEdit">15-digit PIN:&nbsp;</label><input type="text" value="" size="16" maxlength="15" class="Eingabefeld" id="uiViewPinEdit">
+ </p>
+ </div>
+ <div id="InodeTelenode" style="display:none">
+-<p><input type="checkbox" id="uiViewTelenode">&nbsp;<label for="uiViewTelenode">{?de.internet.authform.html:205afTxt48?}</label></p>
+-<p class="ml25">{?de.internet.authform.html:210afTxt49?}</p>
++<p><input type="checkbox" id="uiViewTelenode">&nbsp;<label for="uiViewTelenode">Support for Telenode Platin and Telenode Titan</label></p>
++<p class="ml25">(If one of these services is used, this option must be enabled!)</p>
+ </div>
+ </div>
+ <div id="IdleTimer" style="display:none">
+-<p class="mb5 ml25"><input type="radio" name="OnDemand" id="uiViewAlwaysOn" onclick="OnChangeOnDemand('off')">&nbsp;<label for="uiViewAlwaysOn">{?de.internet.authform.html:2005?}</label></p>
++<p class="mb5 ml25"><input type="radio" name="OnDemand" id="uiViewAlwaysOn" onclick="OnChangeOnDemand('off')">&nbsp;<label for="uiViewAlwaysOn">Maintain Internet connection permanently</label></p>
+ <div id="uiIdleExpert" style="display:none">
+ <p class="ml50"><input type="checkbox" id="uiViewDisPrev" onclick="OnChangeDisPrev()">&nbsp;
+-<label for="uiViewDisPrev">{?de.internet.authform.html:240afTxt34?} {?de.internet.authform.html:245afTxt35?}</label></p>
++<label for="uiViewDisPrev">Delay disconnection by provider to the period between</label></p>
+ <p class="ml75">
+ <select id="uiViewDisPrevTime">
+ <script type="text/javascript">for (var i=0; i<=23; i++) document.write('<option value="'+ i + '">' + i + '-' + (i+1) + '</option>');</script>
+ </select>&nbsp;
+-<label for="uiViewDisPrevTime">{?de.internet.authform.html:250afTxt36?}</label>
++<label for="uiViewDisPrevTime">o'clock</label>
+ </p>
+ </div>
+-<p class="mb5 ml25"><input type="radio" name="OnDemand" id="uiViewOnDemand" onclick="OnChangeOnDemand('on')">&nbsp;<label for="uiViewOnDemand">{?de.internet.authform.html:6771?} </label>&nbsp;<input type="text" value maxlength="6" size="6" class="Eingabefeld" id="uiViewIdleTime">&nbsp;{?de.internet.authform.html:6463?}.</p>
++<p class="mb5 ml25"><input type="radio" name="OnDemand" id="uiViewOnDemand" onclick="OnChangeOnDemand('on')">&nbsp;<label for="uiViewOnDemand">Clear Internet connection automatically after </label>&nbsp;<input type="text" value maxlength="6" size="6" class="Eingabefeld" id="uiViewIdleTime">&nbsp;seconds.</p>
+ <div id="uiTcomTargetArchOption" style="display:none;margin-top:5px;">
+-<p><input type="checkbox" id="uiViewTcomTargetarch" onclick="OnChangeTcomTargetarch()">&nbsp;<label for="uiViewTcomTargetarch"><span id="uiViewIpTvTxt">{?de.internet.authform.html:7708?}</span></label></p>
++<p><input type="checkbox" id="uiViewTcomTargetarch" onclick="OnChangeTcomTargetarch()">&nbsp;<label for="uiViewTcomTargetarch"><span id="uiViewIpTvTxt">Enable support for IPTV via T-Home Entertain</span></label></p>
+ </div>
+ </div>
+--- internet/authform.js	2010-03-26 07:46:44.000000000 -0400
++++ internet/authform.js	2010-05-21 04:56:06.000000000 -0400
+@@ -1,95 +1,95 @@
+ <!-- ../internet/authform.js -->
+ <? include ../html/de/first/provider.js ?>
+-var g_mldAolNameToShort = "{?de.internet.authform.js:5?}";
+-var g_mldAolNameToLong = "{?de.internet.authform.js:10?}";
+-var g_mldAolNameChar = "{?de.internet.authform.js:15?}";
+-var g_mldAolKennwortMin = "{?de.internet.authform.js:20?}";
+-var g_mldAolKennwortMax = "{?de.internet.authform.js:25?}";
+-var g_mldAolKennwort = "{?de.internet.authform.js:30?}";
+-var g_mldEWENameToShort = "{?de.internet.authform.js:35?}";
+-var g_mldEWENameToLong = "{?de.internet.authform.js:40?}";
+-var g_mldEWENameChar = "{?de.internet.authform.js:45?}";
+-var g_mldEWEKennwortMin = "{?de.internet.authform.js:50?}";
+-var g_mldEWEKennwortMax = "{?de.internet.authform.js:55?}";
+-var g_mldEWEKennwort = "{?de.internet.authform.js:60?}";
+-var g_mldUserLeer = "{?de.internet.authform.js:65?}";
+-var g_mldKennwortDiff = "{?de.internet.authform.js:70?}";
+-var g_mldVoipKennwortDiff = "{?de.internet.authform.js:75?}";
+-var g_mldPinDiff = "{?de.internet.authform.js:80?}";
+-var g_mldEnterPin = "{?de.internet.authform.js:85?}";
+-var g_mldEnterKennwort = "{?de.internet.authform.js:90?}";
+-var g_mldRealm = "{?de.internet.authform.js:95?}";
+-var g_mldNoTimer = "{?de.internet.authform.js:100?}";
+-var g_mldTKennungLeer = "{?de.internet.authform.js:105?}";
+-var g_mldTKennung = "{?de.internet.authform.js:110?}";
+-var g_mldTNummerLeer = "{?de.internet.authform.js:115?}";
+-var g_mldTNummer = "{?de.internet.authform.js:120?}";
+-var g_mldTSuffix = "{?de.internet.authform.js:125?}";
+-var g_mldNameChar = "{?de.internet.authform.js:130?}";
+-var g_mldPasswortEnterNew = "{?de.internet.authform.js:155?}";
+-var g_txtAOLName = "{?de.internet.authform.js:160?}";
+-var g_txtAOLKennwort = "{?de.internet.authform.js:165?} ";
+-var g_txtAOLConfirmation = "{?txtConfirmation?}";
+-var g_txtCongstarName = "{?de.internet.authform.js:11?}";
+-var g_txtCongstarKennwort = "{?de.internet.authform.js:7870?} ";
+-var g_txtCongstarConfirmation = "{?de.internet.authform.js:162?}";
+-var g_txtTonlineName = "{?de.internet.authform.js:175?}";
+-var g_txtTonlineKennwort = "{?de.internet.authform.js:180?}";
+-var g_txtTonlineConfirmation = "{?txtConfirmPassword?}";
+-var g_txt1u1Name = "{?de.internet.authform.js:190?}";
+-var g_txt1u1Kennwort = "{?de.internet.authform.js:195?}";
+-var g_txt1u1Confirmation = "{?txtConfirmation?}";
+-var g_txtFreenetName = "{?de.internet.authform.js:205?}";
+-var g_txtFreenetKennwort = "{?txtPasswort?}";
+-var g_txtFreenetConfirmation = "{?txtConfirmation?}";
+-var g_txtInodeName = "{?txtUsername_js?}";
+-var g_txtInodeKennwort = "{?txtKennwort?}";
+-var g_txtInodeConfirmation = "{?txtConfirmPassword?}";
+-var g_txtxs4allName = "{?txtUsername_js?}";
+-var g_txtxs4allKennwort = "{?txtKennwort?}";
+-var g_txtxs4allConfirmation = "{?txtConfirmPassword?}";
+-var g_txtMnetName = "{?txtUsername_js?}";
+-var g_txtMnetKennwort = "{?txtPasswort?}";
+-var g_txtMnetConfirmation = "{?txtConfirmation?}";
+-var g_txtArcorName = "{?txtUsername_js?}";
+-var g_txtArcorKennwort = "{?txtKennwort?}";
+-var g_txtArcorConfirmation = "{?txtConfirmPassword?}";
+-var g_txtQSCName = "{?txtUsername_js?}";
+-var g_txtQSCKennwort = "{?txtKennwort?}";
+-var g_txtQSCConfirmation = "{?txtConfirmPassword?}";
+-var g_txtStratoName = "{?txtUsername_js?}";
+-var g_txtStratoKennwort = "{?txtPasswort?}";
+-var g_txtStratoConfirmation = "{?de.internet.authform.js:320?}";
+-var g_txtDebitelName = "{?txtUsername_js?}";
+-var g_txtDebitelKennwort = "{?txtPasswort?}";
+-var g_txtDebitelConfirmation = "{?txtConfirmation?}";
+-var g_txtDBDName = "{?de.internet.authform.js:340?}";
+-var g_txtDBDKennwort = "{?de.internet.authform.js:345?}";
+-var g_txtDBDConfirmation = "{?de.internet.authform.js:350?}";
+-var g_txtVersatelName = "{?txtUsername_js?} ";
+-var g_txtVersatelKennwort = "{?txtKennwort?}";
+-var g_txtVersatelConfirmation = "{?txtConfirmPassword?}";
+-var g_txtAliceName = "{?de.internet.authform.js:964?} ";
+-var g_txtAliceKennwort = "{?txtPasswort?}";
+-var g_txtAliceConfirmation = "{?txtConfirmation?}";
+-var g_txtTNamibiaAdslName = "{?txtUsername_js?}";
+-var g_txtTNamibiaAdslKennwort = "{?txtKennwort?}";
+-var g_txtTNamibiaAdslConfirmation = "{?txtConfirmPassword?}";
+-var g_txtTNamibiaWimaxName = "{?txtUsername_js?}";
+-var g_txtTNamibiaWimaxKennwort = "{?txtKennwort?}";
+-var g_txtTNamibiaWimaxConfirmation = "{?txtConfirmPassword?}";
++var g_mldAolNameToShort = "The AOL ID must be at least 3 characters in length.";
++var g_mldAolNameToLong = "The AOL ID may be no longer than 16 characters.";
++var g_mldAolNameChar = "The AOL ID may contain only letters and numerals.";
++var g_mldAolKennwortMin = "The AOL password must be at least 6 characters in length.";
++var g_mldAolKennwortMax = "The AOL password may be no longer than 8 characters.";
++var g_mldAolKennwort = "The AOL password may contain only lower-case letters and numerals.";
++var g_mldEWENameToShort = "The user name must be at least 5 characters long.";
++var g_mldEWENameToLong = "The user name may have no more than 40 characters.";
++var g_mldEWENameChar = "The user name may contain only letters and numerals.";
++var g_mldEWEKennwortMin = "The password must contain at least 6 characters.";
++var g_mldEWEKennwortMax = "The password may be no longer than 8 characters.";
++var g_mldEWEKennwort = "The password may contain only letters and numerals.";
++var g_mldUserLeer = "The user name may not be left blank.";
++var g_mldKennwortDiff = "The password/key and the confirmation do not match.";
++var g_mldVoipKennwortDiff = "The telephony access password and the confirmation do not match.";
++var g_mldPinDiff = "The PIN and the confirmation do not match.";
++var g_mldEnterPin = "The password has been changed. Please enter the PIN as well.";
++var g_mldEnterKennwort = "The PIN has been changed. Please enter the password as well.";
++var g_mldRealm = "The realm must begin with \"frn\".";
++var g_mldNoTimer = "You have disabled automatic clearing of the Internet connection. The Internet connection will remain established permanently. This settings is appropriate only for flat rate contracts.";
++var g_mldTKennungLeer = "The line ID may not be left blank.";
++var g_mldTKennung = "The line ID may include only numerals.";
++var g_mldTNummerLeer = "The T-Online number field may not be left empty.";
++var g_mldTNummer = "The T-Online number may contain only numerals.";
++var g_mldTSuffix = "The Joint User suffix may contain only numerals.";
++var g_mldNameChar = "Please check the entry in the User name field and remove spaces and other illegal characters.";
++var g_mldPasswortEnterNew = "You have changed your account information. \x0d\x0aPlease enter your password again.";
++var g_txtAOLName = "AOL ID";
++var g_txtAOLKennwort = "AOL password ";
++var g_txtAOLConfirmation = "Password confirmation";
++var g_txtCongstarName = "User name";
++var g_txtCongstarKennwort = "Contract password ";
++var g_txtCongstarConfirmation = "Confirm contract password";
++var g_txtTonlineName = "T-Online name";
++var g_txtTonlineKennwort = "Personal user ID";
++var g_txtTonlineConfirmation = "Password confirmation";
++var g_txt1u1Name = "Internet account ID";
++var g_txt1u1Kennwort = "Internet account password:";
++var g_txt1u1Confirmation = "Password confirmation";
++var g_txtFreenetName = "DSL login";
++var g_txtFreenetKennwort = "Password";
++var g_txtFreenetConfirmation = "Password confirmation";
++var g_txtInodeName = "User name";
++var g_txtInodeKennwort = "Password";
++var g_txtInodeConfirmation = "Password confirmation";
++var g_txtxs4allName = "User name";
++var g_txtxs4allKennwort = "Password";
++var g_txtxs4allConfirmation = "Password confirmation";
++var g_txtMnetName = "User name";
++var g_txtMnetKennwort = "Password";
++var g_txtMnetConfirmation = "Password confirmation";
++var g_txtArcorName = "User name";
++var g_txtArcorKennwort = "Password";
++var g_txtArcorConfirmation = "Password confirmation";
++var g_txtQSCName = "User name";
++var g_txtQSCKennwort = "Password";
++var g_txtQSCConfirmation = "Password confirmation";
++var g_txtStratoName = "User name";
++var g_txtStratoKennwort = "Password";
++var g_txtStratoConfirmation = "Password confirmation";
++var g_txtDebitelName = "User name";
++var g_txtDebitelKennwort = "Password";
++var g_txtDebitelConfirmation = "Password confirmation";
++var g_txtDBDName = "Internet account ID";
++var g_txtDBDKennwort = "Internet account password:";
++var g_txtDBDConfirmation = "Password confirmation";
++var g_txtVersatelName = "User name ";
++var g_txtVersatelKennwort = "Password";
++var g_txtVersatelConfirmation = "Password confirmation";
++var g_txtAliceName = "Telephone number of the Fixed Line ";
++var g_txtAliceKennwort = "Password";
++var g_txtAliceConfirmation = "Password confirmation";
++var g_txtTNamibiaAdslName = "User name";
++var g_txtTNamibiaAdslKennwort = "Password";
++var g_txtTNamibiaAdslConfirmation = "Password confirmation";
++var g_txtTNamibiaWimaxName = "User name";
++var g_txtTNamibiaWimaxKennwort = "Password";
++var g_txtTNamibiaWimaxConfirmation = "Password confirmation";
+ var g_txtAonName = "Teilnehmererkennung";
+ var g_txtAonKennwort = "Persönliches Kennwort";
+-var g_txtAonConfirmation = "{?txtConfirmPassword?}";
+-var g_txtSonstName = "{?txtUsername_js?} ";
+-var g_txtSonstKennwort = "{?txtKennwort?}";
+-var g_txtSonstConfirmation = "{?txtConfirmPassword?}";
+-var g_txtNoAccount = "{?de.internet.authform.js:8474?} ";
+-var g_txtAndererProvider = "{?de.internet.authform.js:1804?} ";
++var g_txtAonConfirmation = "Password confirmation";
++var g_txtSonstName = "User name ";
++var g_txtSonstKennwort = "Password";
++var g_txtSonstConfirmation = "Password confirmation";
++var g_txtNoAccount = "Please enter your complete account information. ";
++var g_txtAndererProvider = "Other operator ";
+ var g_Variante = "<? echo $var:OEM ?>";
+ var g_expertMode = "<? query box:settings/expertmode/activated ?>";
+ var g_usePstn = "<? echo $var:usePSTN ?>";
+-var g_txtTimeoutInterval = "{?de.internet.authform.js:5712?}";
++var g_txtTimeoutInterval = "Please enter a value between 30 and 900 seconds for automatic disconnection of an idle Internet connection.";
+ var g_minTimeout=30;
+ var g_DefaultTimeout=300;
+ var g_maxTimeout=900;
+@@ -590,7 +590,7 @@
+ var O2Pin=jslGetValue("uiViewPinEdit");
+ if (O2Pin!="****" && O2Pin.length!=15 && O2Pin.length!=0)
+ {
+-alert("{?de.internet.authform.js:8638?}");
++alert("The PIN entry was incomplete.");
+ return;
+ }
+ } else {
+@@ -1063,7 +1063,7 @@
+ SetSpanText("LabelKennwort", g_txtAonKennwort);
+ SetSpanText("LabelKennwort2", g_txtAonConfirmation);
+ jslSetChecked("uiViewTcomTargetarch", jslGetValue("uiPostAontvArch") == "1");
+-SetSpanText("uiViewIpTvTxt","{?de.internet.authform.js:396?}");
++SetSpanText("uiViewIpTvTxt","Use AON TV");
+ if (jslGetValue("uiPostAontvArch") == "1")
+ {
+ jslSetValue("uiEncaps", "dslencap_ether");

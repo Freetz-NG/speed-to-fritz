@@ -1,0 +1,1270 @@
+--- internet/authform.html	1969-12-31 19:00:00.000000000 -0500
++++ internet/authform.html	2010-03-26 07:46:59.000000000 -0400
+@@ -0,0 +1,129 @@
++<p class="mb10" id="uiShowProvider" style="display:none">{?de.internet.authform.html:5afTxt01?}
++<select id="uiViewProvider" onchange="OnChangeProvider(value)" class="Eingabefeld">
++<? if eq $var:OEM 1und1 `
++<option value="1u1">{?de.internet.authform.html:1890?}</option>
++<option value="GMX">{?de.internet.authform.html:9469?}</option>
++` ?>
++<? if eq $var:OEM arcor `
++<option value="Arcor">{?de.internet.authform.html:1461?}</option>
++` ?>
++<? setvariable var:allprovider 0 ?>
++<? if eq $var:OEM freenet `<? setvariable var:allprovider 1 ?>` ?>
++<? if eq $var:OEM avm `<? setvariable var:allprovider 1 ?>` ?>
++<? if eq $var:OEM versatel `<? setvariable var:allprovider 1 ?>` ?>
++<? if eq $var:OEM otwo `<? setvariable var:allprovider 1 ?>` ?>
++<? if eq $var:OEM avme `
++<? if eq <? query box:settings/country ?> '049' `
++<? setvariable var:allprovider 1 ?>
++` ?>
++` ?>
++<? if eq $var:allprovider 1 `
++<option value="1u1">{?de.internet.authform.html:1586?}</option>
++<option value="Alice">{?de.internet.authform.html:3668?}</option>
++<option value="AOL">{?de.internet.authform.html:3761?}</option>
++<option value="Arcor">{?de.internet.authform.html:7014?}</option>
++<option value="congstar">{?de.internet.authform.html:5395?}</option>
++<option value="DBD">{?de.internet.authform.html:6774?}</option>
++<option value="Debitel">{?de.internet.authform.html:7328?}</option>
++<option value="Freenet">{?de.internet.authform.html:5808?}</option>
++<option value="GMX">{?de.internet.authform.html:5582?}</option>
++<option value="Inode">{?de.internet.authform.html:8846?}</option>
++<option value="Mnet">{?de.internet.authform.html:2386?}</option>
++<option value="O2">{?de.internet.authform.html:6830?}</option>
++<option value="QSC">{?de.internet.authform.html:7870?}</option>
++<option value="Strato">{?de.internet.authform.html:2788?}</option>
++<option value="TOnline">{?de.internet.authform.html:509?}</option>
++<option value="Versatel">{?de.internet.authform.html:3639?}</option>
++` ?>
++<? if eq $var:OEM avme `
++<? if eq <? query box:settings/country ?> '043' `
++<option value="AON">aon</option>
++<option value="Inode">{?de.internet.authform.html:5817?}</option>
++` ?>
++<? if eq <? query box:settings/country ?> '031' `
++<option value="XS4ALL">{?de.internet.authform.html:8597?}</option>
++` ?>
++<? if eq '<? query box:settings/country ?>' '0264' `
++<option value="TNamibiaAdsl">Telecom Namibia - ADSL</option>
++<option value="TNamibiaWimax">Telecom Namibia - Wimax</option>
++` ?>
++` ?>
++<option value="Sonst">{?de.internet.authform.html:110afTxt14?}</option>
++</select>
++</p>
++<div class="ml25 mb10">
++<table id="tPpp">
++<tr id="UserName">
++<td class="Label" id="uiTdUserName"><label for="uiViewUsername"><span id="LabelName">{?txtUsername?}</span></label></td>
++<td style="width: 300px;">
++<table id="tUser">
++<tr>
++<td id="UserPrefix" style="padding-right: 3px; display:none"><span id="spanPrefix">1und1/</span></td>
++<td><input type="text" size="24" maxlength="128" class="Eingabefeld" id="uiViewUsername"></td>
++<td id="UserPostfix" style="padding-left: 3px; display:none"><span id="spanPostfix">@online.de</span></td>
++</tr>
++</table>
++</td>
++</tr>
++<tr id="TAnschlusskennung" style="display:none">
++<td class="Label" id="LabelAnschlusskennung"><label for="uiViewAnschlusskennung">Anschlusskennung</label></td>
++<td><input type="text" size="14" maxlength="12" class="Eingabefeld" id="uiViewAnschlusskennung"></td>
++</tr>
++<tr id="TOnlineNummer" style="display:none">
++<td class="Label" id="LabelOnlineNummer"><label for="uiViewOnlineNummer">T-Online Nummer</label></td>
++<td><input type="text" size="14" maxlength="12" class="Eingabefeld" id="uiViewOnlineNummer"></td>
++</tr>
++<tr id="TMitbenutzer" style="display:none">
++<td class="Label" id="LabelMitbenutzer"><label for="uiViewMitbenutzer">Mitbenutzersuffix</label></td>
++<td><input type="text" size="4" maxlength="4" class="Eingabefeld" id="uiViewMitbenutzer"></td>
++</tr>
++<tr id="Pin" style="display:none">
++<td class="Label"><label for="uiViewPin"><span id="LabelPin">{?txtPin?}</span></label></td>
++<td><input type="password" size="6" maxlength="32" class="Eingabefeld" id="uiViewPin" onfocus="uiSelect(id);"></td>
++</tr>
++<tr id="Pin2" style="display:none">
++<td class="Label"><label for="uiViewPin2">{?de.internet.authform.html:165afTxt25?}</label></td>
++<td><input type="password" size="6" maxlength="32" class="Eingabeldfeld" id="uiViewPin2" onfocus="uiSelect(id);"></td>
++</tr>
++<tr id="pwd">
++<td class="Label"><label for="uiViewPassword"><span id="LabelKennwort">{?txtKennwort?}</span></label></td>
++<td style="width: 300px;"><input type="password" size="14" maxlength="128" class="Eingabefeld" id="uiViewPassword" onfocus="uiSelect(id);"></td>
++</tr>
++<tr id="pwd2">
++<td class="Label"><label for="uiViewPassword2"><span id="LabelKennwort2">{?txtConfirmPassword?}</span></label></td>
++<td><input type="password" size="14" maxlength="128" class="Eingabeldfeld" id="uiViewPassword2" onfocus="uiSelect(id);"></td>
++</tr>
++<tr id="Realm" style="display:none">
++<td class="Label" id="LabelRealm"><label for="uiViewRealm">{?de.internet.authform.html:180afTxt28?}</label></td>
++<td><input type="text" size="9" maxlength="15" class="Eingabefeld" id="uiViewRealm"></td>
++</tr>
++</table>
++<div id="uiO2" style="display:none">
++<p class="mb5"><input type="radio" name="Pin" id="uiViewNoPin" onclick="uiCheck(1);">&nbsp;<label for="uiViewNoPin">{?de.internet.authform.html:4195?}</label></p>
++<p class="mb5"><input type="radio" name="Pin" id="uiViewWithPin" onclick="uiCheck(2);">&nbsp;<label for="uiViewWithPin">{?de.internet.authform.html:5414?}</label></p>
++<p class="ml25 mb5" id="uiViewPinArea" style="display:none;">
++<label for="uiViewPinEdit">{?de.internet.authform.html:2674?}&nbsp;</label><input type="text" value="" size="16" maxlength="15" class="Eingabefeld" id="uiViewPinEdit">
++</p>
++</div>
++<div id="InodeTelenode" style="display:none">
++<p><input type="checkbox" id="uiViewTelenode">&nbsp;<label for="uiViewTelenode">{?de.internet.authform.html:205afTxt48?}</label></p>
++<p class="ml25">{?de.internet.authform.html:210afTxt49?}</p>
++</div>
++</div>
++<div id="IdleTimer" style="display:none">
++<p class="mb5 ml25"><input type="radio" name="OnDemand" id="uiViewAlwaysOn" onclick="OnChangeOnDemand('off')">&nbsp;<label for="uiViewAlwaysOn">{?de.internet.authform.html:2005?}</label></p>
++<div id="uiIdleExpert" style="display:none">
++<p class="ml50"><input type="checkbox" id="uiViewDisPrev" onclick="OnChangeDisPrev()">&nbsp;
++<label for="uiViewDisPrev">{?de.internet.authform.html:240afTxt34?} {?de.internet.authform.html:245afTxt35?}</label></p>
++<p class="ml75">
++<select id="uiViewDisPrevTime">
++<script type="text/javascript">for (var i=0; i<=23; i++) document.write('<option value="'+ i + '">' + i + '-' + (i+1) + '</option>');</script>
++</select>&nbsp;
++<label for="uiViewDisPrevTime">{?de.internet.authform.html:250afTxt36?}</label>
++</p>
++</div>
++<p class="mb5 ml25"><input type="radio" name="OnDemand" id="uiViewOnDemand" onclick="OnChangeOnDemand('on')">&nbsp;<label for="uiViewOnDemand">{?de.internet.authform.html:6771?} </label>&nbsp;<input type="text" value maxlength="6" size="6" class="Eingabefeld" id="uiViewIdleTime">&nbsp;{?de.internet.authform.html:6463?}.</p>
++<div id="uiTcomTargetArchOption" style="display:none;margin-top:5px;">
++<p><input type="checkbox" id="uiViewTcomTargetarch" onclick="OnChangeTcomTargetarch()">&nbsp;<label for="uiViewTcomTargetarch"><span id="uiViewIpTvTxt">{?de.internet.authform.html:7708?}</span></label></p>
++</div>
++</div>
+--- internet/authform.js	1969-12-31 19:00:00.000000000 -0500
++++ internet/authform.js	2010-03-26 07:46:44.000000000 -0400
+@@ -0,0 +1,1135 @@
++<!-- ../internet/authform.js -->
++<? include ../html/de/first/provider.js ?>
++var g_mldAolNameToShort = "{?de.internet.authform.js:5?}";
++var g_mldAolNameToLong = "{?de.internet.authform.js:10?}";
++var g_mldAolNameChar = "{?de.internet.authform.js:15?}";
++var g_mldAolKennwortMin = "{?de.internet.authform.js:20?}";
++var g_mldAolKennwortMax = "{?de.internet.authform.js:25?}";
++var g_mldAolKennwort = "{?de.internet.authform.js:30?}";
++var g_mldEWENameToShort = "{?de.internet.authform.js:35?}";
++var g_mldEWENameToLong = "{?de.internet.authform.js:40?}";
++var g_mldEWENameChar = "{?de.internet.authform.js:45?}";
++var g_mldEWEKennwortMin = "{?de.internet.authform.js:50?}";
++var g_mldEWEKennwortMax = "{?de.internet.authform.js:55?}";
++var g_mldEWEKennwort = "{?de.internet.authform.js:60?}";
++var g_mldUserLeer = "{?de.internet.authform.js:65?}";
++var g_mldKennwortDiff = "{?de.internet.authform.js:70?}";
++var g_mldVoipKennwortDiff = "{?de.internet.authform.js:75?}";
++var g_mldPinDiff = "{?de.internet.authform.js:80?}";
++var g_mldEnterPin = "{?de.internet.authform.js:85?}";
++var g_mldEnterKennwort = "{?de.internet.authform.js:90?}";
++var g_mldRealm = "{?de.internet.authform.js:95?}";
++var g_mldNoTimer = "{?de.internet.authform.js:100?}";
++var g_mldTKennungLeer = "{?de.internet.authform.js:105?}";
++var g_mldTKennung = "{?de.internet.authform.js:110?}";
++var g_mldTNummerLeer = "{?de.internet.authform.js:115?}";
++var g_mldTNummer = "{?de.internet.authform.js:120?}";
++var g_mldTSuffix = "{?de.internet.authform.js:125?}";
++var g_mldNameChar = "{?de.internet.authform.js:130?}";
++var g_mldPasswortEnterNew = "{?de.internet.authform.js:155?}";
++var g_txtAOLName = "{?de.internet.authform.js:160?}";
++var g_txtAOLKennwort = "{?de.internet.authform.js:165?} ";
++var g_txtAOLConfirmation = "{?txtConfirmation?}";
++var g_txtCongstarName = "{?de.internet.authform.js:11?}";
++var g_txtCongstarKennwort = "{?de.internet.authform.js:7870?} ";
++var g_txtCongstarConfirmation = "{?de.internet.authform.js:162?}";
++var g_txtTonlineName = "{?de.internet.authform.js:175?}";
++var g_txtTonlineKennwort = "{?de.internet.authform.js:180?}";
++var g_txtTonlineConfirmation = "{?txtConfirmPassword?}";
++var g_txt1u1Name = "{?de.internet.authform.js:190?}";
++var g_txt1u1Kennwort = "{?de.internet.authform.js:195?}";
++var g_txt1u1Confirmation = "{?txtConfirmation?}";
++var g_txtFreenetName = "{?de.internet.authform.js:205?}";
++var g_txtFreenetKennwort = "{?txtPasswort?}";
++var g_txtFreenetConfirmation = "{?txtConfirmation?}";
++var g_txtInodeName = "{?txtUsername_js?}";
++var g_txtInodeKennwort = "{?txtKennwort?}";
++var g_txtInodeConfirmation = "{?txtConfirmPassword?}";
++var g_txtxs4allName = "{?txtUsername_js?}";
++var g_txtxs4allKennwort = "{?txtKennwort?}";
++var g_txtxs4allConfirmation = "{?txtConfirmPassword?}";
++var g_txtMnetName = "{?txtUsername_js?}";
++var g_txtMnetKennwort = "{?txtPasswort?}";
++var g_txtMnetConfirmation = "{?txtConfirmation?}";
++var g_txtArcorName = "{?txtUsername_js?}";
++var g_txtArcorKennwort = "{?txtKennwort?}";
++var g_txtArcorConfirmation = "{?txtConfirmPassword?}";
++var g_txtQSCName = "{?txtUsername_js?}";
++var g_txtQSCKennwort = "{?txtKennwort?}";
++var g_txtQSCConfirmation = "{?txtConfirmPassword?}";
++var g_txtStratoName = "{?txtUsername_js?}";
++var g_txtStratoKennwort = "{?txtPasswort?}";
++var g_txtStratoConfirmation = "{?de.internet.authform.js:320?}";
++var g_txtDebitelName = "{?txtUsername_js?}";
++var g_txtDebitelKennwort = "{?txtPasswort?}";
++var g_txtDebitelConfirmation = "{?txtConfirmation?}";
++var g_txtDBDName = "{?de.internet.authform.js:340?}";
++var g_txtDBDKennwort = "{?de.internet.authform.js:345?}";
++var g_txtDBDConfirmation = "{?de.internet.authform.js:350?}";
++var g_txtVersatelName = "{?txtUsername_js?} ";
++var g_txtVersatelKennwort = "{?txtKennwort?}";
++var g_txtVersatelConfirmation = "{?txtConfirmPassword?}";
++var g_txtAliceName = "{?de.internet.authform.js:964?} ";
++var g_txtAliceKennwort = "{?txtPasswort?}";
++var g_txtAliceConfirmation = "{?txtConfirmation?}";
++var g_txtTNamibiaAdslName = "{?txtUsername_js?}";
++var g_txtTNamibiaAdslKennwort = "{?txtKennwort?}";
++var g_txtTNamibiaAdslConfirmation = "{?txtConfirmPassword?}";
++var g_txtTNamibiaWimaxName = "{?txtUsername_js?}";
++var g_txtTNamibiaWimaxKennwort = "{?txtKennwort?}";
++var g_txtTNamibiaWimaxConfirmation = "{?txtConfirmPassword?}";
++var g_txtAonName = "Teilnehmererkennung";
++var g_txtAonKennwort = "Persönliches Kennwort";
++var g_txtAonConfirmation = "{?txtConfirmPassword?}";
++var g_txtSonstName = "{?txtUsername_js?} ";
++var g_txtSonstKennwort = "{?txtKennwort?}";
++var g_txtSonstConfirmation = "{?txtConfirmPassword?}";
++var g_txtNoAccount = "{?de.internet.authform.js:8474?} ";
++var g_txtAndererProvider = "{?de.internet.authform.js:1804?} ";
++var g_Variante = "<? echo $var:OEM ?>";
++var g_expertMode = "<? query box:settings/expertmode/activated ?>";
++var g_usePstn = "<? echo $var:usePSTN ?>";
++var g_txtTimeoutInterval = "{?de.internet.authform.js:5712?}";
++var g_minTimeout=30;
++var g_DefaultTimeout=300;
++var g_maxTimeout=900;
++function afDoOnLoad() {
++var timeout=jslGetValue("uiPostPppIdleTimeout");
++var TimeoutInterv=0;
++if (timeout > g_maxTimeout)
++TimeoutInterv = 2;
++if (timeout >= g_minTimeout && timeout <= g_maxTimeout)
++TimeoutInterv = 1;
++if (timeout==0)
++TimeoutInterv = 3;
++switch (TimeoutInterv) {
++case 0:
++jslSetValue("uiViewIdleTime", g_minTimeout); break;
++case 1:
++jslCopyValue("uiViewIdleTime", "uiPostPppIdleTimeout"); break;
++case 2:
++jslSetValue("uiViewIdleTime", g_maxTimeout); break;
++case 3:
++jslSetValue("uiViewIdleTime", g_DefaultTimeout); break;
++}
++jslDisplay("uiShowProvider", IsDSLProviderComboShown());
++if (g_expertMode == "1") {
++jslGetCheckValue("uiViewDisPrev","uiPostPppDisPrev");
++jslDisplay("uiIdleExpert", true);
++}
++pppDoSetOnDemand(jslGetValue("uiPostPppMode"));
++jslSetValue("uiViewRealm", "frn6/");
++if (g_Variante == "1und1") {
++Load1und1User();
++} else if (g_Variante == "arcor") {
++LoadArcorUser();
++} else if (g_Variante == "avme") {
++LoadAvmeUser();
++} else {
++LoadSonstUser();
++}
++jslCopyValue("uiViewPassword","uiPostPppPassword");
++jslCopyValue("uiViewPassword2","uiPostPppPassword");
++if (jslGetValue("uiPostPppPassword").length > 0) {
++jslSetValue("uiViewPin","****");
++jslSetValue("uiViewPin2","****");
++}
++}
++function afDoSave() {
++var oem="<? query env:status/OEM ?>";
++if (jslGetValue("uiPostPppUsername") == "" && jslGetValue("uiPostUserName0") == "") {
++// Bei der ersten Installation für Freenet, Internetzugang setzen
++jslSetValue("uiIsFirst", "1");
++}
++var orgUsername=jslGetValue( "uiPostPppUsername");
++if (!afDoValidate()) return false;
++var username = jslGetValue( "uiPostPppUsername");
++<? if eq $var:isTr069 1 `
++if (oem != 'avme') {
++var providerinfo=GetProviderStringUsernameOnly(username);
++var orgproviderinfo=GetProviderStringUsernameOnly(orgUsername);
++var bDoDisableTr69=false;
++var bDoEnableTr69=false;
++if(username!=orgUsername){
++if( orgUsername=="" && ((IsUnitedInternet(providerinfo) && oem!="freenet" ) //beim oem=freenet und UI-Providerhier tr69 nicht aktivieren
++|| (oem=="freenet" && providerinfo=="Freenet")))
++{
++if(IsUnitedInternet(providerinfo) && oem!="freenet" )
++{
++var user = "<? query connection0:settings/username ?>";
++var pass = "<? query connection0:settings/password ?>";
++var type = "<? query connection0:settings/type ?>";
++if (user=="" && pass=="" && type=="bridge")
++{
++bDoEnableTr69=true;
++jslSetValue( "uiPostTr69ProvisionCode", "000.000.000.000");
++jslSetValue( "uiPostTr69Url", "https://acs1.online.de/");
++jslEnable( "uiPostTr69ProvisionCode");
++jslEnable( "uiPostTr69Url");
++}
++}
++}
++else
++{
++if(providerinfo!=orgproviderinfo)
++{
++bDoDisableTr69=true;
++}
++else
++{
++var usernameindex=username.indexOf("@");
++var orgusernameindex=orgUsername.indexOf("@");
++if(!(usernameindex==-1 && orgusernameindex==-1))
++{
++if((usernameindex==-1 && orgusernameindex!=-1 )||
++(usernameindex!=-1 && orgusernameindex==-1 ))
++{
++bDoDisableTr69=true;
++}
++else
++{
++var newend=username.substr(usernameindex,username.length-usernameindex);
++var oldend=orgUsername.substr(orgusernameindex,orgUsername.length-orgusernameindex);
++if(newend!=oldend)
++{
++bDoDisableTr69=true;
++}
++}
++}
++}
++}
++}
++if (oem=="freenet" && providerinfo=="Freenet") {
++bDoDisableTr69 = false;
++}
++if (oem=="otwo" && providerinfo=="O2") {
++bDoDisableTr69 = false;
++bDoEnableTr69 = true;
++}
++if(bDoDisableTr69){
++jslSetValue( "uiPostTR69Enabled","0");
++jslEnable( "uiPostTR69Enabled");
++}
++if(bDoEnableTr69){
++jslSetValue( "uiPostTR69Enabled","1");
++jslEnable( "uiPostTR69Enabled");
++}
++}
++` ?>
++var provider = jslGetValue("uiViewProvider");
++if (provider != "AON")
++jslSetValue("uiPostAontvArch","0");
++jslSetValue("uiPostTcomTargetarch", "0");
++if (provider == "TOnline") {
++if (jslGetChecked("uiViewAnschlussWan") && jslGetChecked("uiViewWanType10") && jslGetChecked("uiViewWanType2") ) {
++jslSetValue("uiPostTcomTargetarch", "0");
++}
++else {
++jslSetValue("uiPostTcomTargetarch",jslGetChecked("uiViewTcomTargetarch")?"1":"0");
++}
++}
++if (provider == "QSC") {
++if (!jslGetChecked("uiViewAnschlussDsl")) {
++// PPPoE Passthrough aus
++jslSetValue("uiPostRouterBridge", "0");
++jslEnable("uiPostRouterBridge");
++jslSetValue("uiPostPppDisPrev", "0");
++jslEnable("uiPostPppDisPrev");
++jslSetChecked("uiViewDisPrev",false);
++}
++}
++else if(provider == "AON"){
++jslSetValue("uiPostAontvArch",jslGetChecked("uiViewTcomTargetarch")?"1":"0");
++}
++else if(provider == "congstar"){
++// ATM manuell VPI 1, VCI 32, PPPoE
++jslSetValue("uiPostAutodetect", "0");
++jslSetValue("uiPostEncaps", "dslencap_pppoe");
++jslEnable("uiPostAutodetect");
++jslEnable("uiPostEncaps");
++jslSetValue("uiPostVPI", "1");
++jslSetValue("uiPostVCI", "32");
++jslEnable("uiPostVPI");
++jslEnable("uiPostVCI");
++}
++else if(provider == "XS4ALL"){
++// ATM manuell VPI 8, VCI 48, PPPoE
++jslSetValue("uiPostAutodetect", "0");
++jslSetValue("uiPostEncaps", "dslencap_pppoe");
++jslEnable("uiPostAutodetect");
++jslEnable("uiPostEncaps");
++// Internetverbindung dauerhaft halten, keine Zwangstrennung
++jslSetValue("uiPostPppMode", "lcp");
++jslSetValue("uiPostPppDisPrev", "0");
++jslEnable("uiPostVPI");
++jslEnable("uiPostVCI");
++}
++else if (provider == "Inode") {
++// Internetverbindung dauerhaft halten, keine Zwangstrennung
++jslSetValue("uiPostPppMode", "lcp");
++jslSetValue("uiPostPppDisPrev", "0");
++// Erweiterte Leistungsmerkmale und 2. PVC setzen. ACHTUNG: werden für andere Provider NICHT zurückgesetzt. Ggf. muss Werkseinstellung geladen werden
++// PPPoE Passthrough ein
++jslSetValue("uiPostRouterBridge", "1");
++jslEnable("uiPostRouterBridge");
++// Traffic Shaping, Geschwindigkeit automatisch einstellen
++jslSetValue("uiPostTraffic", "1");
++jslSetValue("uiPostSpeedManu", "0");
++jslEnable("uiPostTraffic");
++jslEnable("uiPostSpeedManu");
++// ATM manuell VPI 9, VCI 35, PPPoE
++jslSetValue("uiPostAutodetect", "0");
++jslSetValue("uiPostVPI", "9");
++jslSetValue("uiPostVCI", "35");
++jslSetValue("uiPostEncaps", "dslencap_pppoe");
++jslEnable("uiPostAutodetect");
++jslEnable("uiPostVPI");
++jslEnable("uiPostVCI");
++jslEnable("uiPostEncaps");
++<? if eq $var:Annex A `
++<? if eq $var:isT38 1 `
++jslSetValue("uiPostT38","0");
++jslEnable("uiPostT38");
++` ?>
++` ?>
++// Type of Service
++jslSetValue("uiPostSipPrio", "46");
++jslSetValue("uiPostRtpPrio", "46");
++jslEnable("uiPostSipPrio");
++jslEnable("uiPostRtpPrio");
++// 2. PVC VPI 9, VCI 36
++// Bei Telenode-Diensten kein 2. PVC
++if (jslGetChecked("uiViewTelenode")) {
++jslSetValue("uiPostUseSepVcc", "0");
++jslEnable("uiPostUseSepVcc");
++} else {
++jslSetValue("uiPostUseSepVcc", "1");
++jslSetValue("uiPostEncapsSepVcc", "dslencap_ether");
++jslSetValue("uiPostDhcpSepVcc", "1");
++jslSetValue("uiPostVpiSepVcc", "9");
++jslSetValue("uiPostVciSepVcc", "36");
++jslEnable("uiPostUseSepVcc");
++jslEnable("uiPostEncapsSepVcc");
++jslEnable("uiPostDhcpSepVcc");
++jslEnable("uiPostVpiSepVcc");
++jslEnable("uiPostVciSepVcc");
++}
++} else if (provider == "TNamibiaAdsl") {
++// ATM manuell VPI 0, VCI 35, PPPoE
++jslSetValue("uiPostVPI", "0");
++jslSetValue("uiPostVCI", "35");
++jslSetValue("uiPostEncaps", "dslencap_pppoe");
++jslEnable("uiPostVPI");
++jslEnable("uiPostVCI");
++jslEnable("uiPostEncaps");
++jslSetValue("uiPostVoipUsername", jslGetValue("uiPppUsername"));
++jslSetValue("uiPostVoipPassword", jslGetValue("uiPppPassword"));
++// 2. PVC setzen, VPI/VCI: 1/35, DHCP
++jslSetValue("uiPostEncapsSepVcc", "dslencap_ether");
++jslSetValue("uiPostDhcpSepVcc", "1");
++jslSetValue("uiPostUseSepVcc", "1");
++jslSetValue("uiPostVpiSepVcc", "1");
++jslSetValue("uiPostVciSepVcc", "35");
++jslEnable("uiPostVoipUsername");
++jslEnable("uiPostVoipPassword");
++jslEnable("uiPostEncapsSepVcc");
++jslEnable("uiPostDhcpSepVcc");
++jslEnable("uiPostUseSepVcc");
++jslEnable("uiPostVpiSepVcc");
++jslEnable("uiPostVciSepVcc");
++// Namibia braucht weder Zwangstrennung noch Timeout
++jslSetValue("uiPostPppIdleTimeout", "0");
++jslEnable("uiPostPppIdleTimeout");
++jslSetValue("uiPostPppDisPrev","0");
++jslEnable("uiPostPppDisPrev");
++} else if (provider == "TNamibiaWimax") {
++//jslSetValue("uiPostEncaps", "dslencap_mixed");
++//jslEnable("uiPostEncaps");
++jslSetValue("uiPostConn0DslEncap","dslencap_pppoe");
++jslEnable("uiPostConn0DslEncap");
++jslSetValue("uiPostConn0VlanEncap","vlanencap_fixed_prio");
++jslEnable("uiPostConn0VlanEncap");
++jslSetValue("uiPostConn0VlanId","200");
++jslEnable("uiPostConn0VlanId");
++jslSetValue("uiPostConnVoipDslEncap","dslencap_ether");
++jslEnable("uiPostConnVoipDslEncap");
++jslSetValue("uiPostConnVoipVlanEncap","vlanencap_fixed_prio");
++jslEnable("uiPostConnVoipVlanEncap");
++jslSetValue("uiPostConnVoipVlanId","100");
++jslEnable("uiPostConnVoipVlanId");
++// Namibia braucht weder Zwangstrennung noch Timeout
++jslSetValue("uiPostPppIdleTimeout", "0");
++jslEnable("uiPostPppIdleTimeout");
++jslSetValue("uiPostPppDisPrev","0");
++jslEnable("uiPostPppDisPrev");
++// Namibia Wimax braucht Upstream 384 kbit/s
++jslSetValue("uiPostSpeedManu","1");
++jslEnable("uiPostSpeedManu");
++jslSetValue("uiPostUpstream","384");
++jslEnable("uiPostUpstream");
++jslSetValue("uiPostDownstream","1024");
++jslEnable("uiPostDownstream");
++} else if (provider == "O2") {
++jslSetValue("uiPostVPI", "1");
++jslSetValue("uiPostVCI", "32");
++jslEnable("uiPostVPI");
++jslEnable("uiPostVCI");
++var O2Mode=jslGetChecked("uiViewNoPin")==true?"1":"2";
++var O2Pin=jslGetValue("uiViewPinEdit");
++var o2PppDomain = jslGetValue("uiPostPppUsername");
++var idxOfAt = o2PppDomain.lastIndexOf("@");
++if (idxOfAt < 0) {
++o2PppDomain = "@dsl.o2online.de";
++}
++else {
++o2PppDomain = o2PppDomain.substring(idxOfAt);
++}
++var o2VoipDomain = jslGetValue("uiPostVoipUsername");
++var idxOfAt = o2VoipDomain.lastIndexOf("@");
++if (idxOfAt < 0) {
++o2VoipDomain = "@voice.o2online.de";
++}
++else {
++o2VoipDomain = o2VoipDomain.substring(idxOfAt);
++}
++if (O2Mode=="1" || O2Pin=="")
++{
++jslSetValue("uiPostUseSepVcc", "1");
++jslSetValue("uiPostVpiSepVcc", "1");
++jslSetValue("uiPostVciSepVcc", "35");
++jslEnable("uiPostVpiSepVcc");
++jslEnable("uiPostVciSepVcc");
++jslSetValue("uiPostVoipUsername", "o2" + o2VoipDomain);
++jslSetValue("uiPostVoipPassword", "Freeway");
++jslSetValue("uiPostPppUsername", "o2" + o2PppDomain);
++jslSetValue("uiPostPppPassword", "Freeway");
++}
++else
++{
++if (O2Pin!="****")
++{
++jslSetValue("uiPostUseSepVcc", "0");
++jslSetValue("uiPostAutodetect","1");
++jslEnable("uiPostAutodetect");
++var szUsername=O2Pin.substr(0,6);
++var szPwd=O2Pin.substr(6);
++jslSetValue("uiPostVoipUsername", "");
++jslSetValue("uiPostVoipPassword", "");
++jslSetValue("uiPostPppUsername", szUsername+ o2PppDomain);
++jslSetValue("uiPostPppPassword", szPwd);
++}
++}
++//jslSetValue("uiPostUseSepVcc", "1");
++jslEnable("uiPostUseSepVcc");
++jslEnable("uiPostPppUsername");
++jslEnable("uiPostPppPassword");
++jslEnable("uiPostVoipUsername");
++jslEnable("uiPostVoipPassword");
++}
++else if (provider == "1u1")
++{
++jslSetValue("uiPostPppMode", pppDoGetOnDemand());
++if (g_expertMode == "1")
++{
++jslSetCheckValue("uiPostPppDisPrev","uiViewDisPrev");
++jslCopyValue("uiPostPppDisPrevTime","uiViewDisPrevTime");
++}
++}
++else
++{
++jslSetValue("uiPostPppMode", pppDoGetOnDemand());
++if (g_expertMode == "1") {
++jslSetCheckValue("uiPostPppDisPrev","uiViewDisPrev");
++jslCopyValue("uiPostPppDisPrevTime","uiViewDisPrevTime");
++}
++}
++timeout = jslGetValue("uiViewIdleTime");
++if (jslGetChecked('uiViewOnDemand') == true)
++{
++if (timeout >= g_minTimeout && timeout <= g_maxTimeout)
++jslCopyValue("uiPostPppIdleTimeout", "uiViewIdleTime");
++else {
++alert(g_txtTimeoutInterval);
++uiFocus('uiViewIdleTime');
++return false;
++}
++}
++return true;
++}
++function afDoValidate() {
++var username = jslGetValue("uiViewUsername");
++var kennwort1 = jslGetValue("uiViewPassword");
++var provider = jslGetValue("uiViewProvider");
++jslSetValue("uiPostEncaps", "dslencap_pppoe");
++jslEnable("uiPostEncaps");
++if (provider == "AOL") {
++if (username.length < 3) {alert(g_mldAolNameToShort); return false;}
++if (username.length > 16) {alert(g_mldAolNameToLong); return false;}
++if (!valIsAOLUsername(username)) {alert(g_mldAolNameChar); return false;}
++username = username.toLowerCase();
++if (kennwort1 != "****") {
++if (kennwort1.length < 6) {alert(g_mldAolKennwortMin); return false;}
++if (kennwort1.length > 8) {alert(g_mldAolKennwortMax); return false;}
++if (kennwort1.match("[^0-9a-z]") != null) {alert(g_mldAolKennwort); return false;}
++}
++username = username+"@de.aol.com";
++} else if (provider == "Arcor") {
++//username = username;
++} else if (provider == "congstar") {
++if (kennwort1 != jslGetValue("uiViewPassword2")) {alert(g_mldKennwortDiff); return false;}
++if (username.indexOf("@congstar.de") > -1) {
++username = username.replace("@congstar.de","");
++}
++var CongstarPppUsername=username;
++if(CongstarPppUsername.indexOf("ip/")==0 || CongstarPppUsername.indexOf("dsl/")==0){
++jslSetValue("uiPostUseSepVcc", "0");
++jslEnable("uiPostUseSepVcc");
++}else{
++jslSetValue("uiPostVoipUsername", username+"@tel.congstar.de");
++jslSetValue("uiPostVoipPassword", jslGetValue("uiViewPassword"));
++jslSetValue("uiPostUseSepVcc", "1");
++jslSetValue("uiPostEncapsSepVcc", "dslencap_pppoe");
++jslSetValue("uiPostVpiSepVcc", "1");
++jslSetValue("uiPostVciSepVcc", "35");
++jslEnable("uiPostVoipUsername");
++jslEnable("uiPostVoipPassword");
++jslEnable("uiPostUseSepVcc");
++jslEnable("uiPostEncapsSepVcc");
++jslEnable("uiPostVpiSepVcc");
++jslEnable("uiPostVciSepVcc");
++}
++username = username+"@congstar.de";
++//username = username;
++} else if (provider == "QSC") {
++//username = username;
++} else if (provider == "DBD") {
++username = username+"@dbd-breitband.de";
++if (kennwort1 != jslGetValue("uiViewPassword2")) {alert(g_mldKennwortDiff); return false;}
++jslSetValue("uiPostEncapsSepVcc", "dslencap_ether");
++jslSetValue("uiPostUseSepVcc", "1");
++jslEnable("uiPostEncapsSepVcc");
++jslEnable("uiPostUseSepVcc");
++} else if (provider == "Debitel") {
++username = "debitel/"+username+"%debitel.net";
++} else if (provider == "TOnline") {
++var kennung = jslGetValue("uiViewAnschlusskennung");
++var nummer = jslGetValue("uiViewOnlineNummer");
++var suffix = jslGetValue("uiViewMitbenutzer");
++if (kennung.length == 0) {alert(g_mldTKennungLeer); return false;}
++if (!valIsZahl(kennung)) {alert(g_mldTKennung); return false;}
++if (nummer.length == 0) {alert(g_mldTNummerLeer); return false;}
++if (!valIsZahl(nummer)) {alert(g_mldTNummer); return false;}
++if (!valIsZahl(suffix)) {alert(g_mldTSuffix); return false;}
++username = kennung + "#"+ nummer + "#" + suffix;
++username = username+"@t-online.de";
++} else if (provider == "Freenet") {
++if (username == "") {alert(g_mldUserLeer); return false;}
++if (!valIsSipname(username)) {alert(g_mldNameChar); return false;}
++if (kennwort1 != jslGetValue("uiViewPassword2")) {alert(g_mldKennwortDiff); return false;}
++var pin1 = jslGetValue("uiViewPin");
++if (pin1 != jslGetValue("uiViewPin2")) {alert(g_mldPinDiff); return false;}
++if (pin1 == "****") {
++if (kennwort1 != "****") {alert(g_mldEnterPin); return false;}
++pin1 = "";
++} else if (kennwort1 == "****") {alert(g_mldEnterKennwort); return false;}
++var realm = jslGetValue("uiViewRealm");
++if (realm.substring(0, 3) != "frn") {alert(g_mldRealm); return false;}
++if (realm.charAt(realm.length-1) != '/') realm = realm + "/";
++if (jslGetValue("uiIsFirst") == "1") {
++jslSetValue("uiPostUseSip0", "1");
++jslSetValue("uiPostUserName0", username);
++jslSetValue("uiPostPassword0", kennwort1);
++jslSetValue("uiPostRegistrar0", "freenet.de");
++jslSetValue("uiPostType0", "freenet");
++jslSetValue("uiPostStun", "freenet.de");
++jslEnable("uiPostUseSip0");
++jslEnable("uiPostUserName0");
++jslEnable("uiPostPassword0");
++jslEnable("uiPostRegistrar0");
++jslEnable("uiPostType0");
++jslEnable("uiPostStun");
++if (jslGetValue("uiPostDisplayname0") == "") {
++<? if eq $var:isIsdnNT 1 `
++jslSetValue("uiPostDisplayname0", "0000");
++jslSetValue("uiPostMsn0", "0000");
++jslEnable("uiPostDisplayname0");
++jslEnable("uiPostMsn0");
++` `
++jslSetValue("uiPostDisplayname0", "Internetrufnummer");
++jslEnable("uiPostDisplayname0");
++` ?>
++}
++}
++if (g_usePstn == "0") {
++jslSetValue("uiPostSipPrio", "5");
++jslSetValue("uiPostRtpPrio", "5");
++jslEnable("uiPostSipPrio");
++jslEnable("uiPostRtpPrio");
++jslSetValue("uiPostVoipUsername", realm+"voice%"+username);
++jslSetValue("uiPostVoipPassword", pin1+kennwort1);
++jslSetValue("uiPostVpiSepVcc", "1");
++jslSetValue("uiPostVciSepVcc", "35");
++jslSetValue("uiPostEncapsSepVcc", "dslencap_pppoe");
++jslEnable("uiPostVoipUsername");
++jslEnable("uiPostVoipPassword");
++jslEnable("uiPostVpiSepVcc");
++jslEnable("uiPostVciSepVcc");
++jslEnable("uiPostEncapsSepVcc");
++}
++jslSetValue("uiPostPppPassword", pin1+kennwort1);
++username = realm+username;
++} else if (provider == "Strato") {
++var pos = username.indexOf("%");
++if (pos >= 0) username = username.substring(0, pos);
++if (username == "") {alert(g_mldUserLeer); return false;}
++if (kennwort1 != jslGetValue("uiViewPassword2")) {alert(g_mldKennwortDiff); return false;}
++var realm = jslGetValue("uiViewRealm");
++if (realm.charAt(realm.length-1) != '/') realm = realm + "/";
++username = realm+username;
++} else if (provider == "O2") {
++var O2Pin=jslGetValue("uiViewPinEdit");
++if (O2Pin!="****" && O2Pin.length!=15 && O2Pin.length!=0)
++{
++alert("{?de.internet.authform.js:8638?}");
++return;
++}
++} else {
++if (username == "") {alert(g_mldUserLeer); return false;}
++if (provider == "1u1") {
++username = "1und1/"+ username + "@online.de";
++} else if (provider == "GMX") {
++username = "GMX/"+ username + "@online.de";
++}
++}
++if (( username != jslGetValue( "uiPostPppUsername")) && ( jslGetValue( "uiViewPassword") == "****")) { alert( g_mldPasswortEnterNew); return false;}
++if (kennwort1 != jslGetValue("uiViewPassword2")) {alert(g_mldKennwortDiff); return false;}
++if (provider == "Inode" ||provider == "Mnet" ) {
++// kein alert
++} else if (jslGetChecked('uiViewOnDemand') != true) {
++alert(g_mldNoTimer);
++}
++jslSetValue("uiPostPppUsername",username);
++if (provider != "Freenet")
++jslSetValue("uiPostPppPassword", kennwort1);
++return true;
++}
++function Load1und1User () {
++var username = jslGetValue("uiPostPppUsername");
++ProviderId=GetProviderString(username,jslGetValue("uiPostEncapsSepVcc"),"1u1");
++jslSetSelection("uiViewProvider",ProviderId);
++if (ProviderId=="1u1" || ProviderId=="GMX") {
++var name = username.substr(0, username.indexOf("@online.de"));
++if (ProviderId=="1u1") {
++jslSetValue("uiViewUsername", name.slice(6));
++} else if (ProviderId=="GMX") {
++jslSetValue("uiViewUsername", name.slice(4));
++}
++} else if (ProviderId=="Sonst") {
++jslCopyValue("uiViewUsername","uiPostPppUsername");
++} else {
++jslCopyValue("uiViewUsername","uiPostPppUsername");
++jslSetSelection("uiViewProvider", "Sonst");
++}
++}
++function LoadArcorUser () {
++var username = jslGetValue("uiPostPppUsername");
++ProviderId=GetProviderString(username,jslGetValue("uiPostEncapsSepVcc"),"Arcor");
++jslSetSelection("uiViewProvider", ProviderId);
++jslSetValue("uiViewUsername", username);
++}
++function LoadAvmeUser () {
++if(IsDSLProviderComboShown()){
++LoadSonstUser();
++}else{
++jslCopyValue("uiViewUsername","uiPostPppUsername");
++jslSetSelection("uiViewProvider", "Sonst");
++OnSonst();
++}
++}
++function LoadSonstUser () {
++var username = jslGetValue("uiPostPppUsername");
++var szDefaultProvider="Sonst";
++if(username==""){
++<? if eq `<? query env:status/OEM ?>` freenet `
++szDefaultProvider="Freenet";
++`
++`
++szDefaultProvider="Sonst";
++` ?>
++}else{
++szDefaultProvider="Sonst";
++}
++ProviderId=GetProviderString(username,jslGetValue("uiPostEncapsSepVcc"),szDefaultProvider);
++if (ProviderId=="AOL") {
++jslSetValue("uiViewUsername", username.substr(0, username.indexOf("@de.aol.com")));
++jslSetSelection("uiViewProvider", "AOL");
++} else if (ProviderId=="congstar") {
++jslSetValue("uiViewUsername", username.substr(0, username.indexOf("@congstar.de")));
++jslSetSelection("uiViewProvider", "congstar");
++} else if (ProviderId=="DBD") {
++jslSetValue("uiViewUsername", username.substr(0, username.indexOf("@dbd-breitband.de")));
++var str = jslGetValue("uiPostVoipUsername");
++var n = str.indexOf("@voice.dbd-breitband.de");
++if (n>=0) str = str.substr(0, n);
++jslSetValue("uiViewVoipUsername", str);
++jslCopyValue("uiViewVoipPassword", "uiPostVoipPassword");
++jslCopyValue("uiViewVoipPassword2", "uiPostVoipPassword");
++jslSetSelection("uiViewProvider", "DBD");
++} else if (ProviderId=="Debitel") {
++jslSetValue("uiViewUsername", username.substr(8, username.indexOf("%debitel.net")-8));
++jslSetSelection("uiViewProvider", "Debitel");
++} else if (ProviderId=="1u1" || ProviderId=="GMX"){
++var name = username.substr(0, username.indexOf("@online.de"));
++if (name.substring(0, 6) == "1und1/") {
++jslSetValue("uiViewUsername", name.slice(6));
++jslSetSelection("uiViewProvider", "1u1");
++} else if (username.substring(0, 4) == "GMX/") {
++jslSetValue("uiViewUsername", name.slice(4));
++jslSetSelection("uiViewProvider", "GMX");
++} else {
++jslCopyValue("uiViewUsername","uiPostPppUsername");
++jslSetSelection("uiViewProvider", "Sonst");
++}
++} else if (ProviderId=="TOnline") {
++var n1 = username.indexOf("#");
++var n2 = username.indexOf("#", n1+1);
++var n3 = username.indexOf("@t-online.de");
++if (n1 != -1 && n2 !=-1 && n3 != -1) {
++jslSetValue("uiViewAnschlusskennung", username.substring(0, n1));
++jslSetValue("uiViewOnlineNummer", username.substring(n1+1, n2));
++jslSetValue("uiViewMitbenutzer", username.substring(n2+1, n3));
++} else if (n3 != -1) {
++var nummern = username.substring(0, n3);
++if (n1 == -1) {
++// kein # -> 12 Stellen Kennung, 12 Stellen TOnlineNummer, Suffix
++jslSetValue("uiViewAnschlusskennung", nummern.substring(0, 12));
++jslSetValue("uiViewOnlineNummer", nummern.substring(12, 24));
++jslSetValue("uiViewMitbenutzer", nummern.substring(24, n3));
++} else {
++// ein # -> 12 Stellen Kennung, Suffix nach #
++jslSetValue("uiViewAnschlusskennung", nummern.substring(0, 12));
++jslSetValue("uiViewOnlineNummer", nummern.substring(12, n1));
++jslSetValue("uiViewMitbenutzer", nummern.substring(n1+1, n3));
++}
++}
++jslSetChecked("uiViewTcomTargetarch", jslGetValue("uiPostTcomTargetarch") == "1");
++jslSetSelection("uiViewProvider", "TOnline");
++return;
++} else if (ProviderId=="Freenet") {
++jslSetSelection("uiViewProvider", "Freenet");
++var n1 = username.indexOf("/");
++jslSetValue("uiViewUsername", username.slice(n1+1));
++jslSetValue("uiViewRealm", username.slice(0, n1+1));
++} else if (ProviderId=="Strato") {
++jslSetSelection("uiViewProvider", "Strato");
++var n1 = username.indexOf("/");
++jslSetValue("uiViewUsername", username.slice(n1+1));
++jslSetValue("uiViewRealm", username.slice(0, n1+1));
++} else if (ProviderId=="Versatel") {
++jslSetValue("uiViewUsername", username);
++jslSetSelection("uiViewProvider", "Versatel");
++} else if (ProviderId=="Alice") {
++jslSetValue("uiViewUsername", username);
++jslSetSelection("uiViewProvider", "Alice");
++} else if (ProviderId=="Arcor") {
++// Usernamen bei arcor fangen mit "ar" an
++jslSetValue("uiViewUsername", username);
++jslSetSelection("uiViewProvider", "Arcor");
++} else if (ProviderId=="QSC") {
++jslSetValue("uiViewUsername", username);
++jslSetSelection("uiViewProvider", "QSC");
++} else if (ProviderId=="XS4ALL") {
++jslSetValue("uiViewUsername", username);
++jslSetSelection("uiViewProvider", "XS4ALL");
++Onxs4all();
++} else if (ProviderId=="AON") {
++OnAon();
++} else if (ProviderId=="O2") {
++jslCopyValue("uiViewUsername","uiPostPppUsername");
++jslSetSelection("uiViewProvider", "O2");
++var O2Mode=(username.indexOf("o2@") == 0)?"1":"2";
++//uiCheck(O2Mode=="2");
++if (O2Mode=="1")
++{
++uiCheck(1);
++}
++else
++{
++uiCheck(2);
++//var szUser=jslGetValue("uiPostPppUsername");
++//szUser=szUser.substr(0,6);
++jslSetValue("uiViewPinEdit","****");
++}
++} else if (ProviderId=="Sonst") {
++jslCopyValue("uiViewUsername","uiPostPppUsername");
++jslSetSelection("uiViewProvider", "Sonst");
++} else {
++jslCopyValue("uiViewUsername","uiPostPppUsername");
++jslSetSelection("uiViewProvider", "Sonst");
++}
++jslSetChecked("uiViewTcomTargetarch", true);
++}
++function uiCheck(current)
++{
++var ToBeChecked = (current==2);
++jslSetChecked("uiViewNoPin",!ToBeChecked);
++jslSetChecked("uiViewWithPin",ToBeChecked);
++jslSetEnabled("uiViewPinEdit",ToBeChecked);
++jslDisplay("uiViewPinArea",ToBeChecked);
++}
++function pppDoGetOnDemand () {
++if (jslGetChecked("uiViewOnDemand") == true) return "on_demand";
++return "lcp";
++}
++function pppDoSetOnDemand (ondemand) {
++var radio1 = document.getElementById('uiViewOnDemand');
++var radio2 = document.getElementById('uiViewAlwaysOn');
++if (ondemand == "on_demand") {
++radio1.checked = true;
++radio2.checked = false;
++var ctlIdle = document.getElementById("uiViewIdleTime");
++if (ctlIdle.value == 0) ctlIdle.value = 300;
++jslEnable("uiViewIdleTime");
++if (g_expertMode == "1") {
++jslDisable("uiViewDisPrev");
++jslDisable("uiViewDisPrevTime");
++}
++} else {
++radio1.checked = false;
++radio2.checked = true;
++jslDisable("uiViewIdleTime");
++if (g_expertMode == "1") {
++jslEnable("uiViewDisPrev");
++if (jslGetChecked("uiViewDisPrev")) jslEnable("uiViewDisPrevTime");
++else jslDisable("uiViewDisPrevTime");
++}
++}
++}
++function OnChangeOnDemand(which) {
++if (which=='on') pppDoSetOnDemand("on_demand");
++else pppDoSetOnDemand("lcp");
++}
++function OnChangeDisPrev() {
++if (jslGetChecked('uiViewDisPrev'))
++jslEnable('uiViewDisPrevTime');
++else
++jslDisable('uiViewDisPrevTime');
++}
++g_MnetOnDemandReset="";
++function OnChangeProvider (id) {
++// Wiederherstellen des Onload-Status von Encaps/VPI/VCI
++restoreViewEncapsVPIVCI();
++if(id=="Mnet"){
++g_MnetOnDemandReset=pppDoGetOnDemand();
++pppDoSetOnDemand("lcp");
++}else{
++if(g_MnetOnDemandReset!=""){
++pppDoSetOnDemand(g_MnetOnDemandReset);
++}
++}
++jslDisplay("uiO2",false);
++jslDisplay("UserName",true);
++jslDisplay("pwd",true);
++jslDisplay("pwd2",true);
++switch (id) {
++case "TOnline": OnTOnline(); break;
++case "AOL": OnAol(); break;
++case "Arcor": OnArcor(); break;
++case "congstar": OnCongstar();break;
++case "DBD": OnDbd(); break;
++case "Debitel": OnDebitel(); break;
++case "Freenet": OnFreenet(); break;
++case "GMX": On1u1("GMX/"); break;
++case "XS4ALL": Onxs4all(); break;
++case "Inode": OnInode(); break;
++case "1u1": On1u1("1und1/"); break;
++case "Mnet": OnMnet(); break;
++case "Strato": OnStrato(); break;
++case "Versatel": OnVersatel(); break;
++case "Alice": OnAlice(); break;
++case "QSC": OnQSC();break;
++case "O2": OnO2();break;
++case "TNamibiaAdsl": OnTNamibiaAdsl(); break;
++case "TNamibiaWimax": OnTNamibiaWimax(); break;
++case "AON": OnAon();break;
++default: OnSonst(); break;
++}
++if(id != "Arcor")
++{
++jslSetValue("uiPostMtuCutbackMode", "2");
++jslEnable("uiPostMtuCutbackMode");
++}
++jslDisplay("TAnschlusskennung", id == "TOnline");
++jslDisplay("TOnlineNummer", id == "TOnline");
++jslDisplay("TMitbenutzer", id == "TOnline");
++jslDisplay("Pin", id == "Freenet");
++jslDisplay("Pin2", id == "Freenet");
++jslDisplay('uiTcomTargetArchOption',id == "TOnline"||id=="AON");
++if (id=="Inode" || id == "TNamibiaAdsl" || id == "TNamibiaWimax" || id=="O2") {
++ShowIdleTimer(false);
++}else{
++ShowIdleTimer(true);
++}
++jslDisplay("Realm", id == "Strato" || id == "Freenet");
++jslDisplay("UserName", !(id == "TOnline" || id=="O2"));
++jslDisplay("InodeTelenode", id == "Inode");
++OnChangeProviderEx(id);
++}
++function On1u1 (prefix) {
++if (g_expertMode == "1") {jslDisplay("uiIdleExpert", true);}
++SetSpanText("spanPrefix", prefix);
++jslDisplay("UserPrefix", true);
++SetSpanText("spanPostfix", "@online.de");
++jslDisplay("UserPostfix", true);
++SetSpanText("LabelName", g_txt1u1Name);
++SetSpanText("LabelKennwort", g_txt1u1Kennwort);
++SetSpanText("LabelKennwort2", g_txt1u1Confirmation);
++}
++function OnO2 () {
++var usr=jslGetValue("uiPostPppUsername");
++var n=(usr=="" || usr.indexOf("o2@") == 0 || usr.indexOf(".o2online.de")==-1);
++uiCheck(n?1:2);
++jslDisplay("uiO2",true);
++jslDisplay("UserName",false);
++jslDisplay("pwd",false);
++jslDisplay("pwd2",false);
++}
++function OnCongstar() {
++if (g_expertMode == "1") {jslDisplay("uiIdleExpert", true);}
++jslDisplay("UserName", true);
++jslDisplay("UserPrefix", false);
++SetSpanText("spanPostfix", "@congstar.de");
++jslDisplay("UserPostfix", true);
++SetSpanText("LabelName", g_txtCongstarName);
++SetSpanText("LabelKennwort", g_txtCongstarKennwort);
++SetSpanText("LabelKennwort2", g_txtCongstarConfirmation);
++}
++function OnAol() {
++if (g_expertMode == "1") {jslDisplay("uiIdleExpert", true);}
++jslDisplay("UserPrefix", false);
++SetSpanText("spanPostfix", "@de.aol.com");
++jslDisplay("UserPostfix", true);
++SetSpanText("LabelName", g_txtAOLName);
++SetSpanText("LabelKennwort", g_txtAOLKennwort);
++SetSpanText("LabelKennwort2", g_txtAOLConfirmation);
++}
++function OnArcor() {
++if (g_expertMode == "1") {jslDisplay("uiIdleExpert", true);}
++jslDisplay("UserPrefix", false);
++jslDisplay("UserPostfix", false);
++SetSpanText("LabelName", g_txtArcorName);
++SetSpanText("LabelKennwort", g_txtArcorKennwort);
++SetSpanText("LabelKennwort2", g_txtArcorConfirmation);
++jslSetValue("uiPostMtuCutbackMode", "0");
++jslEnable("uiPostMtuCutbackMode");
++}
++function OnQSC() {
++if (g_expertMode == "1") {
++if (jslGetChecked("uiViewAnschlussDsl")) {
++jslDisplay("uiIdleExpert", true);
++}else{
++jslDisplay("uiIdleExpert", false);
++}
++}
++jslDisplay("UserPrefix", false);
++jslDisplay("UserPostfix", false);
++SetSpanText("LabelName", g_txtQSCName);
++SetSpanText("LabelKennwort", g_txtQSCKennwort);
++SetSpanText("LabelKennwort2", g_txtQSCConfirmation);
++}
++function OnDbd() {
++if (g_expertMode == "1") {jslDisplay("uiIdleExpert", true);}
++jslDisplay("UserPrefix", false);
++SetSpanText("spanPostfix", "@dbd-breitband.de");
++jslDisplay("UserPostfix", true);
++SetSpanText("LabelName", g_txtDBDName);
++SetSpanText("LabelKennwort", g_txtDBDKennwort);
++SetSpanText("LabelKennwort2", g_txtDBDConfirmation);
++}
++function OnDebitel() {
++if (g_expertMode == "1") {jslDisplay("uiIdleExpert", true);}
++SetSpanText("spanPrefix", "debitel/");
++jslDisplay("UserPrefix", true);
++SetSpanText("spanPostfix", "%debitel.net");
++jslDisplay("UserPostfix", true);
++SetSpanText("LabelName", g_txtDebitelName);
++SetSpanText("LabelKennwort", g_txtDebitelKennwort);
++SetSpanText("LabelKennwort2", g_txtDebitelConfirmation);
++}
++function OnFreenet () {
++if (g_expertMode == "1") {jslDisplay("uiIdleExpert", true);}
++jslSetValue("uiViewRealm", "frn6/");
++jslDisplay("UserPrefix", false);
++jslDisplay("UserPostfix", false);
++SetSpanText("LabelName", g_txtFreenetName);
++SetSpanText("LabelKennwort", g_txtFreenetKennwort);
++SetSpanText("LabelKennwort2", g_txtFreenetConfirmation);
++}
++function Onxs4all () {
++jslDisplay("uiIdleExpert", false);
++jslSetValue("uiViewRealm", "");
++jslDisplay("UserName", true);
++jslDisplay("TAnschlusskennung", false);
++jslDisplay("TOnlineNummer", false);
++jslDisplay("TMitbenutzer", false);
++jslDisplay("UserPrefix", false);
++jslDisplay("UserPostfix", false);
++SetSpanText("LabelName", g_txtxs4allName);
++SetSpanText("LabelKennwort", g_txtxs4allKennwort);
++SetSpanText("LabelKennwort2", g_txtxs4allConfirmation);
++jslDisplay("Pin", false);
++jslDisplay("Pin2", false);
++jslDisplay("Realm", false);
++jslDisplay('uiTcomTargetArchOption',false);
++ShowIdleTimer(false);
++jslSetValue("uiViewDslPppVPI","8");
++jslSetValue("uiViewDslPppVCI","48");
++jslSetChecked("uiViewDslPppPPPoA2",true);
++}
++function OnStrato () {
++if (g_expertMode == "1") {jslDisplay("uiIdleExpert", true);}
++jslSetValue("uiViewRealm", "internet1/");
++jslDisplay("UserPrefix", false);
++jslDisplay("UserPostfix", false);
++SetSpanText("LabelName", g_txtStratoName);
++SetSpanText("LabelKennwort", g_txtStratoKennwort);
++SetSpanText("LabelKennwort2", g_txtStratoConfirmation);
++}
++function OnInode() {
++jslDisplay("UserPrefix", false);
++jslDisplay("UserPostfix", false);
++SetSpanText("LabelName", g_txtInodeName);
++SetSpanText("LabelKennwort", g_txtInodeKennwort);
++SetSpanText("LabelKennwort2", g_txtInodeConfirmation);
++}
++function OnTOnline() {
++if (g_expertMode == "1") {jslDisplay("uiIdleExpert", true);}
++jslDisplay("UserPrefix", false);
++jslDisplay("UserPostfix", false);
++SetSpanText("LabelKennwort", g_txtTonlineKennwort);
++SetSpanText("LabelKennwort2", g_txtTonlineConfirmation);
++}
++function OnVersatel() {
++if (g_expertMode == "1") {jslDisplay("uiIdleExpert", true);}
++jslDisplay("UserPrefix", false);
++jslDisplay("UserPostfix", false);
++SetSpanText("LabelName", g_txtVersatelName);
++SetSpanText("LabelKennwort", g_txtVersatelKennwort);
++SetSpanText("LabelKennwort2", g_txtVersatelConfirmation);
++}
++function OnAlice() {
++if (g_expertMode == "1") {jslDisplay("uiIdleExpert", true);}
++jslDisplay("UserPrefix", false);
++jslDisplay("UserPostfix", false);
++SetSpanText("LabelName", g_txtAliceName);
++SetSpanText("LabelKennwort", g_txtAliceKennwort);
++SetSpanText("LabelKennwort2", g_txtAliceConfirmation);
++document.getElementById("uiTdUserName").style.width="250px";
++}
++function OnMnet() {
++if (g_expertMode == "1") {jslDisplay("uiIdleExpert", true);}
++jslDisplay("UserPrefix", false);
++jslDisplay("UserPostfix", false);
++SetSpanText("LabelName", g_txtMnetName);
++SetSpanText("LabelKennwort", g_txtMnetKennwort);
++SetSpanText("LabelKennwort2", g_txtMnetConfirmation);
++}
++function OnSonst() {
++if (g_expertMode == "1") {jslDisplay("uiIdleExpert", true);}
++jslDisplay("UserPrefix", false);
++jslDisplay("UserPostfix", false);
++SetSpanText("LabelName", g_txtSonstName);
++SetSpanText("LabelKennwort", g_txtSonstKennwort);
++SetSpanText("LabelKennwort2", g_txtSonstConfirmation);
++}
++function OnTNamibiaAdsl() {
++jslDisplay("UserPrefix", false);
++jslDisplay("UserPostfix", false);
++SetSpanText("LabelName", g_txtTNamibiaAdslName);
++SetSpanText("LabelKennwort", g_txtTNamibiaAdslKennwort);
++SetSpanText("LabelKennwort2", g_txtTNamibiaAdslConfirmation);
++}
++function OnTNamibiaWimax() {
++jslDisplay("UserPrefix", false);
++jslDisplay("UserPostfix", false);
++SetSpanText("LabelName", g_txtTNamibiaWimaxName);
++SetSpanText("LabelKennwort", g_txtTNamibiaWimaxKennwort);
++SetSpanText("LabelKennwort2", g_txtTNamibiaWimaxConfirmation);
++}
++function OnAon() {
++jslDisplay("UserPrefix", false);
++jslDisplay("UserPostfix", false);
++SetSpanText("LabelName", g_txtAonName);
++SetSpanText("LabelKennwort", g_txtAonKennwort);
++SetSpanText("LabelKennwort2", g_txtAonConfirmation);
++jslSetChecked("uiViewTcomTargetarch", jslGetValue("uiPostAontvArch") == "1");
++SetSpanText("uiViewIpTvTxt","{?de.internet.authform.js:396?}");
++if (jslGetValue("uiPostAontvArch") == "1")
++{
++jslSetValue("uiEncaps", "dslencap_ether");
++jslSetValue("uiPostVPI", "8");
++jslSetValue("uiPostVCI", "36");
++}
++else
++{
++jslSetValue("uiEncaps", "dslencap_pppoa");
++jslSetValue("uiPostVPI", "8");
++jslSetValue("uiPostVCI", "48");
++}
++jslEnable("uiPostVPI");
++jslEnable("uiPostVCI");
++}
++var g_InitIdleTimer = false;
++function ShowIdleTimer (b) {
++if (b) {
++jslDisplay("IdleTimer", true);
++if (!g_InitIdleTimer) {
++g_InitIdleTime = true;
++if (g_expertMode == "1") jslSetSelection("uiViewDisPrevTime", jslGetValue("uiPostPppDisPrevTime"));
++}
++} else {
++jslDisplay("IdleTimer", false);
++}
++}
++function IsUnitedInternet( provider) {
++var retCode = false;
++if ((provider == "1u1") || (provider == "GMX"))
++retCode = true;
++return retCode;
++}
++function OnChangeTcomTargetarch(){
++}
++function resetNamibiaWimax() {
++jslSetValue("uiPostConn0DslEncap","dslencap_inherit");
++jslEnable("uiPostConn0DslEncap");
++jslSetValue("uiPostConn0VlanEncap","vlanencap_none");
++jslEnable("uiPostConn0VlanEncap");
++jslSetValue("uiPostConn0VlanId","0");
++jslEnable("uiPostConn0VlanId");
++jslSetValue("uiPostConnVoipDslEncap","dslencap_inherit");
++jslEnable("uiPostConnVoipDslEncap");
++jslSetValue("uiPostConnVoipVlanEncap","vlanencap_none");
++jslEnable("uiPostConnVoipVlanEncap");
++jslSetValue("uiPostConnVoipVlanId","0");
++jslEnable("uiPostConnVoipVlanId");
++jslSetValue("uiPostSpeedManu","0");
++jslEnable("uiPostSpeedManu");
++}
++function restoreViewEncapsVPIVCI() {
++jslCopyValue("uiViewDslPppVPI", "uiPostVPI");
++jslCopyValue("uiViewDslPppVCI", "uiPostVCI");
++var encapsType = jslGetValue("uiPostEncaps");
++switch (encapsType) {
++case "dslencap_pppoe": jslSetChecked("uiViewDslPppPPPoE", true); break;
++case "dslencap_pppoa_llc": jslSetChecked("uiViewDslPppPPPoA1", true); break;
++case "dslencap_pppoa": jslSetChecked("uiViewDslPppPPPoA2", true); break;
++}
++}
++function uiDoReboot() {
++document.getElementById("uiPostVarName").name = "logic:command/reboot";
++jslSetValue("uiPostVarName", "../gateway/commands/saveconfig.html");
++var oldGetPage = jslGetValue("uiPostGetPage");
++jslSetValue("uiPostGetPage", "../html/reboot.html");
++//document.getElementById("uiPostForm").submit();
++jslFormSubmit("uiPostForm");
++}
