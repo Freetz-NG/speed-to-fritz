@@ -51,7 +51,7 @@ if  [ "$TESTING" == "y" ]; then
  LINUX_VERSION="2.6.33.4"
  CO_SUBDIR="testing/kernel-$LINUX_VERSION"
  CO_SUBDIR2="packages"
- DVERSION="20100523"
+ DVERSION="20100530"
  REVISION="-testing"
  TMP=$DVERSION
  export COLINUX_VER="0.7.8-$DVERSION"
