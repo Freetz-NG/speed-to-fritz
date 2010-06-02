@@ -30,7 +30,7 @@ if [ "${RPL_AUTHFORM_WITH_DST}" == "y" ]; then
  done
 fi
 echo "-- Adding vlan settings ..."
-#-------------------------------------------------------------------------------- 
+#--------------------------------------------------------------------------------
 # remove WDS autodedect courses problems 
 [ -f "${SRC}/usr/www/${OEMLINK}/html/de/wlan/wds.js" ] && sed -i -e '/uiPostAutodetect/d'  "${SRC}/usr/www/${OEMLINK}/html/de/wlan/wds.js"
 [ -f "${SRC}/usr/www/${OEMLINK}/html/de/wlan/wds.frm" ] && sed -i -e '/uiPostAutodetect/d'  "${SRC}/usr/www/${OEMLINK}/html/de/wlan/wds.frm"

@@ -262,23 +262,18 @@ fi
 #<---- en variante
 fi
 #addon source toolsdir is different if original t-com firmware is patched
-Lang="${avm_Lang}"
-[ "$ORI" = "y" ] && Lang="tcom"
-
-
-
 for OEMDIR in ${OEMLIST}; do
   export HTML="$OEMDIR/html"
  for html in ${HTML} ${HTML}/de ; do
   for FILE in downgrade.html flash.html flash2.html update_not_signed.html update_not_signed_no_password.html restart.html update_result.html; do
       DSTI="${1}"/usr/www/${html}/${FILE}
       if [ -f ${DSTI} ] ; then
-       echo2 "      patch update page (${Lang}) ${html}/${FILE}..."
+       echo2 "      patch update page: ${html}/${FILE}..."
 	patch_flash_txt	${DSTI}
       fi
       DSTI="${1}"/usr/www/${html}/tools/$FILE
       if [ -f ${DSTI} ] ; then
-       echo2 "      patch update page (${Lang}) ${html}/tools/${FILE}..."
+       echo2 "      patch update page: ${html}/tools/${FILE}..."
 	patch_flash_txt ${DSTI}
       fi
   done
