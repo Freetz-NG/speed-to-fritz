@@ -2569,15 +2569,15 @@ config EXPORT_FORCE_LANGUAGE
 	default "it" if TYPE_LANG_IT
 
 config SET_OEM
-	bool "Set Branding"
+	bool "Select Branding"
 	depends on EXPERT_MOD 
 	default n
 	help
-	    Branding should be left as it is, but if needed you may specify your own.
-	    You can only specify a branding implemented within the AVM firmware used!
-	    (avm, avme, tcom, 1und1, aol, freenet)
+	    Branding should be left as it is, or one possibel in 2nd firmware.
+	    You can only specify a branding implemented within the 2nd AVM firmware used!
+	    (This my be in most cases: avm, avme, tcom, 1und1, aol, freenet)
 	    (OEM is the same as 'firmware_version' within FTP ADAM environment. )
-	    In case of option ORI branding will always set to basis later through the script.
+	    In case of option ORI branding will always be set through the script.
 
 config EXPORT_OEM
 	string "Branding (OEM)"
