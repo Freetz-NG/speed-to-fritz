@@ -106,8 +106,9 @@ sed -i -e 's/id="uiPostResalearch">/id="uiPostResalearch" disabled>/' "${SRC_WWW
 sed -i -e 's/SetSpanText("uiViewIpTvTxt",".*");/SetSpanText("uiViewIpTvTxt","IpTV (VLANs aktiv)");/' "${SRC_WWW_INERNET}/authform.js"
 sed -i -e "s/for=.uiViewTcomTargetarch.*$/for=\"uiViewTcomTargetarch\"><span id=\"uiViewIpTvTxt\">IpTV (VLANs aktiv)<\/span><\/label><\/p/" "${SRC_WWW_INERNET}/authform.html"
 
-if  ! [ grep -q "jslSetValue..uiPostResalearch., .1"  "${SRC_WWW_INERNET}/authform.js" ];then
+grep -q "jslSetValue..uiPostResalearch., .1"  "${SRC_WWW_INERNET}/authform.js" ||\
 sed -i -e '/else if (provider == "1u1")/{n;d}' "${SRC_WWW_INERNET}/authform.js"
+grep -q "jslSetValue..uiPostResalearch., .1"  "${SRC_WWW_INERNET}/authform.js" ||\
 sed -i -e '/else if (provider == "1u1")/a\
 {\
 if(jslGetChecked("uiViewAnschlussDsl") || g_expertMode != "1")\
@@ -115,7 +116,6 @@ jslSetValue("uiPostResalearch", "1");\
 else\
 jslSetValue("uiPostResalearch", "0");\
 jslEnable("uiPostResalearch");' "${SRC_WWW_INERNET}/authform.js"
-fi
 
 exit 0
 

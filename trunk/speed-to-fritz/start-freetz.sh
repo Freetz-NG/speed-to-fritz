@@ -126,7 +126,7 @@ while [ "$KEY" != "y" ]; do
  echo "I case of problems do a 'make dirclean' at the commandline this will remove all changes made by you."
  echo "For using the commandline you must change to the freetz-trunk directory first. 'cd ../freetz-trunk'"  
  echo "To download a specific revision of the trunk you would need to set the number via menu option!"
- echo
+ echo "--> You shuld type 'y' <--" 
  
  if [ "$FREETZREVISION" ]; then
   echo -n "   Execute: 'svn co $FREETZ_DL_LINK $FREETZ_DIR' -r $FREETZREVISION (y/n)? "; read -n 1 -s YESNO; echo
@@ -354,6 +354,7 @@ else
  sed -i -e "/DO_LOOKUP_PATCH=y/d" "$HOMEDIR/conf-${SPNUM}-freetz"
  sed -i -e "/ADD_ONLINECOUNTER=y/d" "$HOMEDIR/conf-${SPNUM}-freetz"
  echo "EXPORT_FREETZ_REVISION=\"$EXPORT_FREETZ_REVISION\"" >> "$HOMEDIR/conf-${SPNUM}-freetz"
+ echo "VERBOSE=\"-v\"" >> "$HOMEDIR/conf-${SPNUM}-freetz"
  #restart speed-to-fretz with freetz.image
  rm -fdr $HOMEDIR/start-${SPNUM}
  echo "#!/bin/bash" > $HOMEDIR/start-${SPNUM}
