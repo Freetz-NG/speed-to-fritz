@@ -14,18 +14,117 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
     rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
 
-rm -f "${SRC}"/lib/modules/micro*
+#rm -f "${SRC}"/lib/modules/micro*
 rm -f "${SRC}"/lib/modules/dect*
-rm -f "${SRC}"/usr/bin/dect*
-rm -f "${SRC}"/usr/bin/usb*
-rm -f "${SRC}"/bin/usb*
 rm -f "${SRC}"/usr/share/ctlmgr/libdect*
 rm -f "${SRC}"/usr/share/ctlmgr/libusb*
+#remove some unused files
+rm -fd -R ${SRC}/usr/www/html/de/software
+rm -fd -R ${SRC}/usr/www/html/de/usb
+#rm -fd -R ${SRC}/usr/www/html/de/tr69_autoconfig
+rm -fd -R ${SRC}/usr/www/html/de/dect
+rm -rf  ${SRC}/usr/www/html/de/menus/menu2_usb*
+rm -rf  ${SRC}/usr/www/html/de/menus/menu2_usb.inc
+rm -rf  ${SRC}/usr/www/html/de/menus/menu2_software*
+#rm -rf  ${SRC}/usr/www/html/de/menus/menu2_tr69*
+rm -rf  ${SRC}/usr/www/html/de/home/fon1Dect*
+rm -rf  ${SRC}/usr/www/html/de/home/usb*
+rm -rf  ${SRC}/usr/www/html/de/fon/fon1Dect*
+rm -rf  ${SRC}/usr/www/html/de/fon/usb*
+#rm -fd -R ${SRC}/usr/www/html/de/first
+rm -rf  ${SRC}/lib/modules/$KernelVersion/modules.usbmap
+rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/scsi
+rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/usb
+rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/cdrom
+rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/avm_dect
+rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/dect_io
+#rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/char/flash_update
+#rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/fs
+#rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/char/audio
+#rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/net/nlaudio
+#rm -fdr "${SRC}"/lib/libavm_audio*
+#rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/audio
+#rm -rf ${SRC}/lib/libavcodec*
+#rm -fr ${SRC}/etc/init.d/rc.audiod.sh
+#rm -fr ${SRC}/lib/libnlaudio*
 
+rm -fdr "${SRC}"/lib/acgenusb*
+#rm -fdr "${SRC}"/lib/libavformat*
+rm -fdr "${SRC}"/lib/libmedia*
+#rm -fdr "${SRC}"/lib/libavmid3*
+##rm -fdr "${SRC}"/lib/libacsrpc*
+rm -fdr "${SRC}"/sbin/smb*
+rm -fdr "${SRC}"/sbin/stop_media*
+rm -fdr "${SRC}"/sbin/lsusb
+rm -fdr "${SRC}"/sbin/hotplug
+rm -fdr "${SRC}"/sbin/hd-idle
+rm -fdr "${SRC}"/sbin/printserv
+rm -fdr "${SRC}"/sbin/mediasrv
+rm -rf ${SRC}/sbin/wlan_cal
+rm -rf ${SRC}/sbin/tracking
+rm -rf ${SRC}/etc/usbclass.tab
+rm -rf ${SRC}/etc/usbdevice.tab
+rm -fdr "${SRC}"/etc/hotplug
+rm -fdr "${SRC}"/etc/usb*
+rm -fdr "${SRC}"/etc/samba*
+rm -fdr "${SRC}"/etc/default.049/fx_lcr.1und1
+
+rm -fdr "${SRC}"/etc/init.d/rc.media
+rm -fdr "${SRC}"/etc/init.d/rc.usbhost
+#rm -fdr "${SRC}"/etc/init.d/rc.preaudio.sh
+rm -fd -R ${SRC}/etc/default.Fritz_Box_SpeedportW503V/1und1
+rm -fd -R ${SRC}/etc/default.Fritz_Box_SpeedportW503V/otwo
+#rm -fdr "${SRC}"/bin/aura*
+rm -fdr "${SRC}"/bin/*plugin
+rm -fdr "${SRC}"/bin/playerd_tables
+rm -f "${SRC}"/bin/usb*
+rm -rf ${SRC}/bin/usbhostchange
+rm -f "${SRC}"/usr/bin/dect*
+rm -f "${SRC}"/usr/bin/usb*
+#rm -rf ${SRC}/usr/bin/tr069fwupdate
+rm -rf ${SRC}/usr/share/ctlmgr/libctlusb*
+#rm -rf ${SRC}/usr/share/ctlmgr/libtr069*
+rm -rf ${SRC}/usr/share/ctlmgr/libdect*
+rm -rf ${SRC}/lib/libacgenusb*
+rm -rf ${SRC}/lib/libusb*
+#rm -rf ${SRC}/lib/libupn*
+#rm -rf ${SRC}/sbin/pbupd
+rm -rf ${SRC}/sbin/start_dect_update.sh
+rm -rf ${SRC}/sbin/start_mediasrv
+rm -rf ${SRC}/sbin/umount.davfs
+#rm -rf ${SRC}/sbin/upnpd
+rm -fr ${SRC}/bin/inetdsamba
+rm -fr ${SRC}/bin/supportdata.dect
+#rm -fr ${SRC}/bin/tr069starter
+rm -fr ${SRC}/bin/webdavcfginfo
+rm -fr ${SRC}/etc/webdav_control
+rm -fr ${SRC}/etc/onlinechanged/webdav_net
+rm -fr ${SRC}/sbin/mount.davfs
+#rm -fr ${SRC}/lib/libfuse.so*
+#rm -fr ${SRC}/lib/libikecrypto*
+#rm -fr ${SRC}/lib/libpng.so*
+rm -fr ${SRC}/usr/share/ctlmgr/libctlwebdav*
+#remove mini
+rm -fdr "${SRC}"/bin/mini*
+rm -fdr "${SRC}"/etc/minid
+
+rm -rf ${SRC}/lib/modules/bit*
+rm -f "${SRC}"/lib/modules/dect*
+
+#rm -rf ${SRC}//lib/modules/wlan_eeprom_hw0.bin
+#rm -fd -R ${SRC}/usr/www/html/de/tools
+#rm -fd -R ${SRC}/usr/www/html/tools
+#rm -rf ${SRC}/sbin/finalize_env
+rm -fd -R ${SRC}/usr/www/kids
+rm -rf ${SRC}/bin/usermand
+rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/userman
+# not compatibel with t-com kernel
+[ ${XCHANGE_KERNEL} = "y" ] && rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn/capi_codec &&\
+echo "-- Capi removed because it is not usabel wir t-com kernel"
 # pcmlink boot error, da modul nicht kompatibel ist
 rm -f "${SRC}"/lib/modules/c55*
 
-cp -fdrp "${DST}"/lib/modules/bitfile* --target-directory="${SRC}"/lib/modules &&\
+cp -fdrp "${DST}"/lib/modules/bitfile* --target-directory="${SRC}"/lib/modules
 
 if [ ${ATA_ONLY} = "n" ]; then
  #annex B driver
@@ -69,34 +168,17 @@ echo "  -- Piglet driver was taken from t-com Firmware!"
 #Fon Driver
 [ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers &&\
 echo "  -- Fon driver was taken from t-com Firmware!" 
-
-
 #copy wlan config
 cp -fdrp "${DST}"/etc/init.d/rc.wlan --target-directory="${SRC}"/etc/init.d
-
 #copy all modules
 #cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel
-
-#cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/userman --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
 #cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
 #cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsl --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
-cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
-cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
+[ ${XCHANGE_KERNEL} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
+[ ${XCHANGE_KERNEL} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
 # wlan bracht t-com kernel
-#[ ${XCHANGE_KERNEL} = "y" ] && 
-
-cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/net --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
-# &&\
-#echo "  -- Wlan driver was taken from t-com Firmware!" 
-###cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/usb --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
-###cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/scsi --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
-###cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/net/sched --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/net
-
-rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/usb
-rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/scsi
-rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/avm_dect
-rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/dect_io
-
+[ ${XCHANGE_KERNEL} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/net --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers &&\
+echo "  -- Wlan driver was taken from t-com Firmware!"
 #adapt parameters for Piglet bitfile to be
 
 sed -i -e 's/Fritz_Box_7270/Fritz_Box_W503/' "${SRC}/etc/init.d/rc.S"
@@ -119,37 +201,27 @@ modprobe Piglet_noemif piglet_bitfile=$piglet_bitfile piglet_potsbitfile=$piglet
 # macht Fehlermeldung 
 ##piglet_enable_button=3 \\\
 
-#rmove dect dev
-#mknod /var/flash/dect_misc c $tffs_major $((0xB0))
-#mknod /var/flash/dect_eeprom c $tffs_major $((0xB1))
-#mknod /var/flash/dmgr_handset_user c $tffs_major $((0xB2))
+## remove HTTPS-Fernzugang und TR-064-SSL
+#sed -i -e '/mknod .var.flash.websrv_ssl_key.pem c/d' "${SRC}/etc/init.d/rc.S"
+
+#remove dect and usb 
+# wird auch ohne usb gebraucht # sed -i -e '/mknod .var.flash.aura-usb c/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/mknod .var.flash.dect_misc c/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/mknod .var.flash.dect_eeprom c/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e '/mknod .var.flash.dmgr_handset_user c/d' "${SRC}/etc/init.d/rc.S"
+#x#sed -i -e '/mknod .var.flash.configd c/d' "${SRC}/etc/init.d/rc.S"
 
 sed -i -e "/dect_misc/,/dmgr_handset_user/d" "${SRC}/etc/init.d/rc.S"
 
 #remove USB config
 sed -i -e "/#### USB-Host Config ####/,/#### USB-Client Config ####/d" "${SRC}/etc/init.d/rc.S"
 #remove DECT config
-sed -i -e "s/copy_dect_defaults()/copy_dect()/" "${SRC}/etc/init.d/rc.S"
+#sed -i -e "s/copy_dect_defaults()/copy_dect()/" "${SRC}/etc/init.d/rc.S"
 sed -i -e "/modprobe dect_io/d" "${SRC}/etc/init.d/rc.S"
 sed -i -e "/pcm_link/d" "${SRC}/etc/init.d/rc.S"
 
-#--> workaround but wlan problem is still existant
-#cp   "${SRC}/etc/default.${SORCE_PRODUKT}/congstar/wlan.cfg" --target-directory="/var/flash"
-sed -i -e '/copy_dect_defaults/a \
-if \! [ -f /var/flash/wlan.cfg ]; then\
- if [ -f /etc/default.${CONFIG_PRODUKT}/${OEM}/wlan.cfg ] ; then\
-  echo "wlan.cfg Defaults: cp /etc/default.${CONFIG_PRODUKT}/${OEM}/wlan.cfg /var/flash/wlan.cfg"\
-  cp /etc/default.${CONFIG_PRODUKT}/${OEM}/wlan.cfg /var/flash/wlan.cfg\
-  cat /var/flash/wlan.cfg\
- fi\
-fi' "${SRC}/etc/init.d/rc.S"
-sed -i -e "/copy_dect_defaults/d" "${SRC}/etc/init.d/rc.S"
-
-sed -i -e 's!/usr/bin/checkempty /var/flash/${tmp_file_name}; ! [ -f /var/flash/${tmp_file_name} ] || /usr/bin/checkempty /var/flash/${tmp_file_name}; !' "${SRC}/etc/init.d/rc.S"
-#<--woarkaround
-
 #watchdog
-#sed -i -e "s/init-start 120/init-start 240/" "${SRC}/etc/init.d/rc.S"
+sed -i -e "s/init-start 120/init-start 240/" "${SRC}/etc/init.d/rc.S"
 
 #dont start mediaserver
 sed -i -e "/rc.media start/d" "${SRC}/etc/init.d/rc.S"
@@ -159,14 +231,6 @@ sed -i -e '/## cleanup - if running, stop debug/i \
 #########################################################################\
 echo isdn_reg 8 0 >\/dev\/debug\
 #########################################################################' "${SRC}/etc/init.d/rc.S"
-
-
-
-#Testvariante!!
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-#cp -fdrp "${DST}"/etc/init.d/rc.S --target-directory="${SRC}"/etc/init.d
-
 
 # disable plugin
 rm -f "${SRC}/sbin/start_plugin.sh"
@@ -200,7 +264,7 @@ fi' "${SRC}/etc/init.d/rc.S"
 [ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-#$sh_DIR/patch_leddef_W503.sh "${SRC}" "${DST}"
+$sh_DIR/patch_leddef_W503.sh "${SRC}" "${DST}"
 # set led definition 
 if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ "${FORCE_TCOM_LEDDRIVER}" = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
@@ -222,21 +286,114 @@ fi
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 503
 #remove FON3 menus
 [ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
-
 #Add buchsend button to fon bookpage
 [ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
-
-# skripts for startig ftp on USB
-cp -fdpr  ./addon/tmp/jp   --target-directory="${SRC}"
-#Annex A is not usable up to now
 #patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
 # add kapselung and annex settings page if missing
 $sh_DIR/add_multi_settings.sh
 #remove kids and help
-[ ${REMOVE_KIDS} = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
-[ ${REMOVE_HELP} = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
-
+#[ ${REMOVE_KIDS} = "y" ] && 
+$sh_DIR/rmv_kids.sh "${SRC}"
+#[ ${REMOVE_HELP} = "y" ] && 
+$sh_DIR/rmv_help.sh "${SRC}"
 echo "********************************************************************************"
+grep -q "Telekom-Anlagen benoetigen hochtakten" "${SRC}/etc/init.d/rc.S" || sed -i -e '/bin.run_clock -c .dev.tffs -d/i\
+## Telekom-Anlagen benoetigen hochtakten (unabhaengig von ECO) !\
+echo MODE=pd_speed_on >\/dev\/avm_power\
+' "${SRC}/etc/init.d/rc.S"
 
 #/var/flash/fx_def
+grep -q ".var.flash.websrv_ssl_cert.pem c" "${SRC}/etc/init.d/rc.S" || sed -i -e '/mknod .var.flash.aura-usb/a\
+mknod \/var\/flash\/websrv_ssl_cert.pem c $tffs_major $((0xCA))' "${SRC}/etc/init.d/rc.S"
+grep -q ".var.flash.configd c" "${SRC}/etc/init.d/rc.S" || sed -i -e '/mknod .var.flash.aura-usb/a\
+mknod \/var\/flash\/configd c $tffs_major $((0xA1))' "${SRC}/etc/init.d/rc.S"
+
+grep -q "copy_provider_default" "${SRC}/etc/init.d/rc.S" || sed -i -e '/Defaults fuellen/a\
+## Laden der Provider-defaults (statisch eingebunden vor rc.conf)\
+##########################################################################################\
+## P-Defaults - ingnoriert derzeit bei der WE auswahl eventuelle laufzeitparameter\
+##########################################################################################\
+copy_provider_default()\
+{\
+local DIR=\/var\/flash\/provider_default\
+mkdir -p $DIR\
+mknod $DIR\/$1 c $tffs_major $2\
+if checkempty \/var\/flash\/$1 && ! checkempty $DIR\/$1 ; then\
+echo "P-Defaults: cp $1"\
+cat $DIR\/$1 >\/var\/flash\/$1\
+fi\
+}\
+provider_default_config()\
+{\
+## In state of factory defaults ar7.cfg is always empty\
+if ! checkempty \/var\/flash\/ar7.cfg ; then\
+echo "P-Defaults: do nothing"\
+return\
+fi\
+local DIR=\/var\/flash\/provider_default\
+mkdir -p $DIR\
+## mindestens der OEM wird benoetigt (fuer *cfgconv,*cfgctl)\
+. \/etc\/init.d\/rc.conf\
+if ! [ "${CONFIG_PROV_DEFAULT}" = "y" ] ; then\
+## nicht ausf?hren, falls enthalten, jedoch aber zur laufzeit deaktiviert\
+echo "P-Defaults: not configured - skip."\
+return\
+fi\
+echo "P-Defaults: and action..."\
+mknod $DIR\/ar7.cfg.diff c $tffs_major $((0x1f))\
+if ! checkempty $DIR\/ar7.cfg.diff ; then\
+echo "P-Defaults: merge ar7.cfg"\
+allcfgconv -C ar7 -e -m $DIR\/ar7.cfg.diff\
+local LANGUAGE="`echo provider_default.language | ar7cfgctl -s 2>\/dev\/null | sed s\/\\\\"\/\/g`"\
+if [ "$LANGUAGE" != "" ] ; then\
+if ! setlanguage $LANGUAGE ; then\
+echo "P-Defaults: setlanguage failed"\
+fi\
+fi\
+local COUNTRY="`echo provider_default.country | ar7cfgctl -s 2>\/dev\/null | sed s\/\\\\"\/\/g`"\
+if [ "$COUNTRY" != "" ] ; then\
+if ! setcountry $COUNTRY ; then\
+echo "P-Defaults: setcountry failed"\
+fi\
+fi\
+fi\
+mknod $DIR\/voip.cfg.diff c $tffs_major $((0x22))\
+if checkempty \/var\/flash\/voip.cfg && ! checkempty $DIR\/voip.cfg.diff ; then\
+echo "P-Defaults: merge voip.cfg"\
+allcfgconv -C voip -e -m $DIR\/voip.cfg.diff\
+fi\
+mknod $DIR\/wlan.cfg.diff c $tffs_major $((0x23))\
+if checkempty \/var\/flash\/wlan.cfg && ! checkempty $DIR\/wlan.cfg.diff ; then\
+echo "P-Defaults: merge wlan.cfg"\
+wlancfgconv -e -m $DIR\/wlan.cfg.diff\
+fi\
+mknod $DIR\/tr069.cfg.diff c $tffs_major $((0x27))\
+if checkempty \/var\/flash\/tr069.cfg && ! checkempty $DIR\/tr069.cfg.diff ; then\
+echo "P-Defaults: merge tr069.cfg"\
+allcfgconv -C tr069 -e -m $DIR\/tr069.cfg.diff\
+fi\
+mknod $DIR\/vpn.cfg.diff c $tffs_major $((0x26))\
+if checkempty \/var\/flash\/vpn.cfg && ! checkempty $DIR\/vpn.cfg.diff ; then\
+echo "P-Defaults: merge vpn.cfg"\
+allcfgconv -C vpn -e -m $DIR\/vpn.cfg.diff\
+fi\
+mknod $DIR\/user.cfg.diff c $tffs_major $((0x28))\
+if checkempty \/var\/flash\/user.cfg && ! checkempty $DIR\/user.cfg.diff ; then\
+echo "P-Defaults: merge user.cfg"\
+allcfgconv -C user -e -m $DIR\/user.cfg.diff\
+fi\
+copy_provider_default fx_cg $((0x34))\
+copy_provider_default fx_conf $((0x31))\
+copy_provider_default fx_lcr $((0x32))\
+copy_provider_default telefon_misc $((0x35))\
+copy_provider_default phonebook $((0x3e))\
+copy_provider_default calllog $((0x3d))\
+copy_provider_default fonctrl $((0x3f))\
+copy_provider_default umts.cfg $((0x4c))\
+copy_provider_default configd $((0x4f))\
+echo "P-Defaults: ...done."\
+}\
+provider_default_config\
+## P-Defaults - ende\
+' "${SRC}/etc/init.d/rc.S"

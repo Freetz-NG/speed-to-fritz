@@ -970,7 +970,7 @@ endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_FORCE_DSL_MULTI_ANNEX 
 	bool "Force Multi annex (optional)"
-	depends on ( ! ORI && ! TYPE_SPEEDPORT_W900V && ! TYPE_SPEEDPORT_W701V && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
+	depends on ( ! ORI && ! TYPE_SPEEDPORT_W900V && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W701V && ! TYPE_SPEEDPORT_W503V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
 	default n if ORI_FIRMWARE_IS_MULI
 	default y if ! ORI_FIRMWARE_IS_MULI
 	help
@@ -1029,8 +1029,8 @@ config TYPE_LABOR
 	bool "Select a special AVM firmware (optional) --->"
 	depends on ! ORI || XCHANGE_KERNEL
 	depends on ( TYPE_SINUS_W500V || TYPE_OR_503_701_721_722_900 || TYPE_OR_7570_920_LOCALTCOM_LOCALAVM )
-	default y if EXPORT_TYPE_LOCAL_MODEL || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE ) || TYPE_OR_7390_722
-	default n if ! EXPORT_TYPE_LOCAL_MODEL && ! ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE ) && ! TYPE_7390 && ! TYPE_SPEEDPORT_W722V
+	default y if EXPORT_TYPE_LOCAL_MODEL || ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE ) || TYPE_OR_7390_722 || TYPE_SPEEDPORT_W503V 
+	default n if ! EXPORT_TYPE_LOCAL_MODEL && ! ( TYPE_SPEEDPORT_W920V && TYPE_LANG_DE ) && ! TYPE_7390 && ! TYPE_SPEEDPORT_W722V && ! TYPE_SPEEDPORT_W503V
 	help
 		Enable this to compile the mod based on an special AVM firmware.
 		The actual final release version should not be selected. It is preselected anyway! 
@@ -1898,8 +1898,11 @@ config AVM_IMG
 
 	default "$AVM_7170_29_04_80"				if TYPE_7140 && TYPE_LANG_DE
 
-	default "$AVM_7113_90_04_82"				if ( TYPE_7113_90_04_82 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
-
+	default "$AVM_7113_60_04_58"				if ( TYPE_7113_60_04_58 ) && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7113_60_04_68"				if ( TYPE_7113_60_04_68 ) && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7113_60_04_77"				if ( TYPE_7113_60_04_77 ) && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7113_90_04_82"				if ( TYPE_7113_90_04_82 ) && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
+	
 #	default "$AVM_7170_13948" 				if TYPE_7170_13948 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_DSL_7170_14119"				if TYPE_7170_DSL_14119 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_GAMING_7170_11435"			if TYPE_7170_GAMING_11435 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
@@ -1909,13 +1912,13 @@ config AVM_IMG
 	default "$AVM_7570_75_04_82"				if ( TYPE_7570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX
 	default "$AVM_PHONE_7270_16999"				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_m54_04_76" 				if ( TYPE_SPEEDPORT_W920V || TYPE_OR_503_722 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && ! TYPE_LANG_DE
-	default "$AVM_7240_73_04_59" 				if ( TYPE_OR_503_722 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
+	default "$AVM_7240_73_04_59" 				if ( TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_54_04_58" 				if ( TYPE_7270_54_04_58 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_7270_54_04_59"	 			if ( TYPE_7270_54_04_59 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL ) 
-	default "$AVM_7270_m54_04_76" 				if ( TYPE_7270_m54_04_76 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL ) 
+	default "$AVM_7270_54_04_59"	 			if ( TYPE_7270_54_04_59 || ( TYPE_SPEEDPORT_W503V  && ! TYPE_LABOR ) || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7270_m54_04_76" 				if ( TYPE_7270_m54_04_76 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_54_04_70"				if ( TYPE_7270_54_04_70 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 #	default "$AVM_7270_54_04_76"				if ( TYPE_7270_54_04_76 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_7270_m54_04_76" 				if ( TYPE_7270_m54_04_76 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL ) 
+	default "$AVM_7270_m54_04_76" 				if ( TYPE_7270_m54_04_76 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 #	default "$AVM_7273_74_04_76"				if ( TYPE_7273_74_04_76 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_54_04_80"				if ( TYPE_7270_54_04_80 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7273_74_04_80"				if ( TYPE_7273_74_04_80 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
@@ -2224,15 +2227,15 @@ config KEEP_USB
 	    Only for testing 
 config EXPORT_REMOVE_KIDS
 	bool "Kids files (remove)"
-#	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM
-	default n if ! TYPE_SPEEDPORT_W721V
-	default y if ( ! TYPE_OR_SPECIAL721_721 )
+	default n if ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W503V && ! TYPE_SPEEDPORT_W501V 
+	default y if TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W501V 
 	help
 		Set this to 'y' if you like to remove kids pages to save space, normal this is "n".
 config REMOVE_ANNEX_B_DSL_DRIVER
 	bool "Remove Annex B driver on 72XX firmware"
 	depends on TYPE_ANNEX_A || EXPORT_FORCE_DSL_MULTI_ANNEX 
-	default n
+	default n if ! TYPE_ANNEX_A
+	default y if TYPE_ANNEX_A
 	help
 		Annex B driver will be removed if it is a 72XX firmware.
 		Boxes with 8MB lack of space, so set this option with older boxes.
@@ -2240,7 +2243,8 @@ config REMOVE_ANNEX_B_DSL_DRIVER
 config REMOVE_ANNEX_A_DSL_DRIVER
 	bool "Remove Annex A driver on 72XX firmware"
 	depends on TYPE_ANNEX_B || EXPORT_FORCE_DSL_MULTI_ANNEX 
-	default n
+	default n if TYPE_ANNEX_A
+	default y if ! TYPE_ANNEX_A
 	help
 		Annex A driver will be removed if it is a 72XX firmware.
 		Boxes with 8MB lack of space, so set this option with older boxes.
@@ -2366,9 +2370,8 @@ config EXPORT_RPL_ASSIST
 # In use within sp-to-fritz.sh
 config EXPORT_REMOVE_HELP
 	bool "Help files (remove)"
-#	depends on TYPE_SPEEDPORT_W501V || TYPE_SPEEDPORT_W721V || TYPE_LOCAL_TCOM
-	default n if ! TYPE_SPEEDPORT_W721V  && ! TYPE_SPEEDPORT_W501V
-	default y if ( ! TYPE_OR_SPECIAL721_721 ) || TYPE_SPEEDPORT_W501V
+	default n if ! TYPE_SPEEDPORT_W721V  && ! TYPE_SPEEDPORT_W503V && ! TYPE_SPEEDPORT_W501V
+	default y if TYPE_SPEEDPORT_W721V  || TYPE_SPEEDPORT_W503V || TYPE_SPEEDPORT_W501V
 help
 		Set this to 'y' if you like to remove help pages to save space, normal this is "y".
 # In use within sp-to-fritz.sh
@@ -2964,8 +2967,8 @@ config FORCE_TCOM_LEDDRIVER
 	depends on TYPE_OR_7240_7570_920 || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W503V
 #	default y if ( ! FORCE_VDSL && TYPE_OR_7570_920 ) && ( ! TYPE_OR_503_722 ) || TYPE_7240
 #	default n if ( FORCE_VDSL && TYPE_OR_7570_920 ) && ( ! TYPE_OR_503_722 ) && ! TYPE_7240 
-	default y if ( ! TYPE_OR_7570_920 ) && ( ! TYPE_OR_503_722 ) || TYPE_7240
-	default n if ( TYPE_OR_7570_920 ) && ( ! TYPE_OR_503_722 ) && ! TYPE_7240 
+	default y if TYPE_OR_7570_920 || TYPE_OR_503_722
+	default n if ! TYPE_OR_7570_920 && ! TYPE_OR_503_722
 
 	help
 		For normal this is "n", but you my use the original LED driver, definition of LEDs differ, not all LEDS are usable.
@@ -3057,9 +3060,11 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		Use FON DRIVER from second source firmware specified in SRC2_IMG.
  config UPDATE_DEPMOD
 	bool "Update module dependency information"
-	depends on EXPERT_MOD 
+	depends on EXPERT_MOD || TYPE_OR_503_721
 	depends on !ORI
-	default n
+	default n if ! TYPE_OR_503_721
+	default y if TYPE_OR_503_721
+	
 	help
 		Update module dependency information in generated image. Useful if deploy modules
 		via addon directories.
