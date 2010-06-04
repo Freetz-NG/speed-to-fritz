@@ -235,7 +235,6 @@ echo VCI: $VCI' "${SRC}/etc/init.d/rc.vdsl.sh"
 #<--
 #set DSLMOD
 [ "${DSLMOD}" != "" ] && sed -i -e "s/local DSLMODE=.*$/local DSLMODE=${DSLMOD}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
-
 # still not usabele with PPPoA becaus we would need drv_vianx.co for 2.6.13.1.ohio kernelversion
 if [ "${USE_SRC2_VINAX_ADSLFW}" = "y" ] || [ "${ANNEX}" = "A" ]; then  
  if  ! [ -f "${SRC_2}"/lib/modules/vinax_fw_adsl_${ANNEX}.bin ]; then
@@ -245,15 +244,21 @@ if [ "${USE_SRC2_VINAX_ADSLFW}" = "y" ] || [ "${ANNEX}" = "A" ]; then
   sleep 20
   exit 0
  else
-  rm -fdr "${SRC}"/lib/modules/vinax_fw_adsl*.bin
+  rm -fdr "${SRC}"/lib/modules/vinax_fw_*.bin
   cp "${SRC_2}"/lib/modules/vinax_fw_adsl_${ANNEX}.bin "${SRC}"/lib/modules/vinax_fw_adsl.bin 
+  cp "${SRC_2}"/lib/modules/vinax_fw_vdsl.bin "${SRC}"/lib/modules/vinax_fw_vdsl.bin 
+  sed -i -e "s/dsl_pipe lllcs  0 -1 -1 -1 -1 -1 -1 -1 -1 -1 01E0 0 -1 -1 -1 -1 -1 1/dsl_pipe lllcs  0 -1 -1 -1 -1 -1 -1 -1 -1 -1 2 0 -1 -1 -1 -1 -1 1/" "${SRC}/etc/init.d/rc.vdsl.sh"
+  sed -i -e "s/dsl_pipe lllcs  0 -1 -1 -1 -1 -1 -1 -1 -1 -1 1 1 -1 -1 -1 -1 -1 0/dsl_pipe lllcs  0 -1 -1 -1 -1 -1 -1 -1 -1 -1 2 0 -1 -1 -1 -1 -1 0/" "${SRC}/etc/init.d/rc.vdsl.sh"
 
-### Still not usabele with PPPoA becaus we would need drv_vianx.co for 2.6.13.1.ohio kernelversion, use the following three lines if kernelversion is correct
-##cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion2/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
-##sed -i -e 's/drv_vinax major_number=253/drv_vinax major_number=253 vnx_ppp_mode=$VNX_PPP vnx_vpi=$VPI vnx_vci=$VCI/' "${SRC}/etc/init.d/rc.vdsl.sh" 
-##sed -i -e 's/vinax_fw_version=0x953a02//' "${SRC}/etc/init.d/rc.vdsl.sh"
-# alternativ to above two lines
-###  cp -fdpr  "${SRC_2}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d
+  # following line ends in sementation fault
+  #[ -f "${SRC_2}"/etc/init.d/rc.vdsl.sh ] && cp -fdprv "${SRC_2}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d &&\
+  sed -i -e "s/vinax_fw_adsl_\${ANNEX}.bin/vinax_fw_adsl.bin/" "${SRC}/etc/init.d/rc.vdsl.sh"
+  sed -i -e 's/drv_vinax major_number=253 vnx_ppp_mode=$VNX_PPP vnx_vpi=$VPI vnx_vci=$VCI/drv_vinax major_number=253 vinax_fw_version=0x953a02/' "${SRC}/etc/init.d/rc.vdsl.sh"
+  ### Still not usabele with PPPoA because we would need drv_vianx.co for 2.6.13.1.ohio kernelversion, use the following three lines if kernelversion is correct
+  ### [ -f "${SRC_2}"/lib/modules/$KernelVersion2/kernel/drivers/vinax/drv_vinax.ko ] && cp -fdrpv "${SRC_2}"/lib/modules/$KernelVersion2/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
+  ### sed -i -e 's/drv_vinax major_number=253/drv_vinax major_number=253 vnx_ppp_mode=$VNX_PPP vnx_vpi=$VPI vnx_vci=$VCI/' "${SRC}/etc/init.d/rc.vdsl.sh" 
+  ### sed -i -e 's/vinax_fw_version=0x953a02//' "${SRC}/etc/init.d/rc.vdsl.sh"
+  #### [ ! -L "${SRC}/lib/modules/$KernelVersion2" ] && ln -s "/lib/modules/$KernelVersion" "${SRC}/lib/modules/$KernelVersion2"
  fi
 fi
 

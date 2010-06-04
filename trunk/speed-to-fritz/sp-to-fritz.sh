@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="02"; Monat="06"; Jahr="10"
+Tag="04"; Monat="06"; Jahr="10"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -14,7 +14,7 @@ export MODVER="${SKRIPT_DATE}-multi"
 # Set this to "y" if you run the skript within CYGWIN, only used with -p option
 # For more info, look into file includefunction
 export CYGWIN=""
-ERR_LOGFILE="0_error.log"
+export ERR_LOGFILE="0_error.log"
 # only used with push option
 # If adam IP address is changed after use of recover or clear mtd3/mtd4
 # in some cases this address may be changed to 192.168.2.1 or 192.168.1.1

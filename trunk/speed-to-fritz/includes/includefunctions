@@ -788,7 +788,7 @@ fw_pack()
     let act_kernel_size="$(wc -c < "$KERNEL_MOD")"
     let DIFF="act_kernel_size-kernel_size"
     if [ $act_kernel_size -gt $kernel_size ]; then
-	echo "Kernel does not fit into FLASH, reduce size by: $((-DIFF))" >> ${ERR_LOGFILE}
+	echo "Kernel does not fit into FLASH, reduce size by: $((-DIFF))" >> "${HOMEDIR}/${ERR_LOGFILE}"
 	echo "Kernel does not fit into FLASH, reduce size by: $((-DIFF))"
 	return 1
     fi
