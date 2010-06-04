@@ -264,7 +264,8 @@ fi' "${SRC}/etc/init.d/rc.S"
 [ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-$sh_DIR/patch_leddef_W503.sh "${SRC}" "${DST}"
+
+#$sh_DIR/patch_leddef_W503.sh "${SRC}" "${DST}"
 # set led definition 
 if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ "${FORCE_TCOM_LEDDRIVER}" = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
