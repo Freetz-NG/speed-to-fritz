@@ -31,6 +31,7 @@ rm -rf  ${SRC}/usr/www/html/de/home/fon1Dect*
 rm -rf  ${SRC}/usr/www/html/de/home/usb*
 rm -rf  ${SRC}/usr/www/html/de/fon/fon1Dect*
 rm -rf  ${SRC}/usr/www/html/de/fon/usb*
+rm -fd -R ${SRC}//usr/www.nas
 #rm -fd -R ${SRC}/usr/www/html/de/first
 rm -rf  ${SRC}/lib/modules/$KernelVersion/modules.usbmap
 rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/scsi
@@ -38,6 +39,9 @@ rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/usb
 rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/cdrom
 rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/avm_dect
 rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/dect_io
+rm -fd -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/vfat
+rm -fd -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/fat
+rm -fd -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/ext2
 #rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/char/flash_update
 #rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/fs
 #rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/char/audio
@@ -103,6 +107,7 @@ rm -fr ${SRC}/sbin/mount.davfs
 #rm -fr ${SRC}/lib/libfuse.so*
 #rm -fr ${SRC}/lib/libikecrypto*
 #rm -fr ${SRC}/lib/libpng.so*
+rm -f "${SRC}"/etc/plugin*
 rm -fr ${SRC}/usr/share/ctlmgr/libctlwebdav*
 #remove mini
 rm -fdr "${SRC}"/bin/mini*
@@ -121,10 +126,10 @@ rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/userman
 # not compatibel with t-com kernel
 [ ${XCHANGE_KERNEL} = "y" ] && rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn/capi_codec &&\
 echo "-- Capi removed because it is not usabel wir t-com kernel"
-# pcmlink boot error, da modul nicht kompatibel ist
-rm -f "${SRC}"/lib/modules/c55*
-
-cp -fdrp "${DST}"/lib/modules/bitfile* --target-directory="${SRC}"/lib/modules
+rm -rf ${SRC}/lib/modules/microvoip_isdn_top.bit
+cp -fdrp "${DST}"/lib/modules/bitfile_pots.bit --target-directory="${SRC}"/lib/modules
+cp -fdrp "${DST}"/lib/modules/bitfile_isdn.bit --target-directory="${SRC}"/lib/modules
+cp -fdrp "${DST}"/lib/modules/wlan_eeprom_hw0.bin --target-directory="${SRC}"/lib/modules
 
 if [ ${ATA_ONLY} = "n" ]; then
  #annex B driver
@@ -154,6 +159,8 @@ if [ ${ATA_ONLY} = "n" ]; then
  #save space on 8MB boxes specially
  [ "${REMOVE_ANNEX_A_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-A-dsl.bin" ] && rm -f "${SRC}"/lib/modules/dsp_ur8/ur8-A-dsl.bin &&\
  echo "  -- DSL Annex A Driver was removed from ${SORCE_PRODUKT}!"
+ [ ${ANNEX} == "A" ] && ! [ -f "${SRC}/lib/modules/dsp_ur8/ur8-A-dsl.bin" ] && echo "-- You must provid a 2nd AVM source to supply the missing Annex A DSL driver!" && sleep 10 && exit 0
+ [ ${ANNEX} =! "A" ] && ! [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin" ] && echo "-- You must provid a 2nd AVM source to supply the missing Annex B DSL driver!" && sleep 10 && exit 0
 else
 #remove ADSL
 #dont start dsl
@@ -182,13 +189,13 @@ echo "  -- Wlan driver was taken from t-com Firmware!"
 #adapt parameters for Piglet bitfile to be
 
 sed -i -e 's/Fritz_Box_7270/Fritz_Box_W503/' "${SRC}/etc/init.d/rc.S"
-sed -i -e 's/microvoip_isdn_top.bit/bitfile_isdn.bit/' "${SRC}/etc/init.d/rc.S"
+sed -i -e 's/microvoip_isdn_top.bit${HWRevision_BitFileCount}/bitfile_isdn.bit/' "${SRC}/etc/init.d/rc.S"
 sed -i -e "/piglet_load_params=\"/,/dect_secondlevelfile/d" "${SRC}/etc/init.d/rc.S"
 sed -i -e "/dectfw_firstlevel.hex/,/dectfw_secondlevel.hex/d" "${SRC}/etc/init.d/rc.S"
 sed -i -e 's/piglet_bitfile=$piglet_bitfile/piglet_bitfile=$piglet_bitfile piglet_potsbitfile=$piglet_potsbitfile /' "${SRC}/etc/init.d/rc.S"
 
 sed -i -e '/piglet_bitfile=/a \
-piglet_potsbitfile=/lib/modules/bitfile_pots.bit${HWRevision_BitFileCount}\
+piglet_potsbitfile=/lib/modules/bitfile_pots.bit\
 piglet_bitfilemode=\`/bin/testvalue /var/flash/telefon_misc 4 2638\`\
 if [ -z $piglet_bitfilemode ] ; then piglet_bitfilemode=0 ; fi\
 echo PigletMode: $piglet_bitfilemode\
@@ -218,7 +225,10 @@ sed -i -e "/#### USB-Host Config ####/,/#### USB-Client Config ####/d" "${SRC}/e
 #remove DECT config
 #sed -i -e "s/copy_dect_defaults()/copy_dect()/" "${SRC}/etc/init.d/rc.S"
 sed -i -e "/modprobe dect_io/d" "${SRC}/etc/init.d/rc.S"
-sed -i -e "/pcm_link/d" "${SRC}/etc/init.d/rc.S"
+
+# pcmlink boot error, da modul nicht kompatibel ist
+[ ${XCHANGE_KERNEL} = "y" ] && rm -f "${SRC}"/lib/modules/c55*
+[ ${XCHANGE_KERNEL} = "y" ] && sed -i -e "/pcm_link/d" "${SRC}/etc/init.d/rc.S"
 
 #watchdog
 sed -i -e "s/init-start 120/init-start 240/" "${SRC}/etc/init.d/rc.S"
