@@ -5,7 +5,7 @@
  {
 	for file_n in $1; do
 	if [ -f "$file_n" ]; then
-	 grep -q '<? if eq $var:OEM avme `' "$file_n" && echo2 "  'avme' chanaged to 'avm' in file: ${file_n##*/}"
+	 grep -q '<? if eq $var:OEM avme `' "$file_n" && echo2 "  enabled all 'avme' options in file: ${file_n##*/}"
 	 sed -i -e 's/<? if eq $var:OEM avme `/<? if eq 1 1 `/' "$file_n"
 	fi
 	done
@@ -33,7 +33,7 @@ if [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
    [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ] && cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "  Copy from 2nd AVM firmware: $file_n"
  done
  sed -i -e 's/CONFIG_MULTI_COUNTRY="n"/CONFIG_MULTI_COUNTRY="y"/' "${SRC}"/etc/init.d/rc.conf
- echo "-- Adding mulicountry pages from source t-home or 2nd AVM firmware ..."
+ echo "-- Adding mulicountry pages from source basis or 2nd AVM firmware ..."
  file_nLIST="menu2_system.html sitemap.html authform.html vpn.html pppoe.html first_Sip_1.html first_ISP_0.html first_ISP_3.frm"
  if [ "${OEM}" = "avm" ]; then
   rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.html)" 
@@ -67,18 +67,21 @@ file_nLIST="/html/de/internet/dslsnrset.frm \
 /html/de/first/basic_first_Annex.js \
 /html/de/first/basic_first_Annex.frm \
 /html/de/first/basic_first_Annex.html"
- #show settings tub
- #-----------------------------------------------------------------
-  for file_n in adsl.html atm.html bits.html overview.html; do
+# show settings tub
+#-----------------------------------------------------------------
+for file_n in adsl.html atm.html bits.html overview.html; do
    if [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n" ]; then 
     sed -i -e "s|<? if neq \$var:Annex A|<? if neq \$var:Annex $ANNEX|" "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n"
 #    cat "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n" | grep -q "Annex $ANNEX" &&\
 #    echo2 "  /usr/www/${OEMLINK}/html/de/internet/$file_n"
    fi
-  done
- #---------------------------------------------------------------
+done
+#---------------------------------------------------------------
 #--> multiannex
 if [ "${FORCE_DSL_MULTI_ANNEX}" = "y" ]; then
+  #disableable kernel_args option
+  sed -i -e 's/"$annex_param"/"$noannexparam"/' "${SRC}"/etc/init.d/rc.conf
+  grep -q '"$noannexparam"' "${SRC}"/etc/init.d/rc.conf && echo "-- kernel_args annex option is disabeled!"
   #Make Tab Einstellungen visibel in ever case 
   for file_n in atm.html adsl.html bits.html overview.html; do
 	sed -i -e 's|$var:Annex .|A B|'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n"
@@ -97,7 +100,7 @@ if [ "${FORCE_DSL_MULTI_ANNEX}" = "y" ]; then
  sed -i -e "s/isMultiAnnex=0/isMultiAnnex=1/g" "${SRC}"/etc/init.d/rc.S
  ! [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js" ] && modpatch "${SRC}/${USRWWW}" "$P_DIR/add_dslsnrjs_de.patch"
  if  `grep -q 'MultiAnnex' "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"`; then
-  echo "-- Multi Annex Option is not forced, but in use becaus 1st firmware is a multiannex fimware."
+  echo "-- Multi Annex is in use, because 1st firmware is a multiannex."
  else
   echo "-- Adding timezone pages ..."
   [ "$avm_Lang" = "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_de.patch" )
@@ -140,7 +143,7 @@ else\
 export ANNEX=`cat $CONFIG_ENVIRONMENT_PATH\/annex` \
 fi' "${SRC}"/etc/init.d/rc.conf
   fi
- # for savety in some Firmwares needed
+  # for savety in some Firmwares needed
   if ! `grep -q 'export CONFIG_DSL_MULTI_ANNEX' "${SRC}"/etc/init.d/rc.conf`; then
       sed -i -e '/export CONFIG_ANNEX="B"/a\
 export CONFIG_DSL_MULTI_ANNEX="y"' "${SRC}"/etc/init.d/rc.conf
@@ -246,7 +249,7 @@ if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
    done
    [ -f "${SRC}"/etc/htmltext_de.db ] || echo -e "-- \033[1mAttention:\033[0m 1st Firmware is not usabel for multilingual!" && sleep 5
    sed -i -e 's/CONFIG_MULTI_LANGUAGE="n"/CONFIG_MULTI_LANGUAGE="y"/' "${SRC}"/etc/init.d/rc.conf
-   echo "-- Adding mulilingual pages from t-Home or 2nd AVM firmware ..."
+   echo "-- Adding mulilingual pages from basis or 2nd AVM firmware ..."
    #copy language datbase
    #LanguageList="en it es fr"
     [ "${REMOVE_EN}" != "y" ] && LanguageList="en "
@@ -255,13 +258,13 @@ if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
     [ "${REMOVE_FR}" != "y" ] && LanguageList+="fr "
    for DIR in $LanguageList; do
     if [ -d "${DST}/etc/default.${DEST_PRODUKT}/${OEML}/$DIR" ]; then
-     cp -fdrp "${DST}/etc/default.${DEST_PRODUKT}/${OEML}/$DIR" "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  Copy language directory from t-Home firmware: $DIR"
+     cp -fdrp "${DST}/etc/default.${DEST_PRODUKT}/${OEML}/$DIR" "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  Copy language directory from basis firmware: $DIR"
     fi 
     if [ -d "${SRC_2}/etc/default.${SORCE_2_PRODUKT}/${OEML2}/$DIR" ]; then
      cp -fdrp "${SRC_2}/etc/default.${SORCE_2_PRODUKT}/${OEML2}/$DIR" "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEMLINK}/$DIR" && echo2 "  Copy language directory from 2nd AVM firmware: $DIR"
     fi 
     if [ -d "${DST}/usr/share/tam/msg/default/$DIR" ]; then
-     cp -fdrp "${DST}/usr/share/tam/msg/default/$DIR" "${SRC}/usr/share/tam/msg/default/$DIR" && echo2 "  Copy TAM language directory from t-Home firmware: $DIR"
+     cp -fdrp "${DST}/usr/share/tam/msg/default/$DIR" "${SRC}/usr/share/tam/msg/default/$DIR" && echo2 "  Copy TAM language directory from basis firmware: $DIR"
     fi 
     if [ -d "${SRC_2}/usr/share/tam/msg/default/$DIR" ]; then
      cp -fdrp "${SRC_2}/usr/share/tam/msg/default/$DIR" "${SRC}/usr/share/tam/msg/default/$DIR" && echo2 "  Copy TAM language directory from 2nd AVM firmware: $DIR"
@@ -270,7 +273,7 @@ if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
      for FILE in `ls "${SRC}/usr/share/tam/msg/default/de"`; do
       if [ -f "${SRC}/usr/share/tam/msg/default/de/${FILE}" ]; then
        if ! [ -f "${SRC}/usr/share/tam/msg/default/$DIR/${FILE}" ]; then
-        cp -fdrp "${SRC}/usr/share/tam/msg/default/de/$FILE" --target-directory="${SRC}/usr/share/tam/msg/default/$DIR" && echo2 "  Copy TAM language directory from t-Home firmware: $DIR"
+        cp -fdrp "${SRC}/usr/share/tam/msg/default/de/$FILE" --target-directory="${SRC}/usr/share/tam/msg/default/$DIR" && echo2 "  Copy TAM language directory from basis firmware: $DIR"
        fi
       fi
      done
@@ -291,7 +294,7 @@ if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then
      [ -f "${SRC}"/etc/htmltext_de.db ] && [ -f "${SRC_2}"/etc/htmltext_$lang.db ] && cp -fdrp "${SRC_2}"/etc/htmltext_$lang.db --target-directory="${SRC}"/etc &&\
      echo -e "-- \033[1mWarning:\033[0m 2nd AVM firmware database $lang is used, some text may be missing." && sleep 2
      [ -f "${SRC}"/etc/htmltext_de.db ] && [ -f "${DST}"/etc/htmltext_$lang.db ] && cp -fdrp "${DST}"/etc/htmltext_$lang.db --target-directory="${SRC}"/etc &&\
-     echo -e "-- \033[1mWarning:\033[0m t-Home firmware database $lang is used, some text may be missing." && sleep 2
+     echo -e "-- \033[1mWarning:\033[0m basis firmware database $lang is used, some text may be missing." && sleep 2
     fi
    done
    FileList="root_ca.pem root_ca_ta.pem root_ca_mnet.pem"

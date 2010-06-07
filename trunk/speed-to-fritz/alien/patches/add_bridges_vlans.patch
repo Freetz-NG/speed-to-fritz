@@ -1,7 +1,7 @@
 diff -Naur internet/internet_expert.js internet/internet_expert.js
 --- internet/internet_expert.js	1969-12-31 19:00:00.000000000 -0500
 +++ internet/internet_expert.js	2010-05-29 05:10:33.000000000 -0400
-@@ -0,0 +1,964 @@
+@@ -0,0 +1,975 @@
 +<!-- ../internet/internet_expert.js -->
 +<? setvariable var:contype pppoe ?>
 +<style type="text/css">
@@ -228,7 +228,7 @@ diff -Naur internet/internet_expert.js internet/internet_expert.js
 +}
 +jslCopyValue("uiViewDslModemVPI", "uiPostVPI");
 +jslCopyValue("uiViewDslModemVCI", "uiPostVCI");
-+uiDoDslModemAtm(1);
++uiDoDslModemAtm(jslGetValue("uiPostAutodetect") == "1" ? 0 : 1);
 +InitVlan();
 +}
 +var g_InitDsl1 = false;
@@ -247,12 +247,7 @@ diff -Naur internet/internet_expert.js internet/internet_expert.js
 +case "dslencap_pppoa_llc": uiDoDslPppEncaps(1); break;
 +case "dslencap_pppoa": uiDoDslPppEncaps(2); break;
 +}
-+switch (encapsType) {
-+case "dslencap_pppoe": uiDoDslPppEncaps(0); break;
-+case "dslencap_pppoa_llc": uiDoDslPppEncaps(1); break;
-+case "dslencap_pppoa": uiDoDslPppEncaps(2); break;
-+}
-+uiDoDslPppAtm(1);
++uiDoDslPppAtm(jslGetValue("uiPostAutodetect") == "1" ? 0 : 1);
 +uiOnTraffic();
 +InitVlan();
 +}
@@ -433,7 +428,9 @@ diff -Naur internet/internet_expert.js internet/internet_expert.js
 +}
 +function SaveDslModem() {
 +var isIpClient = IsIpClient();
-+jslSetValue("uiPostAutodetect", "0");
++if (jslGetChecked("uiViewDslModemAtmAuto")) {
++jslSetValue("uiPostAutodetect", "1");
++} else {
 +var vpi = jslGetValue("uiViewDslModemVPI");
 +var vci = jslGetValue("uiViewDslModemVCI");
 +if (!valIsZahlVorhanden(vpi)) {alert(g_VPIMustNumber); return false;}
@@ -442,6 +439,8 @@ diff -Naur internet/internet_expert.js internet/internet_expert.js
 +if ((vci < 32) || (vci > 65535)) {alert(g_VCIOutOfRange); return false;}
 +jslSetValue("uiPostVPI", vpi);
 +jslSetValue("uiPostVCI", vci);
++jslSetValue("uiPostAutodetect", "0");
++}
 +jslSetValue("uiPostFullBridge", jslGetChecked("uiViewFullBridge") ? "0":"1");
 +jslEnable("uiPostFullBridge");
 +jslEnable("uiPostAutodetect");
@@ -465,6 +464,10 @@ diff -Naur internet/internet_expert.js internet/internet_expert.js
 +var SpeedManu = jslGetChecked("uiViewDslSpeedManu");
 +if (SpeedManu && !ValidateSpeed(jslGetValue("uiViewDslSpeedUpstream"), jslGetValue("uiViewDslSpeedDownstream"))) return false;
 +if (provider != "congstar" && provider != "O2") {
++if (jslGetChecked("uiViewDslPppAtmAuto")) {
++jslSetValue("uiPostAutodetect", "1");
++jslSetValue("uiPostEncaps", "dslencap_pppoe");
++} else {
 +var vpi = jslGetValue("uiViewDslPppVPI");
 +var vci = jslGetValue("uiViewDslPppVCI");
 +if (!valIsZahlVorhanden(vpi)) {alert(g_VPIMustNumber); return false;}
@@ -478,6 +481,7 @@ diff -Naur internet/internet_expert.js internet/internet_expert.js
 +jslSetValue("uiPostAutodetect", "0");
 +jslSetValue("uiPostVPI", vpi);
 +jslSetValue("uiPostVCI", vci);
++}
 +}
 +jslSetValue("uiPostTraffic", jslGetChecked("uiViewTraffic") ? "1":"0");
 +jslEnable("uiPostTraffic");
@@ -825,10 +829,17 @@ diff -Naur internet/internet_expert.js internet/internet_expert.js
 +jslSetEnabled("buttonSave", n==0 || n==1 || n==2 || n==11 || n==12 || (n==10 && g_AlleImNetz != "0") || n==20);
 +}
 +function uiDoDslModemAtm (n) {
++jslSetChecked("uiViewDslModemAtmAuto", (n==0));
++jslSetChecked("uiViewDslModemAtmManu", (n==1));
 +jslSetEnabled("uiViewDslModemVPI", n==1);
 +jslSetEnabled("uiViewDslModemVCI", n==1);
 +}
 +function uiDoDslPppAtm (n) {
++jslSetChecked("uiViewDslPppAtmAuto", (n==0));
++jslSetChecked("uiViewDslPppAtmManu", (n==1));
++jslSetEnabled("uiViewDslPppPPPoE", n==1);
++jslSetEnabled("uiViewDslPppPPPoA1", n==1);
++jslSetEnabled("uiViewDslPppPPPoA2", n==1);
 +jslSetEnabled("uiViewDslPppVPI", n==1);
 +jslSetEnabled("uiViewDslPppVCI", n==1);
 +}

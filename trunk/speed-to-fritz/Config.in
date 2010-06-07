@@ -2625,7 +2625,7 @@ config EXPORT_RPL_AUTHFORM_WITH_81
 	bool "Use authform page from 7270 multi firmware"
 	depends on TYPE_OR_7570_503_722_920 || TYPE_SPEEDPORT_W721V 
 	default n
-	select ADD_PROVIDER_AON
+#	select ADD_PROVIDER_AON
 	help
 	    Fixes problms with providersettings, best selection for aon
 config EXPORT_RPL_AUTHFORM_WITH_SR2
@@ -2633,7 +2633,7 @@ config EXPORT_RPL_AUTHFORM_WITH_SR2
 	depends on SOURCE2 || TYPE_OR_7570_503_722_920 || TYPE_SPEEDPORT_W721V 
 	default n
 	depends on EXPERT_MOD 
-	select ADD_PROVIDER_AON
+#	select ADD_PROVIDER_AON
 	help
 	    Fixes problms with providersettings
 config EXPORT_RPL_AUTHFORM_WITH_DST
@@ -2641,12 +2641,13 @@ config EXPORT_RPL_AUTHFORM_WITH_DST
 	depends on TYPE_OR_7570_503_722_920
 	default n
 	depends on EXPERT_MOD 
-	select ADD_PROVIDER_AON
+#	select ADD_PROVIDER_AON
 	help
 	 Default for AON and most ADSL Providers
 config ADD_PROVIDER_AON
-	bool "Add provider AON"
+	bool "Add provider AON, if missing"
 #	depends on EXPERT_MOD 
+#	select EXPORT_RPL_AUTHFORM_WITH_81
 	default y
 	help
 	    This is usual set to no in most cases, within the AVM GUI. 
@@ -3047,9 +3048,16 @@ if ! EXPORT_TYPE_LOCAL_MODEL
  config FORCE_TCOM_FON
 	bool "Force use of basis fon driver"
 	depends on EXPERT_MOD 
-	default n  
+	default n 
 	help
-		For normal this is "n", but for firmwares with minor versions less then 50 "y" works better.
+		Use FON DRIVER from second source firmware specified in SRC2_IMG.
+ config EXPORT_DISABLE_PCLINK
+	bool "Disable pclink (fon capi)"
+	depends on EXPERT_MOD || TYPE_SPEEDPORT_W503V
+	default n
+	help
+		For normal this is "n", but for W503 this may be needed.
+
  config USE_SRC2_FON
 	bool "Use 2nd AVM source FON driver"
 	depends on EXPERT_MOD 

@@ -45,7 +45,6 @@ fi
 if ! [ -f "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ]; then
 # W503 only for .58 firmware
 cat <<EOF > "${SR1}/etc/led.conf"
-
 DEF error,0 = 1,402784896,0,all
 DEF error,1 = 3,0,0,all
 DOUBLE error,0 TO error,1

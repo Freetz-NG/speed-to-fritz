@@ -142,7 +142,7 @@ FORCE_TCOM_FON
 MOVE_ALL_XXX
 FORCE_CLEAR_FLASH
 <li><b>'DasOertliche.de'-Patch:</b> Der Patch zur Rückwärtssuche der Anrufernummer bei 'DasOertliche.de' wurde <b>PATCH</b>.</li>
-<li><b>Annex:</b> Annex der Box wurde auf <b>'ANNEX'</b> eingestellt.(Wurde nur wirksam, wenn per Webinterface oder unter LINUX mit push Option upgedatet wurde.)</li>
+<li><b>Annex:</b> Annex der Box wurde auf <b>'ANNEX'</b> eingestellt.</li>
 </ul>
 <p></p>
 <h2>Verwendete Firmware-Versionen</h2>
@@ -199,7 +199,7 @@ FORCE_TCOM_FON
 MOVE_ALL_XXX
 FORCE_CLEAR_FLASH
 <li><b>'DasOertliche.de'-Patch:</b> The patch for reverse look up of the callers phone number has been <b>PATCH</b>.</li>
-<li><b>Annex:</b> Annex has been set to <b>'ANNEX'</b> (This is only true if the update ware done via web interface or Linux FTP and the push Option.)</li>
+<li><b>Annex:</b> Annex has been set to <b>'ANNEX'</b></li>
 <li></ul>
 <p></p>
 <h2>Used Firmware-Versions</h2>

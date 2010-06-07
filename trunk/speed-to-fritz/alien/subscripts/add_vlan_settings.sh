@@ -47,6 +47,9 @@ if [ "${ADD_VLAN_BRIDGE}" == "y" ]; then
  echo "-- Adding bridge vlan option settings ..."
  FILE="${SRC}/usr/www/${OEMLINK}/html/de/internet/internet_expert.js"
  if ! $(grep -q "InitVlan" "$FILE") ;then
+  echo "    GUI Menu Internet --> Settings Page will be replaced."
+  echo "     Some text may be unreadabel!"
+  echo "     Disable VLAN Bridge option or use a differrent 2nd AVM firmware." && sleep 5
   rm -f "$FILE"
   USRWWW="usr/www/${OEMLINK}/html/de"
   PatchfileName="add_bridges_vlans"
@@ -69,7 +72,7 @@ if [ "${ADD_VLAN_BRIDGE}" == "y" ]; then
 FILE="${SRC}/usr/www/${OEMLINK}/html/de/internet/internet_expert.html"
  if [ -f "$FILE" ]; then
  sed -i -e "/<!--div class=.backdialog. id=.uiVlan./,/<.div><.div><.div><.div><.div><.div-->/d" $FILE
-    sed -i -e '/id="uiAnschlussTypeExt/i\
+ sed -i -e '/id="uiAnschlussTypeExt/i\
 <div class="backdialog" id="uiVlan" style="display:none"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">\
 <p class="mb5"><input type="checkbox" id="uiViewVlanAktiv" onclick="uiDoVlan()">&nbsp;<label for="uiViewVlanAktiv">Externes VDSL2-Modem benutzen, VLANs aktivieren<\/label><\/p>\
 <p class="ml25"><label for="uiViewVlanId">VLAN-ID<\/label>&nbsp;<input type="text" size="5" maxlength="4" class="Eingabefeld" id="uiViewVlanId"><\/p>\
@@ -100,22 +103,19 @@ if [ -f "$FILE" ]; then
     sed -i -e "s|if (oem != 'avme'|if ('avm' != 'avm'|g"  "$FILE"
     grep -q 'if eq avme avme' "$FILE" && echo2 "-- enable setting for OEM avm on: authform.js"
 fi
- echo "-- Change IpTv menue option text ..."
-# differnt in 7270 to 7570
-sed -i -e 's/id="uiPostResalearch">/id="uiPostResalearch" disabled>/' "${SRC_WWW_INERNET}/authform.frm"
-sed -i -e 's/SetSpanText("uiViewIpTvTxt",".*");/SetSpanText("uiViewIpTvTxt","IpTV (VLANs aktiv)");/' "${SRC_WWW_INERNET}/authform.js"
-sed -i -e "s/for=.uiViewTcomTargetarch.*$/for=\"uiViewTcomTargetarch\"><span id=\"uiViewIpTvTxt\">IpTV (VLANs aktiv)<\/span><\/label><\/p/" "${SRC_WWW_INERNET}/authform.html"
-
-grep -q "jslSetValue..uiPostResalearch., .1"  "${SRC_WWW_INERNET}/authform.js" ||\
-sed -i -e '/else if (provider == "1u1")/{n;d}' "${SRC_WWW_INERNET}/authform.js"
-grep -q "jslSetValue..uiPostResalearch., .1"  "${SRC_WWW_INERNET}/authform.js" ||\
-sed -i -e '/else if (provider == "1u1")/a\
-{\
-if(jslGetChecked("uiViewAnschlussDsl") || g_expertMode != "1")\
-jslSetValue("uiPostResalearch", "1");\
-else\
-jslSetValue("uiPostResalearch", "0");\
-jslEnable("uiPostResalearch");' "${SRC_WWW_INERNET}/authform.js"
+rpl_avme_avm()
+{
+	for file_n in $1; do
+	if [ -f "$file_n" ]; then
+	 grep -q '<? if eq $var:OEM avme `' "$file_n" && echo2 "  enabled all 'avme' options in file: ${file_n##*/}"
+	 sed -i -e 's/<? if eq $var:OEM avme `/<? if eq 1 1 `/' "$file_n"
+	fi
+	done
+}
+if [ "${OEM}" = "avm" ]; then
+  rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.html)" 
+  rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.frm)" 
+fi
 
 exit 0
 

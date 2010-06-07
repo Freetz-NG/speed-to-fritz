@@ -19,19 +19,34 @@ rm -f "${SRC}"/lib/modules/dect*
 rm -f "${SRC}"/usr/share/ctlmgr/libdect*
 rm -f "${SRC}"/usr/share/ctlmgr/libusb*
 #remove some unused files
-rm -fd -R ${SRC}/usr/www/html/de/software
-rm -fd -R ${SRC}/usr/www/html/de/usb
-#rm -fd -R ${SRC}/usr/www/html/de/tr69_autoconfig
-rm -fd -R ${SRC}/usr/www/html/de/dect
-rm -rf  ${SRC}/usr/www/html/de/menus/menu2_usb*
-rm -rf  ${SRC}/usr/www/html/de/menus/menu2_usb.inc
-rm -rf  ${SRC}/usr/www/html/de/menus/menu2_software*
-#rm -rf  ${SRC}/usr/www/html/de/menus/menu2_tr69*
-rm -rf  ${SRC}/usr/www/html/de/home/fon1Dect*
-rm -rf  ${SRC}/usr/www/html/de/home/usb*
-rm -rf  ${SRC}/usr/www/html/de/fon/fon1Dect*
-rm -rf  ${SRC}/usr/www/html/de/fon/usb*
-rm -fd -R ${SRC}//usr/www.nas
+rm -fd -R ${SRC}/usr/www/avm/html/de/usb
+rm -fd -R ${SRC}/usr/www/avm/html/de/dect
+rm -rf  ${SRC}/usr/www/avm/html/de/home/fon1Dect*
+rm -rf  ${SRC}/usr/www/avm/html/de/home/usb*
+rm -rf  ${SRC}/usr/www/avm/html/de/fon/fon1Dect*
+rm -rf  ${SRC}/usr/www/avm/html/de/fon/usb*
+rm -rf  ${SRC}/usr/www/avm/html/de/internet/usb*
+rm -rf  ${SRC}/usr/www/avm/html/de/internet/user*
+rm -rf  ${SRC}/usr/www/avm/html/de/images/Dect*
+rm -rf  ${SRC}/usr/www/avm/html/de/images/dect*
+rm -rf  ${SRC}/usr/www/avm/html/de/images/clients_mini*
+rm -fd -R ${SRC}/usr/www.nas
+rm -fd -R ${SRC}/www/avm/html/de/nas
+rm -fd -R ${SRC}/usr/www/avm/html/de/dect
+rm -fd -R ${SRC}/usr/www/avm/html/de/software
+rm -fd -R ${SRC}/usr/www/avm/html/de/tr69_autoconfig
+rm -rf ${SRC}/usr/bin/tr069fwupdate
+rm -rf ${SRC}/usr/share/ctlmgr/libtr069*
+rm -fr ${SRC}/bin/tr069starter
+rm -rf  ${SRC}/usr/www/avm/html/de/menus/menu2_tr69*
+rm -rf  ${SRC}/usr/www/avm/html/de/menus/menu2_dect*
+rm -rf  ${SRC}/usr/www/avm/html/de/menus/menu2_software*
+rm -rf  ${SRC}/usr/www/avm/html/de/menus/menu2_usb*
+rm -rf  ${SRC}/usr/www/avm/html/de/menus/menu2_nas*
+rm -rf  ${SRC}/usr/www/avm/html/de/images/Anruf*
+rm -rf  ${SRC}/usr/www/avm/html/index_mini.html
+rm -rf  ${SRC}/usr/www/avm/html/mini*
+rm -rf  ${SRC}/usr/www/avm/html/de/home/dect*
 #rm -fd -R ${SRC}/usr/www/html/de/first
 rm -rf  ${SRC}/lib/modules/$KernelVersion/modules.usbmap
 rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/scsi
@@ -39,9 +54,9 @@ rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/usb
 rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/cdrom
 rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/avm_dect
 rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/dect_io
-rm -fd -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/vfat
-rm -fd -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/fat
-rm -fd -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/ext2
+rm -fd -R "${SRC}"/lib/modules/$KernelVersion/kernel/fs/vfat
+rm -fd -R "${SRC}"/lib/modules/$KernelVersion/kernel/fs/fat
+rm -fd -R "${SRC}"/lib/modules/$KernelVersion/kernel/fs/ext2
 #rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/char/flash_update
 #rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/fs
 #rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/char/audio
@@ -85,9 +100,7 @@ rm -f "${SRC}"/bin/usb*
 rm -rf ${SRC}/bin/usbhostchange
 rm -f "${SRC}"/usr/bin/dect*
 rm -f "${SRC}"/usr/bin/usb*
-#rm -rf ${SRC}/usr/bin/tr069fwupdate
 rm -rf ${SRC}/usr/share/ctlmgr/libctlusb*
-#rm -rf ${SRC}/usr/share/ctlmgr/libtr069*
 rm -rf ${SRC}/usr/share/ctlmgr/libdect*
 rm -rf ${SRC}/lib/libacgenusb*
 rm -rf ${SRC}/lib/libusb*
@@ -99,7 +112,6 @@ rm -rf ${SRC}/sbin/umount.davfs
 #rm -rf ${SRC}/sbin/upnpd
 rm -fr ${SRC}/bin/inetdsamba
 rm -fr ${SRC}/bin/supportdata.dect
-#rm -fr ${SRC}/bin/tr069starter
 rm -fr ${SRC}/bin/webdavcfginfo
 rm -fr ${SRC}/etc/webdav_control
 rm -fr ${SRC}/etc/onlinechanged/webdav_net
@@ -116,7 +128,7 @@ rm -fdr "${SRC}"/etc/minid
 rm -rf ${SRC}/lib/modules/bit*
 rm -f "${SRC}"/lib/modules/dect*
 
-#rm -rf ${SRC}//lib/modules/wlan_eeprom_hw0.bin
+#rm -rf ${SRC}/lib/modules/wlan_eeprom_hw0.bin
 #rm -fd -R ${SRC}/usr/www/html/de/tools
 #rm -fd -R ${SRC}/usr/www/html/tools
 #rm -rf ${SRC}/sbin/finalize_env
@@ -124,7 +136,7 @@ rm -fd -R ${SRC}/usr/www/kids
 rm -rf ${SRC}/bin/usermand
 rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/userman
 # not compatibel with t-com kernel
-[ ${XCHANGE_KERNEL} = "y" ] && rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn/capi_codec &&\
+[ "${XCHANGE_KERNEL}" = "y" ] && rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn/capi_codec &&\
 echo "-- Capi removed because it is not usabel wir t-com kernel"
 rm -rf ${SRC}/lib/modules/microvoip_isdn_top.bit
 cp -fdrp "${DST}"/lib/modules/bitfile_pots.bit --target-directory="${SRC}"/lib/modules
@@ -176,15 +188,19 @@ echo "  -- Piglet driver was taken from t-com Firmware!"
 [ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers &&\
 echo "  -- Fon driver was taken from t-com Firmware!" 
 #copy wlan config
-cp -fdrp "${DST}"/etc/init.d/rc.wlan --target-directory="${SRC}"/etc/init.d
+#########
+
+#cp -fdrp "${DST}"/etc/init.d/rc.wlan --target-directory="${SRC}"/etc/init.d
+
+#########
 #copy all modules
 #cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel
 #cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
 #cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsl --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
-[ ${XCHANGE_KERNEL} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
-[ ${XCHANGE_KERNEL} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
+[ "${XCHANGE_KERNEL}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
+[ "${XCHANGE_KERNEL}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
 # wlan bracht t-com kernel
-[ ${XCHANGE_KERNEL} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/net --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers &&\
+[ "${XCHANGE_KERNEL}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/net --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers &&\
 echo "  -- Wlan driver was taken from t-com Firmware!"
 #adapt parameters for Piglet bitfile to be
 
@@ -227,10 +243,20 @@ sed -i -e "/#### USB-Host Config ####/,/#### USB-Client Config ####/d" "${SRC}/e
 sed -i -e "/modprobe dect_io/d" "${SRC}/etc/init.d/rc.S"
 
 # pcmlink boot error, da modul nicht kompatibel ist
-[ ${XCHANGE_KERNEL} = "y" ] && rm -f "${SRC}"/lib/modules/c55*
-[ ${XCHANGE_KERNEL} = "y" ] && sed -i -e "/pcm_link/d" "${SRC}/etc/init.d/rc.S"
+[ "${XCHANGE_KERNEL}" = "y" || "${DISABLE_PCLINK}" = "y" ] && rm -f "${SRC}"/lib/modules/c55*
+[ "${XCHANGE_KERNEL}" = "y" || "${DISABLE_PCLINK}" = "y" ] && sed -i -e "/pcm_link/d" "${SRC}/etc/init.d/rc.S"
+grep -q 'grep .pcmlink..ko' "${SRC}/etc/init.d/rc.S" && sed -i -e "s|.pcmlink..ko.|'\^pcmlink.ko'|" "${SRC}/etc/init.d/rc.S"
+grep -q "md5sum /lib/modules/c55fw.hex" "${SRC}/etc/init.d/rc.S" || sed -i -e '/pcm_link=${pcm_link%.ko}/a\
+md5sum /lib/modules/c55fw.hex' "${SRC}/etc/init.d/rc.S"
 
-#watchdog
+### add led fix inveented in 04.82
+grep -q 'mknod .dev.led c' "${SRC}/etc/init.d/rc.S" ||\
+sed -i -e '/modprobe led_module/a\
+temp=`grep led \/proc\/devices`\
+led_c_major=${temp%%led}\
+mknod \/dev\/led c $led_c_major 0\
+' "${SRC}/etc/init.d/rc.S"
+##watchdog
 sed -i -e "s/init-start 120/init-start 240/" "${SRC}/etc/init.d/rc.S"
 
 #dont start mediaserver

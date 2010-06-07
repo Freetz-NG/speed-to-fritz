@@ -277,39 +277,107 @@ export CONFIG_VINAX="y"' "${SRC}/etc/init.d/rc.conf"
 #<-- ATA only
 fi
 #remove some unused files
-rm -fdr "${SRC}"/lib/modules/c55fw.hex
+
+#rm -f "${SRC}"/lib/modules/micro*
+rm -f "${SRC}"/lib/modules/dect*
+rm -f "${SRC}"/usr/share/ctlmgr/libdect*
+rm -f "${SRC}"/usr/share/ctlmgr/libusb*
+#rm -fd -R ${SRC}/usr/www/html/de/software
+rm -fd -R ${SRC}/usr/www/html/de/usb
+#rm -fd -R ${SRC}/usr/www/html/de/tr69_autoconfig
+rm -fd -R ${SRC}/usr/www/html/de/dect
+rm -rf  ${SRC}/usr/www/html/de/menus/menu2_usb*
+rm -rf  ${SRC}/usr/www/html/de/menus/menu2_usb.inc
+#rm -rf  ${SRC}/usr/www/html/de/menus/menu2_software*
+#rm -rf  ${SRC}/usr/www/html/de/menus/menu2_tr69*
+rm -rf  ${SRC}/usr/www/html/de/home/fon1Dect*
+rm -rf  ${SRC}/usr/www/html/de/home/usb*
+rm -rf  ${SRC}/usr/www/html/de/fon/fon1Dect*
+rm -rf  ${SRC}/usr/www/html/de/fon/usb*
+#rm -fd -R ${SRC}/usr/www/html/de/first
+rm -rf  ${SRC}/lib/modules/$KernelVersion/modules.usbmap
+rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/scsi
+rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/usb
+rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/cdrom
+#rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/char/flash_update
+#rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/fs
 rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/usb
+
+rm -fdr "${SRC}"/lib/modules/c55fw.hex
+rm -fdr "${SRC}"/usr/share/ctlmgr/libctlusb.so
+rm -fdr "${SRC}"/lib/libacsrpc*
+rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/scsi
+
 rm -fdr "${SRC}"/lib/acgenusb*
-rm -fdr "${SRC}"/lib/libavcodec*
-rm -fdr "${SRC}"/lib/libavformat*
-rm -fdr "${SRC}"/lib/libavm_audio*
+#rm -fdr "${SRC}"/lib/libavformat*
 rm -fdr "${SRC}"/lib/libmedia*
-rm -fdr "${SRC}"/lib/libavmid3*
+#rm -fdr "${SRC}"/lib/libavmid3*
+rm -fdr "${SRC}"/lib/libacsrpc*
 rm -fdr "${SRC}"/sbin/smb*
 rm -fdr "${SRC}"/sbin/stop_media*
 rm -fdr "${SRC}"/sbin/lsusb
 rm -fdr "${SRC}"/sbin/hotplug
-rm -fdr "${SRC}"/etc/hotplug
 rm -fdr "${SRC}"/sbin/hd-idle
 rm -fdr "${SRC}"/sbin/printserv
 rm -fdr "${SRC}"/sbin/mediasrv
-rm -fdr "${SRC}"/usr/share/ctlmgr/libctlusb.so
-rm -fdr "${SRC}"/lib/libacsrpc*
+rm -rf ${SRC}/sbin/wlan_cal
+rm -rf ${SRC}/sbin/tracking
+rm -rf ${SRC}/etc/usbclass.tab
+rm -rf ${SRC}/etc/usbdevice.tab
+rm -fdr "${SRC}"/etc/hotplug
 rm -fdr "${SRC}"/etc/usb*
 rm -fdr "${SRC}"/etc/samba*
-rm -fdr "${SRC}"/etc/minid
-rm -fdr "${SRC}"/bin/aura*
-rm -fdr "${SRC}"/bin/mini*
-rm -fdr "${SRC}"/bin/*plugin
-rm -fdr "${SRC}"/bin/playerd_tables
-#rm -fdr "${SRC}"/bin/openssl_genrsa
+rm -fdr "${SRC}"/etc/default.049/fx_lcr.1und1
 rm -fdr "${SRC}"/etc/init.d/rc.media
 rm -fdr "${SRC}"/etc/init.d/rc.usbhost
-rm -fdr "${SRC}"/etc/init.d/rc.preaudio.sh
-rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/audio
-rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/capi_codec
-rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/scsi
-rm -fdr "${SRC}"/lib/libavcodec*
+#rm -fdr "${SRC}"/etc/init.d/rc.preaudio.sh
+#rm -fdr "${SRC}"/bin/aura*
+rm -fdr "${SRC}"/bin/*plugin
+rm -fdr "${SRC}"/bin/playerd_tables
+rm -f "${SRC}"/bin/usb*
+rm -rf ${SRC}/bin/usbhostchange
+rm -f "${SRC}"/usr/bin/dect*
+rm -f "${SRC}"/usr/bin/usb*
+#rm -rf ${SRC}/usr/bin/tr069fwupdate
+rm -rf ${SRC}/usr/share/ctlmgr/libctlusb*
+#rm -rf ${SRC}/usr/share/ctlmgr/libtr069*
+rm -rf ${SRC}/usr/share/ctlmgr/libdect*
+rm -rf ${SRC}/lib/libacgenusb*
+rm -rf ${SRC}/lib/libusb*
+#rm -rf ${SRC}/lib/libupn*
+#rm -rf ${SRC}/sbin/pbupd
+rm -rf ${SRC}/sbin/start_dect_update.sh
+rm -rf ${SRC}/sbin/start_mediasrv
+rm -rf ${SRC}/sbin/umount.davfs
+#rm -rf ${SRC}/sbin/upnpd
+rm -fr ${SRC}/bin/inetdsamba
+rm -fr ${SRC}/bin/supportdata.dect
+#rm -fr ${SRC}/bin/tr069starter
+rm -fr ${SRC}/bin/webdavcfginfo
+rm -fr ${SRC}/etc/webdav_control
+rm -fr ${SRC}/etc/onlinechanged/webdav_net
+rm -fr ${SRC}/sbin/mount.davfs
+#rm -fr ${SRC}/lib/libfuse.so*
+#rm -fr ${SRC}/lib/libikecrypto*
+#rm -fr ${SRC}/lib/libpng.so*
+rm -fr ${SRC}/usr/share/ctlmgr/libctlwebdav*
+
+rm -rf ${SRC}/lib/modules/bit*
+rm -f "${SRC}"/lib/modules/dect*
+
+#rm -fdr "${SRC}"/etc/minid
+#rm -fdr "${SRC}"/bin/mini*
+
+#rm -rf ${SRC}//lib/modules/wlan_eeprom_hw0.bin
+#rm -fd -R ${SRC}/usr/www/html/de/tools
+#rm -fd -R ${SRC}/usr/www/html/tools
+#rm -rf ${SRC}/sbin/finalize_env
+rm -fd -R ${SRC}/usr/www/kids
+rm -rf ${SRC}/bin/usermand
+rm -fd -R ${SRC}/lib/modules/$KernelVersion//kernel/drivers/userman
+
+# pcmlink boot error, da modul nicht kompatibel ist
+rm -f "${SRC}"/lib/modules/c55*
 
 #workaround for HWRevision
 if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
@@ -374,12 +442,17 @@ modprobe Piglet piglet_bitfile=$piglet_bitfile $piglet_load_params' "${SRC}/etc/
 sed -i -e '/modprobe Piglet_noemif piglet_bitfile=$piglet_bitfile piglet_potsbitfile=$piglet_potsbitfile $piglet_load_params/d' "${SRC}/etc/init.d/rc.S"
 #echo "--------------------------------------------------------------------------------------------------------------------------------------------------"
 #remove dect and usb 
-sed -i -e '/mknod .var.flash.aura-usb c/d' "${SRC}/etc/init.d/rc.S"
+#x#  sed -i -e '/mknod .var.flash.aura-usb c/d' "${SRC}/etc/init.d/rc.S"
 sed -i -e '/mknod .var.flash.dect_misc c/d' "${SRC}/etc/init.d/rc.S"
 sed -i -e '/mknod .var.flash.dect_eeprom c/d' "${SRC}/etc/init.d/rc.S"
 sed -i -e '/mknod .var.flash.dmgr_handset_user c/d' "${SRC}/etc/init.d/rc.S"
-sed -i -e '/mknod .var.flash.configd c/d' "${SRC}/etc/init.d/rc.S"
-
+#x# sed -i -e '/mknod .var.flash.configd c/d' "${SRC}/etc/init.d/rc.S"
+sed -i -e "/dect_misc/,/dmgr_handset_user/d" "${SRC}/etc/init.d/rc.S"
+#remove USB config
+sed -i -e "/#### USB-Host Config ####/,/#### USB-Client Config ####/d" "${SRC}/etc/init.d/rc.S"
+#remove DECT config
+sed -i -e "s/copy_dect_defaults()/copy_dect()/" "${SRC}/etc/init.d/rc.S"
+sed -i -e "/modprobe dect_io/d" "${SRC}/etc/init.d/rc.S"
 #sleep 10
 fi
 #enable button
@@ -419,8 +492,13 @@ sed -i -e "s|HWRevision_ATA=0|HWRevision_ATA=1|" "${SRC}/etc/init.d/rc.conf"
 
 
 #remove kids and help
-[ "${REMOVE_KIDS}" = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
-[ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
+#[ "${REMOVE_KIDS}" = "y" ] && 
+$sh_DIR/rmv_kids.sh "${SRC}"
+rm -fd -R ${SRC}/usr/www/kids
+rm -rf ${SRC}/bin/usermand
+rm -fd -R ${SRC}/lib/modules/$KernelVersion//kernel/drivers/userman
+#[ "${REMOVE_HELP}" = "y" ] && 
+$sh_DIR/rmv_help.sh "${SRC}"
 
 #echo2 "Removing files for further image size reduction:"
 #$sh_DIR/remove_files_721.sh ${SRC}
