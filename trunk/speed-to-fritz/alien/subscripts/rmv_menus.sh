@@ -5,7 +5,7 @@
 [ "$CONFIG_AB_COUNT" = "2" ] && echo "-- Removing 'internal FON 3', from setup page ..."
 [ "$CONFIG_ETH_COUNT" = "1" ] && echo "-- Removing 'ETH 2-4', from setup page ..."
 [ "$ATA_ONLY" = "y" ] && echo "-- Disable ADSL Option, from setup page ..."
-[ "$CONFIG_DECT" = "n" ] && echo "-- Removing 'DECT' from setup page ..."
+#[ "$CONFIG_DECT" = "n" ] && echo "-- Removing 'DECT' from setup page ..."
 
 for DIR in ${OEMLIST}; do
   export HTML="$DIR/html"
@@ -16,7 +16,7 @@ for DIR in ${OEMLIST}; do
      [ "$CONFIG_IsdnTE" = "0" ] &&   $sh_DIR/rmv_isdn_msn "$1"
      [ "$CONFIG_AB_COUNT" = "2" ] &&   $sh_DIR/rmv_fon3 "$1" "$2"
      [ "$CONFIG_ETH_COUNT" = "1" ] &&   $sh_DIR/rmv_eth234 "$1"
-     [ "$CONFIG_DECT" = "n" ] && $sh_DIR/rmv_dect "$1"
+#     [ "$CONFIG_DECT" = "n" ] && $sh_DIR/rmv_dect "$1"
      [ "$ATA_ONLY" = "y" ] && $sh_DIR/rmv_adsl "$1"
     fi
 done
