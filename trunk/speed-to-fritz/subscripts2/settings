@@ -52,7 +52,6 @@ echo "export kernel_size=\"${kernel_size}\"" >> incl_var
 echo "export ORI=\"${ORI}\"" >> incl_var
 echo "export PATCH_OEM=\"${PATCH_OEM}\"" >> incl_var
 echo "export RUNFREETZ=\"${RUNFREETZ}\"" >> incl_var
-echo "export ERR_LOGFILE=\"${ERR_LOGFILE}\"" >> incl_var
 
 sed -i -e "s|${HOMEDIR}|\${HOMEDIR}|" incl_var
 
