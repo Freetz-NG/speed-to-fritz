@@ -108,6 +108,18 @@ MAP ata,0 TO power,1
 MAP stick_surf,0 TO info,4
 SET power,0 = 1
 EOF
+else
+#grep -q 'mknod .dev.led c' "${SR1}/etc/init.d/rc.S" ||\
+#sed -i -e '/modprobe led_module/a\
+#temp=`grep led \/proc\/devices`\
+#led_c_major=${temp%%led}\
+#mknod \/dev\/led c $led_c_major 0\
+#' "${SR1}/etc/init.d/rc.S"
+
+## dirty workaround for now, LED's arn't reassigned, no driver for W920 with the firmware in use now  
+sed -i -e 's|new_led|led|' "${SR1}/etc/init.d/rc.S"
+sed -i -e 's|new_led|led|' "${SR1}/etc/init.d/rc.wlan"
 fi
 exit 0
+
 

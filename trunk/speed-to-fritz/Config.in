@@ -2617,7 +2617,8 @@ config EXPORT_ENABLE_EXT2
 config EXPORT_ADD_VLAN_BRIDGE
 	bool "Enable or add Vlan bridge option"
 	depends on TYPE_OR_7570_503_722_920
-	default y
+	default n if ! TYPE_OR_7570_920 
+	default y if TYPE_OR_7570_920 
 	help
 	    Adds or enables settings in GUI for specifing VLANs
 	    
@@ -3046,20 +3047,20 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		For normal this is "n", but for firmwares with minor versions less then 50 "y" works better.
 
  config FORCE_TCOM_FON
-	bool "Force use of basis fon driver"
+	bool "Force use of basis phone driver"
 	depends on EXPERT_MOD 
 	default n 
 	help
 		Use FON DRIVER from second source firmware specified in SRC2_IMG.
- config EXPORT_DISABLE_PCLINK
-	bool "Disable pclink (fon capi)"
+ config EXPORT_DISABLE_PCMLINK
+	bool "Disable pcmlink (phone capi)"
 	depends on EXPERT_MOD || TYPE_SPEEDPORT_W503V
 	default n
 	help
 		For normal this is "n", but for W503 this may be needed.
 
  config USE_SRC2_FON
-	bool "Use 2nd AVM source FON driver"
+	bool "Use 2nd AVM source phone driver"
 	depends on EXPERT_MOD 
 	depends on SOURCE2
 	depends on TYPE_SINUS_W500V

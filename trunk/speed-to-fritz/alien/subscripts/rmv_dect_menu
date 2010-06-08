@@ -1,0 +1,31 @@
+#!/bin/bash
+ # include modpatch function
+ . ${include_modpatch}
+for FILE in "menus/menu2_dect.inc" "home/menu2_dect.html"; do
+       echo2 " -- Removing /usr/www/${HTML}/de/$FILE"
+       rm -rf "$1"/usr/www/${HTML}/de/$FILE
+done
+#echo "-- Removing 'dect-Zubehoer menue eintrys' ..."
+
+echo2 "   -- Removing dect:"
+echo2 "      /usr/www/${HTML}/de/menus/menu2_konfig.html"
+#the following removes work on all versions
+
+#sed -i -e "s/<? if eq ..var:menu. 'usb'/<? if eq 'usb' 'no-usb'/" "$1"/usr/www/${HTML}/de/menus/menu2_konfig.html
+#sed -i -e "s/<? if eq ..var:menu. 'dect'/<? if eq 'dect' 'no-dect'/" "$1"/usr/www/${HTML}/de/menus/menu2_konfig.html
+#sed -i -e "s/<? if eq ..var:menu. 'nas'/<? if eq 'nas' 'no-nas'/" "$1"/usr/www/${HTML}/de/menus/menu2_konfig.html
+#sed -i -e "s/<? if eq ..var:menu. 'software'/<? if eq 'software' 'no-software'/" "$1"/usr/www/${HTML}/de/menus/menu2_konfig.html
+#sed -i -e "s/<? setvariable var:showDect 'setting' ?>/<? setvariable var:showDect 'no-dect' ?>/" "$1"/usr/www/${HTML}/de/home/sitemap.html
+#sed -i -e "s/'<? query dect:settings/enabled ?>' '1'/'0' '1'/" "$1"/usr/www/${HTML}/de/home/sitemap.html
+#sed -i -e "//d" "$1"/usr/www/${HTML}/de/home/sitemap.html
+#sed -i -e "/'usb'/d" -e "/'dect'/d" -e "/'nas'/d" -e "/'software'/d" "$1"/usr/www/${HTML}/de/home/sitemap.html
+#sed -i -e "/'usb'/d" -e "/'dect'/d" -e "/'nas'/d" -e "/'software'/d" "$1"/usr/www/${HTML}/de/home/home.html
+#sed -i -e "/'usb'/d" -e "/'dect'/d" -e "/'nas'/d" -e "/'software'/d" "$1"/usr/www/${HTML}/de/home/menus/menu2_homehome.html
+sed -i -e "s/'<? query dect:settings/enabled ?>' '1'/'0' '1'/" "$1"/usr/www/${HTML}/de/enhsettings/enhsettings.js
+sed -i -e "/<? setvariable var:showNAS 1 ?>/d" -e "/<? setvariable var:showDect 1 ?>/d"-e "/<? setvariable var:showUsb 1 ?>/d" "$1"/usr/www/${HTML}/de/enhsettings/enhsettings.js
+sed -i -e "/--- DECT ---/,/END DECT/d" "$1"/usr/www/${HTML}/de/home/home.js
+sed -i -e "/--- USBHOST ---/,/END USBHOST/d" "$1"/usr/www/${HTML}/de/home/home.js
+sed -i -e "/LeuchtetUSBZubehoer/d" "$1"/usr/www/${HTML}/de/home/home.js
+sed -i -e "/var g_wd_data;/,/Online Zhler href Ziel/d" "$1"/usr/www/${HTML}/de/home/home.js
+
+exit 0

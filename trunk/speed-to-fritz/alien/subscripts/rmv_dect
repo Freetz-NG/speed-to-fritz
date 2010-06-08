@@ -1,0 +1,15 @@
+#!/bin/bash
+ # include modpatch function
+ . ${include_modpatch}
+REMOVELIST_DECT=" "
+
+for FILE in ${REMOVELIST_DECT}; do
+	[ -f "${1}${FILE}" ] && echo2 "      ${FILE}"
+	[ -f "${1}${FILE}" ] && rm -fdr "${1}${FILE}"
+done
+$sh_DIR/rmv_dect_menu "$1"
+echo2 "   -- Removing directory:"
+echo2 "      /usr/www/${HTML}/de/usb"
+rm -rf "$1"/usr/www/${HTML}/de/usb
+
+exit 0
