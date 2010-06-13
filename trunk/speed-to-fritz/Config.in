@@ -387,13 +387,13 @@ config AVM_7390_84_04_82
    string
      default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7390/firmware/deutsch/fritz.box_wlan_7390_84.04.82.image"
 
-config AVM_7390_84_04_83
+config AVM_7390_84_04_84
    string
-     default "@AVM/fritz.box/fritzbox.fon_wlan_7390/firmware/deutsch/fritz.box_fon_wlan_7390_84.04.83.image"
+     default "@AVM/fritz.box/fritzbox.fon_wlan_7390/firmware/deutsch/fritz.box_fon_wlan_7390_84.04.84.image"
 
-config AVM_7390_17204
+config AVM_7390_17513
    string
-     default "http://www.avm.de/de/Service/Service-Portale/Labor/7390_vorschau_release_candidate/fritzbox-labor-7390-17204.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7390_LabDSL.AnnexB.84.04.83-17204.image"
+     default "http://www.avm.de/de/Service/Service-Portale/Labor/7390_vorschau_release_candidate/fritzbox-labor-7390-17513.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7390.Labor.84.04.85-17513.image"
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1049,8 +1049,8 @@ choice
 		default TYPE_7270_PRE_17273 if TYPE_OR_7570_920
 		default TYPE_7273_PRE_17273 if TYPE_7240
 		#->(only for testing)
-#		default TYPE_7390_84_04_82 if TYPE_7390
-		default TYPE_7390_84_04_83 if TYPE_7390
+		default TYPE_7390_17513 if TYPE_7390
+#		default TYPE_7390_84_04_84 if TYPE_7390
 		default TYPE_W722_80_04_76 if TYPE_SPEEDPORT_W722V
 		#<--
 
@@ -1428,14 +1428,14 @@ choice
 		help 
 			FRITZ!Lab (PREVIEW):
 
-	config TYPE_7390_84_04_83
-		bool "AVM 7390 84.04.83 16925 (only for testing)"
+	config TYPE_7390_84_04_84
+		bool "AVM 7390 84.04.84 17370 (only for testing)"
 		depends on TYPE_OR_7390_722
 		help 
 			FRITZ!Lab (PREVIEW):
 
-	config TYPE_7390_17204
-		bool "AVM 7390 84.04.83 17204 Prerelase"
+	config TYPE_7390_17513
+		bool "AVM 7390 84.04.85 17513 Prerelase"
 		depends on TYPE_OR_7390_722
 		help 
 			FRITZ!Lab (PREVIEW):
@@ -1727,11 +1727,11 @@ choice
 	config TYPE_SRC3_AVM_PRE_7390_16165
 		bool "AVM 7390 16165"
 
-	config TYPE_SRC3_AVM_PRE_7390_16925
-		bool "AVM 7390 16925"
+	config TYPE_SRC3_AVM_PRE_7390_17370
+		bool "AVM 7390 17370"
 
-	config TYPE_SRC3_AVM_PRE_7390_17204
-		bool "AVM 7390 17204"
+	config TYPE_SRC3_AVM_PRE_7390_17513
+		bool "AVM 7390 17513"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 Firmware
@@ -1871,7 +1871,8 @@ config TCOM_IMG
 	default "$AVM_7240_73_04_80"		if TYPE_7240
 	default "$AVM_7273_74_04_80"		if TYPE_7273
 #	default "$AVM_7390_84_04_82"		if TYPE_7390
-	default "$AVM_7390_84_04_83"		if TYPE_7390
+#	default "$AVM_7390_84_04_84"		if TYPE_7390
+	default "$AVM_7390_17513"		if TYPE_7390
 	default "$TCOM_LOCAL"	 			if TYPE_LOCAL_TCOM
 	default "$TCOM_7570_LOCAL"	 		if TYPE_LOCAL_TCOM_7570
 
@@ -1914,7 +1915,7 @@ config AVM_IMG
 	default "$AVM_7270_m54_04_76" 				if ( TYPE_SPEEDPORT_W920V || TYPE_OR_503_722 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && ! TYPE_LANG_DE
 	default "$AVM_7240_73_04_59" 				if ( TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7270_54_04_58" 				if ( TYPE_7270_54_04_58 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_7270_54_04_59"	 			if ( TYPE_7270_54_04_59 || ( TYPE_SPEEDPORT_W503V  && ! TYPE_LABOR ) || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7270_54_04_59"	 			if ( TYPE_7270_54_04_59 || ( TYPE_SPEEDPORT_W503V  && ! TYPE_LABOR ) )
 	default "$AVM_7270_m54_04_76" 				if ( TYPE_7270_m54_04_76 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7270_54_04_70"				if ( TYPE_7270_54_04_70 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 #	default "$AVM_7270_54_04_76"				if ( TYPE_7270_54_04_76 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
@@ -1959,8 +1960,8 @@ config AVM_IMG
 # -->only for testing
 	default "$AVM_7390_84_04_81"					if TYPE_7390_84_04_81
 	default "$AVM_7390_84_04_82"					if TYPE_7390_84_04_82
-	default "$AVM_7390_84_04_83"					if TYPE_7390_84_04_83
-	default "$AVM_7390_17204"					if TYPE_7390_17204
+	default "$AVM_7390_84_04_84"					if TYPE_7390_84_04_84
+	default "$AVM_7390_17513"					if TYPE_7390_17513
 	default "$TCOM_W722_80_04_76" 					if TYPE_W722_80_04_76
 #<--
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2031,8 +2032,8 @@ config SRC2_IMG
 	default "$AVM_NAS_7273_16561"			if TYPE_SRC3_AVM_NAS_7273_16561
 	default "$AVM_7390_84_04_81"			if TYPE_SRC3_AVM_PRE_7390_15936
 	default "$AVM_7390_84_04_82"			if TYPE_SRC3_AVM_PRE_7390_16165
-	default "$AVM_7390_84_04_83"			if TYPE_SRC3_AVM_PRE_7390_16925
-	default "$AVM_7390_17204"			if TYPE_SRC3_AVM_PRE_7390_17204
+	default "$AVM_7390_84_04_84"			if TYPE_SRC3_AVM_PRE_7390_17370
+	default "$AVM_7390_17513"			if TYPE_SRC3_AVM_PRE_7390_17513
 	default "$AVM_PHONE_72XX"				if TYPE_SRC3_AVM_PHONE_72XX
 	default "$AVM_7570_75_04_78" 			if TYPE_SRC3_AVM_7570_75_04_78
 	default "$AVM_7570_75_04_82" 			if TYPE_SRC3_AVM_7570_75_04_82
