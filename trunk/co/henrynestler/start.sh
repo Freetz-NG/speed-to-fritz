@@ -79,7 +79,7 @@ else
 #------------------------------------------------
 # set a fix version
 #DVERSION="20100606"
-DVERSION="20100615"
+DVERSION="20100614"
 #------------------------------------------------
  echo "coVersion: $DVERSION"
  CO_SUBDIR2="devel-$DVERSION"
@@ -164,7 +164,7 @@ export home=$(pwd)
 cd ../bfin-colinux-ori/trunk/upstream
 # use devel.exe - only in use for supplying initrd.gz
 #--------------------------------------------------------------------
-DEVEL_VER="20100523"
+DEVEL_VER="20100612"
 #--------------------------------------------------------------------
 [ -f coLinux-${DEVEL_VER}.exe ] || wget "http://www.henrynestler.com/colinux/testing/devel-0.7.8/${DEVEL_VER}-Snapshot/devel-coLinux-${DEVEL_VER}.exe"
 [ -f devel-coLinux-${DEVEL_VER}.exe ] && mv ./devel-coLinux-${DEVEL_VER}.exe ./coLinux-${DEVEL_VER}.exe
