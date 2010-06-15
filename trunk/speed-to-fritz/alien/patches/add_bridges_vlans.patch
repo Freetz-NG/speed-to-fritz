@@ -735,7 +735,7 @@ diff -Naur internet/internet_expert.js internet/internet_expert.js
 +function ValidateVlan () {
 +/*if (jslGetChecked("uiViewVlanAktiv")) {
 +var id = Number(jslGetValue("uiViewVlanId"));
-+if (!(6<=id && id <= 4095)) {alert(g_txtAlert_1); return false;}
++if (!(1<=id && id <= 4095)) {alert(g_txtAlert_1); return false;}
 +}
 +return true;*/
 +}

@@ -41,6 +41,8 @@ tar cf init.tar -C init .
 cd ${BASE}/coLinux
 tar zxf ../../upstream/coLinux-${COLINUX_SRC_VER}.src.tar.gz
 mv colinux-${DATE_SRC} src
+rm ./src/src/colinux/os/winnt/user/install/colinux.nsi
+mv -f ${ALL_BASE}/patches/colinux.nsi ./src/src/colinux/os/winnt/user/install/colinux.nsi
 cd src
 . bin/build-common.sh --get-vars
 cd ..

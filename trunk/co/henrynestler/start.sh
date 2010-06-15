@@ -78,7 +78,8 @@ else
  read DVERSION < $TMP
 #------------------------------------------------
 # set a fix version
-# DVERSION="20100525"
+#DVERSION="20100606"
+DVERSION="20100615"
 #------------------------------------------------
  echo "coVersion: $DVERSION"
  CO_SUBDIR2="devel-$DVERSION"
@@ -89,8 +90,7 @@ else
  rm -f readme.txt
  #REVISION="-r1446"
  echo "Revision: $REVISION"
- #LINUX_VERSION="2.6.25.20"
- LINUX_VERSION="2.6.26.8"
+ LINUX_VERSION="2.6.33.5"
  export COLINUX_VER="0.7.8-$DVERSION"
  M_COLINUX_VER="0.7.8$REVISION-$DVERSION"
  V_COLINUX_VER="0.7.8$REVISION-$DVERSION"

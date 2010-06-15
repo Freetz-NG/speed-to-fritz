@@ -325,6 +325,12 @@ procide:
   !define REGUNINSTAL "Software\Microsoft\Windows\CurrentVersion\Uninstall\andLinux"
   !define REGEVENTS "SYSTEM\CurrentControlSet\Services\Eventlog\Application\andLinux"
 
+  DeleteRegKey HKLM ${REGUNINSTAL}
+  DeleteRegKey HKLM ${REGEVENTS}
+  DeleteRegKey HKCU "Software\andLinux"
+  DeleteRegKey HKCU "Software\coLinux"
+  DeleteRegKey HKLM "SOFTWARE\andLinux\Launcher"
+
   WriteRegStr HKLM ${REGUNINSTAL} "DisplayName" "coLinux ${VERSION}"
   WriteRegStr HKLM ${REGUNINSTAL} "UninstallString" '"$INSTDIR\Uninstall.exe"'
   WriteRegStr HKLM ${REGUNINSTAL} "DisplayIcon" "$INSTDIR\colinux-daemon.exe,0"
@@ -845,7 +851,7 @@ Section -CreateConfigFile
   FileWrite $0 "# eth0=slirp,,tcp:22:22/tcp:333:22/tcp:10000:10000/udp:69:69$\r$\n"
   FileWrite $0 "eth0=slirp$\r$\n"
   FileWrite $0 "# eth0=pcap-bridge needs Win-Pcap installed. ndis-bridge is about the same but does not need Win-Pcap.$\r$\n"
-  FileWrite $0 "# Ubuntu must be updated as well, then: apt-get install pump, so eth0 is usable with dhcp, ping via LAN1 possible, but not via WLAN if not bridged inside windows.$\r$\n"
+  FileWrite $0 "# Ubuntu must be updated as well, then: apt-get install pump, so eth0 is usable with dhcp, ping via LAN is possible, but not via WLAN if not bridged inside windows.$\r$\n"
   FileWrite $0 "# eth0 is set to dhcp, eth2 to 192.168.178.10, in /etc/network/interfaces. You must rename your Windows physical LAN connection to 'LAN1' inside windows,$\r$\n"
   FileWrite $0 "# if the following line is enabled then make sure you already have a physical LAN connection up running with a link to the router, because there is a bug that blocks all activity if this is not the case.$\r$\n"
   FileWrite $0 'eth2=ndis-bridge,"LAN1",$\r$\n'
@@ -1163,20 +1169,20 @@ Section -post
     IntOp $5 $5 | $R0
     DetailPrint "tapcontrol install returned: $R0"
 
-    #second instance
-#    DetailPrint "TAP-Win32 INSTALL 2nd (please confirm Windows-Logo-Test)"
-#    nsExec::ExecToLog '"$INSTDIR\netdriver\tapcontrol.exe" install \
-#		       "$INSTDIR\netdriver\OemWin2k.inf" TAP0801co'
-#    Pop $R0 # return value/error/timeout
-#    IntOp $5 $5 | $R0
-#    DetailPrint "tapcontrol install returned: $R0"
-
-
+; second instance
+;    DetailPrint "TAP-Win32 INSTALL 2nd (please confirm Windows-Logo-Test)"
+;    nsExec::ExecToLog '"$INSTDIR\netdriver\tapcontrol.exe" install \
+;			"$INSTDIR\netdriver\OemWin2k.inf" TAP0801co'
+;    Pop $R0 # return value/error/timeout
+;    IntOp $5 $5 | $R0
+;    DetailPrint "tapcontrol install returned: $R0"
     ; netsh deals in "adapters".  devcon (tapcontrol) deals in "hwids".  neither
     ; displays the other info, so there is no easy way to translate between the
-    ; two.  
-    DetailPrint "Setting up network for coLinux TAP"
-    nsExec::ExecToLog '"settapip.bat"'
+    ; two.
+    DetailPrint "Setting up network for coLinux TAP (XmingTAPBridge)"
+    DetailPrint "Look for last name added and rename to XmingTAPBridge"
+    DetailPrint "If errores came up X-windows want be able to start up!"
+    nsExec::ExecToLog '"settapip.bat" "$NW_WinIP_Value" "255.255.255.0"'
     Pop $R0 # return value/error/timeout
     Push $0 # fd
     Push $1 # str line scratch
@@ -1185,16 +1191,24 @@ Section -post
     IfErrors ip_fail
     FileRead $0 $R0
     IfErrors ip_done
-    StrCpy $1 $R0 -2
-    nsExec::ExecToLog 'netsh.exe interface ip set address "$1" static "$NW_WinIP_Value" 255.255.255.0'
-    nsExec::ExecToLog 'netsh interface set interface name="$1" newname="XmingTAPBridge"' 
-    Pop $R0 # return value/error/timeout
+     StrCpy $1 $R0 -2
+     DetailPrint "Rename TAP Interface to XmingTAPBridge"
+     nsExec::ExecToLog 'netsh interface set interface name="$1" newname="XmingTAPBridge"'
+     ;This is done twice it also was set in settapip.bat, would need to make shure it works without douing it two ways.
+     ;May be behaveiar is a bit different with XP, doing it twice makes no harm but gives more rilability at present time.
+     DetailPrint "Set static IP for XmingTAPBridge"
+     nsExec::ExecToLog 'netsh.exe interface ip set address "XmingTAPBridge" static "$NW_WinIP_Value" "255.255.255.0"'
+     Pop $R0 # return value/error/timeout
+     FileClose $0
+     GoTo ip_ok
     ip_done:
-    FileClose $0
+     FileClose $0
     ip_fail:
-    #Delete "$INSTDIR\connectionName.txt"
-    Pop $1
-    Pop $0
+     MessageBox MB_OK "An error occurred setting up network connections, restart PC repeat and installation."
+     #Delete "$INSTDIR\connection1Name.txt"
+    ip_ok:
+     Pop $1
+     Pop $0
 
  tapcontrol_check_error:
     IntCmp $5 +1 notap
@@ -1203,13 +1217,16 @@ Section -post
  notap:
 
     ; Store CoLinux installation path into evironment variable
+    DetailPrint "Store CoLinux installation path into evironment variable"
     Push COLINUX
     Push $INSTDIR
     Call WriteEnvStr
 
+    ; DetailPrint "Test    remove-driver"
     nsExec::ExecToStack '"$INSTDIR\colinux-daemon.exe" --remove-driver'
     Pop $R0 # return value/error/timeout
     Pop $R1 # Log
+    ; DetailPrint "Test    install-driver"
     nsExec::ExecToLog '"$INSTDIR\colinux-daemon.exe" --install-driver'
     Pop $R0 # return value/error/timeout
 SectionEnd
@@ -1595,7 +1612,8 @@ Section "Uninstall"
   DeleteRegKey HKLM ${REGUNINSTAL}
   DeleteRegKey HKLM ${REGEVENTS}
   DeleteRegKey HKCU "Software\andLinux"
-  ;DeleteRegKey HKLM "SOFTWARE\andLinux\Launcher"
+  DeleteRegKey HKCU "Software\coLinux"
+  DeleteRegKey HKLM "SOFTWARE\andLinux\Launcher"
   ;DeleteRegKey HKLM "SYSTEM\CurrentControlSet\Control\BackupRestore\FilesNotToBackup"
 SectionEnd
 

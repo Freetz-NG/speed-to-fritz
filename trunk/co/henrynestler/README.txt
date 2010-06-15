@@ -7,12 +7,12 @@ X Applications:
 1. Click start icon (speedlinux pinguin) on desktop, menu, ...   
 	or use startup.bat found in your installation directory.
 2. Wait until LINUX boot process is finished. 
-		Console-NT (Donald duck icon), 
-		Console-FTLK (ying yung icon),
+		Console-NT (Donald-Duck icon), 
+		Console-FTLK (Ying-Yung icon),
 		watch the boot process and wait a bit.
 	*	Console-NT: paste with WinKey+V
 	*	Console-FTLK: Comes now with more options,
-		use pulldown to see schortcuts
+		use pulldown to see shortcuts
 
 3. Click any X Windows icon.
 	(Xming window server is stated after startup.bat via settings.txt)
@@ -32,12 +32,16 @@ Type in: ./freetz.sh followed by Enter key,
 ATTENTION!
 Make sure that you already have a physical LAN connection up running with a link
 to a router or the internet.
-If X-Applications cant be started, do a reinstallation by reinvoking the instllation 
-and make sure TAP was installed propper, returns 0 if it worked.
+If you get: could no connect to 192.168.11.150 :2081, then restart LINUX,
+and give a bit more time before you start any X Application.
+If X-Applications cant be started, do a reinstallation by reinvoking the installation.
+Do a restart of the PC bevore reinvoking the installation.
+Make sure TAP was installed propper, it returns 0 if it worked.
 
 LAN connectivity:
-If the install script could not rename your Windows physical LAN connection to 'LAN1'
-then you must rename your Windows physical LAN connection to 'LAN1'
+If your Windows physical LAN connection to the internet is not named 'LAN1'
+then you must rename your Windows physical connection 'LAN1'
+or you may change the name in settings.txt.
 You can disable the bridge connection to the Internet if you add a 
 leading hash sign to the following line within settings.txt
 eth2=ndis-bridge,"LAN1", -> #eth2=ndis-bridge,"LAN1",
@@ -60,6 +64,6 @@ Changes since 05.05.2009:
 base.drv is now called base.vdi
 This was done to be compatible to andLinux beta2 final
 
-coLinux kernelversion is now 2.6.33.4, but dont worry 
+coLinux kernelversion is now 2.6.33.5, but dont worry 
 coLinux kernel version must not be the same as the kernelversion 
 usual used on the system installed.
