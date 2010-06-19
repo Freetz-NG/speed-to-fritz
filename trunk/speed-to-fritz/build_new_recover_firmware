@@ -48,7 +48,7 @@ RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/english
 # v3 recover can be used as well for all 7270 compatibel boxes
 RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270_v3/x_misc/deutsch/fritz.box_fon_wlan_7270_v3.04.80.recover-image.exe"
 # 7390 recover can be used for 7270 compatibel boxes as well
-RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.83.recover-image.exe"
+RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.84.recover-image.exe"
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
 #5010, 5012, FB Fon und FB Fon WLAN

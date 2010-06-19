@@ -280,8 +280,9 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
     if [ "$TYPE_LABOR_TYPE" != "7270_13486" ] && [ "$TYPE_LABOR_TYPE" != "58" ] && [ "$TYPE_LABOR_TYPE" != "59" ] && [ "$TYPE_LABOR_TYPE" != "67" ] && [ "$TYPE_LABOR_TYPE" != "70" ]; then
      [ "$TYPE_LABOR" = "y" ] && sed -i -e "s/default FREETZ_TYPE_LABOR_MI.*/default FREETZ_TYPE_LABOR_$TYPE_LABOR_TYPE/" "./Config.in" 2> /dev/null
      [ "$TYPE_LABOR" = "y" ] && echo "FREETZ_TYPE_LABOR=y" >> "./.config" 2> /dev/null
-     [ "$TYPE_LABOR" = "y" ] && echo "FREETZ_TYPE_LABOR_$TYPE_LABOR_TYPE=y" >> "./.config" 2> /dev/null
-    fi  
+     [ "$TYPE_LABOR_TYPE" = "PREVIEW" ] && echo "FREETZ_TYPE_PREVIEW=y" >> "./.config" 2> /dev/null
+     [ "$TYPE_LABOR_TYPE" != "PREVIEW" ] && [ "$TYPE_LABOR" = "y" ] && echo "FREETZ_TYPE_LABOR_$TYPE_LABOR_TYPE=y" >> "./.config" 2> /dev/null
+    fi
   fi    
 
   make menuconfig
