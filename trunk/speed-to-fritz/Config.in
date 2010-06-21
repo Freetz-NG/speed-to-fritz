@@ -877,10 +877,10 @@ choice
 	config TYPE_TCOM_7570_16068
 		bool "AVM 7570 75.04.80 16068"
 
-	config TYPE_TCOM_AVM_7570_16087
+	config TYPE_TCOM_7570_16087
 		bool "AVM 7570 75.04.80.en-de-fr 16087"
 
-	config TYPE_TCOM_AVM_7570_17549
+	config TYPE_TCOM_7570_17549
 		bool "AVM 7570 17549.en-de-fr (IPv6) 17549"
 
 	config TYPE_TCOM_7570_75_04_82
