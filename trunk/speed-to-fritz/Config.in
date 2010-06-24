@@ -869,7 +869,7 @@ choice
 	default TYPE_TCOM_7570_75_04_82
 	
 	config TYPE_TCOM_7570_15245
-		bool "AVM 7570 75.04.86 dump 1und1 15245"
+		bool "AVM 7570 75.04.76 dump 1und1 15245"
 	
 	config TYPE_TCOM_7570_75_04_78
 		bool "AVM 7570 75.04.78.en-de-fr 15564"
@@ -1472,7 +1472,7 @@ choice
 		default TYPE_AVM_7570_75_04_82
 
 	config TYPE_AVM_7570_15245
-		bool "AVM 7570 75.04.86 dump 1und1 15245"
+		bool "AVM 7570 75.04.76 dump 1und1 15245"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
