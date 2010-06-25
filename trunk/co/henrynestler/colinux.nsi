@@ -125,6 +125,8 @@ Var FS_FORMATIEREN_Value
 ;LangString PAGE_TITLE ${LANG_ENGLISH} "Title"
 ;LangString PAGE_SUBTITLE ${LANG_ENGLISH} "Subtitle"
 
+AllowRootDirInstall true
+
 !define MUI_PAGE_HEADER_TEXT "Setup shared Folder"
 !define MUI_PAGE_HEADER_SUBTEXT "Sets entry in settings.txt for cofs if no windows user was spacified."
 !define MUI_DIRECTORYPAGE_TEXT_DESTINATION "Shared folder selection, this selection is used for cofs or samba."
@@ -306,9 +308,9 @@ no_old_linux_sys:
   DetailPrint "missing \Drives\base.vdi -> Abort"
   Abort
 uninstall_q:
-  IfFileExists "$INSTDIR\\unins000.exe" uninstall_and procide
+  IfFileExists "$INSTDIR\unins000.exe" uninstall_and procide
 uninstall_and:
-    Rename $INSTDIR\Drives\base.vdi $INSTDIR\\Drives\base.bak
+    Rename $INSTDIR\Drives\base.vdi $INSTDIR\Drives\base.bak
     Rename $INSTDIR\Xming $INSTDIR\Xming1
 
   DetailPrint "andlinux REMOVE"
