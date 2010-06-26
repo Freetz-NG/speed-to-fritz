@@ -27,6 +27,11 @@ for DIR in ${OEMLIST}; do
 	sed -i -e "/http:\/\/www.avm.de\/labor/d" "$1"/usr/www/${DIR}/${html}/de/home/home.html
 	sed -i -e "/nichtsigniert/d" "$1"/usr/www/${DIR}/${html}/de/home/home.html
     fi
+    #17675
+    if [ -f $1/usr/www/${DIR}/home/home.lua ] ; then
+	sed -i -e "s/box.query(.box:status.signed_firmware.)/1/" $1/usr/www/${DIR}/home/home.lua
+	sed -i -e "s/if (g_coninf_data.FirmwareSigned==.1.)/if (\"1\"==\"1\")/" $1/usr/www/${DIR}/home/home.lua
+    fi
 done
 # just for safty 
 if [ -f "$1/sbin/ar7login" ] ; then

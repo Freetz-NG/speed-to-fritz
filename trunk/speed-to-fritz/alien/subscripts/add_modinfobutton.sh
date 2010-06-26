@@ -21,7 +21,8 @@ for DIR in ${OEMLIST}; do
 #add for .49 AVM
 #popup window is only functional with local help
 if [ -e "${DSTI}"/menus/menu2.html ]; then
- if [ "$ADD_MODINFOICON" = "y" ]; then
+if ! [ -f "$1/usr/www/$DIR/help/help.lua" ]; then
+ if [ "$ADD_MODINFOICON" = "yy" ]; then
     echo "-- Adding 'Info' icon on status page..."
     cp -fdpr  $P_DIR/help1.gif  --target-directory="${DSTI}"/images
     echo2 "      ${DSS}/menus/menu2.html"
@@ -39,7 +40,7 @@ if [ -e "${DSTI}"/menus/menu2.html ]; then
 <\/a><\/td>" "${DSTI}"/menus/menu2.html
      fi
  fi
-    sed -i -e 's|var g_HelpPagesOnBox = new Array(|var g_ModHelpPagesOnBox = new Array(\
+ sed -i -e 's|var g_HelpPagesOnBox = new Array(|var g_ModHelpPagesOnBox = new Array(\
 "modinfo",\
 "hilfe_fon_anrufbeantworter",\
 "hilfe_fon_dect",\
@@ -58,8 +59,7 @@ i++;\
 return false;\
 }\
 var g_HelpPagesOnBox = new Array(|' "${DSTI}"/help/popup.html
-
-    sed -i -e '/if (g_HelpUrl != ""/i\
+ sed -i -e '/if (g_HelpUrl != ""/i\
 var topic = "<? echo $var:pagename ?>";\
 if (IsTopicModOnBox(topic))\
 {\
@@ -70,9 +70,32 @@ var anker = "<? echo $var:anker ?>";\
 if (anker != "") location.hash = anker;\
 return;\
 }' "${DSTI}"/help/popup.html
+ else
+ #17675
 
+  # if [ "$ADD_MODINFOICON" = "y" ]; then
+  if [ "$ADD_MODINFOICON" = "yy" ]; then #funktioniert noch nicht
+    echo "-- Adding 'Info' icon on status page..."
+    cp -fdpr  $P_DIR/help_n.gif  --target-directory="$1/usr/www/$DIR/css/default/images"
+    echo2 "      ${DSS}/menus/menu2.html"
+     if grep -q "jslPopHelpEx('home', ''). title=" "${DSTI}"/menus/menu2.html ;then
+      sed -i -e "/PopHelpEx/i \
+<a href=\"javascript:jslPopHelpEx('modinfo', '')\" title=\"Modinfo\" style=\"\">\n\ \
+<img src=\"\/css\/default\/images\/help_n.gif\" style=\"vertical-align: middle;\">Modinfo<\/a>" "${DSTI}"/menus/menu2.html
+     fi
+     sed -i -e "/uiHelpHome/i \
+<a id=\"uiInfoHome\" target=\"_blank\" href=\"<?lua href.help_write('modinfo.html') ?>\"\n\ \
+onclick=\"<?lua box.out(\"help.popup('\" .. href.help_get('modinfo.html','hide=yes') .. \"'); return false;\") ?>\"\n\ \
+title=\"Modinfio\"><img src=\"\/css\/default\/images\/help_n.gif\">Modinfo<\/a>" "$1"/usr/www/${DIR}/templates/menu_page_head.html
+  fi
+ sed -i -e '/"hilfe_kennwort",/a\
+"modinfo",' "${DSTI}"/help/popup.html
+ sed -i -e '/hilfe_kennwort.html/a\
+"modinfo.html",' "$1"/usr/www/$DIR/help/helpurl.lua
+ sed -i -e '/hilfe_system_user.html/a\
+{ href = "modinfo.html", text = "Modinfo" },' "$1"/usr/www/$DIR/help/home.html
+ fi
 #    sed -i -e 's|jslDisplay("uiShowError", true);|jslDisplay("uiShowError", true);\n}|' "${DSTI}"/help/popup.html
-
 fi
 
 # for all versions
