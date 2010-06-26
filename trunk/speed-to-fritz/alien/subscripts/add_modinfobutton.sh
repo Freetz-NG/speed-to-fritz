@@ -22,7 +22,7 @@ for DIR in ${OEMLIST}; do
 #popup window is only functional with local help
 if [ -e "${DSTI}"/menus/menu2.html ]; then
 if ! [ -f "$1/usr/www/$DIR/help/help.lua" ]; then
- if [ "$ADD_MODINFOICON" = "yy" ]; then
+ if [ "$ADD_MODINFOICON" = "y" ]; then
     echo "-- Adding 'Info' icon on status page..."
     cp -fdpr  $P_DIR/help1.gif  --target-directory="${DSTI}"/images
     echo2 "      ${DSS}/menus/menu2.html"
