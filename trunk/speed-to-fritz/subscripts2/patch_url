@@ -21,7 +21,20 @@ for DIR in $2; do
 <li class=\"LMenuitemTop\"><img src=\"<? echo \$var:aktivpfeil ?>\"> <a href=\"..\/html\/support.html\" target=\"_blank\">Support<\/a><\/li>" "$1/${DIRI}/menus/menu2_homehome.html"
     fi
   fi
+[ -f "$1/usr/www/$DIR/menus/menu_data.lua" ] && sed -i -e "/assis.home.lua/i \
+page = \"\/html\/support.html\",\n\
+target = \"_blank\",\n\
+text = \"Support\",\n\
+menu = \"main\",\n\
+subpages = {}\n\
+}\n\
+-------------------------------------------------------------------------------\n\
+menu.add_item{" "$1/usr/www/$DIR/menus/menu_data.lua"
+grep -q "support.html" "$1/usr/www/$DIR/menus/menu_data.lua" && echo "-- Support menue added to: /usr/www/$DIR/menus/menu_data.lua"
+
 done
+
+
 exit 0
 
 
