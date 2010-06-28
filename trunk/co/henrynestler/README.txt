@@ -27,15 +27,15 @@ Type in: ./download_speed-to-fritz.sh followed by Enter key,
 Type in: ./freetz.sh followed by Enter key, 
 	to download and start freetz.
 
-(Some updates and installations will run once, if the above skrits are invoked.)
+(Some updates and installations will run once, if the above scripts are invoked.)
 
 ATTENTION!
 Make sure that you already have a physical LAN connection up running with a link
 to a router or the internet.
-If you get: could no connect to 192.168.11.150 :2081, then restart LINUX,
+If you get: Could no connect to 192.168.11.150 :2081, then restart LINUX,
 and give a bit more time before you start any X Application.
-If X-Applications cant be started, do a reinstallation by reinvoking the installation.
-Do a restart of the PC bevore reinvoking the installation.
+If X-Applications cant be started, do repeat the installation.
+Do a restart of the PC bevore invoking the installation.
 Make sure TAP was installed propper, it returns 0 if it worked.
 
 LAN connectivity:
@@ -50,7 +50,7 @@ This makes eth0 unusable with dhcp, and pings will not be possible.
 (pcap-bridge needs Win-Pcap installed, ndis-bridge is about the same but does not 
 need Win-Pcap, and is much faster.)
 
-On the LINUX system setup did make changes, in /etc/network/interfaces
+On the LINUX system - setup did make changes, in /etc/network/interfaces
 eth0 is set to: dhcp
 eth2 is set to: 192.168.178.10
 
@@ -58,12 +58,12 @@ eth2 is set to: 192.168.178.10
 disable the following line in startup.bat by adding the "::"
 ::set COLINUX_NO_CPU0_WORKAROUND=Y
 (Some PC need this changed, to get coLinux working.) 
-Maximum CPU usage is 50% even all core CPUs are in use.
+Maximum CPU usage is 50%, even all core CPUs are in use.
 
 Changes since 05.05.2009:
 base.drv is now called base.vdi
 This was done to be compatible to andLinux beta2 final
 
-coLinux kernelversion is now 2.6.33.5, but dont worry 
+coLinux kernelversion is now 2.6.33.5, but dont worry
 coLinux kernel version must not be the same as the kernelversion 
-usual used on the system installed.
+used on the system installed.

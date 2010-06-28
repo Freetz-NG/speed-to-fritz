@@ -558,7 +558,7 @@ Function PageFileSystem
     StrCpy $FS_init "yes"
     StrCpy $FS_RAM_Value "512"
     StrCpy $FS_SWAP_Value "768"
-    StrCpy $FS_ROOT_Value "20000"
+    StrCpy $FS_ROOT_Value "30000"
   ${EndIf}
 
   Pop $R0
@@ -582,7 +582,7 @@ Function PageFileSystem
   ${NSD_CreateText} 60% 27% 25% 12u $FS_SWAP_Value
   Pop $FS_SWAP_Text
 
-  ${NSD_CreateLabel} 0 50% 60% 24u "File system resize? (in MB)$\r$\n  (recommend: freetz: 20000, Speed2fritz: 4000)"
+  ${NSD_CreateLabel} 0 50% 60% 24u "File system resize? (in MB)$\r$\n  (recommend: freetz: 30000, Speed2fritz: 4000)"
   Pop $FS_ROOT_Label
   ${NSD_CreateText} 60% 52% 25% 12u $FS_ROOT_Value
   Pop $FS_ROOT_Text
@@ -834,11 +834,13 @@ Section -CreateConfigFile
   FileWrite $0 "# Please do not change unless you understand these settings$\r$\n"
   FileWrite $0 "kernel=vmlinux$\r$\n"
   FileWrite $0 "#base.vdi is the complete compressed ubuntu or any other linux$\r$\n"
-  FileWrite $0 "#cobd2=Drives\base910.vdi$\r$\n"
   FileWrite $0 "cobd0=Drives\base.vdi$\r$\n"
   FileWrite $0 "cobd1=Drives\swap.vdi$\r$\n"
+  FileWrite $0 "#cobd2=Drives\base910.vdi$\r$\n"
   FileWrite $0 "root=/dev/cobd0$\r$\n"
+  FileWrite $0 "#remove hash # to set system to read only$\r$\n"
   FileWrite $0 "#ro$\r$\n"
+  FileWrite $0 "#ramdisk - looks like this is needed all the time$\r$\n"
   FileWrite $0 "initrd=initrd.gz$\r$\n"
   FileWrite $0 "$\r$\n"
   FileWrite $0 "# These cofs lines control what paths will be available to coLinux$\r$\n"
@@ -1332,7 +1334,9 @@ Section -post
   File scripts\init.sh
   File scripts\passwd.exp
 
-  DetailPrint "Initializing file system images (this may take a bit)"
+  DetailPrint "Initializing file system images ..."
+  DetailPrint "  Be patient, if resize is ~ 30GB a lot of time is needed!"
+  DetailPrint "  Formating, jurnaling and copying may envolve more as one hour!"
   nsExec::ExecToLog 'cmd /C set COLINUX_CONSOLE_EXIT_ON_DETACH=1 & \
                      colinux-daemon.exe -k -v 1 \
                          kernel=vmlinux \
