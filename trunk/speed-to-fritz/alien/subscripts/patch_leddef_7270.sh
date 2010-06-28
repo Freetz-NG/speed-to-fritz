@@ -1,26 +1,14 @@
 #!/bin/bash
  . ${include_modpatch}
-SR1="$1" 
-
-
-# change DECT text for infoled 
-#if [ "$avm_Lang" != "en" ] ; then
+SR1="$1"
  for OEMDIR in ${OEMLIST}; do
-#  if [ "$OEMDIR" = "avme" ] ; then
-#   export HTML="$OEMDIR/$avm_Lang/html"
-#  else
    export HTML="$OEMDIR/html"
-#  fi
     if [ -e "$SR1"/usr/www/${HTML}/de/system/infoled.inc ]; then
      echo2 "-- Change TextBlinkDECT in: /usr/www/${HTML}/de/system/infoled.inc"
      [ "$OEMDIR" = "avm" ] && [ "$avm_Lang" = "de" ] && sed -i -e "s/^.*TextBlinkDECT.*$/<? setvariable var:TextBlinkDECT 'Die INFO-LED leuchtet immer wenn DECT aktiviert ist.' ?>/" "$SR1"/usr/www/${HTML}/de/system/infoled.inc
      [ "$OEMDIR" = "avme" ] && [ "$avm_Lang" = "en" ] && sed -i -e "s/^.*TextBlinkDECT.*$/<? setvariable var:TextBlinkDECT 'DECT activated' ?>/" "$SR1"/usr/www/${HTML}/de/system/infoled.inc
     fi
  done
-#fi
-fi
-
-
 # Map ISDN LED to ab LED (config of original FRITZ!Box and replace it by Speedport's LED config)  
 
 if ! `cat "${SR1}"/etc/init.d/rc.S | grep -q 'MAP isdn,0 TO ab,1'` ; then

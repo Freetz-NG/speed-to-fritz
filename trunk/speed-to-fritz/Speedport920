@@ -334,9 +334,9 @@ sed -i -e "/ \/etc\/init.d\/rc.conf/a\
 sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg\
 cat \/var\/flash\/ar7.cfg\ | grep ifacectl && echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"
 #---
-[ -f "${SRC}"/lib/libpng.so.3.32.0 ] || cp -fdrp "${DST}"/lib/libpng.so.3.32.0* --target-directory=${SRC}/lib
-[ -f "${SRC}"/lib/libexif.so.12.3.0 ] || cp -fdrp "${DST}"/lib/libexif.so.12.3.0* --target-directory=${SRC}/lib
-[ -f "${SRC}"/lib/libsqlite3-3.6.16.so.0.8.6 ] || cp -fdrp "${DST}"/lib/libsqlite* --target-directory=${SRC}/lib
+[ -f "${SRC}"/lib/libpng.so.3.32.0 ] || cp -fdrp "${DST}"/lib/libpng.so.3.32.0* --target-directory=${SRC}/lib 2> /dev/null
+[ -f "${SRC}"/lib/libexif.so.12.3.0 ] || cp -fdrp "${DST}"/lib/libexif.so.12.3.0* --target-directory=${SRC}/lib 2> /dev/null
+[ -f "${SRC}"/lib/libsqlite3-3.6.16.so.0.8.6 ] || cp -fdrp "${DST}"/lib/libsqlite* --target-directory=${SRC}/lib 2> /dev/null
 
 
 echo "********************************************************************************"
