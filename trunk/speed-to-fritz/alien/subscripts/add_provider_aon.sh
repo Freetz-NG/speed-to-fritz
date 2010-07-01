@@ -34,6 +34,7 @@ case "voip.aon.at": return "AON";' "$XFILE"
     grep -q "uiPostAontvArch" "$XFILE" && echo2 "     Found AontvArch in: $FILE"
   fi
 done
+
 XFILE="${SRC}/usr/www/${OEMLINK}/html/de/first/first.frm"
 [ -f "$XFILE" ] && ! grep -q "Aontvarch" "$XFILE" && sed -i -e '/TcomTargetarch/a\
 <input type="hidden" name="var:Aontvarch" value="<? echo $var:Aontvarch ?>" id="uiAontvarch">' "$XFILE"
@@ -113,7 +114,7 @@ sed -i -e '/jslCopyValue("uiPostVCI", "uiPppVCI");/a\
 jslEnable("uiPostEncaps");' "$XFILE"
 
 
-[ -f "$XFILE" ] && ! grep -q 'jslSetValue("uiPostVciSepVcc", "36");\' "$XFILE" &&\
+[ -f "$XFILE" ] && ! grep -q 'jslSetValue("uiPostVciSepVcc", "36");' "$XFILE" &&\
 sed -i -e '/}\/\/switch/i\
 case "AON":\
 {\
@@ -219,27 +220,28 @@ jslEnable("uiPostVPI");
 jslEnable("uiPostVCI");
 }
 EOSF3
+
 [ -f "$XFILE" ] && ! grep -q "uiViewIpTvTxt" "$XFILE" ] &&\
 sed -i -e 'if (jslGetValue("uiPostAontvArch") == "1")/i\
 jslSetChecked("uiViewTcomTargetarch", jslGetValue("uiPostAontvArch") == "1");\
 SetSpanText("uiViewIpTvTxt","AON-TV");' "$XFILE"
-[ -f "$XFILE" ] && ! grep -q 'case "AON": OnAon();break;' "$XFILE" ] &&\
+[ -f "$XFILE" ] && ! grep -q 'case "AON": OnAon();break;' "$XFILE" &&\
 sed -i -e '/case "TNamibiaWimax": OnTNamibiaWimax(); break;/a\
 case "AON": OnAon();break;' "$XFILE"
-[ -f "$XFILE" ] && ! grep -q '} else if (ProviderId=="AON") {' "$XFILE" ] &&\
+[ -f "$XFILE" ] && ! grep -q '} else if (ProviderId=="AON") {' "$XFILE" &&\
 sed -i -e '/} else if (ProviderId=="O2") {/i\
 } else if (ProviderId=="AON") {\
 OnAon();' "$XFILE"
-[ -f "$XFILE" ] && ! grep -q 'else if(provider == "AON"){' "$XFILE" ] &&\
+[ -f "$XFILE" ] && ! grep -q 'else if(provider == "AON"){' "$XFILE" &&\
 sed -i -e '/else if(provider == "congstar"){/i\
 else if(provider == "AON"){\
 jslSetValue("uiPostAontvArch",jslGetChecked("uiViewTcomTargetarch")?"1":"0");\
 }' "$XFILE"
-[ -f "$XFILE" ] && ! grep -q "^if (provider != .AON.)" "$XFILE" ] &&\
+[ -f "$XFILE" ] && ! grep -q "^if (provider != .AON.)" "$XFILE" &&\
 sed -i -e '/if (provider != "TNamibiaWimax")/i\
 if (provider != "AON")\
 jslSetValue("uiPostAontvArch","0");' "$XFILE"
-[ -f "$XFILE" ] && ! grep -q 'var g_txtAonName' "$XFILE" ] &&\
+[ -f "$XFILE" ] && ! grep -q 'var g_txtAonName' "$XFILE" &&\
 sed -i -e '/var g_txtSonstName = "{?txtUsername_js?} ";/i\
 var g_txtAonName = "Teilnehmererkennung";\
 var g_txtAonKennwort = "Persoenliches Kennwort";\
@@ -266,6 +268,7 @@ sed -i -e "/\($von\)/,/\($bis\)/ { /$von/b; /$bis/b; s/$alt/$alt\n$add/ }" "$XFI
 sed -i -e 's/SetSpanText("uiViewIpTvTxt",".*");/SetSpanText("uiViewIpTvTxt","Internet-TV via VLANs");/' "$XFILE"
 XFILE="${SRC}/usr/www/${OEMLINK}/html/de/internet/authform.html"
 sed -i -e "s/for=.uiViewTcomTargetarch.*$/for=\"uiViewTcomTargetarch\"><span id=\"uiViewIpTvTxt\">Internet-TV via VLANs<\/span><\/label><\/p/" "$XFILE"
+
 rpl_avme_avm()
 {
 	for file_n in $1; do

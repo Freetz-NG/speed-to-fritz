@@ -122,13 +122,15 @@ function uiDoInfo() {\n\tjslPopHelp(\"modinfo\");\n}" "${DSTI}/home/home.js"
 fi #<-- help dir exist
 # --> 17671 new GUI 
 if ! [ -f "$1/usr/www/$DIR/help/help.lua" ]; then
-DSTF="${DSTI}"/help/modinfo.html
+DIRHELP="${DSTI}/help"
 echo2 "     ${DSS}/help/modinfo.html"
 else #<--
 # old GUI
-DSTF="$1/usr/www/$DIR/help/modinfo.html"
+DIRHELP="$1/usr/www/$DIR/help"
 echo2 "     /usr/www/$DIR/help/modinfo.html"
 fi
+DSTF="${DIRHELP}"/modinfo.html
+if [ -d "${DIRHELP}" ]; then
 touch "${DSTF}"
 #echo "1---------------------------------------------------------------------------------------------------------------------------------"
 if [ "$avm_Lang" = "de" ]; then
@@ -352,6 +354,7 @@ fi
  # fix for new GUI
  sed -i -e "/<\/div>/d" -e "/<div/d" -e "/<? include/d" "$1/usr/www/$DIR/help/modinfo.html" -e "1i<?lua write_help_head([[Modinformation]]) ?>" "$1/usr/www/$DIR/help/modinfo.html"
  # <--17671
+fi
 done
 
 exit 0

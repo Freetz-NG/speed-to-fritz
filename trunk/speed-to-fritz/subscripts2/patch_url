@@ -31,19 +31,6 @@ subpages = {}\n\
 menu.add_item{" "$1/usr/www/$DIR/menus/menu_data.lua" && \
  grep -q "support.html" "$1/usr/www/$DIR/menus/menu_data.lua" && echo "-- Support menue added to: /usr/www/$DIR/menus/menu_data.lua"
  fi #<-- Support menu
- # --> Add Freetz menu if not allredy pesent 
- [ "$RUNFREETZ" == "y" ] && [ -f "$1/usr/www/$DIR/menus/menu_data.lua" ] && ! grep -q "Freetz" "$1/usr/www/$DIR/menus/menu_data.lua" && \
-sed -i -e "/assis.home.lua/i \
-page = \"http:\/\/fritz.box:81\",\n\
-target = \"_blank\",\n\
-text = \"Freetz\",\n\
-menu = \"main\",\n\
-explain = \"User=admin Passwort=freetz\",\n\
-subpages = {}\n\
-}\n\
--------------------------------------------------------------------------------\n\
-menu.add_item{" "$1/usr/www/$DIR/menus/menu_data.lua" && \
-grep -q "Freetz" "$1/usr/www/$DIR/menus/menu_data.lua" && echo "-- Freetz menue added to: /usr/www/$DIR/menus/menu_data.lua"
 # <-- 17671
 done
 exit 0

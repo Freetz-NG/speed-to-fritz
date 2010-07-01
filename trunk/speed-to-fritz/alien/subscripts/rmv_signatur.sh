@@ -29,8 +29,8 @@ for DIR in ${OEMLIST}; do
     fi
     #17675
     if [ -f $1/usr/www/${DIR}/home/home.lua ] ; then
-	sed -i -e "s/box.query(.box:status.signed_firmware.)/1/" $1/usr/www/${DIR}/home/home.lua
-	sed -i -e "s/if (g_coninf_data.FirmwareSigned==.1.)/if (\"1\"==\"1\")/" $1/usr/www/${DIR}/home/home.lua
+	sed -i -e "s/box.query(.box:status.signed_firmware.)/\"1\"/" $1/usr/www/${DIR}/home/home.lua
+#	sed -i -e "s/if (g_coninf_data.FirmwareSigned==.1.)/if (\"1\"==\"1\")/" $1/usr/www/${DIR}/home/home.lua
     fi
 done
 # just for safty 
