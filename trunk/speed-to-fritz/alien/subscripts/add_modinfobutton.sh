@@ -1,46 +1,17 @@
 #!/bin/bash
- # include modpatch function
- . ${include_modpatch}
+# include modpatch function
+. ${include_modpatch}
 . $inc_DIR/includefunctions
-
-#########################################################################
-# Add mod info button on home screen                                    #
-#########################################################################
-#!/bin/bash
 echo "-- Adding 'Info' button and display of mod related data ..."
 for DIR in ${OEMLIST}; do
-# if [ "$DIR" = "avme" ] ; then
-#  export HTML="$DIR/$avm_Lang/html"
-# else
-  export HTML="$DIR/html"
-# fi
-    DSS="/usr/www/$HTML/de"
-    DSTI="$1"${DSS}
-	if [ -d ${DSTI}/help ] ; then
-#------------------------------------------------------------------------------------------------
-#add for .49 AVM
-#popup window is only functional with local help
-if [ -e "${DSTI}"/menus/menu2.html ]; then
-if ! [ -f "$1/usr/www/$DIR/help/help.lua" ]; then
+ export HTML="$DIR/html"
+ DSS="/usr/www/$HTML/de"
+ DSTI="$1"${DSS}
+ #------------------------------------------------------------------------------------------------
+ #add for .49 AVM
+ #popup window is only functional with local help
  if [ "$ADD_MODINFOICON" = "y" ]; then
-    echo "-- Adding 'Info' icon on status page..."
-    cp -fdpr  $P_DIR/help1.gif  --target-directory="${DSTI}"/images
-    echo2 "      ${DSS}/menus/menu2.html"
-     # fix phone labor 16624
-     if grep -q "jslPopHelpEx('home', ''). title=" "${DSTI}"/menus/menu2.html ;then
-      sed -i -e "/PopHelpEx/i \
-<a href=\"javascript:jslPopHelp('modinfo')\" title=\"Mod Info\" style=\"width:20px;vertical-align:bottom;padding-right:5px;\">\n\ \
-<img src=\"..\/html\/de\/images\/help1.gif\"><span style=\"\">Info<\/span>\n\ \
-<\/a>" "${DSTI}"/menus/menu2.html
-	#all otheres as usual
-      else
-     sed -i -e "/PopHelpEx/i \
-<td title=\"Mod Info\" style=\"width: 20px;\"><a href=\"javascript:jslPopHelp('modinfo')\">\n\ \
-<img src=\"..\/html\/de\/images\/help1.gif\">\n\ \
-<\/a><\/td>" "${DSTI}"/menus/menu2.html
-     fi
- fi
- sed -i -e 's|var g_HelpPagesOnBox = new Array(|var g_ModHelpPagesOnBox = new Array(\
+  [ -f "${DSTI}"/help/popup.html ] && sed -i -e 's|var g_HelpPagesOnBox = new Array(|var g_ModHelpPagesOnBox = new Array(\
 "modinfo",\
 "hilfe_fon_anrufbeantworter",\
 "hilfe_fon_dect",\
@@ -59,7 +30,7 @@ i++;\
 return false;\
 }\
 var g_HelpPagesOnBox = new Array(|' "${DSTI}"/help/popup.html
- sed -i -e '/if (g_HelpUrl != ""/i\
+   [ -f "${DSTI}"/help/popup.html ] &&  sed -i -e '/if (g_HelpUrl != ""/i\
 var topic = "<? echo $var:pagename ?>";\
 if (IsTopicModOnBox(topic))\
 {\
@@ -70,40 +41,59 @@ var anker = "<? echo $var:anker ?>";\
 if (anker != "") location.hash = anker;\
 return;\
 }' "${DSTI}"/help/popup.html
- else
- #17675
-
-  # if [ "$ADD_MODINFOICON" = "y" ]; then
-  if [ "$ADD_MODINFOICON" = "yy" ]; then #funktioniert noch nicht
-    echo "-- Adding 'Info' icon on status page..."
-    cp -fdpr  $P_DIR/help_n.gif  --target-directory="$1/usr/www/$DIR/css/default/images"
+   if ! [ -f "$1/usr/www/$DIR/help/help.lua" ]; then
+    if [ -e "${DSTI}"/menus/menu2.html ]; then
+     cp -fdpr  $P_DIR/help1.gif  --target-directory="${DSTI}"/images
     echo2 "      ${DSS}/menus/menu2.html"
+     # fix phone labor 16624
      if grep -q "jslPopHelpEx('home', ''). title=" "${DSTI}"/menus/menu2.html ;then
       sed -i -e "/PopHelpEx/i \
-<a href=\"javascript:jslPopHelpEx('modinfo', '')\" title=\"Modinfo\" style=\"\">\n\ \
-<img src=\"\/css\/default\/images\/help_n.gif\" style=\"vertical-align: middle;\">Modinfo<\/a>" "${DSTI}"/menus/menu2.html
+<a href=\"javascript:jslPopHelp('modinfo')\" title=\"Mod Info\" style=\"width:20px;vertical-align:bottom;padding-right:5px;\">\n\ \
+<img src=\"..\/html\/de\/images\/help1.gif\"><span style=\"\">Info<\/span><\/a>" "${DSTI}"/menus/menu2.html
+	#all otheres as usual
+      else
+     sed -i -e "/PopHelpEx/i \
+<td title=\"Mod Info\" style=\"width: 20px;\"><a href=\"javascript:jslPopHelp('modinfo')\">\n\ \
+<img src=\"..\/html\/de\/images\/help1.gif\"><\/a><\/td>" "${DSTI}"/menus/menu2.html
      fi
-     sed -i -e "/uiHelpHome/i \
-<a id=\"uiInfoHome\" target=\"_blank\" href=\"<?lua href.help_write('modinfo.html') ?>\"\n\ \
+   fi #<-- menu2.html exists
+ else #--> help.lua exists
+ #17675 --> 
+    cp -fdpr  $P_DIR/help_n.gif  --target-directory="$1/usr/www/$DIR/css/default/images"
+    echo2 "      ${DSS}/menus/menu2.html"
+    [ -e "${DSTI}"/menus/menu2.html ] && grep -q "jslPopHelpEx('home', ''). title=" "${DSTI}"/menus/menu2.html && \
+      sed -i -e "/PopHelpEx/i \
+<a href=\"javascript:jslPopHelp('modinfo')\" title=\"Modinfo\" style=\"\">\n\ \
+<img src=\"\/css\/default\/images\/help_n.gif\" style=\"vertical-align: middle;\">Modinfo<\/a>" "${DSTI}"/menus/menu2.html
+      [ -f "$1/usr/www/$DIR/templates/menu_page_head.html" ] && sed -i -e "/uiHelpHome/i \
+<a id=\"uiHelpHome\" target=\"_blank\" href=\"<?lua href.help_write('modinfo.html') ?>\"\n\ \
 onclick=\"<?lua box.out(\"help.popup('\" .. href.help_get('modinfo.html','hide=yes') .. \"'); return false;\") ?>\"\n\ \
 title=\"Modinfio\"><img src=\"\/css\/default\/images\/help_n.gif\">Modinfo<\/a>" "$1"/usr/www/${DIR}/templates/menu_page_head.html
-  fi
- sed -i -e '/"hilfe_kennwort",/a\
-"modinfo",' "${DSTI}"/help/popup.html
- sed -i -e '/hilfe_kennwort.html/a\
+      [ -f "$1/usr/www/$DIR/help/helpurl.lua" ] &&  sed -i -e '/hilfe_kennwort.html/a\
 "modinfo.html",' "$1"/usr/www/$DIR/help/helpurl.lua
- sed -i -e '/hilfe_system_user.html/a\
-{ href = "modinfo.html", text = "Modinfo" },' "$1"/usr/www/$DIR/help/home.html
- fi
-#    sed -i -e 's|jslDisplay("uiShowError", true);|jslDisplay("uiShowError", true);\n}|' "${DSTI}"/help/popup.html
+ sed -i -e '/dbg.cprint("isboxonline", online)/i\
+if box.get.helppage == "modinfo.html" then online = false end' "$1"/usr/www/$DIR/help/help.lua
+ #monut page on ftp for testing, executed within telnet
+ #mount -o bind /var/media/ftp/UFD-Storage-01/www/avm/help /usr/www/avm/help
+ sed -i -e 's/offline !=/mi != "modinfo.html" || offline !=/' "$1"/usr/www/$DIR/help/help.lua
+ sed -i -e '/mi != "modinfo.html/i\
+var mi = "<?lua box.js(box.get.helppage) ?>";' "$1"/usr/www/$DIR/help/help.lua
+ sed -i -e 's/onlineTest(100, onlineTestCallback);/var mi = "<?lua box.js(box.get.helppage) ?>"; if (mi == "modinfo.html") { onlineTestCallback(0); } else { onlineTest(100, onlineTestCallback);};/' "$1"/usr/www/$DIR/help/help.lua
+  fi #<-- help.lua exists
+fi #<-- modinfo button
+# add Speedportinfo Produktname
+if [ -e "$1"/usr/www/$DIR/home/home.lua ]; then
+ [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" != "7570" ] && sed -i -e "s|<?lua box.out(g_Productname) ?>|<?lua box.out(g_Productname) ?>  ${CLASS} W${SPNUM}V|" "$1"/usr/www/$DIR/home/home.lua
+ [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" == "7570" ] && sed -i -e "s|<?lua box.out(g_Productname) ?>|<?lua box.out(g_Productname) ?>  ${CLASS} (${SPNUM})|" "$1"/usr/www/$DIR/home/home.lua
 fi
-
+#<-- 17675
+#------------------------------------------------------------------------------------------------
+if [ -d ${DSTI}/help ] ; then
 # for all versions
-# add Speedportinfo 
+# add Speedportinfo  Produktname
 [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" != "7570" ] && sed -i -e "s|<? echo \$var:ProduktName ?>|<? echo \$var:ProduktName ?>  ${CLASS} W${SPNUM}V|" "${DSTI}"/home/home.html
 [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" == "7570" ] && sed -i -e "s|<? echo \$var:ProduktName ?>|<? echo \$var:ProduktName ?>  ${CLASS} (${SPNUM})|" "${DSTI}"/home/home.html
-
-# add Service portal link
+# add Service portal link (is set in rc.conf as well so we dont need this on new 17671 GUI)
 sed -i -e 's|var url = jslGetValue("uiPostPortal");|var url = "http://www.avm.de/de/Service/Service-Portale/Service-Portal/index.php?portal=FRITZ!Box_Fon_WLAN_<Modell-Nummer>"|' "${DSTI}"/help/popup.html
 sed -i -e "s|<Modell-Nummer>|${FBMOD}|" "${DSTI}"/help/popup.html
 
@@ -129,22 +119,24 @@ sed -i -e "/<\/script>/i \
 function uiDoInfo() {\n\tjslPopHelp(\"modinfo\");\n}" "${DSTI}/home/home.js"
 #<input type="button" onclick="uiDoInfo()" value="Info" class=Pushbutton>\
 #<input type="button" onclick="<a href="javascript:jslPopHelp(\'modinfo\')">" value="Info" class=Pushbutton>\
-
-
+fi #<-- help dir exist
+# --> 17671 new GUI 
+if ! [ -f "$1/usr/www/$DIR/help/help.lua" ]; then
 DSTF="${DSTI}"/help/modinfo.html
-
 echo2 "     ${DSS}/help/modinfo.html"
-
-
+else #<--
+# old GUI
+DSTF="$1/usr/www/$DIR/help/modinfo.html"
+echo2 "     /usr/www/$DIR/help/modinfo.html"
+fi
 touch "${DSTF}"
 #echo "1---------------------------------------------------------------------------------------------------------------------------------"
-
 if [ "$avm_Lang" = "de" ]; then
 cat << 'EOF' >> "${DSTF}"
 <div class="Hilfe">
 <div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Informationen</div></div></div></div></div></div>
 <div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
-<p>Die Firmware des <b>MODEL</b> wurde durch den <b>Speed2fritz-Mod</b> verändert. Im folgenden erhalten Sie Informationen über die verwendeten Skript- und Firmware-Versionen.</p>
+<p>Die Firmware des <b>MODEL</b> wurde durch den <b>Speed2fritz-Mod</b> verändert.</p>
 <h2>Verwendete Skript-Version</h2>
 <p>Verwendet wurde das Skript <b>'speed2fritz'</b> in der Version vom <b>VERSION</b>. Folgende Optionen wurden verwendet:</p>
 <ul>
@@ -186,7 +178,7 @@ Die Doku dazu finden Sie ebenfalls <a href="http://wiki.ip-phone-forum.de/skript
 <p>Die Anwendung dieser Modifikation erfolgt auf eigene Gefahr. Sie verlieren dadurch Ihren Supportanspruch gegenüber dem Hersteller. 
 Die Autoren von 'Speed2Fritz' lehnen jegliche Haftung für Schäden ab, die durch die Installation des Skripts oder der modifizierten Firmware entstehen.</p>
 <p></p>
-<p>2006-2009</p>
+<p>2006-2010</p>
 </div></div></div></div></div></div>
 <? include ../html/de/help/rback.html ?>
 </div>
@@ -264,7 +256,8 @@ sed -i -e "s/HOSTNAME/${HOSTNAME}/" "${DSTF}"
 [ "$DSL_MULTI_ANNEX" = "y" ] && sed -i -e "s/ANNEX/Multi/" "${DSTF}"
 [ "$ATA_ONLY" = "n" ] && sed -i -e "s/ANNEX/${ANNEX}/" "${DSTF}"
 
-[ -n "$FBIMG_2" ] && sed -i -e "s/IMG2_AVM/${FBIMG_2}/" "${DSTF}" || sed -i -e "/<li><b>AVM WebUI-Image:/,/<\/li>/d" "${DSTF}"
+[ -n "$SRC2_IMG" ] && sed -i -e "s/IMG2_AVM/${FBIMG_2}/" "${DSTF}"
+[ -n "$SRC2_IMG" ] || sed -i -e "/IMG2_AVM/d" "${DSTF}"
 
 if [ "$avm_Lang" = "de" ]; then
 #////////////////////////////////////////////////////////////////
@@ -355,7 +348,10 @@ else
 #////////////////////////////////////////////////////////////////
 fi
 #-------------------------------------------------------------------------------------------------------------------
-fi
+ # 17671 -->
+ # fix for new GUI
+ sed -i -e "/<\/div>/d" -e "/<div/d" -e "/<? include/d" "$1/usr/www/$DIR/help/modinfo.html" -e "1i<?lua write_help_head([[Modinformation]]) ?>" "$1/usr/www/$DIR/help/modinfo.html"
+ # <--17671
 done
 
 exit 0

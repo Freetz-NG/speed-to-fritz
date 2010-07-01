@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="28"; Monat="06"; Jahr="10"
+Tag="01"; Monat="07"; Jahr="10"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -1500,8 +1500,8 @@ if [ "$ORI" != "y" ]; then
  fi
  #patch p_maxTimeout on intenet page
  [ "$SET_PMAXTIMEOUT" = "y" ] && $sh_DIR/patch_pmaxTimeout.sh "${SRC}" "${OEMLIST}"
- #patch download url and add menuitem support
- [ "$ADD_SUPPORT" = "y" ] && $sh2_DIR/patch_url "${SRC}" "${OEMLIST}"
+ #patch download url and add menuitem support , and freetz
+ $sh2_DIR/patch_url "${SRC}" "${OEMLIST}"
  #add dsl expert pages support
  [ "$ADD_DSL_EXPERT_MNUE" = "y" ] && $sh_DIR/add_dsl_expert.sh "${SRC}" "${OEMLIST}"
  #add omlinecounter pages 
