@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="01"; Monat="07"; Jahr="10"
+Tag="03"; Monat="07"; Jahr="10"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -1344,7 +1344,7 @@ export CONFIG_ETH_COUNT="4"
 	export HWID="139"
 	export HWRevision="${HWID}.1.0.6"
 	PROD2="${PROD:0:2}"
-	export kernel_size="7798784"
+	export kernel_size="16121856"
 	if [ "$PROD2" == "72" ]; then
 	    # 72XX firmwares needs differnet tool
 	    export MKSQUASHFS_TOOL="mksquashfs3-lzma"
