@@ -43,8 +43,9 @@ echo "==========================================================================
  rm -f $LISTING
 #------------------------------------------
 #------------------------------------------
+USE_SNAP="y"
 TESTING="n"
-#--------------------------------------
+#------------------------------------------
 #------------------------------------------
 if  [ "$TESTING" == "y" ]; then
 ### -->!!!<--
@@ -79,7 +80,7 @@ else
 #------------------------------------------------
 # set a fix version
 #DVERSION="20100606"
-DVERSION="20100614"
+DVERSION="20100630"
 #------------------------------------------------
  echo "coVersion: $DVERSION"
  CO_SUBDIR2="devel-$DVERSION"
@@ -95,8 +96,6 @@ DVERSION="20100614"
  M_COLINUX_VER="0.7.8$REVISION-$DVERSION"
  V_COLINUX_VER="0.7.8$REVISION-$DVERSION"
 fi
-# In use for generating modul dependencyes, this must be the path within modules-*.tgz
-export LONG_VER="$LINUX_VERSION-co-0.7.8$REVISION"
 sleep 1
 sed -i -e "/$DVERSION/d" $TMP
 cp $TMP "$TMP"1 
@@ -144,99 +143,93 @@ if  [ "$TESTING" != "y" ]; then
  [ -f ./colinux-$COLINUX_VER.src.tgz ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/colinux-$COLINUX_VER.src.tgz"
 #sleep 10
 fi
-
-[ -f ./daemons-$COLINUX_VER.dbg.zip ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/daemons-$COLINUX_VER.dbg.zip"
-[ -f ./daemons-$COLINUX_VER.zip ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/daemons-$COLINUX_VER.zip"
-[ -f ./modules-$LINUX_VERSION-co-$COLINUX_VER.tgz ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/modules-$LINUX_VERSION-co-$M_COLINUX_VER.tgz" || get_older_modules
-[ -f ./vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/vmlinux-$LINUX_VERSION-co-$V_COLINUX_VER.zip" || get_older_vmlinux
-[ -f ./modules-$LINUX_VERSION-co-$COLINUX_VER.tgz ] || mv -v "./modules-$LINUX_VERSION-co-$M_COLINUX_VER.tgz" ./modules-$LINUX_VERSION-co-$COLINUX_VER.tgz
-[ -f ./vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip ] || mv -v "./vmlinux-$LINUX_VERSION-co-$V_COLINUX_VER.zip" ./vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip
+if [ "$USE_SNAP" != "y" ]; then
+ [ -f ./daemons-$COLINUX_VER.dbg.zip ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/daemons-$COLINUX_VER.dbg.zip"
+ [ -f ./daemons-$COLINUX_VER.zip ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/daemons-$COLINUX_VER.zip"
+ [ -f ./modules-$LINUX_VERSION-co-$COLINUX_VER.tgz ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/modules-$LINUX_VERSION-co-$M_COLINUX_VER.tgz" || get_older_modules
+ [ -f ./vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/vmlinux-$LINUX_VERSION-co-$V_COLINUX_VER.zip" || get_older_vmlinux
+ [ -f ./modules-$LINUX_VERSION-co-$COLINUX_VER.tgz ] || mv -v "./modules-$LINUX_VERSION-co-$M_COLINUX_VER.tgz" ./modules-$LINUX_VERSION-co-$COLINUX_VER.tgz
+ [ -f ./vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip ] || mv -v "./vmlinux-$LINUX_VERSION-co-$V_COLINUX_VER.zip" ./vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip
+fi
 #patches werden nur fuers skript gebraucht, muessen nicht neu geladen werden
 #[ -f ./linux-2.6.26.8-co-20100524.patch.gz ] || wget "http://www.henrynestler.com/colinux/testing/devel-0.7.8/20100524-Snapshot/kernel-patches/linux-2.6.26.8-co-20100524.patch.gz"
 #[ -f ./patches-$LINUX_VERSION-$COLINUX_VER.tar.gz ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/patches-$LINUX_VERSION-$COLINUX_VER.tar.gz"
-echo "___ ---___"
+echo "___---___"
 #sleep 50
 rm -f $TMP
 rm -f "$TMP"1
 echo "====================================================================================================="
 echo "====================================================================================================="
 export home=$(pwd)
-cd ../bfin-colinux-ori/trunk/upstream
-# use devel.exe - only in use for supplying initrd.gz
+#Downloaddir for staff that is always needed
+DL_DIR="$home/../bfin-colinux-ori/trunk/upstream"
+cd $DL_DIR
+# use devel.exe - only in use for supplying initrd.gz or if snapshot is used
 #--------------------------------------------------------------------
-DEVEL_VER="20100612"
+DEVEL_VER="20100702"
+#http://www.henrynestler.com/colinux/testing/devel-0.7.8/20100702-Snapshot/devel-coLinux-20100702.exe
 #--------------------------------------------------------------------
-[ -f coLinux-${DEVEL_VER}.exe ] || wget "http://www.henrynestler.com/colinux/testing/devel-0.7.8/${DEVEL_VER}-Snapshot/devel-coLinux-${DEVEL_VER}.exe"
-[ -f devel-coLinux-${DEVEL_VER}.exe ] && mv ./devel-coLinux-${DEVEL_VER}.exe ./coLinux-${DEVEL_VER}.exe
-#this would be the old stabile
+[ -f devel-coLinux-${DEVEL_VER}.exe ] || wget "http://www.henrynestler.com/colinux/testing/devel-0.7.8/${DEVEL_VER}-Snapshot/devel-coLinux-${DEVEL_VER}.exe"
+[ -f devel-coLinux-${DEVEL_VER}.exe ] && cp ./devel-coLinux-${DEVEL_VER}.exe ./coLinux-${DEVEL_VER}.exe
+#### -> This would be the old stabile
 ###[ -f coLinux-0.7.3.exe ] || wget "http://www.henrynestler.com/colinux/releases/0.7.3/coLinux-0.7.3.exe"
-#[ -f coLinux-0.7.3-src.tgz ] || wget "http://www.henrynestler.com/colinux/releases/0.7.3/coLinux-0.7.3-src.tgz"
+###[ -f coLinux-0.7.3-src.tgz ] || wget "http://www.henrynestler.com/colinux/releases/0.7.3/coLinux-0.7.3-src.tgz"
+#### <-
 [ -f Xming-mesa-6-9-0-31-setup.exe ] || wget "http://downloads.sourceforge.net/xming/Xming-mesa-6-9-0-31-setup.exe?use_mirror="
 #[ -f Xming-fonts-7-3-0-33-setup.exe ] || wget "http://downloads.sourceforge.net/xming/Xming-fonts-7-3-0-33-setup.exe?use_mirror="
 [ -f WinPcap_4_0_2.exe ] || wget "http://www.winpcap.org/install/bin/WinPcap_4_0_2.exe"
 [ -f putty-0.60-installer.exe ] || wget "http://the.earth.li/~sgtatham/putty/0.60/x86/putty-0.60-installer.exe"
 cd $home
+export COLINUX_SRC_VER="$(find -name 'colinux-*.src.tgz' | LC_ALL=C sort | tail -n1 | sed 's:.*colinux-\(.*\).src.tgz:\1:')"
+cp -v ./colinux-$COLINUX_SRC_VER.src.tgz $DL_DIR/coLinux-${COLINUX_SRC_VER}.src.tar.gz
 cp -af ../bfin-colinux-ori/* ../bfin-colinux
 cd ../bfin-colinux/trunk
-export COLINUX_EXE_VER=$(find upstream -name 'coLinux-*.exe' | LC_ALL=C sort | tail -n1 | sed 's:.*coLinux-\(.*\).exe:\1:')
+#export COLINUX_EXE_VER="$(find upstream -name 'devel-coLinux-*.exe' | LC_ALL=C sort | tail -n1 | sed 's:.*coLinux-\(.*\).exe:\1:')"
+export COLINUX_EXE_VER=${DEVEL_VER}
+
 echo "Old colinux exe version: $COLINUX_EXE_VER"
 [ -d and ] && rm -R and
 mkdir and
 cd and
-#--initrd.gz and colinux-daemon.txt are not includese with demons.zip 
-7z x -y ../upstream/coLinux-$COLINUX_EXE_VER.exe
-#
+#--get initrd.gz or all if snapshot is used
+7z x -y ../upstream/devel-coLinux-${DEVEL_VER}.exe
 COLINUX_PATCHVER="0.7.3"
 [ -e ../patches/colinux-$COLINUX_PATCHVER-initrd-hook.patch ] && cp ../patches/colinux-$COLINUX_PATCHVER-initrd-hook.patch ../patches/colinux-$COLINUX_VER-initrd-hook.patch
 [ -e ../patches/colinux-$COLINUX_PATCHVER-initrd-hook.patch ] && rm ../patches/colinux-$COLINUX_PATCHVER-initrd-hook.patch
 [ -e ../patches/colinux-$COLINUX_PATCHVER-installer.patch ] &&rm ../patches/colinux-$COLINUX_PATCHVER-installer.patch
 # get new versions
+echo "====================================================================================================="
+if [ "$USE_SNAP" != "y" ]; then
+ 7z x -y  $home/file-utils-mingw-bin-stripped.zip
+ rm URL.txt
+ rm mkSparse.exe
+ rm spSize.exe
+ 7z x -y  $home/vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip
+ 7z x -y  $home/daemons-$COLINUX_VER.zip
+ chmod 777 ./vmlinux
+ cp $home/modules-$LINUX_VERSION-co-$COLINUX_VER.tgz vmlinux-modules.tar.gz
+ 7z x -y  $home/netdriver-tap84.zip
+ mkdir -p ./netdriver
+ mv OemWin2k.inf ./netdriver/OemWin2k.inf
+ mv README.TXT ./netdriver/README.TXT
+ mv tap.cat ./netdriver/tap.cat
+ mv tap0801co.sys ./netdriver/tap0801co.sys
+ mv tapcontrol.exe ./netdriver/tapcontrol.exe
+fi
+# adititional driver
+7z x -y  $home/tap32-driver-v9.zip
+#set mediastatus
+sed -i -e 's|MediaStatus,          Default,   0, "0"|MediaStatus,          Default,   0, "1"|g' ./netdriver/OemWin2k.inf
+sed -i -e 's|MediaStatus,          Default,   0, "0"|MediaStatus,          Default,   0, "1"|g' ./tuntap/OemWin2k.inf
+echo "====================================================================================================="
 cd $home
-echo "====================================================================================================="
-and="../bfin-colinux/trunk/and"
-
-echo "---------------------------------------------------------------------------------------------"
-export COLINUX_VER1=$(find -name 'colinux-*.src.tgz' | LC_ALL=C sort | tail -n1 | sed 's:.*colinux-\(.*\).src.tgz:\1:')
-cp -v ./colinux-$COLINUX_VER1.src.tgz ../bfin-colinux/trunk/upstream/coLinux-${COLINUX_VER1}.src.tar.gz
-
-
-7z x -y  vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip
-7z x -y  daemons-$COLINUX_VER.zip
-7z x -y  netdriver-tap84.zip
-7z x -y  tap32-driver-v9.zip 
-7z x -y  file-utils-mingw-bin-stripped.zip
-mv ./tuntap $and
-
-mv colinux-bridged-net-daemon.exe $and/colinux-bridged-net-daemon.exe
-mv colinux-console-fltk.exe $and/colinux-console-fltk.exe
-mv colinux-console-nt.exe $and/colinux-console-nt.exe
-mv colinux-daemon.exe $and/colinux-daemon.exe
-mv colinux-debug-daemon.exe $and/colinux-debug-daemon.exe
-mv colinux-ndis-net-daemon.exe $and/colinux-ndis-net-daemon.exe
-mv colinux-net-daemon.exe $and/colinux-net-daemon.exe
-mv colinux-serial-daemon.exe $and/colinux-serial-daemon.exe
-mv colinux-slirp-net-daemon.exe $and/colinux-slirp-net-daemon.exe 
-mv linux.sys $and/linux.sys
-mv mkFile.exe $and/mkFile.exe
-
-#chmod 777 ./vmlinux
-
-cp -f vmlinux $and/vmlinux
-mkdir -p $and/netdriver
-cp modules-$LINUX_VERSION-co-$COLINUX_VER.tgz $and/vmlinux-modules.tar.gz
-#[ -f ./patches-$LINUX_VERSION-$COLINUX_VER.tar.gz ] && cp patches-$LINUX_VERSION-$COLINUX_VER.tar.gz $and/patches.tar.gz
-mv OemWin2k.inf $and/netdriver/OemWin2k.inf
-mv README.TXT $and/netdriver/README.TXT
-mv tap.cat $and/netdriver/tap.cat
-mv tap0801co.sys $and/netdriver/tap0801co.sys
-mv tapcontrol.exe $and/netdriver/tapcontrol.exe
-rm URL.txt
-rm mkSparse.exe
-rm spSize.exe
-rm vmlinux
-echo "====================================================================================================="
+# In use for generating modul dependencyes, this must be the path within modules-*.tgz
+tar zxf ../bfin-colinux/trunk/and/vmlinux-modules.tar.gz
+export LONG_VER=$(ls lib/modules)
+rm -fdR lib
+#export LONG_VER="$LINUX_VERSION-co-0.7.8$REVISION"
+echo "Modulversion in use: $LONG_VER"
 ./build-and-installer.sh
-sleep 10
 #./pack.sh
 if  [ "$TESTING" == "y" ]; then
  cp -f version version_test

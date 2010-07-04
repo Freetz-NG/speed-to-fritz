@@ -1,5 +1,8 @@
 #!/bin/bash -x
-
+# USED
+## ${PWD}/patches/colinux.nsi
+## ${PWD}/upstream/coLinux-${$3}.src.tar.gz
+## ${PWD}/upstream/coLinux-${$4}.exe
 set -e
 
 cd ${0%/*}
@@ -39,7 +42,7 @@ tar cf init.tar -C init .
 
 # Extract the CoLinux src and binary packages
 cd ${BASE}/coLinux
-tar zxf ../../upstream/coLinux-${COLINUX_SRC_VER}.src.tar.gz
+tar zxf ${ALL_BASE}/upstream/coLinux-${COLINUX_SRC_VER}.src.tar.gz
 mv colinux-${DATE_SRC} src
 rm ./src/src/colinux/os/winnt/user/install/colinux.nsi
 mv -f ${ALL_BASE}/patches/colinux.nsi ./src/src/colinux/os/winnt/user/install/colinux.nsi
@@ -48,7 +51,7 @@ cd src
 cd ..
 mkdir bin
 cd bin
-7z x -y ../../../upstream/coLinux-${COLINUX_EXE_VER}.exe
+7z x -y ${ALL_BASE}/upstream/coLinux-${COLINUX_EXE_VER}.exe
 
 # Apply our customizations
 cd ${BASE}
@@ -80,8 +83,5 @@ ln -s ${ALL_BASE}/upstream ${COLINUX_INSTALL}/
 cd ${COLINUX_INSTALL}
 
 #makensis -DBFIN_BASE colinux.nsi
-#cp speedLinux.exe ${BASE}/speedLinux-${COLINUX_VER}-speedLinux-base-${SPEEDLINUX_VER}.exe
 makensis -DBFIN_LITE colinux.nsi
-#cp speedLinux.exe ${BASE}/speedLinux-${COLINUX_VER}-speedLinux-lite-${SPEEDLINUX_VER}.exe
 mv speedLinux.exe /mnt/win/upstream/speedLinux-${SPEEDLINUX_VER}.exe
-#mv speedLinux.exe /and/speedLinux-${SPEEDLINUX_VER}.exe
