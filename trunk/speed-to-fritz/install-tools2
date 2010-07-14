@@ -3,7 +3,7 @@ echo "Update ----->"
 if [ -e /etc/SuSE-release -a -x /usr/bin/zypper ] ; then
 	echo "openSUSE detected"
 	sudo zypper --non-interactive up
-	sudo zypper --non-interactive install subversion gcc gcc-c++ binutils autoconf automake libtool make bzip2 ncurses-devel zlib-devel flex bison patch texinfo gettext-tools jam pkg-config jikes fastjar perl ruby gawk python $EXTRAPKG
+	sudo zypper --non-interactive install subversion gcc gcc-c++ binutils autoconf automake libtool make bzip2 ncurses-devel zlib-devel flex bison patch texinfo gettext-tools jam pkg-config jikes fastjar perl ruby gawk python $EXTRAPKG realpath
 else
 	sudo apt-get -y update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade &&\
 	sudo apt-get -y install gcc g++ binutils autoconf automake automake1.9
