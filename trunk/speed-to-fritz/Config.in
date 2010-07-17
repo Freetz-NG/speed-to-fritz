@@ -867,7 +867,7 @@ config TYPE_TCOM_7570_XX
 choice
 	prompt "basis 7570 alternative firmware"
 	depends on TYPE_TCOM_7570_XX 
-	default TYPE_TCOM_7570_75_04_82
+	default TYPE_TCOM_7570_17599
 	
 	config TYPE_TCOM_7570_15245
 		bool "AVM 7570 75.04.76 dump 1und1 15245"
@@ -882,7 +882,7 @@ choice
 		bool "AVM 7570 75.04.80.en-de-fr 16087"
 
 	config TYPE_TCOM_7570_17599
-		bool "AVM 7570 81 17599.en-de-fr (IPv6) 17599"
+		bool "AVM 7570 17599.en-de-fr (IPv6) 17599"
 
 	config TYPE_TCOM_7570_75_04_82
 		bool "AVM 7570 75.04.82.en-de-fr 17057"
@@ -1251,7 +1251,7 @@ choice
 
 			
 	config TYPE_7270_IPV6_17603
-		bool "AVM 7270 80 17603.de IPv6"
+		bool "AVM 7270 17603.de IPv6"
 		select ORI_FIRMWARE_IS_MULI
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
@@ -1259,7 +1259,7 @@ choice
 			(Internet Protocol Version 6) and 6to4 tunnels.
 
 	config TYPE_7270_IPV6_17599
-		bool "AVM 7270 81 17599.en-de-fr IPv6"
+		bool "AVM 7270 17599.en-de-fr IPv6"
 		select ORI_FIRMWARE_IS_MULI
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
@@ -1675,7 +1675,7 @@ choice
 		bool "AVM 7270 17603.de (IPv6)"
 
 	config TYPE_SRC3_AVM_IPV6_7270_17599
-		bool "AVM 7270 81 17599.en-de-fr (IPv6)"
+		bool "AVM 7270 17599.en-de-fr (IPv6)"
 
 	config TYPE_SRC3_AVM_DSL_7270_16750
 		bool "AVM 7270 16750 Labor DSL"
@@ -1852,7 +1852,7 @@ config TCOM_IMG
 	default "$TCOM_W722_80_04_76" 		if ( TYPE_SPEEDPORT_W722V )
 	default "$TCOM_W900_34_04_57" 		if TYPE_SPEEDPORT_W900V
 	default "$TCOM_W920_65_04_78" 		if ORI && ( TYPE_SPEEDPORT_W920V && ! TYPE_BETATCOM )
-	default "$AVM_7570_75_04_82"		if ( TYPE_7570 && ! TYPE_TCOM_7570_XX ) || ( ! ORI && ( ! TYPE_BETATCOM && ! TYPE_TCOM_7570_XX ) && ( TYPE_OR_7570_920 ))
+	default "$AVM_7570_17599"		if ( TYPE_7570 && ! TYPE_TCOM_7570_XX ) || ( ! ORI && ( ! TYPE_BETATCOM && ! TYPE_TCOM_7570_XX ) && ( TYPE_OR_7570_920 ))
 	default "$TCOM_W920_65_04_58" 		if TYPE_BETA_TCOM_65_04_58 && ( TYPE_OR_7570_920 || ORI  )
 	default "$TCOM_W920_65_04_63" 		if TYPE_BETA_TCOM_65_04_63 && ( TYPE_OR_7570_920 || ORI  )
 #	default "$TCOM_W920_65_04_70" 		if TYPE_BETA_TCOM_65_04_70 && ( TYPE_OR_7570_920 || ORI  )
