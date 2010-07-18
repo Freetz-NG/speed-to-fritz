@@ -15,7 +15,6 @@ if [  -e "${SPDIR}/var/install" ]; then
  export TCOM_V_MINOR=${TCOM_VERSION##*.}
  export TCOM_SUBVERSION=`cat ${DST}/etc/.subversion`
  export TCOM_SUBVERSION=`echo ${TCOM_SUBVERSION##*-} | tr -d '[:alpha:]'`
- [ "$TCOM_SUBVERSION" = "" ] &&  export TCOM_SUBVERSION="0"
  export SP_Vesioninfo=`cat "${SPDIR}"/var/install | grep Versioninfo: | tr , ' '`
  export SP_Checkpoint=`cat "${SPDIR}"/var/install | grep Checkpoint: | tr , ' '`
  export SP_kernel_sizeR=`cat "${SPDIR}"/var/install | grep kernel_size=[[:digit:]] | tr , ' ' | sed 's/kernel_size=//'`
@@ -32,7 +31,6 @@ if [  -e "${FBDIR}/var/install" ]; then
  export AVM_V_MINOR=${AVM_VERSION##*.}
  export AVM_SUBVERSION=`cat ${SRC}/etc/.subversion`
  export AVM_SUBVERSION=`echo ${AVM_SUBVERSION##*-} | tr -d '[:alpha:]'`
- [ "$AVM_SUBVERSION" = "" ] && export AVM_SUBVERSION="0"
  export FB_Vesioninfo=`cat "${FBDIR}"/var/install | grep Versioninfo: | tr , ' '`
  export FB_Checkpoint=`cat "${FBDIR}"/var/install | grep Checkpoint: | tr , ' '`
  export FB_kernel_sizeR=`cat "${FBDIR}"/var/install | grep kernel_size=[[:digit:]] | tr , ' ' | sed 's/kernel_size=//'`
@@ -47,7 +45,6 @@ if [  -e "${FBDIR_2}/var/install" ]; then
  export AVM_2_V_MINOR=${AVM_2_VERSION##*.}
  export AVM_2_SUBVERSION=`cat ${SRC_2}/etc/.subversion`
  export AVM_2_SUBVERSION=`echo ${AVM_2_SUBVERSION##*-} | tr -d '[:alpha:]'`
- [ "$AVM_2_SUBVERSION" = "" ] && export AVM_2_SUBVERSION="0"
  export FB2_Vesioninfo=`cat "${FBDIR_2}"/var/install | grep Versioninfo: | tr , ' '`
  export FB2_Checkpoint=`cat "${FBDIR_2}"/var/install | grep Checkpoint: | tr , ' '`
  export FB2_kernel_sizeR=`cat "${FBDIR_2}"/var/install | grep kernel_size=[[:digit:]] | tr , ' ' | sed 's/kernel_size=//'`
@@ -55,6 +52,9 @@ else
  export FB2_Vesioninfo="# Versioninfo:	$AVM_2_VERSION_MAJOR.$AVM_2_VERSION"
  export FB2_Checkpoint="# Checkpoint:	r0000"
 fi
+[ "$TCOM_SUBVERSION" == "" ] && export TCOM_SUBVERSION="${SP_Checkpoint:15:5}"
+[ "$AVM_SUBVERSION" == "" ] && export AVM_SUBVERSION="${FB_Checkpoint:15:5}"
+[ "$AVM_2_SUBVERSION" == "" ] && export AVM_2_SUBVERSION="${FB2_Checkpoint:15:5}"
 
 [  -e "${SPDIR}/var/install" ]   && echo2 "-- T-Home firmware version:	$TCOM_VERSION_MAJOR.$TCOM_VERSION-$TCOM_SUBVERSION"
 [  -e "${FBDIR}/var/install" ]   && echo2 "-- AVM    firmware version:	$AVM_VERSION_MAJOR.$AVM_VERSION-$AVM_SUBVERSION"

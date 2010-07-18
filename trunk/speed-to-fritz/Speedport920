@@ -13,14 +13,11 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
     rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
-#[ "$MOVE_AVM_to_AVME" = "y" ] &&  
 [ -d "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEM}" ] ||\
 mv "${SRC}/etc/default.${CONFIG_PRODUKT}/avm" "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEM}" &&\
 echo "  -- moved /etc/default.${CONFIG_PRODUKT}/avm to ${OEM}"
-sleep 2
 #Attention! Vinax uses aditional /dev/vinax device entrys the are generateed via /tools/device_table.txt (makedevice option)
-#[ ${FAKEROOT_ON} = "n" ] && 
-cp -fdrp "${DST}"/dev --target-directory="${SRC}" #this copy is onliy usable if run as root
+cp -fdrp "${DST}"/dev --target-directory="${SRC}" #this copy is only usable if run as root
 [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
 [ "${FORCE_TCOM_PCMLINK}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2/pcmlink.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2
 [ "${FORCE_TCOM_USRMAN}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/userman/userman_mod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/driver/userman
@@ -43,18 +40,13 @@ if [ "${TYPE_AVM_7570_XX}" = "y" ]; then
  fi
 else
  # "vinax_fw_adsl.bin" "vinax_fw_vdsl.bin"
- #remove 7270 DSL 
-
+ #remove 7270 DSL
  rm -fdr "${SRC}"/lib/modules/dsp_ur8
  rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsl
- #/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:
-
- # "vinax_driver"  
-
+ # "vinax_driver"
  [ -d "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax ] || mkdir "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
  cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
  cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory="${SRC}"/lib/modules/$KernelVersion
- #cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.dep --target-directory="${SRC}"/lib/modules/$KernelVersion
  cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.alias --target-directory="${SRC}"/lib/modules/$KernelVersion
  cp -u "${DST}"/usr/sbin/* --target-directory="${SRC}"/usr/sbin 2> /dev/null
  cp -fdrp "${DST}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
@@ -68,7 +60,6 @@ else
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/vinax
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
-#    cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.dep --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.alias --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
     cp -fdrp "${DST}"/usr/sbin/dsl* --target-directory=./addon/tmp/W920/squashfs-root/usr/sbin
     cp -fdrp "${DST}"/usr/sbin/vinax* --target-directory=./addon/tmp/W920/squashfs-root/usr/sbin
@@ -82,7 +73,6 @@ else
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/vinax
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.symbols --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
-#    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.dep --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.alias --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
     cp -fdrp "${SRC_2}"/usr/sbin/dsl* --target-directory=./addon/tmp/W920/squashfs-root/usr/sbin
     cp -fdrp "${SRC_2}"/usr/sbin/vinax* --target-directory=./addon/tmp/W920/squashfs-root/usr/sbin
@@ -94,7 +84,6 @@ else
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
     [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] || cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.symbols --target-directory="${SRC}"/lib/modules/$KernelVersion
-#    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.dep --target-directory="${SRC}"/lib/modules/$KernelVersion
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.alias --target-directory="${SRC}"/lib/modules/$KernelVersion
     cp -u "${SRC_2}"/usr/sbin/* --target-directory="${SRC}"/usr/sbin 2> /dev/null
     [ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${SRC_2}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
@@ -146,9 +135,9 @@ echo "  -- PPPoA compatible VINAX DSL Driver is in use!"
 echo "  -- PPPoA compatible KDSLDMOD Driver is in use!"
 
 [ "${FORCE_VINAX_DRV_77}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax" &&\
-echo "  -- 75.04.81 compatible VINAX DSL Driver is in use!"
+echo "  -- Compatible VINAX DSL Driver is in use!"
 [ "${FORCE_KDSLD_DRV_77}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
-echo "  -- 75.04.81 compatible KDSLDMOD Driver is in use!"
+echo "  -- Compatible KDSLDMOD Driver is in use!"
 #v3 dect fix
 sed -i -e 's|_488.hex|.hex|' "${SRC}/etc/init.d/rc.S" 
 sed -i -e '/piglet_use_pll3_clk=1 \\/d' "${SRC}/etc/init.d/rc.S" 
@@ -180,14 +169,6 @@ alias symbol:pcmlink_ul_openslots pcmlink' "${SRC}"/lib/modules/$KernelVersion/m
 cp -fdpr  "${DST}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d
 #include vdsl skript
 sed -i -e 's|/etc/init.d/rc.dsl.sh start|\. /etc/init.d/rc.vdsl.sh|' "${SRC}/etc/init.d/rc.S" 
-
-#Annex A not working up to now  
-##sed -i -e "s/DSL_Mode=\"VB\"/DSL_Mode=\"V$ANNEX\"/" "${SRC}/etc/init.d/rc.vdsl.sh" 
-#sed -i -e "s/annex=B/annex=$ANNEX/" "${SRC}/etc/init.d/rc.dsl.sh" 
-
-#ATM Parameter
-#sed -i -e "s/dsl_pipe sarcs 0 0 0 1 32/dsl_pipe sarcs 0 0 0 $VPI $VCI/" "${SRC}/etc/init.d/rc.vdsl.sh" 
-#sed -i -e "s/dsl_pipe sarrts 0 0 1 1 32/dsl_pipe sarrts 0 0 1 $VPI $VCI/" "${SRC}/etc/init.d/rc.vdsl.sh" 
 
 #diffence in rc.dsl.sh  
 sed -i -e 's|dsl_ur8|tiatm|' "${SRC}/etc/init.d/rc.dsl.sh"
@@ -296,13 +277,11 @@ sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init
 #copy second source internet dsl menue
 [ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLIST}"
  echo2 "New WEB GUI will be modified"
-
 #use scond source web GUI
 [ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
 #Add buchsend button to fon bookpage
 [ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
 ## skripts for startig ftp on USB
-#cp -fdpr  ./addon/tmp/jp   --target-directory="${SRC}"
 if [ ${ATA_ONLY} = "y" ]; then
 #remove ADSL
     sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
@@ -328,8 +307,6 @@ echo "  -- DSL Annex B Driver was removed from ${SORCE_PRODUKT}!"
 [ "${REMOVE_ANNEX_A_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/vinax_fw_adsl_A.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_adsl_A.bin &&\
 echo "  -- DSL Annex A Driver was removed from ${SORCE_PRODUKT}!"
 #fix ADSL interface accsess restrictions
-#cp -f \/var\/flash\/ar7.cfg \/var\/tmp\/ar7.cfg\
-#cp -f \/var\/tmp\/ar7.cfg \/var\/flash\/ar7.cfg\
 sed -i -e "/ \/etc\/init.d\/rc.conf/a\
 sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg\
 cat \/var\/flash\/ar7.cfg\ | grep ifacectl && echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"
@@ -337,6 +314,4 @@ cat \/var\/flash\/ar7.cfg\ | grep ifacectl && echo '---- Not fixed ADSL ---'" "$
 [ -f "${SRC}"/lib/libpng.so.3.32.0 ] || cp -fdrp "${DST}"/lib/libpng.so.3.32.0* --target-directory=${SRC}/lib 2> /dev/null
 [ -f "${SRC}"/lib/libexif.so.12.3.0 ] || cp -fdrp "${DST}"/lib/libexif.so.12.3.0* --target-directory=${SRC}/lib 2> /dev/null
 [ -f "${SRC}"/lib/libsqlite3-3.6.16.so.0.8.6 ] || cp -fdrp "${DST}"/lib/libsqlite* --target-directory=${SRC}/lib 2> /dev/null
-
-
 echo "********************************************************************************"
