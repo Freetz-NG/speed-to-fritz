@@ -88,47 +88,15 @@ hash
 quote MEDIA FLSH
 put ./empty mtd3
 put ./empty mtd4
-
-quote REBOOT
-quit
-EOT
-#!/bin/bash
-ifconfig $ETH add 192.168.2.10
-echo "Waiting for box to shut down again for restart ..."
-echo "If the Box is not rebooting on its own, you have to switch off/on the powerline of the box now again."
-while eval "ping -c1 -w1 192.168.2.1 > /dev/null"; do
- echo -n "."
-    sleep 0.2
-done
-while ! eval "ping -c1 -w1 192.168.2.1 > /dev/null"; do
- echo -n "."
-    sleep 0.2
-done
-echo "."
-echo "Box is back up again..."
-ftp -n -p <<EOT
-open 192.168.2.1
-user adam2 adam2
-binary
-debug
-hash
-quote MEDIA FLSH
 quote SETENV my_ipaddress 192.168.178.1
 quote SETENV jffs2_size 32
 quote SETENV firmware_version avm
-quote SETENV kernel_args idle=4
-! # more individual variables may be added here if older Bootloaderversions do need to enter all variables again.
-! # put ./kernel.image mtd1
 quote REBOOT
 quit
-
 EOT
+echo "Box is back up again..."
 echo "All done .... Branding set to 'avm', Press 'ENTER' to finish"
 while !(read -s);do
 	sleep 1
 done
-
 exit 0
-
-#remove "! # " in the above section to activate some lines 
-#put ./kernel.image mtd1

@@ -37,9 +37,9 @@ while [ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "1" 
 echo -n "."
 sleep 1
 done 
-while [ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
-echo -n "."
-done 
+while [ `ping -c1 -w1 192.168.2.1 2>&1 | grep -c 'Unreachable'` != "0" ] ||\
+[ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+done
 echo  "."
 echo "Reset Environment..."
 ftp -n -p <<EOT
@@ -63,9 +63,9 @@ while [ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "1" 
 sleep 1
 echo -n "."
 done 
-while [ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
-echo -n "."
-done 
+while [ `ping -c1 -w1 192.168.2.1 2>&1 | grep -c 'Unreachable'` != "0" ] ||\
+[ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+done
 echo "."
 echo "Box is back up again..."
 ftp -n -p <<EOT
@@ -78,11 +78,6 @@ quote MEDIA FLSH
 quote SETENV my_ipaddress 192.168.178.1
 quote SETENV jffs2_size 32
 quote SETENV firmware_version tcom
-! # quote SETENV firmware_version tcom 
-! # quote SETENV wlan_key key
-! # quote SETENV kernel_args	idle=4
-! # more individual variables may be added here if older Bootloaderversions do need to enter all variables again.
-! # put ./kernel.image mtd1
 quote REBOOT
 quit
 
