@@ -244,7 +244,6 @@ case "$1" in
 #	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7150"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
-	export HWID="101"
 	export PROD="DECT_W500V"
     	export CONFIG_PRODUKT="Fritz_Box_$PROD"
 	export HWRevision="${HWID}.1.1.0"
@@ -300,7 +299,6 @@ case "$1" in
 #	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7140"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
-	export HWID="101"
 	export CLASS="Speedport"
 	export PROD="SpeedportW501V"
     	export CONFIG_PRODUKT="Fritz_Box_$PROD"
@@ -364,6 +362,7 @@ case "$1" in
 	export SPMOD="707"
 	export CLASS="Speedport"
 	export SPNUM="701"
+	export HWID="101"
 	export PROD="SpeedportW701V"
     	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
