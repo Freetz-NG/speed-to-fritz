@@ -29,7 +29,8 @@ ShowInstDetails show
 
 ;--------------------------------
   ;Default installation folder
-  InstallDir "$LOCALAPPDATA\jpUploader"
+  ;InstallDir "$LOCALAPPDATA\jpUploader"
+  InstallDir "$TEMP\jpUploader"
   ;Request application privileges for Windows Vista
   RequestExecutionLevel user
 
@@ -54,8 +55,8 @@ Function .onInit
  ;       Call SetAVM
         StrCpy $ANNEX "annex=B"
         StrCpy $OEM "avm"
-        StrCpy $CLEAR "n"
-        StrCpy $PUSH "n"
+        StrCpy $CLEAR "no_clear"
+        StrCpy $PUSH "no_pusch"
 FunctionEnd
 
 Section
@@ -79,11 +80,11 @@ SectionEnd
 ;SectionEnd
 
 Section "Clear mtd3/4" SecMTD
-    StrCpy $CLEAR "y"
+    StrCpy $CLEAR "clear"
 SectionEnd
 
 Section "Run FTP Upload" FTP_Upload
-    StrCpy $PUSH "y"
+    StrCpy $PUSH "push"
 SectionEnd
 
 Section
@@ -115,6 +116,18 @@ Section
 
 IfFileExists "$INSTDIR\dictionary\install" 0 printNoInstall
     ;DetailPrint "Read install"
+    ;DetailPrint "--------------------------------------------"
+    Push "$INSTDIR\dictionary\install"
+    StrCpy $SUARCH "AnnexA"
+    Push $SUARCH
+    Call FileSearch
+    Pop $0 #Number of times found throughout
+    Pop $1 #Number of lines found on
+    StrCmp $0 0 +2
+    DetailPrint "'$SUARCH' was found in the file $0 times on $1 lines."
+    ${If} $1 != "0"
+          StrCpy $ANNEX "annex=A"
+    ${EndIf}
     DetailPrint "--------------------------------------------"
     Push "$INSTDIR\dictionary\install"
     StrCpy $SUARCH "echo kernel_args annex=A"
@@ -124,7 +137,7 @@ IfFileExists "$INSTDIR\dictionary\install" 0 printNoInstall
     Pop $1 #Number of lines found on
     StrCmp $0 0 +2
     DetailPrint "'$SUARCH' was found in the file $0 times on $1 lines."
-    ${If} $1 == "0"
+    ${If} $1 != "0"
           StrCpy $ANNEX "annex=A"
     ${EndIf}
    ;DetailPrint "--------------------------------------------"
@@ -191,12 +204,15 @@ printNoInstall:
    DetailPrint "Settings could not be read, defaults are in use!"
 InstallExist:
   Delete $INSTDIR\FTP_Upload.exe
-   MessageBox MB_OK "Switch off and on power line of Router!"
-  File /oname=$INSTDIR\FTP_Upload.exe FTP_Uploader.exe
-  ;nsExec::ExecToLog '"$INSTDIR\FTP_Upload.exe" "-x" "$ANNEX" "$OEM" "$CLEAR" "$PUSH"'
-    ExecWait '"$INSTDIR\FTP_Upload.exe" "-x" "$ANNEX" "$OEM" "$CLEAR" "$PUSH"'
+   MessageBox MB_OK "--> Switch Router Power Line Off And On Again (Reboot), Klick 'OK' Button Within Three Seconds.\
+--> If it did not work the first time repeat router reboot.  Attention: In some cases static PC LAN IP settings are needed \
+(IP: 192.168.178.2 Mask: 255.255.0.0).\
+There is no need to restart this tool, transfer will start as soon as adam FTP IP 192.168.178.1 or 192.168.2.1 is reachable."
+  File /oname=$INSTDIR\FTP_Upload.exe FTP_uploader\bin\Release\ftp.exe
+  ;nsExec::ExecToLog '"$INSTDIR\FTP_Upload.exe" "-x" "$OEM" "$ANNEX" "$CLEAR" "$PUSH"'
+    ExecWait '"$INSTDIR\FTP_Upload.exe" "-x" "$OEM" "$ANNEX" "$CLEAR" "$PUSH"'
   ; Delete temporary files
-  ;Delete $INSTDIR\FTP_Upload.exe
+  ;Delete $INSTDIR\FTP_Upload.ex
   ;RMDir /r $INSTDIR\dictionary
 
 SectionEnd
@@ -240,7 +256,7 @@ SectionEnd
 Function PageFileSelect
   ReadRegStr "$FS_PFAD_Value" HKCU "Software\Uploader" ""
   Pop $R0
-  !insertmacro MUI_HEADER_TEXT "1. Switch off Router" "Router must be connected to the PC via LAN patch wire. Best would be to put a$\r$\n HUB or SWITCH between Router and PC or turn media sensing off on the PC Net-card."
+  !insertmacro MUI_HEADER_TEXT "1. Switch on Router" "Router must be connected to the PC via LAN patch wire. Best would be to put a$\r$\n HUB or SWITCH between Router and PC or turn media sensing off on the PC Net-card."
   nsDialogs::Create /NOUNLOAD 1018
   Pop $FS_Dialog
   ${If} $FS_Dialog == error

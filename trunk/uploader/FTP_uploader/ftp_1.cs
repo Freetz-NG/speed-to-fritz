@@ -43,6 +43,11 @@
 using System;
 using FTPLib;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+
 
 namespace ftp
 {
@@ -88,30 +93,35 @@ namespace ftp
 				switch(args[i])
 				{
 					case "-x":
-            Console.WriteLine("'filesystem.image and kernel.image' must be in the same directory as this utility!");
-            waitOpen();
-            ftplib.SetCommand("MEDIA FLSH");
-            Console.WriteLine("Erase Flash, Pleas Wait.. ");
-            if (args[i + 4] == "y")
-            {
-                upload("kernel.image", "mtd1");
-            }
-            if (args[i + 3] == "y")
-            {
-                upload("filesystem.image", "mtd3");
-                //Console.WriteLine(" ");
-                upload("filesystem.image", "mtd4");
-                //Console.WriteLine(" ");
-            }
-            ftplib.SetCommand("SETENV my_ipaddress 192.168.178.1");
-            ftplib.SetCommand("SETENV firmware_version " + args[i+1]);
-            ftplib.SetCommand("SETENV wlan_key speedboxspeedbox");
-            if (args[i + 2] == "annex=A")
-                {
-                    ftplib.SetCommand("SETENV kernel_args annex=A");
-                }
-            ftplib.SetCommand("REBOOT");
-            close();
+                        Console.WriteLine("'filesystem.image and kernel.image' \n must be in the same directory as this utility!");
+                        waitOpen();
+                        ftplib.SetCommand("MEDIA FLSH");
+                        Console.WriteLine("Erase Flash, Pleas Wait.. ");
+                        if (args[i+4] == "push")
+                        {
+                            upload("kernel.image", "mtd1");
+                        }
+                        if (args[i+3] == "clear")
+                        {
+                            upload("filesystem.image", "mtd3");
+                            //Console.WriteLine(" ");
+                            upload("filesystem.image", "mtd4");
+                            //Console.WriteLine(" ");
+                        }
+                        ftplib.SetCommand("SETENV my_ipaddress 192.168.178.1");
+                        ftplib.SetCommand("SETENV firmware_version " + args[i+1]);
+                        ftplib.SetCommand("SETENV wlan_key speedboxspeedbox");
+                        if (args[i+2] != "annex=B")
+                        {
+                            ftplib.SetCommand("SETENV kernel_args " + args[i+2]);
+                        }
+                            ftplib.SetCommand("REBOOT");
+                        close();
+                        Console.WriteLine("Done!");
+                        //wait 20 seconds
+                        Thread.Sleep(20000);
+                        break;
+
 						ftplib.server = args[i+1];
 						break;
 					
@@ -351,7 +361,7 @@ namespace ftp
 		{
 			Console.WriteLine(
 				"-h                  -- Show this help\n" +
-                "-x                  -- Push Firmware and Set OEM + [Set annex=A] \n" +
+                "-x [avm/avme/tcom][annex=A/annex=B][clear/dont_clear][push/dont_push] -- Push Firmware\n" +
 				"-c                  -- Start console mode (any other parameter can be defined)\n" +
 				"-s [ftp server]     -- Set the server to connect\n" +
 				"-p [port]           -- Set the port to connect to ('21' is default)\n" +
@@ -362,7 +372,8 @@ namespace ftp
 				"-cd [directory]     -- Server source/target directory\n" +
 				"-ld [directory]     -- Local source/target directory\n" +
 				"\n" +
-				"-- Samples --\n\n" + 
+				"-- Samples --\n\n" +
+                "ftp -x avm annex=B clear push\n" + 
 				"ftp -s 127.0.0.1 -cd test -put C:\\tmp\\testfile1.txt C:\\tmp\\testfile2.txt\n" + 
 				"\tConnect to FTP 127.0.0.1:21, change to remote 'test' directory and \n\tupload the local files 'C:\\tmp\\testfile1.txt' and 'C:\\tmp\\testfile2.txt'\n" + 
 				"\n" +
@@ -773,5 +784,9 @@ namespace ftp
 				return false;
 			}
 		}
+        static void ThreadMethod()
+        {
+            Thread.Sleep(1000);
+        }
 	}
 }
