@@ -290,8 +290,7 @@ config AVM_IPV6_7273_17603
 
 config AVM_PRE_7270_17971
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270v2-17971.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v2.54.04.85-17971.image"
-
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270v2-17971.ZIP ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v2.54.04.85-17971.image"
 #config AVM_PRE_72XX
 #    string
 #    default "ftp://update.avm.de/labor/RC/FRITZ.Box_Fon_WLAN_7270.AnnexB.54.04.78-15892.image mirror select"
