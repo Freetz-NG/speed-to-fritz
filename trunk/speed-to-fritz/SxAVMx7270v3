@@ -140,12 +140,12 @@ rm -f "${SRC}"/lib/modules/bitfile.bit
 rm -f "${SRC}"/lib/modules/bitfile_pots.bit 
 rm -f "${SRC}"/lib/modules/bitfile_isdn.bit 
 [ -e "${DST}"/lib/modules/bitfile_pots.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile_pots.bit --target-directory="${SRC}"/lib/modules &&\
-echo "  -- Xilinx bitfile was taken from the original t-home firmware"
+echo "  -- Xilinx bitfile was taken from the original base firmware"
 [ -e "${DST}"/lib/modules/bitfile_isdn.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile_isdn.bit --target-directory="${SRC}"/lib/modules &&\
 [ -e "${DST}"/lib/modules/bitfile_isdn.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile_isdn.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
-echo "  -- Xilinx bitfile was taken from the original t-home firmware"
+echo "  -- Xilinx bitfile was taken from the original base firmware"
 [ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
-echo "  -- Xilinx bitfile was taken from the original t-home firmware"
+echo "  -- Xilinx bitfile was taken from the original base firmware"
 
 # add buchsend button to fon bookpage
 [ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"

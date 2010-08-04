@@ -47,7 +47,7 @@ echo "SET dect,0 = 15" >/dev/new_led\
 fi|' "${SR1}/etc/init.d/rc.S"
 fi
 
-# W500, W701 or W900 without copy of t-com led.conf, 
+# W500, W701 or W900 without copy of base led.conf, 
 # this is more secure for future changes as the skrit upto now 
 
 sed -i -e "/DEF error,1.*$/d" "${SR1}/etc/led.conf"

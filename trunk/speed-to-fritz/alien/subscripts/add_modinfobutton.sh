@@ -225,7 +225,7 @@ FORCE_CLEAR_FLASH
 <li><b>1st Image:</b> This Image is used for the basic driver functions as it is designed for Telekom Hardware.	Image-File <b>'IMG0_TCOM'</b> has been used.</li>
 <li><b>AVM System Image:</b> This image is used to complete system functions and also the AVM WEB-GUI. The image comes from an AVM Hardware that is common to the Telekom Hardware and uses same Kernel version. <b>'IMG1_AVM'</b>.</li> Image has been used.
 <li><b>2nd AVM Image:</b> For Speedport W 900V the WEB-GUI may be copied from a separate Image, that is also supporting the special ISDN functionality of this box. <b>'IMG2_AVM'</b>.</li> image has been used.
-<li><b>Kernel-Update:</b> AVM Firmware kernel has been <b>XCHANGE_KERNEL</b> with t-com kernel.</li>
+<li><b>Kernel-Update:</b> AVM Firmware kernel has been <b>XCHANGE_KERNEL</b> with base kernel.</li>
 </ul>
 <p></p>
 <h2>Standard terms and conditions and and Disclaimer</h2>
@@ -271,11 +271,11 @@ if [ "$avm_Lang" = "de" ]; then
 [ "$ADD_DSL_EXPERT_MNUE" = "y" ] || sed -i -e "s|ADD_DSL_EXPERT_MNUE||" "${DSTF}"
 [ "$USE_OWN_DSL" = "y" ] && sed -i -e "s|USE_OWN_DSL|<li><b>DSL-Treiber:</b> Der DSL Treiber wurde durch einen eigenen <b>ersetzt</b>.</li>|" "${DSTF}"
 [ "$USE_OWN_DSL" = "y" ] || sed -i -e "s|USE_OWN_DSL||" "${DSTF}"
-[ "$FORCE_TCOM_DSL" = "y" ] && sed -i -e "s|FORCE_TCOM_DSL|<li><b>DSL-Treiber:</b> Der DSL Treiber wurde aus der t-com Firmware <b>verwendet</b>.</li>|" "${DSTF}"
+[ "$FORCE_TCOM_DSL" = "y" ] && sed -i -e "s|FORCE_TCOM_DSL|<li><b>DSL-Treiber:</b> Der DSL Treiber wurde aus der base Firmware <b>verwendet</b>.</li>|" "${DSTF}"
 [ "$FORCE_TCOM_DSL" = "y" ] || sed -i -e "s|FORCE_TCOM_DSL||" "${DSTF}"
 [ "$USE_SRC2_DSL" = "y" ] && sed -i -e "s|USE_SRC2_DSL|<li><b>DSL-Treiber:</b> Der DSL Treiber wurde aus der 2. AVM Firmware <b>verwendet</b>.</li>|" "${DSTF}"
 [ "$USE_SRC2_DSL" = "y" ] || sed -i -e "s|USE_SRC2_DSL||" "${DSTF}"
-[ "$FORCE_TCOM_FON" = "y" ] && sed -i -e "s|FORCE_TCOM_FON|<li><b>FON-Treiber:</b> Der Telefon Treiber wurde aus der t-com Firmware <b>verwendet</b>.</li>|" "${DSTF}"
+[ "$FORCE_TCOM_FON" = "y" ] && sed -i -e "s|FORCE_TCOM_FON|<li><b>FON-Treiber:</b> Der Telefon Treiber wurde aus der base Firmware <b>verwendet</b>.</li>|" "${DSTF}"
 [ "$FORCE_TCOM_FON" = "y" ] || sed -i -e "s|FORCE_TCOM_FON||" "${DSTF}"
 [ "$MOVE_ALL_XXX" = "y" ] && sed -i -e "s|MOVE_ALL_XXX|<li><b>Freetz-Kompatibilität:</b> Das Verzeichnis www/all wurde auf www/$OEM <b>umbenannt</b>.</li>|" "${DSTF}" 
 [ "$MOVE_ALL_XXX" = "y" ] || sed -i -e "s|MOVE_ALL_XXX||" "${DSTF}"
@@ -295,7 +295,7 @@ if [ "$avm_Lang" = "de" ]; then
 [ "$REMOVE_MENU_ITEM" = "y" ] && sed -i -e "s/FONMENU/angepasst/" "${DSTF}"
 [ "$REMOVE_MENU_ITEM" = "y" ] || sed -i -e "s/FONMENU/nicht angepasst/" "${DSTF}"
 [ "$SPMOD" = "501" -o "$SPMOD" = "500" ] && sed -i -e "/<li><b>Telefon-Menü:/,/<\/li>/d" "${DSTF}"
-[ "$XCHANGE_KERNEL" = "y" ] && sed -i -e "s/XCHANGE_KERNEL/ mit dem der t-com Firmware ersetzt /" "${DSTF}"
+[ "$XCHANGE_KERNEL" = "y" ] && sed -i -e "s/XCHANGE_KERNEL/ mit dem der base Firmware ersetzt /" "${DSTF}"
 [ "$XCHANGE_KERNEL" = "y" ] || sed -i -e "s/XCHANGE_KERNEL/beibehalten /" "${DSTF}"
 
 

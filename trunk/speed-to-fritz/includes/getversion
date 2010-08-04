@@ -56,16 +56,16 @@ fi
 [ "$AVM_SUBVERSION" == "" ] && export AVM_SUBVERSION="${FB_Checkpoint:15:5}"
 [ "$AVM_2_SUBVERSION" == "" ] && export AVM_2_SUBVERSION="${FB2_Checkpoint:15:5}"
 
-[  -e "${SPDIR}/var/install" ]   && echo2 "-- T-Home firmware version:	$TCOM_VERSION_MAJOR.$TCOM_VERSION-$TCOM_SUBVERSION"
+[  -e "${SPDIR}/var/install" ]   && echo2 "-- Base   firmware version:	$TCOM_VERSION_MAJOR.$TCOM_VERSION-$TCOM_SUBVERSION"
 [  -e "${FBDIR}/var/install" ]   && echo2 "-- AVM    firmware version:	$AVM_VERSION_MAJOR.$AVM_VERSION-$AVM_SUBVERSION"
 [  -e "${FBDIR_2}/var/install" ] && echo2 "-- 2nd    firmware version:	$AVM_2_VERSION_MAJOR.$AVM_2_VERSION-$AVM_2_SUBVERSION"
-[  -e "${SPDIR}/var/install" ]   && [ -n "$SP_Vesioninfo" ]    && echo2 "-- T-Home  $SP_Vesioninfo"
+[  -e "${SPDIR}/var/install" ]   && [ -n "$SP_Vesioninfo" ]    && echo2 "-- Base    $SP_Vesioninfo"
 [  -e "${FBDIR}/var/install" ]   && [ -n "$FB_Vesioninfo" ]    && echo2 "-- AVM     $FB_Vesioninfo"
 [  -e "${FBDIR_2}/var/install" ] && [ -n "$FB2_Vesioninfo" ]   && echo2 "-- 2nd     $FB2_Vesioninfo"
-[  -e "${SPDIR}/var/install" ]   && [ -n "$SP_Checkpoint" ]    && echo2 "-- T-Home  $SP_Checkpoint"
+[  -e "${SPDIR}/var/install" ]   && [ -n "$SP_Checkpoint" ]    && echo2 "-- Base    $SP_Checkpoint"
 [  -e "${FBDIR}/var/install" ]   && [ -n "$FB_Checkpoint" ]    && echo2 "-- AVM     $FB_Checkpoint"
 [  -e "${FBDIR_2}/var/install" ] && [ -n "$FB2_Checkpoint" ]   && echo2 "-- 2nd     $FB2_Checkpoint"
-[  -e "${SPDIR}/var/install" ]   && [ -n "$SP_kernel_sizeR" ]  && echo2 "-- T-Home  # Kernelsize:	$SP_kernel_sizeR"
+[  -e "${SPDIR}/var/install" ]   && [ -n "$SP_kernel_sizeR" ]  && echo2 "-- Base    # Kernelsize:	$SP_kernel_sizeR"
 [  -e "${FBDIR}/var/install" ]   && [ -n "$FB_kernel_sizeR" ]  && echo2 "-- AVM     # Kernelsize:	$FB_kernel_sizeR"
 [  -e "${FBDIR_2}/var/install" ] && [ -n "$FB2_kernel_sizeR" ] && echo2 "-- 2nd     # Kernelsize:	$FB2_kernel_sizeR"
 
@@ -73,14 +73,14 @@ if [  -e "${SPDIR}/var/install" ]; then
  if [ "$ORI" != "y" ]; then
   if [ "$OEM" = "avme" ] && [ "$avm_Lang" != "en" ]; then
   echo "-- AVM  firmware image version is: $AVM_VERSION-$AVM_SUBVERSION"
-  echo "-- Language of AVM firmware is: $avm_Lang, language of T-Home firmware is: $tcom_Lang"
+  echo "-- Language of AVM firmware is: $avm_Lang, language of base firmware is: $tcom_Lang"
  # echo "-- You can't use branding: \"$OEM\" with this version! Set it to 'avm' or a other valid oem and try again!"
  #  sleep 20
  #  exit 0
   fi
   if [ "$OEM" != "avme" ] && [ "$avm_Lang" = "en" ]; then
   echo "-- AVM  firmware image version is: $AVM_VERSION-$AVM_SUBVERSION"
-  echo "-- Language of AVM firmware is: $avm_Lang, language of T-Home firmware is: $tcom_Lang"
+  echo "-- Language of AVM firmware is: $avm_Lang, language of base firmware is: $tcom_Lang"
  # echo "-- You can't use branding: \"$OEM\" with this version. Set it to 'avm' or a other valid oem and try again!"
  #  sleep 20
  #  exit 0
@@ -98,7 +98,7 @@ if [  -e "${SPDIR}/var/install" ]; then
  MODULESDEP_DIR="$(find ${DST}/lib/modules -name modules.dep)" # find file 
  MODULESDEP_DIR=${MODULESDEP_DIR%%/modules.dep*} # von links bis zu /modules.dep
  export TCOM_KernelVersion=${MODULESDEP_DIR##*/} # von rechts bis zum letzten /
- echo2 "-- T-Home Kernel version is: $TCOM_KernelVersion"
+ echo2 "-- Base Kernel version is: $TCOM_KernelVersion"
  if [  -e "${FBDIR}/var/install" ]; then
   MODULESDEP_DIR="$(find ${SRC}/lib/modules -name modules.dep)" # find file 
   MODULESDEP_DIR=${MODULESDEP_DIR%%/modules.dep*} # von links bis zu /modules.dep
@@ -106,9 +106,9 @@ if [  -e "${SPDIR}/var/install" ]; then
   echo2 "-- AVM  Kernel version is: $KernelVersion"
   if [ "$TCOM_KernelVersion" != "$KernelVersion" ]; then
    export DifferentKernelVersion="y"
-   echo "ATTENTION! Kernel version of AVM and T-Home Firmware differ!"
+   echo "ATTENTION! Kernel version of AVM and Base Firmware differ!"
    echo "You can't use options like:"
-   echo "'Force use of t-com piglet driver' or 'Force use of T-Home fon driver."
+   echo "'Force use of base piglet driver' or 'Force use of Base fon driver."
    sleep 5
   fi
   echo2 "--------------------------------------------------------------------------------"
@@ -117,7 +117,7 @@ if [  -e "${SPDIR}/var/install" ]; then
  UCLIB_DIR="$(find ${DST}/lib -name *libuClibc-*.so)" # find file 
  UCLIB_DIR=${UCLIB_DIR##*-} # von rechts bis zu -
  export TCOM_uClibVersion=${UCLIB_DIR%%.so*} # von links bis zu .so
- echo2 "-- T-Home  uClib version is: $TCOM_uClibVersion"
+ echo2 "-- Base uClib version is: $TCOM_uClibVersion"
  if [  -e "${FBDIR}/var/install" ]; then
   UCLIB_DIR="$(find ${SRC}/lib -name *libuClibc-*.so)" # find file 
   UCLIB_DIR=${UCLIB_DIR##*-} # von rechts bis zu -
@@ -126,7 +126,7 @@ if [  -e "${SPDIR}/var/install" ]; then
   [ "$uClibVersion" ] || echo "WARNING! AVM uClib version not found!"
   if [ "$TCOM_uClibVersion" != "$uClibVersion" ]; then
    export DifferentuClibVersion="y"
-   echo "WARNING! uClib version of AVM and T-Home firmware differ!"
+   echo "WARNING! uClib version of AVM and Base firmware differ!"
    sleep 2
   fi
  fi  

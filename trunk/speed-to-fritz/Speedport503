@@ -168,10 +168,10 @@ fi
 
 #echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
 [ ${FORCE_TCOM_PIGLET} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers &&\
-echo "  -- Piglet driver was taken from t-com Firmware!" 
+echo "  -- Piglet driver was taken from base Firmware!" 
 #Fon Driver
 [ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers &&\
-echo "  -- Fon driver was taken from t-com Firmware!" 
+echo "  -- Fon driver was taken from base Firmware!" 
 #copy wlan config
 #########
 
@@ -186,7 +186,7 @@ echo "  -- Fon driver was taken from t-com Firmware!"
 [ "${XCHANGE_KERNEL}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
 # wlan bracht t-com kernel
 [ "${XCHANGE_KERNEL}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/net --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers &&\
-echo "  -- Wlan driver was taken from t-com Firmware!"
+echo "  -- Wlan driver was taken from base Firmware!"
 #adapt parameters for Piglet bitfile to be
 
 sed -i -e 's/Fritz_Box_7270/Fritz_Box_W503/' "${SRC}/etc/init.d/rc.S"
@@ -232,7 +232,7 @@ sed -i -e "/modprobe dect_io/d" "${SRC}/etc/init.d/rc.S"
 sed -i -e "/pcm_link/d" "${SRC}/etc/init.d/rc.S" && echo "-- pcmlink removed, phone capi not useabel!" &&\
 rm -f "${SRC}"/lib/modules/c55fw.hex &&\
 rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn/capi_codec &&\
-echo "-- Capi removed because it is not usabel with t-com kernel" && sleep 5 
+echo "-- Capi removed because it is not usabel with base kernel" && sleep 5 
 
 #grep -q 'grep .pcmlink..ko' "${SRC}/etc/init.d/rc.S" && sed -i -e "s|.pcmlink..ko.|'\^pcmlink.ko'|" "${SRC}/etc/init.d/rc.S"
 #grep -q "md5sum /lib/modules/c55fw.hex" "${SRC}/etc/init.d/rc.S" || sed -i -e '/pcm_link=${pcm_link%.ko}/a\
@@ -291,7 +291,7 @@ if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] 
     cp -fdrp "${DST}"/bin/led* --target-directory="${SRC}"/bin
     cp -fr "${DST}"/bin/update_led_on ${SRC}/bin/update_led_on
     cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
-    echo "  -- LED Driver was taken from the original t-com firmware"
+    echo "  -- LED Driver was taken from the original base firmware"
 fi
 if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ "${FORCE_SRC2_LEDDRIVER}" = "y" ]; then
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char

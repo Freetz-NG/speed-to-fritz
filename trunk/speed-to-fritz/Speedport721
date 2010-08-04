@@ -49,13 +49,13 @@ cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory=
 cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.alias --target-directory="${SRC}"/lib/modules/$KernelVersion
 cp -fdrp "${DST}"/usr/sbin --target-directory="${SRC}"/usr
 cp -fdrp "${DST}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
-echo "  -- VINAX DSL driver was taken from the original t-com firmware!"
+echo "  -- VINAX DSL driver was taken from the original base firmware!"
 [ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
 [ -f "${SRC}"/usr/share/ctlmgr/libtr064.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libtr064.so --target-directory=${SRC}/usr/share/ctlmgr
 [ -e "${DST}"/lib/modules/fw_dcrhp_1150_ap.bin ] && cp -fdrp "${DST}"/lib/modules/fw_dcrhp_1150_ap.bin --target-directory="${SRC}"/lib/modules &&\
-echo "  -- fw_dcrhp_1150_ap.bin was taken from the original t-home firmware"
+echo "  -- fw_dcrhp_1150_ap.bin was taken from the original base firmware"
 [ -e "${DST}"/lib/modules/microvoip-dsl.bin ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
-echo "  -- microvoip-dsl.bin was taken from the original t-home firmware"
+echo "  -- microvoip-dsl.bin was taken from the original base firmware"
 #use WLAN (not usabele leds to reboots) 
 [ "${FORCE_TCOM_WLANTIAP}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/net/wireless/avm_wlan/wlan/tiap.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/net/wireless/avm_wlan/wlan
 #WPA
@@ -116,7 +116,7 @@ if [ ${USE_SRC2_DSL} = "y" ]; then
     #take vdsl from source 3 if present
     cp -a "${SRC_2}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
     #cp -fdpr  "${SRC_2}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d &&\
-    echo "  -- vinax driver was taken from the original t-com firmware!"
+    echo "  -- vinax driver was taken from the original base firmware!"
     [ -e "${SRC_2}"/lib/modules/fw_dcrhp_1150_ap.bin ] && cp -fdrp "${SRC_2}"/lib/modules/fw_dcrhp_1150_ap.bin --target-directory="${SRC}"/lib/modules &&\
     echo "  -- fw_dcrhp_1150_ap.bin was taken from 2nd AVM firmware"
     [ -e "${SRC_2}"/lib/modules/microvoip-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
@@ -409,9 +409,9 @@ fi
 #xilix W721 Driver must be for the hardware in use
 rm -fdr "${SRC}"/lib/modules/microvoip_isdn_top.bit1
 [ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules &&\
-echo "  -- Xilinx bitfile was taken from the original t-home firmware"
+echo "  -- Xilinx bitfile was taken from the original base firmware"
 [ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
-echo "  -- Xilinx bitfile was taken from the original t-home firmware"
+echo "  -- Xilinx bitfile was taken from the original base firmware"
 
 
 
@@ -471,7 +471,7 @@ if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] 
     cp -fdrp "${DST}"/bin/led* --target-directory="${SRC}"/bin
     cp -fr "${DST}"/bin/update_led_on ${SRC}/bin/update_led_on
     cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
-    echo "  -- LED Driver was taken from the original t-com firmware!"
+    echo "  -- LED Driver was taken from the original base firmware!"
 fi
 $sh_DIR/patch_leddefinition.sh "${SRC}" "${DST}"
 # add missing gives

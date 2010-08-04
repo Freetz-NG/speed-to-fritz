@@ -66,7 +66,7 @@ if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] 
     cp -fdrp "${DST}"/bin/led* --target-directory="${SRC}"/bin
     cp -fr "${DST}"/bin/update_led_on ${SRC}/bin/update_led_on
     cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
-    echo "  -- LED Driver was taken from the original t-com firmware"
+    echo "  -- LED Driver was taken from the original base firmware"
 fi
 if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ "${FORCE_SRC2_LEDDRIVER}" = "y" ]; then
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
@@ -166,12 +166,12 @@ rm -f "${SRC}"/lib/modules/bitfile.bit
 rm -f "${SRC}"/lib/modules/bitfile_pots.bit 
 rm -f "${SRC}"/lib/modules/bitfile_isdn.bit 
 [ -e "${DST}"/lib/modules/bitfile_pots.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile_pots.bit --target-directory="${SRC}"/lib/modules &&\
-echo "  -- Xilinx bitfile was taken from the original t-home firmware"
+echo "  -- Xilinx bitfile was taken from the original base firmware"
 [ -e "${DST}"/lib/modules/bitfile_isdn.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile_isdn.bit --target-directory="${SRC}"/lib/modules &&\
 [ -e "${DST}"/lib/modules/bitfile_isdn.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile_isdn.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
-echo "  -- Xilinx bitfile was taken from the original t-home firmware"
+echo "  -- Xilinx bitfile was taken from the original base firmware"
 [ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
-echo "  -- Xilinx bitfile was taken from the original t-home firmware"
+echo "  -- Xilinx bitfile was taken from the original base firmware"
 
 #But pluginsupport needs AVM HWrevision to setup the download URL for plugins 
 #workaround for HWRevision

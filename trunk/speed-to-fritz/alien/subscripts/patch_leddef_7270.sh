@@ -31,7 +31,7 @@ fi
 
 if  [ -e "${SR1}/etc/led.conf" ]; then
 
-# W920 without copy of t-com led.conf, 
+# W920 without copy of base led.conf, 
 # this is more secure for future changes 
 
 sed -i -e "/error,0.*$/d" "${SR1}/etc/led.conf"

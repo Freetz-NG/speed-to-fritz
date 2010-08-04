@@ -57,7 +57,7 @@ fi
 #if [ "$HWRevision_BitFileCount" = "3" ] ; then \ is set to 3 because if 1 is set extern/intern switch on the box is in use
 #this courses more irritations for the user as if the switch is out of funktion, software configuration is sufficient!
 
-# copy t-com parameter
+# copy base parameter
 function funct_copy_param()
 {
 	PARA=`cat "${2}/etc/init.d/rc.S" | grep "${1}="`

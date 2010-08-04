@@ -261,7 +261,7 @@ fi
 fi
 #<---- en variante
 fi
-#addon source toolsdir is different if original t-com firmware is patched
+#addon source toolsdir is different if original base firmware is patched
 for OEMDIR in ${OEMLIST}; do
   export HTML="$OEMDIR/html"
  for html in ${HTML} ${HTML}/de ; do
