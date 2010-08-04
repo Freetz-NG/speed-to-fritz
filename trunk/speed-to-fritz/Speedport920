@@ -21,8 +21,7 @@ cp -fdrp "${DST}"/dev --target-directory="${SRC}" #this copy is only usable if r
 [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
 [ "${FORCE_TCOM_PCMLINK}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2/pcmlink.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2
 [ "${FORCE_TCOM_USRMAN}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/userman/userman_mod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/driver/userman
-
-if [ "${TYPE_AVM_7570_XX}" = "y" ]; then 
+if [ "${TYPE_AVM_7570_XX}" = "y" ]; then
  if [ "${SAVE_TCOM_DSL}" = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko ./addon/tmp/W920/squashfs-root/lib/modules/vinax/drv_vinax.ko &&\
     echo "  -- VINAX Driver saved to: ./addon/tmp/W920/..."
@@ -36,6 +35,9 @@ if [ "${TYPE_AVM_7570_XX}" = "y" ]; then
     echo "  -- VINAX Driver was taken from 2nd AVM firmware"
  elif [ "${USE_OWN_DSL}" = "y" ]; then
     cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/vinax/drv_vinax.ko "${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko" &&\
+    echo "  -- VINAX Driver was taken from the original base firmware"
+ elif [ "${FORCE_TCOM_DSL}" = "y" ]; then
+    cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko "${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko" &&\
     echo "  -- VINAX Driver was taken from the original base firmware"
  fi
 else
