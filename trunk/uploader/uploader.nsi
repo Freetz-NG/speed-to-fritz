@@ -1,16 +1,15 @@
 ;NSIS Modern User Interface
 ;--------------------------------
-; !include "MUI.nsh"
-;Include Modern UI
+  ;!include "MUI.nsh"
   !include "MUI2.nsh"
   !include "x64.nsh"
   !include Sections.nsh
   !include nsDialogs.nsh
   !include LogicLib.nsh
   !define ALL_USERS
-ShowInstDetails show
+  !define PRODUCT_NAME "Flash Upload and Recover"
+  !define PRODUCT_WEB_SITE "http://www.ip-phone-forum.de/showthread.php?t=220397"
   Var FS_Dialog
-  ;Var FS_PFAD_Text
   Var FS_PFAD_Value
   Var INST_SDAT_BTN1
   Var SUARCH
@@ -18,6 +17,8 @@ ShowInstDetails show
   Var ANNEX
   Var CLEAR
   Var PUSH
+  Var WKEY
+  Var IP
 ;--------------------------------
 ;General
 ; Base names definition
@@ -26,7 +27,6 @@ ShowInstDetails show
   Name "${APP_NAME}"
   OutFile "jpUploader.exe"
 ;--------------------------------
-
 ;--------------------------------
   ;Default installation folder
   ;InstallDir "$LOCALAPPDATA\jpUploader"
@@ -37,26 +37,28 @@ ShowInstDetails show
 ;--------------------------------
   ;Interface Settings
   !define MUI_ABORTWARNING
-
+  !define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\box-install.ico"
 ;--------------------------------
 ;Pages
   Page custom PageFileSelect PageFileSelectLeave
+  ShowInstDetails show
   !insertmacro MUI_PAGE_COMPONENTS
   !insertmacro MUI_PAGE_INSTFILES
   !insertmacro MUI_UNPAGE_CONFIRM
   !insertmacro MUI_UNPAGE_INSTFILES
 ;--------------------------------
 ;Languages
- 
   !insertmacro MUI_LANGUAGE "English"
-
 ;--------------------------------
 Function .onInit
  ;       Call SetAVM
-        StrCpy $ANNEX "annex=B"
+        Call SelectNormalIP
+        StrCpy $ANNEX "Multi"
         StrCpy $OEM "avm"
         StrCpy $CLEAR "no_clear"
         StrCpy $PUSH "no_pusch"
+        StrCpy $WKEY "speedboxspeedbox"
+        StrCpy $IP "192.168.178.1"
 FunctionEnd
 
 Section
@@ -87,19 +89,29 @@ Section "Run FTP Upload" FTP_Upload
     StrCpy $PUSH "push"
 SectionEnd
 
+Section "Use IP: 192.168.178.1" NORMAL_IP
+    StrCpy $IP "192.168.178.1"
+    ;Call SelectNormalIP
+SectionEnd
+
+Section "Use IP: 192.168.2.1" ALT_IP
+    StrCpy $IP "192.168.2.1"
+    ;Call SelectALTIP
+SectionEnd
+
 Section
-  ; Unzip dictionary into dictionary subdirectory
-    RMDir /r $INSTDIR\dictionary
+  ; Unzip firmware into fw subdirectory
+    RMDir /r $INSTDIR\fw
     ;DetailPrint "File: $FS_PFAD_Value"
-    untgz::extract "-j" "-d" "$INSTDIR\dictionary" "$FS_PFAD_Value"
-    SetFileAttributes "$INSTDIR\dictionary\*.*" NORMAL
-  IfFileExists "$INSTDIR\dictionary\.packages" 0 withoutFreetz
+    untgz::extract "-j" "-d" "$INSTDIR\fw" "$FS_PFAD_Value"
+    SetFileAttributes "$INSTDIR\fw\*.*" NORMAL
+ IfFileExists "$INSTDIR\fw\.packages" 0 withoutFreetz
     DetailPrint "--------------------------------------------"
     DetailPrint "Included Freetz packages:"
     Push $0 # dir
     Push $1 #
     ClearErrors
-    FileOpen $0 "$INSTDIR\dictionary\.packages" r
+    FileOpen $0 "$INSTDIR\fw\.packages" r
     IfErrors s_fail
     s_line:
     FileRead $0 $R0
@@ -112,12 +124,12 @@ Section
     Pop $1
     Pop $0
     DetailPrint "--------------------------------------------"
-  WithoutFreetz:
+ WithoutFreetz:
 
-IfFileExists "$INSTDIR\dictionary\install" 0 printNoInstall
+ IfFileExists "$INSTDIR\fw\install" 0 printNoInstall
     ;DetailPrint "Read install"
     ;DetailPrint "--------------------------------------------"
-    Push "$INSTDIR\dictionary\install"
+    Push "$INSTDIR\fw\install"
     StrCpy $SUARCH "AnnexA"
     Push $SUARCH
     Call FileSearch
@@ -126,10 +138,10 @@ IfFileExists "$INSTDIR\dictionary\install" 0 printNoInstall
     StrCmp $0 0 +2
     DetailPrint "'$SUARCH' was found in the file $0 times on $1 lines."
     ${If} $1 != "0"
-          StrCpy $ANNEX "annex=A"
+          StrCpy $ANNEX "A"
     ${EndIf}
     DetailPrint "--------------------------------------------"
-    Push "$INSTDIR\dictionary\install"
+    Push "$INSTDIR\fw\install"
     StrCpy $SUARCH "echo kernel_args annex=A"
     Push $SUARCH
     Call FileSearch
@@ -138,10 +150,10 @@ IfFileExists "$INSTDIR\dictionary\install" 0 printNoInstall
     StrCmp $0 0 +2
     DetailPrint "'$SUARCH' was found in the file $0 times on $1 lines."
     ${If} $1 != "0"
-          StrCpy $ANNEX "annex=A"
+          StrCpy $ANNEX "A"
     ${EndIf}
    ;DetailPrint "--------------------------------------------"
-    Push "$INSTDIR\dictionary\install"
+    Push "$INSTDIR\fw\install"
     StrCpy $SUARCH "echo firmware_version avme "
     Push $SUARCH
     Call FileSearch
@@ -152,7 +164,7 @@ IfFileExists "$INSTDIR\dictionary\install" 0 printNoInstall
     ;DetailPrint "'avme' was found in the file $0 times on $1 lines."
    ;DetailPrint "--------------------------------------------"
     ${If} $1 == "0"
-    Push "$INSTDIR\dictionary\install"
+    Push "$INSTDIR\fw\install"
     StrCpy $SUARCH "echo firmware_version avm "
     Push $SUARCH
     Call FileSearch
@@ -165,7 +177,7 @@ IfFileExists "$INSTDIR\dictionary\install" 0 printNoInstall
     ${EndIf}
     ${If} $1 == "0"
     StrCpy $SUARCH "for i in  avm "
-    Push "$INSTDIR\dictionary\install"
+    Push "$INSTDIR\fw\install"
     Push $SUARCH
     Call FileSearch
     Pop $0 #Number of times found throughout
@@ -177,7 +189,7 @@ IfFileExists "$INSTDIR\dictionary\install" 0 printNoInstall
     ${If} $1 == "0"
    ;DetailPrint "--------------------------------------------"
     StrCpy $SUARCH "for i in  avme "
-    Push "$INSTDIR\dictionary\install"
+    Push "$INSTDIR\fw\install"
     Push $SUARCH
     Call FileSearch
     Pop $0 #Number of times found throughout
@@ -189,32 +201,42 @@ IfFileExists "$INSTDIR\dictionary\install" 0 printNoInstall
     ${EndIf}
     ${If} $1 == "0"
     StrCpy $SUARCH "for i in  tcom "
-    Push "$INSTDIR\dictionary\install"
+    Push "$INSTDIR\fw\install"
     Push $SUARCH
     Call FileSearch
     Pop $0 #Number of times found throughout
     Pop $1 #Number of lines found on
     StrCpy $OEM "tcom"
     StrCmp $0 0 +2
-   DetailPrint "--------------------------------------------"
-   ${EndIf}
-   DetailPrint "Firmware version $OEM was found, $0 times on $1 lines."
-   goto InstallExist
-printNoInstall:
-   DetailPrint "Settings could not be read, defaults are in use!"
-InstallExist:
-  Delete $INSTDIR\FTP_Upload.exe
-   MessageBox MB_OK "--> Switch Router Power Line Off And On Again (Reboot), Klick 'OK' Button Within Three Seconds.\
---> If it did not work the first time repeat router reboot.  Attention: In some cases static PC LAN IP settings are needed \
-(IP: 192.168.178.2 Mask: 255.255.0.0).\
-There is no need to restart this tool, transfer will start as soon as adam FTP IP 192.168.178.1 or 192.168.2.1 is reachable."
-  File /oname=$INSTDIR\FTP_Upload.exe FTP_uploader\bin\Release\ftp.exe
-  ;nsExec::ExecToLog '"$INSTDIR\FTP_Upload.exe" "-x" "$OEM" "$ANNEX" "$CLEAR" "$PUSH"'
-    ExecWait '"$INSTDIR\FTP_Upload.exe" "-x" "$OEM" "$ANNEX" "$CLEAR" "$PUSH"'
-  ; Delete temporary files
-  ;Delete $INSTDIR\FTP_Upload.ex
-  ;RMDir /r $INSTDIR\dictionary
-
+    ;DetailPrint "--------------------------------------------"
+    ${EndIf}
+    ${If} $1 == "0"
+    StrCpy $SUARCH "for i in  1und1 "
+    Push "$INSTDIR\fw\install"
+    Push $SUARCH
+    Call FileSearch
+    Pop $0 #Number of times found throughout
+    Pop $1 #Number of lines found on
+    StrCpy $OEM "1und1"
+    StrCmp $0 0 +2
+    DetailPrint "--------------------------------------------"
+    ${EndIf}
+    DetailPrint "Firmware version $OEM was found, $0 times on $1 lines."
+    goto InstallExist
+ printNoInstall:
+    DetailPrint "Settings could not be read, defaults are in use!"
+ InstallExist:
+    Delete $INSTDIR\FTP_Upload.exe
+;  MessageBox MB_OK "--> Switch Router Power Line Off And On Again (Reboot), Klick 'OK' Button Within Three Seconds.\
+;--> If it did not work the first time repeat router reboot.  Attention: Static PC LAN IP settings are needed \
+;(IP: 192.168.178.2 Mask: 255.255.0.0 GW:192.168.178.1 ).\
+;There is no need to restart this tool, transfer will start as soon as adam FTP IP 192.168.178.1 or 192.168.2.1 is reachable."
+    File /oname=$INSTDIR\FTP_Upload.exe FTP_uploader\bin\Release\ftp2.exe
+    ;nsExec::ExecToLog '"$INSTDIR\FTP_Upload.exe" "-x" "$OEM" "$ANNEX" "$CLEAR" "$PUSH"'
+    ExecWait '"$INSTDIR\FTP_Upload.exe" "-x" "$OEM" "$ANNEX" "$CLEAR" "$PUSH" "$WKEY" "$IP"'
+    ;Delete temporary files
+    ;Delete $INSTDIR\FTP_Upload.ex
+    ;RMDir /r $INSTDIR\fw
 SectionEnd
 
 ;SectionGroupEnd
@@ -222,41 +244,58 @@ SectionEnd
 ;Descriptions
 
   ;Language strings
-;  LangString DESC_avm ${LANG_ENGLISH} "This will set the environment variable to avm, if the variable could not be determined by searching through the install file of the selected firmware."
-;  LangString DESC_avme ${LANG_ENGLISH} "This will set the environment variable to avme, if the variable could not be determined by searching through the install file of the selected firmware."
+  ;LangString DESC_avm ${LANG_ENGLISH} "This will set the environment variable to avm, if the variable could not be determined by searching through the install file of the selected firmware."
+  ;LangString DESC_avme ${LANG_ENGLISH} "This will set the environment variable to avme, if the variable could not be determined by searching through the install file of the selected firmware."
   LangString DESC_mtd ${LANG_ENGLISH} "This will set the environment variables to default."
   LangString DESC_Upload ${LANG_ENGLISH} "This will upload the selecet firmware."
-;Assign language strings to sections
+  LangString NORMAL_IP ${LANG_ENGLISH} "This will set adam FTP IP to 192.168.178.1, staic netcard IP 192.168.178.2 Mask 255.255.0.0 and GW 192.168.178.1 settings must be used. This tool will not set PC LAN settings, You must do it yourself!"
+  LangString DESC_IP ${LANG_ENGLISH} "This will set adam FTP IP to 192.168.2.1, staic netcard IP 192.168.178.2 Mask 255.255.0.0 and GW 192.168.2.1 settings must be used. This tool will not set PC LAN settings, You must do it yourself!"
+  ;Assign language strings to sections
   !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
- ;   !insertmacro MUI_DESCRIPTION_TEXT ${SecAVM} $(DESC_avm)
-  ;  !insertmacro MUI_DESCRIPTION_TEXT ${SecAVME} $(DESC_avme)
-    !insertmacro MUI_DESCRIPTION_TEXT ${SecMTD} $(DESC_mtd)
-    !insertmacro MUI_DESCRIPTION_TEXT ${FTP_Upload} $(DESC_Upload)
+     ;!insertmacro MUI_DESCRIPTION_TEXT ${SecAVM} $(DESC_avm)
+     ;!insertmacro MUI_DESCRIPTION_TEXT ${SecAVME} $(DESC_avme)
+     !insertmacro MUI_DESCRIPTION_TEXT ${SecMTD} $(DESC_mtd)
+     !insertmacro MUI_DESCRIPTION_TEXT ${FTP_Upload} $(DESC_Upload)
+     !insertmacro MUI_DESCRIPTION_TEXT ${NORMAL_IP} $(NORMAL_IP)
+     !insertmacro MUI_DESCRIPTION_TEXT ${ALT_IP} $(DESC_IP)
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
-;Function .onSelChange
+ Function .onSelChange
  ;       ;If the Application section is checked, check the OCX section as well
  ;       !insertmacro SectionFlagIsSet ${SecAVM} ${SF_SELECTED} "" end1
  ;       !insertmacro UnselectSection ${SecAVME}
- ;   end1:
  ;       !insertmacro SectionFlagIsSet ${SecAVME} ${SF_SELECTED} "" end2
  ;       !insertmacro UnselectSection ${SecAVM}
- ;   end2:
-;FunctionEnd
+        ;!insertmacro SectionFlagIsSet ${NORMAL_IP} ${SF_SELECTED} "" end1
 
-;Function SetAVM
-;         !insertmacro UnselectSection ${SecAVME}
-;         !insertmacro SelectSection ${SecAVM}
-;FunctionEnd
-;Function SetAVME
-;        !insertmacro UnselectSection ${SecAVM}
-;         !insertmacro SelectSection ${SecAVME}
-;FunctionEnd
+        !insertmacro SectionFlagIsSet ${ALT_IP} ${SF_SELECTED} "" end1
+        call SelectNormalIP
+        goto end2
+        end1:
+        call SelectALTIP
+        end2:
+ FunctionEnd
 
+ ;Function SetAVM
+ ;         !insertmacro UnselectSection ${SecAVME}
+ ;         !insertmacro SelectSection ${SecAVM}
+ ;FunctionEnd
+ ;Function SetAVME
+ ;        !insertmacro UnselectSection ${SecAVM}
+ ;         !insertmacro SelectSection ${SecAVME}
+ ;FunctionEnd
+ Function SelectALTIP
+         !insertmacro UnselectSection ${NORMAL_IP}
+         !insertmacro SelectSection ${ALT_IP}
+ FunctionEnd
+ Function SelectNormalIP
+         !insertmacro UnselectSection ${ALT_IP}
+         !insertmacro SelectSection ${NORMAL_IP}
+ FunctionEnd
 Function PageFileSelect
   ReadRegStr "$FS_PFAD_Value" HKCU "Software\Uploader" ""
   Pop $R0
-  !insertmacro MUI_HEADER_TEXT "1. Switch on Router" "Router must be connected to the PC via LAN patch wire. Best would be to put a$\r$\n HUB or SWITCH between Router and PC or turn media sensing off on the PC Net-card."
+  !insertmacro MUI_HEADER_TEXT "1. Switch on Router" "Router must be connected to the PC via LAN patch cable. Best would be to put a$\r$\n HUB or SWITCH between Router and PC."
   nsDialogs::Create /NOUNLOAD 1018
   Pop $FS_Dialog
   ${If} $FS_Dialog == error
