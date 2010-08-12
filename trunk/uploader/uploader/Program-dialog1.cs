@@ -1,10 +1,11 @@
- /* Johann Pascher (johann.pascher@gmail.com)
- */
+/* Johann Pascher (johann.pascher@gmail.com)
+*/
+//#define FTP_DEBUG
+#region Public using def
 using System;
 using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
-using ftp;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,21 +16,24 @@ using System.Runtime.InteropServices;
 using System.Net.NetworkInformation;
 using System.Net;
 using System.Net.Sockets;
-
+using System.Collections;
+using ftplib;
+#endregion 
 namespace ftp
 {
     class Program:System.Windows.Forms.Form
 	{
-        #region Public Variables
+        #region Public Variables1
         public int count;
         //public string oem;
         //public string annex;
         //public string wkey;
         //public string push;
         //public string clear, pmtd23, pmtd1;
-        #endregion
         public Button Start;
         public TextBox tB1;
+        #endregion
+        #region Private Variables1
         private ProgressBar progressBar1;
         private ProgressBar progressBar2;
         private Label label3;
@@ -46,26 +50,28 @@ namespace ftp
         private TextBox textBox1;
         private Button Fsel;
         private OpenFileDialog openFileDialog1;
-        public Button KillButon;
         private ComboBox RouterIP;
         private Label RouterIPLabel;
         private Label labelGW;
-        public static FTP ftplib = new FTP();
+        #endregion
+        public static FTP lib = new FTP();	
+        #region Constructors
         Program() // ADD THIS CONSTRUCTOR
         {
             InitializeComponent();
-            //Win32.AllocConsole();
+            Win32.AllocConsole();//To disable Console - remove this Line
+            Console.SetWindowSize(80, 2);
         }
+        #endregion
 		[STAThread]
-
         static void Main()
 		{
             Application.EnableVisualStyles();
             Application.Run(new Program());
-          
 		}
         private void InitializeComponent()
         {
+            #region Private IDE
             this.Start = new System.Windows.Forms.Button();
             this.tB1 = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -84,7 +90,6 @@ namespace ftp
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.Fsel = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.KillButon = new System.Windows.Forms.Button();
             this.RouterIP = new System.Windows.Forms.ComboBox();
             this.RouterIPLabel = new System.Windows.Forms.Label();
             this.labelGW = new System.Windows.Forms.Label();
@@ -94,7 +99,7 @@ namespace ftp
             // 
             this.Start.BackColor = System.Drawing.Color.LimeGreen;
             this.Start.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Start.Location = new System.Drawing.Point(10, 343);
+            this.Start.Location = new System.Drawing.Point(10, 415);
             this.Start.Name = "Start";
             this.Start.Size = new System.Drawing.Size(200, 55);
             this.Start.TabIndex = 0;
@@ -274,7 +279,7 @@ namespace ftp
             this.Fsel.Name = "Fsel";
             this.Fsel.Size = new System.Drawing.Size(200, 31);
             this.Fsel.TabIndex = 24;
-            this.Fsel.Text = "Select a kernel.image file";
+            this.Fsel.Text = "Select kernel.image";
             this.Fsel.UseVisualStyleBackColor = true;
             this.Fsel.Click += new System.EventHandler(this.Fsel_Click);
             // 
@@ -282,18 +287,6 @@ namespace ftp
             // 
             this.openFileDialog1.FileName = "kernel.image";
             this.openFileDialog1.Title = "Select Firmware";
-            // 
-            // KillButon
-            // 
-            this.KillButon.BackColor = System.Drawing.Color.Red;
-            this.KillButon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.KillButon.Location = new System.Drawing.Point(10, 418);
-            this.KillButon.Name = "KillButon";
-            this.KillButon.Size = new System.Drawing.Size(200, 55);
-            this.KillButon.TabIndex = 25;
-            this.KillButon.Text = "Quit";
-            this.KillButon.UseVisualStyleBackColor = false;
-            this.KillButon.Click += new System.EventHandler(this.KillButon_Click);
             // 
             // RouterIP
             // 
@@ -331,11 +324,10 @@ namespace ftp
             // Program
             // 
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(627, 485);
+            this.ClientSize = new System.Drawing.Size(627, 499);
             this.Controls.Add(this.labelGW);
             this.Controls.Add(this.RouterIPLabel);
             this.Controls.Add(this.RouterIP);
-            this.Controls.Add(this.KillButon);
             this.Controls.Add(this.Fsel);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.ANNEXBox);
@@ -359,9 +351,13 @@ namespace ftp
             this.Shown += new System.EventHandler(this.Program_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
-
+            #endregion
         }
         public delegate void UpdateRichEditCallback(string text);
+        static void ThreadMethod()
+        {
+            Thread.Sleep(1000);
+        }
         // This method could be called by either the main thread or any of the
         // worker threads
         private void AppendTextBoxLine(string msg)
@@ -376,41 +372,77 @@ namespace ftp
                 AppendTextBoxLine1(msg);
             }
         }
+        /// <summary>
+        /// Append a line to the TextBox, and make sure the first and last
+        /// appends don't show extra space.
+        /// </summary>
+        /// <param name="myStr">The string you want to show in the TextBox.</param>
+        public void AppendTextBoxLine1(string myStr)
+        {
+            if (tB1.Text.Length > 0)
+            {
+                tB1.AppendText(Environment.NewLine);
+            }
+            tB1.AppendText(myStr);
+        }
         public void waitOpen(string ip)   
         {
             repeate:
             AppendTextBoxLine("Looking for Router on IP: " + ip + ", Switch Router OFF and On again!");
             Console.WriteLine("Looking for Router on IP: " + ip + ", Switch Router OFF and On again!");
-            MessageBox.Show("--> Switch Router Power Line Off And On Again (Reboot), Klick 'OK' Button Within Three Seconds.--> If it did not work the first time repeat router reboot.  Attention: Static PC LAN IP settings are needed. IP: 192.168.178.2 Mask: 255.255.0.0 GW: 192.168.178.1 (or IP: 192.168.2.2 Mask: 255.255.0.0 GW: 192.168.2.1). There is no need to restart this tool, transfer will start as soon as adam FTP IP 192.168.178.1 (or 192.168.2.1) is reachable.", "Reboot",
+            MessageBox.Show("--> Switch Router Power Line Off And On Again (Reboot), then Klick 'OK' Button Within Three Seconds.  --> If it did not work the first time repeat router reboot.  Attention: Static PC LAN IP settings are needed. IP: 192.168.178.2 Mask: 255.255.0.0 GW:" + ip + ". Also make sure no Firewall is active and all other LAN and WLAN Cards are deactivated.", "Reboot",
             MessageBoxButtons.OK, MessageBoxIcon.None);
             //MessageBox.Show("Switch Router OFF and On again!", "Reboot",
             AppendTextBoxLine("--> Start --> Wait for response ...");
             Console.WriteLine("--> Start --> Wait for response ...");
             try
             {
-                String cStr = ftplib.Connect(ip, "adam2", "adam2");
-                Console.WriteLine(cStr);
-                AppendTextBoxLine(cStr);
-
+                lib.Connect(ip);
+                lib.ReadResponse();
+                Console.WriteLine(lib.ResponseString);
+                AppendTextBoxLine(lib.ResponseString);
+                Login("adam2", "adam2");
             }
             catch (Exception)
             {
-                //wait 2 seconds
-                //Thread.Sleep(2000);
-                //if (ip == "192.168.178.1") ip = "192.168.2.1";
-                //else if (ip == "192.168.2.1") ip = "192.168.178.1";
+                //wait 1 seconds
+                //Thread.Sleep(1000);
+                if (ip == "192.168.178.1") ip = "192.168.2.1";
+                else if (ip == "192.168.2.1") ip = "192.168.178.1";
                 goto repeate;
             }
+        }
+        public void Login(string user, string pass)
+        {
+            if (lib.Response != 220)
+                lib.Fail();
+            quote("USER " + user);
+            switch (lib.response)
+            {
+                case 331:
+                    if (pass == null)
+                    {
+                        lib.Disconnect();
+                        throw new Exception("No password has been set.");
+                    }
+                    quote("PASS " + pass);
+                    if (lib.response != 230)
+                        lib.Fail();
+                    break;
+                case 230:
+                    break;
+            }
+            return ;
         }
 		public void close()
 		{
 			try
 			{
-				if (ftplib.IsConnected)
+                if (lib.IsConnected)
 				{
 					Console.WriteLine("--> Disconnecting.");
                     AppendTextBoxLine("--> Disconnecting.");
-					ftplib.Disconnect();
+                    lib.Disconnect();
 				}
 			}
 			catch(Exception ex)
@@ -422,12 +454,12 @@ namespace ftp
 		{
 			try
 			{
-                Console.WriteLine("put " + command + " " + remotePartition);
-                AppendTextBoxLine("put " + command + " " + remotePartition);
+                //Console.WriteLine("put " + command + " " + remotePartition);
+                //AppendTextBoxLine("put " + command + " " + remotePartition);
 				int perc = 0;
 				string file = Regex.Replace(command, "put ", "");
 
-				if (!ftplib.IsConnected)
+				if (!lib.IsConnected)
 				{
 					Console.WriteLine("Error: Must be connected to a server.");
                     AppendTextBoxLine("Error: Must be connected to a server.");
@@ -435,16 +467,24 @@ namespace ftp
 				}
                 //---------------------------------------------------------------------------------
 				// open an upload
-                ftplib.Connect();
-                ftplib.SetBinaryMode(true);
-                ftplib.OpenDataSocket();
-                ftplib.OpenUploadM(file);
-                ftplib.SendCommand("STOR " + remotePartition);
-                Console.WriteLine("Erase partition ...");
-                AppendTextBoxLine("Erase partition ...");
+                quote("PASV");
+                lib.GetDataPortFormResponseString();// needs PASV bevore, writes public vars dataserver and dataport
+                lib.OpenDataSocket();//needs public vars dataserver and dataport
+                lib.OpenUploadM(file);
+                lib.SendCommand("STOR " + remotePartition);
+                if (remotePartition == "mtd1")
+                {
+                    AppendTextBoxLine("Erase Flash mtd1 partition, please wait up to three minutes... ");
+                    Console.WriteLine("Erase Flash mtd1 partition, please wait up to three minutes... ");
+                }
+                else
+                {
+                    Console.WriteLine("Erase " + remotePartition + " partition ...");
+                    AppendTextBoxLine("Erase " + remotePartition + " partition ...");
+                }
                 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                 progressBar2.Value = count;
-                while (ftplib.CheckSocetAvalabel() == false)
+                while (lib.CheckSocetAvalabel() == false)
                 {
                     Console.Write("#");
                     if  (progressBar2.Value > 149) progressBar2.Value = 0;
@@ -455,22 +495,25 @@ namespace ftp
                 count = progressBar2.Value;
                 Console.WriteLine("");
                 progressBar2.Value = 150;
-                String xStr = ftplib.ReadResponse();
+                String xStr = lib.ReadResponse();
                 Console.WriteLine(xStr);
                 AppendTextBoxLine(xStr);
-                ftplib.CheckStor();
-                
-                while(ftplib.DoUpload() > 0)
+                Console.WriteLine("STOR " + remotePartition);
+                AppendTextBoxLine("STOR " + remotePartition);
+                lib.CheckStor();
+                while (lib.DoUpload512() > 0)
 				{
-					perc = (int)(((ftplib.BytesTotal) * 100) / ftplib.FileSize);
-					Console.Write("\rUpload: {0}/{1} {2}%", ftplib.BytesTotal, ftplib.FileSize, perc);
+                    perc = (int)(((lib.BytesTotal) * 100) / lib.FileSize);
+                    Console.Write("\rUpload: {0}/{1} {2}%", lib.BytesTotal, lib.FileSize, perc);
                     this.PBox.Clear();
-                    this.PBox.AppendText("Upload kernel.image to mtd1: " + ftplib.BytesTotal + " Bytes of " + ftplib.FileSize + " Byts => " + progressBar1.Value + " %");
+                    this.PBox.AppendText("Upload kernel.image to mtd1: " + lib.BytesTotal + " Bytes of " + lib.FileSize + " Byts => " + progressBar1.Value + " %");
                     if (perc > 99) perc = 100;
                     progressBar1.Value = perc;
 					Console.Out.Flush();
 				}
-				Console.WriteLine("");
+                Console.WriteLine("");
+                Console.WriteLine(lib.ResponseString);
+                AppendTextBoxLine(lib.ResponseString);
 			}
 			catch(Exception ex)
 			{
@@ -479,23 +522,17 @@ namespace ftp
                 AppendTextBoxLine(ex.Message);
 			}
 		}
-        static void ThreadMethod()
-        {
-            Thread.Sleep(1000);
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             count = 0;
             testIt();
         }
-
         public void testIt()
         {
             progressBar1.Value = 0;
             TestKI();
             //AppendTextBoxLine("'filesystem.image and kernel.image' must be in the same directory as this utility!");
-            ftplib.port = 21;
+            lib.port = 21;
             String oem = "avm", annex = "Multi", pmtd23 = "clear", pmtd1 = "push", wkey = "speedboxspeedbox", ip = "192.168.178.1";
             oem = this.OEMBox.Text;
             annex = this.ANNEXBox.Text;
@@ -509,71 +546,60 @@ namespace ftp
         }
         public void DoIt(String oem, String annex, String pmtd23, String pmtd1, String wkey, String ip)
         {
-            String rStr;
-        repeate:
-            waitOpen(ip); 
+            waitOpen(ip);
+            //Logon("adam2", "adam2");
             Console.WriteLine("-->");
             AppendTextBoxLine("-->");
-            try { rStr = ftplib.SetCommand("MEDIA FLSH");} catch (Exception) { goto repeate; }
-            Console.WriteLine(rStr);
-            AppendTextBoxLine(rStr);
-            AppendTextBoxLine("Erase Flash, please wait up to three minutes... ");
-            if (pmtd1 == "push")
-                try { upload("kernel.image", "mtd1");} catch (Exception) { goto repeate; }
-            if (pmtd23 == "clear") 
-            {
-                try { upload("filesystem.image", "mtd3");} catch (Exception) { goto repeate; }
-                try { upload("filesystem.image", "mtd4");} catch (Exception) { goto repeate; }
-            }
-            try { rStr = ftplib.SetCommand("SETENV my_ipaddress 192.168.178.1");} catch (Exception) { goto repeate; }
-            Console.WriteLine("SETENV my_ipaddress 192.168.178.1");
-            AppendTextBoxLine("SETENV my_ipaddress 192.168.178.1");
-            Console.WriteLine(rStr);
-            AppendTextBoxLine(rStr);
-            try { rStr = ftplib.SetCommand("SETENV firmware_version " + oem); }catch (Exception) { goto repeate; }
-            Console.WriteLine("SETENV firmware_version " + oem);
-            AppendTextBoxLine("SETENV firmware_version " + oem);
-            Console.WriteLine(rStr);
-            AppendTextBoxLine(rStr);
-            if ((annex == "B") || (annex == "A"))
-            {
-                try { rStr = ftplib.SetCommand("SETENV kernel_args annex=" + annex); }
-                catch (Exception) { goto repeate; }
-                Console.WriteLine("SETENV kernel_args annex=" + annex);
-                AppendTextBoxLine("SETENV kernel_args annex=" + annex);
-                Console.WriteLine(rStr);
-                AppendTextBoxLine(rStr);
-            }
-                try {rStr = ftplib.SetCommand("SETENV wlan_key " + wkey); } catch (Exception) {}
-            AppendTextBoxLine("SETENV wlan_key " + wkey);
-            Console.WriteLine("SETENV wlan_key " + wkey);
-            Console.WriteLine(rStr);
-            AppendTextBoxLine(rStr);
-            try { rStr = ftplib.SetCommand("REBOOT");} catch (Exception) { goto repeate; }
-            Console.WriteLine("REBOOT");
-            AppendTextBoxLine("REBOOT");
-            Console.WriteLine(rStr);
-            AppendTextBoxLine(rStr);
+            quote("SYST");
+            quote("TYPE I");
+            
+            quote("MEDIA FLSH");
+            quote("CHECK mtd1");
+            quote("CHECK mtd2");
+            quote("CHECK mtd3");
+            quote("CHECK mtd4");
+            quote("CHECK mtd5");
+            quote("CHECK mtd6");
+
+            quote("GETENV HWRevision");
+            quote("GETENV ProductID");
+            quote("GETENV annex");
+            quote("GETENV bootloaderVersion");
+            quote("GETENV firmware_version"); 
+            quote("GETENV firmware_info");
+            quote("GETENV prompt");
+            quote("GETENV urlader-version");
+            quote("GETENV usb_board_mac");
+            quote("GETENV usb_rndis_mac");
+            quote("GETENV macdsl");
+            quote("GETENV maca");
+            quote("GETENV macb");
+            quote("GETENV macwlan");
+            quote("GETENV wlan_key");
+            
+            if(pmtd1 == "push")try{upload("kernel.image","mtd1");}catch(Exception){}
+            if(pmtd23 == "clear"){try{upload("filesystem.image","mtd3");}catch(Exception){}try{upload("filesystem.image","mtd4");}catch(Exception){}}
+            quote("SETENV my_ipaddress 192.168.178.1");
+            quote("SETENV firmware_version "+oem);
+            if((annex=="B")||(annex=="A")){quote("SETENV kernel_args annex="+annex);}
+            //quote("SETENV wlan_key "+wkey);
+            //quote("REBOOT");
             close();
         }
-        /// <summary>
-        /// Append a line to the TextBox, and make sure the first and last
-        /// appends don't show extra space.
-        /// </summary>
-        /// <param name="myStr">The string you want to show in the TextBox.</param>
-        public void AppendTextBoxLine1(string myStr)
+        private void quote(String command)
         {
-                if (tB1.Text.Length > 0)
-                {
-                    tB1.AppendText(Environment.NewLine);
-                }
-                tB1.AppendText(myStr);
+                lib.SendCommand(command);
+                String rStr = lib.ReadResponse();
+                Console.WriteLine(command);
+                AppendTextBoxLine(command);
+                Console.WriteLine(rStr);
+                AppendTextBoxLine(rStr);
+                Console.WriteLine(lib.Messages);
+                AppendTextBoxLine(lib.Messages);
         }
         private void tB1_TextChanged(object sender, EventArgs e)
         {
-
         }
-
         private void Program_Load(object sender, EventArgs e)
         {
             string[] args = Environment.GetCommandLineArgs();
@@ -583,7 +609,7 @@ namespace ftp
                 {
                     String oem = args[2], annex = args[3], pmtd23 = args[4], pmtd1 = args[5], wkey = args[6], ip = args[7];
                     //AppendTextBoxLine("Commandline Args: " + "oem: " + oem + " annex: " + annex + " clear: " + pmtd23 + " push: " + pmtd1 + " wkey: " + wkey + " ip: " + ip);
-                    ftplib.port = 21;
+                    lib.port = 21;
                     this.OEMBox.Text = oem;
                     this.ANNEXBox.Text = annex;
                     this.WKey.Text = wkey;
@@ -607,7 +633,6 @@ namespace ftp
             }
             #endregion
         }
-
         private void Program_Shown(object sender, EventArgs e)
         {
             if (TestKI()) commandline_mode();
@@ -635,6 +660,43 @@ namespace ftp
             }
             return true;
         }
+    #region File Select
+        private void Fsel_Click(object sender, EventArgs e)
+        {
+            //this.openFileDialog1.FileName = "kernel.image"; // Default file name
+            this.openFileDialog1.DefaultExt = ".image"; // Default file extension
+            this.openFileDialog1.Filter = "Firmware Files (.image)|*.image|All files (*.*)|*.*"; // Filter files by extension
+
+                openFileDialog1.FilterIndex = 2;
+                openFileDialog1.RestoreDirectory = true;
+
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    {
+                        if (File.Exists(openFileDialog1.FileName))
+                        {
+                            textBox1.Text = this.openFileDialog1.FileName;
+                            string path2 = "kernel.image";
+                            try
+                            {
+                                File.Delete(path2);
+                                File.Copy(openFileDialog1.FileName, path2);
+                                Debug.WriteLine("{0} copied to {1}", openFileDialog1.FileName, path2);
+                                //AppendTextBoxLine(openFileDialog1.FileName + " copied to " + path2);
+                            }
+                            catch
+                            {
+                                Debug.WriteLine("Copy Error ");
+                                AppendTextBoxLine("Copy Error ");
+                            }
+
+                        }
+                    }
+                }
+
+        }
+        #endregion
+        #region Unused
         private void eventLog1_EntryWritten(object sender, System.Diagnostics.EntryWrittenEventArgs e)
         {
 
@@ -680,41 +742,6 @@ namespace ftp
 
         }
 
-        private void Fsel_Click(object sender, EventArgs e)
-        {
-            //this.openFileDialog1.FileName = "kernel.image"; // Default file name
-            this.openFileDialog1.DefaultExt = ".image"; // Default file extension
-            this.openFileDialog1.Filter = "Firmware Files (.image)|*.image|All files (*.*)|*.*"; // Filter files by extension
-
-                openFileDialog1.FilterIndex = 2;
-                openFileDialog1.RestoreDirectory = true;
-
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    {
-                        if (File.Exists(openFileDialog1.FileName))
-                        {
-                            textBox1.Text = this.openFileDialog1.FileName;
-                            string path2 = "kernel.image";
-                            try
-                            {
-                                File.Delete(path2);
-                                File.Copy(openFileDialog1.FileName, path2);
-                                Debug.WriteLine("{0} copied to {1}", openFileDialog1.FileName, path2);
-                                //AppendTextBoxLine(openFileDialog1.FileName + " copied to " + path2);
-                            }
-                            catch
-                            {
-                                Debug.WriteLine("Copy Error ");
-                                AppendTextBoxLine("Copy Error ");
-                            }
-
-                        }
-                    }
-                }
-
-        }
-
         private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
 
@@ -723,11 +750,6 @@ namespace ftp
         private void openFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
 
-        }
-
-        private void KillButon_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -760,7 +782,8 @@ namespace ftp
 
         }
 	}
-
+    #endregion
+    #region Console
     public class Win32
     {
         /// <summary>
@@ -775,4 +798,5 @@ namespace ftp
         [System.Runtime.InteropServices.DllImport("kernel32.dll")]
         public static extern Boolean FreeConsole();
     }
+    #endregion
 }

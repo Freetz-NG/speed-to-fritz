@@ -231,7 +231,7 @@ Section
 ;--> If it did not work the first time repeat router reboot.  Attention: Static PC LAN IP settings are needed \
 ;(IP: 192.168.178.2 Mask: 255.255.0.0 GW:192.168.178.1 ).\
 ;There is no need to restart this tool, transfer will start as soon as adam FTP IP 192.168.178.1 or 192.168.2.1 is reachable."
-    File /oname=$INSTDIR\FTP_Upload.exe FTP_uploader\bin\Release\ftp2.exe
+    File /oname=$INSTDIR\FTP_Upload.exe FTP_uploader\bin\Release\ftp_uploader.exe
     ;nsExec::ExecToLog '"$INSTDIR\FTP_Upload.exe" "-x" "$OEM" "$ANNEX" "$CLEAR" "$PUSH"'
     ExecWait '"$INSTDIR\FTP_Upload.exe" "-x" "$OEM" "$ANNEX" "$CLEAR" "$PUSH" "$WKEY" "$IP"'
     ;Delete temporary files
@@ -260,7 +260,7 @@ SectionEnd
      !insertmacro MUI_DESCRIPTION_TEXT ${ALT_IP} $(DESC_IP)
   !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
- Function .onSelChange
+; Function .onSelChange
  ;       ;If the Application section is checked, check the OCX section as well
  ;       !insertmacro SectionFlagIsSet ${SecAVM} ${SF_SELECTED} "" end1
  ;       !insertmacro UnselectSection ${SecAVME}
@@ -268,13 +268,13 @@ SectionEnd
  ;       !insertmacro UnselectSection ${SecAVM}
         ;!insertmacro SectionFlagIsSet ${NORMAL_IP} ${SF_SELECTED} "" end1
 
-        !insertmacro SectionFlagIsSet ${ALT_IP} ${SF_SELECTED} "" end1
-        call SelectNormalIP
-        goto end2
-        end1:
-        call SelectALTIP
-        end2:
- FunctionEnd
+;        !insertmacro SectionFlagIsSet ${ALT_IP} ${SF_SELECTED} "" end1
+;        call SelectNormalIP
+;        goto end2
+;        end1:
+;        call SelectALTIP
+;        end2:
+; FunctionEnd
 
  ;Function SetAVM
  ;         !insertmacro UnselectSection ${SecAVME}
