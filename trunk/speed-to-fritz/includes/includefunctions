@@ -488,13 +488,11 @@ echo "You should now reboot your box. Waiting for box to shut down for restart .
 while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
  echo -n "."
  sleep 1
-done
-while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'Unreachable'` != "0" ] ||\
-[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
- #ping $ping_params ${IPADDRESS}
+done 
+while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
  echo -n "."
-done
-echo
+done 
+echo  "."
 echo "Initiating file transfer of 'kernel.image' ..."
 echo "Please be patient, it takes about one minute to erase the mtd1 partition ..."
 ftp -n -p <<EOT 2>&1 | tee ${HOMEDIR}/ftp.log
@@ -551,22 +549,13 @@ fi
 else # <--not FORCE_CLEAR_FLASH
 ping_params="-c1 -w1"
 echo "You should now reboot your box. Waiting for box to shut down for restart ..."
-#while eval "ping $ping_params ${IPADDRESS} > /dev/null"; do
-# echo -n "."
-#    sleep 0.2
-#done
-#while ! eval "ping $ping_params ${IPADDRESS} > /dev/null"; do
-# echo -n "."
-#    sleep 0.2
-#done
 while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
  echo -n "."
  sleep 1
 done 
-while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'Unreachable'` != "0" ] ||\
-[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
  echo -n "."
-done
+done 
 echo  "."
 echo "Initiating file transfer of 'kernel.image' ..."
 echo "Please be patient, it takes about one minute to erase the mtd1 partition ..."
@@ -582,14 +571,6 @@ quote MEDIA FLSH
 put "${IMAGEDIR}"/kernel.image mtd1
 put "${HOMEDIR}"/empty mtd3
 put "${HOMEDIR}"/empty mtd4
-quote SETENV my_ipaddress 192.168.178.1
-quote SETENV firmware_version $OEM
-quote SETENV autoload yes
-quote SETENV my_ipaddress $IPADDRESS
-quote SETENV ProductID  $CONFIG_PRODUKT
-quote SETENV HWRevision  $HWRevision
-quote SETENV kernel_args $kernel_args
-quote SETENV annex $ANNEX
 quote REBOOT
 quit
 EOT
@@ -601,10 +582,9 @@ while [ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "1" 
 sleep 1
 echo -n "."
 done 
-while [ `ping -c1 -w1 192.168.2.1 2>&1 | grep -c 'Unreachable'` != "0" ] ||\
-[ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+while [ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
 echo -n "."
-done
+done 
 echo "."
 # echo "Box is back up again..."
 ftp -n -p <<EOT 2>&1 | tee ${HOMEDIR}/ftp.log
@@ -629,6 +609,9 @@ print_ftperror || return 1
 fi
 return 0
 }
+
+#quote SETENV jffs2_size 32
+#quote SETENV jffs2_size	$CONFIG_jffs2_size
 
 function modunsqfs()
 {
