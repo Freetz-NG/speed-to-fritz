@@ -1,3 +1,67 @@
+/* Copyright (c) 2006, J.P. Trosclair
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted 
+ * provided that the following conditions are met:
+ *
+ *  * Redistributions of source code must retain the above copyright notice, this list of conditions and 
+ *		the following disclaimer.
+ *  * Redistributions in binary form must reproduce the above copyright notice, this list of conditions 
+ *		and the following disclaimer in the documentation and/or other materials provided with the 
+ *		distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED 
+ * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
+ * PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR 
+ * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+ * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, 
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
+ * Based on FTPFactory.cs code, pretty much a complete re-write with FTPFactory.cs
+ * as a reference.
+ * 
+ ***********************
+ * Authors of this code:
+ ***********************
+ * J.P. Trosclair    (jptrosclair@judelawfirm.com)
+ * Filipe Madureira  (filipe_madureira@hotmail.com) 
+ * Carlo M. Andreoli (cmandreoli@numericaprogetti.it)
+ * Sloan Holliday    (sloan@ipass.net)
+ * Johann Pascher    (johann.pascher@gmail.com)
+ * 
+ *********************** 
+ * FTPFactory.cs was written by Jaimon Mathew (jaimonmathew@rediffmail.com)
+ * and modified by Dan Rolander (Dan.Rolander@marriott.com),
+ * Johann Pascher (johann.pascher@gmail.com) Remove most unneeded code to adapt.
+ ***********************
+ * 
+ * ** DO NOT ** contact the authors of FTPFactory.cs about problems with this code. It
+ * is not their responsibility.
+ * 
+ *  Any bug fixes or additions to the code will be properly credited to the author.
+ * 
+ * 
+ * All calls to the ftplib functions should be:
+ * 
+ * try 
+ * { 
+ *		// ftplib function call
+ * } 
+ * catch(Exception ex) 
+ * {
+ *		// error handeler
+ * }
+ * 
+ * If you add to the code please make use of OpenDataSocket(), CloseDataSocket(), and
+ * ReadResponse() appropriately. See the comments above each for info about using them.
+ * 
+ * The Fail() function terminates the entire connection. Only call it on critical errors.
+ * Non critical errors should NOT close the connection.
+ * All errors should throw an exception of type Exception with the response string from
+ * the server as the message.
+ */
 //#define FTP_DEBUG
 using System;
 using System.IO;
@@ -135,9 +199,7 @@ namespace ftplib
         /// <summary>
         /// Connect to a ftp server
         /// </summary>
-        /// <param name="server">IP or hostname of the server to connect to</param>
-        /// <param name="user">Account name to login as</param>
-        /// <param name="pass">Password for the account specified</param>
+        /// <param name="server">IP of the server to connect to</param>
         public void Connect(string server)
         {
             this.server = server;
@@ -145,8 +207,8 @@ namespace ftplib
                 if (main_sock.Connected)
                 return;
             main_sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            main_ipEndPoint = new IPEndPoint(Dns.GetHostByName(server).AddressList[0], port);
-            //data_ipEndPoint = new IPEndPoint(IPAddress.Parse(server), port);
+            //main_ipEndPoint = new IPEndPoint(Dns.GetHostByName(server).AddressList[0], port);
+            main_ipEndPoint = new IPEndPoint(IPAddress.Parse(server), port);
             try
             {
                 main_sock.Connect(main_ipEndPoint);
@@ -301,10 +363,10 @@ namespace ftplib
             dataserver = String.Format("{0}.{1}.{2}.{3}", pasv[0], pasv[1], pasv[2], pasv[3]);
             dataport = (int.Parse(pasv[4]) << 8) + int.Parse(pasv[5]);
         }
-		// if you add code that needs a data socket, i.e. a PASV or PORT command required,
-		// call this function to do the dirty work. It sends the PASV or PORT command,
-		// parses out the port and ip info and opens the appropriate data socket
-		// for you. The socket variable is private Socket data_socket. Once you
+		// if you add code that needs a data socket,
+        // Send the PASV command first and GetDataPortFormResponseString().
+        // opens the appropriate data socket.
+		// The socket variable is Socket data_socket. Once you
 		// are done with it, be sure to call CloseDataSocket()
         public void OpenDataSocket()
 		{
@@ -324,8 +386,8 @@ namespace ftplib
 					Debug.WriteLine("Resolving host");
 #endif
 
-					data_ipEndPoint = new IPEndPoint(Dns.GetHostByName(server).AddressList[0], dataport);
-                    //data_ipEndPoint = new IPEndPoint(IPAddress.Parse(server), port);
+					//data_ipEndPoint = new IPEndPoint(Dns.GetHostByName(server).AddressList[0], dataport);
+                    data_ipEndPoint = new IPEndPoint(IPAddress.Parse(server), dataport);
 					
 #if (FTP_DEBUG)
 					Debug.WriteLine("Connecting..");

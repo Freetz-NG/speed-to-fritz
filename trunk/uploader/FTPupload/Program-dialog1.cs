@@ -17,6 +17,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Collections;
 using ftplib;
+using ICSharpCode.SharpZipLib.Tar;
+
 #endregion 
 namespace ftp
 {
@@ -273,7 +275,7 @@ namespace ftp
             this.Fsel.Name = "Fsel";
             this.Fsel.Size = new System.Drawing.Size(200, 31);
             this.Fsel.TabIndex = 24;
-            this.Fsel.Text = "Select kernel.image";
+            this.Fsel.Text = "Select Firmware";
             this.Fsel.UseVisualStyleBackColor = true;
             this.Fsel.Click += new System.EventHandler(this.Fsel_Click);
             // 
@@ -603,7 +605,8 @@ namespace ftp
             quote("SYST");
             quote("TYPE I");
             quote("MEDIA FLSH");
-            if(pmtd1 == "push")try{upload("kernel.image","mtd1");}catch(Exception){}
+            if (pmtd1 == "push") try {upload(textBox1.Text, "mtd1"); }
+                catch (Exception) { }
             if (pmtd23 == "clear")
             {
                 try { upload("filesystem.image", "mtd3"); } catch (Exception) { } 
@@ -698,8 +701,7 @@ namespace ftp
         }
         private bool TestKI()
         {
-            const string FILE_NAME = "kernel.image";
-            if (File.Exists(FILE_NAME) == false)
+            if (File.Exists(textBox1.Text) == false)
             {
                 MessageBox.Show("File kernel.image not found within the same directory from where this tool ware executed, copy or select a file first. 'kernel.image' file can be extracted from every AVM Firmware. Rename Firmware to any name with extension 'tar', untar and look into the subdirectory var/tmp.", "kernel.image",
                 MessageBoxButtons.OK, MessageBoxIcon.None);
@@ -707,6 +709,44 @@ namespace ftp
             }
             return true;
         }
+        public static void List(String name)
+        {
+            TarArchive ta = TarArchive.CreateInputTarArchive(new
+            FileStream(@name, FileMode.Open, FileAccess.Read));
+            ta.ProgressMessageEvent += MyLister;
+            ta.ListContents();
+            ta.Close();
+        }
+        public static void Extract(String name)
+        {
+            TarArchive ta = TarArchive.CreateInputTarArchive(new
+            FileStream(@name, FileMode.Open, FileAccess.Read));
+            ta.ProgressMessageEvent += MyNotifier;
+            ta.ExtractContents(@".");
+            ta.Close();
+        }
+        public static void MyLister(TarArchive ta, TarEntry te, string msg)
+        {
+            Console.WriteLine(te.Name + " " + te.Size + " " + te.ModTime);
+        }
+        public static void MyNotifier(TarArchive ta, TarEntry te, string msg)
+        {
+            Console.WriteLine(te.Name + " extracted");
+        }
+        static bool Find(string allRead, string regMatch)
+        {
+            if (Regex.IsMatch(allRead,regMatch))
+            {
+                //Console.WriteLine("found\n");
+                return true;
+            }
+            else
+            {
+                //Console.WriteLine("not found\n");
+                return false;
+            }
+        }
+
     #region File Select
         private void Fsel_Click(object sender, EventArgs e)
         {
@@ -719,27 +759,48 @@ namespace ftp
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     {
-                        if (File.Exists(openFileDialog1.FileName))
+                        try
+                        {
+                            if (Directory.Exists(@".\var")) Directory.Delete(@".\var\tmp", true);
+                        }
+                        catch (Exception)
+                        { 
+                        }
+                            if (File.Exists(openFileDialog1.FileName))
                         {
                             textBox1.Text = this.openFileDialog1.FileName;
-                            string path2 = "kernel.image";
                             try
                             {
-                                File.Delete(path2);
-                                File.Copy(openFileDialog1.FileName, path2);
-                                Debug.WriteLine("{0} copied to {1}", openFileDialog1.FileName, path2);
-                                //AppendTextBoxLine(openFileDialog1.FileName + " copied to " + path2);
+                                List(openFileDialog1.FileName);
+                                Extract(openFileDialog1.FileName);
                             }
-                            catch
+                            catch (Exception)
                             {
-                                Debug.WriteLine("Copy Error ");
-                                AppendTextBoxLine("Copy Error ");
                             }
 
+                            if (File.Exists(@".\var\tmp\kernel.image"))
+                                textBox1.Text = @".\var\tmp\kernel.image";
+
+                            if (File.Exists(@".\var\install"))
+                            {
+                                StreamReader testTxt = new StreamReader(@".\var\install");
+                                string allRead = testTxt.ReadToEnd();//Reads the whole text file to the end
+                                testTxt.Close(); //Closes the text file after it is fully read.
+                                if (Find(allRead, "AnnexB")) this.ANNEXBox.Text = "B";
+                                if (Find(allRead, "echo kernel_args annex=B")) this.ANNEXBox.Text = "B";
+                                if (Find(allRead, "AnnexA")) this.ANNEXBox.Text = "A";
+                                if (Find(allRead, "echo kernel_args annex=A")) this.ANNEXBox.Text = "A";
+                                if (Find(allRead, "echo firmware_version avme ")) this.OEMBox.Text = "avme";
+                                if (Find(allRead, "echo firmware_version avm ")) this.OEMBox.Text = "avm";
+                                if (Find(allRead, "for i in  avm ")) this.OEMBox.Text = "avm";
+                                if (Find(allRead, "for i in  avme ")) this.OEMBox.Text = "avme";
+                                if (Find(allRead, "for i in  tcom ")) this.OEMBox.Text = "tcom";
+                                if (Find(allRead, "for i in  1und1 ")) this.OEMBox.Text = "1und1";
+                                //Console.WriteLine("install file exists\n");
+                            }
                         }
                     }
                 }
-
         }
         #endregion
         #region Unused
