@@ -222,9 +222,9 @@ namespace ftplib
         /// Upload the file, to be used in a loop until file is completely uploaded
         /// </summary>
         /// <returns>Bytes sent</returns>
-        public long DoUpload512()
+        public long DoUpload1460()
         {
-            Byte[] bytes = new Byte[512];
+            Byte[] bytes = new Byte[1460];
             long bytes_got;
             try
             {
@@ -325,14 +325,13 @@ namespace ftplib
                     Debug.WriteLine("buf:" + buf);
 #endif
                     responseStr = buf; // get line
-                    if (Regex.Match(buf, "^[0-9]+ ").Success) // the server will respond with "000-..." on multi line responses, if it is last line it is without "-" .
+                    if (Regex.Match(buf, "^[0-9]+ ").Success)
                     {
                         response = int.Parse(buf.Substring(0, 3)); //get 3 digit code
                         break;
                     }
                     else
-                        //messages += Regex.Replace(buf, "^[0-9]+-", "") + "\n"; // get multilines into message
-                        messages += buf + "\n"; // get multilines into messages
+                        messages += buf; // get multilines into messages
                 }
                 return responseStr;
             }
@@ -418,19 +417,10 @@ namespace ftplib
         }
         public bool CheckSocetAvalabel()
         {
+                System.Threading.Thread.Sleep(500);
                 if (main_sock == null) return true; 
-                int msecs_passed = 0;
                 if (main_sock.Available < 1)
-                {
-                    System.Threading.Thread.Sleep(500);
-                    msecs_passed += 50;
-                    if (msecs_passed > 200000)
-                    {
-                        Disconnect();
-                        throw new Exception("Timed out waiting on server to respond.");
-                    }
                     return false;
-                }
                 return true;
         }
         public void Disconnect() //Send QUIT and close data soket main soket and file
