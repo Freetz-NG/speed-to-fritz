@@ -57,7 +57,7 @@ DO_FINAL_DIFF_SRC2="n"
 #debug options
 DO_NOT_STOP_ON_ERROR="n"
 SET_UP="n"
-#build own device table, normally not needed
+#build own device table, use tools device_table.txt not needed if script rans as root
 export MAKE_DEV="y"
 #pack expanded directory /var.tar > /squashfs-root/usr/var.tar, normally not needed 
 export PACK_VARTAR="y"
@@ -1427,8 +1427,7 @@ if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
  SKRIPT_DATE+="$SVN_VERSION"
 fi
 # make sure all is set to correct rights
-[ ${FAKEROOT_ON} = "n" ] && chmod -R 777 .
-#[ ${FAKEROOT_ON} = "y" ] && $FAKEROOT chmod -R 755 .
+[ ${FAKEROOT_ON} = "n" ] && chmod -R 777 . #&& echo "Scrit is executed as root, 777 set to all files."
 echo "********************************************************************************"
 echo -e "\033[1mPhase 3:\033[0m Copy sources."
 echo "********************************************************************************"
@@ -1437,6 +1436,7 @@ echo "**************************************************************************
 if [ "$ORI" != "y" ]; then
  #prepare for use of Freetz Firmware 
  [ "$MOVE_ALL_to_OEM" = "y" ] && $sh_DIR/move_all_to_OEM.sh "${SRC}" || $sh_DIR/remake_link_avm.sh "${SRC}"
+ [ ${FAKEROOT_ON} = "n" ] && cp -fdrp "${DST}/dev" "${SRC}/dev" && export MAKE_DEV="n" && echo "-- tools/device_table.txt is not in use, script is executed with root rights."
  # Please dont add conditions on models in any external file
  #enable ext2
  [ "$ENABLE_EXT2" = "y" ] && $sh2_DIR/patch_ext2 "${SRC}" "${DST}"
