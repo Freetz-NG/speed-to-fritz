@@ -50,6 +50,10 @@ if [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
   rn_files "$(find "${SRC}/etc" -name fx_conf.avme)" "fx_conf.${OEMLINK}"
   rn_files "$(find "${SRC}/etc" -name fx_lcr.avme)" "fx_lcr.${OEMLINK}"
  fi
+ if [ "${OEM}" = "avme" ]; then
+  rn_files "$(find "${SRC}/etc" -name fx_conf.avm)" "fx_conf.${OEMLINK}"
+  rn_files "$(find "${SRC}/etc" -name fx_lcr.avm)" "fx_lcr.${OEMLINK}"
+ fi
  # on 7240 Firmware some pages are missing
   `cat "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html" | grep -q 'isMultiCountry' ` ||\
    modpatch "${SRC}/${USRWWW}" "$P_DIR/add_countrys_de.patch"
@@ -71,7 +75,7 @@ file_nLIST="/html/de/internet/dslsnrset.frm \
 #-----------------------------------------------------------------
 for file_n in adsl.html atm.html bits.html overview.html; do
    if [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n" ]; then 
-    sed -i -e "s|<? if neq \$var:Annex A|<? if neq \$var:Annex $ANNEX|" "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n"
+    sed -i -e "s|<? if neq \$var:Annex A|<? if 1 1|" "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n"
 #    cat "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n" | grep -q "Annex $ANNEX" &&\
 #    echo2 "  /usr/www/${OEMLINK}/html/de/internet/$file_n"
    fi

@@ -3073,14 +3073,14 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		Other OEM WWW directories if present are removed to save space.
 		Always turn this on if freetz firmware is used!
 		Disable this option if autoconfig is used.
- config MOVE_AVM_to_OEM
-	bool "MOVE avm to OEM"
-	default n
-	depends on EXPERT_MOD 
-	depends on TYPE_OR_7570_920
-	help
-		Set this to "y" if normal 7270 firmwares in combination with multilingual firmwares are used, but usual this is not needed.
-		WWW "avm" directory is moved to "$OEM"
+# config MOVE_AVM_to_OEM
+#	bool "MOVE avm to OEM"
+#	default n
+#	depends on EXPERT_MOD 
+#	depends on TYPE_OR_7570_920
+#	help
+#		Set this to "y" if normal 7270 firmwares in combination with multilingual firmwares are used, but usual this is not needed.
+#		WWW "avm" directory is moved to "$OEM"
  config EXPORT_CONFIG_TR069
 	bool "Enable TR069 disable ATA"
 	depends on EXPERT_MOD 

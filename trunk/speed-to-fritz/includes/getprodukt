@@ -38,8 +38,5 @@ if [ "$ORI" != "y" ]; then
     export FBMOD=`echo ${FBMOD} | tr -d '[:alpha:]'`
     #echo "Fritz!Box firmware mod is: ${FBMOD}"
 fi
-export OEMLINK="avm"
-[ -d "${SRC}"/usr/www/avme ] && export OEMLINK="avme"
-#echo "OEMLINK: ${OEMLINK}"
 
 

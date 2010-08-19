@@ -3,7 +3,7 @@
 . ${include_modpatch}
 . $inc_DIR/includefunctions
 echo "-- Adding 'Info' button and display of mod related data ..."
-for DIR in ${OEMLIST}; do
+for DIR in ${OEMLINK}; do
  export HTML="$DIR/html"
  DSS="/usr/www/$HTML/de"
  DSTI="$1"${DSS}

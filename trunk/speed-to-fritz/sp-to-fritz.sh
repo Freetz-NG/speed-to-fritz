@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="18"; Monat="08"; Jahr="10"
+Tag="19"; Monat="08"; Jahr="10"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -1434,8 +1434,12 @@ echo "**************************************************************************
  echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
 # Flashing original firmware image ...
 if [ "$ORI" != "y" ]; then
+ #move avm or freenet dir if avm or $oem is missing
+ $sh_DIR/move_avm_to_OEM.sh "${SRC}"
  #prepare for use of Freetz Firmware 
  [ "$MOVE_ALL_to_OEM" = "y" ] && $sh_DIR/move_all_to_OEM.sh "${SRC}" || $sh_DIR/remake_link_avm.sh "${SRC}"
+ export OEMLINK="avm"
+ [ -d "${SRC}"/usr/www/avme ] && export OEMLINK="avme"
  [ ${FAKEROOT_ON} = "n" ] && cp -fdrp "${DST}/dev" "${SRC}/dev" && export MAKE_DEV="n" && echo "-- tools/device_table.txt is not in use, script is executed with root rights."
  # Please dont add conditions on models in any external file
  #enable ext2

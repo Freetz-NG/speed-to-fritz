@@ -13,9 +13,6 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
     rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
-[ -d "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEM}" ] ||\
-mv "${SRC}/etc/default.${CONFIG_PRODUKT}/avm" "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEM}" &&\
-echo "  -- moved /etc/default.${CONFIG_PRODUKT}/avm to ${OEM}"
 #Attention! Vinax uses aditional /dev/vinax device entrys the are generateed via /tools/device_table.txt (makedevice option)
 cp -fdrp "${DST}"/dev --target-directory="${SRC}" #this copy is only usable if run as root
 [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
