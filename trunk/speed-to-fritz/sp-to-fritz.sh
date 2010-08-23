@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="20"; Monat="08"; Jahr="10"
+Tag="23"; Monat="08"; Jahr="10"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -209,8 +209,10 @@ export ECHO_END="\033[0m"
 #                   "701" (for SP W701V)
 #                   "721" (for SP W721V)
 #                   "900" (for SP W900V)
-#                  "7240" (for AVM 7270)
-#                 "7270" (for AVM 7270v3)
+#                  "7240" (for AVM 7240v2)
+#                 "7271" (for AVM 7270v1)
+#                 "7272" (for AVM 7270v2)
+#                 "7273" (for AVM 7270v3)
 #                     "*" (for Any user TYPE)
 ##########################################################################
 function set_model()
@@ -1150,6 +1152,98 @@ export CONFIG_ETH_COUNT="4"
 	export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
 	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
 	;;
+"7271")
+	export CLASS=""
+	export SPNUM="7270"
+	export PROD="7270" 
+	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
+	[ "$NEWNAME" == "" ] && export NEWNAME="FRITZ!Box Fon WLAN 7270 v1"
+#	FBMOD variable is read later from 2nd Firmware
+	[ "$FBMOD" == "" ] && export FBMOD="7270"
+	[ "$FBHWRevision" == "" ] && export FBHWRevision="122"
+	export HWID="122"
+	export HWRevision="${HWID}.1.0.6"
+	export CONFIG_INSTALL_TYPE="ur8_8MB_xilinx_4eth_2ab_isdn_nt_te_pots_wlan_usb_host_dect_05265"
+	export CONFIG_jffs2_size="132"
+	export CONFIG_RAMSIZE="64"
+	export CONFIG_ROMSIZE="8"
+	export CONFIG_DIAGNOSE_LEVEL="1"
+	export CONFIG_DECT_14488="n"
+	export CONFIG_ATA_NOPASSTHROUGH="y"
+	export CONFIG_PROV_DEFAULT="y"
+	export CONFIG_FON_IPPHONE="y"
+	export CONFIG_VERSION_MAJOR="74"
+	if [ "$ATA_ONLY" = "y" ]; then
+	  export CONFIG_ATA="n"  
+	  export CONFIG_ATA_FULL="y"
+	  export CONFIG_VDSL="n"
+ 	  export CONFIG_LABOR_DSL="n"
+	fi 
+	#----
+	export CONFIG_AB_COUNT="2"
+	export CONFIG_ETH_COUNT="4"
+	export CONFIG_Pots="1"
+	export CONFIG_IsdnNT="1"
+	export CONFIG_IsdnTE="1"
+	export CONFIG_Usb="1" 
+	export CONFIG_UsbHost="1" 
+	export CONFIG_UsbStorage="1"
+	export CONFIG_UsbPrint="1"
+	export kernel_start="0x90020000"
+	export kernel_size="7798784"
+	export urlader_start="0x90000000"
+	export urlader_size="65536"
+	# needs different tool
+	export MKSQUASHFS_TOOL="mksquashfs3-lzma"
+	export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
+	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
+	;;
+"7272")
+	export CLASS=""
+	export SPNUM="7270"
+	export PROD="7270" 
+	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
+	[ "$NEWNAME" == "" ] && export NEWNAME="FRITZ!Box Fon WLAN 7270 v2"
+#	FBMOD variable is read later from 2nd Firmware
+	[ "$FBMOD" == "" ] && export FBMOD="7270"
+	[ "$FBHWRevision" == "" ] && export FBHWRevision="139"
+	export HWID="139"
+	export HWRevision="${HWID}.1.0.6"
+	export CONFIG_INSTALL_TYPE="ur8_16MB_xilinx_4eth_2ab_isdn_nt_te_pots_wlan_usb_host_dect_61056"
+	export CONFIG_jffs2_size="132"
+	export CONFIG_RAMSIZE="64"
+	export CONFIG_ROMSIZE="16"
+	export CONFIG_DIAGNOSE_LEVEL="1"
+	export CONFIG_DECT_14488="n"
+	export CONFIG_ATA_NOPASSTHROUGH="y"
+	export CONFIG_PROV_DEFAULT="y"
+	export CONFIG_FON_IPPHONE="y"
+	export CONFIG_VERSION_MAJOR="74"
+	if [ "$ATA_ONLY" = "y" ]; then
+	  export CONFIG_ATA="n"  
+	  export CONFIG_ATA_FULL="y"
+	  export CONFIG_VDSL="n"
+ 	  export CONFIG_LABOR_DSL="n"
+	fi 
+	#----
+	export CONFIG_AB_COUNT="2"
+	export CONFIG_ETH_COUNT="4"
+	export CONFIG_Pots="1"
+	export CONFIG_IsdnNT="1"
+	export CONFIG_IsdnTE="1"
+	export CONFIG_Usb="1" 
+	export CONFIG_UsbHost="1" 
+	export CONFIG_UsbStorage="1"
+	export CONFIG_UsbPrint="1"
+	export kernel_start="0x90020000"
+	export kernel_size="16121856"
+	export urlader_start="0x90000000"
+	export urlader_size="131072"
+	# needs different tool
+	export MKSQUASHFS_TOOL="mksquashfs3-lzma"
+	export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
+	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
+	;;
 "7273")
 	export CLASS=""
 	export SPNUM="7270"
@@ -1387,9 +1481,9 @@ chmod +x "$sh_DIR"/* "$sh2_DIR"/*
 mkdir -p "$FWNEWDIR" "$FWORIGDIR"
 #START
 # delete privias Firmware of 11500 if needed
-$sh2_DIR/del_zip "${AVM_DSL_7170_11500}" "${AVM_DSL_7270_11500}" "13014" 
+$sh2_DIR/del_zip "${AVM_DSL_7170_11500}" "${AVM_DSL_7272_11500}" "13014" 
 # delete privias Firmware of 13014 if needed
-$sh2_DIR/del_zip "${AVM_AIO_7170_13014}" "${AVM_AIO_7270_13014}" "13014" 
+$sh2_DIR/del_zip "${AVM_AIO_7170_13014}" "${AVM_AIO_7272_13014}" "13014" 
 # extract source
 . $inc_DIR/get_workingbase
 # move avm to $OEM
@@ -1465,6 +1559,10 @@ if [ "$ORI" != "y" ]; then
  . SxAVMx7141;;
  "7240")
  . SxAVMx7240v2;;
+# "7271")
+# . SxAVMx7270v1;;
+# "7272")
+# . SxAVMx7270v2;;
  "7273")
  . SxAVMx7270v3;;
 "7390")
