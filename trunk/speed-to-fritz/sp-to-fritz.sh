@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="23"; Monat="08"; Jahr="10"
+Tag="24"; Monat="08"; Jahr="10"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -1189,7 +1189,7 @@ export CONFIG_ETH_COUNT="4"
 	export CONFIG_UsbHost="1" 
 	export CONFIG_UsbStorage="1"
 	export CONFIG_UsbPrint="1"
-	export kernel_start="0x90020000"
+	export kernel_start="0x90010000"
 	export kernel_size="7798784"
 	export urlader_start="0x90000000"
 	export urlader_size="65536"

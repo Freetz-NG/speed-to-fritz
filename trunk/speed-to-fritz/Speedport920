@@ -292,10 +292,12 @@ fi
 # add feedback tab with vdsl profile page
 $sh_DIR/add_vdslprofilepage.sh "${SRC}"
 # add kapselung and annex settings page if missing
-# must be after VLAN settings becaus oem of authform is altered in some cases
+# must be after VLAN settings because oem of authform is altered in some cases
 $sh_DIR/add_multi_settings.sh
 # patch some VLAN settings, and authform
 $sh_DIR/add_vlan_settings.sh "${SRC}"
+## patch default dsl route to 169.254.2.1
+##[ "${FORCE_OLD_DSL_ROUTE}" = "y" ] && $sh_DIR/set_dslroute.sh "${SRC}"
 #remove kids and help
 [ "${REMOVE_KIDS}" = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
 [ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
@@ -307,8 +309,9 @@ echo "  -- DSL Annex B Driver was removed from ${SORCE_PRODUKT}!"
 echo "  -- DSL Annex A Driver was removed from ${SORCE_PRODUKT}!"
 #fix ADSL interface accsess restrictions
 sed -i -e "/ \/etc\/init.d\/rc.conf/a\
-sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg\
-cat \/var\/flash\/ar7.cfg\ | grep ifacectl && echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"
+sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg\n\
+cat \/var\/flash\/ar7.cfg | grep ifacectl && echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"
+
 #---
 [ -f "${SRC}"/lib/libpng.so.3.32.0 ] || cp -fdrp "${DST}"/lib/libpng.so.3.32.0* --target-directory=${SRC}/lib 2> /dev/null
 [ -f "${SRC}"/lib/libexif.so.12.3.0 ] || cp -fdrp "${DST}"/lib/libexif.so.12.3.0* --target-directory=${SRC}/lib 2> /dev/null

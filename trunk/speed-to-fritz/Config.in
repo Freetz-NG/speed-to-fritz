@@ -291,12 +291,14 @@ config AVM_IPV6_7273_17603
 # 7271 is used instead of 7270v1
 config AVM_PRE_7271_18101
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270v1-18101.ZIP ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v1.54.04.85-18079.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate.php HW122:fritzbox-labor-7270v1-18101.ZIP ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v1.54.04.85-18079.image"
 
 # 7272 is used instead of 7270v2
 config AVM_PRE_7272_18101
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270v2-18101.ZIP ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v2.54.04.85-18101.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate.php HW139:fritzbox-labor-7270v2-18101.ZIP ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v2.54.04.85-18101.image"
+# Muster eines Links zur php Seite, HW ID muss zusaetzlich angegeben werden damit der richtige Link vom Skript auf der Seite gefunden werden kann. Die Zeile wird automatisch beim Skriptdurchlauf vervollstaendigt.   
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate.php HWxxx:"
 
 config AVM_PRE_7272_17828
    string
@@ -308,7 +310,7 @@ config AVM_PRE_7272_17828
 
 config AVM_PRE_7273_18101
    string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/fritzbox-labor-7270v3-18101.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v3.74.04.85-18101.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate.php HW145:fritzbox-labor-7270v3-18101.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v3.74.04.85-18101.image"
 
 config AVM_DSL_7272_16750
     string
@@ -423,6 +425,12 @@ config EXPERT_MOD
 	    in most cases.
 	    Use defaults if you don't know for what reason 
 	    you want a special selection.
+config EXPORT_DOCHECK
+	bool "Check AVM Labor Website for new Firmware"
+	default y
+	help
+	    this will look for new Laborfirmware on AVMs Http
+	    php pages first.
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config  ORI
 	bool "Restore original basis firmware"
@@ -2917,6 +2925,14 @@ if ! EXPORT_ATA_ONLY
 			bool "Add libslab to DSLD wrapper"
 			default n 
 	endif
+
+#    config FORCE_OLD_DSL_ROUTE
+#	bool "Set default dsl route to: 169.254.2.1"
+#	depends on TYPE_OR_7570_920
+#	default y
+#	help
+#		Set default internal dsl route to 169.254.2.1 (ar7.cfg)
+
  endif
  ### NO AVM Modells 7XXX<---
 endif
