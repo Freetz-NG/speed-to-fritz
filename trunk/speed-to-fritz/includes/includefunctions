@@ -34,7 +34,8 @@ DLD_PATH="${1%/*}/"
 IMG_REQ="${1##*/}"
 DLD_DIR="$2"
 EXT="${1##*.}"
-if [ "$DOCHECK" == "y" ] || [ "${3:6}" == "" ] || [ "$6" == "" ];then
+#if [ "$DOCHECK" == "y" ] || [ "${3:6}" == "" ] || [ "$6" == "" ];then
+if [ "$DOCHECK" == "y" ]; then
  echo "-- Checking AVM Labor php for latest firmware file ..."
  rm -f $DLD_DIR/$IMG_REQ
  rm -f $DLD_DIR/index*
