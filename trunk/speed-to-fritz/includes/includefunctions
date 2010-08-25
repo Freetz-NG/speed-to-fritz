@@ -65,6 +65,8 @@ if [ "$DOCHECK" == "y" ] || [ "${3:6}" == "" ] || [ "$6" == "" ];then
    fi
   eval "export $4=${DLD_PATH}${IMG_REQ1}"
  fi
+else
+  eval "export $4=${DLD_PATH}${3:6}"
 fi
 return 0
 }
