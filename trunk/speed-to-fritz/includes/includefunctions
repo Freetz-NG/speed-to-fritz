@@ -37,17 +37,33 @@ EXT="${1##*.}"
 if [ "$DOCHECK" == "y" ] || [ "${3:6}" == "" ] || [ "$6" == "" ];then
  echo "-- Checking AVM Labor php for latest firmware file ..."
  rm -f $DLD_DIR/$IMG_REQ
+ rm -f $DLD_DIR/index*
  wget -P "$DLD_DIR" "$1" 2>&1 > /dev/null
  if [ ! -e $DLD_DIR/$IMG_REQ ]; then 
  	return 0
  else
   LOCAL_HWID=${3:2:3}
-  IMG_REQ="$(cat "$DLD_DIR/$IMG_REQ" | sed -n "/<div  id=.B_$LOCAL_HWID.>/,/<\/div>/{/<a href=.*/p}" | sed "s/.*<a href=\"//" | sed "s/\".*//")"
-  #echo "LOCAL_HWID:$LOCAL_HWID 3:6 ${3:6} IMG_RQ:${IMG_REQ}"
-  [ "$IMG_REQ" != "" ] && [ "${3:6}" != "${IMG_REQ}" ] && \
-  sed -i -e "s|\"$1 HW$LOCAL_HWID.*\"|\"$1 HW$LOCAL_HWID:${IMG_REQ}\"|" "$HOMEDIR/Config.in" && \
-  sed -i -e "s|\"$1 HW$LOCAL_HWID.*\"|\"$1 HW$LOCAL_HWID:${IMG_REQ}\"|" "$HOMEDIR/$firmwareconf_file_name"
-  eval "export $4=${DLD_PATH}${IMG_REQ}"
+  cat "$DLD_DIR/$IMG_REQ" | sed -n "/<div  id=.B_$LOCAL_HWID.>/,/<\/div>/{/diese Hardware-Version der.*/p}" | grep -q 'diese Hardware-Version der' && echo "There is no Labor firmware for this Hardware version $LOCAL_HWID avalabel!" && sleep 20
+  IMG_REQ1="$(cat "$DLD_DIR/$IMG_REQ" | sed -n "/<div  id=.B_$LOCAL_HWID.>/,/<\/div>/{/<a href=.*/p}" | sed "s/.*<a href=\"//" | sed "s/\".*//")"
+  if [ "$IMG_REQ1" != "" ] && [ "${3:6}" != "${IMG_REQ1}" ]; then
+     sed -i -e "s|\"$1 HW$LOCAL_HWID.*\"|\"$1 HW$LOCAL_HWID:${IMG_REQ1}\"|" "$HOMEDIR/Config.in"
+     sed -i -e "s|\"$1 HW$LOCAL_HWID.*\"|\"$1 HW$LOCAL_HWID:${IMG_REQ1}\"|" "$HOMEDIR/$firmwareconf_file_name"
+    if [ "${3:6}" != "" ]; then
+    REVISON="$(echo "$IMG_REQ1" | sed -e 's/^.*\(.\{5\}\)....$/\1/' | tr -d '[:alpha:]')"
+    OLDREVISON="$(echo "${3:6}" | sed -e 's/^.*\(.\{5\}\)....$/\1/' | tr -d '[:alpha:]')"
+    OLDAVMNUM="7$(echo "${6}" | sed "s/.*_7//" | sed "s/0.v//" | sed "s/\.//" | tr -d '[:alpha:]' | sed -e 's/^\(.\{3\}\).*$/\1/' )"
+    OLDXXVERSION="04$(echo "${6}" | sed "s/.*04//" | sed -e 's/^\(.\{9\}\).*$/\1/' | tr -d '[:alpha:]')"
+    XXVERSION="$(cat "$DLD_DIR/$IMG_REQ" | sed -n "/<div  id=.B_$LOCAL_HWID.>/,/<\/div>/{/xx\.04\.*/p}" | sed "s/.*<td>xx.//" | sed -e 's/^\(.\{11\}\).*$/\1/' | tr -d '[:alpha:]')"
+    AVMNUM="$(cat "$DLD_DIR/$IMG_REQ" | grep "H_$LOCAL_HWID" | sed -e "s/0 v//" | sed -e "s/<\/h3>//" | sed -e 's/^.*\(.\{4\}\).$/\1/' | tr -d '[:alpha:]' )"
+     if ! [ -z "$REVISON" ] && ! [ -z "$AVMNUM" ] && ! [ -z "$OLDREVISON" ] && ! [ -z "$OLDAVMNUM" ]; then
+     sed -i -e "s|${OLDAVMNUM}_${OLDREVISON}|${AVMNUM}_${REVISON}|g" "$HOMEDIR/Config.in"
+     [ "${AVMNUM:3:1}" != "0" ] && [ "${OLDAVMNUM:3:1}" != "0" ] && AVMNUM="${AVMNUM:0:3}0v${AVMNUM:3:1}" && OLDAVMNUM="${OLDAVMNUM:0:3}0v${OLDAVMNUM:3:1}"
+     sed -i -e "s|${OLDAVMNUM} ${OLDREVISON}|${AVMNUM} ${REVISON}|g" "$HOMEDIR/Config.in"
+     eval "export $7=DONTUSE"
+     fi
+    fi
+   fi
+  eval "export $4=${DLD_PATH}${IMG_REQ1}"
  fi
 fi
 return 0
@@ -115,21 +131,24 @@ function fwselect()
 DLD_TPL="$1"
 DLD_DIR="$2"
 FW_TYPE="$7"
-[ "${1##*.}" == "php" ] && fwselect_php "$DLD_TPL" "$DLD_DIR" "$6" "DLD_TPL" "$6" "$5" 
+X_ENTRY="$5"
+[ "${1##*.}" == "php" ] && fwselect_php "$DLD_TPL" "$DLD_DIR" "$6" "DLD_TPL" "$6" "$5" "X_ENTRY" 
 IMG_REQ="${DLD_TPL##*/}"
 DLD_PATH="${DLD_TPL%/*}"
 FIRST_ENTRY=""
-if [ "$6" != "mirror" ] && [ "${6:0:2}" != "HW" ]; then
-    [ -z "$6" ] || IMG_REQ=$6
+SECOND_ENTRY="$6"
+if [ "$SECOND_ENTRY" != "mirror" ] && [ "${6:0:2}" != "HW" ]; then
+    [ -z "$SECOND_ENTRY" ] || IMG_REQ=$SECOND_ENTRY
     FIRST_ENTRY="$1"
 else
     if [ "${IMG_REQ##*.}" == "zip" ] || [ "${IMG_REQ##*.}" == "ZIP" ];then
 	[ "${6:0:2}" == "HW" ] && FIRST_ENTRY="$1 ${6:0:5}:$IMG_REQ"
+	! [ -f $DLD_DIR/$IMG_REQ ] && SECOND_ENTRY="${6:0:2}"
     else
 	[ "${6:0:2}" == "HW" ] && FIRST_ENTRY="$1 ${6:0:5}"
     fi
 fi
-fwselect_ "$DLD_TPL" "$2" "$3" "$4" "$5" "$6" "$FIRST_ENTRY"
+fwselect_ "$DLD_TPL" "$2" "$3" "$4" "$X_ENTRY" "$SECOND_ENTRY" "$FIRST_ENTRY"
 if [ $? -ne 0 ]; then
     IMG_REQ_OLD=$IMG_REQ
     DLD_TPL_OLD=$DLD_TPL
@@ -150,7 +169,7 @@ if [ $? -ne 0 ]; then
     	    echo "Ori_Version:$X_version.04.$X_minorversion"
 	fi
     fi
- `  echo $DLD_TPL | grep -q 'ftp://'` && fwselect_ "$DLD_TPL" "$2" "$3" "$4" "select" "$6" "$FIRST_ENTRY"
+ `  echo $DLD_TPL | grep -q 'ftp://'` && fwselect_ "$DLD_TPL" "$2" "$3" "$4" "select" "$SECOND_ENTRY" "$FIRST_ENTRY"
     if [ $? -ne 0 ]; then
 	echo "-- Unable to retrieve file '$IMG_REQ'" 
 	echo "   Check your internet connection!"
@@ -161,7 +180,6 @@ if [ $? -ne 0 ]; then
 	return 1
     fi 
 	IMG_REQ="${DLD_TPL##*/}"
-	#echo ":2:$IMG_REQ"
 	cp "${HOMEDIR}"/Config.in "${HOMEDIR}"/Config.in.ori
 	sed -i -e "s|$DLD_TPL_OLD|$DLD_TPL|g" "${HOMEDIR}"/Config.in
 	sed -i -e "s|$IMG_REQ_OLD|$IMG_REQ|g" "${HOMEDIR}"/Config.in
@@ -215,31 +233,32 @@ else
     MIRROR_DLD_TPL="$5"
     FILENAME_DLD_TPL="$6"
     [ "${6:0:2}" == "HW" ] && ! [ -z "$5" ] && FILENAME_DLD_TPL="$5"
+    [ "${6:0:2}" == "HW" ] && MIRROR_DLD_TPL=""
 fi
 FIRST_ENTRY="$7"
 IMG_REQ="${DLD_TPL##*/}"
 DLD_PATH="${DLD_TPL%/*}"
 EXT="${DLD_TPL##*.}"
 #echo "test----------------------------"
-#echo "DLD_TPL:$1" 
-#echo "MIRROR_DLD_TPL:$5" 
-#echo "FILENAME_DLD_TPL:$6"
+#echo "DLD_TPL:$DLD_TPL" 
+#echo "MIRROR_DLD_TPL:$MIRROR_DLD_TPL" 
+#echo "FILENAME_DLD_TPL:$FILENAME_DLD_TPL"
 #echo "test----------------------------"
 IMG_REQ_N="${IMG_REQ%.*}"
-#alternative local filename -->
 if [ -f "$DLD_DIR/${FILENAME_DLD_TPL##*/}" ]; then
+#echo "#alternative local filename -->"
     IMG_REQ="${FILENAME_DLD_TPL##*/}"
     EXT="${FILENAME_DLD_TPL##*.}"
     DLD_PATH="${FILENAME_DLD_TPL%/*}"
 else #<--alternative local filename --
 
- #echo "IMG_REQ_N: $IMG_REQ_N"
  if [ -f "$DLD_DIR/$IMG_REQ_N.image" ]; then
+ #echo "---->>>> IMG_REQ_N: $IMG_REQ_N"
     IMG_REQ="$IMG_REQ_N.image"
     EXT="image"
  else
   if [ "$MIRROR_DLD_TPL" ]; then
-    #---use mirrorimage-->
+    #echo "#---use mirrorimage-->"
     if ! [ -f "$DLD_DIR/$IMG_REQ" ]; then
 	case "$MIRROR_DLD_PATH" in
 		ftp://*)
@@ -250,12 +269,12 @@ else #<--alternative local filename --
 			;;
 	esac
     fi
-    #<---use mirrorimage
+    #echo "#<---use mirrorimage"
     else
     if ! [ -f "$DLD_DIR/$IMG_REQ" ]; then
 	case "$DLD_PATH" in
 		@AVM*)
-		    # Fill array 'sites' with download server URLs, first primary site (if specified)
+		    #echo "# Fill array 'sites' with download server URLs, first primary site (if specified)"
 		    DLD_0=${DLD_PATH/@AVM\//}
 		    sites[0]=ftp://ftp.avm.de/$DLD_0
 		    sites[1]=http://download.avm.de/$DLD_0
@@ -269,7 +288,7 @@ else #<--alternative local filename --
 			wget --passive-ftp -P "$DLD_DIR" "$DLD_TPL" 2>&1
 			;;
 		http://*)
-#			echo "  html download ..."
+			#echo "  html download ..."
 #			DLD_TPL_NEW=""
 #			rm -f $DLD_DIR/404*
 			wget -P "$DLD_DIR" "$DLD_TPL" 2>&1
@@ -309,7 +328,7 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 	if [ -f "$DLD_DIR/$IMG_REQ1/${FILENAME_DLD_TPL##*/}" ]; then
 		IMG_EXTRACTED="${FILENAME_DLD_TPL##*/}"
 	else
-	#<--look for file supplied via Config.in as 2nd parameter
+	#echo "#<--look for file supplied via Config.in as 2nd parameter"
 	#-->only used if more than one .image file is within the zipfile-->
 		IMG_EXTRACTED=`ls "$DLD_DIR/$IMG_REQ1" | grep  'image'`
 		IMG_CNTS=`ls "$DLD_DIR/$IMG_REQ1" | grep -c 'image'`
