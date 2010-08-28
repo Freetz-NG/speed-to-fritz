@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="27"; Monat="08"; Jahr="10"
+Tag="28"; Monat="08"; Jahr="10"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -67,6 +67,7 @@ export HOMEDIR="`pwd`"
 TOOLS_SUBDIR="tools"
 export TOOLS_DIR="${HOMEDIR}/${TOOLS_SUBDIR}"
 export include_modpatch="${TOOLS_DIR}/freetz_patch"
+export include_isfreetz="${TOOLS_DIR}/freetz_functions"
 export UNSQUASHFS_TOOL="unsquashfs3-lzma"
 export UNSQUASHFS="${TOOLS_DIR}/${UNSQUASHFS_TOOL}"
 export FINDSQUASHFS_TOOL="find-squashfs"
@@ -134,6 +135,7 @@ if [ -d "$WinPartitopnNew" ]; then
 fi
 export P_DIR="$HOMEDIR/alien/patches"
 export sh_DIR="$HOMEDIR/alien/subscripts"
+export FREETZ_P_DIR="$HOMEDIR/alien/freetz/patches"
 export inc_DIR="$HOMEDIR/includes"
 export sh2_DIR="$HOMEDIR/subscripts2"
 # Temporary directories for unpacked/modified images
@@ -200,6 +202,11 @@ export ECHO_TUERKIS="\033[36m"
 export ECHO_HELL_GRAU="\033[37m"
 export ECHO_BOLD="\033[1m"
 export ECHO_END="\033[0m"
+export _Y="\\033[33m"
+export __Y="\033[33m"
+export _N="\\033[m"
+export __N="\033[m"
+
 # function set_model()
 # Sets the model dependent parameters
 # SPMOD ist the only parameter to be changed according to your hardware 
@@ -1580,11 +1587,13 @@ if [ "$ORI" != "y" ]; then
  #tar Firmware.conf 
  [ -f "${SRC}"/etc/Firmware.conf ] && tar --owner=0 --group=0 --mode=0755 -cf "./Firmware.conf.tar" "$firmwareconf_file_name"
  mv -f .unstripped $firmwareconf_file_name
+ #add patches taken from freetz without adaptions
+ $sh2_DIR/add_freetz_type_patches.sh "${SRC}" "${DST}"
  #bug in home.js, causes mailfunction with tcom firmware, status page is empty
  [ "$DONT_ADD_HOMEFIX" != "y" ] && $sh_DIR/fix_homebug.sh
  #add missing files for tr064
  [ "$CONFIG_TR064" = "y" ] && $sh_DIR/copy_tr064_files.sh
- #remove help 
+ #remove help
  [ "$REMOVE_HELP" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
  #Add modinfo
  [ "$DONT_ADD_MODINFO" != "y" ] && $sh_DIR/add_modinfobutton.sh "${SRC}"
@@ -1741,8 +1750,8 @@ readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
 # w722 - 7390 need this: export kernel_args="console=ttyS0,115200n8r"
 # make firmware installable via GUI
 $sh_DIR/patch_install.sh "${SPDIR}"
-# first approach to make external SIP registration configurable on WebUI
-[ "$PATCH_EXT_SIP" = "y" ] && $sh2_DIR/patch_sip_from_extern "${SRC}"
+## first approach to make external SIP registration configurable on WebUI
+#[ "$PATCH_EXT_SIP" = "y" ] && $sh2_DIR/patch_sip_from_extern "${SRC}"
 #<--All firmwares
 #. $inc_DIR/testerror
 [ ${FAKEROOT_ON} = "n" ] && chmod -R 777 "${FBDIR}"
