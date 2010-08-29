@@ -303,9 +303,9 @@ config AVM_PRE_7272_17828
    string
     default "./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v2.54.04.85-17828.zip mirror http://upload.crunkbass.de/big4c61626f725f465249545a2e426f785f466f6e5f574c414e5f373237305f76322e35342e30342e38352d31373832382e7a6970.zip"
 
-#config AVM_PRE_72XX
-#    string
-#    default "ftp://update.avm.de/labor/RC/FRITZ.Box_Fon_WLAN_7270.AnnexB.54.04.78-15892.image mirror select"
+config AVM_PRE_72XX
+    string
+    default "ftp://update.avm.de/labor/RC/Labor_FRITZ.Box_Fon_WLAN_7270_v2.54.04.85-18158.image mirror select"
 
 config AVM_PRE_7273_18158
    string
@@ -1767,8 +1767,8 @@ choice
 #	config TYPE_SRC3_AVM_NAS_7273_16561
 #		bool "AVM 7270v3 16561 (LabNAS)"
 
-#	config TYPE_SRC3_AVM_PHONE_72XX
-#		bool "AVM 72XX (PREVIEW), select one"
+	config TYPE_SRC3_AVM_PHONE_72XX
+		bool "AVM 72XX (PREVIEW), select one"
 
 	config TYPE_SRC3_AVM_PRE_7272_17828
 		bool "AVM 7270v2 17828 (PREVIEW)"
@@ -1779,8 +1779,8 @@ choice
 	config TYPE_SRC3_AVM_PRE_7272_18158
 		bool "AVM 7270v2 18158 (PREVIEW)"
 
-#	config TYPE_SRC3_AVM_PRE_72XX
-#		bool "AVM 72XX (PREVIEW), select one"
+	config TYPE_SRC3_AVM_PRE_72XX
+		bool "AVM 72XX (PREVIEW), select one"
 
 	config TYPE_SRC3_AVM_PRE_7273_18158
 		bool "AVM 7270v3 18158 (PREVIEW)"
@@ -2065,7 +2065,7 @@ config SRC2_IMG
 	default "$AVM_GAMING_7170_11435"		if TYPE_SRC3_AVM_GAMING_7170_11435
 	default "$AVM_MINI_7170_14935"			if TYPE_SRC3_AVM_MINI_7170_14935
 	default "$AVM_BETA_7170_16352"			if TYPE_SRC3_AVM_PRE_7170_16352
-	default "$AVM_LOCAL"					if TYPE_LOCAL_AVM_IMAGE
+	default "$AVM_LOCAL"				if TYPE_LOCAL_AVM_IMAGE
 	
 	default "$AVM_7272_54_04_57" 			if TYPE_SRC3_AVM_7272_54_04_57
 	default "$AVM_7272_54_04_58" 			if TYPE_SRC3_AVM_7272_54_04_58
@@ -2083,13 +2083,13 @@ config SRC2_IMG
 	default "$AVM_CORE_7273_16540" 			if TYPE_SRC3_AVM_CORE_7273_16540
 	default "$AVM_7272_m54_04_76"	 		if TYPE_SRC3_AVM_7272_m54_04_76
 	default "$AVM_7272_m54_04_81"	 		if TYPE_SRC3_AVM_7272_m54_04_81
-#	default "$AVM_7272_13486"				if TYPE_SRC3_AVM_7272_13486
+#	default "$AVM_7272_13486"			if TYPE_SRC3_AVM_7272_13486
 #	default "$AVM_AIO_7272_14543"			if TYPE_SRC3_AVM_AIO_7272_14543
 #	default "$AVM_WLANX_7272_14080"			if TYPE_SRC3_AVM_WLANX_7272_14080
 #	default "$AVM_AURA_7272_14142"			if TYPE_SRC3_AVM_AURA_7272_14142
 	default "$AVM_IPV6_7272_17603"			if TYPE_SRC3_AVM_IPV6_7272_17603
 	default "$AVM_IPV6_7272_17599"			if TYPE_SRC3_AVM_IPV6_7272_17599
-	default "$AVM_IPV6_72XX"				if TYPE_SRC3_AVM_IPV6_72XX
+	default "$AVM_IPV6_72XX"			if TYPE_SRC3_AVM_IPV6_72XX
 	default "$AVM_DSL_7271_16750"			if TYPE_SRC3_AVM_DSL_7271_16750
 	default "$AVM_DSL_7272_16750"			if TYPE_SRC3_AVM_DSL_7272_16750
 	default "$AVM_DSL_7273_16750"			if TYPE_SRC3_AVM_DSL_7273_16750
@@ -2097,7 +2097,7 @@ config SRC2_IMG
 	default "$AVM_PRE_7272_17828"			if TYPE_SRC3_AVM_PRE_7272_17828
 	default "$AVM_PRE_7271_18158"			if TYPE_SRC3_AVM_PRE_7271_18158
 	default "$AVM_PRE_7272_18158"			if TYPE_SRC3_AVM_PRE_7272_18158
-	default "$AVM_PRE_72XX"					if TYPE_SRC3_AVM_PRE_72XX
+	default "$AVM_PRE_72XX"				if TYPE_SRC3_AVM_PRE_72XX
 	default "$AVM_PRE_7273_18158"			if TYPE_SRC3_AVM_PRE_7273_18158
 	default "$AVM_PHONE_7240_16376"			if TYPE_SRC3_AVM_PHONE_7240_16376
 	default "$AVM_PHONE_7272_16999"			if TYPE_SRC3_AVM_PHONE_7272_16999
@@ -2191,6 +2191,32 @@ config TYPE_LABOR_TYPE
 	default "7570_17599" 	if TYPE_AVM_7570_17599
 	default "7570_15245" 	if TYPE_AVM_7570_15245
 	default "LOCAL"		if TYPE_LOCAL_AVM
+
+### needed if freetz patches without change are in use
+config EXPORT_FREETZ_TYPE_PREVIEW
+	bool
+	default n
+	default y	if TYPE_PRE_7240_18158 || TYPE_PRE_7272_17828 || TYPE_PRE_7271_18158 || TYPE_PRE_7272_18158 || TYPE_PRE_7273_18158 || TYPE_7170_PRE_16352 || TYPE_7390_PRE_18101 || TYPE_PRE_72XX
+
+config EXPORT_FREETZ_TYPE_IPV6
+	bool
+	default n
+	default y 	if TYPE_IPV6_7272 || TYPE_7170_IPV6 || TYPE_IPV6_7273_17603 || TYPE_IPV6_7272_17603 || TYPE_IPV6_7273_17599 || TYPE_IPV6_7272_17599 || TYPE_IPV6_72XX
+
+config EXPORT_FREETZ_TYPE_CORE
+	bool
+	default n
+	default y	 	if TYPE_CORE_7272_V3_15220 || TYPE_CORE_7272_15220 || TYPE_CORE_7271_16540 || TYPE_CORE_7272_16540 || TYPE_CORE_7273_16540 || TYPE_CORE_7240_16540 || TYPE_7240_V3_CORE_16540
+
+config EXPORT_FREETZ_TYPE_DSL
+	bool
+	default n
+	default y	if TYPE_DSL_7271_16750 || TYPE_DSL_7272_16750 || TYPE_DSL_7273_16750 || TYPE_7170_DSL_14119
+
+config EXPORT_FREETZ_TYPE_PHONE
+	bool
+	default n
+	default y	if TYPE_PHONE_7240_16376 || TYPE_PHONE_7272_16999 || TYPE_PHONE_7273_16999 || TYPE_7170_PHONE || TYPE_PHONE_72XX
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 comment  "--------------------------------------------------------------------"
@@ -2381,7 +2407,7 @@ config EXPORT_ADD_DEFAULT_ROUTE_FIX
 	    Fixes a AVM Bug that did not produce problems, see freetz ticket 
 	    http://trac.freetz.org/ticket/783 for more info.
 
-config EXPORT_PATCH_EXT_SIP
+config EXPORT_FREETZ_ADD_REGEXT_GUI
         bool "Experimental: Add option to enable external SIP devices to register (Labor only)"
         default n
         depends on EXPERT_MOD
