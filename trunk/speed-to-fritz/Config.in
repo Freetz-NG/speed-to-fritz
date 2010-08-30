@@ -295,7 +295,7 @@ config AVM_PRE_7271_18158
 # 7272 is used instead of 7270v2
 config AVM_PRE_7272_18158
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate.php HW139:fritzbox-labor-7270v2-18158.ZIP ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v2.54.04.85-18145.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate.php HW139:fritzbox-labor-7270v2-18158.ZIP ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v2.54.04.85-18158.image"
 # Muster eines Links zur php Seite, HW ID muss zusaetzlich angegeben werden damit der richtige Link vom Skript auf der Seite gefunden werden kann. Die Zeile wird automatisch beim Skriptdurchlauf vervollstaendigt.   
 #    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate.php HWxxx:"
 
