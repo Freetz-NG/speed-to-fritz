@@ -1,5 +1,4 @@
 #!/bin/bash
-#echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
  . $include_modpatch
   # include freetz subrutines
  . $include_isfreetz
@@ -16,6 +15,23 @@ export FIRMWARE2="$SRC_2"
 export FILESYSTEM_MOD_DIR="$1"
 export FIRMWARE_MOD_DIR="$FBDIR"
 export PATCHES_DIR="$FREETZ_P_DIR"
+#echo "PATCHES_DIR: $PATCHES_DIR"
+[ "$FREETZ_SCRIPTS" == "y" ] && ! [ -d $PATCHES_DIR/cond ] && echo " --looking for new freetz scripts..." && rm -rf R  $PATCHES_DIR && svn co http://svn.freetz.org/trunk/patches $PATCHES_DIR
+export HTML_LANG_MOD_DIR="$1/usr/www"
+[ $avm_Lange == "en" ] && export LANG_EN="y"
+[ $avm_Lange == "de" ] && export LANG_DE="y"
+echo $FBIMG_PATH | grep -q "a-ch" && export LANG_A_CH="y"
+oems="$(grep 'for i in  avm' "${FIRMWARE_MOD_DIR}/var/install" | head -n 1 | sed -e 's/^.*for i in\(.*\); do.*$/\1/')"
+for webdir in ${FILESYSTEM_MOD_DIR}/usr/www ${FILESYSTEM_MOD_DIR}/usr/www.nas; do
+		if [ -d ${webdir}/avm ]; then
+			echo0 "applying symlinks, deleting additional webinterfaces"
+			mv ${webdir}/avm ${webdir}/all
+			for i in $oems; do
+				rm -rf ${webdir}/$i
+				ln -s all ${webdir}/$i
+			done
+		fi
+done
 #Some more vars may be needed if orignal freetz patches will be used as the are.
 #If aditional patches from freetz are used vars should be set up within Config.in
 #Setting up this vars in Config.in would mean to add to the varable name 'EXPORT_'

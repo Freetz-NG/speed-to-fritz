@@ -1535,6 +1535,8 @@ echo "**************************************************************************
  echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
 # Flashing original firmware image ...
 if [ "$ORI" != "y" ]; then
+ #add patches taken from freetz without adaptions
+ [ "$FREETZ_SCRIPTS" == "y" ] && $sh2_DIR/add_freetz_type_patches.sh "${SRC}" "${DST}"
  #move avm or freenet dir if avm or $oem is missing
  $sh_DIR/move_avm_to_OEM.sh "${SRC}"
  #prepare for use of Freetz Firmware 
@@ -1587,8 +1589,6 @@ if [ "$ORI" != "y" ]; then
  #tar Firmware.conf 
  [ -f "${SRC}"/etc/Firmware.conf ] && tar --owner=0 --group=0 --mode=0755 -cf "./Firmware.conf.tar" "$firmwareconf_file_name"
  mv -f .unstripped $firmwareconf_file_name
- #add patches taken from freetz without adaptions
- $sh2_DIR/add_freetz_type_patches.sh "${SRC}" "${DST}"
  #bug in home.js, causes mailfunction with tcom firmware, status page is empty
  [ "$DONT_ADD_HOMEFIX" != "y" ] && $sh_DIR/fix_homebug.sh
  #add missing files for tr064

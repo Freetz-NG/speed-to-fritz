@@ -2355,6 +2355,328 @@ config REMOVE_ANNEX_A_DSL_DRIVER
 		Annex A driver will be removed if it is a 72XX firmware.
 		Boxes with 8MB lack of space, so set this option with older boxes.
 		Answering machine may have no space left to record if not set.
+if EXPERT_MOD
+### -->
+ config EXPORT_FREETZ_SCRIPTS
+	bool "Show more options with scripts donloaded from freetz"
+	default n
+	help
+		This are scripts taken from freetz - not all are funtional now!
+
+if EXPORT_FREETZ_SCRIPTS
+
+ config EXPORT_FREETZ_ADD_REGEXT_GUI
+        bool "Add option to enable external SIP devices to register (Labor only)"
+        default n
+        depends on EXPERT_MOD
+        help
+		Select this to add an checkbox during configuration of an IPPhone which enables registration of external
+		SIP devices
+
+ config EXPORT_FREETZ_REMOVE_ASSISTANT
+	bool "Remove assistant"
+	default n
+	help
+		Removes the installation assistant from the web menu.
+
+ config EXPORT_FREETZ_REMOVE_AURA_USB
+	bool "Remove aura usb"
+	default n
+	help
+		Remove the aura-usb-daemon (USB-Fernanschluss) and some related files.
+		This patch only removes the files, not the settings in AVM's webinterface
+
+ config EXPORT_FREETZ_REMOVE_USB_MODULE
+	bool "Remove avalanche_usb.ko"
+	default n
+	help
+		Removes avalanche_usb.ko to save 60kB uncompressed space.
+
+ config EXPORT_FREETZ_REMOVE_NAS
+	bool "Remove AVM NAS Webinterface"
+	default n
+	help
+		Removes the AVM NAS Webinterface and internal memory file (saves about 390 KB in compressed image).
+
+ config EXPORT_FREETZ_REMOVE_AVM_VPN
+	bool "Remove AVM vpn"
+	default n
+	help
+		Remove AVM's vpn and some other related files
+		This patch removes the files and related Web UI entrys, but not the
+		vpn settings. This will save about 120kB compressed size.
+
+ config EXPORT_FREETZ_REMOVE_CAPIOVERTCP
+	bool "Remove CAPIoverTCP (used for Fritz!Fax)"
+	default n
+	help
+		Remove CAPIoverTCP (capiotcp_server). Use this if you don't want to use
+		Fritz!Fax or any other program that uses AVM's CAPIoverTCP. This is similar
+		to rcapid, but independant.
+		This will save about 15kB uncompressed size.
+
+ config EXPORT_FREETZ_REMOVE_CHRONYD
+	bool "Remove chronyd"
+	default n
+	help
+		Removes AVM's time synchronization tool (chrony) and related files.
+		This will save about 220kB uncompressed size.
+
+# config EXPORT_FREETZ_REMOVE_CDROM_ISO
+#	bool "Remove cdrom.iso"
+#	default n
+#	help
+#		Removes the file /lib/modules/cdrom.iso to save 270kB uncompressed space.
+
+ config EXPORT_FREETZ_REMOVE_DECT
+	bool "Remove DECT files"
+	default n
+	help
+		Remove dect files (modules, dect_manager and dect related Web UI).
+		(saves 20K compressed size on W900V and 360k on 7240/7270)
+
+ config EXPORT_FREETZ_REMOVE_DECT_UPDATE
+	bool "Remove dect_update"
+	default n
+	help
+		Remove /usr/bin/dect_update. This utility is only needed to
+		update the dect firmware.
+		This will save about 32kB uncompressed size.
+
+ config EXPORT_FREETZ_REMOVE_DSLD
+	bool "Remove dsld (for boxes in IP client mode) - EXPERIMENTAL"
+	default n
+	select EXPORT_FREETZ_REMOVE_UPNP
+	select EXPORT_FREETZ_REMOVE_USERMAN
+	help
+		Remove DSL daemon (dsld), if you are planning to use your box as a simple
+		IP client in ATA mode.
+
+		ATTENTION: You won't be able to use your box as a modem nor a router anymore.
+		As well do *not* use this option if your ATA mode box uses PPoE passthrough,
+		because in this case dsld is still needed! Furthermore, selecting this patch
+		also selects the UPnP patch, because UPnP must be deactivated anyway for
+		IP clients, otherwise dsld will be used again.
+		You can find the UPnP settings in the German web UI under
+		  Einstellungen
+		    System
+		      Netzwerkeinstellungen
+		        Statusinformationen �ber UPnP �bertragen (empfohlen)
+		Thirdly, the usermand patch will also be selected if you activate this option,
+		because kernel module userman.ko always depends on kdsldmod.ko which is
+		stripped by this patch.
+
+		EXPERIMENTAL FEATURE, USE AT OWN RISK!
+
+ config EXPORT_FREETZ_REMOVE_DTRACE
+	bool "Remove dtrace"
+	default n
+	help
+		Remove /usr/bin/dtrace. This utility is only needed to trace ISDN D-channel.
+		This will save about 87kB uncompressed size.
+
+ config EXPORT_FREETZ_REMOVE_FTPD
+	bool "Remove ftpd"
+	default n
+	help
+		Remove FTP daemon (ftpd)
+		This patch removes AVM's ftp daemon. The regular options in AVM's Webinterface
+		are still present. If you select this item your USB drives won't be accessible
+		through ftp anymore. But you can use Freetz bftpd/vsftpd package to grant ftp
+		access to the devices.
+
+ config EXPORT_FREETZ_REMOVE_HELP
+	bool "Remove help"
+	default n
+	help
+		Removes the help pages from the web menu.
+
+ config EXPORT_FREETZ_REMOVE_MEDIASRV
+	bool "Remove mediasrv"
+	default n
+	help
+		Remove the MediaServer-daemon (mediasrv) and some other related files.
+		This patch hides also the MediaServer options in the Web UI, so you must
+		disable it before flashing the new image.
+		Saves compressed 280 KB on a 7270_V3 and 40 KB on a 7170.
+
+ config EXPORT_FREETZ_REMOVE_MINID
+	bool "Remove minid"
+	default n
+	help
+		Remove the mini-daemon (minid) and some other related files. This patch
+		removes Fritz!Mini support and all Web UI entrys.
+		Saves compressed 340 KB on a 7270_V3 and 7170.
+
+		ATTENTION: You must remove all Fritz!Mini's from your Fritz!Box configuration
+		and delete all Mini users with the Gini! software to avoid complications.
+
+ config EXPORT_FREETZ_REMOVE_NTFS
+	bool "Remove NTFS support"
+	default n
+	help
+		Remove NTFS support
+		This patch will remove ntfs-3g dependent files from the firmware.
+		Be careful, mounting volumes with this filesystem will not work.
+		It saves about 118K compressed space in kernel.image.
+
+ config EXPORT_FREETZ_REMOVE_RUNCLOCK
+	bool "Remove run_clock"
+	default n
+	help
+		Remove /bin/run_clock (operating hours meter) daemon.
+		This saves about 5K compressed space in kernel.image.
+
+ config EXPORT_FREETZ_REMOVE_SMBD
+	bool "Remove smbd"
+	default n
+	help
+		Remove Samba daemon (smbd)
+		This patch removes only the daemon. The regular options in AVM's webinterface
+		are still present.
+
+ config EXPORT_FREETZ_REMOVE_SUPPORT
+	bool "Remove the support-files"
+	default n
+	help
+		Remove the support-files which can be taken by http://fritz.box/html/support.html
+
+ config EXPORT_FREETZ_REMOVE_TR069
+	bool "Remove tr069 stuff"
+	default n
+	help
+		Removes libtr069 to save space. This also removes libtr064.
+		WARNING: Removing tr069-stuff without disabling it on the
+		box causes permanent reboots until the box is recovered.
+
+ config EXPORT_FREETZ_REMOVE_TR069_FWUPDATE
+	bool "Remove fwupdate"
+	default n
+	help
+		Removes the file /usr/bin/tr069fwupdate, needed for
+		updating the firmware in MT-D devices
+
+ config EXPORT_FREETZ_REMOVE_UMTSD
+	bool "Remove UMTS support (USB GSM)"
+	default n
+	help
+		Remove UMTS support
+		This patch will remove UMTS-dependent files from firmware.
+		It saves about 12K compressed space in kernel.image.
+
+ config EXPORT_FREETZ_REMOVE_UPNP
+	bool "Remove UPnP daemon (igdd/upnpd)"
+	default n
+	help
+		Remove Universal Plug'n'Play daemon 'igdd/upnpd' and some more files used by
+		it from firmware. Patch init scripts so they can cope with the
+		non-existent binary.
+
+		ATTENTION: Fritz!Fax relies on UPnP.
+		Make sure you deactivate all UPnP features in the web menu before
+		updating the firmware with this option. It may not be harmful not
+		to deactivate it, but there is no guarantee.
+		You can find the settings in the German web UI under
+		  Einstellungen
+		    System
+		      Netzwerkeinstellungen
+		        Statusinformationen �ber UPnP �bertragen (empfohlen)
+
+ config EXPORT_FREETZ_REMOVE_UPNP_LIBS
+	bool
+	depends on EXPORT_FREETZ_REMOVE_UPNP
+	default n
+
+ config EXPORT_FREETZ_REMOVE_USERMAN
+	bool "Remove usermand and userman.ko - EXPERIMENTAL"
+	default n
+	help
+		Remove userman files (Kindersicherung)
+
+ config EXPORT_FREETZ_REMOVE_VOIPD
+	bool "Remove VoIP files (for non-telephony boxes)"
+	default n
+	help
+		This removes the integrated sip-client and -server and the releated Web menu,
+		normal telefon use (ISDN, POTS and DECT) is not affected. This saves 250 KB
+		on a 7170/7270 of compressed firmware size.
+
+		ATTENTION: You must remove all sip phone numbers and all sip clients before
+		flashing this image. Afterward there is no possibility to remove thees numbers
+		because the Web UI is also removed.
+
+ config EXPORT_FREETZ_REMOVE_VOIP_ISDN
+	bool "Remove VoIP & ISDN files (for non-telephony boxes) - EXPERIMENTAL"
+	default n
+	help
+		Radically remove a lot of telephony-related files. This patch saves about
+		2.370 KB or 2.3 MB of uncompressed data size in the firmware image. This
+		means savings of about 700 KB of compressed firmware size.
+
+		ATTENTION: Currently there have not been a whole lot of tests concerning
+		side effects. The patch was successfully tested on a W701V IP client with
+		removed UPnP/dsld/userman. If it still works for boxes including those
+		functionalities, is unknown. Feel free to test it.
+
+		NOTE: Corresponding web UI files will also be removed, so you will
+		encounter several empty web pages or submenus.
+
+		EXPERIMENTAL FEATURE, USE AT OWN RISK!
+
+ config EXPORT_FREETZ_REMOVE_WLAN
+	bool "Remove WLAN files (for non-wlan boxes) - EXPERIMENTAL"
+	default n
+	help
+		Radically remove a lot of wlan-related files. This patch saves about
+		700 kb of uncomrpessed data size in the firmware image.
+
+		EXPERMINTAL FEATURE, USE AT OWN RISK!
+
+# config EXPORT_FREETZ_ENFORCE_URLADER_SETTINGS
+#	bool "Enforce urlader environment"
+#	default n
+#	help
+#		Enforce some urlader (Adam2/EVA) environment variables.
+#		 * useful for tcom boxes having non-AVM standard settings in bootloader
+#		   (my_ipaddress, firmware_version, ProductID)
+#		 * useful for people that do clear mtd3/mtd4 often.
+#		This settings are enforced at the beginnig of the boot process.
+#
+# config EXPORT_FREETZ_ENFORCE_URLADER_SETTING_MY_IPADDRESS
+#	depends on EXPORT_FREETZ_ENFORCE_URLADER_SETTINGS
+#	string "Enforce my_ipaddress variable"
+#	default "192.168.178.1"
+#	help
+#		This is the AVM default, enforce to also to reseller boxes, eg. from T-Com
+#		If this is empty the urlader setting won't be touched.
+#
+# config EXPORT_FREETZ_ENFORCE_URLADER_SETTING_FIRMWARE_VERSION
+#	depends on EXPORT_FREETZ_ENFORCE_URLADER_SETTINGS
+#	string "Enforce firmware_version variable"
+#	default ""
+#	help
+#		Choose wisely. Your image beeing built must support this.
+#		Typical settings are eg.: avm, avme, tcom, 1und1, ...
+#		If this is empty the urlader setting won't be touched.
+#
+# config EXPORT_FREETZ_ENFORCE_URLADER_SETTING_PRODUCTID
+#	depends on EXPORT_FREETZ_ENFORCE_URLADER_SETTINGS
+#	string "Enforce ProductID variable"
+#	default ""
+#	help
+#		Choose wisely. Your image beeing built must support this.
+#		Typical settings are eg.: Fritz_Box_DECT_7270, Fritz_Box_DECT_W920V
+#		If this is empty the urlader setting won't be touched.
+#
+# config EXPORT_FREETZ_TYPE_SPEEDPORT_W920V_LED_MODULE
+#	bool "Change LED semantics to W920V"
+#	default n
+#	help
+#		If Y is choosen, this changes the semantics of the LEDs on the front
+#		panel of your 7570/W920V box fitting the descriptions of the W920V.
+ endif #<--- freetz remove type scripts
+endif
+###<--- Expert user
 
 config EXPORT_REMOVE_SOME_LANGUAGE
 	bool "Force single language"
@@ -2411,14 +2733,6 @@ config EXPORT_ADD_DEFAULT_ROUTE_FIX
 	help
 	    Fixes a AVM Bug that did not produce problems, see freetz ticket 
 	    http://trac.freetz.org/ticket/783 for more info.
-
-config EXPORT_FREETZ_ADD_REGEXT_GUI
-        bool "Experimental: Add option to enable external SIP devices to register (Labor only)"
-        default n
-        depends on EXPERT_MOD
-        help
-		Select this to add an checkbox during configuration of an IPPhone which enables registration of external
-		SIP devices
 
 config EXPORT_BUGFIX_FONCONFIG
 	bool "Bugfix for fon config ut8"
