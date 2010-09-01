@@ -652,7 +652,6 @@ binary
 debug
 hash
 quote MEDIA FLSH
-quote SETENV my_ipaddress 192.168.178.1
 quote SETENV firmware_version $OEM
 quote SETENV autoload yes
 quote SETENV my_ipaddress $IPADDRESS
@@ -674,11 +673,9 @@ return 0
 function modunsqfs()
 {
 	if [ "$VERBOSE" == "-v" ]; then
-		[ ${FAKEROOT_ON} = "y" ] && "$FAKEROOT" "$UNSQUASHFS" -dest "$1" "$2" 2>&1 | grep -v "^$" | sed -e "s/^/${L1}/g"
-		[ ${FAKEROOT_ON} != "y" ] && "$UNSQUASHFS" -dest "$1" "$2" 2>&1 | grep -v "^$" | sed -e "s/^/${L1}/g"
+		"$UNSQUASHFS" -dest "$1" "$2" 2>&1 | grep -v "^$" | sed -e "s/^/${L1}/g"
 	else
-		[ ${FAKEROOT_ON} = "y" ] && $FAKEROOT "$UNSQUASHFS" -dest "$1" "$2" > /dev/null
-		[ ${FAKEROOT_ON} != "y" ] && "$UNSQUASHFS" -dest "$1" "$2" > /dev/null
+		"$UNSQUASHFS" -dest "$1" "$2" > /dev/null
 	fi
 }
 
@@ -780,6 +777,13 @@ function fw_unpack()
 ################################
 fw_pack()
 {
+    rm -f $HOMEDIR/.packed
+    fw_pack1 $1 $2 $3
+    touch $HOMEDIR/.packed
+    return $?
+}
+fw_pack1()
+{
     #unpacked firmware
     DIR="$1"
     #output directory
@@ -801,7 +805,6 @@ fw_pack()
     RAW_HIDDEN_MOD="${KERNEL_MOD_DIR}/${RAW_HIDDEN_FILE}"
     ROOTFS_TAR="${NEWDIR}/${3}.rootfs.tar"
     # Do we have the tool ?
-    [ ! -x "$FAKEROOT" ] && echo  "cannot find the tool $FAKEROOT_TOOL" && return 1
     [ ! -x "$TICHKSUM" ] && echo  "cannot find the tool $TICHKSUM_TOOL" && return 1
     [ ! -x "$MKSQUASHFS" ] && echo "cannot find the tool $MKSQUASHFS_TOOL" && return 1
     [ ! -x "$MKSQUASHFS" ] && echo "cannot find $MKSQUASHFS_TOOL" && return 1
@@ -865,7 +868,8 @@ fw_pack()
     echo "Packing ..."
     rm -f "${modimage}"
     "$TAR" -c $TAR_OPTIONS -C "$FIRMWARE_MOD_DIR" ./var > "${modimage}" || return 1
-    [ -r "${modimage}" ] && [ ${FAKEROOT_ON} != "y" ] && chown -R --reference=$0 "$NEWDIR"
+#    [ -r "${modimage}" ] && [ ${FAKEROOT_ON} != "y" ] && chown -R --reference=$0 "$NEWDIR"
+    [ -r "${modimage}" ] && chown -R --reference=$0 "$NEWDIR"
     mv "$FIRMWARE_MOD_DIR/var/tmp/kernel.image" "$NEWDIR/kernel.image"
     #cleanup tempdir
     rm -fd -R  "$MOD_DIR"
@@ -894,14 +898,9 @@ function readConfig()
 	return 0
 }
 function printprogress(){
-if [ "$2" == "WaitForStart" ]; then
- while ! `ps -l | grep -q "$1"`; do
-    echo -n  " "
-    sleep 2
- done
-fi
+sleep 5
 echo -e -n "\r"
-while `ps -l | grep -q "$1"`; do
+while [ ! -e $HOMEDIR/.packed ]; do
     echo -e -n "["
     for ((i=0; i<=count; i++))
     do

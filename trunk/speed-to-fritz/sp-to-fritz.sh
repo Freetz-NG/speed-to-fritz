@@ -72,25 +72,23 @@ export UNSQUASHFS_TOOL="unsquashfs3-lzma"
 export UNSQUASHFS="${TOOLS_DIR}/${UNSQUASHFS_TOOL}"
 export FINDSQUASHFS_TOOL="find-squashfs"
 export FINDSQUASHFS="${TOOLS_DIR}/${FINDSQUASHFS_TOOL}"
-#neuer mksquashfs-lzma macht reboot Ursache nicht bekannt
 export MKSQUASHFS_TOOL="mksquashfs-lzma"
 export MKSQUASHFS_OPTIONS="-le -noappend -all-root -info"
 export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
-export FAKEROOT_TOOL="fakeroot"
-export FAKEROOT_DESTDIR="${TOOLS_DIR}/usr"
-export FAKEROOT_BIN_DIR="${FAKEROOT_DESTDIR}/bin"
-export FAKEROOT_LIB_DIR="${FAKEROOT_DESTDIR}/lib"
-export FAKEROOT="${FAKEROOT_BIN_DIR}/${FAKEROOT_TOOL}"
-sed -i -e "s|^PREFIX=.*$|PREFIX=${FAKEROOT_DESTDIR}|g" ${FAKEROOT}
-sed -i -e "s|^BINDIR=.*$|BINDIR=${FAKEROOT_BIN_DIR}|g" ${FAKEROOT}
-sed -i -e "s|^PATHS=.*$|PATHS=${FAKEROOT_LIB_DIR}|g" ${FAKEROOT}
+#export FAKEROOT_TOOL="fakeroot"
+#export FAKEROOT_DESTDIR="${TOOLS_DIR}/usr"
+#export FAKEROOT_BIN_DIR="${FAKEROOT_DESTDIR}/bin"
+#export FAKEROOT_LIB_DIR="${FAKEROOT_DESTDIR}/lib"
+#export FAKEROOT="${FAKEROOT_BIN_DIR}/${FAKEROOT_TOOL}"
+#sed -i -e "s|^PREFIX=.*$|PREFIX=${FAKEROOT_DESTDIR}|g" ${FAKEROOT}
+#sed -i -e "s|^BINDIR=.*$|BINDIR=${FAKEROOT_BIN_DIR}|g" ${FAKEROOT}
+#sed -i -e "s|^PATHS=.*$|PATHS=${FAKEROOT_LIB_DIR}|g" ${FAKEROOT}
 export TICHKSUM_TOOL="tichksum"
 export TICHKSUM="${TOOLS_DIR}/${TICHKSUM_TOOL}"
 #export TICHKSUM="$TOOLS_DIR/TI-chksum-0.1/tichksum"
 export RMTICHKSUM_TOOL="rmtichksum"
 export RMTICHKSUM="${TOOLS_DIR}/${RMTICHKSUM_TOOL}"
 export TAR_TOOL="oldtar/tar"
-#!!!!!
 ###export TAR_TOOL="tar"
 export TAR="${TOOLS_DIR}/${TAR_TOOL}"
 export UNTAR="${TOOLS_DIR}/${TAR_TOOL}"
@@ -103,12 +101,10 @@ export TAR_OPTIONS="--owner=0 --group=0 --mode=0755 --format=oldgnu"
 #### lead to 'Puefsummenfeher' if firmware is updatet via GUI
 #export TAR_RFS_OPTIONS=""
 #export TAR_OPTIONS=""
-## set this to y if sp-to-fritz.sh is split in future versions
-#export FAKEROOT_WRAP="y"
 ##<-- temporaril
 export MAKEDEVS_TOOL="makedevs"
 export MAKEDEVS="${TOOLS_DIR}/${MAKEDEVS_TOOL}"
-export MAKEDEVS_FILE="${TOOLS_DIR}/device_table.txt"    
+export MAKEDEVS_FILE="${TOOLS_DIR}/device_table.txt"
 #<--- My Tools
 export SQUASHFSROOT="squashfs-root"
 # Set default values for output directory 
@@ -1543,7 +1539,9 @@ if [ "$ORI" != "y" ]; then
  [ "$MOVE_ALL_to_OEM" = "y" ] && $sh_DIR/move_all_to_OEM.sh "${SRC}" || $sh_DIR/remake_link_avm.sh "${SRC}"
  export OEMLINK="avm"
  [ -d "${SRC}"/usr/www/avme ] && export OEMLINK="avme"
- [ ${FAKEROOT_ON} = "n" ] && cp -fdrp "${DST}/dev" "${SRC}/dev" && export MAKE_DEV="n" && echo "-- tools/device_table.txt is not in use, script is executed with root rights."
+ cp -fdrp "${DST}/dev" "${SRC}/dev"
+ #[ ${FAKEROOT_ON} = "n" ] && 
+ export MAKE_DEV="n" && echo "-- tools/device_table.txt is not in use, script is executed with root rights."
  # Please dont add conditions on models in any external file
  #enable ext2
  [ "$ENABLE_EXT2" = "y" ] && $sh2_DIR/patch_ext2 "${SRC}" "${DST}"
@@ -1799,11 +1797,8 @@ fi
 if [ "$SET_UP" = "n" ]; then
  #wrap all up again
  echo "Creating filesystem image, be patient ..."
- printprogress "build_firmware" "DontWaitForStart"
- [ ${FAKEROOT_ON} == "y" ] && export MAKE_DEV="y"
- [ ${FAKEROOT_ON} == "y" ] && $FAKEROOT $inc_DIR/build_firmware "$SPDIR" "${NEWDIR}" "${NEWIMG}" &
- [ ${FAKEROOT_ON} != "y" ] && $inc_DIR/build_firmware "$SPDIR" "${NEWDIR}" "${NEWIMG}" &
- printprogress "build_firmware" "WaitForStart"
+ $inc_DIR/build_firmware "$SPDIR" "${NEWDIR}" "${NEWIMG}" &
+ printprogress
  echo
  . $inc_DIR/testerror
  # build recover

@@ -74,10 +74,10 @@ EOF
 
 if [ `id -u` -ne 0 ]; then
 #	clear
-	export FAKEROOT_ON="y"
+#	export FAKEROOT_ON="y"
 		echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 else
-	export FAKEROOT_ON="n"
+#	export FAKEROOT_ON="n"
 		echo "ATTENTION! Normaly you should not run this skrit as root!"
 		echo "If you do for some reason, keep in mind that once run as root"
 		echo "a second time run as normal user will result in errors."
