@@ -1005,7 +1005,8 @@ config EXPORT_FORCE_DSL_MULTI_ANNEX
 	    In case of 7170 Firmwares, it is usual better to stay without this optin because the drivers are optimized for a special annex type.
 
 choice
-	depends ! EXPORT_FORCE_DSL_MULTI_ANNEX && ! TYPE_AVM_7570_XX
+	depends ! EXPORT_FORCE_DSL_MULTI_ANNEX
+	# && ! TYPE_AVM_7570_XX
 	bool "Annex"
 	depends on ! ORI
 	default TYPE_ANNEX_B if ! EXPORT_TYPE_LOCAL_MODEL || TYPE_7390 || TYPE_7140
@@ -2848,14 +2849,16 @@ endif
 ### AVM Modells 7XXX<---
 
 # In use within sp-to-fritz.sh
-config EXPORT_ADD_ONLINECOUNTER
-	depends on ( TYPE_OR_7570_503_722_920  || TYPE_OR_LOCALTCOM_LOCALAVM ) && ! TYPE_SPEEDPORT_W721V
-	bool "Onlinecounter volume patch"
-	default n 
- #	default n if  ( TYPE_DSL )
- #	default y if  ! ( TYPE_DSL )
-	help
-		Patch ONLINECOUNTER for 7270.
+
+#config EXPORT_ADD_ONLINECOUNTER
+#	depends on ( TYPE_OR_7570_503_722_920  || TYPE_OR_LOCALTCOM_LOCALAVM ) && ! TYPE_SPEEDPORT_W721V
+#	bool "Onlinecounter volume patch"
+#	default n 
+# #	default n if  ( TYPE_DSL )
+# #	default y if  ! ( TYPE_DSL )
+#	help
+#		Patch ONLINECOUNTER for 7270.
+
 ###---> NO AVM Modells 7XXX
 if ! EXPORT_TYPE_LOCAL_MODEL
  config SET_NAME
@@ -3021,25 +3024,25 @@ config VERBOSE
 	default "-v" if ! NOT_VERBOSE
 	default "" if NOT_VERBOSE
 
-config EXPORT_ENABLE_EXT2
-	bool "add ext2 (ext3) driver"
-	depends on EXPERT_MOD 
-	default n
-	help
-		With new AVM versions in most cases no drivers are present, 
-		you my place your own driver to: 
-		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext2/ext2.ko 
-		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext3/ext3.ko
-		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/mbcache.ko
-		"2.6.19.2" must match the kernel version!  
- 		Or you can select a 2nd AVM firmware from which the driver will be taken.
+#config EXPORT_ENABLE_EXT2
+#	bool "add ext2 (ext3) driver"
+#	depends on EXPERT_MOD 
+#	default n
+#	help
+#		With new AVM versions in most cases no drivers are present, 
+#		you my place your own driver to: 
+#		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext2/ext2.ko 
+#		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext3/ext3.ko
+#		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/mbcache.ko
+#		"2.6.19.2" must match the kernel version!  
+#		Or you can select a 2nd AVM firmware from which the driver will be taken.
 
-config EXPORT_ADD_VLAN_BRIDGE
-	bool "Enable or add Vlan bridge option"
-	depends on TYPE_OR_7570_503_722_920
-	default n
-	help
-	    Adds or enables settings in GUI for specifing VLANs
+#config EXPORT_ADD_VLAN_BRIDGE
+#	bool "Enable or add Vlan bridge option"
+#	depends on TYPE_OR_7570_503_722_920
+#	default n
+#	help
+#	    Adds or enables settings in GUI for specifing VLANs
 	    
 config EXPORT_RPL_AUTHFORM_WITH_81
 	bool "Use authform page from 7270v2 multi firmware"
@@ -3064,13 +3067,14 @@ config EXPORT_RPL_AUTHFORM_WITH_DST
 #	select ADD_PROVIDER_AON
 	help
 	 Default for AON and most ADSL Providers
-config ADD_PROVIDER_AON
-	bool "Add provider AON, if missing"
-#	depends on EXPERT_MOD 
-#	select EXPORT_RPL_AUTHFORM_WITH_81
-	default n
-	help
-	    This is usual set to no in most cases, within the AVM GUI. 
+#config ADD_PROVIDER_AON
+#	bool "Add provider AON, if missing"
+##	depends on EXPERT_MOD 
+##	select EXPORT_RPL_AUTHFORM_WITH_81
+#	default n
+#	help
+#	    This is usual set to no in most cases, within the AVM GUI. 
+
 config EXPORT_USE_SOURCE2_WEBMNUE
 	bool "Use 2nd AVM source webfiles"
 	depends on EXPERT_MOD 
