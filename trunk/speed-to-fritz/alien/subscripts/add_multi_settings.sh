@@ -75,7 +75,7 @@ file_nLIST="/html/de/internet/dslsnrset.frm \
 #-----------------------------------------------------------------
 for file_n in adsl.html atm.html bits.html overview.html; do
    if [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n" ]; then 
-    sed -i -e "s|<? if neq \$var:Annex A|<? if 1 1|" "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n"
+    sed -i -e "s|<? if neq \$var:Annex A|<? if neq 0 1|" "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n"
 #    cat "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n" | grep -q "Annex $ANNEX" &&\
 #    echo2 "  /usr/www/${OEMLINK}/html/de/internet/$file_n"
    fi
