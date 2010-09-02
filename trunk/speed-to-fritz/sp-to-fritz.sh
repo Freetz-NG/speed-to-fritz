@@ -124,7 +124,7 @@ if [ -d "$WinPartitopnNew" ]; then
 fi
 export P_DIR="$HOMEDIR/alien/patches"
 export sh_DIR="$HOMEDIR/alien/subscripts"
-export FREETZ_P_DIR="$HOMEDIR/alien/freetz/patches"
+export FREETZPATCH_DIR="$HOMEDIR/alien/freetz/patches"
 export inc_DIR="$HOMEDIR/includes"
 export sh2_DIR="$HOMEDIR/subscripts2"
 # Temporary directories for unpacked/modified images

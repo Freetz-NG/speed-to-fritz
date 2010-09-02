@@ -14,13 +14,13 @@ ln -s $2 ${HOMEDIR}/.tk/original/filesystem
 export FIRMWARE2="$SRC_2"
 export FILESYSTEM_MOD_DIR="$1"
 export FIRMWARE_MOD_DIR="$FBDIR"
-export PATCHES_DIR="$FREETZ_P_DIR"
+export PATCHES_DIR="$FREETZPATCH_DIR"
 #echo "PATCHES_DIR: $PATCHES_DIR"
 [ "$FREETZ_SCRIPTS" == "y" ] && ! [ -d $PATCHES_DIR/cond ] && echo " --looking for new freetz scripts..." && rm -rf R  $PATCHES_DIR && svn co http://svn.freetz.org/trunk/patches $PATCHES_DIR
 export HTML_LANG_MOD_DIR="$1/usr/www"
-[ $avm_Lange == "en" ] && export LANG_EN="y"
-[ $avm_Lange == "de" ] && export LANG_DE="y"
-echo $FBIMG_PATH | grep -q "a-ch" && export LANG_A_CH="y"
+[ $avm_Lange == "en" ] && export FREETZ_TYPE_LANG_EN="y" # ? also set in Config.in
+[ $avm_Lange == "de" ] && export FREETZ_TYPE_LANG_DE="y" # ? also set in Config.in
+echo $FBIMG_PATH | grep -q "a-ch" && export FREETZ_TYPE_LANG_A_CH="y"
 oems="$(grep 'for i in  avm' "${FIRMWARE_MOD_DIR}/var/install" | head -n 1 | sed -e 's/^.*for i in\(.*\); do.*$/\1/')"
 for webdir in ${FILESYSTEM_MOD_DIR}/usr/www ${FILESYSTEM_MOD_DIR}/usr/www.nas; do
 		if [ -d ${webdir}/avm ]; then
@@ -32,6 +32,7 @@ for webdir in ${FILESYSTEM_MOD_DIR}/usr/www ${FILESYSTEM_MOD_DIR}/usr/www.nas; d
 			done
 		fi
 done
+##[ "$VERBOSE" == "-v" ] && env | grep "FREETZ_"
 #Some more vars may be needed if orignal freetz patches will be used as the are.
 #If aditional patches from freetz are used vars should be set up within Config.in
 #Setting up this vars in Config.in would mean to add to the varable name 'EXPORT_'
@@ -40,20 +41,20 @@ done
 #EXPORT_FREETZ_ENFORCE_URLADER_SETTING_FIRMWARE_VERSION
 echo " -- applying foreign patches"
 	# Apply patches
-	if [ ! -d "${FREETZ_P_DIR}" ]; then
-		error 1 "missing ${FREETZ_P_DIR}"
+	if [ ! -d "${PATCHES_DIR}" ]; then
+		error 1 "missing ${PATCHES_DIR}"
 	fi
 	# Execute version specific patch scripts
-	for i in "${FREETZ_P_DIR}/"*.sh; do
+	for i in "${PATCHES_DIR}/"*.sh; do
 		[ -r "$i" ] || continue
 		echo2 "  -- applying patch file $i"
 		. $i
 	done
 	# Apply (general, version specific, language specific) patches
-	for i in "${FREETZ_P_DIR}/"*.patch \
+	for i in "${PATCHES_DIR}/"*.patch \
 	#FBMOD
-		"${FREETZ_P_DIR}/${AVM_VERSION}/"*.patch \
-		"${FREETZ_P_DIR}/${AVM_VERSION}/${avm_Lang}/"*.patch
+		"${PATCHES_DIR}/${AVM_VERSION}/"*.patch \
+		"${PATCHES_DIR}/${AVM_VERSION}/${avm_Lang}/"*.patch
 	do
 		modpatch "$1" "$i"
 	done

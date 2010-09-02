@@ -633,7 +633,8 @@ if ! LOCAL_X_MODEL
 	default "500"		if TYPE_SINUS_W500V
 	default "7390"		if TYPE_7390
 	default "7273"		if TYPE_7273
-	default "7270"		if TYPE_7270
+	default "7271"		if TYPE_7271
+	default "7272"		if TYPE_7272
 	default "7240"		if TYPE_7240
 	default "7170"		if TYPE_7170
 	default "7150"		if TYPE_7150
@@ -767,6 +768,12 @@ if TYPE_LANG_DE || TYPE_TCOM_7570_XX
     bool
     default y
 endif
+if TYPE_7271 || TYPE_7272 || TYPE_7272
+    config TYPE_7270
+    bool
+    default y
+endif
+
 if TYPE_7240 || TYPE_7270
     config TYPE_OR_7240_7270
     bool
@@ -997,7 +1004,7 @@ endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_FORCE_DSL_MULTI_ANNEX 
 	bool "Force Multi annex (optional)"
-	depends on ( ! ORI && ! TYPE_SPEEDPORT_W900V && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W701V && ! TYPE_SPEEDPORT_W503V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
+	depends on ( ! TYPE_7271_TYPE && ! ORI && ! TYPE_SPEEDPORT_W900V && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W701V && ! TYPE_SPEEDPORT_W503V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
 	default n if ORI_FIRMWARE_IS_MULI
 	default y if ! ORI_FIRMWARE_IS_MULI
 	help
@@ -2141,22 +2148,23 @@ config SRC2_IMG
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+config TYPE_7271_TYPE
+	bool
+	default "y"	 	if  TYPE_CORE_7271_16540 || TYPE_DSL_7271_16750 || TYPE_PRE_7271_18158 
+
+config TYPE_7272_TYPE
+	bool
+	default "y"	 	if  TYPE_CORE_7272_16540 || TYPE_DSL_7272_16750 || TYPE_PRE_7272_18158 ||\
+				TYPE_7272_73_04_76 || TYPE_7272_73_04_80
+
+config TYPE_7273_TYPE
+	bool
+	default "y"	 	if  TYPE_CORE_7273_15220 || TYPE_CORE_7273_16540 || TYPE_PHONE_7273_16999 || TYPE_IPV6_7273_17603 || TYPE_PRE_7273_18158 ||\
+				TYPE_PRE_72XX || TYPE_PHONE_72XX || TYPE_IPV6_72XX || TYPE_7273_73_04_76 || TYPE_7273_73_04_80
+
 config TYPE_V3_OR_7240
 	bool
-	default y	if\
-	TYPE_CORE_7273_15220 ||\
-	TYPE_CORE_7273_16540 ||\
-	TYPE_PHONE_7273_16999 ||\
-	TYPE_IPV6_7273_17603 ||\
-	TYPE_PRE_7273_18158 ||\
-	TYPE_PRE_72XX ||\
-	TYPE_PHONE_72XX ||\
-	TYPE_IPV6_72XX ||\
-	TYPE_7240_73_04_80 ||\
-	TYPE_CORE_7240_16540 ||\
-	TYPE_CORE_7240_V3_16540 ||\
-	TYPE_PHONE_7240_16376 ||\
-	TYPE_PRE_7240_18158
+	default "y" 		if  TYPE_7273_TYPE || TYPE_7240_73_04_80 || TYPE_CORE_7240_16540 || TYPE_CORE_7240_16540 || TYPE_PHONE_7240_16376 || TYPE_PRE_7240_18158
 
 config TYPE_LABOR_TYPE
 	string
@@ -2168,7 +2176,7 @@ config TYPE_LABOR_TYPE
 	default "77" 		if TYPE_7170_29_04_77 || TYPE_7113_60_04_77
 	default "70" 		if TYPE_7170_70 || TYPE_7272_54_04_70
 	default "76m" 		if TYPE_7272_m54_04_76
-	default "CORE"	 	if TYPE_CORE_7272_V3_15220 || TYPE_CORE_7272_15220 || TYPE_CORE_7271_16540 || TYPE_CORE_7272_16540 || TYPE_CORE_7273_16540 || TYPE_CORE_7240_16540 || TYPE_7240_V3_CORE_16540
+	default "CORE"	 	if TYPE_CORE_7273_15220 || TYPE_CORE_7272_15220 || TYPE_CORE_7271_16540 || TYPE_CORE_7272_16540 || TYPE_CORE_7273_16540 || TYPE_CORE_7240_16540 || TYPE_7240_CORE_16540
 	default "PREVIEW"	if TYPE_PRE_7240_18158 || TYPE_PRE_7272_17828 || TYPE_PRE_7271_18158 || TYPE_PRE_7272_18158 || TYPE_PRE_7273_18158 || TYPE_7170_PRE_16352 || TYPE_7390_PRE_18101 || TYPE_PRE_72XX
 #	default "13948" 	if TYPE_7170_13948
 #	default "13486" 	if TYPE_7272_13486
@@ -2223,6 +2231,31 @@ config EXPORT_FREETZ_TYPE_LABOR_NAS
 	bool
 	default y	if TYPE_LABOR_TYPE = NAS
 	default n	if ! TYPE_LABOR_TYPE = NAS
+
+config EXPORT_FREETZ_TYPE_7270_V1
+	bool
+	default y	if TYPE_7271_TYPE
+	default n	if ! TYPE_7271_TYPE
+
+config EXPORT_FREETZ_TYPE_7270_V2
+	bool
+	default y	if TYPE_7272_TYPE
+	default n	if ! TYPE_7272_TYPE
+
+config EXPORT_FREETZ_TYPE_7270_V3
+	bool
+	default y	if TYPE_7273_TYPE
+	default n	if ! TYPE_7273_TYPE
+
+config EXPORT_FREETZ_TYPE_LANG_DE
+	bool
+	default y	if TYPE_LANG_DE
+	default n	if ! TYPE_LANG_DE
+
+config EXPORT_FREETZ_TYPE_LANG_EN
+	bool
+	default y	if TYPE_LANG_EN
+	default n	if ! TYPE_LANG_EN
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 comment  "--------------------------------------------------------------------"
@@ -2365,50 +2398,321 @@ if EXPERT_MOD
 		This are scripts taken from freetz - not all are funtional now!
 
 if EXPORT_FREETZ_SCRIPTS
+comment "Imported freetz patches --------------------------------------------"
+if LOCAL_X_MODEL
+ comment "Mod settings ----------------------------" 
+endif
+config 	EXPORT_FREETZ_PACKAGE_INETD
+    bool
+config EXPORT_FREETZ_HAS_AVM_INETD
+	bool "HAS AVM inetd"	if LOCAL_X_MODEL
+	select EXPORT_FREETZ_PACKAGE_INETD
+	default y		if \
+		TYPE_3270 || \
+		TYPE_3273 || \
+		TYPE_7240 || \
+		TYPE_7272 || \
+		TYPE_7273 || \
+		TYPE_7390 || \
+		TYPE_7570
+	default n
+	help
+		Select this if your original firmware has inetd support.
 
- config EXPORT_FREETZ_ADD_REGEXT_GUI
-        bool "Add option to enable external SIP devices to register (Labor only)"
-        default n
-        depends on EXPERT_MOD
-        help
-		Select this to add an checkbox during configuration of an IPPhone which enables registration of external
-		SIP devices
+config EXPORT_FREETZ_HAS_DECT
+	bool "Has DECT"	if LOCAL_X_MODEL
+	default y		if \
+		TYPE_7150 || \
+		TYPE_7240 || \
+		TYPE_7272 || \
+		TYPE_7273 || \
+		TYPE_7390 || \
+		TYPE_7570 || \
+		TYPE_SPEEDPORT_W900V
+	default n
+	help
+		Select this if you have a box with DECT.
 
- config EXPORT_FREETZ_REMOVE_ASSISTANT
+config EXPORT_FREETZ_HAS_LIBSSL
+	bool "Has libssl"	if LOCAL_X_MODEL
+	default n		if \
+		TYPE_300IP_AS || \
+		TYPE_5010 || \
+		TYPE_5050 || \
+		TYPE_5140 || \
+		TYPE || \
+		TYPE_7050 || \
+		TYPE_SPEEDPORT_W501V || \
+		TYPE_3020 || \
+		TYPE_3030
+	default y
+	help
+		Select this if you have a box with libssl.
+
+config EXPORT_FREETZ_HAS_NAS
+	bool "Has NAS"		if LOCAL_X_MODEL
+	default y		if ( \
+		TYPE_7272 || \
+		TYPE_7273 || \
+		TYPE_7240 \
+		) && EXPORT_FREETZ_TYPE_PREVIEW
+	default n
+	help
+		Select this if you have a box with TAM (Telephone Answering Machine) support.
+
+config EXPORT_FREETZ_HAS_PHONE
+	bool "Has Phone"	if LOCAL_X_MODEL
+	default n		if \
+		TYPE_2170 || \
+		TYPE_3020 || \
+		TYPE_3030 || \
+		TYPE_3130 || \
+		TYPE_3131 || \
+		TYPE_3170 || \
+		TYPE_3270 || \
+		TYPE_3273
+	default y
+	help
+		Select this if you have a box with phone support.
+
+config EXPORT_FREETZ_HAS_TAM
+	bool "Has TAM"		if LOCAL_X_MODEL
+	default y		if \
+		TYPE_7150 || \
+		TYPE_7141 || \
+		TYPE_7170 || \
+		TYPE_7240 || \
+		TYPE_7272 || \
+		TYPE_7273 || \
+		TYPE_7390 || \
+		TYPE_7570
+	default n
+	help
+		Select this if you have a box with TAM (Telephone Answering Machine) support.
+
+config EXPORT_FREETZ_HAS_USB_CLIENT
+	bool "USB client"	if LOCAL_X_MODEL
+	default y		if \
+		TYPE_2170 || \
+		TYPE_300IP_AS || \
+		TYPE || \
+		TYPE_5050 || \
+		TYPE || \
+		TYPE_7050 || \
+		TYPE_3020 || \
+		TYPE_3030 || \
+		TYPE_3131 || \
+		TYPE_3170
+	default n
+	help
+		Select this if you have a box with USB.
+
+config EXPORT_FREETZ_HAS_USB_HOST
+	bool "USB host"		if LOCAL_X_MODEL
+	default n		if \
+		(EXPORT_FREETZ_HAS_USB_CLIENT && ! TYPE_3170) || \
+		TYPE_5010 || \
+		TYPE_5140 || \
+		TYPE_7112 || \
+		TYPE_7113 || \
+		TYPE_SINUS_W500V || \
+		TYPE_SPEEDPORT_W501V || \
+		TYPE_SPEEDPORT_W701V
+	default y
+	help
+		Select this if your USB port is a host adapter.
+
+config EXPORT_FREETZ_HAS_WLAN
+	bool "Has WLAN"		if LOCAL_X_MODEL
+	default n		if \
+		TYPE_2170 || \
+		TYPE_300IP_AS || \
+		TYPE_5010 || \
+		TYPE_5050 || \
+		TYPE_5124 || \
+		TYPE_5140
+	default y
+	help
+		Select this if you have a box with WLAN.
+
+comment "Web menu patches ------------------------"
+
+config EXPORT_FREETZ_PATCH_VCC
+	bool "Patch 2nd VCC"
+	depends on EXPORT_FREETZ_HAS_PHONE && TYPE_LANG_DE
+	default n
+	help
+		Patches the setting for 2nd VCC into web menu. It also adds two additional
+		settings (PCR & SCR) not available in the original AVM firmware.
+
+		Please also note that it is not possible to change the value of traffic_class
+		setting via the web-interface. You have to do it some other way (e.g. using
+		FBEditor or nvi ar7.cfg).
+
+		Warning: Please read up on what each VCC setting means before setting/changing it.
+		Besides not working wrong values may cause additional costs for you as your provider
+		may treat it as simultaneous dial-in attempts (Doppeleinwahl).
+
+		The correct values for an 1&1-Komplettanschluss are:
+		  VPI = 1;
+		  VCI = 35;
+		  traffic_class = atm_traffic_class_CBR;
+		  pcr = 603;
+		  scr = 0;
+
+config EXPORT_FREETZ_PATCH_ATA
+	bool "Patch ATA"
+	depends on \
+		TYPE_SPEEDPORT_W501V
+	default n
+	help
+		Patches the ATA mode configuration pages into the web menu.
+
+config EXPORT_FREETZ_PATCH_ENUM
+	bool "Patch enum"
+	depends on \
+		TYPE_LANG_DE && \
+		( \
+		TYPE || \
+		TYPE_300IP_AS || \
+		TYPE_5050 || \
+		TYPE || \
+		TYPE_7050 || \
+		TYPE_7140 \
+		)
+	default n
+	help
+		Patches the enum configuration pages into the web menu.
+
+config EXPORT_FREETZ_PATCH_DSL_EXPERT
+	bool "Patch extended DSL settings"
+	depends on \
+		! TYPE_FREETZ_LABOR_DSL && \
+		! EXPORT_FREETZ_REMOVE_DSLD && \
+		TYPE_LANG_DE && \
+		(TYPE_7170 || TYPE_7240 || TYPE_7272 || TYPE_7273)
+	default n
+	help
+		Patches the extended dsl-settings from labor-dsl into all-in-one-firmwares.
+
+config EXPORT_FREETZ_ADD_REGEXT_GUI
+	bool "Patch GUI to enable external SIP connections"
+	depends on ( \
+		TYPE_7240 || \
+		TYPE_7272 || \
+		TYPE_7273 || \
+		(TYPE_7170 && ! TYPE_FREETZ_LABOR_DSL) \
+		) && TYPE_LANG_DE
+	default n
+	help
+		Patches the WebUI and add a checkbox to enable setting "reg_from_outside" in the voip.conf.
+
+#config EXPORT_FREETZ_PATCH_INTERNATIONAL
+#	bool "Patch international"
+#	depends on EXPORT_FREETZ_HAS_PHONE && TYPE_LANG_DE
+#	default y
+#	help
+#		Reveals some options from the international firmware in the web menu.
+
+config EXPORT_FREETZ_PATCH_ALARMCLOCK
+	bool "Patch third alarm-clock"
+	depends on ( \
+		TYPE_7150 || \
+		TYPE_7112 || \
+		TYPE_7141 || \
+		TYPE_7170 || \
+		TYPE_3273 || \
+		TYPE_3270 || \
+		TYPE_7240 || \
+		TYPE_7272 || \
+		TYPE_7273 || \
+		TYPE_7390 || \
+		TYPE_OR_7570_920 \
+		) \
+		&& ! ((TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V) && TYPE_FREETZ_LABOR_DSL)
+	default n
+	help
+		Adds a third alarm-clock to AVM-Webinterface
+
+config EXPORT_FREETZ_PATCH_SIGNED
+	bool "Patch web menu signed message"
+	default n
+	help
+		Hides the "unsupported changes" message from the web interface.
+
+config EXPORT_FREETZ_PATCH_MULTIPLE_PRINTERS
+	bool "Add support for multiple printers"
+	depends on TYPE_LANG_DE && \
+		( \
+		TYPE_2170 || \
+		TYPE_3131 || \
+		TYPE_3170 || \
+		TYPE_7141 || \
+		TYPE_7150 || \
+		TYPE_7170 \
+		) \
+		&& ! (TYPE_SPEEDPORT_W701V || (TYPE_SPEEDPORT_W900V && TYPE_LABOR_FREETZ_DSL))
+	default n
+	help
+		Use this patch if you want to use more than one printer.
+
+comment "Removings -------------------------------"
+
+config EXPORT_FREETZ_REMOVE_ASSISTANT
 	bool "Remove assistant"
 	default n
+	depends on \
+	! ((TYPE_5124 || TYPE_7140 || TYPE_7170) && TYPE_LANG_EN)
 	help
 		Removes the installation assistant from the web menu.
 
- config EXPORT_FREETZ_REMOVE_AURA_USB
+config EXPORT_FREETZ_REMOVE_AURA_USB
 	bool "Remove aura usb"
 	default n
+	depends on EXPORT_FREETZ_SHOW_ADVANCED && EXPORT_FREETZ_HAS_USB_HOST
 	help
 		Remove the aura-usb-daemon (USB-Fernanschluss) and some related files.
 		This patch only removes the files, not the settings in AVM's webinterface
 
- config EXPORT_FREETZ_REMOVE_USB_MODULE
+config EXPORT_FREETZ_REMOVE_USB_MODULE
 	bool "Remove avalanche_usb.ko"
+	depends on EXPORT_FREETZ_HAS_USB_CLIENT
 	default n
 	help
 		Removes avalanche_usb.ko to save 60kB uncompressed space.
 
- config EXPORT_FREETZ_REMOVE_NAS
+config EXPORT_FREETZ_REMOVE_NAS
 	bool "Remove AVM NAS Webinterface"
+	default n
+	depends on EXPORT_FREETZ_HAS_NAS && TYPE_LANG_DE
 	default n
 	help
 		Removes the AVM NAS Webinterface and internal memory file (saves about 390 KB in compressed image).
 
- config EXPORT_FREETZ_REMOVE_AVM_VPN
+config EXPORT_FREETZ_REMOVE_AVM_VPN
 	bool "Remove AVM vpn"
 	default n
+	depends on \
+		( \
+			TYPE_2170 || \
+			TYPE_7150 || \
+			(TYPE_7170 && TYPE_LANG_DE) || \
+			TYPE_7240 || \
+			TYPE_7272 || \
+			TYPE_7273 || \
+			TYPE_OR_7570_920 || \
+			TYPE_7390 || \
+			TYPE_3170 \
+		)
+
 	help
 		Remove AVM's vpn and some other related files
 		This patch removes the files and related Web UI entrys, but not the
 		vpn settings. This will save about 120kB compressed size.
 
- config EXPORT_FREETZ_REMOVE_CAPIOVERTCP
+config EXPORT_FREETZ_REMOVE_CAPIOVERTCP
 	bool "Remove CAPIoverTCP (used for Fritz!Fax)"
+	depends on EXPORT_FREETZ_HAS_PHONE
 	default n
 	help
 		Remove CAPIoverTCP (capiotcp_server). Use this if you don't want to use
@@ -2416,39 +2720,60 @@ if EXPORT_FREETZ_SCRIPTS
 		to rcapid, but independant.
 		This will save about 15kB uncompressed size.
 
- config EXPORT_FREETZ_REMOVE_CHRONYD
+config EXPORT_FREETZ_REMOVE_CHRONYD
 	bool "Remove chronyd"
+	depends on \
+		TYPE_3270 || \
+		TYPE_3273 || \
+		TYPE_7240 || \
+		TYPE_7272 || \
+		TYPE_7273
 	default n
 	help
 		Removes AVM's time synchronization tool (chrony) and related files.
 		This will save about 220kB uncompressed size.
 
-# config EXPORT_FREETZ_REMOVE_CDROM_ISO
-#	bool "Remove cdrom.iso"
-#	default n
-#	help
-#		Removes the file /lib/modules/cdrom.iso to save 270kB uncompressed space.
+config EXPORT_FREETZ_REMOVE_CDROM_ISO
+	bool "Remove cdrom.iso"
+	depends on \
+		TYPE_300IP_AS || \
+		TYPE || \
+		TYPE_5050 || \
+		TYPE || \
+		TYPE_3020 || \
+		TYPE_3030
+	default n
+	help
+		Removes the file /lib/modules/cdrom.iso to save 270kB uncompressed space.
 
- config EXPORT_FREETZ_REMOVE_DECT
+config EXPORT_FREETZ_REMOVE_DECT
 	bool "Remove DECT files"
+	depends on EXPORT_FREETZ_HAS_DECT
 	default n
 	help
 		Remove dect files (modules, dect_manager and dect related Web UI).
-		(saves 20K compressed size on W900V and 360k on 7240/7270)
+		(saves 20K compressed size on W900V and 360k on 7240/7272)
 
- config EXPORT_FREETZ_REMOVE_DECT_UPDATE
+config EXPORT_FREETZ_REMOVE_DECT_UPDATE
 	bool "Remove dect_update"
+	depends on \
+		TYPE_7150
 	default n
 	help
 		Remove /usr/bin/dect_update. This utility is only needed to
 		update the dect firmware.
 		This will save about 32kB uncompressed size.
 
- config EXPORT_FREETZ_REMOVE_DSLD
+config EXPORT_FREETZ_REMOVE_DSLD
 	bool "Remove dsld (for boxes in IP client mode) - EXPERIMENTAL"
 	default n
 	select EXPORT_FREETZ_REMOVE_UPNP
-	select EXPORT_FREETZ_REMOVE_USERMAN
+	select EXPORT_FREETZ_REMOVE_USERMAN if ! ( \
+						TYPE_5140 || \
+						TYPE_7112 || \
+						TYPE_7113 || \
+						TYPE_SPEEDPORT_W501V \
+					  )
 	help
 		Remove DSL daemon (dsld), if you are planning to use your box as a simple
 		IP client in ATA mode.
@@ -2469,15 +2794,26 @@ if EXPORT_FREETZ_SCRIPTS
 
 		EXPERIMENTAL FEATURE, USE AT OWN RISK!
 
- config EXPORT_FREETZ_REMOVE_DTRACE
+config EXPORT_FREETZ_REMOVE_DTRACE
 	bool "Remove dtrace"
-	default n
+	depends on \
+		TYPE_7113 || \
+		TYPE_7141 || \
+		TYPE_7150 || \
+		TYPE_7170 || \
+		TYPE_7240 || \
+		TYPE_7272 || \
+		TYPE_7273 || \
+		TYPE_7390 || \
+		TYPE_OR_7570_920
+	default y
 	help
 		Remove /usr/bin/dtrace. This utility is only needed to trace ISDN D-channel.
 		This will save about 87kB uncompressed size.
 
- config EXPORT_FREETZ_REMOVE_FTPD
+config EXPORT_FREETZ_REMOVE_FTPD
 	bool "Remove ftpd"
+	depends on EXPORT_FREETZ_HAS_USB_HOST
 	default n
 	help
 		Remove FTP daemon (ftpd)
@@ -2486,34 +2822,53 @@ if EXPORT_FREETZ_SCRIPTS
 		through ftp anymore. But you can use Freetz bftpd/vsftpd package to grant ftp
 		access to the devices.
 
- config EXPORT_FREETZ_REMOVE_HELP
+config EXPORT_FREETZ_REMOVE_HELP
 	bool "Remove help"
 	default n
 	help
 		Removes the help pages from the web menu.
 
- config EXPORT_FREETZ_REMOVE_MEDIASRV
+config EXPORT_FREETZ_REMOVE_MEDIASRV
 	bool "Remove mediasrv"
+	depends on \
+		EXPORT_FREETZ_HAS_USB_HOST && \
+		( ! TYPE_7271 || TYPE_7270 && TYPE_LABOR )
 	default n
 	help
 		Remove the MediaServer-daemon (mediasrv) and some other related files.
 		This patch hides also the MediaServer options in the Web UI, so you must
 		disable it before flashing the new image.
-		Saves compressed 280 KB on a 7270_V3 and 40 KB on a 7170.
+		Saves compressed 280 KB on a 7270 V3 and 40 KB on a 7170.
 
- config EXPORT_FREETZ_REMOVE_MINID
+config EXPORT_FREETZ_REMOVE_MINID
 	bool "Remove minid"
 	default n
+	depends on \
+		EXPORT_FREETZ_SHOW_ADVANCED && \
+		( \
+			TYPE_7141 || \
+			TYPE_7170 || \
+			TYPE_7240 || \
+			( TYPE_7270 && TYPE_LABOR ) || \
+			TYPE_7273 || \
+			TYPE_3270 || \
+			TYPE_3273 \
+		) && \
+		! TYPE_SPEEDPORT_W701V
 	help
 		Remove the mini-daemon (minid) and some other related files. This patch
 		removes Fritz!Mini support and all Web UI entrys.
-		Saves compressed 340 KB on a 7270_V3 and 7170.
+		Saves compressed 340 KB on a 7270 V3 and 7170.
 
 		ATTENTION: You must remove all Fritz!Mini's from your Fritz!Box configuration
 		and delete all Mini users with the Gini! software to avoid complications.
 
- config EXPORT_FREETZ_REMOVE_NTFS
+config EXPORT_FREETZ_REMOVE_NTFS
 	bool "Remove NTFS support"
+	depends on \
+			TYPE_7240 || \
+			( TYPE_7272 && TYPE_LABOR ) || \
+			TYPE_7273
 	default n
 	help
 		Remove NTFS support
@@ -2521,52 +2876,108 @@ if EXPORT_FREETZ_SCRIPTS
 		Be careful, mounting volumes with this filesystem will not work.
 		It saves about 118K compressed space in kernel.image.
 
- config EXPORT_FREETZ_REMOVE_RUNCLOCK
+config EXPORT_FREETZ_REMOVE_RUNCLOCK
 	bool "Remove run_clock"
 	default n
 	help
 		Remove /bin/run_clock (operating hours meter) daemon.
 		This saves about 5K compressed space in kernel.image.
 
- config EXPORT_FREETZ_REMOVE_SMBD
+config EXPORT_FREETZ_REMOVE_SMBD
 	bool "Remove smbd"
+	depends on \
+		EXPORT_FREETZ_HAS_USB_HOST && \
+		! EXPORT_FREETZ_PACKAGE_SAMBA && \
+		! TYPE_7150 && \
+		! ( TYPE_7272 && ! TYPE_LABOR )
 	default n
 	help
 		Remove Samba daemon (smbd)
 		This patch removes only the daemon. The regular options in AVM's webinterface
 		are still present.
 
- config EXPORT_FREETZ_REMOVE_SUPPORT
+config EXPORT_FREETZ_REMOVE_SUPPORT
 	bool "Remove the support-files"
 	default n
 	help
 		Remove the support-files which can be taken by http://fritz.box/html/support.html
 
- config EXPORT_FREETZ_REMOVE_TR069
+config EXPORT_FREETZ_REMOVE_TR069
 	bool "Remove tr069 stuff"
+	depends on \
+		( \
+		TYPE_300IP_AS || \
+		TYPE || \
+		TYPE || \
+		TYPE_7050 || \
+		TYPE_7113 || \
+		TYPE_7140 || \
+		TYPE_7141 || \
+		TYPE_7150 || \
+		TYPE_7170 || \
+		TYPE_7240 || \
+		TYPE_7272 || \
+		TYPE_7273 || \
+		TYPE_7390 || \
+		TYPE_OR_7570_920 || \
+		TYPE_3020 || \
+		TYPE_3270 || \
+		TYPE_3273 \
+		)
 	default n
 	help
 		Removes libtr069 to save space. This also removes libtr064.
 		WARNING: Removing tr069-stuff without disabling it on the
 		box causes permanent reboots until the box is recovered.
 
- config EXPORT_FREETZ_REMOVE_TR069_FWUPDATE
+config EXPORT_FREETZ_REMOVE_TR069_FWUPDATE
 	bool "Remove fwupdate"
+	depends on \
+		EXPORT_FREETZ_REMOVE_TR069 && \
+	( \
+		TYPE_7141 || \
+		TYPE_7150 || \
+		TYPE_7170 || \
+		TYPE_7240 || \
+		TYPE_7272 || \
+		TYPE_7273 || \
+		TYPE_7390 || \
+		TYPE_OR_7570_920 || \
+		TYPE_3270 || \
+		TYPE_3273 \
+	)
 	default n
 	help
 		Removes the file /usr/bin/tr069fwupdate, needed for
 		updating the firmware in MT-D devices
 
- config EXPORT_FREETZ_REMOVE_UMTSD
+config EXPORT_FREETZ_REMOVE_UMTSD
 	bool "Remove UMTS support (USB GSM)"
+	depends on \
+		TYPE_7240 || \
+		( TYPE_7272 && TYPE_LABOR ) || \
+		TYPE_7273
 	default n
 	help
 		Remove UMTS support
 		This patch will remove UMTS-dependent files from firmware.
 		It saves about 12K compressed space in kernel.image.
 
- config EXPORT_FREETZ_REMOVE_UPNP
+config EXPORT_FREETZ_REMOVE_UPNP
 	bool "Remove UPnP daemon (igdd/upnpd)"
+	select EXPORT_FREETZ_REMOVE_UPNP_LIBS if \
+			( \
+			! ( TYPE_7140 && TYPE_LANG_EN ) \
+			&& ! ( TYPE_7140 ) \
+			&& ! TYPE_7141 \
+			&& ! TYPE_7150 \
+			&& ! TYPE_7170 \
+			&& ! TYPE_7240 \
+			&& ! TYPE_7272 \
+			&& ! TYPE_7273 \
+			&& ! TYPE_3131 \
+			&& ! TYPE_3170 \
+			)
 	default n
 	help
 		Remove Universal Plug'n'Play daemon 'igdd/upnpd' and some more files used by
@@ -2583,31 +2994,46 @@ if EXPORT_FREETZ_SCRIPTS
 		      Netzwerkeinstellungen
 		        Statusinformationen �ber UPnP �bertragen (empfohlen)
 
- config EXPORT_FREETZ_REMOVE_UPNP_LIBS
+config EXPORT_FREETZ_REMOVE_UPNP_LIBS
 	bool
 	depends on EXPORT_FREETZ_REMOVE_UPNP
 	default n
 
- config EXPORT_FREETZ_REMOVE_USERMAN
+config EXPORT_FREETZ_REMOVE_USERMAN
 	bool "Remove usermand and userman.ko - EXPERIMENTAL"
+	depends on \
+		! (TYPE_3170) \
+		&& ! TYPE_5140 \
+		&& ! TYPE_7112 \
+		&& ! TYPE_7113 \
+		&& ! TYPE_SPEEDPORT_W501V
 	default n
 	help
 		Remove userman files (Kindersicherung)
 
- config EXPORT_FREETZ_REMOVE_VOIPD
+config EXPORT_FREETZ_REMOVE_VOIPD
 	bool "Remove VoIP files (for non-telephony boxes)"
+	depends on \
+		EXPORT_FREETZ_HAS_PHONE
 	default n
 	help
 		This removes the integrated sip-client and -server and the releated Web menu,
 		normal telefon use (ISDN, POTS and DECT) is not affected. This saves 250 KB
-		on a 7170/7270 of compressed firmware size.
+		on a 7170/7272 of compressed firmware size.
 
 		ATTENTION: You must remove all sip phone numbers and all sip clients before
 		flashing this image. Afterward there is no possibility to remove thees numbers
 		because the Web UI is also removed.
 
- config EXPORT_FREETZ_REMOVE_VOIP_ISDN
+config EXPORT_FREETZ_REMOVE_VOIP_ISDN
 	bool "Remove VoIP & ISDN files (for non-telephony boxes) - EXPERIMENTAL"
+	depends on \
+		EXPORT_FREETZ_HAS_PHONE
+	select EXPORT_FREETZ_REMOVE_DECT if TYPE_7240 || TYPE_7272 || TYPE_7273
+	select EXPORT_FREETZ_REMOVE_VOIPD
+	select EXPORT_FREETZ_REMOVE_DTRACE
+	select EXPORT_FREETZ_REMOVE_CAPIOVERTCP
+	select EXPORT_FREETZ_REMOVE_MINID
 	default n
 	help
 		Radically remove a lot of telephony-related files. This patch saves about
@@ -2624,8 +3050,10 @@ if EXPORT_FREETZ_SCRIPTS
 
 		EXPERIMENTAL FEATURE, USE AT OWN RISK!
 
- config EXPORT_FREETZ_REMOVE_WLAN
+config EXPORT_FREETZ_REMOVE_WLAN
 	bool "Remove WLAN files (for non-wlan boxes) - EXPERIMENTAL"
+	depends on \
+		EXPORT_FREETZ_HAS_WLAN
 	default n
 	help
 		Radically remove a lot of wlan-related files. This patch saves about
@@ -2633,48 +3061,60 @@ if EXPORT_FREETZ_SCRIPTS
 
 		EXPERMINTAL FEATURE, USE AT OWN RISK!
 
-# config EXPORT_FREETZ_ENFORCE_URLADER_SETTINGS
-#	bool "Enforce urlader environment"
-#	default n
-#	help
-#		Enforce some urlader (Adam2/EVA) environment variables.
-#		 * useful for tcom boxes having non-AVM standard settings in bootloader
-#		   (my_ipaddress, firmware_version, ProductID)
-#		 * useful for people that do clear mtd3/mtd4 often.
-#		This settings are enforced at the beginnig of the boot process.
-#
-# config EXPORT_FREETZ_ENFORCE_URLADER_SETTING_MY_IPADDRESS
-#	depends on EXPORT_FREETZ_ENFORCE_URLADER_SETTINGS
-#	string "Enforce my_ipaddress variable"
-#	default "192.168.178.1"
-#	help
-#		This is the AVM default, enforce to also to reseller boxes, eg. from T-Com
-#		If this is empty the urlader setting won't be touched.
-#
-# config EXPORT_FREETZ_ENFORCE_URLADER_SETTING_FIRMWARE_VERSION
-#	depends on EXPORT_FREETZ_ENFORCE_URLADER_SETTINGS
-#	string "Enforce firmware_version variable"
-#	default ""
-#	help
-#		Choose wisely. Your image beeing built must support this.
-#		Typical settings are eg.: avm, avme, tcom, 1und1, ...
-#		If this is empty the urlader setting won't be touched.
-#
-# config EXPORT_FREETZ_ENFORCE_URLADER_SETTING_PRODUCTID
-#	depends on EXPORT_FREETZ_ENFORCE_URLADER_SETTINGS
-#	string "Enforce ProductID variable"
-#	default ""
-#	help
-#		Choose wisely. Your image beeing built must support this.
-#		Typical settings are eg.: Fritz_Box_DECT_7270, Fritz_Box_DECT_W920V
-#		If this is empty the urlader setting won't be touched.
-#
-# config EXPORT_FREETZ_TYPE_SPEEDPORT_W920V_LED_MODULE
-#	bool "Change LED semantics to W920V"
-#	default n
-#	help
-#		If Y is choosen, this changes the semantics of the LEDs on the front
-#		panel of your 7570/W920V box fitting the descriptions of the W920V.
+config EXPORT_FREETZ_ENFORCE_URLADER_SETTINGS
+	bool "Enforce urlader environment"
+	default n
+	help
+		Enforce some urlader (Adam2/EVA) environment variables.
+		 * useful for tcom boxes having non-AVM standard settings in bootloader
+		   (my_ipaddress, firmware_version, ProductID)
+		 * useful for people that do clear mtd3/mtd4 often.
+		This settings are enforced at the beginnig of the boot process.
+
+config EXPORT_FREETZ_ENFORCE_URLADER_SETTING_MY_IPADDRESS
+	depends on EXPORT_FREETZ_ENFORCE_URLADER_SETTINGS
+	string "Enforce my_ipaddress variable"
+	default "192.168.178.1"
+	help
+		This is the AVM default, enforce to also to reseller boxes, eg. from T-Com
+		If this is empty the urlader setting won't be touched.
+
+config EXPORT_FREETZ_ENFORCE_URLADER_SETTING_FIRMWARE_VERSION
+	depends on EXPORT_FREETZ_ENFORCE_URLADER_SETTINGS
+	string "Enforce firmware_version variable"
+	default ""
+	help
+		Choose wisely. Your image beeing built must support this.
+		Typical settings are eg.: avm, avme, tcom, 1und1, ...
+		If this is empty the urlader setting won't be touched.
+
+config EXPORT_FREETZ_ENFORCE_URLADER_SETTING_PRODUCTID
+	depends on EXPORT_FREETZ_ENFORCE_URLADER_SETTINGS
+	string "Enforce ProductID variable"
+	default ""
+	help
+		Choose wisely. Your image beeing built must support this.
+		Typical settings are eg.: Fritz_Box_DECT_7272, Fritz_Box_DECT_W920V
+		If this is empty the urlader setting won't be touched.
+
+comment "Other stuff -----------------------------"
+
+config EXPORT_TYPE_SPEEDPORT_W920V_LED_MODULE
+	bool "Change LED semantics to W920V"
+	default n
+	depends on TYPE_OR_7570_920
+	help
+		If Y is choosen, this changes the semantics of the LEDs on the front
+		panel of your 7570/W920V box fitting the descriptions of the W920V.
+
+config EXPORT_FREETZ_PATCH_GETCONS
+	bool "Don't redirect console messages"
+	default n
+	help
+		Patch /etc/profile so that console messages are not redirected to
+		/dev/pts/0. These can sometimes be very anoying.
+
+comment "--------------------------------------------------------------------"
  endif #<--- freetz remove type scripts
 endif
 ###<--- Expert user
@@ -3024,18 +3464,18 @@ config VERBOSE
 	default "-v" if ! NOT_VERBOSE
 	default "" if NOT_VERBOSE
 
-#config EXPORT_ENABLE_EXT2
-#	bool "add ext2 (ext3) driver"
-#	depends on EXPERT_MOD 
-#	default n
-#	help
-#		With new AVM versions in most cases no drivers are present, 
-#		you my place your own driver to: 
-#		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext2/ext2.ko 
-#		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext3/ext3.ko
-#		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/mbcache.ko
-#		"2.6.19.2" must match the kernel version!  
-#		Or you can select a 2nd AVM firmware from which the driver will be taken.
+config EXPORT_ENABLE_EXT2
+	bool "add ext2 (ext3) driver"
+	depends on EXPERT_MOD 
+	default n
+	help
+		With new AVM versions in most cases no drivers are present, 
+		you my place your own driver to: 
+		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext2/ext2.ko 
+		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext3/ext3.ko
+		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/mbcache.ko
+		"2.6.19.2" must match the kernel version!  
+		Or you can select a 2nd AVM firmware from which the driver will be taken.
 
 #config EXPORT_ADD_VLAN_BRIDGE
 #	bool "Enable or add Vlan bridge option"
