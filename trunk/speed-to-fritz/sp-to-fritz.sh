@@ -5,7 +5,7 @@ export PATH=$PATH:/sbin
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="01"; Monat="09"; Jahr="10"
+Tag="02"; Monat="09"; Jahr="10"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
@@ -1539,10 +1539,7 @@ if [ "$ORI" != "y" ]; then
  [ "$MOVE_ALL_to_OEM" = "y" ] && $sh_DIR/move_all_to_OEM.sh "${SRC}" || $sh_DIR/remake_link_avm.sh "${SRC}"
  export OEMLINK="avm"
  [ -d "${SRC}"/usr/www/avme ] && export OEMLINK="avme"
- cp -fdrp "${DST}/dev" "${SRC}/dev"
- #[ ${FAKEROOT_ON} = "n" ] && 
- export MAKE_DEV="n" && echo "-- tools/device_table.txt is not in use, script is executed with root rights."
- # Please dont add conditions on models in any external file
+ [ ${FAKEROOT_ON} = "n" ] && cp -fdrp "${DST}/dev" "${SRC}/dev" && export MAKE_DEV="n" && echo "-- tools/device_table.txt is not in use, script is executed with root rights."
  #enable ext2
  [ "$ENABLE_EXT2" = "y" ] && $sh2_DIR/patch_ext2 "${SRC}" "${DST}"
  case "$SPMOD" in
