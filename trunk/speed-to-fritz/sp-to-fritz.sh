@@ -57,7 +57,8 @@ DO_FINAL_DIFF_SRC2="n"
 #debug options
 DO_NOT_STOP_ON_ERROR="n"
 SET_UP="n"
-#build own device table, use tools device_table.txt not needed if script rans as root
+#build own device table, use tools device_table.txt looks like it is not needed if complete sp-to-fritz.sh script rans as root or fakeroot
+#We dont use aditional divices like freetz, so it is easyer not to maintine a upto date device_table.txt
 export MAKE_DEV="y"
 #pack expanded directory /var.tar > /squashfs-root/usr/var.tar, normally not needed 
 export PACK_VARTAR="y"
@@ -75,14 +76,6 @@ export FINDSQUASHFS="${TOOLS_DIR}/${FINDSQUASHFS_TOOL}"
 export MKSQUASHFS_TOOL="mksquashfs-lzma"
 export MKSQUASHFS_OPTIONS="-le -noappend -all-root -info"
 export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
-#export FAKEROOT_TOOL="fakeroot"
-#export FAKEROOT_DESTDIR="${TOOLS_DIR}/usr"
-#export FAKEROOT_BIN_DIR="${FAKEROOT_DESTDIR}/bin"
-#export FAKEROOT_LIB_DIR="${FAKEROOT_DESTDIR}/lib"
-#export FAKEROOT="${FAKEROOT_BIN_DIR}/${FAKEROOT_TOOL}"
-#sed -i -e "s|^PREFIX=.*$|PREFIX=${FAKEROOT_DESTDIR}|g" ${FAKEROOT}
-#sed -i -e "s|^BINDIR=.*$|BINDIR=${FAKEROOT_BIN_DIR}|g" ${FAKEROOT}
-#sed -i -e "s|^PATHS=.*$|PATHS=${FAKEROOT_LIB_DIR}|g" ${FAKEROOT}
 export TICHKSUM_TOOL="tichksum"
 export TICHKSUM="${TOOLS_DIR}/${TICHKSUM_TOOL}"
 #export TICHKSUM="$TOOLS_DIR/TI-chksum-0.1/tichksum"
@@ -1524,7 +1517,7 @@ if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
  SKRIPT_DATE+="$SVN_VERSION"
 fi
 # make sure all is set to correct rights
-[ ${FAKEROOT_ON} = "n" ] && chmod -R 777 . #&& echo "Scrit is executed as root, 777 set to all files."
+#[ ${FAKEROOT_ON} = "n" ] && chmod -R 777 . #&& echo "Scrit is executed as root, 777 set to all files."
 echo "********************************************************************************"
 echo -e "\033[1mPhase 3:\033[0m Copy sources."
 echo "********************************************************************************"
@@ -1539,7 +1532,8 @@ if [ "$ORI" != "y" ]; then
  [ "$MOVE_ALL_to_OEM" = "y" ] && $sh_DIR/move_all_to_OEM.sh "${SRC}" || $sh_DIR/remake_link_avm.sh "${SRC}"
  export OEMLINK="avm"
  [ -d "${SRC}"/usr/www/avme ] && export OEMLINK="avme"
- [ ${FAKEROOT_ON} = "n" ] && cp -fdrp "${DST}/dev" "${SRC}/dev" && export MAKE_DEV="n" && echo "-- tools/device_table.txt is not in use, script is executed with root rights."
+ # looks like there is no need for using device-table.txt if the complete sp-fritz.sh is wraped with fake root
+ cp -fdrp "${DST}/dev" "${SRC}/dev" && export MAKE_DEV="n" && echo "-- merged source and destination /dev directory"
  #enable ext2
  [ "$ENABLE_EXT2" = "y" ] && $sh2_DIR/patch_ext2 "${SRC}" "${DST}"
  case "$SPMOD" in
@@ -1745,11 +1739,8 @@ readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${SRC}/etc/init.d"
 # w722 - 7390 need this: export kernel_args="console=ttyS0,115200n8r"
 # make firmware installable via GUI
 $sh_DIR/patch_install.sh "${SPDIR}"
-## first approach to make external SIP registration configurable on WebUI
-#[ "$PATCH_EXT_SIP" = "y" ] && $sh2_DIR/patch_sip_from_extern "${SRC}"
 #<--All firmwares
-#. $inc_DIR/testerror
-[ ${FAKEROOT_ON} = "n" ] && chmod -R 777 "${FBDIR}"
+#[ ${FAKEROOT_ON} = "n" ] && chmod -R 777 "${FBDIR}"
 echo "********************************************************************************"
 echo -e "\033[1mPhase 10:\033[0m Pack and deliver."
 echo "********************************************************************************"
