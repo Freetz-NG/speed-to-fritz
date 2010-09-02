@@ -2414,7 +2414,7 @@ config EXPORT_FREETZ_HAS_AVM_INETD
 		TYPE_7272 || \
 		TYPE_7273 || \
 		TYPE_7390 || \
-		TYPE_7570
+		TYPE_OR_7570_920
 	default n
 	help
 		Select this if your original firmware has inetd support.
@@ -2427,7 +2427,7 @@ config EXPORT_FREETZ_HAS_DECT
 		TYPE_7272 || \
 		TYPE_7273 || \
 		TYPE_7390 || \
-		TYPE_7570 || \
+		TYPE_OR_7570_920 || \
 		TYPE_SPEEDPORT_W900V
 	default n
 	help
@@ -2440,7 +2440,6 @@ config EXPORT_FREETZ_HAS_LIBSSL
 		TYPE_5010 || \
 		TYPE_5050 || \
 		TYPE_5140 || \
-		TYPE || \
 		TYPE_7050 || \
 		TYPE_SPEEDPORT_W501V || \
 		TYPE_3020 || \
@@ -2454,6 +2453,7 @@ config EXPORT_FREETZ_HAS_NAS
 	default y		if ( \
 		TYPE_7272 || \
 		TYPE_7273 || \
+		TYPE_OR_7570_920 || \
 		TYPE_7240 \
 		) && EXPORT_FREETZ_TYPE_PREVIEW
 	default n
@@ -2482,9 +2482,10 @@ config EXPORT_FREETZ_HAS_TAM
 		TYPE_7141 || \
 		TYPE_7170 || \
 		TYPE_7240 || \
-		TYPE_7272 || \
-		TYPE_7273 || \
+		TYPE_7270 || \
 		TYPE_7390 || \
+		TYPE_OR_701_900 || \
+		TYPE_OR_7570_920 || \
 		TYPE_7570
 	default n
 	help
@@ -2495,9 +2496,7 @@ config EXPORT_FREETZ_HAS_USB_CLIENT
 	default y		if \
 		TYPE_2170 || \
 		TYPE_300IP_AS || \
-		TYPE || \
 		TYPE_5050 || \
-		TYPE || \
 		TYPE_7050 || \
 		TYPE_3020 || \
 		TYPE_3030 || \
@@ -2573,10 +2572,8 @@ config EXPORT_FREETZ_PATCH_ENUM
 	depends on \
 		TYPE_LANG_DE && \
 		( \
-		TYPE || \
 		TYPE_300IP_AS || \
 		TYPE_5050 || \
-		TYPE || \
 		TYPE_7050 || \
 		TYPE_7140 \
 		)
@@ -2601,6 +2598,7 @@ config EXPORT_FREETZ_ADD_REGEXT_GUI
 		TYPE_7240 || \
 		TYPE_7272 || \
 		TYPE_7273 || \
+		TYPE_OR_7570_920 || \
 		(TYPE_7170 && ! TYPE_FREETZ_LABOR_DSL) \
 		) && TYPE_LANG_DE
 	default n
@@ -2627,6 +2625,7 @@ config EXPORT_FREETZ_PATCH_ALARMCLOCK
 		TYPE_7272 || \
 		TYPE_7273 || \
 		TYPE_7390 || \
+		TYPE_OR_701_900 || \
 		TYPE_OR_7570_920 \
 		) \
 		&& ! ((TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V) && TYPE_FREETZ_LABOR_DSL)
@@ -2649,6 +2648,7 @@ config EXPORT_FREETZ_PATCH_MULTIPLE_PRINTERS
 		TYPE_3170 || \
 		TYPE_7141 || \
 		TYPE_7150 || \
+		TYPE_OR_701_900 || \
 		TYPE_7170 \
 		) \
 		&& ! (TYPE_SPEEDPORT_W701V || (TYPE_SPEEDPORT_W900V && TYPE_LABOR_FREETZ_DSL))
@@ -2697,6 +2697,7 @@ config EXPORT_FREETZ_REMOVE_AVM_VPN
 			TYPE_2170 || \
 			TYPE_7150 || \
 			(TYPE_7170 && TYPE_LANG_DE) || \
+			(TYPE_OR_701_900 && TYPE_LANG_DE) || \
 			TYPE_7240 || \
 			TYPE_7272 || \
 			TYPE_7273 || \
@@ -2727,6 +2728,7 @@ config EXPORT_FREETZ_REMOVE_CHRONYD
 		TYPE_3273 || \
 		TYPE_7240 || \
 		TYPE_7272 || \
+		TYPE_OR_7570_920 || \
 		TYPE_7273
 	default n
 	help
@@ -2805,6 +2807,7 @@ config EXPORT_FREETZ_REMOVE_DTRACE
 		TYPE_7272 || \
 		TYPE_7273 || \
 		TYPE_7390 || \
+		TYPE_OR_701_900 || \
 		TYPE_OR_7570_920
 	default y
 	help
@@ -2832,7 +2835,7 @@ config EXPORT_FREETZ_REMOVE_MEDIASRV
 	bool "Remove mediasrv"
 	depends on \
 		EXPORT_FREETZ_HAS_USB_HOST && \
-		( ! TYPE_7271 || TYPE_7270 && TYPE_LABOR )
+		( ! TYPE_7270 && TYPE_LABOR )
 	default n
 	help
 		Remove the MediaServer-daemon (mediasrv) and some other related files.
@@ -2867,7 +2870,7 @@ config EXPORT_FREETZ_REMOVE_NTFS
 	bool "Remove NTFS support"
 	depends on \
 			TYPE_7240 || \
-			( TYPE_7272 && TYPE_LABOR ) || \
+			( TYPE_7270 && TYPE_LABOR ) || \
 			TYPE_7273
 	default n
 	help
@@ -2889,7 +2892,7 @@ config EXPORT_FREETZ_REMOVE_SMBD
 		EXPORT_FREETZ_HAS_USB_HOST && \
 		! EXPORT_FREETZ_PACKAGE_SAMBA && \
 		! TYPE_7150 && \
-		! ( TYPE_7272 && ! TYPE_LABOR )
+		! ( TYPE_7270 && ! TYPE_LABOR )
 	default n
 	help
 		Remove Samba daemon (smbd)
@@ -2919,6 +2922,7 @@ config EXPORT_FREETZ_REMOVE_TR069
 		TYPE_7272 || \
 		TYPE_7273 || \
 		TYPE_7390 || \
+		TYPE_OR_701_900 || \
 		TYPE_OR_7570_920 || \
 		TYPE_3020 || \
 		TYPE_3270 || \
@@ -2942,6 +2946,7 @@ config EXPORT_FREETZ_REMOVE_TR069_FWUPDATE
 		TYPE_7272 || \
 		TYPE_7273 || \
 		TYPE_7390 || \
+		TYPE_OR_701_900 || \
 		TYPE_OR_7570_920 || \
 		TYPE_3270 || \
 		TYPE_3273 \
@@ -2955,7 +2960,7 @@ config EXPORT_FREETZ_REMOVE_UMTSD
 	bool "Remove UMTS support (USB GSM)"
 	depends on \
 		TYPE_7240 || \
-		( TYPE_7272 && TYPE_LABOR ) || \
+		( TYPE_7270 && TYPE_LABOR ) || \
 		TYPE_7273
 	default n
 	help
