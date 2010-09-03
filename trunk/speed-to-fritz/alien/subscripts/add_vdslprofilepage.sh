@@ -2,11 +2,11 @@
 # include modpatch function
 . ${include_modpatch}
 if [ "${ADD_VDSL_PROFILE}" = "y" ]; then
- echo "-- Adding vdsl profile pages ..."
+ echo "-- adding vdsl profile pages ..."
 
 #  for file_n in /html/de//internet/feedback.js /html/de/internet/feedback.html /html/de/internet/feedback.frm\
 # /html/de/home/feedback.js /html/de/home/feedback.html /html/de/home/feedback.frm; do
-#    rm -f "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "  Removed file: $file_n"
+#    rm -f "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "  -- removed file: $file_n"
 #  done
   for file_n in atm.html adsl.html bits.html overview.html; do
   sed -i -e '/uiDoSNRPage()/a\

@@ -6,7 +6,7 @@ for DIR in ${OEMLIST}; do
     if [ -d "$1"/${DSTI} ] ; then
 #-------------------------------------------------------------------------------------------------------
  if [ -f "$1"/$DSTI/menus/menu2.inc ]; then
-	echo2 "   -- Removing lines from:"
+	echo2 "  -- removing lines from:"
 	echo2 "      $DSTI/menus/menu2.inc"
 	sed -i -e "/^.*Kindersicherung.*$/d" "$1"/$DSTI/menus/menu2.inc
  fi
@@ -36,7 +36,7 @@ for DIR in ${OEMLIST}; do
 	echo2 "      $DSTI/help/home.html"
 	sed -i -e "/^.*hilfe_kindersicherung.*$/d" "$1"/$DSTI/help/home.html
  fi
- echo2 "   -- Removing files:"
+ echo2 "  -- removing files:"
  for FFILE in `ls "$1"/$DSTI/help/hilfe_kindersicherung_*.html` ; do 
 	FILE="${FFILE##*/}"
 	[ -f "$1"/$DSTI/help/${FILE} ] && rm -f "$1"/$DSTI/help/${FILE} && echo2 "      $DSTI/help/${FILE}"
@@ -65,7 +65,7 @@ for DIR in ${OEMLIST}; do
 #-------------------------------------------------------------------------------------------------------
     fi
 done
-	echo2 "   -- Removing directory:"
+	echo2 "  -- removing directory:"
 	echo2 "      /usr/www/kids"
 	rm -rf "$1"/usr/www/kids
 

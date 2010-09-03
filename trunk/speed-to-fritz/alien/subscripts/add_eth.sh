@@ -1,9 +1,9 @@
 #!/bin/bash
  . $include_modpatch
 	
-echo "-- Adding 'LAN 2-4' ..."
+echo "-- adding 'LAN 2-4' ..."
 
-echo2 "   -- Patching files:"
+echo2 "  -- patching files:"
 echo2 "      /usr/www/$OEM/html/de/home/home.html"
 sed -i -e 's|^.*txt006 .*$|\t\t\t\t\t\t\t<td style="width:207px"><? echo $var:txt038 ?></td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t<tr>\
 \t\t\t\t\t\t\t<td><script type="text/javascript">document.write(StateLed("<\? query eth1:status/carrier ?>"));</script></td>\
@@ -23,7 +23,7 @@ sed -i -e 's|^.*&quot;LAN&quot;.*$|\t\t\t\t<td valign="TOP">Zeigt an, ob Compute
 \t\t\t</tr>\n\t\t\t<tr>\n\t\t\t\t<td valign="TOP">LAN 4</td>\n\
 \t\t\t\t<td valign=\"TOP\">Zeigt an, ob Computer am Netzwerkanschluss &quot;LAN 4&quot; der FRITZ!Box angeschlossen sind\.</td>|' "$1"/usr/www/$OEM/html/de/help/hilfe_status.html
 			
-echo2 "   -- Changing 'LAN' to 'LAN 1' in:"
+echo2 "  -- changing 'LAN' to 'LAN 1' in:"
 echo2 "      /usr/www/$OEM/html/de/help/hilfe_internetdual.html"
 sed -i -e "s/'LAN'/'LAN 1'/" "$1"/usr/www/$OEM/html/de/help/hilfe_internetdual.html
 		

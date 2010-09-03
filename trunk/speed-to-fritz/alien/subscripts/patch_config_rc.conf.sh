@@ -2,9 +2,9 @@
 . ${include_modpatch}
 cat "${1}/etc/init.d/rc.conf" | grep 'export CONFIG_.*=' | sort > 1_init.log
 #set some variabels  
-echo2 "-- Adjusting config parms in:"
+echo2 "  -- adjusting config parms in:"
 echo2 "      /etc/init.d/rc.conf"
-echo2 "-- Changing product to ${CONFIG_PRODUKT}"
+echo2 "  -- changing product to ${CONFIG_PRODUKT}"
 # set hostname
 # Changing product, is important becaus is used for directorys
 sed -i -e "s/PRODUKT=\".*$/PRODUKT=\"${CONFIG_PRODUKT}\"/g" "${1}/etc/init.d/rc.conf"
@@ -151,10 +151,10 @@ export CONFIG_FON_IPPHONE=\"${CONFIG_FON_IPPHONE}\"" "${1}/etc/init.d/rc.conf"
 #[ "$" ] &&  sed -i -e "s/=\".*$/=\"${}\"/g" "${1}/etc/init.d/rc.conf"
 
 # set hostname
-[ "$HOSTNAME" ] &&  echo2 "-- Setting 'HOSTNAME=${HOSTNAME}'"
+[ "$HOSTNAME" ] &&  echo2 "  -- setting 'HOSTNAME=${HOSTNAME}'"
 [ "$HOSTNAME" ] &&  sed -i -e "s/HOSTNAME=\".*$/HOSTNAME=\"${HOSTNAME}\"/g" "${1}/etc/init.d/rc.conf"
 # Changing productname
-[ "$NEWNAME" ] &&  echo2 "-- Change Productname to: ${NEWNAME}"
+[ "$NEWNAME" ] &&  echo2 "  -- change Productname to: ${NEWNAME}"
 [ "$NEWNAME" ] &&  sed -i -e "s/PRODUKT_NAME=\".*$/PRODUKT_NAME=\"${NEWNAME}\"/g" "${1}/etc/init.d/rc.conf"
 # override environment settings for Hardwardware ID
 #sed -i -e "s/HWRevision=\$i/HWRevision=${HWID}/" "${SRC}/etc/init.d/rc.conf"

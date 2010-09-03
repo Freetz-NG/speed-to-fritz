@@ -5,9 +5,9 @@ for FILE in "menus/menu2_dect.inc" "home/menu2_dect.html"; do
        echo2 " -- Removing /usr/www/${HTML}/de/$FILE"
        rm -rf "$1"/usr/www/${HTML}/de/$FILE
 done
-#echo "-- Removing 'dect-Zubehoer menue eintrys' ..."
+#echo "-- removing 'dect-Zubehoer menue eintrys' ..."
 
-echo2 "   -- Removing dect:"
+echo2 "  -- removing dect:"
 echo2 "      /usr/www/${HTML}/de/menus/menu2_konfig.html"
 #the following removes work on all versions
 

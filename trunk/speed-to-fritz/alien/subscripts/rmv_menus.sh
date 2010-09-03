@@ -1,10 +1,10 @@
 #!/bin/bash
-[ "$CONFIG_IsdnNT" = "0" ] && echo "-- Removing 'internal S0', from setup page ..."
-[ "$CONFIG_IsdnTE" = "0" ] && echo "-- Removing 'external ISDN', from setup page ..."
-[ "$CONFIG_Usb" = "0" ] && echo "-- Removing 'USB' from setup page ..."
-[ "$CONFIG_AB_COUNT" = "2" ] && echo "-- Removing 'internal FON 3', from setup page ..."
-[ "$CONFIG_ETH_COUNT" = "1" ] && echo "-- Removing 'ETH 2-4', from setup page ..."
-[ "$ATA_ONLY" = "y" ] && echo "-- Disable ADSL Option, from setup page ..."
+[ "$CONFIG_IsdnNT" = "0" ] && echo "-- removing 'internal S0', from setup page ..."
+[ "$CONFIG_IsdnTE" = "0" ] && echo "-- removing 'external ISDN', from setup page ..."
+[ "$CONFIG_Usb" = "0" ] && echo "-- removing 'USB' from setup page ..."
+[ "$CONFIG_AB_COUNT" = "2" ] && echo "-- removing 'internal FON 3', from setup page ..."
+[ "$CONFIG_ETH_COUNT" = "1" ] && echo "-- removing 'ETH 2-4', from setup page ..."
+[ "$ATA_ONLY" = "y" ] && echo "-- disable ADSL Option, from setup page ..."
 #[ "$CONFIG_DECT" = "n" ] && echo "-- Removing 'DECT' from setup page ..."
 
 for DIR in ${OEMLIST}; do

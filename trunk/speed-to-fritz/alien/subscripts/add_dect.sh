@@ -7,7 +7,7 @@ SR2="$2"
 SR1="$1" 
  # include modpatch function
  . ${include_modpatch}
-echo "-- Adding DECT handsets setup pages..."
+echo "-- adding DECT handsets setup pages..."
 
 # copy missing files if not existent
 

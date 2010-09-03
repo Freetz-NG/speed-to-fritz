@@ -12,7 +12,7 @@ DIRI="/usr/www/${HTML}/de/home"
  [ -f "$1"${DIRI}/fondevices.html ] && sed -i -e "s/extensionNo = .;/extensionNo = 2;/" "$1"${DIRI}/fondevices.js
  [ -e "$1"${DIRI}/fondevices.html ] && exit 0
  
- echo2 "   -- Removing lines from $2 source:"
+ echo2 "  -- removing lines from $2 source:"
  if [ "$2" != "7150" ]; then
 
        echo2 "      ${DIRI}/ppFonbuch.html"

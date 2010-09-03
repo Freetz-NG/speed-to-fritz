@@ -7,7 +7,7 @@ echo "**************************************************************************
 # only executed if productname is changed
 if [ ! -e "${SRC}"/etc/default.${CONFIG_PRODUKT} ]; then
 echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
- echo2 "-- Move contents of OEM directory:"
+ echo2 "  -- move contents of OEM directory:"
  echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
     mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
@@ -21,21 +21,21 @@ cp -fdrp "${DST}"/dev --target-directory="${SRC}" #this copy is only usable if r
 if [ "${TYPE_AVM_7570_XX}" = "y" ]; then
  if [ "${SAVE_TCOM_DSL}" = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko ./addon/tmp/W920/squashfs-root/lib/modules/vinax/drv_vinax.ko &&\
-    echo "  -- VINAX Driver saved to: ./addon/tmp/W920/..."
+    echo "-- VINAX Driver saved to: ./addon/tmp/W920/..."
  fi
  if [ "${SAVE_SRC2_DSL}" = "y" ]; then
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko ./addon/tmp/W920/squashfs-root/lib/modules/vinax/drv_vinax.ko &&\
-    echo "  -- VINAX Driver saved to: ./addon/tmp/W920/..."
+    echo "-- VINAX Driver saved to: ./addon/tmp/W920/..."
  fi
  if [ "${USE_SRC2_DSL}" = "y" ]; then
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko "${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko" &&\
-    echo "  -- VINAX Driver was taken from 2nd AVM firmware"
+    echo "-- VINAX Driver was taken from 2nd AVM firmware"
  elif [ "${USE_OWN_DSL}" = "y" ]; then
     cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/vinax/drv_vinax.ko "${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko" &&\
-    echo "  -- VINAX Driver was taken from the original base firmware"
+    echo "-- VINAX Driver was taken from the original base firmware"
  elif [ "${FORCE_TCOM_DSL}" = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko "${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko" &&\
-    echo "  -- VINAX Driver was taken from the original base firmware"
+    echo "-- VINAX Driver was taken from the original base firmware"
  fi
 else
  # "vinax_fw_adsl.bin" "vinax_fw_vdsl.bin"
@@ -49,13 +49,13 @@ else
  cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.alias --target-directory="${SRC}"/lib/modules/$KernelVersion
  cp -u "${DST}"/usr/sbin/* --target-directory="${SRC}"/usr/sbin 2> /dev/null
  cp -fdrp "${DST}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
- echo "  -- DSL Driver was taken from the original base firmware"
+ echo "-- DSL Driver was taken from the original base firmware"
  [ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
  [ -f "${SRC}"/usr/share/ctlmgr/libtr064.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libtr064.so --target-directory=${SRC}/usr/share/ctlmgr
 
  if [ "${SAVE_TCOM_DSL}" = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/vinax* --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
-    echo "  -- TCOM DSL Driver saved to: ./addon/tmp/W920"
+    echo "-- TCOM DSL Driver saved to: ./addon/tmp/W920"
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/vinax
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
@@ -68,7 +68,7 @@ else
 
  if [ "${SAVE_SRC2_DSL}" = "y" ]; then
     cp -fdrp "${SRC_2}"/lib/modules/vinax* --target-directory=./addon/tmp/W920 &&\
-    echo "  -- AVM DSL Driver saved to: ./addon/tmp/W920"
+    echo "-- AVM DSL Driver saved to: ./addon/tmp/W920"
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/vinax
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/modules.symbols --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion
@@ -88,55 +88,55 @@ else
     [ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${SRC_2}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
     [ -f "${SRC}"/usr/share/ctlmgr/libtr064.so ] || cp -fdrp "${SRC_2}"/usr/share/ctlmgr/libtr064.so --target-directory=${SRC}/usr/share/ctlmgr
     cp -fdrp "${SRC_2}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
-    echo "  -- DSL Driver was taken from 3. firmware"
+    echo "-- DSL Driver was taken from 3. firmware"
  fi
 fi
 
 
 [ "${USE_OWN_DSL}" = "y" ] && cp -fdrp ./addon/tmp/W920/squashfs-root/* --target-directory="${SRC}" &&\
-echo "  -- VINAX DSL Driver was taken from local directory ./addon/tmp/W920"
+echo "-- VINAX DSL Driver was taken from local directory ./addon/tmp/W920"
 if [ "${SAVE_SRC2_KDSLDMOD}" = "y" ]; then
     mkdir -p ./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld &&\
-    echo "  -- 2nd AVM Firmware kdslmod driver saved to: ./addon/tmp/W920"
+    echo "-- 2nd AVM Firmware kdslmod driver saved to: ./addon/tmp/W920"
 fi
 [ "${FORCE_SRC2_KDSLDMOD}" = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld &&\
-echo "  -- kdslmod Driver was taken from 2nd AVM source."
+echo "-- kdslmod Driver was taken from 2nd AVM source."
 
 if [ "${FORCE_OWN_KDSLDMOD}" = "y" ] && ! [ -f ./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko ]; then
  echo "You must save kdsld driver form 2nd AVM source before" && sleep 10 && exit 1
 fi
 [ "${FORCE_OWN_KDSLDMOD}" = "y" ] && cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
-echo "  -- kdslmod Driver was taken from local directory ./addon/tmp/W920"
+echo "-- kdslmod Driver was taken from local directory ./addon/tmp/W920"
 
 rm -rf "${SRC}"/lib/modules/*_488.hex
 if [ "${SAVE_SRC2_DECTDRIVER}" = "y" ]; then
     mkdir -p ./addon/tmp/W920/squashfs-root/lib/modules
     cp -fdrp "${SRC_2}"/lib/modules/dectfw_firstlevel.hex --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
     cp -fdrp "${SRC_2}"/lib/modules/dectfw_secondlevel.hex --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
-    echo "  -- 2nd AVM Firmware DECT Driver saved to: ./addon/tmp/W920"
+    echo "-- 2nd AVM Firmware DECT driver saved to: ./addon/tmp/W920"
 fi
 [ "${FORCE_DST_DECTDRIVER}" = "y" ] && cp -fdrp "${DST}"/lib/modules/dectfw_firstlevel.hex --target-directory="${SRC}"/lib/modules &&\
 cp -fdrp "${DST}"/lib/modules/dectfw_secondlevel.hex --target-directory="${SRC}"/lib/modules &&\
-echo "  -- DECT Driver was taken from 1st source (base firmware)."
+echo "-- DECT Driver was taken from 1st source (base firmware)."
 [ "${FORCE_SRC2_DECTDRIVER}" = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/dectfw_firstlevel.hex --target-directory="${SRC}"/lib/modules &&\
 cp -fdrp "${SRC_2}"/lib/modules/dectfw_secondlevel.hex --target-directory="${SRC}"/lib/modules &&\
-echo "  -- DECT Driver was taken from 2nd AVM source."
+echo "-- DECT Driver was taken from 2nd AVM source."
 [ "${FORCE_OWN_DECTDRIVER}" = "y" ] && cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/dectfw_firstlevel.hex --target-directory="${SRC}"/lib/modules &&\
 cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/dectfw_secondlevel.hex --target-directory="${SRC}"/lib/modules &&\
-echo "  -- DECT Driver was taken from local directory ./addon/tmp/W920"
+echo "-- DECT Driver was taken from local directory ./addon/tmp/W920"
 if `cat "${SRC}/etc/init.d/rc.S" | grep -q '_488.hex' ` && ! [ -f "${SRC}"/lib/modules/dectfw_firstlevel.hex ]; then
  echo "You must use dect driver form 2nd AVM source or one that was saved before" && sleep 10 && exit 1
 fi
 [ "${FORCE_VINAX_DRV}" = "y" ] && cp -fdrp ${HOMEDIR}/addon/tmp/modules/vinax/drv_vinax.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax" &&\
-echo "  -- PPPoA compatible VINAX DSL Driver is in use!"
+echo "-- PPPoA compatible VINAX DSL driver is in use!"
 [ "${FORCE_KDSLD_DRV}" = "y" ] && cp -fdrp ${HOMEDIR}/addon/tmp/modules/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
-echo "  -- PPPoA compatible KDSLDMOD Driver is in use!"
+echo "-- PPPoA compatible KDSLDMOD driver is in use!"
 
 [ "${FORCE_VINAX_DRV_77}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax" &&\
-echo "  -- Compatible VINAX DSL Driver is in use!"
+echo "-- compatible VINAX DSL driver is in use!"
 [ "${FORCE_KDSLD_DRV_77}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
-echo "  -- Compatible KDSLDMOD Driver is in use!"
+echo "-- compatible KDSLDMOD driver is in use!"
 #v3 dect fix
 sed -i -e 's|_488.hex|.hex|' "${SRC}/etc/init.d/rc.S" 
 sed -i -e '/piglet_use_pll3_clk=1 \\/d' "${SRC}/etc/init.d/rc.S" 
@@ -198,9 +198,9 @@ rm -f "${SRC}"/lib/modules/bitfile_pots.bit
 rm -f "${SRC}"/lib/modules/bitfile_isdn.bit 
 sed -i -e 's|bitfile_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
 [ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules &&\
-echo "  -- Xilinx bitfile was taken from the original base firmware"
+echo "-- Xilinx bitfile was taken from the original base firmware"
 [ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
-echo "  -- Xilinx bitfile was taken from the original base firmware"
+echo "-- Xilinx bitfile was taken from the original base firmware"
 #patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
 fi
@@ -213,7 +213,7 @@ $sh_DIR/add_ppp_setting.sh
 echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
 [ ${FORCE_TCOM_PIGLET} = "y" ] &&\
 cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet_noemif/Piglet_noemif.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet_noemif &&\
-echo "  -- Xilinx Piglet_noemif.ko driver was taken from the original base firmware"
+echo "-- Xilinx Piglet_noemif.ko driver was taken from the original base firmware"
 #Fon Driver
 [ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon5/zzz/* --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon5/zzz
 #enable button
@@ -226,7 +226,7 @@ if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] 
     cp -fdrp "${DST}"/bin/led* --target-directory="${SRC}"/bin
     cp -fr "${DST}"/bin/update_led_on ${SRC}/bin/update_led_on
     cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
-    echo "  -- LED Driver was taken from the original base firmware"
+    echo "-- LED Driver was taken from the original base firmware"
 fi
 if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ "${FORCE_SRC2_LEDDRIVER}" = "y" ]; then
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
@@ -234,7 +234,7 @@ if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko 
     cp -fdrp "${SRC_2}"/bin/led* --target-directory="${SRC}"/bin
     cp -fr "${SRC_2}"/bin/update_led_on ${SRC}/bin/update_led_on
     cp -fr "${SRC_2}"/bin/update_led_off ${SRC}/bin/update_led_off
-    echo "  -- LED Driver was taken from AVM source 2 firmware"
+    echo "-- LED Driver was taken from AVM source 2 firmware"
 fi
 # fix led-errormessage in fw-update process
 [ -f "${SRC}/bin/update_led_on" ] && sed -i -e 's|/var/led|/dev/led|' "${SRC}/bin/update_led_on"
@@ -303,10 +303,10 @@ $sh_DIR/add_vlan_settings.sh "${SRC}"
 [ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
 #save space
 [ "${REMOVE_ANNEX_B_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/vinax_fw_adsl_B.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_adsl_B.bin &&\
-echo "  -- DSL Annex B Driver was removed from ${SORCE_PRODUKT}!"
+echo "-- DSL Annex B Driver was removed from ${SORCE_PRODUKT}!"
 #save space
 [ "${REMOVE_ANNEX_A_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/vinax_fw_adsl_A.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_adsl_A.bin &&\
-echo "  -- DSL Annex A Driver was removed from ${SORCE_PRODUKT}!"
+echo "-- DSL Annex A Driver was removed from ${SORCE_PRODUKT}!"
 #fix ADSL interface accsess restrictions
 sed -i -e "/ \/etc\/init.d\/rc.conf/a\
 sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg\n\

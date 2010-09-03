@@ -1,7 +1,7 @@
 #!/bin/bash 
  # include modpatch function
  . ${include_modpatch}
-echo "-- Adding DSL expert pages ..."
+echo "-- adding DSL expert pages ..."
 
 for OEMDIR in $2; do
  html="html"

@@ -5,7 +5,7 @@ if [ ! -e "${1}"/etc/init.d/rc.init ]; then
     exit 0
 fi
 
-echo2 "-- Adjusting additional box specific settings in:"
+echo2 "  -- adjusting additional box specific settings in:"
 echo2 "      /etc/init.d/rc.S"
  
 
@@ -123,7 +123,7 @@ fi/" "$1/etc/init.d/rc.S"
 fi
 
 
-echo2 "-- Adjusting box specific settings in:"
+echo2 "  -- adjusting box specific settings in:"
 echo2 "      /etc/init.d/rc.S"
 
 if ! `cat "$1/etc/init.d/rc.S" | grep -q 'if \[ "\$CONFIG_ATA"'`; then

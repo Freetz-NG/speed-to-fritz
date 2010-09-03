@@ -2,7 +2,7 @@
 # include modpatch function
 . ${include_modpatch}
 if [ "${RPL_AUTHFORM_WITH_81}" == "y" ]; then
- echo "-- Replace authform ..."
+ echo "-- replace authform ..."
  USRWWW="usr/www/${OEMLINK}/html/de"
  rm -f "$SRC/${USRWWW}/internet/authform.js"
  rm -f "$SRC/${USRWWW}/internet/authform.html"
@@ -29,7 +29,7 @@ if [ "${RPL_AUTHFORM_WITH_DST}" == "y" ]; then
      fi
  done
 fi
-echo "-- Adding vlan settings ..."
+echo "-- adding vlan settings ..."
 #--------------------------------------------------------------------------------
 # remove WDS autodedect courses problems 
 [ -f "${SRC}/usr/www/${OEMLINK}/html/de/wlan/wds.js" ] && sed -i -e '/uiPostAutodetect/d'  "${SRC}/usr/www/${OEMLINK}/html/de/wlan/wds.js"
@@ -90,24 +90,24 @@ fi
 FILE="${SRC}/usr/www/${OEMLINK}/html/de/internet/internet_expert.html"
 if [ -f "$FILE" ]; then
     sed -i -e 's|if eq $var:OEM avme|if eq avme avme|g'  "$FILE"
-    grep -q 'if eq avme avme' "$FILE" && echo2 "-- enable setting for OEM avm on: internet_expert.html"
+    grep -q 'if eq avme avme' "$FILE" && echo2 "  -- enable setting for OEM avm on: internet_expert.html"
 fi
 FILE="${SRC}/usr/www/${OEMLINK}/html/de/internet/authform.frm"
 if [ -f "$FILE" ]; then
     sed -i -e 's|if eq $var:OEM avme|if eq avme avme|g'  "$FILE"
-    grep -q 'if eq avme avme' "$FILE" && echo2 "-- enable setting for OEM avm on: authform.frm"
+    grep -q 'if eq avme avme' "$FILE" && echo2 "  -- enable setting for OEM avm on: authform.frm"
 fi
 FILE="${SRC}/usr/www/${OEMLINK}/html/de/internet/authform.js"
 if [ -f "$FILE" ]; then
     sed -i -e 's|if eq $var:OEM avme|if eq avme avme|g'  "$FILE"
     sed -i -e "s|if (oem != 'avme'|if ('avm' != 'avm'|g"  "$FILE"
-    grep -q 'if eq avme avme' "$FILE" && echo2 "-- enable setting for OEM avm on: authform.js"
+    grep -q 'if eq avme avme' "$FILE" && echo2 "  -- enable setting for OEM avm on: authform.js"
 fi
 rpl_avme_avm()
 {
 	for file_n in $1; do
 	if [ -f "$file_n" ]; then
-	 grep -q '<? if eq $var:OEM avme `' "$file_n" && echo2 "  enabled all 'avme' options in file: ${file_n##*/}"
+	 grep -q '<? if eq $var:OEM avme `' "$file_n" && echo2 "  -- enabled all 'avme' options in file: ${file_n##*/}"
 	 sed -i -e 's/<? if eq $var:OEM avme `/<? if eq 1 1 `/' "$file_n"
 	fi
 	done

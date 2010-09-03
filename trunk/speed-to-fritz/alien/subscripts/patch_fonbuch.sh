@@ -1,6 +1,6 @@
 #!/bin/bash
  . $include_modpatch
- echo "-- Applying Button for sending fonbook ..."
+ echo "-- applying Button for sending fonbook ..."
 for DIR in ${OEMLIST}; do
 # if [ "$DIR" = "avme" ] ; then
 #  export HTML="$DIR/$avm_Lang/html"

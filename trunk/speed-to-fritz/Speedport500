@@ -2,7 +2,7 @@
 echo "********************************************************************************"
 echo -e "\033[1mPhase 4:\033[0m Apply changes."
 echo "********************************************************************************"
-echo2 "-- Copy Speedport LED-configfile:"
+echo2 "  -- copy Speedport LED-configfile:"
 echo2 "      /etc/led.conf"
 cp -fdrp "${DST}/etc/led.conf" "${SRC}/etc/led.conf"
 # set led definition 
@@ -13,8 +13,8 @@ $sh_DIR/swap_infoled_500.sh "${SRC}"
 # only exicuted new productname
 if [ ! -e "${SRC}"/etc/default.${CONFIG_PRODUKT} ]; then
 echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
-echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
- echo2 "-- Move contents of OEM directory:"
+echo "-- matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
+ echo2 "  -- move contents of OEM directory:"
  echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
     mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
@@ -34,17 +34,17 @@ if [ ${ATA_ONLY} = "n" ]; then
 
 #add DSL driver 
 [ ${FORCE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
-echo "  -- DSL Driver was taken from the original base firmware!"
+echo "-- DSL Driver was taken from the original base firmware!"
 [ ${SAVE_AVM_DSL} = "y" ] && cp -fdrp "${SRC}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
-echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+echo "-- AVM DSL Driver saved to: ./addon/tmp/modules!"
 [ ${SAVE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
-echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+echo "-- AVM DSL Driver saved to: ./addon/tmp/modules!"
 [ ${SAVE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
-echo "  -- TCOM DSL Driver saved to: ./addon/tmp/modules!"
+echo "-- TCOM DSL Driver saved to: ./addon/tmp/modules!"
 [ ${USE_OWN_DSL} = "y" ] && cp -fdrp ./addon/tmp/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
-echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
+echo "-- DSL Driver was taken from local directory ./addon/tmp/modules!"
 [ ${USE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
-echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!" 
+echo "-- DSL Driver was taken from ${SORCE_2_PRODUKT}!" 
 else
 #remove ADSL
 #dont start dsl
@@ -61,27 +61,27 @@ fi
 FONDRV_PATH="lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz"
 replaced="0"
       [ -f "${DST}/${FONDRV_PATH}/isdn_fbox.ko" ] && [ "${FORCE_TCOM_FON}" == "y" ] && cp -fdrp "${DST}/${FONDRV_PATH}/isdn_fbox.ko" "${SRC}/${FONDRV_PATH}/isdn_fbox_fon4.ko" &&\
-      ( echo "  -- FON Driver 'isdn_fbox.ko' was taken from original base Firmware" 
+      ( echo "-- FON Driver 'isdn_fbox.ko' was taken from original base Firmware" 
       rm -rf ${SRC}/${FONDRV_PATH}/isdn_fbox.ko
       replaced="1" )
       [ -f "${SRC_2}/${FONDRV_PATH}/isdn_fbox.ko" ] && [ "${USE_SRC2_FON}" == "y" ] && cp -fdrp "${SRC_2}/${FONDRV_PATH}/isdn_fbox.ko" "${SRC}/${FONDRV_PATH}/isdn_fbox_fon4.ko" &&\
-      (echo "  -- FON Driver 'isdn_fbox.ko' was taken from 3rd source Firmware"
+      (echo "-- FON Driver 'isdn_fbox.ko' was taken from 3rd source Firmware"
       rm -rf ${SRC}/${FONDRV_PATH}/isdn_fbox.ko
       replaced="1" )
       [ -f "${DST}/${FONDRV_PATH}/isdn_fbox_fon4.ko" ] && [ "${FORCE_TCOM_FON}" = "y" ] && cp -fdrp ${DST}/${FONDRV_PATH}/isdn_fbox_fon4.ko --target-directory="${SRC}/${FONDRV_PATH}" &&\
       ( rm -rf ${SRC}/${FONDRV_PATH}/isdn_fbox.ko  
-      echo "  -- FON Driver 'isdn_fbox_fon4.ko' was taken from original base Firmware"
+      echo "-- FON Driver 'isdn_fbox_fon4.ko' was taken from original base Firmware"
       replaced="1" )
       [ -f "${SRC_2}/${FONDRV_PATH}/isdn_fbox_fon4.ko" ] && [ "${USE_SRC2_FON}" = "y" ] && cp -fdrp ${SRC_2}/${FONDRV_PATH}/isdn_fbox_fon4.ko --target-directory="${SRC}/${FONDRV_PATH}" &&\
       ( rm -rf ${SRC}/${FONDRV_PATH}/isdn_fbox.ko 
-      echo "  -- FON Driver 'isdn_fbox_fon4.ko' was taken from 3rd source Firmware"
+      echo "-- FON Driver 'isdn_fbox_fon4.ko' was taken from 3rd source Firmware"
       replaced="1" )
 
 ( [ "${USE_SRC2_FON}" = "y" ] || [ "${FORCE_TCOM_FON}" = "y" ] ) && [ "${replaced}" = "0" ] &&\
 ( 
   echo "----------------------------------------------------------"
-  echo "  --No replacemnt of FON DRIVER ware made!"
-  echo "  --Wrong kernelversion for replacing driver."
+  echo "-- No replacemnt of FON DRIVER ware made!"
+  echo "-- Wrong kernelversion for replacing driver."
   echo "----------------------------------------------------------"
 ) 
 

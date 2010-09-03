@@ -1,7 +1,7 @@
 #!/bin/bash 
  # include modpatch function
  . ${include_modpatch}
-echo "-- Adding onlinecounter pages ..."
+echo "-- adding onlinecounter pages ..."
 
 for OEMDIR in $2; do
  USRWWW="usr/www/${OEMDIR}/html/de"

@@ -9,8 +9,8 @@ for DIR in ${OEMLIST}; do
     DSTI="${1}"/usr/www/${DIR}/${html}/${avm_Lang}/fon/tamlist.js
     if [ -f ${DSTI} ] ; then
      if ! `cat ${DSTI} | grep -q 'jslEnable("uiPostDisplay"+nr);'` ; then
- echo "-- Applying bug fix remove tam  ..."
- echo2 "-- Patching file:"
+ echo "-- applying bug fix remove tam  ..."
+ echo2 "  -- patching file:"
  echo2 "      /usr/www/${DIR}/${html}/${avm_Lang}/fon/tamlist.js"
      sed -i -e '/jslSetValue("uiPostDisplay"+nr, "0");/a\
 jslEnable("uiPostDisplay"+nr);' "${DSTI}"

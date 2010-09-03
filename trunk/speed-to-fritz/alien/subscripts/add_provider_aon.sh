@@ -3,7 +3,7 @@
 . ${include_modpatch}
 # menu options for ar7.cfg entrys
 #"tcom_targetarch = yes;" und "vdsl_resalearch = yes;"
-echo "-- Add AON as provider ..."
+echo "-- add AON as provider ..."
 FILELIST="/html/de/first/provider.js /html/de/internet/authform.html /html/de/internet/authform.frm \
 /html/de/first/first_ISP_0.html /html/de/first/first_ISP_0.frm /html/de/first/first_ISP_1.html /html/de/first/first_ISP_1.frm \
 /html/de/first/first_ISP_2.html /html/de/first/first_ISP_2.frm /html/de/first/first_ISP_3.html /html/de/first/first_ISP_3.frm"
@@ -29,16 +29,16 @@ if(szProvider== "AON") return szProvider;' "$XFILE"
 case "voip.aon.at": return "AON";' "$XFILE"
 #    grep -q 'value=.AON' "$XFILE" || sed -i -e '/query box.settings.country.*043/a\
 #<option value="AON">aon<\/option>' "$XFILE"
-    grep -q "AON" "$XFILE" && echo2 "     Found provider AON in: $FILE"
-    grep -q "Aontvarch" "$XFILE" && echo2 "     Found AON-tvarch in: $FILE"
-    grep -q "uiPostAontvArch" "$XFILE" && echo2 "     Found AontvArch in: $FILE"
+    grep -q "AON" "$XFILE" && echo2 "  -- found provider AON in: $FILE"
+    grep -q "Aontvarch" "$XFILE" && echo2 "  -- found AON-tvarch in: $FILE"
+    grep -q "uiPostAontvArch" "$XFILE" && echo2 "  -- found AontvArch in: $FILE"
   fi
 done
 
 XFILE="${SRC}/usr/www/${OEMLINK}/html/de/first/first.frm"
 [ -f "$XFILE" ] && ! grep -q "Aontvarch" "$XFILE" && sed -i -e '/TcomTargetarch/a\
 <input type="hidden" name="var:Aontvarch" value="<? echo $var:Aontvarch ?>" id="uiAontvarch">' "$XFILE"
-[ -f "$XFILE" ] && grep -q "Aontvarch" "$XFILE" && echo2 "     Found AON-Tvarch in: /html/de/first/first.frm"
+[ -f "$XFILE" ] && grep -q "Aontvarch" "$XFILE" && echo2 "  -- found AON-Tvarch in: /html/de/first/first.frm"
 
 
 XFILE="${SRC}/usr/www/${OEMLINK}/html/de/first/first_ISP_0.js"

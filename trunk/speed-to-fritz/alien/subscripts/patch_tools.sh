@@ -1,6 +1,6 @@
 #!/bin/bash
  . $include_modpatch
-echo "-- Patching install webpages ..."
+echo "-- patching install webpages ..."
 
 patch_flash_txt ()
 {
@@ -268,12 +268,12 @@ for OEMDIR in ${OEMLIST}; do
   for FILE in downgrade.html flash.html flash2.html update_not_signed.html update_not_signed_no_password.html restart.html update_result.html; do
       DSTI="${1}"/usr/www/${html}/${FILE}
       if [ -f ${DSTI} ] ; then
-       echo2 "      patch update page: ${html}/${FILE}..."
+       echo2 "  -- patch update page: ${html}/${FILE}..."
 	patch_flash_txt	${DSTI}
       fi
       DSTI="${1}"/usr/www/${html}/tools/$FILE
       if [ -f ${DSTI} ] ; then
-       echo2 "      patch update page: ${html}/tools/${FILE}..."
+       echo2 "  -- patch update page: ${html}/tools/${FILE}..."
 	patch_flash_txt ${DSTI}
       fi
   done

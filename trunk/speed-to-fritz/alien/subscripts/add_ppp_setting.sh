@@ -1,7 +1,7 @@
 #!/bin/bash
 # include modpatch function
 . ${include_modpatch}
-echo "-- Adding ppp setting to pages ..."
+echo "-- adding ppp setting to pages ..."
 SRCWWW="${SRC}/usr/www/$OEMLINK/html/de/internet"
 if  ! `grep -q 'id="uiViewDslPppAtmAuto' ${SRCWWW}/internet_expert.html`; then
 sed -i -e 'N;/id="uiDslPpp"/a\

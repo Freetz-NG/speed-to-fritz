@@ -18,7 +18,7 @@ for DIR in ${OEMLIST}; do
  if [ -d ${DSTI} ] ; then
 #start----------------------------------------------------------------------------------
 
-echo2 "  -- Copying TAM related help files:"
+echo2 "  -- copying TAM related help files:"
 echo2 "      ${DST}/help/hilfe_fon_anrufbeantworter.html"
 # chmod 755 "${DSTI}"/help/hilfe_fon_anrufbeantworter.html
 # remove must be becaue of the following add trough modpatch add_tamhelp_en.47.patch
@@ -28,7 +28,7 @@ rm -f "${DSTI}"/help/hilfe_fon_anrufbeantworter.html
 [ "$avm_Lang" = "de" ] && modpatch "$DSTI" "$P_DIR/add_tamhelp_de.47.patch"
 #original line
 #cp -fp ./addon/$avm_Lang/help/hilfe_fon_anrufbeantworter.html "${DSTI}"/help/hilfe_fon_anrufbeantworter.html
-echo2 "   -- Copying 'fonab.*' and 'tam.*' files:"
+echo2 "  -- copying 'fonab.*' and 'tam.*' files:"
 [ "$avm_Lang" = "en" ] && modpatch "$DSTI" "$P_DIR/add_tam_en.47.patch"
 [ "$avm_Lang" = "de" ] && modpatch "$DSTI" "$P_DIR/add_tam_de.47.patch"
 # cp fonab.* tam.*
@@ -39,7 +39,7 @@ echo2 "   -- Copying 'fonab.*' and 'tam.*' files:"
 #	chmod 755 "${DSTI}"/fon/$FILE
 #done
 
-echo2 "   -- Patching files (adding features for TAM):"
+echo2 "  -- patching files (adding features for TAM):"
 echo2 "      ${DST}/help/home.html"
 sed -i -e "/^.*\$var:Text59.*$/a \
 \\\t\t\t\t\t<a href=\"javascript:jslGoTo('help','hilfe_fon_anrufbeantworter')\"><? echo \$var:Text70 ?><\/a><br>" "${DSTI}"/help/home.html

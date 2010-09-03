@@ -2,7 +2,7 @@
  . $include_modpatch
 DIRI="`find $1/usr/bin/ -name system_status`" 
 if  [ -f $DIRI ]; then
- echo2 " -- Patch system_status file ..."
+ echo2 "  -- patch system_status file ..."
  echo2 "      ${DIRI}"
      sed -i -e "/# /d" ${DIRI}
      sed -i -e "/###/d" ${DIRI}

@@ -31,7 +31,7 @@ mac += jslGetValue("uiViewMac"+i)+((i<5) ? ":" : "");\
 jslSetValue("uiPostMac", mac);/}' "${EXPERTP}"
     sed -i -e 's|matchmatch|match(/1$|' "${EXPERTP}"
     if  `grep -q 'uiPostMac' "${EXPERTP}"`; then
-     echo "-- Added MAC settings to page:"
+     echo "-- added MAC settings to page:"
      echo2 "  /${USRWWW}/internet/internet_expert.js"
     fi
 

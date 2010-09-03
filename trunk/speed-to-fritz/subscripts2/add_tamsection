@@ -2,7 +2,7 @@
  . $include_modpatch
 #add Tam section to rc.S
 if ! `cat "$1"/etc/init.d/rc.S | grep -q 'mkdir -p /data/tam'` ; then
-echo2 "-- Add Tam section from original rc.S"
+echo2 "  -- add Tam section from original rc.S"
 sed -i -e 's|^.*export CONFIG_ENVIRONMENT_PATH=/proc/sys/urlader.*$| \
 modprobe vfat\
 modprobe nls_cp437\

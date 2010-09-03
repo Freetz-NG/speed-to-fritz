@@ -31,34 +31,34 @@ if [ ${ATA_ONLY} = "n" ]; then
   [ -n "$FBIMG_2" ] && find_dslfirmware ${SRC_2} "  -- AVM source 2 DSL Driver:"
   [ -n "$FBIMG_2" ] && SRC_2_ANNEX_FIRMWARE="$ANNEX_FIRMWARE"
   [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}"${SRC_ANNEX_FIRMWARE}  ] && cp -fdrp "${SRC}"${SRC_ANNEX_FIRMWARE}  ./addon/tmp/modules/dsl.bin &&\
-  echo "  -- AVM source 1 DSL Driver saved as: ./addon/tmp/modules/dsl.bin"
+  echo "-- AVM source 1 DSL Driver saved as: ./addon/tmp/modules/dsl.bin"
   [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"${SRC_2_ANNEX_FIRMWARE}  ] && cp -fdrp "${SRC_2}"${SRC_2_ANNEX_FIRMWARE}  ./addon/tmp/modules/dsl.bin &&\
-  echo "  -- AVM source 2 DSL Driver saved as: ./addon/tmp/modules/dsl.bin"
+  echo "-- AVM source 2 DSL Driver saved as: ./addon/tmp/modules/dsl.bin"
   [ ${USE_OWN_DSL} = "y" ] && [ -f "./addon/tmp/modules/dsl.bin"  ] && cp -fdrp ./addon/tmp/modules/dsl.bin "${SRC}"${SRC_ANNEX_FIRMWARE} &&\
-  echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules/dsl.bin"
+  echo "-- DSL Driver was taken from local directory ./addon/tmp/modules/dsl.bin"
   [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"$SRC_2_ANNEX_FIRMWARE  ] && cp -fdrp "${SRC_2}"$SRC_2_ANNEX_FIRMWARE "${SRC}"${SRC_ANNEX_FIRMWARE} &&\
-  echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!"
+  echo "-- DSL Driver was taken from ${SORCE_2_PRODUKT}!"
  else 
   #7270 
   #annex B driver
   mkdir -p ./addon/tmp/modules/dsp_ur8
   [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp "${SRC}"/lib/modules/dsp_ur8/ur8-B-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
-  echo "  -- AVM DSL Annex B Driver saved to: ./addon/tmp/modules!"
+  echo "-- AVM DSL Annex B Driver saved to: ./addon/tmp/modules!"
   [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-B-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
-  echo "  -- AVM DSL Annex B Driver saved to: ./addon/tmp/modules!"
+  echo "-- AVM DSL Annex B Driver saved to: ./addon/tmp/modules!"
   [ ${USE_OWN_DSL} = "y" ] && [ -f "./addon/tmp/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp ./addon/tmp/modules/dsp_ur8/ur8-B-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
-  echo "  -- DSL Annex B Driver was taken from local directory ./addon/tmp/modules!"
+  echo "-- DSL Annex B Driver was taken from local directory ./addon/tmp/modules!"
   [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-B-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
-  echo "  -- DSL Annex B Driver was taken from ${SORCE_2_PRODUKT}!" 
+  echo "-- DSL Annex B Driver was taken from ${SORCE_2_PRODUKT}!" 
   #annex A driver
   [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-A-dsl.bin"  ] && cp -fdrp "${SRC}"/lib/modules/dsp_ur8/ur8-A-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
-  echo "  -- AVM DSL Annex A Driver saved to: ./addon/tmp/modules!"
+  echo "-- AVM DSL Annex A Driver saved to: ./addon/tmp/modules!"
   [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-A-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-A-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
-  echo "  -- AVM DSL Annex A Driver saved to: ./addon/tmp/modules!"
+  echo "-- AVM DSL Annex A Driver saved to: ./addon/tmp/modules!"
   [ ${USE_OWN_DSL} = "y" ] && [ -f "./addon/tmp/modules/dsp_ur8/ur8-A-dsl.bin"  ] && cp -fdrp ./addon/tmp/modules/dsp_ur8/ur8-A-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
-  echo "  -- DSL Annex A Driver was taken from local directory ./addon/tmp/modules!"
+  echo "-- DSL Annex A Driver was taken from local directory ./addon/tmp/modules!"
   [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-A-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-A-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
-  echo "  -- DSL Annex A Driver was taken from ${SORCE_2_PRODUKT}!" 
+  echo "-- DSL Annex A Driver was taken from ${SORCE_2_PRODUKT}!" 
  fi
 else
  #remove ADSL
@@ -73,10 +73,10 @@ else
 fi
 #save space on 8MB boxes specially
 [ "${REMOVE_ANNEX_B_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin" ] && rm -f "${SRC}"/lib/modules/dsp_ur8/ur8-B-dsl.bin &&\
-echo "  -- DSL Annex B Driver was removed from ${SORCE_PRODUKT}!"
+echo "-- DSL Annex B Driver was removed from ${SORCE_PRODUKT}!"
 #save space on 8MB boxes specially
 [ "${REMOVE_ANNEX_A_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-A-dsl.bin" ] && rm -f "${SRC}"/lib/modules/dsp_ur8/ur8-A-dsl.bin &&\
-echo "  -- DSL Annex A Driver was removed from ${SORCE_PRODUKT}!"
+echo "-- DSL Annex A Driver was removed from ${SORCE_PRODUKT}!"
 #7050 fix 
 [ -f "${SRC}"/lib/modules/ubik/ubik2-dsl.bin ] && sed -i -e '/modprobe tiatm/a\
 sleep 1' "${SRC}/etc/init.d/rc.S"

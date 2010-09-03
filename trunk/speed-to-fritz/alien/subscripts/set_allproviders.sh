@@ -1,7 +1,7 @@
 #!/bin/bash
 # include modpatch function
 . ${include_modpatch}
-echo "-- Set all provoders ..."
+echo "-- set all provoders ..."
 
 FILELIST="/html/de/internet/authform.html /de/fon/sip1.js /de/fon/siplist.js"
 

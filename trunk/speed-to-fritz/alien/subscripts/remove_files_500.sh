@@ -1,6 +1,6 @@
 #!/bin/bash
  . ${include_modpatch}
-echo2 "-- Removing files ..."
+echo2 "  -- removing files ..."
 for DIR in ${OEMLIST}; do
 # if [ "$DIR" = "avme" ] ; then
 #  export HTML="$DIR/$avm_Lang/html"

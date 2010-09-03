@@ -1,7 +1,7 @@
 #!/bin/bash 
  # include modpatch function
  . ${include_modpatch}
-echo "-- Enabel GSM Display if existant on internet pages ..."
+echo "-- enabel GSM Display if existant on internet pages ..."
 
 for OEMDIR in $2; do
 # if [ "$OEMDIR" = "avme" ] ; then

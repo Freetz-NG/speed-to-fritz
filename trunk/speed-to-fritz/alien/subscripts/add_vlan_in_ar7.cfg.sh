@@ -14,7 +14,7 @@ rpl_vlan()
 #	sed -i -e '/dsl_encap = dslencap_mixed;/,/}/{s/vlanencap =.*;/vlanencap = vlanencap_tcom;/}' "$file" 
 #	sed -i -e '/vlanencap_tcom/,/}/{s/vlanid =.*;/vlanid = 7;/}' "$file" 
 
-	grep -q 'vlanencap = vlanencap_class_prio;' "$file" && echo "-- Set vlan in ${file##*etc}..."
+	grep -q 'vlanencap = vlanencap_class_prio;' "$file" && echo "-- set vlan in ${file##*etc}..."
 	grep -q 'vlanencap = vlanencap_class_prio;' "$file" && echo2 "  -- set vlanencap = vlanencap_class_prio;"
 	grep -q 'vlanid = 10' "$file" && echo2 "  -- set vlanid = 10"
 	grep -q 'vlanprio = 1' "$file" && echo2 "  -- set vlanprio = 1"

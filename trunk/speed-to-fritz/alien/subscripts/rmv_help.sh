@@ -1,7 +1,7 @@
 #!/bin/bash
  . ${include_modpatch}
  # include modpatch function
-echo2 "-- Removing system help to reduce image size ..."
+echo2 "  -- removing system help to reduce image size ..."
 for DIR in ${OEMLIST}; do
 # if [ "$DIR" = "avme" ] ; then
 #  export HTML="$DIR/$avm_Lang/html"
@@ -17,7 +17,7 @@ if [ -d "${DSTI}/${DIR}" ]; then
 #	for FILE in `ls ${DSTI}/${DIR}/*.html`; do
 	  HTMLFILE="${FILE##*/}"
 		if `cat ${DSTI}/${DIR}/${HTMLFILE} | grep -q 'onclick="uiDoHelp()"'` ; then
-			echo2 "-- Removing help button from: /usr/www/$HTML/de/${DIR}/${HTMLFILE}"
+			echo2 "  -- removing help button from: /usr/www/$HTML/de/${DIR}/${HTMLFILE}"
 			sed -i -e "/onclick=\"uiDoHelp()\"/d" "${DSTI}/${DIR}/${HTMLFILE}"
 		fi
 	done
@@ -27,14 +27,14 @@ done
 for FILE in `ls ${DSTI}/menus/menu2_*.html`; do
 	MENUFILE="${FILE##*/}"
 	if `cat ${DSTI}/menus/${MENUFILE} | grep -q 'menuHilfe'` ; then
-		echo2 "-- Removing help item from: /usr/www/$HTML/de/menus/${MENUFILE}"
+		echo2 "  -- removing help item from: /usr/www/$HTML/de/menus/${MENUFILE}"
 		sed -i -e "/.*menuHilfe.*/d" ${DSTI}/menus/${MENUFILE}
 	fi
 done
-#echo2 "-- Emptying directory:"
+#echo2 "  -- emptying directory:"
 for FILE in `ls ${DSTI}/help`; do
 	if [ ${FILE} != modinfo.html ] && [ ${FILE} != popup.html ] && [ ${FILE} != rback.html ]; then
-		echo2 "-- Delite: /usr/www/$HTML/de/help/${FILE}"
+		echo2 "  -- delite: /usr/www/$HTML/de/help/${FILE}"
 		rm -f ${DSTI}/help/${FILE}
 	fi
 done

@@ -24,7 +24,7 @@ sleep 1\
 done\
 fi\
 ;;' "$1/etc/hotplug/storage"
-# echo " -- Add ntfs hotplug, kernel version: ${KernelVersion} - $FBMOD"
+# echo "-- add ntfs hotplug, kernel version: ${KernelVersion} - $FBMOD"
 else
  echo " -- ntfs hotplug not added wrong kernel version, or modules missing!"
 fi

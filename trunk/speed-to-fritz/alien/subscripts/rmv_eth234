@@ -1,16 +1,16 @@
 #!/bin/bash
  # include modpatch function
  . ${include_modpatch}
-#echo "-- Removing 'LAN 2-4' ..."
+#echo "-- removing 'LAN 2-4' ..."
 
-echo2 "   -- Removing lines from:"
+echo2 "  -- removing lines from:"
 echo2 "      /usr/www/${HTML}/de/home/home.html"
 sed -i -e "/^.*<td>.*eth[123].*<.td>$/{N;/^.*<td>.*eth[123].*<.td>\n.*<td>.*<.td>$/d}" "$1"/usr/www/${HTML}/de/home/home.html
 sed -i -e "/^.*<tr>$/{N;/^.*<tr>\n.*<.tr>$/d}" "$1"/usr/www/${HTML}/de/home/home.html
 sed -i -e "s/ \$var:txt038 / \$var:txt006 /" "$1"/usr/www/${HTML}/de/home/home.html
 
 
-echo2 "   -- Changing 'LAN 1' to 'LAN' in:"
+echo2 "  -- changing 'LAN 1' to 'LAN' in:"
 echo2 "      /usr/www/${HTML}/de/internet/internet_expert.js"
 sed -i -e "s/LAN 1/LAN/" "$1"/usr/www/${HTML}/de/internet/internet_expert.js
 sed -i -e "s/LAN 2, LAN 3, LAN 4//" "$1"/usr/www/${HTML}/de/internet/internet_expert.js

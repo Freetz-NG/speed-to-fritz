@@ -1,6 +1,6 @@
 #!/bin/bash
  . $include_modpatch
-    echo "-- Add missing VDSL scale images"
+    echo "-- add missing VDSL scale images"
 for DIR in $2; do
 # if [ "$DIR" = "avme" ] ; then
 #  html="$avm_Lang/html"

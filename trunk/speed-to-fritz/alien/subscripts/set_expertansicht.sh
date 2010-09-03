@@ -1,7 +1,7 @@
 #!/bin/bash
 # include modpatch function
 . ${include_modpatch}
-echo "-- Set Expertansicht ..."
+echo "-- set expertview ..."
 
 
  rpl_expert_1()

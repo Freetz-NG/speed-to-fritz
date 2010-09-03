@@ -2,7 +2,7 @@
 # include modpatch function
 . ${include_modpatch}
 . $inc_DIR/includefunctions
-echo "-- Adding 'Info' button and display of mod related data ..."
+echo "-- adding 'Info' button and display of mod related data ..."
 for DIR in ${OEMLINK}; do
  export HTML="$DIR/html"
  DSS="/usr/www/$HTML/de"
@@ -97,7 +97,7 @@ if [ -d ${DSTI}/help ] ; then
 sed -i -e 's|var url = jslGetValue("uiPostPortal");|var url = "http://www.avm.de/de/Service/Service-Portale/Service-Portal/index.php?portal=FRITZ!Box_Fon_WLAN_<Modell-Nummer>"|' "${DSTI}"/help/popup.html
 sed -i -e "s|<Modell-Nummer>|${FBMOD}|" "${DSTI}"/help/popup.html
 
-echo2 "-- Patching files:"
+echo2 "  -- patching files:"
 if [ "$avm_Lang" = "de" ]; then
 echo2 "      ${DSS}/home/home.html"
 sed -i -e 's|^.*rbb.refresh.*$|<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="forebuttons">\

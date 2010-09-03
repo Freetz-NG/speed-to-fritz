@@ -9,7 +9,7 @@ echo "**************************************************************************
 # only executed if productname is changed
 if [ ! -e "${SRC}"/etc/default.${CONFIG_PRODUKT} ]; then
 echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
- echo2 "-- Move contents of OEM directory:"
+ echo2 "  -- move contents of OEM directory:"
  echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
     mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
@@ -28,14 +28,14 @@ if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko 
     cp -fdrp "${SRC_2}"/bin/led* --target-directory="${SRC}"/bin
     cp -fr "${SRC_2}"/bin/update_led_on ${SRC}/bin/update_led_on
     cp -fr "${SRC_2}"/bin/update_led_off ${SRC}/bin/update_led_off
-    echo "  -- LED Driver was taken from AVM source 2 firmware"
+    echo "-- LED Driver was taken from AVM source 2 firmware"
 else
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
     cp -fdrp "${DST}"/lib/libled* --target-directory="${SRC}"/lib
     cp -fdrp "${DST}"/bin/led* --target-directory="${SRC}"/bin
     cp -fr "${DST}"/bin/update_led_on ${SRC}/bin/update_led_on
     cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
-    echo "  -- LED Driver was taken from the original base firmware"
+    echo "-- LED Driver was taken from the original base firmware"
 fi
 cp -fdrp "${DST}"/dev --target-directory="${SRC}" #this copy is onliy usable if run as root
 [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
@@ -44,23 +44,23 @@ cp -fdrp "${DST}"/dev --target-directory="${SRC}" #this copy is onliy usable if 
 [ ${FORCE_TCOM_PIGLET} = "y" ] &&\
 
 cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet_noemif/Piglet_noemif.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet_noemif &&\
-echo "  -- Xilinx Piglet_noemif.ko driver was taken from the original base firmware"
+echo "-- Xilinx Piglet_noemif.ko driver was taken from the original base firmware"
 #Fon Driver
 [ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon5/zzz/* --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon5/zzz
 
 if [ "${SAVE_SRC2_KDSLDMOD}" = "y" ]; then
     mkdir -p ./addon/tmp/W722/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld &&\
-    echo "  -- 2nd AVM Firmware kdslmod driver saved to: ./addon/tmp/W722"
+    echo "-- 2nd AVM Firmware kdslmod driver saved to: ./addon/tmp/W722"
 fi
 [ "${FORCE_SRC2_KDSLDMOD}" = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld &&\
-echo "  -- kdslmod Driver was taken from 2nd AVM source."
+echo "-- kdslmod Driver was taken from 2nd AVM source."
 
 if [ "${FORCE_OWN_KDSLDMOD}" = "y" ] && ! [ -f ./addon/tmp/W722/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko ]; then
  echo "You must save kdsld driver form 2nd AVM source before" && sleep 10 && exit 1
 fi
 [ "${FORCE_OWN_KDSLDMOD}" = "y" ] && cp -fdrp ./addon/tmp/W722/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
-echo "  -- kdslmod Driver was taken from local directory ./addon/tmp/W722"
+echo "-- kdslmod Driver was taken from local directory ./addon/tmp/W722"
 
 # 722 
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 722
@@ -83,11 +83,11 @@ rm -f "${SRC}"/usr/share/ctlmgr/libdect*
 #/squashfs-root/lib/modules/adsp1_firmware.bin
 
 [ -e "${DST}"/lib/modules/adsp0_firmware.bin ] && cp -fdrp "${DST}"/lib/modules/adsp0_firmware.bin --target-directory="${SRC}"/lib/modules &&\
-echo "  -- adsp0_firmware.bin was taken from the original base firmware"
+echo "-- adsp0_firmware.bin was taken from the original base firmware"
 [ -e "${DST}"/lib/modules/adsp1_firmware.bin ] && cp -fdrp "${DST}"/lib/modules/adsp1_firmware.bin --target-directory="${SRC}"/lib/modules &&\
-echo "  -- adsp1_firmware.bin was taken from the original base firmware"
+echo "-- adsp1_firmware.bin was taken from the original base firmware"
 [ -e "${DST}"/lib/modules/Vx180Code.cbin ] && cp -fdrp "${DST}"/lib/modules/Vx180Code.cbin --target-directory="${SRC}"/lib/modules &&\
-echo "  -- Vx180Codec bitfile was taken from the original base firmware"
+echo "-- Vx180Codec bitfile was taken from the original base firmware"
 
 ## xilinx Driver must be for the hardware in use
 #/squashfs-root/lib/modules/bitfile.bit #7390
@@ -95,9 +95,9 @@ echo "  -- Vx180Codec bitfile was taken from the original base firmware"
 #/squashfs-root/lib/modules/bitfile_pots.bit #W722
 rm -f "${SRC}"/lib/modules/bitfile.bit
 [ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules &&\
-echo "  -- Xilinx isdn bitfile was taken from the original base firmware"
+echo "-- Xilinx isdn bitfile was taken from the original base firmware"
 [ -e "${DST}"/lib/modules/microvoip_pots_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_pots_top.bit --target-directory="${SRC}"/lib/modules &&\
-echo "  -- Xilinx pots bitfile was taken from the original base firmware"
+echo "-- Xilinx pots bitfile was taken from the original base firmware"
 
 sed -i -e '/## Fritz_Box_7390/,/## DECT-Anlage/d' "${SRC}/etc/init.d/rc.S"
 sed -i -e '/dect_firstlevelfile=/,/modprobe Piglet_noemif/d' "${SRC}/etc/init.d/rc.S"

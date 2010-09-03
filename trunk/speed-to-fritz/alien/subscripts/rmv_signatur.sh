@@ -3,7 +3,7 @@
 # Don't check signature of firmware                                     #
 #########################################################################
  . $include_modpatch
-echo "-- Applying 'check signature' patch ..."
+echo "-- applying 'check signature' patch ..."
 for DIR in ${OEMLIST}; do
 # if [ "$DIR" = "avme" ] ; then
 #  html="$avm_Lang/html"
@@ -12,13 +12,13 @@ for DIR in ${OEMLIST}; do
 # fi
     DSTI="${1}"/usr/www/${DIR}/${html}/de/home/home.js
     if [ -f ${DSTI} ] ; then
-	 echo2 "-- Patching file:"
+	 echo2 "  -- patching file:"
 	 echo2 "      /usr/www/$html/de/home/home.js ..."
 	sed -i -e 's|var signed =.*$|var signed = "1";|g' "${DSTI}"
 	if ! `cat "${DSTI}" | grep -q 'signed_firmware ?>'` ; then
-	 echo2 "-- Signature removed in ${DIR}/$html/de/home/home.js"
+	 echo2 "  -- signature removed in ${DIR}/$html/de/home/home.js"
 	else
-	 echo2 "-- Signature NOT removed in ${DIR}/$html/de/home/home.js"
+	 echo2 "  -- signature NOT removed in ${DIR}/$html/de/home/home.js"
 	fi
 
     fi

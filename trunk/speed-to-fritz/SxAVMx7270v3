@@ -13,7 +13,7 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
     rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
 echo "Replacing hardware related files of AVM firmware images ..."
-echo2 "-- Copy original AVM module:"
+echo2 "  -- copy original AVM module:"
 echo2 "      /lib/modules"
 
 
@@ -21,35 +21,35 @@ if [ ${ATA_ONLY} = "n" ]; then
  #add DSL driver dependig on the settings made
  #7170
  [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}"/lib/modules/microvoip-dsl.bin ] && cp -fdrp "${SRC}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
- echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+ echo "-- AVM DSL Driver saved to: ./addon/tmp/modules!"
  [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/microvoip-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
- echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+ echo "-- AVM DSL Driver saved to: ./addon/tmp/modules!"
  [ ${USE_OWN_DSL} = "y" ] && [ -f ./addon/tmp/modules/microvoip-dsl.bin ] && cp -fdrp ./addon/tmp/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
- echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
+ echo "-- DSL Driver was taken from local directory ./addon/tmp/modules!"
  [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"/lib/modules/microvoip-dsl.bin ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
- echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!"
+ echo "-- DSL Driver was taken from ${SORCE_2_PRODUKT}!"
  #add DSL driver dependig on the settings made in
  #7270 
  #annex B driver
  mkdir -p ./addon/tmp/modules/dsp_ur8
  if [ -d "${SRC}/lib/modules/dsp_ur8"  ]; then
   [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp "${SRC}"/lib/modules/dsp_ur8/ur8-B-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
-  echo "  -- AVM DSL Annex B Driver saved to: ./addon/tmp/modules!"
+  echo "-- AVM DSL Annex B Driver saved to: ./addon/tmp/modules!"
   [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-B-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
-  echo "  -- AVM DSL Annex B Driver saved to: ./addon/tmp/modules!"
+  echo "-- AVM DSL Annex B Driver saved to: ./addon/tmp/modules!"
   [ ${USE_OWN_DSL} = "y" ] && [ -f "./addon/tmp/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp ./addon/tmp/modules/dsp_ur8/ur8-B-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
-  echo "  -- DSL Annex B Driver was taken from local directory ./addon/tmp/modules!"
+  echo "-- DSL Annex B Driver was taken from local directory ./addon/tmp/modules!"
   [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-B-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
-  echo "  -- DSL Annex B Driver was taken from ${SORCE_2_PRODUKT}!" 
+  echo "-- DSL Annex B Driver was taken from ${SORCE_2_PRODUKT}!" 
   #annex A driver
   [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-A-dsl.bin"  ] && cp -fdrp "${SRC}"/lib/modules/dsp_ur8/ur8-A-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
-  echo "  -- AVM DSL Annex A Driver saved to: ./addon/tmp/modules!"
+  echo "-- AVM DSL Annex A Driver saved to: ./addon/tmp/modules!"
   [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-A-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-A-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
-  echo "  -- AVM DSL Annex A Driver saved to: ./addon/tmp/modules!"
+  echo "-- AVM DSL Annex A Driver saved to: ./addon/tmp/modules!"
   [ ${USE_OWN_DSL} = "y" ] && [ -f "./addon/tmp/modules/dsp_ur8/ur8-A-dsl.bin"  ] && cp -fdrp ./addon/tmp/modules/dsp_ur8/ur8-A-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
-  echo "  -- DSL Annex A Driver was taken from local directory ./addon/tmp/modules!"
+  echo "-- DSL Annex A Driver was taken from local directory ./addon/tmp/modules!"
   [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-A-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-A-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
-  echo "  -- DSL Annex A Driver was taken from ${SORCE_2_PRODUKT}!" 
+  echo "-- DSL Annex A Driver was taken from ${SORCE_2_PRODUKT}!" 
  fi
 else
  #remove ADSL
@@ -61,10 +61,10 @@ else
 fi
 #save space on 8MB boxes specially
 [ "${REMOVE_ANNEX_B_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin" ] && rm -f "${SRC}"/lib/modules/dsp_ur8/ur8-B-dsl.bin &&\
-echo "  -- DSL Annex B Driver was removed from ${SORCE_PRODUKT}!"
+echo "-- DSL Annex B Driver was removed from ${SORCE_PRODUKT}!"
 #save space on 8MB boxes specially
 [ "${REMOVE_ANNEX_A_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-A-dsl.bin" ] && rm -f "${SRC}"/lib/modules/dsp_ur8/ur8-A-dsl.bin &&\
-echo "  -- DSL Annex A Driver was removed from ${SORCE_PRODUKT}!"
+echo "-- DSL Annex A Driver was removed from ${SORCE_PRODUKT}!"
 
 
 #copy second source www dir
@@ -83,20 +83,20 @@ $sh_DIR/patch_annex.sh "${SRC}"
 $sh_DIR/add_multi_settings.sh
 cp -fdrp "${DST}"/lib/modules/dectfw_firstlevel_488.hex --target-directory="${SRC}"/lib/modules &&\
 cp -fdrp "${DST}"/lib/modules/dectfw_secondlevel_488.hex --target-directory="${SRC}"/lib/modules &&\
-echo "  -- DECT Driver was taken from original AVM source."
+echo "-- DECT Driver was taken from original AVM source."
 
 if [ "${SAVE_SRC2_DECTDRIVER}" = "y" ]; then
     mkdir -p ./addon/tmp/W920/squashfs-root/lib/modules
     cp -fdrp "${SRC_2}"/lib/modules/dectfw_firstlevel_488.hex --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
     cp -fdrp "${SRC_2}"/lib/modules/dectfw_secondlevel_488.hex --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
-    echo "  -- 2nd AVM Firmware DECT Driver saved to: ./addon/tmp/W920"
+    echo "-- 2nd AVM Firmware DECT Driver saved to: ./addon/tmp/W920"
 fi
 [ "${FORCE_SRC2_DECTDRIVER}" = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/dectfw_firstlevel_488.hex --target-directory="${SRC}"/lib/modules &&\
 cp -fdrp "${SRC_2}"/lib/modules/dectfw_secondlevel_488.hex --target-directory="${SRC}"/lib/modules &&\
-echo "  -- DECT Driver was taken from 2nd AVM source."
+echo "-- DECT Driver was taken from 2nd AVM source."
 [ "${FORCE_OWN_DECTDRIVER}" = "y" ] && cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/dectfw_firstlevel_488.hex --target-directory="${SRC}"/lib/modules &&\
 cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/dectfw_secondlevel_488.hex --target-directory="${SRC}"/lib/modules &&\
-echo "  -- DECT Driver was taken from local directory ./addon/tmp/W920"
+echo "-- DECT Driver was taken from local directory ./addon/tmp/W920"
 if `cat "${SRC}/etc/init.d/rc.S" | grep -q 'level.hex' ` && ! [ -f "${SRC}"/lib/modules/dectfw_firstlevel_488.hex ]; then
  echo "You must use dect driver form 2nd AVM source or one that was saved before" && sleep 10 && exit 1
 fi
@@ -140,12 +140,12 @@ rm -f "${SRC}"/lib/modules/bitfile.bit
 rm -f "${SRC}"/lib/modules/bitfile_pots.bit 
 rm -f "${SRC}"/lib/modules/bitfile_isdn.bit 
 [ -e "${DST}"/lib/modules/bitfile_pots.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile_pots.bit --target-directory="${SRC}"/lib/modules &&\
-echo "  -- Xilinx bitfile was taken from the original base firmware"
+echo "-- Xilinx bitfile was taken from the original base firmware"
 [ -e "${DST}"/lib/modules/bitfile_isdn.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile_isdn.bit --target-directory="${SRC}"/lib/modules &&\
 [ -e "${DST}"/lib/modules/bitfile_isdn.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile_isdn.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
-echo "  -- Xilinx bitfile was taken from the original base firmware"
+echo "-- Xilinx bitfile was taken from the original base firmware"
 [ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
-echo "  -- Xilinx bitfile was taken from the original base firmware"
+echo "-- Xilinx bitfile was taken from the original base firmware"
 
 # add buchsend button to fon bookpage
 [ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"

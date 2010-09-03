@@ -12,10 +12,10 @@ for webdir in ${1}/usr/www ${1}/usr/www.nas; do
  for DIR in ${OEMLIST}; do
     if [ -d ${webdir}/$DIR ] ; then
 	[ "$DIR" = "all" ] && rm -fd -R ${webdir}/$OEM
-	[ "$DIR" = "all" ] && mv ${webdir}/all  ${webdir}/$OEM && echo2 "-- Moving /www/all to /www/$OEM ..." 
-        [ "$DIR" != "$OEM" ] && rm -fd -R ${webdir}/${DIR} && echo2 "-- Removed directory: www/$DIR"
+	[ "$DIR" = "all" ] && mv ${webdir}/all  ${webdir}/$OEM && echo2 "  -- moving /www/all to /www/$OEM ..." 
+        [ "$DIR" != "$OEM" ] && rm -fd -R ${webdir}/${DIR} && echo2 "  -- removed directory: www/$DIR"
     fi
-    [ -L ${webdir}/$DIR ] && [ "$DIR" != "$OEM" ] && rm -fd -R ${webdir}/${DIR} && echo2 "-- Removed link: www/'$DIR'"
+    [ -L ${webdir}/$DIR ] && [ "$DIR" != "$OEM" ] && rm -fd -R ${webdir}/${DIR} && echo2 "  -- removed link: www/'$DIR'"
  done
  #add link for all, should solve freetz OPenVPN Problem
  [ -d ${webdir}/$OEMLINK ] && ln -sf ${webdir}/$OEMLINK ${webdir}/all

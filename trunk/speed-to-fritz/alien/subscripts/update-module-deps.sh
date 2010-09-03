@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ -x /sbin/depmod ]; then
-	echo "-- Updating module dependency informations"
+	echo "-- updating module dependency informations"
 	/sbin/depmod -b "$1" "$2" 2> /dev/null
 sed -i -e "s|kernel/|/lib/modules/$2/kernel/|" "${1}/lib/modules/$2/modules.dep"
 sed -i -e "s| kernel/| /lib/modules/$2/kernel/|" "${1}/lib/modules/$2/modules.dep"

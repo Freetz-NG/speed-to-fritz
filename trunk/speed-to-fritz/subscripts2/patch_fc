@@ -11,7 +11,7 @@ for DIR in ${OEMLIST}; do
   fi
   if  [ -f "$DIRI/$FILE" ]; then
    if ! `cat $DIRI/$FILE | grep -q "www.dasoertliche.de"` ; then
-    echo2 "-- Patching file:"
+    echo2 "  -- patching file:"
     echo2 "      /usr/www/${DIR}/$html/de/fon/$FILE"
     # fix 16540
     if ! grep -q "spanEx(" $DIRI/$FILE ;then

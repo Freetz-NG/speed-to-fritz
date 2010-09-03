@@ -12,7 +12,7 @@ SR1="$1"
    export HTML="$OEMDIR/html"
 #  fi
     if [ -e "$SR1"/usr/www/${HTML}/de/system/infoled.inc ]; then
-     echo2 "-- Change TextBlinkDECT in: /usr/www/${HTML}/de/system/infoled.inc"
+     echo2 "  -- change TextBlinkDECT in: /usr/www/${HTML}/de/system/infoled.inc"
      [ "$OEMDIR" = "avm" ] && [ "$avm_Lang" = "de" ] && sed -i -e "s/^.*TextBlinkDECT.*$/<? setvariable var:TextBlinkDECT 'Die INFO-LED leuchtet immer wenn DECT aktiviert ist.' ?>/" "$SR1"/usr/www/${HTML}/de/system/infoled.inc
      [ "$OEMDIR" = "avme" ] && [ "$avm_Lang" = "en" ] && sed -i -e "s/^.*TextBlinkDECT.*$/<? setvariable var:TextBlinkDECT 'DECT activated' ?>/" "$SR1"/usr/www/${HTML}/de/system/infoled.inc
     fi

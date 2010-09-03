@@ -1,6 +1,6 @@
 #!/bin/bash
 	
-echo "-- Add kaid ..."
+echo "-- add kaid ..."
 DLD_DIR="${HOMEDIR}/dl"
 KAID_DIR="${HOMEDIR}/addon/tmp/kaid"
 [ -d "$DLD_DIR"  ] || mkdir "$DLD_DIR"
@@ -15,7 +15,7 @@ if ! [ -f "$KAID_DIR/$KAID_DIR1/kaid"  ]; then
     tar -xif "$DLD_DIR/$IMG_REQ" -C "$KAID_DIR"
 fi
 if ! [ -f "$KAID_DIR/$KAID_DIR1/kaid"  ]; then
-    echo "You must download the $DLD_TPL to $DLD_DIR first!"
+    echo "-- you must download the $DLD_TPL to $DLD_DIR first!"
     exit 1
 fi
 cp -f "$KAID_DIR/$KAID_DIR1/kaid" --target-directory="${SRC}/usr/bin"

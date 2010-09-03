@@ -6,7 +6,7 @@ echo "**************************************************************************
 # only executed if productname is changed
 if [ ! -e "${SRC}"/etc/default.${CONFIG_PRODUKT} ]; then
     echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
-    echo2 "-- Move contents of OEM directory:"
+    echo2 "  -- move contents of OEM directory:"
     echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
     mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
     "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
@@ -15,17 +15,17 @@ fi
 if [ ${ATA_ONLY} = "n" ]; then
 #add DSL driver depending on the settings made in $firmware.conf
 [ ${FORCE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
-echo "  -- DSL Driver was taken from the original firmware!"
+echo "-- DSL Driver was taken from the original firmware!"
 [ ${SAVE_AVM_DSL} = "y" ] && cp -fdrp "${SRC}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
-echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+echo "-- AVM DSL Driver saved to: ./addon/tmp/modules!"
 [ ${SAVE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
-echo "  -- AVM DSL Driver saved to: ./addon/tmp/modules!"
+echo "-- AVM DSL Driver saved to: ./addon/tmp/modules!"
 [ ${SAVE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
-echo "  -- TCOM DSL Driver saved to: ./addon/tmp/modules!"
+echo "-- TCOM DSL Driver saved to: ./addon/tmp/modules!"
 [ ${USE_OWN_DSL} = "y" ] && cp -fdrp ./addon/tmp/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
-echo "  -- DSL Driver was taken from local directory ./addon/tmp/modules!"
+echo "-- DSL Driver was taken from local directory ./addon/tmp/modules!"
 [ ${USE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
-echo "  -- DSL Driver was taken from ${SORCE_2_PRODUKT}!" 
+echo "-- DSL Driver was taken from ${SORCE_2_PRODUKT}!" 
 else
 #remove ADSL
 sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
@@ -36,7 +36,7 @@ fi
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
+echo "-- matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
 
 #patch pigletseciton
 sed -i -e 's|piglet_bitfile_offset=0|piglet_bitfile_offset=0x4b|' "${SRC}/etc/init.d/rc.S" 

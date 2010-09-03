@@ -218,7 +218,7 @@ fi
     echo2 "      /usr/www/${HTML}/de/help/home.html"
     sed -i -e "/'hilfe_fon.*isdn'/d" "$1"/usr/www/${HTML}/de/help/home.html
  fi
- echo2 "   -- Removing files:"
+ echo2 "  -- removing files:"
  echo2 "      /usr/www/${HTML}/de/help/hilfe_fon*isdn*.html"
  rm -f "$1"/usr/www/${HTML}/de/help/hilfe_fon*isdn*.html
 

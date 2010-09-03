@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "-- Wrap dsld ..."
+echo "-- wrap dsld ..."
 
 LIBS=
 

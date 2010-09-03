@@ -1,5 +1,5 @@
 #!/bin/bash
-    echo "-- Bugfix for home.js"
+    echo "-- bugfix for home.js"
  #bug in home.js, courses mailfunction with tcom firmware, status page is emty
  #also it corses that fon may be not configurable
  if [ -f "${SRC}/usr/www/${OEMLINK}/html/de/home/home.js" ]; then

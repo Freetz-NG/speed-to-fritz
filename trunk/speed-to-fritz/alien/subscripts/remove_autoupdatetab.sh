@@ -2,7 +2,7 @@
  # include modpatch function
  . ${include_modpatch}
 
-echo "-- Removing 'Tab0' from updatepage ..."
+echo "-- removing 'Tab0' from updatepage ..."
 for DIR in ${OEMLIST}; do
 # if [ "$DIR" = "avme" ] ; then
 #  export HTML="$DIR/$avm_Lang/html"
@@ -14,7 +14,7 @@ for DIR in ${OEMLIST}; do
     DIRI="/usr/www/${HTML}/de/system" 
 
     if  [ -f "$1"$DIRI/update_OnClick_1.js ]; then
-    #    [ -n "$VERBOSITY" ] && echo2 "   -- Patching files:"
+    #    [ -n "$VERBOSITY" ] && echo2 "  -- patching files:"
     echo2 "      ${DIRI}/update_OnClick_1.js"
     #remove auto insall Tab on Install page
     sed -i -e "s/Tabs(0);/Tabs(1);/" "$1"${DIRI}/update_OnClick_1.js

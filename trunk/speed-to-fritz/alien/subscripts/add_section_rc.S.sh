@@ -2,7 +2,7 @@
  . $include_modpatch
 #add section to rc.S
 if ! `cat "$1"/etc/init.d/rc.S | grep -q '/var/flash/aura-usb'` ; then
-echo2 "-- Add section to original rc.S"
+echo2 "  -- add section to original rc.S"
 sed -i -e 's|^.*mknod /var/flash/calllog c $tffs_major $((0x8D))| \
 mknod /var/flash/calllog c $tffs_major $((0x8D))\
 mknod /var/flash/aura-usb c $tffs_major $((0xA0))\
@@ -15,13 +15,13 @@ sed -i -e 's|/${OEM}/config.tam|/tcom/config.tam|g' "${1}/etc/init.d/rc.S"
 fi
 
 if ! `cat "$1"/etc/init.d/rc.S | grep -q 'ln -s /var/html/html/$Language/tools/flash.html /var/flash.html'` ; then
-echo2 "-- Add link line for update page to rc.S"
+echo2 "  -- add link line for update page to rc.S"
 sed -i -e 's|. /etc/init.d/rc.conf|. /etc/init.d/rc.conf \
 ln -s /var/html/html/$Language/tools/flash.html /var/flash.html|' "${1}/etc/init.d/rc.S"
 fi
 #enable ata menue 
 if ! `cat "$1"/etc/init.d/rc.S | grep -q 'var:isAta 1'` ; then
-echo2 "-- enable ATA menuepage "
+echo2 "  -- enable ATA menuepage "
 sed -i -e 's|var:isAta 0|var:isAta 1|g' "${1}/etc/init.d/rc.S"
 fi
 #all the following adds are not of major importance

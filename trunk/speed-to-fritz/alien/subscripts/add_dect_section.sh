@@ -3,7 +3,7 @@
 SR1="$1" 
 
 #add section to rc.S
-echo "-- Add  section to original rc.S"
+echo "-- add  section to original rc.S"
 
 sed -i -e 's|^.*mknod /var/flash/calllog c $tffs_major $((0x8D))| \
 mknod /var/flash/calllog c $tffs_major $((0x8D))\
