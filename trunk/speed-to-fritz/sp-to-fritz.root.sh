@@ -1,15 +1,4 @@
 #!/bin/bash
-export PATH=$PATH:/sbin
-#dont change names of variables because some of the names are used in other files as well!
-##########################################################################
-# Date of current version:
-# TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
-#dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="01"; Monat="09"; Jahr="10"
-export SKRIPT_DATE="$Tag.$Monat.$Jahr"
-export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
-export SKRIPT_REVISION="$Jahr$Monat$Tag"
-export MODVER="${SKRIPT_DATE}-multi"
 ##########################################################################
 # Set this to "y" if you run the skript within CYGWIN, only used with -p option
 # For more info, look into file includefunction
@@ -151,9 +140,6 @@ export ANNEX="B"
 export VPI="1"
 export VCI="32"
 export KAPSELUNG="1"
-# Commandline
-export cml="$0"
-export Options="$*"
 # Don't change any parameters below here
 # This parameters are used in the resulting Speedport image
 export CONFIG_ACCESSORY_URL=""

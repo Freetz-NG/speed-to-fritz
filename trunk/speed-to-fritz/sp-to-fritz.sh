@@ -8,6 +8,19 @@ else
 		echo "If you do for some reason, keep in mind that once run as root"
 		echo "a second time run as normal user will result in errors."
 fi
+# Commandline
+export cml="$0"
+export Options="$*"
+#dont change names of variables because some of the names are used in other files as well!
+##########################################################################
+# Date of current version:
+# TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
+#dont chang this line formwat is used in ./start to get script version into Firmware.conf
+Tag="04"; Monat="09"; Jahr="10"
+export SKRIPT_DATE="$Tag.$Monat.$Jahr"
+export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
+export SKRIPT_REVISION="$Jahr$Monat$Tag"
+export MODVER="${SKRIPT_DATE}-multi"
 TOOLS_SUBDIR="tools"
 export TOOLS_DIR="./${TOOLS_SUBDIR}"
 FAKEROOT_TOOL="fakeroot"
