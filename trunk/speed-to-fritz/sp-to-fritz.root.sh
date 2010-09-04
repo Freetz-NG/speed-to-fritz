@@ -1,4 +1,5 @@
 #!/bin/bash
+export PATH=$PATH:/sbin
 ##########################################################################
 # Set this to "y" if you run the skript within CYGWIN, only used with -p option
 # For more info, look into file includefunction
