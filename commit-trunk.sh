@@ -1,6 +1,7 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* Fix 7170 16352 in Config.in"
+comment="* Fix start-freetz.sh 
+	http://www.ip-phone-forum.de/showpost.php?p=1600194&postcount=1"
 
 
 

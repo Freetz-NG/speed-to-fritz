@@ -1,8 +1,7 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="Update temporary folder to build 7390 freetz."
-
-
+comment="
+        * Bump 7240/7270 v2/v3 Labor Preview to 18202"
 echo "-------------------------------------------------------------------------------------------------------------"
 if [ `id -u` -eq 0 ]; then
  clear
@@ -45,6 +44,8 @@ echo "------------------------------------------------------------------" >>"$DS
 cd trunk
 #sleep 20
 #svn delete --force ./wrtjp/wrtjp.5.1/bin/Release/start.bat
+#svn delete --force ./uploader/Program-dialog1.cs
+#svn delete --force ./uploader/release.exe
 #svn delete --force ./speed-to-fritz/info.txt.r79
 #svn delete --force ./speed-to-fritz/info.txt.mine
 #svn delete --force ./speed-to-fritz/info.txt.r130
@@ -58,6 +59,7 @@ cd trunk
 #svn delete --force ./speed-to-fritz/tools/tar
 #svn delete --force ./speed-to-fritz/tools/conf
 #svn delete --force ./speed-to-fritz/tools/mconf
+#svn delete --force ./speed-to-fritz/alien/subscripts/add_freetz_type_patches.sh
 #svn delete --force ./speed-to-fritz/alien/add_dect_7150.inc
 #svn delete --force ./speed-to-fritz/alien/subscripts/500.init
 #svn delete --force ./speed-to-fritz/alien/subscripts/501.init
