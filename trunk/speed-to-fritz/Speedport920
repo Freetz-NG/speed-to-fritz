@@ -265,6 +265,11 @@ $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 920
 
 #VDSL would not start if wrong HWrevision is in use, so it only can be set in ATA mod
 #But pluginsupport needs AVM HWrevision to setup the download URL for plugins 
+#woarkaround v1 Firmware 
+##echo "FBIMG: $FBIMG"
+echo $FBIMG | grep -q "v1" && \
+[ "$FBHWRevision" == "139" ] && export FBHWRevision="122"
+echo "-- download plugin URL uses Hardware Revision Number: $FBHWRevision"
 #workaround for HWRevision
 if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
 sed -i -e "/url=\"\`\/sbin\/pluginurl\`\"/i\

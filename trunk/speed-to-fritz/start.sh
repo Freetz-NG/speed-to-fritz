@@ -1,9 +1,4 @@
 #!/bin/bash
-### speedtofritz version and other variables used last time
-### specifies the configfile in use, 
-### put a hash sign in front if you want to use the filename used the last time
-#export firmwareconf_file_name="conf-900-freetz"
-### invoke menuconfig  
 if ! `cat "./incl_var" | grep -q 'REUSECONF="y"'`; then
     [ -f "./Firmware.conf" ] && rm -fdr ./Firmware.conf
     echo "You are starting with clean configuration, all settings made last time are removed!"
@@ -35,7 +30,6 @@ export firmwareconf_file_name="Firmware.conf"
 EOF
 chmod 755 "./incl_var"
 fi
-#[ -f "./${firmwareconf_file_name}.tar" ] && tar --overwirte  -xf "${firmwareconf_file_name}"
 make
 if ! `cat "./Firmware.conf" | grep -q 'SAVED_CONF=y'`; then
     echo "You must save configuration to './Firmware.conf' when exiting the menu!"
