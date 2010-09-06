@@ -11,16 +11,16 @@ fi
 # Commandline
 export cml="$0"
 export Options="$*"
-#dont change names of variables because some of the names are used in other files as well!
 ##########################################################################
 # Date of current version:
 # TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
 #dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="05"; Monat="09"; Jahr="10"
+Tag="06"; Monat="09"; Jahr="10"
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
 export SKRIPT_REVISION="$Jahr$Monat$Tag"
 export MODVER="${SKRIPT_DATE}-multi"
+##########################################################################
 TOOLS_SUBDIR="tools"
 export TOOLS_DIR="./${TOOLS_SUBDIR}"
 FAKEROOT_TOOL="fakeroot"
@@ -35,7 +35,7 @@ sed -i -e "s|^PATHS=.*$|PATHS=${FAKEROOT_LIB_DIR}|g" ${FAKEROOT}
 ### -z tells speed to fritz not to use commandline options
 if [ "$FAKEROOT_ON" == "y" ]; then 
  [ ! -x "$FAKEROOT" ] && echo  "cannot find the tool $FAKEROOT_TOOL" && sleep 10 && exit 1
- $FAKEROOT ./sp-to-fritz.root.sh -z
+ $FAKEROOT ./sp-to-fritz.root.sh -z $*
 else
- ./sp-to-fritz.root.sh -z
+ ./sp-to-fritz.root.sh -z $*
 fi
