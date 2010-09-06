@@ -28,14 +28,14 @@ if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko 
     cp -fdrp "${SRC_2}"/bin/led* --target-directory="${SRC}"/bin
     cp -fr "${SRC_2}"/bin/update_led_on ${SRC}/bin/update_led_on
     cp -fr "${SRC_2}"/bin/update_led_off ${SRC}/bin/update_led_off
-    echo "-- LED Driver was taken from AVM source 2 firmware"
+    echo "-- LED driver was taken from AVM source 2 firmware"
 else
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
     cp -fdrp "${DST}"/lib/libled* --target-directory="${SRC}"/lib
     cp -fdrp "${DST}"/bin/led* --target-directory="${SRC}"/bin
     cp -fr "${DST}"/bin/update_led_on ${SRC}/bin/update_led_on
     cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
-    echo "-- LED Driver was taken from the original base firmware"
+    echo "-- LED driver was taken from the original base firmware"
 fi
 cp -fdrp "${DST}"/dev --target-directory="${SRC}" #this copy is onliy usable if run as root
 [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
@@ -45,7 +45,7 @@ cp -fdrp "${DST}"/dev --target-directory="${SRC}" #this copy is onliy usable if 
 
 cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet_noemif/Piglet_noemif.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet_noemif &&\
 echo "-- Xilinx Piglet_noemif.ko driver was taken from the original base firmware"
-#Fon Driver
+#Fon driver
 [ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon5/zzz/* --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon5/zzz
 
 if [ "${SAVE_SRC2_KDSLDMOD}" = "y" ]; then
@@ -54,13 +54,13 @@ if [ "${SAVE_SRC2_KDSLDMOD}" = "y" ]; then
     echo "-- 2nd AVM Firmware kdslmod driver saved to: ./addon/tmp/W722"
 fi
 [ "${FORCE_SRC2_KDSLDMOD}" = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld &&\
-echo "-- kdslmod Driver was taken from 2nd AVM source."
+echo "-- kdslmod driver was taken from 2nd AVM source."
 
 if [ "${FORCE_OWN_KDSLDMOD}" = "y" ] && ! [ -f ./addon/tmp/W722/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko ]; then
  echo "You must save kdsld driver form 2nd AVM source before" && sleep 10 && exit 1
 fi
 [ "${FORCE_OWN_KDSLDMOD}" = "y" ] && cp -fdrp ./addon/tmp/W722/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
-echo "-- kdslmod Driver was taken from local directory ./addon/tmp/W722"
+echo "-- kdslmod driver was taken from local directory ./addon/tmp/W722"
 
 # 722 
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 722
@@ -89,7 +89,7 @@ echo "-- adsp1_firmware.bin was taken from the original base firmware"
 [ -e "${DST}"/lib/modules/Vx180Code.cbin ] && cp -fdrp "${DST}"/lib/modules/Vx180Code.cbin --target-directory="${SRC}"/lib/modules &&\
 echo "-- Vx180Codec bitfile was taken from the original base firmware"
 
-## xilinx Driver must be for the hardware in use
+## xilinx driver must be for the hardware in use
 #/squashfs-root/lib/modules/bitfile.bit #7390
 #/squashfs-root/lib/modules/bitfile_isdn.bit #W722
 #/squashfs-root/lib/modules/bitfile_pots.bit #W722

@@ -16,17 +16,17 @@ fi
 if [ ${ATA_ONLY} = "n" ]; then
 #add DSL driver depending on the settings made in firmware.conf500
 [ ${FORCE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
-echo "-- DSL Driver was taken from the original base firmware!"
+echo "-- DSL driver was taken from the original base firmware!"
 [ ${SAVE_AVM_DSL} = "y" ] && cp -fdrp "${SRC}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
-echo "-- AVM DSL Driver saved to: ./addon/tmp/modules!"
+echo "-- AVM DSL driver saved to: ./addon/tmp/modules!"
 [ ${SAVE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
-echo "-- AVM DSL Driver saved to: ./addon/tmp/modules!"
+echo "-- AVM DSL driver saved to: ./addon/tmp/modules!"
 [ ${SAVE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
-echo "-- TCOM DSL Driver saved to: ./addon/tmp/modules!"
+echo "-- TCOM DSL driver saved to: ./addon/tmp/modules!"
 [ ${USE_OWN_DSL} = "y" ] && cp -fdrp ./addon/tmp/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
-echo "-- DSL Driver was taken from local directory ./addon/tmp/modules!"
+echo "-- DSL driver was taken from local directory ./addon/tmp/modules!"
 [ ${USE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
-echo "-- DSL Driver was taken from ${SORCE_2_PRODUKT}!" 
+echo "-- DSL driver was taken from ${SORCE_2_PRODUKT}!" 
 
 else
 
@@ -44,7 +44,7 @@ fi
 #LABOR
  echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
     [ ${FORCE_TCOM_PIGLET} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet/Piglet.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet
-    #Fon Driver only usable with version 38
+    #Fon driver only usable with version 38
     if [ -s "${DST}/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz/isdn_fbox.ko" ]; then
       [ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz/isdn_fbox.ko "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz/isdn_fbox_fon4.ko
     else

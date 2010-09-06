@@ -15,17 +15,17 @@ fi
 if [ ${ATA_ONLY} = "n" ]; then
 #add DSL driver depending on the settings made in $firmware.conf
 [ ${FORCE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
-echo "-- DSL Driver was taken from the original firmware!"
+echo "-- DSL driver was taken from the original firmware!"
 [ ${SAVE_AVM_DSL} = "y" ] && cp -fdrp "${SRC}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
-echo "-- AVM DSL Driver saved to: ./addon/tmp/modules!"
+echo "-- AVM DSL driver saved to: ./addon/tmp/modules!"
 [ ${SAVE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
-echo "-- AVM DSL Driver saved to: ./addon/tmp/modules!"
+echo "-- AVM DSL driver saved to: ./addon/tmp/modules!"
 [ ${SAVE_TCOM_DSL} = "y" ] && cp -fdrp "${DST}"/lib/modules/microvoip-dsl.bin --target-directory=./addon/tmp/modules &&\
-echo "-- TCOM DSL Driver saved to: ./addon/tmp/modules!"
+echo "-- TCOM DSL driver saved to: ./addon/tmp/modules!"
 [ ${USE_OWN_DSL} = "y" ] && cp -fdrp ./addon/tmp/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
-echo "-- DSL Driver was taken from local directory ./addon/tmp/modules!"
+echo "-- DSL driver was taken from local directory ./addon/tmp/modules!"
 [ ${USE_SRC2_DSL} = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/microvoip-dsl.bin --target-directory="${SRC}"/lib/modules &&\
-echo "-- DSL Driver was taken from ${SORCE_2_PRODUKT}!" 
+echo "-- DSL driver was taken from ${SORCE_2_PRODUKT}!" 
 else
 #remove ADSL
 sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 

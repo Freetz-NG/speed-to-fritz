@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "-- Add support menu-item..."
+echo "-- add support menu-item..."
 for DIR in $2; do
  html="html"
  DIRI="usr/www/$DIR/$html/de"
@@ -29,7 +29,7 @@ subpages = {}\n\
 }\n\
 -------------------------------------------------------------------------------\n\
 menu.add_item{" "$1/usr/www/$DIR/menus/menu_data.lua" && \
- grep -q "support.html" "$1/usr/www/$DIR/menus/menu_data.lua" && echo "-- Support menue added to: /usr/www/$DIR/menus/menu_data.lua"
+ grep -q "support.html" "$1/usr/www/$DIR/menus/menu_data.lua" && echo "-- support menue added to: /usr/www/$DIR/menus/menu_data.lua"
  fi #<-- Support menu
 # <-- 17671
 done

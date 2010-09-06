@@ -133,29 +133,29 @@ if [ ${ATA_ONLY} = "n" ]; then
  mkdir -p ./addon/tmp/modules/dsp_ur8
  if [ -d "${SRC}/lib/modules/dsp_ur8"  ]; then
   [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp "${SRC}"/lib/modules/dsp_ur8/ur8-B-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
-  echo "-- AVM DSL Annex B Driver saved to: ./addon/tmp/modules!"
+  echo "-- AVM DSL Annex B driver saved to: ./addon/tmp/modules!"
   [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-B-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
-  echo "-- AVM DSL Annex B Driver saved to: ./addon/tmp/modules!"
+  echo "-- AVM DSL Annex B driver saved to: ./addon/tmp/modules!"
   [ ${USE_OWN_DSL} = "y" ] && [ -f "./addon/tmp/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp ./addon/tmp/modules/dsp_ur8/ur8-B-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
-  echo "-- DSL Annex B Driver was taken from local directory ./addon/tmp/modules!"
+  echo "-- DSL Annex B driver was taken from local directory ./addon/tmp/modules!"
   [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-B-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
-  echo "-- DSL Annex B Driver was taken from ${SORCE_2_PRODUKT}!" 
+  echo "-- DSL Annex B driver was taken from ${SORCE_2_PRODUKT}!" 
   #annex A driver
   [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-A-dsl.bin"  ] && cp -fdrp "${SRC}"/lib/modules/dsp_ur8/ur8-A-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
-  echo "-- AVM DSL Annex A Driver saved to: ./addon/tmp/modules!"
+  echo "-- AVM DSL Annex A driver saved to: ./addon/tmp/modules!"
   [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-A-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-A-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
-  echo "-- AVM DSL Annex A Driver saved to: ./addon/tmp/modules!"
+  echo "-- AVM DSL Annex A driver saved to: ./addon/tmp/modules!"
   [ ${USE_OWN_DSL} = "y" ] && [ -f "./addon/tmp/modules/dsp_ur8/ur8-A-dsl.bin"  ] && cp -fdrp ./addon/tmp/modules/dsp_ur8/ur8-A-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
-  echo "-- DSL Annex A Driver was taken from local directory ./addon/tmp/modules!"
+  echo "-- DSL Annex A driver was taken from local directory ./addon/tmp/modules!"
   [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-A-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-A-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
-  echo "-- DSL Annex A Driver was taken from ${SORCE_2_PRODUKT}!" 
+  echo "-- DSL Annex A driver was taken from ${SORCE_2_PRODUKT}!" 
  fi
  #save space on 8MB boxes specially
  [ "${REMOVE_ANNEX_B_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin" ] && rm -f "${SRC}"/lib/modules/dsp_ur8/ur8-B-dsl.bin &&\
- echo "-- DSL Annex B Driver was removed from ${SORCE_PRODUKT}!"
+ echo "-- DSL Annex B driver was removed from ${SORCE_PRODUKT}!"
  #save space on 8MB boxes specially
  [ "${REMOVE_ANNEX_A_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-A-dsl.bin" ] && rm -f "${SRC}"/lib/modules/dsp_ur8/ur8-A-dsl.bin &&\
- echo "-- DSL Annex A Driver was removed from ${SORCE_PRODUKT}!"
+ echo "-- DSL Annex A driver was removed from ${SORCE_PRODUKT}!"
  [ ${ANNEX} == "A" ] && ! [ -f "${SRC}/lib/modules/dsp_ur8/ur8-A-dsl.bin" ] && echo "-- You must provid a 2nd AVM source to supply the missing Annex A DSL driver!" && sleep 10 && exit 0
  [ ${ANNEX} =! "A" ] && ! [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin" ] && echo "-- You must provid a 2nd AVM source to supply the missing Annex B DSL driver!" && sleep 10 && exit 0
 else
@@ -169,7 +169,7 @@ fi
 #echo "-- matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
 [ ${FORCE_TCOM_PIGLET} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers &&\
 echo "-- piglet driver was taken from base Firmware!" 
-#Fon Driver
+#Fon driver
 [ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers &&\
 echo "-- fon driver was taken from base Firmware!" 
 #copy wlan config
@@ -291,7 +291,7 @@ if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] 
     cp -fdrp "${DST}"/bin/led* --target-directory="${SRC}"/bin
     cp -fr "${DST}"/bin/update_led_on ${SRC}/bin/update_led_on
     cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
-    echo "-- LED Driver was taken from the original base firmware"
+    echo "-- LED driver was taken from the original base firmware"
 fi
 if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ "${FORCE_SRC2_LEDDRIVER}" = "y" ]; then
     cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
@@ -299,7 +299,7 @@ if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko 
     cp -fdrp "${SRC_2}"/bin/led* --target-directory="${SRC}"/bin
     cp -fr "${SRC_2}"/bin/update_led_on ${SRC}/bin/update_led_on
     cp -fr "${SRC_2}"/bin/update_led_off ${SRC}/bin/update_led_off
-    echo "-- LED Driver was taken from AVM source 2 firmware"
+    echo "-- LED driver was taken from AVM source 2 firmware"
 fi
 # 503 
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 503

@@ -65,7 +65,7 @@ echo "-- microvoip-dsl.bin was taken from the original base firmware"
 
 if [ ${SAVE_TCOM_DSL} = "y" ]; then
     cp -a "${DST}"/lib/modules/vinax* --target-directory=./addon/tmp/W721/squashfs-root/lib/modules &&\
-    echo "-- TCOM DSL Driver saved to: ./addon/tmp/W721!"
+    echo "-- TCOM DSL driver saved to: ./addon/tmp/W721!"
     cp -a "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/vinax
     cp -a "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld
     cp -a "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/lib/modules/$KernelVersion
@@ -90,7 +90,7 @@ fi
 
 if [ ${SAVE_SRC2_DSL} = "y" ]; then
     cp -av "${SRC_2}"/lib/modules/vinax* --target-directory=./addon/tmp/W721 &&\
-    echo "-- AVM DSL Driver saved to: ./addon/tmp/W721!"
+    echo "-- AVM DSL driver saved to: ./addon/tmp/W721!"
     cp -a "${SRC_2}"/lib/modules/$KernelVersion2/kernel/drivers/vinax/drv_vinax.ko --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/vinax
     cp -a "${SRC_2}"/lib/modules/$KernelVersion2/kernel/drivers/dsld/kdsldmod.ko --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld
     cp -a "${SRC_2}"/lib/modules/$KernelVersion2/modules.symbols --target-directory=${HOMEDIR}/addon/tmp/W721/squashfs-root/lib/modules/$KernelVersion
@@ -132,19 +132,19 @@ if [ "${SAVE_SRC2_KDSLDMOD}" = "y" ]; then
     echo "-- 2nd AVM Firmware kdslmod driver saved to: ./addon/tmp/W721"
 fi
 [ "${FORCE_SRC2_KDSLDMOD}" = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld &&\
-echo "-- kdslmod Driver was taken from 2nd AVM source."
+echo "-- kdslmod driver was taken from 2nd AVM source."
 
 if [ "${FORCE_OWN_KDSLDMOD}" = "y" ] && ! [ -f ./addon/tmp/W721/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko ]; then
  echo "   --> You must save kdsld driver form 2nd AVM source before" && sleep 10 && exit 1
 fi
 [ "${FORCE_OWN_KDSLDMOD}" = "y" ] && cp -fdrp ./addon/tmp/W721/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
-echo "-- kdslmod Driver was taken from local directory ./addon/tmp/W721"
+echo "-- kdslmod driver was taken from local directory ./addon/tmp/W721"
 
 # ther are no newer and compatibel drivers up to now
 #[ "${FORCE_VINAX_DRV}" = "y" ] && cp -fdrp ${HOMEDIR}/addon/tmp/modules/vinax/drv_vinax.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/vinax" &&\
-#echo "  -- PPPoA compatible VINAX DSL Driver is in use!"
+#echo "  -- PPPoA compatible VINAX DSL driver is in use!"
 #[ "${FORCE_KDSLD_DRV}" = "y" ] && cp -fdrp ${HOMEDIR}/addon/tmp/modules/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
-#echo "  -- PPPoA compatible KDSLDMOD Driver is in use!"
+#echo "  -- PPPoA compatible KDSLDMOD driver is in use!"
 #----
 CPYPSEC="y"
 if [ "${COPY_TCOM_BIN}" = "y" ]; then
@@ -185,7 +185,7 @@ fi
 sed -i -e '/rc.dsl.sh start/a\
 . /etc/init.d/rc.vdsl.sh' "${SRC}/etc/init.d/rc.S"
 [ ${USE_OWN_DSL} = "y" ] && cp -fdrp ${HOMEDIR}/addon/tmp/W721/squashfs-root/* --target-directory="${SRC}" &&\
-echo "-- DSL Driver was taken from local directory ./addon/tmp/W721!"
+echo "-- DSL driver was taken from local directory ./addon/tmp/W721!"
 
 #sed -i -e '/modprobe ${pcm_link} ${pcm_link_params}/d' "${SRC}/etc/init.d/rc.S" 
 
@@ -240,7 +240,7 @@ if [ "${USE_SRC2_VINAX_ADSLFW}" = "y" ] || [ "${ANNEX}" = "A" ]; then
  if  ! [ -f "${SRC_2}"/lib/modules/vinax_fw_adsl_${ANNEX}.bin ]; then
   echo
   echo
-  echo "  Annex ${ANNEX} VINAX Driver missing! Select 7570 firmware as 3rd firmware!" 
+  echo "  Annex ${ANNEX} VINAX driver missing! Select 7570 firmware as 3rd firmware!" 
   sleep 20
   exit 0
  else
@@ -406,7 +406,7 @@ if [ ${FORCE_TCOM_PIGLET} = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/$PIGLET --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
 fi
 
-#xilix W721 Driver must be for the hardware in use
+#xilix W721 driver must be for the hardware in use
 rm -fdr "${SRC}"/lib/modules/microvoip_isdn_top.bit1
 [ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules &&\
 echo "-- Xilinx bitfile was taken from the original base firmware"
@@ -471,7 +471,7 @@ if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] 
     cp -fdrp "${DST}"/bin/led* --target-directory="${SRC}"/bin
     cp -fr "${DST}"/bin/update_led_on ${SRC}/bin/update_led_on
     cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
-    echo "-- LED Driver was taken from the original base firmware!"
+    echo "-- LED driver was taken from the original base firmware!"
 fi
 $sh_DIR/patch_leddefinition.sh "${SRC}" "${DST}"
 # add missing gives
