@@ -36,7 +36,7 @@ DLD_DIR="$2"
 EXT="${1##*.}"
 #if [ "$DOCHECK" == "y" ] || [ "${3:6}" == "" ] || [ "$6" == "" ];then
 if [ "$DOCHECK" == "y" ]; then
- echo "-- Checking AVM Labor php for latest firmware file ..."
+ echo "-- checking AVM Labor php for latest firmware file ..."
  rm -f $DLD_DIR/$IMG_REQ
  rm -f $DLD_DIR/index*
  wget -P "$DLD_DIR" "$1" 2>&1 > /dev/null
@@ -80,11 +80,11 @@ DLD_DIR="$2"
 IMG_DESC="$3"
 IMG_TPL=$( echo "$IMG_REQ" | sed -e 's/\...\.image/\.\*\.image/' )
 DLD_TPL="${DLD_PATH}/${IMG_TPL}"
-echo "-- Checking ftp.avm.de for latest firmware file ..."
+echo "-- checking ftp.avm.de for latest firmware file ..."
 rm -f $DLD_DIR/.listing
 wget --spider --no-remove-listing -P "$DLD_DIR" "$DLD_PATH" 2>&1 > /dev/null
 if [ ! -e $DLD_DIR/.listing ]; then
-	echo "-- Could not retrieve listing from ftp.avm.de"
+	echo "-- could not retrieve listing from ftp.avm.de"
 	eval "export $4=${IMG_REQ}"
 	sleep 5
 	return 1
@@ -323,7 +323,7 @@ fi
 if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
     if [ "$EXT" = "zip" ] || [ "$EXT" = "ZIP" ]; then
 	IMG_REQ1="${IMG_REQ%.*}"
-	echo "-- Extracting $IMG_REQ1 from archive "$IMG_REQ" ..."
+	echo "-- extracting $IMG_REQ1 from archive "$IMG_REQ" ..."
 	rm -fdR "$DLD_DIR/$IMG_REQ1"
 	mkdir "$DLD_DIR/$IMG_REQ1"
 	unzip -qoj "$DLD_DIR/$IMG_REQ" -d "$DLD_DIR/$IMG_REQ1" 	#option j added because AVM added path inside zipfile with fritz_box-labor-7270-13362.zip 
@@ -339,7 +339,7 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 		YESNO="y"
 		if [ $IMG_CNTS -gt 1 ]; then
 		    YESNO="n"
-		    echo "-- More than one match for '*.image' found:"
+		    echo "-- more than one match for '*.image' found:"
 		    echo
 		fi
 		while [ "$YESNO" != "y" ]; do
@@ -389,7 +389,9 @@ return 1
 }
 function print_ftperror()
 {
-cat ${HOMEDIR}/ftp.log | grep -q 'No route to host' && \
+sed -i -e '/Permission denied/d' ${HOMEDIR}/ftperr.log
+ftperr_size=`ls -l "${HOMEDIR}/ftperr.log" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
+[ $ftperr_size -gt "0" ] && \
 echo -e "---------------------------------------------------------- \n\
 Your PC or/and VM machine net-card is not set up correctly \n\
 ---------------------------------------------------------- \n\
@@ -547,19 +549,19 @@ while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` =
  echo -n "."
  sleep 1
 done 
-while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'Unreachable'` != "0" ] ||\
+[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
  echo -n "."
 done 
 echo  "."
 echo "Initiating file transfer of 'kernel.image' ..."
 echo "Please be patient, it takes about one minute to erase the mtd1 partition ..."
-ftp -n -p <<EOT 2>&1 | tee ${HOMEDIR}/ftp.log
+rm -f ${HOMEDIR}/.packed
+ftp -n -p <<EOT 2> ${HOMEDIR}/ftperr.log && touch ${HOMEDIR}/.packed &
 lcd "${IMAGEDIR}"
 open "${IPADDRESS}"
 user adam2 adam2
 binary
-debug
-hash
 quote MEDIA FLSH
 put kernel.image mtd1
 quote SETENV firmware_version $OEM
@@ -572,8 +574,9 @@ quote SETENV annex $ANNEX
 quote REBOOT
 quit
 EOT
+printprogress
 print_ftperror || return 1
-fi 
+fi
 # this may be needed if the Box is about to recover
 #quote SETENV jffs2_size	$CONFIG_jffs2_size
 #quote SETENV kernel_args	idle=4
@@ -611,20 +614,20 @@ while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` =
  echo -n "."
  sleep 1
 done 
-while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'Unreachable'` != "0" ] ||\
+[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
  echo -n "."
 done 
 echo  "."
 echo "Initiating file transfer of 'kernel.image' ..."
 echo "Please be patient, it takes about one minute to erase the mtd1 partition ..."
-echo "Reset environment..."
 #lcd "${IMAGEDIR}"
-ftp -n -p <<EOT 2>&1 | tee ${HOMEDIR}/ftp.log
+#ftp -n -p <<EOT 2>&1 | grep -v "Permission denied"  | tee ${HOMEDIR}/ftp.log
+rm -f ${HOMEDIR}/.packed
+ftp -n -p <<EOT 2> ${HOMEDIR}/ftperr.log && touch ${HOMEDIR}/.packed &
 open "${IPADDRESS}"
 user adam2 adam2
 binary
-debug
-hash
 quote MEDIA FLSH
 put "${IMAGEDIR}"/kernel.image mtd1
 put "${HOMEDIR}"/empty mtd3
@@ -632,25 +635,27 @@ put "${HOMEDIR}"/empty mtd4
 quote REBOOT
 quit
 EOT
+printprogress
 print_ftperror || return 1
 ifconfig $ETH_IF add 192.168.2.10
-echo "Waiting for box to shut down again for restart ..."
-echo "If the Box is not rebooting you have to switch off / on the powerline of the box now."
+echo "Waiting for box to shut down and restart ..."
+#echo "If the Box is not rebooting you have to switch off / on the powerline of the box now."
 while [ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
 sleep 1
 echo -n "."
 done 
-while [ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+while [ `ping -c1 -w1 192.168.2.1 2>&1 | grep -c 'Unreachable'` != "0" ] ||\
+[ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
 echo -n "."
 done 
 echo "."
 # echo "Box is back up again..."
-ftp -n -p <<EOT 2>&1 | tee ${HOMEDIR}/ftp.log
+#ftp -n -p <<EOT 2>&1 | grep -v "Permission denied"  | tee ${HOMEDIR}/ftp.log
+rm -f ${HOMEDIR}/.packed
+ftp -n -p  <<EOT 2> ${HOMEDIR}/ftperr.log && touch ${HOMEDIR}/.packed & 
 open 192.168.2.1
 user adam2 adam2
 binary
-debug
-hash
 quote MEDIA FLSH
 quote SETENV firmware_version $OEM
 quote SETENV autoload yes
@@ -662,6 +667,7 @@ quote SETENV annex $ANNEX
 quote REBOOT
 quit
 EOT
+printprogress
 print_ftperror || return 1
 fi
 return 0
@@ -898,7 +904,8 @@ function readConfig()
 	return 0
 }
 function printprogress(){
-sleep 5
+count=0;
+sleep 1
 echo -e -n "\r"
 while [ ! -e $HOMEDIR/.packed ]; do
     echo -e -n "["
