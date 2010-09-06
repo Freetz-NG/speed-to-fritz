@@ -409,15 +409,6 @@ return 0
 # automatically transfer the file 'kernel.image' via ftp (adam2)        #
 #                                                                       #
 #########################################################################
-# Cygwin users note:
-#   1. There is NO guarantee whatsoever that this will work on Cygwin,
-#      provided as it is.
-#   2. For FTP you need the 'ncftp' cygwin package (category 'net').
-#   3. You need the 'ping' command from Windows (tested on XP), NOT from the
-#      'ping' cygwin package (please uninstall or change path so Windows
-#      version is found first), because the cygwin version has no timeout
-#      parameter as of today (2007-07-11).
-
 function pushconfig()
 {
 IMAGEDIR="$1"
@@ -431,41 +422,30 @@ kernel_args="$8"
 ANNEX="$9"
 
 img=""
-#hexdump -n4 ${IMAGEDIR}/kernel.image | grep -iq "1281 feed" && img="kernel.image"
 img="${IMAGEDIR}/kernel.image"
-#if [ -z "$img" ]; then
-#	echo >&2
-#	echo "Error: file is not a valid image to be written to mtd1. Please use a" >&2
-#	echo "hidden root 'kernel.image' containing both Linux kernel and file system." >&2
-	if tar tf "${IMAGEDIR}/kernel.image" ./var/tmp/kernel.image > /dev/null 2>&1; then
-		echo >&2
-		echo "Hint: file seems to be a full firmware image archive in 'tar' format" >&2
-		echo "containing the 'kernel.image' you are looking for. Please extract the archive" >&2
-		echo "by means of 'tar xf', then call this script again upon the extracted " >&2
-		echo "'kernel.image'." >&2
-sleep 20
-#	fi
+if tar tf "${IMAGEDIR}/kernel.image" ./var/tmp/kernel.image > /dev/null 2>&1; then
+	echo >&2
+	echo "Hint: file seems to be a full firmware image archive in 'tar' format" >&2
+	echo "containing the 'kernel.image' you are looking for. Please extract the archive" >&2
+	echo "by means of 'tar xf', then call this script again upon the extracted " >&2
+	echo "'kernel.image'." >&2
+	sleep 20
 	echo >&2
 	sleep 20; exit 1
-        
-        fi
-
+fi
 CNET=${6%.*}
 #NET_4=${6##*.}
 NET=${CNET%.*}
 #NET_3=${CNET##*.}
 #NET_1=${NET%.*}
 #NET_2=${NET##*.}
-#. $HOMEDIR/incl_var
 ETHLIST=" eth0 eth1 eth2 eth3 eth4 eth5"
 if [ $ETH_IF ]; then 
  ETHLIST="$ETH_IF"
  echo "Network cards set up for search active net connections: $ETHLIST"
-# echo "This was set via command line parameter of sp-to-fritz.sh."
 else 
  echo "Network  cards set up for search active netconnections: $ETHLIST"
  echo "This list was set to default, but can be set to advance." 
-# echo "By invoking via menu or commandline option."
 fi
 for ETH_IF in ${ETHLIST} ; do
   if  ifconfig $ETH_IF >/dev/null ; then
@@ -498,58 +478,13 @@ while !(read -s); do
 done
 fi 
 if ! [ $FORCE_CLEAR_FLASH ]; then
- if [ $CYGWIN ]; then
-	trap 'echo ; echo "aborted" ; sleep 20; exit 1' TERM INT
-	ping_params="-n 1 -w 500"
-	echo
-	echo " * You should now reboot your box."
-	echo "   Waiting for box to shut down."
-	echo "   Tip: switch off, if reboot is not detected because it happens too quickly"
-	echo -n "   "
-	while eval "ping $ping_params $ip > /dev/null"; do
-		echo -n "."
-		sleep 0.2
-	done
-	echo
-	echo
-	echo " * No reply from box. Assuming switch-off or restart."
-	echo "   Trying to re-detect box."
-	echo -n "   "
-	while ! eval "ping $ping_params $ip > /dev/null"; do
-		echo -n "."
-		sleep 0.2
-	done
-	echo
-	echo
-	echo " * Box is back up again."
-	echo "   Initiating transfer."
-	echo "   Tip: switch off/on box several times, if FTP client cannot log in ..."
-	echo
-	ncftpput \
-		-d stdout \
-		-o doNotGetStartCWD=1,useFEAT=0,useHELP_SITE=0,useCLNT=0,useSIZE=0,useMDTM=0 \
-		-W "quote MEDIA FLSH" \
-		 -Y "quote SETENV firmware_version $OEM" \
-		 -Y "quote SETENV autoload yes" \
-		 -Y "quote SETENV my_ipaddress $IPADDRESS" \
-		 -Y "quote SETENV ProductID  $CONFIG_PRODUKT" \
-		 -Y "quote SETENV HWRevision  $HWRevision" \
-		 -Y "quote SETENV kernel_args $kernel_args" \
-		 -Y "quote SETENV annex $ANNEX" \
-		-Y "quote REBOOT" \
-		-u adam2 -p adam2 \
-		-C ${IPADDRESS} \
-		"${IMAGEDIR}"/kernel.image mtd1
-#		 -Y "quote SETENV jffs2_size	$CONFIG_jffs2_size" \
-#not cygwin
-else
 ping_params="-c1 -w1"
 echo "You should now reboot your box. Waiting for box to shut down for restart ..."
 while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
  echo -n "."
  sleep 1
 done 
-while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'Unreachable'` != "0" ] ||\
+while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
 [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
  echo -n "."
 done 
@@ -558,12 +493,13 @@ echo "Initiating file transfer of 'kernel.image' ..."
 echo "Please be patient, it takes about one minute to erase the mtd1 partition ..."
 rm -f ${HOMEDIR}/.packed
 ftp -n -p <<EOT 2> ${HOMEDIR}/ftperr.log && touch ${HOMEDIR}/.packed &
-lcd "${IMAGEDIR}"
 open "${IPADDRESS}"
 user adam2 adam2
 binary
 quote MEDIA FLSH
-put kernel.image mtd1
+debug
+put "${IMAGEDIR}"/kernel.image mtd1
+!echo -e -n "\r"
 quote SETENV firmware_version $OEM
 quote SETENV autoload yes
 quote SETENV my_ipaddress $IPADDRESS
@@ -576,37 +512,6 @@ quit
 EOT
 printprogress
 print_ftperror || return 1
-fi
-# this may be needed if the Box is about to recover
-#quote SETENV jffs2_size	$CONFIG_jffs2_size
-#quote SETENV kernel_args	idle=4
-#quote SETENV ptest $PTEST
-
-
-# HWRevision 
-# Hardware revision (HWID) to be the same as in rc.init. 
-# Next important Bit is ATA, since the bits are used to indicate ATA mode.
-# The other bit is BitFileCount and BitFileCountReservd1.
-# All used in the startup process of the box.  
-# This information overrides other settings made elsewhere.
-# BitFileCount 1 is used to decide the version of binary files used for the XILINX.
-# BitFileCountReserved1 is of less importanc is 0. 
-# quote SETENV ptest finalize=1
-# finalize=1 (getting ENV from tftpserver 192.168.2.20 (FILNAME = finalize.tar))
-# ptest options: (only one option is possible with quote SETENV ptest, but within the serial console more than one option is possible at once) 
-         #this alternative method is used to keep some original tar entries used by t-com update
-
-# subnet=2.20 (192.168.X.X)
-# dsl=XX (XX stands for number of tests performed)
-# wlan=off (or on, cal, XX)
-# ab=XX
-# usb_h=1 
-# capiserv=1
-#  
-# results of test should be pushed to the tftpserver but not veryfied yet 
-# quote SETENV ProductID  $CONFIG_PRODUKT (For some reason this command is not transfered via FTP only within the serial console) 
-# quote SETENV firmware_info  $VERSION
-
 else # <--not FORCE_CLEAR_FLASH
 ping_params="-c1 -w1"
 echo "You should now reboot your box. Waiting for box to shut down for restart ..."
@@ -614,24 +519,26 @@ while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` =
  echo -n "."
  sleep 1
 done 
-while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'Unreachable'` != "0" ] ||\
+while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
 [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
  echo -n "."
 done 
 echo  "."
 echo "Initiating file transfer of 'kernel.image' ..."
 echo "Please be patient, it takes about one minute to erase the mtd1 partition ..."
-#lcd "${IMAGEDIR}"
-#ftp -n -p <<EOT 2>&1 | grep -v "Permission denied"  | tee ${HOMEDIR}/ftp.log
 rm -f ${HOMEDIR}/.packed
 ftp -n -p <<EOT 2> ${HOMEDIR}/ftperr.log && touch ${HOMEDIR}/.packed &
 open "${IPADDRESS}"
 user adam2 adam2
 binary
 quote MEDIA FLSH
+debug
 put "${IMAGEDIR}"/kernel.image mtd1
+!echo -e -n "\r"
 put "${HOMEDIR}"/empty mtd3
+!echo -e -n "\r"
 put "${HOMEDIR}"/empty mtd4
+!echo -e -n "\r"
 quote REBOOT
 quit
 EOT
@@ -644,15 +551,13 @@ while [ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "1" 
 sleep 1
 echo -n "."
 done 
-while [ `ping -c1 -w1 192.168.2.1 2>&1 | grep -c 'Unreachable'` != "0" ] ||\
+while [ `ping -c1 -w1 192.168.2.1 2>&1 | grep -c 'nreachable'` != "0" ] ||\
 [ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
 echo -n "."
 done 
 echo "."
-# echo "Box is back up again..."
-#ftp -n -p <<EOT 2>&1 | grep -v "Permission denied"  | tee ${HOMEDIR}/ftp.log
-rm -f ${HOMEDIR}/.packed
-ftp -n -p  <<EOT 2> ${HOMEDIR}/ftperr.log && touch ${HOMEDIR}/.packed & 
+echo "Box is back up again..."
+ftp -n -p  <<EOT 2> ${HOMEDIR}/ftperr.log
 open 192.168.2.1
 user adam2 adam2
 binary
@@ -667,14 +572,10 @@ quote SETENV annex $ANNEX
 quote REBOOT
 quit
 EOT
-printprogress
 print_ftperror || return 1
 fi
 return 0
 }
-
-#quote SETENV jffs2_size 32
-#quote SETENV jffs2_size	$CONFIG_jffs2_size
 
 function modunsqfs()
 {
@@ -905,6 +806,7 @@ function readConfig()
 }
 function printprogress(){
 count=0;
+timeout=0;
 sleep 1
 echo -e -n "\r"
 while [ ! -e $HOMEDIR/.packed ]; do
@@ -924,11 +826,16 @@ while [ ! -e $HOMEDIR/.packed ]; do
 	count="1"
     fi
     sleep 2
+    let timeout=timeout+1
+    if [ "$timeout" == "500" ]; then
+        echo "error timeout!"
+	return 1
+    fi
 done 
 echo -e -n "]\r"
 for ((i=0; i<82; i++))
 do
 	echo -e -n " "
 done
-echo -e -n "\r"
+echo -e  "\r"
 }
