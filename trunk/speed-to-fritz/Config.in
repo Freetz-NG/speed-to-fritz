@@ -222,7 +222,7 @@ config AVM_7240_73_04_80
 
 config AVM_PRE_7240_18237
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7240_vorschau_release_candidate/labor_start_release_candidate.php HW144:fritzbox-labor-7240-18237.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7240.73.04.85-18202.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7240_vorschau_release_candidate/labor_start_release_candidate.php HW144:fritzbox-labor-7240-18237.zip"
 ###------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config AVM_7272_54_04_58
     string
@@ -290,12 +290,12 @@ config AVM_IPV6_7273_17603
 
 config AVM_PRE_7271_18237
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate.php HW122:fritzbox-labor-7270v1-18237.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v1.54.04.85-18202.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate.php HW122:fritzbox-labor-7270v1-18237.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v1.54.04.85-18237.image"
 
 # 7272 is used instead of 7270v2
 config AVM_PRE_7272_18237
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate.php HW139:fritzbox-labor-7270v2-18237.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v2.54.04.85-18202.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate.php HW139:fritzbox-labor-7270v2-18237.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v2.54.04.85-18237.image"
 # Muster eines Links zur php Seite, HW ID muss zusaetzlich angegeben werden damit der richtige Link vom Skript auf der Seite gefunden werden kann. Die Zeile wird automatisch beim Skriptdurchlauf vervollstaendigt.   
 #    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate.php HWxxx:"
 
@@ -309,7 +309,7 @@ config AVM_PRE_72XX
 
 config AVM_PRE_7273_18237
    string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate.php HW145:fritzbox-labor-7270v3-18237.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v3.74.04.85-18202.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate.php HW145:fritzbox-labor-7270v3-18237.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v3.74.04.85-18237.image"
 config AVM_DSL_7271_16750
     string
     default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_dsl/labor_start_dsl.php HW122:"
