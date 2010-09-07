@@ -16,8 +16,7 @@ export FILESYSTEM_MOD_DIR="$1"
 export FIRMWARE_MOD_DIR="$FBDIR"
 export PATCHES_DIR="$FREETZPATCH_DIR"
 #echo "PATCHES_DIR: $PATCHES_DIR"
-[ "$FREETZ_SCRIPTS" == "y" ] && ! [ -d $PATCHES_DIR/cond ] && echo " --looking for new freetz scripts..." && rm -rf R  $PATCHES_DIR && svn co http://svn.freetz.org/trunk/patches $PATCHES_DIR
-export HTML_LANG_MOD_DIR="$1/usr/www"
+[ "$FREETZ_SCRIPTS" == "y" ] && ! [ -d $PATCHES_DIR/cond ] && echo "-- looking for new freetz scripts..." && rm -rf R  $PATCHES_DIR && svn co http://svn.freetz.org/trunk/patches $PATCHES_DIR
 [ $avm_Lange == "en" ] && export FREETZ_TYPE_LANG_EN="y" # ? also set in Config.in
 [ $avm_Lange == "de" ] && export FREETZ_TYPE_LANG_DE="y" # ? also set in Config.in
 echo $FBIMG_PATH | grep -q "a-ch" && export FREETZ_TYPE_LANG_A_CH="y"
@@ -32,6 +31,7 @@ for webdir in ${FILESYSTEM_MOD_DIR}/usr/www ${FILESYSTEM_MOD_DIR}/usr/www.nas; d
 			done
 		fi
 done
+export HTML_LANG_MOD_DIR="$FILESYSTEM_MOD_DIR/usr/www/all"
 ##[ "$VERBOSE" == "-v" ] && env | grep "FREETZ_"
 #Some more vars may be needed if orignal freetz patches will be used as the are.
 #If aditional patches from freetz are used vars should be set up within Config.in
