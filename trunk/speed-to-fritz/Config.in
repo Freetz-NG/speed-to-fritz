@@ -2405,19 +2405,11 @@ endif
 config 	EXPORT_FREETZ_PACKAGE_INETD
     bool
 config EXPORT_FREETZ_HAS_AVM_INETD
-	bool "HAS AVM inetd"	if LOCAL_X_MODEL
+	bool
 	select EXPORT_FREETZ_PACKAGE_INETD
-	default y		if \
-		TYPE_3270 || \
-		TYPE_3273 || \
-		TYPE_7240 || \
-		TYPE_7272 || \
-		TYPE_7273 || \
-		TYPE_7390 || \
-		TYPE_OR_7570_920
 	default n
 	help
-		Select this if your original firmware has inetd support.
+		Select this if AVM inetd is replaced 
 
 config EXPORT_FREETZ_HAS_DECT
 	bool "Has DECT"	if LOCAL_X_MODEL
@@ -2594,12 +2586,11 @@ config EXPORT_FREETZ_PATCH_DSL_EXPERT
 
 config EXPORT_FREETZ_ADD_REGEXT_GUI
 	bool "Patch GUI to enable external SIP connections"
-	depends on ( \
+	depends on TYPE_OR_7570_920 || ( \
 		TYPE_7240 || \
-		TYPE_7272 || \
+		TYPE_7270 || \
 		TYPE_7273 || \
-		TYPE_OR_7570_920 || \
-		(TYPE_7170 && ! TYPE_FREETZ_LABOR_DSL) \
+		TYPE_7170 \
 		) && TYPE_LANG_DE
 	default n
 	help
@@ -2809,7 +2800,7 @@ config EXPORT_FREETZ_REMOVE_DTRACE
 		TYPE_7390 || \
 		TYPE_OR_701_900 || \
 		TYPE_OR_7570_920
-	default y
+	default n
 	help
 		Remove /usr/bin/dtrace. This utility is only needed to trace ISDN D-channel.
 		This will save about 87kB uncompressed size.
