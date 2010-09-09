@@ -1,9 +1,6 @@
 #!/bin/bash
 export PATH=$PATH:/sbin
 ##########################################################################
-# Set this to "y" if you run the skript within CYGWIN, only used with -p option
-# For more info, look into file includefunction
-export CYGWIN=""
 export ERR_LOGFILE="0_error.log"
 # only used with push option
 # If adam IP address is changed after use of recover or clear mtd3/mtd4
