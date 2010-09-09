@@ -319,6 +319,7 @@ if [ -f "$DLD_DIR/$IMG_REQ" ]; then
     act_size=`ls -l "$DLD_DIR/$IMG_REQ" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
     #echo "size: $act_size"
     [  "$act_size" == "0" ] && rm -f $DLD_DIR/$IMG_REQ
+    check_or_write_md5_to_DB "$DLD_DIR/$IMG_REQ" && rm -f $DLD_DIR/$IMG_REQ && echo "--------> Wrong filesize!" && sleep 50
 fi
 if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
     if [ "$EXT" = "zip" ] || [ "$EXT" = "ZIP" ]; then
@@ -362,6 +363,7 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 		IMG_EXTRACTED_SPC="$(echo $IMG_EXTRACTED | sed -e "s/ /-/g")" 
 		mv "$DLD_DIR/$IMG_REQ1/$IMG_EXTRACTED" "$DLD_DIR/$IMG_EXTRACTED_SPC" 
 		if [ -f "$DLD_DIR/$IMG_EXTRACTED_SPC" ]; then
+		check_or_write_md5_to_DB "$DLD_DIR/$IMG_EXTRACTED_SPC"
 		#echo "-----> $FIRST_ENTRY"
 		echo "$IMG_EXTRACTED" | grep -q ' ' || ([ "$MIRROR_DLD_TPL" == "" ] && sed -i -e "s|\"$FIRST_ENTRY\"|\"$FIRST_ENTRY \./$FWORIGDIR/$IMG_EXTRACTED_SPC\"|" "$HOMEDIR/Config.in")
 		[ "$MIRROR_DLD_TPL" == "" ] && sed -i -e "s|\"$FIRST_ENTRY\"|\"$FIRST_ENTRY \./$FWORIGDIR/$IMG_EXTRACTED_SPC\"|" "$HOMEDIR/$firmwareconf_file_name"
@@ -387,6 +389,32 @@ fi
 eval "$4=''"
 return 1
 }
+
+function check_or_write_md5_to_DB()
+{
+	temp="$($TOOLS_DIR/md5sum "$1")"
+	MD5SUM="${temp%% *}"
+	filename=$(basename "${temp#* }")
+	#echo "MD5SUM:$MD5SUM"
+	#echo "filename:$filename"
+	[ -f $HOMEDIR/md5list ] || touch $HOMEDIR/md5list
+	if ! $(grep -q "$filename" "$HOMEDIR/md5list" ); then
+	    echo "$filename $MD5SUM" >> $HOMEDIR/md5list
+	    return 1
+	else
+	    temp=$(grep "$filename" $HOMEDIR/md5list)
+	    DB_MD5SUM="${temp#* }"
+	    DB_filename=$(basename "${temp%% *}")
+	    #echo "DB_MD5SUM:$DB_MD5SUM"
+	    #echo "DB_filename:$DB_filename"
+	fi
+	if [ "$DB_MD5SUM" == "$MD5SUM" ]; then
+	    return 1
+	else
+	    return 0
+	fi
+}
+
 function print_ftperror()
 {
 sed -i -e '/Permission denied/d' ${HOMEDIR}/ftperr.log
