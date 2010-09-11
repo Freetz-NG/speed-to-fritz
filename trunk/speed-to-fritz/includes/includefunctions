@@ -319,7 +319,7 @@ if [ -f "$DLD_DIR/$IMG_REQ" ]; then
     act_size=`ls -l "$DLD_DIR/$IMG_REQ" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
     #echo "size: $act_size"
     [  "$act_size" == "0" ] && rm -f $DLD_DIR/$IMG_REQ
-    check_or_write_md5_to_DB "$DLD_DIR/$IMG_REQ" && echo "--------> Wrong file size!" && sleep 5 && check_html
+    check_or_write_md5_to_DB "$DLD_DIR/$IMG_REQ" && check_html
 fi
 if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
     if [ "$EXT" = "zip" ] || [ "$EXT" = "ZIP" ]; then
@@ -391,11 +391,14 @@ return 1
 }
 function check_html()
 {
+    echo "--------> Wrong file size!"
+    sleep 3
     if $(grep -q '</html>' "$DLD_DIR/$IMG_REQ" ); then
 	mv "$DLD_DIR/$IMG_REQ" "$DLD_DIR/$IMG_REQ.html"
 	lynx "$DLD_DIR/$IMG_REQ.html"
-	sleep 50
+	sleep 3
     fi
+    rm -f $DLD_DIR/$IMG_REQ*
 }
 function check_or_write_md5_to_DB()
 {
