@@ -28,7 +28,7 @@ do_download()
   fi
   #echo "Download succeeded - $2  ->  saved to folder $1"
 }
-function fwselect_php()
+function get_php()
 {
 DLD_PATH="${1%/*}/"
 IMG_REQ="${1##*/}"
@@ -71,7 +71,7 @@ else
 fi
 return 0
 }
-function fwselect_ftp()
+function get_fw_from_ftp()
 {
 DLD_PATH="${1%/*}/"
 ! `echo $1 | grep -q '@'` && `echo $1 | grep -q 'update.avm.de'` && DLD_PATH="ftp://jason:274jgjg85hh36@${DLD_PATH##*//}"
@@ -135,7 +135,7 @@ DLD_TPL="$1"
 DLD_DIR="$2"
 FW_TYPE="$7"
 X_ENTRY="$5"
-[ "${1##*.}" == "php" ] && fwselect_php "$DLD_TPL" "$DLD_DIR" "$6" "DLD_TPL" "$6" "$5" "X_ENTRY" 
+[ "${1##*.}" == "php" ] && get_php "$DLD_TPL" "$DLD_DIR" "$6" "DLD_TPL" "$6" "$5" "X_ENTRY" 
 IMG_REQ="${DLD_TPL##*/}"
 DLD_PATH="${DLD_TPL%/*}"
 FIRST_ENTRY=""
@@ -151,7 +151,7 @@ else
 	[ "${6:0:2}" == "HW" ] && FIRST_ENTRY="$1 ${6:0:5}"
     fi
 fi
-fwselect_ "$DLD_TPL" "$2" "$3" "$4" "$X_ENTRY" "$SECOND_ENTRY" "$FIRST_ENTRY"
+get_fw "$DLD_TPL" "$2" "$3" "$4" "$X_ENTRY" "$SECOND_ENTRY" "$FIRST_ENTRY"
 if [ $? -ne 0 ]; then
     IMG_REQ_OLD=$IMG_REQ
     DLD_TPL_OLD=$DLD_TPL
@@ -164,20 +164,22 @@ if [ $? -ne 0 ]; then
      X_version=${X_X:0:2}
      X_minorversion=${X_X:6:2}
      X_subversion=${X_X:9:5}
-     echo "Ori_Version:$X_version.04.$X_minorversion-$X_subversion"
+     #echo "Firmware Version: $X_version.04.$X_minorversion-$X_subversion"
     else 
 	if `echo "${X_X:9:5}" | grep -q 'image'` || `echo "${X_X:9:3}" | grep -q 'zip'` || `echo "${X_X:9:3}" | grep -q 'ZIP'` ; then
     	    X_version=${X_X:0:2}
     	    X_minorversion=${X_X:6:2}
-    	    echo "Ori_Version:$X_version.04.$X_minorversion"
+    	    #echo "Firmware Version: $X_version.04.$X_minorversion"
 	fi
     fi
- `  echo $DLD_TPL | grep -q 'ftp://'` && fwselect_ "$DLD_TPL" "$2" "$3" "$4" "select" "$SECOND_ENTRY" "$FIRST_ENTRY"
+ `  echo $DLD_TPL | grep -q 'ftp://'` && get_fw "$DLD_TPL" "$2" "$3" "$4" "select" "$SECOND_ENTRY" "$FIRST_ENTRY"
     if [ $? -ne 0 ]; then
-	echo "-- Unable to retrieve file '$IMG_REQ'" 
-	echo "   Check your internet connection!"
-	echo "In some cases the download won't start even the file exists on the server."
-	echo "In such cases please download the file to the directory first:"
+	if [ $? -eq 1 ]; then
+	    echo "Check your internet connection!"
+	    echo "In some cases the download won't start even the file exists on the given locoction."
+	fi
+	echo "Unable to retrieve file '$IMG_REQ'"
+	echo "Please download the file to the following directory:"
 	echo "      $DLD_DIR"
 	eval "$4=''"
 	return 1
@@ -220,14 +222,14 @@ if [ $? -ne 0 ]; then
     diff -Naur "${HOMEDIR}"/Config.in.ori "${HOMEDIR}"/Config.in > "${HOMEDIR}"/Config.in.diff
 fi
 }
-function fwselect_()
+function get_fw()
 {
 DLD_TPL="$1"
 DLD_DIR="$2"
 IMG_DESC="$3"
 IMG_DESC2="$4"
 if [ "$5" == "select" ]; then
-    fwselect_ftp "$DLD_TPL" "$DLD_DIR" "$IMG_DESC" "DLD_TPL"
+    get_fw_from_ftp "$DLD_TPL" "$DLD_DIR" "$IMG_DESC" "DLD_TPL"
     MIRROR_DLD_PATH=""
     MIRROR_DLD_TPL=""
     FILENAME_DLD_TPL=""
@@ -319,7 +321,8 @@ if [ -f "$DLD_DIR/$IMG_REQ" ]; then
     act_size=`ls -l "$DLD_DIR/$IMG_REQ" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
     #echo "size: $act_size"
     [  "$act_size" == "0" ] && rm -f $DLD_DIR/$IMG_REQ
-    check_or_write_md5_to_DB "$DLD_DIR/$IMG_REQ" && check_html
+    check_or_write_md5_to_DB "$DLD_DIR/$IMG_REQ" && check_html && \
+    eval "$4=''" && return 2
 fi
 if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
     if [ "$EXT" = "zip" ] || [ "$EXT" = "ZIP" ]; then
@@ -392,13 +395,17 @@ return 1
 function check_html()
 {
     echo "--------> Wrong file size!"
-    sleep 3
+    sleep 1
     if $(grep -q '</html>' "$DLD_DIR/$IMG_REQ" ); then
+	echo "Recived HTML file instead!"
+	sleep 2
 	mv "$DLD_DIR/$IMG_REQ" "$DLD_DIR/$IMG_REQ.html"
 	lynx "$DLD_DIR/$IMG_REQ.html"
-	sleep 3
+	rm -f $DLD_DIR/$IMG_REQ.html
+	return 1
     fi
-    rm -f $DLD_DIR/$IMG_REQ*
+    rm -f $DLD_DIR/$IMG_REQ
+    return 0
 }
 function check_or_write_md5_to_DB()
 {

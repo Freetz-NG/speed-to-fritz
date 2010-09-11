@@ -1,4 +1,11 @@
 #!/bin/bash
+prompt() {
+echo "No image for processing. Press 'ENTER' to return to the calling shell."
+while !(read -s); do
+    sleep 1
+done
+exit 1
+}
 [ -d "$FWBASE" ] || mkdir "$FWBASE"
 [ -d "$NEWDIR" ] || mkdir "$NEWDIR"
 if [ ! -d "$NEWDIR" ]; then
@@ -17,26 +24,17 @@ rm -rf "$TEMPDIR"
 #get tcom source
 if [ -n "$SPIMG" ]; then
  fwselect "$SPIMG_PATH" "$FWBASE" "TCOM_IMG" "SPIMG"  "$MIRROR_SPIMG_PATH" "$FILENAME_SPIMG_PATH" "${SPNUM}V"
- if [ -z "$SPIMG" ]; then
-	echo "No image for processing. Exit"
-	sleep 20; exit 1
- fi
+ [ -z "$SPIMG" ] && prompt
 fi
 #get sorce 1
 if [ "$ORI" != "y" ] || [ "$XCHANGE_KERNEL" = "y" ]; then
  fwselect "$FBIMG_PATH" "$FWBASE" "AVM_IMG" "FBIMG" "$MIRROR_FBIMG_PATH" "$FILENAME_FBIMG_PATH" "$FBMOD"
- if [ -z "$FBIMG" ]; then 
-	echo "No image for processing. Exit"
-	sleep 20; exit 1
- fi
+ [ -z "$FBIMG" ] && prompt
 fi
 #get sorce 2
 if [ -n "$FBIMG_2" ]; then
 	fwselect "$FBIMG_2_PATH" "$FWBASE" "SRC2_IMG" "FBIMG_2" "$MIRROR_FBIMG_2_PATH" "$FILENAME_FBIMG_2_PATH" "NO_NUMBER"
-	if [ -z "$FBIMG_2" ]; then
-		echo "No image for processing. Exit"
-		sleep 20; exit 1
-	fi
+	[ -z "$FBIMG_2" ] && prompt
 fi
 echo "********************************************************************************"
 echo -e "\033[1mPhase 2:\033[0m Unpack and extract files from images."
