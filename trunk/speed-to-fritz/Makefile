@@ -63,13 +63,6 @@ noconfig_targets:=menuconfig config oldconfig randconfig \
 	defconfig allyesconfig allnoconfig  \
 	help tools $(TOOLS)
 
-# To put more focus on warnings, be less verbose as default
-# Use 'make V=1' to see the full commands
-ifdef V
-  ifeq ("$(origin V)", "command line")
-    KBUILD_VERBOSE=$(V)
-  endif
-endif
 ifndef KBUILD_VERBOSE
   KBUILD_VERBOSE=0
 endif
@@ -138,72 +131,6 @@ ifndef FCFLAGS_FOR_BUILD
 FCFLAGS_FOR_BUILD:=-g -O2
 endif
 export HOSTAR HOSTAS HOSTCC HOSTCXX HOSTFC HOSTLD
-
-
-ifeq ($(BR2_HAVE_DOT_CONFIG),y)
-
-# cc-option
-# Usage: cflags-y+=$(call cc-option, -march=winchip-c6, -march=i586)
-# sets -march=winchip-c6 if supported else falls back to -march=i586
-# without checking the latter.
-cc-option=$(shell if $(TARGET_CC) $(TARGET_CFLAGS) $(1) -S -o /dev/null -xc /dev/null \
-	> /dev/null 2>&1; then echo "$(1)"; else echo "$(2)"; fi ;)
-
-#############################################################
-#
-# Hide troublesome environment variables from sub processes
-#
-#############################################################
-unexport CROSS_COMPILE
-unexport ARCH
-
-#############################################################
-#
-# Setup the proper filename extensions for the host
-#
-##############################################################
-ifneq ($(findstring linux,$(BR2_GNU_BUILD_SUFFIX)),)
-HOST_EXEEXT:=
-HOST_LIBEXT:=.a
-HOST_SHREXT:=.so
-endif
-ifneq ($(findstring apple,$(BR2_GNU_BUILD_SUFFIX)),)
-HOST_EXEEXT:=
-HOST_LIBEXT:=.a
-HOST_SHREXT:=.dylib
-endif
-ifneq ($(findstring cygwin,$(BR2_GNU_BUILD_SUFFIX)),)
-HOST_EXEEXT:=.exe
-HOST_LIBEXT:=.lib
-HOST_SHREXT:=.dll
-endif
-ifneq ($(findstring mingw,$(BR2_GNU_BUILD_SUFFIX)),)
-HOST_EXEEXT:=.exe
-HOST_LIBEXT:=.lib
-HOST_SHREXT:=.dll
-endif
-
-# The preferred type of libs we build for the target
-ifeq ($(BR2_PREFER_STATIC_LIB),y)
-LIBTGTEXT=.a
-#PREFERRED_LIB_FLAGS:=--disable-shared --enable-static
-else
-LIBTGTEXT=.so
-#PREFERRED_LIB_FLAGS:=--disable-static --enable-shared
-endif
-PREFERRED_LIB_FLAGS:=--enable-static --enable-shared
-
-
-#############################################################
-#
-# Cleanup and misc junk
-#
-#############################################################
-## clean: $(TARGETS_CLEAN)
-## 	rm -rf $(STAGING_DIR) $(TARGET_DIR) $(IMAGE)
-
-
-else # ifeq ($(BR2_HAVE_DOT_CONFIG),y)
 
 all: menuconfig
 
@@ -299,8 +226,6 @@ clean:
 
 distclean: clean
 	rm -rf sources/*
-
-endif # ifeq ($(BR2_HAVE_DOT_CONFIG),y)
 
 help:
 	@echo 'Cleaning:'
