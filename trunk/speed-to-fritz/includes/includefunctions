@@ -318,9 +318,9 @@ else #<--alternative local filename --
  fi #<--alternative local filename --
 fi
 if [ -f "$DLD_DIR/$IMG_REQ" ]; then
-    act_size=`ls -l "$DLD_DIR/$IMG_REQ" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
+    #act_size=`ls -l "$DLD_DIR/$IMG_REQ" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
     #echo "size: $act_size"
-    [  "$act_size" == "0" ] && rm -f $DLD_DIR/$IMG_REQ
+    #[  "$act_size" == "0" ] && rm -f $DLD_DIR/$IMG_REQ
     check_or_write_md5_to_DB "$DLD_DIR/$IMG_REQ" && check_html "$DLD_DIR/$IMG_REQ" && \
     eval "$4=''" && return 2
 fi
@@ -410,6 +410,7 @@ function check_html()
 }
 function check_or_write_md5_to_DB()
 {
+	act_size="$(ls -l "$1" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/')"
 	temp="$($TOOLS_DIR/md5sum "$1")"
 	MD5SUM="${temp%% *}"
 	filename=$(basename "${temp#* }")
@@ -417,14 +418,16 @@ function check_or_write_md5_to_DB()
 	#echo "filename:$filename"
 	[ -f $HOMEDIR/md5list ] || touch $HOMEDIR/md5list
 	if ! $(grep -q "$filename" "$HOMEDIR/md5list" ); then
-	    if ! $(grep -q '</html>' "$1" ); then
-	     echo "$filename $MD5SUM" >> $HOMEDIR/md5list
-	     echo "Added "$filename" to ./md5lst"
-	    else
-	     mv "$1" "$1.html"
-	     lynx "$1.html"
-	     rm -f $1.html
-	    fi 
+	     if ! $(grep -q '</html>' "$1" ); then
+	      if (($act_size>4000000)); then
+	       echo "$filename $MD5SUM" >> $HOMEDIR/md5list
+	       echo "Added "$filename" to ./md5lst"
+	      fi
+	     else
+	      mv "$1" "$1.html"
+	      lynx "$1.html"
+	      rm -f $1.html
+	     fi 
 	    return 1
 	else
 	    temp=$(grep "$filename" $HOMEDIR/md5list)
@@ -433,7 +436,7 @@ function check_or_write_md5_to_DB()
 	    #echo "DB_MD5SUM:$DB_MD5SUM"
 	    #echo "DB_filename:$DB_filename"
 	fi
-	if [ "$DB_MD5SUM" == "$MD5SUM" ]; then
+	if [ "$DB_MD5SUM" == "$MD5SUM" ] && (($act_size>4000000)); then
 	    return 1
 	else
 	    return 0
