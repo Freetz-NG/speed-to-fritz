@@ -1,5 +1,8 @@
 #
 # Automatically generated make config: don't edit
+#
+# Renamed and copyed by hand from .config found in dir ./source/busybox* after runnig install-tools.sh
+#
 # Busybox version: 1.17.2
 # Sat Sep 11 06:32:36 2010
 #
