@@ -321,7 +321,7 @@ if [ -f "$DLD_DIR/$IMG_REQ" ]; then
     act_size=`ls -l "$DLD_DIR/$IMG_REQ" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
     #echo "size: $act_size"
     [  "$act_size" == "0" ] && rm -f $DLD_DIR/$IMG_REQ
-    check_or_write_md5_to_DB "$DLD_DIR/$IMG_REQ" && check_html && \
+    check_or_write_md5_to_DB "$DLD_DIR/$IMG_REQ" && check_html "$DLD_DIR/$IMG_REQ" && \
     eval "$4=''" && return 2
 fi
 if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
@@ -330,6 +330,7 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
 	echo "-- extracting $IMG_REQ1 from archive "$IMG_REQ" ..."
 	rm -fdR "$DLD_DIR/$IMG_REQ1"
 	mkdir "$DLD_DIR/$IMG_REQ1"
+	check_or_write_md5_to_DB "$DLD_DIR/$IMG_REQ"
 	unzip -qoj "$DLD_DIR/$IMG_REQ" -d "$DLD_DIR/$IMG_REQ1" 	#option j added because AVM added path inside zipfile with fritz_box-labor-7270-13362.zip 
 	#--> look for file supplied via Config.in as 2nd parameter -->  
 	if [ -f "$DLD_DIR/$IMG_REQ1/${FILENAME_DLD_TPL##*/}" ]; then
@@ -396,15 +397,15 @@ function check_html()
 {
     echo "--------> Wrong file size!"
     sleep 1
-    if $(grep -q '</html>' "$DLD_DIR/$IMG_REQ" ); then
+    if $(grep -q '</html>' "$1" ); then
 	echo "Recived HTML file instead!"
 	sleep 2
-	mv "$DLD_DIR/$IMG_REQ" "$DLD_DIR/$IMG_REQ.html"
-	lynx "$DLD_DIR/$IMG_REQ.html"
-	rm -f $DLD_DIR/$IMG_REQ.html
+	mv "$1" "$1.html"
+	lynx "$1.html"
+	rm -f $1.html
 	return 1
     fi
-    rm -f $DLD_DIR/$IMG_REQ
+    rm -f $1
     return 0
 }
 function check_or_write_md5_to_DB()
@@ -416,7 +417,14 @@ function check_or_write_md5_to_DB()
 	#echo "filename:$filename"
 	[ -f $HOMEDIR/md5list ] || touch $HOMEDIR/md5list
 	if ! $(grep -q "$filename" "$HOMEDIR/md5list" ); then
-	    echo "$filename $MD5SUM" >> $HOMEDIR/md5list
+	    if ! $(grep -q '</html>' "$1" ); then
+	     echo "$filename $MD5SUM" >> $HOMEDIR/md5list
+	     echo "Added "$filename" to ./md5lst"
+	    else
+	     mv "$1" "$1.html"
+	     lynx "$1.html"
+	     rm -f $1.html
+	    fi 
 	    return 1
 	else
 	    temp=$(grep "$filename" $HOMEDIR/md5list)
