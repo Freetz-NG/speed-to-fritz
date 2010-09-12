@@ -94,8 +94,8 @@ if [ -d ${DSTI}/help ] ; then
 [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" != "7570" ] && sed -i -e "s|<? echo \$var:ProduktName ?>|<? echo \$var:ProduktName ?>  ${CLASS} W${SPNUM}V|" "${DSTI}"/home/home.html
 [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" == "7570" ] && sed -i -e "s|<? echo \$var:ProduktName ?>|<? echo \$var:ProduktName ?>  ${CLASS} (${SPNUM})|" "${DSTI}"/home/home.html
 # add Service portal link (is set in rc.conf as well so we dont need this on new 17671 GUI)
-sed -i -e 's|var url = jslGetValue("uiPostPortal");|var url = "http://www.avm.de/de/Service/Service-Portale/Service-Portal/index.php?portal=FRITZ!Box_Fon_WLAN_<Modell-Nummer>"|' "${DSTI}"/help/popup.html
-sed -i -e "s|<Modell-Nummer>|${FBMOD}|" "${DSTI}"/help/popup.html
+[ -f "${DSTI}"/help/popup.html ] && sed -i -e 's|var url = jslGetValue("uiPostPortal");|var url = "http://www.avm.de/de/Service/Service-Portale/Service-Portal/index.php?portal=FRITZ!Box_Fon_WLAN_<Modell-Nummer>"|' "${DSTI}"/help/popup.html
+[ -f "${DSTI}"/help/popup.html ] && sed -i -e "s|<Modell-Nummer>|${FBMOD}|" "${DSTI}"/help/popup.html
 
 echo2 "  -- patching files:"
 if [ "$avm_Lang" = "de" ]; then
