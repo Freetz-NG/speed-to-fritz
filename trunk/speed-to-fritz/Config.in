@@ -708,7 +708,7 @@ if TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V
     bool
     default y
 endif
-if  TYPE_7140 || TYPE_7170
+if  TYPE_7141 || TYPE_7140 || TYPE_7170
     config TYPE_OR_7140_7170
     bool
     default y
