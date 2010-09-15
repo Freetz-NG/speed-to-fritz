@@ -611,6 +611,14 @@ if  TYPE_7390 || TYPE_7273 || TYPE_OR_7240_7270 || TYPE_7170 || TYPE_7150 || TYP
 	bool
 	default y
 endif
+#All AVM modells that dont have extra scripts using SxxxAVM
+if  TYPE_7240 || TYPE_7271 || TYPE_7272 || TYPE_7170 || TYPE_7150 || TYPE_7113 || TYPE_7050 ||\
+    TYPE_5140 || TYPE_5130 || TYPE_5050 || TYPE_5012 || TYPE_5010 || TYPE_FBFW || TYPE_FBFO || LOCAL_X_MODEL
+    config EXPORT_TYPE_SXXX_MODEL
+	bool
+	default y
+endif
+
 # Without 7390, 7240, 7270v1, 7270v2, 7270v3, 7170, 7113, 7141, 7140, 7150,
 # No downloadlink set up to now 
 # TYPE_7050 || TYPE_5140 || TYPE_5130 || TYPE_5050 || TYPE_5012 || TYPE_5010 || TYPE_FBFW || TYPE_FBFO || 
@@ -1004,8 +1012,8 @@ endchoice
 config EXPORT_FORCE_DSL_MULTI_ANNEX 
 	bool "Force Multi annex (optional)"
 	depends on ( ! TYPE_7271_TYPE && ! ORI && ! TYPE_SPEEDPORT_W900V && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W701V && ! TYPE_SPEEDPORT_W503V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
-	default n if ORI_FIRMWARE_IS_MULI
-	default y if ! ORI_FIRMWARE_IS_MULI
+	default n if ORI_FIRMWARE_IS_MULI || TYPE_7140 || TYPE_7141
+	default y if ! ORI_FIRMWARE_IS_MULI && ! TYPE_7140 && ! TYPE_7141
 	help
 	    To make this work you must have a firmware that supplies the needed feature, firmware with minor version > 70 (7270 like).
 	    In case of 7170 Firmwares, it is usual better to stay without this optin because the drivers are optimized for a special annex type.
@@ -1015,8 +1023,8 @@ choice
 	# && ! TYPE_AVM_7570_XX
 	bool "Annex"
 	depends on ! ORI
-	default TYPE_ANNEX_B if ! EXPORT_TYPE_LOCAL_MODEL || TYPE_7390 || TYPE_7140
-	default TYPE_ANNEX_A if EXPORT_TYPE_LOCAL_MODEL && ! TYPE_7390 && ! TYPE_7140
+	default TYPE_ANNEX_B if ! EXPORT_TYPE_LOCAL_MODEL || TYPE_7390 || TYPE_7140 || TYPE_7141 
+ 	default TYPE_ANNEX_A if EXPORT_TYPE_LOCAL_MODEL && ! TYPE_7390 && ! TYPE_7140 && ! TYPE_7141
 	config TYPE_ANNEX_B
 		bool "B"
 	help
@@ -1589,8 +1597,8 @@ comment  "--------------------------------------------------------------------"
 config SOURCE2
 	depends on ! ORI
 	bool "2nd AVM Type firmware (optional)"
-	default y if ( EXPORT_TYPE_LOCAL_MODEL || TYPE_SPEEDPORT_W920V )  && ! TYPE_7390 && ! TYPE_7240 && ! TYPE_7140
-	default n if ! EXPORT_TYPE_LOCAL_MODEL || TYPE_7390 || TYPE_7240 || TYPE_7140
+	default y if ( EXPORT_TYPE_LOCAL_MODEL || TYPE_SPEEDPORT_W920V )  && ! TYPE_7390 && ! TYPE_7240 && ! TYPE_7140 && ! TYPE_7141
+	default n if ! EXPORT_TYPE_LOCAL_MODEL || TYPE_7390 || TYPE_7240 || TYPE_7140 || TYPE_7141
 	help
 		Enable this if you need a second AVM or basis firmware, this may be needed with some options.
 		Not all listed firmwares are usable. 
