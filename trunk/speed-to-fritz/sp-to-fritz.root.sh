@@ -1471,13 +1471,13 @@ $sh2_DIR/del_zip "${AVM_AIO_7170_13014}" "${AVM_AIO_7272_13014}" "13014"
 #[ "$DO_FINAL_DIFF" = "y" ] || [ "$DO_FINAL_KDIFF3_2" = "y" ] || [ "$DO_FINAL_KDIFF3_3" = "y" ] && 
 mkdir -p "${TEMPDIR}" && cp -fdpr "${FBDIR}"/*  --target-directory="${TEMPDIR}"
 # do a compare of AVM and AVM 2nd
-[ -n "$TYPE_LOCAL_MODEL" ] && [ "$TYPE_LOCAL_MODEL" == "y" ] && [ "$DO_KDIFF3_3" = "y" ] && kdiff3 "${FBDIR}" "${FBDIR_2}"
+[ -n "$TYPE_SXXX_MODEL" ] && [ "$TYPE_SXXX_MODEL" == "y" ] && [ "$DO_KDIFF3_3" = "y" ] && kdiff3 "${FBDIR}" "${FBDIR_2}"
 # do a compare of TCOM and AVM
-if [ -n "$TYPE_LOCAL_MODEL" ] || [ "$TYPE_LOCAL_MODEL" != "y" ]; then
+if [ -n "$TYPE_SXXX_MODEL" ] || [ "$TYPE_SXXX_MODEL" != "y" ]; then
     [ "$DO_KDIFF3_2" = "y" ] && kdiff3 "${SPDIR}" "${FBDIR}"
 fi
 # do a compare of source 1 (TCOM) , 2 (AVM) and 3
-if [ -n "$TYPE_LOCAL_MODEL" ] || [ "$TYPE_LOCAL_MODEL" != "y" ]; then
+if [ -n "$TYPE_SXXX_MODEL" ] || [ "$TYPE_SXXX_MODEL" != "y" ]; then
     [ "$DO_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${FBDIR_2}" "${FBDIR}"
 fi
 # do a compare of avm and 3
@@ -1731,11 +1731,11 @@ echo "**************************************************************************
 exec 2> /dev/null
 [ "$DO_FINAL_DIFF" = "y" ] && ./0diff "${SPDIR}" "${TEMPDIR}" "./logFINALtoAVM"
 [ "$DO_FINAL_DIFF_SRC2" = "y" ] && ./0diff "${SPDIR}" "${FBDIR_2}" "./logFINALto3"
-if [ -n "$TYPE_LOCAL_MODEL" ] || [ "$TYPE_LOCAL_MODEL" != "y" ];then
+if [ -n "$TYPE_SXXX_MODEL" ] || [ "$TYPE_SXXX_MODEL" != "y" ];then
     [ "$DO_FINAL_KDIFF3_2" = "y" ] && kdiff3 "${SPDIR}" "${TEMPDIR}"
 fi
 [ "$DO_FINAL_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${FBDIR_2}" "${TEMPDIR}"
-#[ "$TYPE_LOCAL_MODEL" == "y" ] && [ "$DO_FINAL_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${TEMPDIR}"
+#[ "$TYPE_SXXX_MODEL" == "y" ] && [ "$DO_FINAL_KDIFF3_3" = "y" ] && kdiff3 "${SPDIR}" "${TEMPDIR}"
 [ "$DO_NOT_STOP_ON_ERROR" = "n" ] && exec 2>"${HOMEDIR}/${ERR_LOGFILE}"
 # compose filename for new .tar file
 [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ] && AVM_SUBVERSION="7570-$AVM_SUBVERSION"
@@ -1753,7 +1753,7 @@ Language="_${avm_Lang}"
 [ "$ORI" == "y" ] && export NEWIMG="${SPIMG}_OriginalFirmwareAdjusted${PANNEX}${Language}.image"
 [ "$ATA_ONLY" = "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}-${act_firmwareconf_size}_OEM-${OEM}_ATA-ONLY${Language}.image"
 #only AVM + 2nd AVM Firmware was in use
-[ "$TYPE_LOCAL_MODEL" == "y" ] && export NEWIMG="fw_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_2_VERSION_MAJOR}.${AVM_2_VERSION}-${AVM_2_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}-${act_firmwareconf_size}_OEM-${OEM}${PANNEX}${Language}.image"
+[ "$TYPE_SXXX_MODEL" == "y" ] && export NEWIMG="fw_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}_${CONFIG_PRODUKT}_${AVM_2_VERSION_MAJOR}.${AVM_2_VERSION}-${AVM_2_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}-${act_firmwareconf_size}_OEM-${OEM}${PANNEX}${Language}.image"
 echo "export MULTI_LANGUAGE=\"${MULTI_LANGUAGE}\"" >> incl_var
 echo "export kernel_args=\"${kernel_args}\"" >> incl_var
 echo "export NEWIMG=\"${NEWIMG}\"" >> incl_var
