@@ -352,6 +352,7 @@ fi
 #-------------------------------------------------------------------------------------------------------------------
  # 17671 -->
  # fix for new GUI
+ [ -f "$1/usr/www/$DIR/help/modinfo.html" ] && \
  sed -i -e "/<\/div>/d" -e "/<div/d" -e "/<? include/d" "$1/usr/www/$DIR/help/modinfo.html" -e "1i<?lua write_help_head([[Modinformation]]) ?>" "$1/usr/www/$DIR/help/modinfo.html"
  # <--17671
 fi
