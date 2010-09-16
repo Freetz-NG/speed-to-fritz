@@ -395,7 +395,7 @@ return 1
 }
 function check_html()
 {
-    echo "--------> Wrong file size!"
+    echo "--------> wrong mtd5-checksum!"
     sleep 1
     if $(grep -q '</html>' "$1" ); then
 	echo "Recived HTML file instead!"
