@@ -15,6 +15,17 @@ export HOMEDIR="`pwd`"
 . ./incl_var
 export FREETZ_DIR="freetz-trunk"
 FREETZ_DL_LINK="http://svn.freetz.org/trunk"
+#W900 or W701-->
+  DO_COPY="y" # n is just for testing - uses the complet addon patch for freetz W722
+  if [ "$SPNUM" = "900" ] || [ "$SPNUM" = "701" ] ; then
+    echo -e "\033[32mStabil freetz-stable-1.1 is used for W${SPNUM}V\033[0m"
+    export FREETZ_DIR="freetz-stable-1.1"
+    #patches are at the moment for revision:
+    #FREETZREVISION=""
+    #echo -e "\033[31mRevision  is set to: $FREETZREVISION (current patches do need this revision)\033[0m "
+    FREETZ_DL_LINK="http://svn.freetz.org/branches/freetz-stable-1.1"
+  fi 
+# 900 or W701<--
 #7390 or W722-->
   DO_COPY="y" # n is just for testing - uses the complet addon patch for freetz W722
   if [ "$FBMOD" = "7390" ] || [ "$SPNUM" = "722" ] ; then
