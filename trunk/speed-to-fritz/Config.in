@@ -222,7 +222,7 @@ config AVM_7240_73_04_80
 
 config AVM_7240_73_04_86
     string
-    default "@AVM/fritz.box/fritzbox.fon_wlan_7240/firmware/deutsch/FRITZ.Box_Fon_WLAN_7240.73.04.86.image"
+    default "ftp://download.avm.de/fritz.box/fritzbox.fon_wlan_7240/firmware/deutsch/FRITZ.Box_Fon_WLAN_7240.73.04.86.image"
 
 config AVM_PRE_7240_18237
     string
@@ -262,15 +262,15 @@ config AVM_7273_74_04_80
 
 config AVM_7271_54_04_86
     string
-    default "@AVM/fritz.box/fritzbox.fon_wlan_7270_v1/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v1.54.04.86.image"
+    default "ftp://download.avm.de/fritz.box/fritzbox.fon_wlan_7270_v1/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v1.54.04.86.image"
 
 config AVM_7272_54_04_86
     string
-    default "@AVM/fritz.box/fritzbox.fon_wlan_7270_v2/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v2.54.04.86.image"
+    default "ftp://download.avm.de/fritz.box/fritzbox.fon_wlan_7270_v2/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v2.54.04.86.image"
 
 config AVM_7273_74_04_86
     string
-    default "@AVM/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.86.image"
+    default "ftp://download.avm.de/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.86.image"
 
 #x#config AVM_7272_13486
 #    string
@@ -426,7 +426,7 @@ config AVM_7390_84_04_84
 
 config AVM_7390_84_04_86
    string
-     default "@AVM/fritz.box/fritzbox.fon_wlan_7390/firmware/deutsch/FRITZ.Box_Fon_WLAN_7390.84.04.86.image"
+     default "ftp://download.avm.de/fritz.box/fritzbox.fon_wlan_7390/firmware/deutsch/FRITZ.Box_Fon_WLAN_7390.84.04.86.image"
 
 config AVM_PRE_7390_18255
    string
