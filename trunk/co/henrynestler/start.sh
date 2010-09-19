@@ -34,7 +34,8 @@ echo "==========================================================================
 [ -f ./tap32-driver-v9.zip ] || wget "http://www.sixxs.net/archive/sixxs/aiccu/windows/tap32-driver-v9.zip"
 echo "====================================================================================================="
  #get_latest_colinux
- INDEX="./index"
+ ##INDEX="./index"
+ INDEX="./autobuild"
  LISTING="./listing"
  TMP="./temp"
  rm -f $TMP
@@ -71,16 +72,15 @@ if  [ "$TESTING" == "y" ]; then
 else
  cp -f version_normal version 
  CO_SUBDIR="autobuild"
- wget --no-remove-listing "http://www.henrynestler.com/colinux/$CO_SUBDIR" 
- cat $INDEX.html | grep 'devel-' | sed -e "s|\/\">.*$||" | sed -e "s|^.*devel-||" > $LISTING
+ wget --no-remove-listing "http://www.henrynestler.com/colinux/$CO_SUBDIR"
+ cat $INDEX | grep 'devel-' | sed -e "s|\/\">.*$||" | sed -e "s|^.*devel-||" > $LISTING
  rm -f "$INDEX"*
  tac $LISTING > $TMP
  rm -f $LISTING
  read DVERSION < $TMP
 #------------------------------------------------
 # set a fix version
-#DVERSION="20100606"
-DVERSION="20100630"
+##DVERSION="20100915"
 #------------------------------------------------
  echo "coVersion: $DVERSION"
  CO_SUBDIR2="devel-$DVERSION"
@@ -89,7 +89,7 @@ DVERSION="20100630"
  REVISION="-r$(cat readme.txt | grep 'Subject:' | sed -e "s|^.*r||")"
  [ "$REVISION" == "-r" ] && REVISION=""
  rm -f readme.txt
- #REVISION="-r1446"
+ #REVISION="-r1527"
  echo "Revision: $REVISION"
  LINUX_VERSION="2.6.33.5"
  export COLINUX_VER="0.7.8-$DVERSION"
@@ -175,7 +175,7 @@ DEVEL_VER="20100702"
 ###[ -f coLinux-0.7.3.exe ] || wget "http://www.henrynestler.com/colinux/releases/0.7.3/coLinux-0.7.3.exe"
 ###[ -f coLinux-0.7.3-src.tgz ] || wget "http://www.henrynestler.com/colinux/releases/0.7.3/coLinux-0.7.3-src.tgz"
 #### <-
-[ -f Xming-mesa-6-9-0-31-setup.exe ] || wget "http://downloads.sourceforge.net/xming/Xming-mesa-6-9-0-31-setup.exe?use_mirror="
+[ -f Xming-mesa-6-9-0-31-setup.exe ] || wget "http://downloads.sourceforge.net/xming/Xming-mesa-6-9-0-31-setup.exe?use_mirror=" --output-document="Xming-mesa-6-9-0-31-setup.exe"
 #[ -f Xming-fonts-7-3-0-33-setup.exe ] || wget "http://downloads.sourceforge.net/xming/Xming-fonts-7-3-0-33-setup.exe?use_mirror="
 [ -f WinPcap_4_0_2.exe ] || wget "http://www.winpcap.org/install/bin/WinPcap_4_0_2.exe"
 [ -f putty-0.60-installer.exe ] || wget "http://the.earth.li/~sgtatham/putty/0.60/x86/putty-0.60-installer.exe"
