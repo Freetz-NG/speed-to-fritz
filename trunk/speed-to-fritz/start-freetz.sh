@@ -378,6 +378,7 @@ else
  KEY="x"
  while [ "$KEY" != "y" ]; do
   echo 
+  [ "$SPNUM" == "7570" ] && [ "$AVM_VERSION" == "04.82" ] && echo "This firmware was completly suppored by freetz, runnig speed-to-fritz is optional."
   echo -n "   Invoke 'speed-to-fritz' now? (y/n)? "; read -n 1 -s YESNO; echo
   [ "$YESNO" = "n" ] || [ "$YESNO" = "y" ] &&  KEY="y"
   [ "$KEY" = "x" ] && echo "wrong key!"
