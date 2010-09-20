@@ -1,6 +1,6 @@
 FAKEROOT_VERSION:=1.12.4
-FAKEROOT_SOURCE:=fakeroot_$(FAKEROOT_VERSION).tar.gz
-FAKEROOT_SOURCE_MD5:=aaefede2405a40c87438e7e833d69b70
+FAKEROOT_SOURCE:=fakeroot_$(FAKEROOT_VERSION).orig.tar.bz2
+FAKEROOT_SOURCE_MD5:=bea628be77838aaa7323a2f7601c2d7e
 FAKEROOT_SITE:=http://ftp.debian.org/debian/pool/main/f/fakeroot
 #this file uses diffent paths as the compareable freetz version
 #--> redefined in sp-to-fritz.sh, freetz uses /fakeroot instead of /usr
@@ -20,7 +20,7 @@ $(DL_DIR)/$(FAKEROOT_SOURCE): | $(DL_DIR)
 fakeroot-source: $(DL_DIR)/$(FAKEROOT_SOURCE)
 
 $(FAKEROOT_DIR)/.unpacked: $(DL_DIR)/$(FAKEROOT_SOURCE) | $(TOOLS_SOURCE_DIR)
-	tar -C $(TOOLS_SOURCE_DIR) $(VERBOSE) -xzf $(DL_DIR)/$(FAKEROOT_SOURCE)
+	tar -C $(TOOLS_SOURCE_DIR) $(VERBOSE) -xjf $(DL_DIR)/$(FAKEROOT_SOURCE)
 	$(SED) -i "s,getopt --version,getopt --version 2>/dev/null," \
 		$(FAKEROOT_DIR)/scripts/fakeroot.in
 	for i in $(FAKEROOT_MAKE_DIR)/patches/*.fakeroot.patch; do \
@@ -44,8 +44,8 @@ $(FAKEROOT_DIR)/faked: $(FAKEROOT_DIR)/.configured
 
 $(FAKEROOT_TARGET_SCRIPT): $(FAKEROOT_DIR)/faked
 	$(MAKE) DESTDIR=$(FAKEROOT_DESTDIR) -C $(FAKEROOT_DIR) install
-	$(SED) -i -e 's,^PREFIX=.*,PREFIX=$(FAKEROOT_DESTDIR)/,g' $(FAKEROOT_TARGET_SCRIPT)
-	$(SED) -i -e 's,^BINDIR=.*,BINDIR=$(FAKEROOT_DESTDIR)/bin,g' $(FAKEROOT_TARGET_SCRIPT)
+	$(SED) -i -e 's,^FAKEROOT_PREFIX=.*,FAKEROOT_PREFIX=$(FAKEROOT_DESTDIR)/,g' $(FAKEROOT_TARGET_SCRIPT) 
+	$(SED) -i -e 's,^FAKEROOT_BINDIR=.*,FAKEROOT_BINDIR=$(FAKEROOT_DESTDIR)/bin,g' $(FAKEROOT_TARGET_SCRIPT)
 	$(SED) -i -e 's,^PATHS=.*,PATHS=$(FAKEROOT_DESTDIR)/lib,g' $(FAKEROOT_TARGET_SCRIPT)
 
 fakeroot: $(FAKEROOT_TARGET_SCRIPT)
