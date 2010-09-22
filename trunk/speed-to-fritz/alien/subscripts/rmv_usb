@@ -19,7 +19,7 @@ for FILE in ${REMOVELIST_USB}; do
 done
 $sh_DIR/rmv_usb_menu "$1"
 echo2 "   -- Removing directory:"
-echo2 "      /usr/www/${HTML}/de/usb"
-rm -rf "$1"/usr/www/${HTML}/de/usb
+echo2 "      /usr/www/${HTML}/${avm_Lang}/usb"
+rm -rf "$1"/usr/www/${HTML}/${avm_Lang}/usb
 
 exit 0

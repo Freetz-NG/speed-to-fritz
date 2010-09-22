@@ -6,7 +6,7 @@ DIRI="/usr/www/${HTML}/de/home"
   if ! [ -f "$1"/$DIRI/fondevices.html ]; then
    DIRI="/usr/www/${HTML}/de/fon"
   fi
-    echo2 " -- Remove some 'internal S0' Text in Files ..."
+    echo2 " -- remove some 'internal S0' Text in Files ..."
 if [ $AVM_V_MINOR -gt 48 ]; then
  #remove radio button for ISDN S0 setup
  if [ -e "$1"/usr/www/${HTML}/de/fon_config/fon_config_Start.html ]; then
