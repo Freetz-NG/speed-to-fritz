@@ -39,7 +39,8 @@ echo "export SRC=\"${SRC}\"" >> incl_var
 echo "export FBDIR_2=\"${FBDIR_2}\"" >> incl_var
 echo "export SRC_2=\"${SRC_2}\"" >> incl_var
 echo "export FBIMG=\"${FBIMG}\"" >> incl_var
-[ "$AVM_SUBVERSION" != "18306" ] && echo "export TYPE_LABOR=\"${TYPE_LABOR}\"" >> incl_var
+[ "$AVM_SUBVERSION" == "18306" ] && TYPE_LABOR=""
+echo "export TYPE_LABOR=\"${TYPE_LABOR}\"" >> incl_var
 [ "$TYPE_LABOR" == "y" ] && echo "export TYPE_LABOR_TYPE=\"${TYPE_LABOR_TYPE}\"" >> incl_var
 [ "$TYPE_LABOR" == "y" ] && echo "export TYPE_${TYPE_LABOR_TYPE}=\"y\"" >> incl_var
 echo "export ATA_ONLY=\"${ATA_ONLY}\"" >> incl_var
