@@ -9,11 +9,13 @@ if ! [ -d "$1/etc/default.${SORCE_PRODUKT}/avm" ]; then
 echo "-- moved /etc/default.${CONFIG_PRODUKT}/freenet to avm"
 fi
 for webdir in ${1}/usr/www ${1}/usr/www.nas; do
- if ! [ -d "${webdir}/avm" ]; then
-  [ -d "${webdir}/freenet" ] &&  mv "${webdir}/freenet" "${webdir}/avm" && echo "-- moved /usr/www/freenet to /usr/www/avm"
+ if [ -d "${webdir}" ]; then
+  if ! [ -d "${webdir}/avm" ]; then
+   [ -d "${webdir}/freenet" ] &&  mv "${webdir}/freenet" "${webdir}/avm" && echo "-- moved /usr/www/freenet to /usr/www/avm"
+  fi
+  [ -d "${webdir}/${OEM}" ] ||\
+  mv "${webdir}/avm" "${webdir}/${OEM}" && echo "-- moved /usr/www/avm to /usr/www/${OEM}"
  fi
- [ -d "${webdir}/${OEM}" ] ||\
- mv "${webdir}/avm" "${webdir}/${OEM}" && echo "-- moved /usr/www/avm to /usr/www/${OEM}"
 done
 #move avm oem dir to $OEM
 [ -d "$1/etc/default.${SORCE_PRODUKT}/${OEM}" ] ||\

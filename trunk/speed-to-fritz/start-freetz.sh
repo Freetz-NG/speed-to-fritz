@@ -245,7 +245,7 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
   #[ "$avm_Lang" = "en" ] && sed -i -e 's/FREETZ_TYPE_ANNEX_B=.*/# FREETZ_TYPE_ANNEX_A is not set/' "./.config" 2> /dev/null
   #7570 -->
   if [ "$SPNUM" = "7570" ]; then
-  echo "7570 is now suported within Freetz!"
+  echo "7570 is now supported within Freetz!"
   #7570 <--
   fi
   #7390 -->
