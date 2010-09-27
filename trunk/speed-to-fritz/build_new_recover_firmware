@@ -49,6 +49,7 @@ RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270/x_misc/english
 RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7270_v3/x_misc/deutsch/fritz.box_fon_wlan_7270_v3.04.80.recover-image.exe"
 # 7390 recover can be used for 7270 compatibel boxes as well
 RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.84.recover-image.exe"
+RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7390.04.86.recover-image.exe"
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
 #5010, 5012, FB Fon und FB Fon WLAN
@@ -163,36 +164,40 @@ fi
 #.80
 #0x184C1
 #.80
-sed -i -e 's|\x85\xC0\x59\x0F\x85\xFA\x01\x00\x00\x8D\x85|\x85\xC0\x59\x90\x90\x90\x90\x90\x90\x8D\x85|' \
--e 's|\x85\xC0\x59\x0F\x85\xEF\x01\x00\x00\x8D\x85|\x85\xC0\x59\x90\x90\x90\x90\x90\x90\x8D\x85|' \
--e 's|\x85\xC0\x59\x0F\x85\x26\x02\x00\x00\x39\x9D|\x85\xC0\x59\x90\x90\x90\x90\x90\x90\x39\x9D|' \
--e 's|\x85\xC0\x59\x0F\x85\x20\x02\x00\x00\x39\x9D|\x85\xC0\x59\x90\x90\x90\x90\x90\x90\x39\x9D|' \
--e 's|\x0F\x85\xFA\x01\x00\x00\x8D\x85|\x90\x90\x90\x90\x90\x90\x8D\x85|' \
--e 's|\x0F\x85\x26\x02\x00\x00\x39\x9D|\x90\x90\x90\x90\x90\x90\x39\x9D|' \
--e 's|\x74\x59\x83\xFF\xFF\x89\xBD|\xEB\x59\x83\xFF\xFF\x89\xBD|' \
--e 's|\xC4\x0C\x85\xC0\x74\x4A|\xC4\x0C\x85\xC0\xEB\x4A|' \
--e 's|\x73\x06\x89\x1D\x50\xB6\x8F\x00|\x73\x00\x90\x90\x50\xB6\x8F\x00|' \
--e 's|\x72\x0E\x81\xFF\xE8\x03\x00\x00|\x72\x08\x81\xFF\xE8\x03\x00\x00|' \
--e 's|\x72\x0B\x39\x7D\x08\x73\x06\x89|\x72\x05\x39\x7D\x08\x73\x06\x89|' \
--e 's|\x77\x48\x8D\x85\x08|\xEB\x48\x8D\x85\x08|' \
--e 's|\x77\x45\x8D\x85\x10|\xEB\x45\x8D\x85\x10|' \
+
+sed -i \
+-e 's|\x85\xC0\x59\x0F\x85[\x00-\xFF][\x00-\xFF][\x00-\xFF][\x00-\xFF]\x8D\x85|\x85\xC0\x59\x90\x90\x90\x90\x90\x90\x8D\x85|' \
+-e 's|\x85\xC0\x59\x0F\x85[\x00-\xFF][\x00-\xFF][\x00-\xFF][\x00-\xFF]\x39\x9D|\x85\xC0\x59\x90\x90\x90\x90\x90\x90\x39\x9D|' \
+-e 's|\x83\xC4\x2C\x3B\xFB\x74|\x83\xC4\x2C\x3B\xFB\xEB|' \
+-e 's|\x3B\xFB\x74\([\x00-\xFF]\)\x83\xFF\xFF\x89|\x3B\xFB\xEB\1\x83\xFF\xFF\x89|' \
+-e 's|\xC4\x0C\x85\xC0[\x00-\xFF]\x4A|\xC4\x0C\x85\xC0\xEB\x4A|' \
+-e 's|\x73\[\x00-\xFF][\x00-\xFF][\x00-\xFF]\x50\xB6\x8F\x00|\x73\x00\x90\x90\x50\xB6\x8F\x00|' \
+-e 's|\x72\([\x00-\xFF]\)\x81\xFF\xE8\x03\x00\x00|\x72\x08\x81\xFF\xE8\x03\x00\x00|' \
+-e 's|\x72\([\x00-\xFF]\)\x39\x7D\x08\x73\([\x00-\xFF]\)\x89|\x73\1\x39\x7D\x08\x73\2\x89|' \
+-e 's|\x83\xC4\x24\x3B\x4D\x18\x77\([\x00-\xFF]\)\x8D\x85|\x83\xC4\x24\x3B\x4D\x18\xEB\1\x8D\x85|' \
 -e 's|\x73\x4A\x8D\x95\x08\xFC\xFF|\xEB\x4A\x8D\x95\x08\xFC\xFF|' \
--e 's|\x00\x3B\xC8\x73\x4A\x8D\x95|\x00\x3B\xC8\xEB\x4A\x8D\x95|' "$output_dir/exe_start"
+-e 's|\x00\x3B\xC8[\x00-\xFF]\x4A\x8D\x95|\x00\x3B\xC8\xEB\x4A\x8D\x95|' \
+"$output_dir/exe_start"
 #0x1a5f0 .26 firmware
 #sed -i -e 's|734A8D951CFCFFFF525150684C619000|EB4A8D951CFCFFFF525150684C619000|' "./$output_dir/exe_start"
 $RDIR/ipsr s "0x9090909090908d85" "$output_dir/exe_start" || ( echo "-- firmware version check remove error!" && checkerror="y" )
 $RDIR/ipsr s "0x909090909090399d" "$output_dir/exe_start" || ( echo "-- OEM check remove error!" && checkerror="y" )
-$RDIR/ipsr s "0xeb5983ffff89bd" "$output_dir/exe_start" || ( echo "-- kernel check remove error!" && checkerror="y" )
+#$RDIR/ipsr s "0xeb5983ffff89bd" "$output_dir/exe_start" || ( echo "-- kernel check remove error!" && checkerror="y" )
+$RDIR/ipsr v "0x3bfbeb5983ffff89" "$output_dir/exe_start" || ( echo "-- kernel check remove error!" && checkerror="y" )
+
 #$RDIR/ipsr s "0xc40c85c0eb4a" "$output_dir/exe_start" || ( echo "-- CRC check remove error!" && checkerror="y" )
 #$RDIR/ipsr   "0x7300909050b68f00" "$output_dir/exe_start" || ( echo "-- Urloader update remove error!" && checkerror="y" )
 ( $RDIR/ipsr s "0x720881ffe8030000" "$output_dir/exe_start" || \
-$RDIR/ipsr s "0x7205397D08730689" "$output_dir/exe_start" ) || ( echo "-- urloader2 update remove error!" && checkerror="y" )
+$RDIR/ipsr s "0x7338397D08730689" "$output_dir/exe_start" || \
+$RDIR/ipsr s "0x730B397D08730689" "$output_dir/exe_start" ) || ( echo "-- urloader2 update remove error!" && checkerror="y" )
 #rplbytes="0xeb4a8d951cfcffff525150684c619000"
 #$RDIR/ipsr s "0xeb4a8d951cfcffff525150684c619000" "$output_dir/exe_start" || ( echo "-- Check kernel size remove error!" && checkerror="y" )
 if ! ( [ "${R_IMG}" == "${RECOVERIMG7140}" ] || [ "${R_IMG}" == "${RECOVERIMG5050}" ] ) ; then
  {
  $RDIR/ipsr s "0x003bc8eb4a8d95" "$output_dir/exe_start" || ( echo "-- check kernel size remove error!" && checkerror="y" )
- ( $RDIR/ipsr s "0xeb488d8508" "$output_dir/exe_start" || \
+
+ ( $RDIR/ipsr s "0x83c4243b4d18eb458d85" "$output_dir/exe_start"  || \
+ $RDIR/ipsr s "0xeb488d8508" "$output_dir/exe_start" || \
  $RDIR/ipsr s "0xeb458d8510" "$output_dir/exe_start" ) ||  ( echo "-- check2 kernel size remove error!" && checkerror="y" )
  }
 fi
@@ -258,3 +263,38 @@ while !(read -s);do
 	sleep 1
 done
 exit 0
+#alternativ check
+
+ $RDIR/ipsr v "0x85c0599090909090908d85" "$output_dir/exe_start" || ( echo "-- firmware version remove error!" && checkerror="y" )
+#$RDIR/ipsr v "0x85c0590f85fa0100008d85" "$output_dir/ori_start" || ( echo "-- x firmware version not found check error!" && checkerror="y" )
+# $RDIR/ipsr v "0x85c0590f85........8d85" "$output_dir/ori_start" || ( echo "-- x firmware version not found check error!" && checkerror="y" )
+#$RDIR/ipsr v "0x85c0590f85ef0100008d85" "$output_dir/ori_start" || ( echo "-- xef firmware version not found check error!" && checkerror="y" )
+ $RDIR/ipsr v "0x85c059909090909090399d" "$output_dir/exe_start" || ( echo "-- OEM check remove error!" && checkerror="y" )
+# $RDIR/ipsr v "0x85c0590f85........399d" "$output_dir/ori_start" || ( echo "-- x OEM check not found error!" && checkerror="y" )
+# $RDIR/ipsr v "0x85c0590f8520020000399d" "$output_dir/ori_start" || ( echo "-- x20 OEM check not found error!" && checkerror="y" )
+
+#$RDIR/ipsr v "0x83c42c3bfbeb" "$output_dir/exe_start" || \
+#$RDIR/ipsr v "0xeb5983ffff89bd" "$output_dir/exe_start" || ( echo "-- kernel check remove error!" && checkerror="y" )
+ $RDIR/ipsr v "0x3bfbeb5983ffff89" "$output_dir/exe_start" || ( echo "-- kernel check remove error!" && checkerror="y" )
+#$RDIR/ipsr v "0x83c42c3bfb74" "$output_dir/ori_start" || \
+ $RDIR/ipsr v "0x3bfb745983ffff89" "$output_dir/ori_start" || ( echo "-- x kernel check not found error!" && checkerror="y" )
+
+$RDIR/ipsr v "0xc40c85c0eb4a" "$output_dir/exe_start" || ( echo "-- CRC check remove error!" && checkerror="y" )
+$RDIR/ipsr v "0xc40c85c0744a" "$output_dir/ori_start" || ( echo "-- x CRC check not found error!" && checkerror="y" )
+$RDIR/ipsr v "0x7300909050b68f00" "$output_dir/exe_start" || ( echo "-- urloader update remove error!" && checkerror="y" )
+$RDIR/ipsr v "0x7306891d50b68f00" "$output_dir/ori_start" || ( echo "-- x urloader update not found error!" && checkerror="y" )
+
+( $RDIR/ipsr v "0x720881ffe8030000" "$output_dir/exe_start" || \
+  $RDIR/ipsr v "0x7338397D08730689" "$output_dir/exe_start" ) || ( echo "-- urloader2 update remove error!" && checkerror="y" )
+( $RDIR/ipsr v "0x720881ffe8030000" "$output_dir/ori_start" || \
+  $RDIR/ipsr v "0x7238397d08730689" "$output_dir/ori_start" ) || ( echo "-- x urloader2 update not found error!" && checkerror="y" )
+
+if ! ( [ "${R_IMG}" == "${RECOVERIMG7140}" ] || [ "${R_IMG}" == "${RECOVERIMG5050}" ] ) ; then
+ {
+   $RDIR/ipsr v "0x003bc8eb4a8d95" "$output_dir/exe_start" || ( echo "-- check kernel size remove error!" && checkerror="y" )
+# ( $RDIR/ipsr v "0xeb488d8508" "$output_dir/exe_start" || \
+#   $RDIR/ipsr v "0xeb458d8510" "$output_dir/exe_start" ) ||  ( echo "-- check2 kernel size remove error!" && checkerror="y" )
+   $RDIR/ipsr v "0x83c4243b4d18eb458d85" "$output_dir/exe_start"  ||  ( echo "-- check2 kernel size remove error!" && checkerror="y" )
+   $RDIR/ipsr v "0x83c4243b4d1877458d85" "$output_dir/ori_start"  ||  ( echo "-- x check2 kernel size remove error!" && checkerror="y" )
+ }
+fi
