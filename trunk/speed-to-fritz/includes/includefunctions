@@ -283,6 +283,7 @@ else #<--alternative local filename --
 		    DLD_0=${DLD_PATH/@AVM\//}
 		    sites[0]=ftp://ftp.avm.de/$DLD_0
 		    sites[1]=http://download.avm.de/$DLD_0
+		    sites[2]=ftp://download.avm.de/$DLD_0
 		    # Loop over servers until a download succeeds or all requests have failed.
 		    for i in ${sites[@]} ; do
 			    do_download "$DLD_DIR" "$i/$IMG_REQ" && break
