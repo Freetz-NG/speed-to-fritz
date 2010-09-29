@@ -20,7 +20,8 @@ echo " nothig is displayed wile formating and jurnaling takes place!"
 mke2fs -F -j /dev/${CL_ROOT} -O dir_index
 mkdir  -p /freetz-colinux-setup2
 echo "------------------------------------------------------------"
-mount -t ext3 /dev/${CL_ROOT2} /freetz-colinux-setup2
+mount -t ext3 /dev/${CL_ROOT2} /freetz-colinux-setup2 || \
+mount -t ext4 /dev/${CL_ROOT} /freetz-colinux-setup
 echo "------------------------------------------------------------"
 #sleep 5
 fi
@@ -28,7 +29,8 @@ echo "============================================================"
 echo " * Populating root file system with base image"
 mkdir  -p /freetz-colinux-setup
 echo "------------------------------------------------------------"
-mount -t ext3 /dev/${CL_ROOT} /freetz-colinux-setup
+mount -t ext3 /dev/${CL_ROOT} /freetz-colinux-setup || \
+mount -t ext4 /dev/${CL_ROOT} /freetz-colinux-setup
 echo "------------------------------------------------------------"
 #mkdir  -p /mnt/and
 #mount -t cofs 1 /mnt/and
@@ -304,6 +306,16 @@ ctl.pulse {
     type pulse
 }
 EOF
+if [ -e /lib/udev/rules.d/75-persistent-net-generator.rules ]; then
+    cp "/lib/udev/rules.d/75-persistent-net-generator.rules" "/etc/udev/rules.d/75-persistent-net-generator.rules"
+    sed -i -e '/SUBSYSTEMS=="xen"/a\
+DRIVERS=="conet", GOTO="persistent_net_generator_end"' "/etc/udev/rules.d/75-persistent-net-generator.rules"
+    echo "---------- removed rename coLinux network devices!"
+    sleep 1
+fi
+if [ -e /etc/udev/rules.d/70-persistent-net.rules ]; then
+    rm -f "/etc/udev/rules.d/70-persistent-net.rules"
+fi
 #remove root password
 if [ -e /etc/shadow ]; then
     sed -i -e 's/root:.*/root::12823:0:99999:7:::/' "/etc/shadow" 

@@ -4,11 +4,13 @@
 #move freenet oem dir to avm
 if ! [ -d "$1/etc/default.${SORCE_PRODUKT}/avm" ]; then
  [ -d "$1/etc/default.${SORCE_PRODUKT}/freenet" ] && mv "$1/etc/default.${SORCE_PRODUKT}/freenet" "$1/etc/default.${SORCE_PRODUKT}/avm"
+ [ -d "$1/etc/default.${SORCE_PRODUKT}/hansenet" ] && mv "$1/etc/default.${SORCE_PRODUKT}/hansenet" "$1/etc/default.${SORCE_PRODUKT}/avm"
 fi
 for webdir in ${1}/usr/www ${1}/usr/www.nas; do
  if [ -d "${webdir}" ]; then
   if ! [ -d "${webdir}/avm" ]; then
    [ -d "${webdir}/freenet" ] &&  mv "${webdir}/freenet" "${webdir}/avm"
+   [ -d "${webdir}/hansenet" ] &&  mv "${webdir}/hansenet" "${webdir}/avm"
   fi
   for DIR in ${OEMLIST}; do
     if [ -d ${webdir}/$DIR ] ; then
