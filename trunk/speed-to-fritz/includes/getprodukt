@@ -38,5 +38,6 @@ if [ "$ORI" != "y" ]; then
     export FBMOD=`echo ${FBMOD} | tr -d '[:alpha:]'`
     #echo "Fritz!Box firmware mod is: ${FBMOD}"
 fi
-
+# if environment ProductID is enforced then there is no need to move directorys
+[ "${PATCH_OEM}" == "y" ]&& export CONFIG_PRODUKT=$SORCE_PRODUKT
 

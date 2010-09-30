@@ -94,6 +94,7 @@ else\
 isdn_params="${isdn_params} dect_on=1"\
 fi\
 fi|' "${SRC}/etc/init.d/rc.S"
+if [ "${ENFORCE_HWREVISION}" != "y" ]; then
 #But pluginsupport needs AVM HWrevision to setup the download URL for plugins 
 #workaround for HWRevision
 if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
@@ -102,7 +103,7 @@ sed -i -e "/url=\"\`\/sbin\/pluginurl\`\"/i\
 sed -i -e "/url=\"\`\/sbin\/pluginurl\`\"/a\
 	export HWRevision=\"$HWID\"" "${SRC}/sbin/start_plugin.sh"
 fi
-
+fi
 sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #adapt parameters for Piglet bitfile to be

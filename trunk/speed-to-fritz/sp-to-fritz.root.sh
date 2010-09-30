@@ -434,7 +434,7 @@ fi
 #	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7170"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
-	export HWID="134"
+	[ "$PATCH_OEM" == "" ] && export HWID="134"
 	export HWRevision="${HWID}.1.1.0"
 	export CONFIG_INSTALL_TYPE="ar7_8MB_xilinx_4eth_2ab_isdn_pots_wlan_13200"
 	export CONFIG_XILINX="y"
@@ -1049,6 +1049,7 @@ export CONFIG_ETH_COUNT="4"
 #	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7270"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="139"
+	echo $AVM_IMG | grep -q "v1" && [ "$FBHWRevision" == "139" ] && export FBHWRevision="122"
 	export CONFIG_INSTALL_TYPE="ur8_16MB_xilinx_4eth_2ab_isdn_nt_te_pots_wlan_mimo_usb_host_dect_multiannex_13589"
 	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
 	export HWRevision="${HWID}.1.0.6"
@@ -1427,7 +1428,12 @@ export CONFIG_ETH_COUNT="4"
 	;;
 	
 esac
-
+if [ "${ENFORCE_HWREVISION}" == "y" ]; then
+ middle_newHWver=${HWRevision%.*}; middle_newHWver=${middle_newHWver#*.} # dazwischen
+ minor_newHWver=${HWRevision##*.} # ab dem letzten Punkt
+ echo "New HW revision: \"${FBHWRevision}.${middle_newHWver}.${minor_newHWver}\""
+ export HWRevision="${FBHWRevision}.${middle_newHWver}.${minor_newHWver}"
+fi
 return 0
 }
 # get commandline options to variables

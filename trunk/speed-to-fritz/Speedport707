@@ -82,7 +82,6 @@ $sh_DIR/patch_leddefinition.sh "${SRC}" "${DST}"
 $sh_DIR/patch_annex.sh "${SRC}"
 # add kapselung and annex settings page if missing
 $sh_DIR/add_multi_settings.sh
-
 #patch download url
 sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
 #remove kids and help

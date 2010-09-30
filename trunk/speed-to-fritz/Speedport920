@@ -269,6 +269,7 @@ $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 920
 ##echo "FBIMG: $FBIMG"
 echo $FBIMG | grep -q "v1" && \
 [ "$FBHWRevision" == "139" ] && export FBHWRevision="122"
+if [ "${ENFORCE_HWREVISION}" != "y" ]; then
 echo "-- download plugin URL uses Hardware Revision Number: $FBHWRevision"
 #workaround for HWRevision
 if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
@@ -277,7 +278,9 @@ sed -i -e "/url=\"\`\/sbin\/pluginurl\`\"/i\
 sed -i -e "/url=\"\`\/sbin\/pluginurl\`\"/a\
 	export HWRevision=\"$HWID\"" "${SRC}/sbin/start_plugin.sh"
 fi
+fi
 sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
+
 #copy second source internet dsl menue
 [ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLIST}"
  echo2 "New WEB GUI will be modified"
