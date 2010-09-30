@@ -278,6 +278,8 @@ sed -i -e "/url=\"\`\/sbin\/pluginurl\`\"/i\
 sed -i -e "/url=\"\`\/sbin\/pluginurl\`\"/a\
 	export HWRevision=\"$HWID\"" "${SRC}/sbin/start_plugin.sh"
 fi
+else
+ sed -i -e "s|VINAX_IRQ=10|VINAX_IRQ=9|" "${SRC}/etc/init.d/rc.vdsl.sh"
 fi
 sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
 
