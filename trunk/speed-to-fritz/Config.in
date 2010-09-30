@@ -2543,6 +2543,418 @@ config EXPORT_OEM
 	    (avm, avme, tcom, 1und1, aol, freenet)
 	    In case of option ORI branding will always set to basis later through the script.
 
+config SET_FBHWRevision
+	bool "Box Hardware revision (setup)"
+	depends on EXPERT_MOD 
+	default n
+	help
+	    Box Hardware revision should be left as it is, but if needed you may specify your own!
+		This is the Hardware revision used instead of the one used in AVM firmware, 
+		use defaults, but can be any valid Hardware revision used in download addresses.
+		This Hardware revision is used for plugin download.
+		For more info see: http://www.ip-phone-forum.de/showpost.php?p=1146628&postcount=30
+		HWR F = FRITZ!Box SL
+		HWR G = FRITZ!Box
+		HWR 58 = FRITZ!Box Fon
+		HWR 60 = FRITZ!Box WLAN
+		HWR 61 = FRITZ!Box Fon WLAN
+		HWR 62 = FRITZ!Box AnnexA
+		HWR 63 = FRITZ!Box SL AnnexA
+		HWR 64 = FRITZ!Box Fon AnnexA
+		HWR 65 = FRITZ!Box WLAN AnnexA
+		HWR 66 = FRITZ!Box Fon WLAN AnnexA
+		HWR 71 = FRITZ!Box Fon ata 1020
+		HWR 72 = FRITZ!Box Fon 5050
+		HWR 73 = FRITZ!Box Fon 5050 AnnexA
+		HWR 76 = FRITZ!Box Fon WLAN 7050
+		HWR 77 = FRITZ!Box Fon WLAN 7050 AnnexA
+		HWR 78 = Eumex 300 IP
+		HWR 79 = FRITZ!Box WLAN 3070
+		HWR 82 = FRITZ!Box WLAN 3050
+		HWR 83 = FRITZ!Box 2030
+		HWR 84 = FRITZ!Box 2070
+		HWR 85 = FRITZ!Box WLAN 3030
+		HWR 86 = FRITZ!Box Fon 5010
+		HWR 87 = FRITZ!Box Fon CTP (*)
+		HWR 88 = RadioFRITZ! 8000 (*)
+		HWR 89 = FRITZ!Box Fon 5012
+		HWR 90 = FRITZ!Box Fon WLAN 7170 (?)
+		HWR 91 = Sinus W300V
+		HWR 93 = Speedport W501V
+		HWR 94 = FRITZ!Box Fon WLAN 7170
+		HWR 95 = FRITZ!Box Fon WLAN 7140
+		HWR 96 = FRITZ!Box Fon WLAN 7130
+		HWR 97 = Sinus W500V
+		HWR 101 = Speedport W701V
+		HWR 102 = Speedport W900V
+		HWR 103 = VoIP Gateway 5144
+		HWR 104 = VoIP Gateway 5188
+		HWR 105 = FRITZ!Box Fon WLAN 7540V
+		HWR 106 = Fritz!Fon 7150 (FT 7150 D)
+		HWR 107 = FRITZ!Box Fon WLAN 7140 AnnexA
+		HWR 108 = FRITZ!Box Fon WLAN 7141
+		HWR 109 = FRITZ!Box Fon WLAN 7170SL
+		HWR 110 = FRITZ!Box Fon 5120
+		HWR 111 = FRITZ!Box Fon 5140
+		HWR 112 = FRITZ!Box WLAN 3130
+		HWR 113 = FRITZ!Box 2031
+		HWR 114 = FRITZ!Box Fon 5122 (*)
+		HWR 115 = FRITZ!Box Fon WLAN 7122 (*)
+		HWR 116 = FRITZ!Box Fon 5010 AnnexA
+		HWR 117 = FRITZ!Box WLAN 3170
+		HWR 118 = FRITZ!Box WLAN 3131
+		HWR 119 = FRITZ!Box 2170
+		HWR 120 = Speedport W702V
+		HWR 121 = Speedport W900V
+		HWR 122 = FRITZ!Box Fon WLAN 7270 (v1; 8MB)
+		HWR 123 = Fritz!Media 8020
+		HWR 124 = Fritz!Media 8040
+		HWR 125 = FRITZ!Box Fon 5124
+		HWR 126 = FRITZ!Box Fon 5124 AnnexA
+		HWR 127 = FRITZ!Box Fon WLAN 7170 AnnexA
+		HWR 128 = Fritz!Fon 7150 AnnexA (*)
+		HWR 129 = FRITZ!Box Fon WLAN 7113
+		HWR 130 = FRITZ!Box 2121
+		HWR 131 = Alice IAD 5130
+		HWR 133 = FRITZ!Box 2110
+		HWR 134 = Speedport W721V
+		HWR 135 = Speedport W920V
+		HWR 136 = Speedport W503V
+		HWR 137 = FRITZ!Box WLAN 3270
+		HWR 138 = FRITZ! WLAN Repeater N/G
+		HWR 139 = FRITZ!Box Fon WLAN 7270 (v2; 16MB)
+		HWR 140 = FRITZ!Box Fon 5125 AnnexA
+		HWR 141 = FRITZ!Box Fon WLAN 7270 AnnexA (*)
+		HWR 142 = Speedport W721VK
+		HWR 143 = Speedport W101 Bridge
+		HWR 144 = FRITZ!Box Fon WLAN 7240
+		HWR 145 = FRITZ!Box Fon WLAN 7270 v3
+		HWR 146 = FRITZ!Box Fon WLAN 7570 vDSL
+		HWR 147 = DSL-EasyBox A802 (Arcor)
+		HWR 148 = DSL-EasyBox A602
+		HWR 149 = DSL-EasyBox A402
+		HWR 150 = FRITZ!Box Ikanos
+		HWR 151 = FRITZ!Box 8160
+		HWR 152 = Speedport W722V
+		HWR 153 = Alice IAD 7570 vDSL
+		HWR 154 = FRITZ!Box Fon WLAN 7212
+		HWR 155 = FRITZ!Box Fon 5113 AnnexA
+		HWR 156 = FRITZ!Box Fon WLAN 7390
+		HWR 157 = FRITZ!Box Fon WLAN 6360
+		HWR 159 = FRITZ!Box Fon WLAN 7112
+		HWR 160 = Speedport W504V
+		HWR 162 = FRITZ!Box Fon WLAN 7113 AnnexA
+		HWR 164 = FRITZ!Box Fon WLAN 504avm
+		HWR 165 = FRITZ!Box Fon WLAN 7541 vDSL
+		HWR 167 = FRITZ!Box Fon WLAN 7270 v4
+		HWR 168 = FRITZ!Box 3270 v3
+		HWR 171 = FRITZ!Box Fon WLAN 7340
+		HWR 174 = Alice IAD WLAN 3331
+		HWR 175 = FRITZ!Box WLAN 3370
+choice
+	prompt "select a target hardware revioson (optional): "
+	depends on SET_FBHWRevision || TYPE_7272_m54_04_76 || ( TYPE_OR_7570_920 && ! TYPE_LANG_DE )
+	config HWAUTO
+	   bool "Use original box hardware revision number"
+	config HWRF
+	   bool "FRITZ!Box SL"
+	config HWRG
+	   bool "FRITZ!Box"
+	config HWR58
+	   bool "FRITZ!Box Fon"
+	config HWR60
+	   bool "FRITZ!Box WLAN"
+	config HWR61 
+	   bool "FRITZ!Box Fon WLAN"
+	config HWR62
+	   bool "FRITZ!Box AnnexA"
+	config HWR63
+	   bool "FRITZ!Box SL AnnexA"
+	config HWR64
+	   bool "FRITZ!Box Fon AnnexA"
+	config HWR65
+	   bool "FRITZ!Box WLAN AnnexA"
+	config HWR66
+	   bool "FRITZ!Box Fon WLAN AnnexA"
+	config HWR71
+	   bool "FRITZ!Box Fon ata 1020"
+	config HWR72
+	   bool "FRITZ!Box Fon 5050"
+	config HWR73
+	   bool "FRITZ!Box Fon 5050 AnnexA"
+	config HWR76
+	   bool "FRITZ!Box Fon WLAN 7050"
+	config HWR77
+	   bool "FRITZ!Box Fon WLAN 7050 AnnexA"
+	config HWR78
+	   bool "Eumex 300 IP"
+	config HWR79
+	   bool "FRITZ!Box WLAN 3070"
+	config HWR82
+	   bool "FRITZ!Box WLAN 3050"
+	config HWR83
+	   bool "FRITZ!Box 2030"
+	config HWR84
+	   bool "FRITZ!Box 2070"
+	config HWR85
+	   bool "FRITZ!Box WLAN 3030"
+	config HWR86
+	   bool "FRITZ!Box Fon 5010"
+	config HWR87
+	   bool "FRITZ!Box Fon CTP (*)"
+	config HWR88
+	   bool "RadioFRITZ! 8000 (*)"
+	config HWR89
+	   bool "FRITZ!Box Fon 5012"
+	config HWR90
+	   bool "FRITZ!Box Fon WLAN 7170 (?)"
+	config HWR91
+	   bool "Sinus W300V"
+	config HWR93
+	   bool "Speedport W501V"
+	config HWR94
+	   bool "FRITZ!Box Fon WLAN 7170"
+	config HWR95
+	   bool "FRITZ!Box Fon WLAN 7140"
+	config HWR96
+	   bool "FRITZ!Box Fon WLAN 7130"
+	config HWR97
+	   bool "Sinus W500V"
+	config HWR101
+	   bool "Speedport W701V"
+	config HWR102
+	   bool "Speedport W900V"
+	config HWR103
+	   bool "VoIP Gateway 5144"
+	config HWR104
+	   bool "VoIP Gateway 5188"
+	config HWR105
+	   bool "FRITZ!Box Fon WLAN 7540V"
+	config HWR106
+	   bool "Fritz!Fon 7150 (FT 7150 D)"
+	config HWR107
+	   bool "FRITZ!Box Fon WLAN 7140 AnnexA"
+	config HWR108
+	   bool "FRITZ!Box Fon WLAN 7141"
+	config HWR109
+	   bool "FRITZ!Box Fon WLAN 7170SL"
+	config HWR110
+	   bool "FRITZ!Box Fon 5120"
+	config HWR111
+	   bool "FRITZ!Box Fon 5140"
+	config HWR112
+	   bool "FRITZ!Box WLAN 3130"
+	config HWR113
+	   bool "FRITZ!Box 2031"
+	config HWR114
+	   bool "FRITZ!Box Fon 5122 (*)"
+	config HWR115
+	   bool "FRITZ!Box Fon WLAN 7122 (*)"
+	config HWR116
+	   bool "FRITZ!Box Fon 5010 AnnexA"
+	config HWR117
+	   bool "FRITZ!Box WLAN 3170"
+	config HWR118
+	   bool "FRITZ!Box WLAN 3131"
+	config HWR119
+	   bool "FRITZ!Box 2170"
+	config HWR120
+	   bool "Speedport W702V"
+	config HWR121
+	   bool "Speedport W900V"
+	config HWR122
+	   bool "FRITZ!Box Fon WLAN 7270 (v1; 8MB)"
+	config HWR123
+	   bool "Fritz!Media 8020"
+	config HWR124
+	   bool "Fritz!Media 8040"
+	config HWR125
+	   bool "FRITZ!Box Fon 5124"
+	config HWR126
+	   bool "FRITZ!Box Fon 5124 AnnexA"
+	config HWR127
+	   bool "FRITZ!Box Fon WLAN 7170 AnnexA"
+	config HWR128
+	   bool "Fritz!Fon 7150 AnnexA (*)"
+	config HWR129
+	   bool "FRITZ!Box Fon WLAN 7113"
+	config HWR130
+	   bool "FRITZ!Box 2121"
+	config HWR131
+	   bool "Alice IAD 5130"
+	config HWR133
+	   bool "FRITZ!Box 2110"
+	config HWR134
+	   bool "Speedport W721V"
+	config HWR135
+	   bool "Speedport W920V"
+	config HWR136
+	   bool "Speedport W503V"
+	config HWR137
+	   bool "FRITZ!Box WLAN 3270"
+	config HWR138
+	   bool "FRITZ! WLAN Repeater N/G"
+	config HWR139
+	   bool "FRITZ!Box Fon WLAN 7270 (v2; 16MB)"
+	config HWR140
+	   bool "FRITZ!Box Fon 5125 AnnexA"
+	config HWR141
+	   bool "FRITZ!Box Fon WLAN 7270 AnnexA (*)"
+	config HWR142
+	   bool "Speedport W721VK"
+	config HWR143
+	   bool "Speedport W101 Bridge"
+	config HWR144
+	   bool "FRITZ!Box Fon WLAN 7240"
+	config HWR145
+	   bool "FRITZ!Box Fon WLAN 7270 v3"
+	config HWR146
+	   bool "FRITZ!Box Fon WLAN 7570 vDSL"
+	config HWR147
+	   bool "DSL-EasyBox A802 (Arcor)"
+	config HWR148
+	   bool "DSL-EasyBox A602"
+	config HWR149
+	   bool "DSL-EasyBox A402"
+	config HWR150
+	   bool "FRITZ!Box Ikanos"
+	config HWR151
+	   bool "FRITZ!Box 8160"
+	config HWR152
+	   bool "Speedport W722V"
+	config HWR153
+	   bool "Alice IAD 7570 vDSL"
+	config HWR154
+	   bool "FRITZ!Box Fon WLAN 7212"
+	config HWR155
+	   bool "FRITZ!Box Fon 5113 AnnexA"
+	config HWR156
+	   bool "FRITZ!Box Fon WLAN 7390"
+	config HWR157
+	   bool "FRITZ!Box Fon WLAN 6360"
+	config HWR159
+	   bool "FRITZ!Box Fon WLAN 7112"
+	config HWR160
+	   bool "Speedport W504V"
+	config HWR162
+	   bool "FRITZ!Box Fon WLAN 7113 AnnexA"
+	config HWR164
+	   bool "FRITZ!Box Fon WLAN 504avm"
+	config HWR165
+	   bool "FRITZ!Box Fon WLAN 7541 vDSL"
+	config HWR167
+	   bool "FRITZ!Box Fon WLAN 7270 v4"
+	config HWR168
+	   bool "FRITZ!Box 3270 v3"
+	config HWR171
+	   bool "FRITZ!Box Fon WLAN 7340"
+	config HWR174
+	   bool "Alice IAD WLAN 3331"
+	config HWR175 
+	   bool "FRITZ!Box WLAN 3370"
+endchoice
+
+config EXPORT_FBHWRevision
+	string
+	default "F"  if HWRF
+	default "G"  if HWRG
+	default "58" if HWR58
+	default "60" if HWR60
+	default "61" if HWR61
+	default "62" if HWR62
+	default "63" if HWR63
+	default "64" if HWR64
+	default "65" if HWR65
+	default "66" if HWR66
+	default "71" if HWR71
+	default "72" if HWR72
+	default "73" if HWR73
+	default "76" if HWR76
+	default "77" if HWR77
+	default "78" if HWR78
+	default "79" if HWR79
+	default "82" if HWR82
+	default "83" if HWR83
+	default "84" if HWR84
+	default "85" if HWR85
+	default "86" if HWR86
+	default "87" if HWR87
+	default "88" if HWR88
+	default "89" if HWR89
+	default "90" if HWR90
+	default "91" if HWR91
+	default "93" if HWR93
+	default "94" if HWR94
+	default "95" if HWR95
+	default "96" if HWR96
+	default "97" if HWR97
+	default "101" if HWR101
+	default "102" if HWR102
+	default "103" if HWR103
+	default "104" if HWR104
+	default "105" if HWR105
+	default "106" if HWR106
+	default "107" if HWR107
+	default "108" if HWR108
+	default "109" if HWR109
+	default "110" if HWR110
+	default "111" if HWR111
+	default "112" if HWR112
+	default "113" if HWR113
+	default "114" if HWR114
+	default "115" if HWR115
+	default "116" if HWR116
+	default "117" if HWR117
+	default "118" if HWR118
+	default "119" if HWR119
+	default "120" if HWR120
+	default "121" if HWR121
+	default "122" if HWR122
+	default "123" if HWR123
+	default "124" if HWR124
+	default "125" if HWR125
+	default "126" if HWR126
+	default "127" if HWR127
+	default "128" if HWR128
+	default "129" if HWR129
+	default "130" if HWR130
+	default "131" if HWR131
+	default "133" if HWR133
+	default "134" if HWR134
+	default "135" if HWR135
+	default "136" if HWR136
+	default "137" if HWR137
+	default "138" if HWR138
+	default "139" if HWR139
+	default "140" if HWR140
+	default "141" if HWR141
+	default "142" if HWR142
+	default "143" if HWR143
+	default "144" if HWR144
+	default "145" if HWR145
+	default "146" if HWR146
+	default "147" if HWR147
+	default "148" if HWR148
+	default "149" if HWR149
+	default "150" if HWR150
+	default "151" if HWR151
+	default "152" if HWR152
+	default "153" if HWR153
+	default "154" if HWR154
+	default "155" if HWR155
+	default "156" if HWR156
+	default "157" if HWR157
+	default "159" if HWR159
+	default "160" if HWR160
+	default "162" if HWR162
+	default "164" if HWR164
+	default "165" if HWR165
+	default "167" if HWR167
+	default "168" if HWR168
+	default "171" if HWR171
+	default "174" if HWR174
+	default "175" if HWR175 
+
 menu "Options"
 comment "Optional settings for Speed-to-fritz -------------------------------"
 ###---> no restore original firmware
@@ -2553,7 +2965,13 @@ config EXPORT_PATCH_OEM
 	    Force branding, sets the selected branding (OEM) within the firmware,
 	    environment settings are not taken in acount any more!
 	    Recover firmware needs this option to be set on!
-		
+config EXPORT_ENFORCE_HWREVISION
+	bool "Enforce hardware revision number"
+	default n
+	help
+	    Force hardware revision number, sets the selected hardware revision number
+	    within the firmware, environment settings are not taken in acount any more!
+	    		
 if ! ORI && ! TYPE_SPEEDPORT_W722V
 config EXPORT_ADD_OLD_DECTMENU
 	bool "DECT menu (add)"
@@ -3569,121 +3987,6 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 		use "7270, 7170, ...  but can be any valid ID used in download addresses.
 		This ID is used to construct the URLs for "Programme" and for plugin download. 
 
- config SET_FBHWRevision
-	bool "Box Hardware revision (setup)"
-	depends on EXPERT_MOD 
-	default n
-	help
-	    Box Hardware revision should be left as it is, but if needed you may specify your own!.
-
- config EXPORT_FBHWRevision
-	string
-	depends on SET_FBHWRevision || TYPE_7272_m54_04_76 || ( TYPE_OR_7570_920 && ! TYPE_LANG_DE )
-	default "145" if TYPE_7272_m54_04_76 || ( TYPE_OR_7570_920 && ! TYPE_LANG_DE )
-	string "type in new HWRevision, see help for more info."
-	    help
-		This is the Hardware revision used instead of the one used in AVM firmware, 
-		use defaults, but can be any valid Hardware revision used in download addresses.
-		This Hardware revision is used for plugin download.
-		For more info see: http://www.ip-phone-forum.de/showpost.php?p=1146628&postcount=30
-		HWR F = FRITZ!Box SL
-		HWR G = FRITZ!Box
-		HWR 58 = FRITZ!Box Fon
-		HWR 60 = FRITZ!Box WLAN
-		HWR 61 = FRITZ!Box Fon WLAN
-		HWR 62 = FRITZ!Box AnnexA
-		HWR 63 = FRITZ!Box SL AnnexA
-		HWR 64 = FRITZ!Box Fon AnnexA
-		HWR 65 = FRITZ!Box WLAN AnnexA
-		HWR 66 = FRITZ!Box Fon WLAN AnnexA
-		HWR 71 = FRITZ!Box Fon ata 1020
-		HWR 72 = FRITZ!Box Fon 5050
-		HWR 73 = FRITZ!Box Fon 5050 AnnexA
-		HWR 76 = FRITZ!Box Fon WLAN 7050
-		HWR 77 = FRITZ!Box Fon WLAN 7050 AnnexA
-		HWR 78 = Eumex 300 IP
-		HWR 79 = FRITZ!Box WLAN 3070
-		HWR 82 = FRITZ!Box WLAN 3050
-		HWR 83 = FRITZ!Box 2030
-		HWR 84 = FRITZ!Box 2070
-		HWR 85 = FRITZ!Box WLAN 3030
-		HWR 86 = FRITZ!Box Fon 5010
-		HWR 87 = FRITZ!Box Fon CTP (*)
-		HWR 88 = RadioFRITZ! 8000 (*)
-		HWR 89 = FRITZ!Box Fon 5012
-		HWR 90 = FRITZ!Box Fon WLAN 7170 (?)
-		HWR 91 = Sinus W300V
-		HWR 93 = Speedport W501V
-		HWR 94 = FRITZ!Box Fon WLAN 7170
-		HWR 95 = FRITZ!Box Fon WLAN 7140
-		HWR 96 = FRITZ!Box Fon WLAN 7130
-		HWR 97 = Sinus W500V
-		HWR 101 = Speedport W701V
-		HWR 102 = Speedport W900V
-		HWR 103 = VoIP Gateway 5144
-		HWR 104 = VoIP Gateway 5188
-		HWR 105 = FRITZ!Box Fon WLAN 7540V
-		HWR 106 = Fritz!Fon 7150 (FT 7150 D)
-		HWR 107 = FRITZ!Box Fon WLAN 7140 AnnexA
-		HWR 108 = FRITZ!Box Fon WLAN 7141
-		HWR 109 = FRITZ!Box Fon WLAN 7170SL
-		HWR 110 = FRITZ!Box Fon 5120
-		HWR 111 = FRITZ!Box Fon 5140
-		HWR 112 = FRITZ!Box WLAN 3130
-		HWR 113 = FRITZ!Box 2031
-		HWR 114 = FRITZ!Box Fon 5122 (*)
-		HWR 115 = FRITZ!Box Fon WLAN 7122 (*)
-		HWR 116 = FRITZ!Box Fon 5010 AnnexA
-		HWR 117 = FRITZ!Box WLAN 3170
-		HWR 118 = FRITZ!Box WLAN 3131
-		HWR 119 = FRITZ!Box 2170
-		HWR 120 = Speedport W702V
-		HWR 121 = Speedport W900V
-		HWR 122 = FRITZ!Box Fon WLAN 7270 (v1; 8MB)
-		HWR 123 = Fritz!Media 8020
-		HWR 124 = Fritz!Media 8040
-		HWR 125 = FRITZ!Box Fon 5124
-		HWR 126 = FRITZ!Box Fon 5124 AnnexA
-		HWR 127 = FRITZ!Box Fon WLAN 7170 AnnexA
-		HWR 128 = Fritz!Fon 7150 AnnexA (*)
-		HWR 129 = FRITZ!Box Fon WLAN 7113
-		HWR 130 = FRITZ!Box 2121
-		HWR 131 = Alice IAD 5130
-		HWR 133 = FRITZ!Box 2110
-		HWR 134 = Speedport W721V
-		HWR 135 = Speedport W920V
-		HWR 136 = Speedport W503V
-		HWR 137 = FRITZ!Box WLAN 3270
-		HWR 138 = FRITZ! WLAN Repeater N/G
-		HWR 139 = FRITZ!Box Fon WLAN 7270 (v2; 16MB)
-		HWR 140 = FRITZ!Box Fon 5125 AnnexA
-		HWR 141 = FRITZ!Box Fon WLAN 7270 AnnexA (*)
-		HWR 142 = Speedport W721VK
-		HWR 143 = Speedport W101 Bridge
-		HWR 144 = FRITZ!Box Fon WLAN 7240
-		HWR 145 = FRITZ!Box Fon WLAN 7270 v3
-		HWR 146 = FRITZ!Box Fon WLAN 7570 vDSL
-		HWR 147 = DSL-EasyBox A802 (Arcor)
-		HWR 148 = DSL-EasyBox A602
-		HWR 149 = DSL-EasyBox A402
-		HWR 150 = FRITZ!Box Ikanos
-		HWR 151 = FRITZ!Box 8160
-		HWR 152 = Speedport W722V
-		HWR 153 = Alice IAD 7570 vDSL
-		HWR 154 = FRITZ!Box Fon WLAN 7212
-		HWR 155 = FRITZ!Box Fon 5113 AnnexA
-		HWR 156 = FRITZ!Box Fon WLAN 7390
-		HWR 157 = FRITZ!Box Fon WLAN 6360
-		HWR 159 = FRITZ!Box Fon WLAN 7112
-		HWR 160 = Speedport W504V
-		HWR 162 = FRITZ!Box Fon WLAN 7113 AnnexA
-		HWR 164 = FRITZ!Box Fon WLAN 504avm
-		HWR 165 = FRITZ!Box Fon WLAN 7541 vDSL
-		HWR 167 = FRITZ!Box Fon WLAN 7270 v4
-		HWR 168 = FRITZ!Box 3270 v3
-		HWR 171 = FRITZ!Box Fon WLAN 7340
-		HWR 174 = Alice IAD WLAN 3331
-		HWR 175 = FRITZ!Box WLAN 3370
 endif
 ###---> NO AVM Modells 7XXX
 
