@@ -1,6 +1,7 @@
 #!/bin/bash
 . $include_modpatch
-echo "-- enforce urlader settings"
+echo "********************************************************************************"
+echo "enforce urlader settings"
 mv "${1}/etc/init.d/rc.S" "${1}/etc/init.d/rc.S.orig"
 cat > "${1}/etc/init.d/rc.S" << EOF
 #!/bin/sh
@@ -8,25 +9,21 @@ mount -t proc proc /proc
 EOF
 CONFIG_ENVIRONMENT_PATH="$(grep --max-count=1 "export CONFIG_ENVIRONMENT_PATH=" "${1}/etc/init.d/rc.S.orig")"
 echo ''$CONFIG_ENVIRONMENT_PATH'' >> "${1}/etc/init.d/rc.S"
-echo 'firmware_version="$(echo $(grep firmware_version $CONFIG_ENVIRONMENT_PATH/environment) | cut -d' ' -f2)"' >> "${1}/etc/init.d/rc.S"
-echo '[ "$firmware_version" != "'$OEM'" ] && echo firmware_version '$OEM' > $CONFIG_ENVIRONMENT_PATH/environment' >> "${1}/etc/init.d/rc.S"
+echo 'echo firmware_version '$OEM' > $CONFIG_ENVIRONMENT_PATH/environment' >> "${1}/etc/init.d/rc.S"
 echo '[ "A" == "'${ANNEX}'" ] && echo kernel_args annex='${ANNEX}' console=ttyS0,38400 > $CONFIG_ENVIRONMENT_PATH/environment' >> "${1}/etc/init.d/rc.S"
 echo '[ "A" != "'${ANNEX}'" ] && echo kernel_args console=ttyS0,38400 > $CONFIG_ENVIRONMENT_PATH/environment' >> "${1}/etc/init.d/rc.S"
-echo 'wlan_key="$(echo $(grep wlan_key $CONFIG_ENVIRONMENT_PATH/environment) | cut -d' ' -f2)"' >> "${1}/etc/init.d/rc.S"
-echo '[ "$wlan_key" == "'${WLANKEY}'" ] || echo wlan_key '${WLANKEY}' > $CONFIG_ENVIRONMENT_PATH/environment' >> "${1}/etc/init.d/rc.S"
-echo 'my_ipaddress="$(echo $(grep my_ipaddress $CONFIG_ENVIRONMENT_PATH/environment) | cut -d' ' -f2)"' >> "${1}/etc/init.d/rc.S"
-echo '[ "$my_ipaddress" == "192.168.178.1" ] || echo my_ipaddress 192.168.178.1 > $CONFIG_ENVIRONMENT_PATH/environment' >> "${1}/etc/init.d/rc.S"
-echo 'ProductID="$(echo $(grep ProductID $CONFIG_ENVIRONMENT_PATH/environment) | cut -d' ' -f2)"' >> "${1}/etc/init.d/rc.S"
-echo '[ "$ProductID" == "'$CONFIG_PRODUKT'" ] || echo ProductID '$CONFIG_PRODUKT' > $CONFIG_ENVIRONMENT_PATH/environment' >> "${1}/etc/init.d/rc.S"
+echo 'echo wlan_key '${WLANKEY}' > $CONFIG_ENVIRONMENT_PATH/environment' >> "${1}/etc/init.d/rc.S"
+echo 'echo my_ipaddress 192.168.178.1 > $CONFIG_ENVIRONMENT_PATH/environment' >> "${1}/etc/init.d/rc.S"
+echo 'echo ProductID '$CONFIG_PRODUKT' > $CONFIG_ENVIRONMENT_PATH/environment' >> "${1}/etc/init.d/rc.S"
 cat >> "${1}/etc/init.d/rc.S" << EOF
 umount /proc
 EOF
 cat "${1}/etc/init.d/rc.S.orig" >> "${1}/etc/init.d/rc.S"
 rm -f "${1}/etc/init.d/rc.S.orig"
 chmod 755 "${1}/etc/init.d/rc.S"
-grep -q "echo firmware_version ${OEM} >" "${1}/etc/init.d/rc.S" && echo -e "OEM (Branding) set via firmware to:${ECHO_TUERKIS} $OEM $ECHO_END"
-grep -q "echo wlan_key ${WLANKEY} >" "${1}/etc/init.d/rc.S" && echo -e "default WLAN Key set via firmware to:${ECHO_TUERKIS} $WLANKEY $ECHO_END"
-grep -q "echo my_ipaddress 192.168.178.1 >" "${1}/etc/init.d/rc.S" && echo -e "my_ipaddress set via firmware to:${ECHO_TUERKIS} 192.168.178.1$ECHO_END"
-grep -q "echo ProductID '$CONFIG_PRODUKT' >" "${1}/etc/init.d/rc.S" && echo "-- ProductID set via firmware to:${ECHO_TUERKIS} $CONFIG_PRODUKT$ECHO_END" 
-grep -q "kernel_args annex=A console" "${1}/etc/init.d/rc.S" && echo -e "ANNEX set via firmware to:${ECHO_TUERKIS} A$ECHO_END"
+grep -q "echo firmware_version ${OEM} >" "${1}/etc/init.d/rc.S" && echo -e " OEM (Branding) set via firmware to:${ECHO_TUERKIS} $OEM $ECHO_END"
+grep -q "echo wlan_key ${WLANKEY} >" "${1}/etc/init.d/rc.S" && echo -e " default WLAN Key set via firmware to:${ECHO_TUERKIS} $WLANKEY $ECHO_END"
+grep -q "echo my_ipaddress 192.168.178.1 >" "${1}/etc/init.d/rc.S" && echo -e " my_ipaddress set via firmware to:${ECHO_TUERKIS} 192.168.178.1$ECHO_END"
+grep -q "echo ProductID $CONFIG_PRODUKT >" "${1}/etc/init.d/rc.S" && echo -e " ProductID set via firmware to:${ECHO_TUERKIS} $CONFIG_PRODUKT$ECHO_END"
+grep -q "kernel_args annex=A console" "${1}/etc/init.d/rc.S" && echo -e " ANNEX set via firmware to:${ECHO_TUERKIS} A$ECHO_END"
 exit 0
