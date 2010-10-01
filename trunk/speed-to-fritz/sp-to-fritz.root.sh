@@ -434,7 +434,6 @@ fi
 #	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7170"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
-	[ "$PATCH_OEM" == "" ] && export HWID="134"
 	export HWRevision="${HWID}.1.1.0"
 	export CONFIG_INSTALL_TYPE="ar7_8MB_xilinx_4eth_2ab_isdn_pots_wlan_13200"
 	export CONFIG_XILINX="y"
