@@ -560,6 +560,10 @@ choice
 
 	config TYPE_7570
 		bool "AVM 7570 (or pure 7570 on W920V)"
+
+	config TYPE_7570HN
+		bool "AVM 7570 HN"
+
 #		select TYPE_LANG_EN
 
 	config TYPE_7390
@@ -780,7 +784,7 @@ if TYPE_OR_503_701_721_722_900 || TYPE_OR_7570_920_LOCALTCOM_LOCALAVM
     bool
     default y
 endif
-if  TYPE_7570 || TYPE_SPEEDPORT_W920V
+if  TYPE_7570HN || TYPE_7570 || TYPE_SPEEDPORT_W920V
     config TYPE_OR_7570_920
     bool
     default y

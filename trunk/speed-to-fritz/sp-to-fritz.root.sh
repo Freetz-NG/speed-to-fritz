@@ -434,6 +434,7 @@ fi
 #	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7170"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
+	export HWID="134"
 	export HWRevision="${HWID}.1.1.0"
 	export CONFIG_INSTALL_TYPE="ar7_8MB_xilinx_4eth_2ab_isdn_pots_wlan_13200"
 	export CONFIG_XILINX="y"
@@ -1032,7 +1033,13 @@ export CONFIG_ETH_COUNT="4"
 	fi 
 	export kernel_size="7798784"
 	;;
-"920"|"7570")
+"920"|"7570"|"7570HN")
+  if [ "$1" == "7570HN" ]; then
+	export CLASS=""
+	export SPNUM="7570"
+	export PROD="7570_HN"
+	export HWID="153"
+  fi
   if [ "$1" == "920" ]; then
 	export CLASS="Speedport"
 	export SPNUM="920"
@@ -1525,7 +1532,7 @@ if [ "$ORI" != "y" ]; then
  #enable ext2
  [ "$ENABLE_EXT2" = "y" ] && $sh2_DIR/patch_ext2 "${SRC}" "${DST}"
  case "$SPMOD" in
- "920" | "7570")
+ "920" | "7570" | "7570HN")
  . Speedport920;;
  "907")
  . Speedport907;;
