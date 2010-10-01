@@ -1033,7 +1033,7 @@ export CONFIG_ETH_COUNT="4"
 	fi 
 	export kernel_size="7798784"
 	;;
-"920"|"7570"|"7570HN")
+"920"|"7570"|"757H")
   if [ "$1" == "7570HN" ]; then
 	export CLASS=""
 	export SPNUM="7570"
@@ -1532,7 +1532,7 @@ if [ "$ORI" != "y" ]; then
  #enable ext2
  [ "$ENABLE_EXT2" = "y" ] && $sh2_DIR/patch_ext2 "${SRC}" "${DST}"
  case "$SPMOD" in
- "920" | "7570" | "7570HN")
+ "920" | "7570" | "757H")
  . Speedport920;;
  "907")
  . Speedport907;;

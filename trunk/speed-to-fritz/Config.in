@@ -666,6 +666,7 @@ if ! LOCAL_X_MODEL
 	default "900"		if TYPE_SPEEDPORT_W900V
 	default "920"		if TYPE_SPEEDPORT_W920V
 	default "7570"		if TYPE_7570
+	default "757H"		if TYPE_7570HN
 	default "500"		if TYPE_SINUS_W500V
 	default "7390"		if TYPE_7390
 	default "7273"		if TYPE_7273
