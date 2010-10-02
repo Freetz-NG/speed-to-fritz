@@ -1,7 +1,4 @@
 #!/bin/bash
-echo "********************************************************************************"
-echo -e "\033[1mPhase 4:\033[0m Apply changes."
-echo "********************************************************************************"
 # only exicuted new productname
 if [ ! -e "${SRC}"/etc/default.${CONFIG_PRODUKT} ]; then
 echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "

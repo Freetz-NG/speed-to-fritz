@@ -1476,6 +1476,9 @@ $sh2_DIR/del_zip "${AVM_DSL_7170_11500}" "${AVM_DSL_7272_11500}" "13014"
 # delete privias Firmware of 13014 if needed
 $sh2_DIR/del_zip "${AVM_AIO_7170_13014}" "${AVM_AIO_7272_13014}" "13014" 
 # extract source
+echo "********************************************************************************"
+echo -e "\033[1mPhase 1:\033[0m Download or check firmware images"
+echo "********************************************************************************"
 . $inc_DIR/get_workingbase
 # move avm to $OEM
 [ "$MOVE_AVM_to_OEM" = "y" ] && $sh_DIR/move_avm_to_OEM.sh
@@ -1513,10 +1516,6 @@ if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
 fi
 # make sure all is set to correct rights
 #[ ${FAKEROOT_ON} = "n" ] && chmod -R 777 . #&& echo "Scrit is executed as root, 777 set to all files."
-echo "********************************************************************************"
-echo -e "\033[1mPhase 3:\033[0m Copy sources."
-echo "********************************************************************************"
- echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
 # Flashing original firmware image ...
 if [ "$ORI" != "y" ]; then
  #add patches taken from freetz without adaptions
@@ -1531,6 +1530,10 @@ if [ "$ORI" != "y" ]; then
  cp -fdrp "${DST}/dev" "${SRC}/dev" && export MAKE_DEV="n" && echo "-- merged source and destination /dev directory"
  #enable ext2
  [ "$ENABLE_EXT2" = "y" ] && $sh2_DIR/patch_ext2 "${SRC}" "${DST}"
+ echo "********************************************************************************"
+ echo -e "\033[1mPhase 2:\033[0m Apply modell dependend changes"
+ echo "********************************************************************************"
+ echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
  case "$SPMOD" in
  "920" | "7570" | "757H")
  . Speedport920;;
@@ -1558,12 +1561,15 @@ if [ "$ORI" != "y" ]; then
 # . SxAVMx7270v2;;
  "7273")
  . SxAVMx7270v3;;
-"7390")
+ "7390")
  . SxAVMx7390;;
  *)
  . SxxxAVM;;
  esac
  echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
+ echo "********************************************************************************"
+ echo -e "\033[1mPhase 3:\033[0m Apply modell independet changes"
+ echo "********************************************************************************"
  #copy Firmware.conf into image
  cp -f $firmwareconf_file_name .unstripped
  . FirmwareConfStrip
@@ -1652,9 +1658,6 @@ if [ "$ORI" != "y" ]; then
  # If patches should only be applyed to a special type, then add this patches
  # on the end of individual files like "Speedport920".
  #<-- Add patches here - end!
- echo "********************************************************************************"
- echo -e "\033[1mPhase 9:\033[0m Patch install."
- echo "********************************************************************************"
 else
  # --> Only Tcom firmware with otion "restore original"
  readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${DST}/etc/init.d"
@@ -1705,6 +1708,9 @@ else
  echo "Speedports with AVM Web GUI to flash to the selected firmware."
  echo "If the router is rebooting because somthing went wrong, do the flashing"
  echo "via push ftp again, dont restart the PC to keep your network settings."
+ echo "********************************************************************************"
+ echo -e "\033[1mPhase 3:\033[0m Apply modell independet  changes"
+ echo "********************************************************************************"
  echo "${SPMOD}/////////////////////////////////////////////////////////////////////////////"
  # patch update pages 
  $sh_DIR/patch_tools.sh "${DST}"
@@ -1737,7 +1743,7 @@ $sh_DIR/patch_install.sh "${SPDIR}"
 #<--All firmwares
 #[ ${FAKEROOT_ON} = "n" ] && chmod -R 777 "${FBDIR}"
 echo "********************************************************************************"
-echo -e "\033[1mPhase 10:\033[0m Pack and deliver."
+echo -e "\033[1mPhase 4:\033[0m Pack and deliver"
 echo "********************************************************************************"
 # do a final compare
 exec 2> /dev/null
@@ -1786,7 +1792,7 @@ if [ "$SET_UP" = "n" ]; then
  . $inc_DIR/testerror
  # build recover
  [ "$BUILDRECOVER" = "y" ] && $HOMEDIR/build_new_recover_firmware
-	echo "********************************************************************************"
+ echo "********************************************************************************"
  if [ "$PUSHCONF" = "y" ]; then
 	echo -e "${ECHO_GRUEN}\n\
 Don't restart the PC in case the router is or ends up in a reboot loop, \n\

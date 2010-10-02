@@ -1,7 +1,4 @@
 #!/bin/bash
-echo "********************************************************************************"
-echo -e "\033[1mPhase 4:\033[0m Apply changes."
-echo "********************************************************************************"
 echo2 "  -- copy Speedport LED-configfile:"
 echo2 "      /etc/led.conf"
 cp -fdrp "${DST}/etc/led.conf" "${SRC}/etc/led.conf"

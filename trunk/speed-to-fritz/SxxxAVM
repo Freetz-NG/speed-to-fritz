@@ -1,7 +1,4 @@
 #!/bin/bash
-echo "********************************************************************************"
-echo -e "\033[1mPhase 4:\033[0m Apply changes."
-echo "********************************************************************************"
 echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $AVM_2_VERSION-$AVM_2_SUBVERSION"
 echo "Replacing hardware related files of AVM firmware images ..."
 #echo2 "-- Copy original AVM module:"

@@ -12,9 +12,7 @@ if [ ! -d "$NEWDIR" ]; then
     echo "Unable to locate/create directory: $NEWDIR"
     sleep 20; exit 1
 fi
-echo -e "\033[1mPhase 1:\033[0m Download or check firmware images."
-echo "********************************************************************************"
-# Removing privias sources if still in existant                         
+# Removing privias sources if still in existant
 rm -rf "$FBDIR"
 rm -rf "$FBDIR_2"
 rm -rf "$SPDIR"
@@ -36,9 +34,6 @@ if [ -n "$FBIMG_2" ]; then
 	fwselect "$FBIMG_2_PATH" "$FWBASE" "SRC2_IMG" "FBIMG_2" "$MIRROR_FBIMG_2_PATH" "$FILENAME_FBIMG_2_PATH" "NO_NUMBER"
 	[ -z "$FBIMG_2" ] && prompt
 fi
-echo "********************************************************************************"
-echo -e "\033[1mPhase 2:\033[0m Unpack and extract files from images."
-echo "********************************************************************************"
 echo "Extracting image files to temporary directories ..."
 if [ -n "$SPIMG" ]; then
  echo "-- Unpacking $SPIMG to:"
