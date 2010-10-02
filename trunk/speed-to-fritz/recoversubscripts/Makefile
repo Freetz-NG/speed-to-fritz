@@ -2,8 +2,8 @@
 
 all: ipsr
 
-ipsr : ipsr.c
-	gcc -Wall -o ipsr ipsr.c
+ipsr : ipsr_1.c
+	gcc -Wall -o ipsr ipsr_1.c
 
 clean :
 	rm -f ipsr
