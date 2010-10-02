@@ -168,14 +168,11 @@ sed -i \
 ! ($RDIR/ipsr s "0x72..81ffe8030000" "$output_dir/ori_start" || \
    $RDIR/ipsr s "0x73......50b68f00" "$output_dir/ori_start" || \
    $RDIR/ipsr s "0x72..397d08730689" "$output_dir/ori_start" ) && echo "-- urloader update not found error!" && checkerror="y"
-if ! ( [ "${R_IMG}" == "${RECOVERIMG7140}" ] || [ "${R_IMG}" == "${RECOVERIMG5050}" ] ) ; then
- {
-   !  $RDIR/ipsr s "0x003bc8eb4a8d95" "$output_dir/exe_start" && echo "-- check kernel size remove error!" && checkerror="y"
-   !  $RDIR/ipsr s "0x003bc8..4a8d95" "$output_dir/ori_start" && echo "-- check kernel size not found error!" && checkerror="y"
-   !  $RDIR/ipsr s "0x83c4243b4d18..458d85" "$output_dir/exe_start" && echo "-- check2 kernel size remove error!" && checkerror="y"
-   !  $RDIR/ipsr s "0x83c4243b4d18..458d85" "$output_dir/ori_start" && echo "-- check2 kernel size not found error!" && checkerror="y"
- }
-fi
+!  $RDIR/ipsr s "0x003bc8eb4a8d95" "$output_dir/exe_start" && echo "-- check kernel size remove error!" && checkerror="y"
+!  $RDIR/ipsr s "0x003bc8..4a8d95" "$output_dir/ori_start" && echo "-- check kernel size not found error!" && checkerror="y"
+!  $RDIR/ipsr s "0x83c4243b4d18..458d85" "$output_dir/exe_start" && echo "-- check2 kernel size remove error!" && checkerror="y"
+!  $RDIR/ipsr s "0x83c4243b4d18..458d85" "$output_dir/ori_start" && echo "-- check2 kernel size not found error!" && checkerror="y"
+
 act_size=`ls -l "$output_dir/kernel.image" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 new_act_size=`ls -l "$kernel_dir/kernel.image" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 act_diff=$((act_size - new_act_size))
@@ -183,8 +180,8 @@ act_diff=$((act_size - new_act_size))
 error_size=$((new_act_size - act_size))
 [ -n "$kernel_size" ] && [ "$act_size" -lt "$kernel_size" ] && kernel_diff_size=$((kernel_size - act_size))
 if [ $act_size -lt $new_act_size ]; then
-    echo "ERROR!! New kernel.image does not fit into recover firmware." && checkerror="y"
-    [ -n "$kernel_size" ] && [ "$kernel_diff_size" -gt 0 ] && echo  "--  space within the recover firmware is smaller as in the flash by: $kernel_diff_size Bytes."
+    echo "ERROR! New kernel.image does not fit into recover firmware." && checkerror="y"
+    [ -n "$kernel_size" ] && [ "$kernel_diff_size" -gt 0 ] && echo  "  space within the recover firmware is smaller as in the flash by: $kernel_diff_size Bytes."
 fi
 
 AVM_New_version="$AVM_VERSION_MAJOR.$AVM_VERSION"
@@ -216,7 +213,12 @@ chmod -x $new_recover_file
 act_size=`ls -l "$input_recover_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 new_act_size=`ls -l "$new_recover_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 #echo "actual size= $act_size,  new actual size= $new_act_size" 
-[ $act_size -eq $new_act_size ] || echo "ERROR! Reduce size of kernel.image by: $error_size Bytes." 
+[ $act_size -eq $new_act_size ] || echo "  Reduce size of kernel.image by: $error_size Bytes." 
+if [ "$checkerror" == "y" ]; then
+    rm -f "$new_recover_file"
+    echo -e "\033[31mNo Recover image was built!\033[0m\n"
+    echo
+else
 [ $act_size -eq $new_act_size ] && [ -f "$new_recover_file" ] && echo -e "New recover: \033[32m$new_recover_file\033[0m\n\
 To load firmware into Your router, transfer this new recover to windows and start it.\n\
 This is an other method to update a firmware, in most cases this will be\n\
@@ -224,10 +226,6 @@ the most reliable way to do a firmware update.\n\
 The fastest way is to use the speed-to-fritz LINUX FTP push option.\n\
 Update via web-interface is preferable, if settings should be restored or push \n\
 FTP transfer did not work because PC network settings ware wrong."
-if [ "$checkerror" == "y" ]; then
-    rm "$new_recover_file"
-    echo "No Recover image was built!"
-    echo
 fi
 #((elasped=SECONDS-orig))
 #echo "elasped time: ${elasped}s"
