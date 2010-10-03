@@ -1,6 +1,6 @@
-SED_VERSION:=4.2.1
-SED_SOURCE:=sed-$(SED_VERSION).tar.bz2
-SED_SOURCE_MD5:=7d310fbd76e01a01115075c1fd3f455a
+SED_VERSION:=4.1.5
+SED_SOURCE:=sed-$(SED_VERSION).tar.gz
+#SED_SOURCE_MD5:=7d310fbd76e01a01115075c1fd3f455a
 SED_SITE:=ftp://ftp.gnu.org/gnu/sed
 SED_DIR:=$(TOOLS_SOURCE_DIR)/sed-$(SED_VERSION)
 
@@ -9,7 +9,7 @@ $(DL_DIR)/$(SED_SOURCE): | $(DL_DIR)
 
 $(SED_DIR)/.unpacked: $(DL_DIR)/$(SED_SOURCE) | $(TOOLS_SOURCE_DIR)
 	mkdir -p $(SED_DIR)
-	tar -C $(TOOLS_SOURCE_DIR) $(VERBOSE) -xjf $(DL_DIR)/$(SED_SOURCE)
+	tar -C $(TOOLS_SOURCE_DIR) $(VERBOSE) -xzf $(DL_DIR)/$(SED_SOURCE)
 	touch $@
 
 $(SED_DIR)/.configured: $(SED_DIR)/.unpacked
