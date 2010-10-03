@@ -19,6 +19,9 @@ else
 TOOLS_DOT_CONFIG:=.config
 endif
 
+SEDTOOL+=sed
+
+TOOLS+=sed
 TOOLS+=tar
 TOOLS+=busybox-tools
 TOOLS+=find-squashfs

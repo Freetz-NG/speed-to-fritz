@@ -59,9 +59,14 @@ TOOLS_DIRCLEAN:=$(patsubst %,%-dirclean,$(TOOLS))
 TOOLS_DISTCLEAN:=$(patsubst %,%-distclean,$(TOOLS))
 TOOLS_SOURCE:=$(patsubst %,%-source,$(TOOLS))
 
+SEDTOOL_CLEAN:=$(patsubst %,%-clean,$(SEDTOOL))
+SEDTOOL_DIRCLEAN:=$(patsubst %,%-dirclean,$(SEDTOOL))
+SEDTOOL_DISTCLEAN:=$(patsubst %,%-distclean,$(SEDTOOL))
+SEDTOOL_SOURCE:=$(patsubst %,%-source,$(SEDTOOL))
+
 noconfig_targets:=menuconfig config oldconfig randconfig \
 	defconfig allyesconfig allnoconfig  \
-	help tools $(TOOLS)
+	help sedtool tools $(TOOLS) $(SEDTOOL)
 
 ifndef KBUILD_VERBOSE
   KBUILD_VERBOSE=0
@@ -211,9 +216,12 @@ $(TOOLS_SOURCE_DIR):
 	@mkdir -p $(TOOLS_SOURCE_DIR)
 
 toolsclean: $(TOOLS_CLEAN)
-toolsdirclean: $(TOOLS_DIRCLEAN) 
-
+toolsdirclean: $(TOOLS_DIRCLEAN)
 tools: $(DL_DIR) $(SOURCE_DIR) $(TOOLS)
+
+sedtoolclean: $(SEDTOOL_CLEAN)
+sedtooldirclean: $(SEDTOOL_DIRCLEAN)
+sedtool: $(DL_DIR) $(SOURCE_DIR) $(SEDTOOL)
 
 #############################################################
 #
@@ -241,5 +249,5 @@ help:
 	@echo
 
 .PHONY: dummy distclean clean config oldconfig \
-	menuconfig defconfig help toolsclean toolsdirclean tools
+	menuconfig defconfig help toolsclean toolsdirclean tools sedtool sedtoolclean sedtooldirclean
 	
