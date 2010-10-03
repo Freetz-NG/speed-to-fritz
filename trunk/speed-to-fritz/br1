@@ -145,11 +145,11 @@ SED="$TOOLS_DIR/sed"
 ver=`echo $($SED --version | grep ersion | tr -d [:alpha:],[:blank:],-)`
 #echo "seddir: $SED"
 echo "installed sed version on this system: $ver"
-[ "$ver" != "4.1.5" ] && [ "$ver" != "4.2.1" ] && echo -e "\033[31m --> We need to install a newer local sed version,\nbecause system sed is not compatible!\033[0m\n" && \
+[ "$ver" != "4.1.6" ] && [ "$ver" != "4.2.1" ] && echo -e "\033[31m --> We need to install a newer local sed version,\nbecause system sed is not compatible!\033[0m\n" && \
  sleep 5 && make sedtooldirclean && make sedtool && \
 ver=`echo $($SED --version | grep ersion | tr -d [:alpha:],[:blank:],-)` && \
 echo "installed sed version on this system: $ver" && \
-[ "$ver" != "4.1.5" ] && [ "$ver" != "4.2.1" ] && echo -e "\033[31mcould not install new sed version!\033[0m\n" && sleep 5 && exit 1
+[ "$ver" != "4.1.6" ] && [ "$ver" != "4.2.1" ] && echo -e "\033[31mcould not install new sed version!\033[0m\n" && sleep 5 && exit 1
 #do the sed replacements line by line to give more output in case of errors
 $SED -i -e 's|\x85\xC0\x59\x0F\x85[\x00-\xFF][\x00-\xFF][\x00-\xFF][\x00-\xFF]\x8D\x85|\x85\xC0\x59\x90\x90\x90\x90\x90\x90\x8D\x85|' "$output_dir/exe_start"
 $SED -i -e 's|\x85\xC0\x59\x0F\x85[\x00-\xFF][\x00-\xFF][\x00-\xFF][\x00-\xFF]\x39\x9D|\x85\xC0\x59\x90\x90\x90\x90\x90\x90\x39\x9D|' "$output_dir/exe_start"
