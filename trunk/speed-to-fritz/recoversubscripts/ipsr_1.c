@@ -20,8 +20,7 @@
 #include <unistd.h> /* close */
 
 int main(int argc, char *argv[]);
-// convert 1 hexchar to char
-char hex2char( char c ){
+char char2hex( char c ){
   char ret=0;
   if(c >= '0' && c <= '9') ret = c - '0';
   if(c >= 'a' && c <= 'z') ret = c - 'a' + 10;
@@ -39,7 +38,7 @@ int str2bin(char *s){
   if( slen > 3 && s[0] == '0' && s[1] == 'x' ) { // this is an hex string
     int spos=2; //skeep 0x
     while( spos < slen ){
-      s[(int)(spos/2)-1] = ((hex2char(s[spos]) << 4) | (hex2char(s[spos+1]) & 0x0f));
+      s[(int)(spos/2)-1] = ((char2hex(s[spos]) << 4) | (char2hex(s[spos+1]) & 0x0f));
       spos+=2;
     }
     return (int)(spos-4)/2+1;
@@ -68,50 +67,63 @@ int main(int argc, char *argv[]){
            " to redistribute it under certain conditions\n"
            " See http://www.gnu.org/licenses/gpl.txt for more information\n",argv[0]);
     exit(-4);
-  }
-   search = argv[2];
-   char buff[strlen(search)];
-   for (spos=0; spos <= strlen(search); spos++) {
-    buff[spos] = search[spos];
-    //printf("Buffer as char %c.\n",(char)buff[spos]);
    }
+   search = argv[2];
    if( argc < 5 ){
-    slen = str2bin(buff); //convert if string starts with 0x
+    replace = argv[2];
     filename = argv[3];
-    rlen = slen;
    } else {
     replace = argv[3];
     filename = argv[4];
-    rlen = str2bin(replace);
    }
+   char buff[strlen(search)];
+   for (spos=0; spos <= strlen(search); spos++) {
+    buff[spos] = search[spos];
+    //printf("String buffer as char %c.\n",(char)buff[spos]);
+   }
+   char rbuff[strlen(replace)];
+   for (spos=0; spos <= strlen(replace); spos++) {
+     rbuff[spos] = replace[spos];
+     //printf("Replace buffer as char %c.\n",(char)rbuff[spos]);
+   }
+   slen = str2bin(buff); //convert if string starts with 0x
+   rlen = str2bin(rbuff);
    if( rlen < slen || slen == 0 ){
     printf("Search string is %d long, but replacement pattern only %d.\n",slen,rlen);
     exit(-3);
    }
-   if ( rlen > slen ) printf("WARNING: replacement string longer than searchstring. Will truncate.\n");
+   if ( rlen > slen ) printf("WARNING: replacement string longer than searchstring, -->  truncated.\n");
    if( (fd=open(filename,O_RDWR,0)) < 0){
     printf("Could not open file %s.\n",filename);
     exit(-2);
    } else {
-    char c;
-    while( read(fd, &c, 1) > 0 ){
-      if (( search[spos*2+2] == '.' && search[spos*2+3] == '.') || c == buff[spos] ){
-        //if ( search[spos*2+2] == '.' && search[spos*2+3] == '.') printf ("c: %c hex_pos:%d buff[spos]: %c str_pos: %d search: %s slen: %d\n", c, spos, buff[spos], spos*2+2, search, slen);
-        spos++;
-      } else {
-       spos=0;
-      }
-      if( spos == slen ){
-        if (strcasecmp(argv[1],"v")==0) printf("Found pattern at position: %d\n", fpos - spos);
-        if (strcasecmp(argv[1],"p")==0) printf("%d\n", fpos - spos);
-        if( argc == 5 ){
-         lseek(fd, -1 * spos, 1);
-         write(fd, replace, spos);
+     char c;
+     while( read(fd, &c, 1) > 0 ){
+        if ( search[spos*2+2] == '.' && search[spos*2+3] == '.'){
+            buff[spos] = c;
         }
-        spos=0;
-        rval=0;
-      }
-      fpos++;
+        if ( replace[spos*2+2] == '.' && replace[spos*2+3] == '.'){
+            rbuff[spos] = c;
+        }
+        if (c == buff[spos] ){
+    	    spos++;
+        } else {
+    	    spos=0;
+        }
+        if( spos == slen ){
+            if (strcasecmp(argv[1],"v")==0) printf("Found pattern at position: %d\n", fpos - spos);
+            if (strcasecmp(argv[1],"p")==0) printf("%d\n", fpos - spos);
+    	    spos=0;
+    	    rval=0;
+            break;
+        }
+    	    fpos++;
+    } 
+    if( argc == 5 ){
+	 int pos;
+         pos = lseek(fd, -1 * rlen, SEEK_CUR);
+         if (pos == -1 ) return rval=2;
+         else write(fd, rbuff, rlen);
     }
   }
   close(fd);
