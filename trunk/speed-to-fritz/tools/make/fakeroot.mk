@@ -39,7 +39,7 @@ $(FAKEROOT_DIR)/.configured: $(FAKEROOT_DIR)/.unpacked
 	);
 	touch $(FAKEROOT_DIR)/.configured
 
-$(FAKEROOT_DIR)/faked: $(FAKEROOT_DIR)/.configured
+$(FAKEROOT_TARGET_SCRIPT): $(FAKEROOT_DIR)/.configured
 	$(MAKE) -C $(FAKEROOT_DIR)
 
 $(FAKEROOT_TARGET_SCRIPT): $(FAKEROOT_DIR)/faked
