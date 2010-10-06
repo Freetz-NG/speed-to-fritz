@@ -35,15 +35,47 @@ if [ "$BUILDRECOVER" = "y" ]; then
 fi
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
-#RECOVERIMG7170="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/x_misc/deutsch/fritz.box_fon_wlan_7170.04.80.recover-image.exe"
+RECOVERIMG7170="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/x_misc/deutsch/fritz.box_fon_wlan_7170.04.80.recover-image.exe"
 # multilingual recover firmware is usual larger and preverable if new ones are avalabel
 # v3 recover can be used as well for all 7270 compatibel boxes
 # 7390 recover can be used for 7270 compatibel boxes as well
 RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7390.04.86.recover-image.exe"
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
+R_IMG="$RECOVERIMG7270"
+#5010, 5012, FB Fon und FB Fon WLAN
+[ "${FBMOD}" == "FBDW" ] && R_IMG="$RECOVERIMG7170"
+[ "${FBMOD}" == "FBFo" ] && R_IMG="$RECOVERIMG7170"
+[ "${FBMOD}" == "5010" ] && R_IMG="$RECOVERIMG7170"
+[ "${FBMOD}" == "5012" ] && R_IMG="$RECOVERIMG7170"
+#5140, IAD5130, 7050
+[ "${FBMOD}" == "5130" ] && R_IMG="$RECOVERIMG7170"
+[ "${FBMOD}" == "5140" ] && R_IMG="$RECOVERIMG7170"
+[ "${FBMOD}" == "7050" ] && R_IMG="$RECOVERIMG7170"
+#5050
+[ "${FBMOD}" == "5050" ] && R_IMG="$RECOVERIMG7170"
+#7113, 7140, 7141, 7150
+[ "${FBMOD}" == "7113" ] && R_IMG="$RECOVERIMG7170"
+[ "${FBMOD}" == "7140" ] && R_IMG="$RECOVERIMG7170"
+[ "${FBMOD}" == "7141" ] && R_IMG="$RECOVERIMG7170"
+[ "${FBMOD}" == "7150" ] && R_IMG="$RECOVERIMG7170"
+#for all newer 8mb boxes
+[ "${FBMOD}" == "7170" ] && R_IMG="$RECOVERIMG7170"
+#for W501
+[ "${SPNUM}" == "501" ] && R_IMG="$RECOVERIMG7170"
+#for a Sinus500 
+[ "${SPNUM}" == "500" ] && R_IMG="$RECOVERIMG7170"
+#for all 16MB boxes
+[ "${FBMOD}" == "7270" ] && R_IMG="$RECOVERIMG7270"
+[ "${FBMOD}" == "7240" ] && R_IMG="$RECOVERIMG7270"
+#7270v3
+[ "${FBMOD}" == "7273" ] && R_IMG="$RECOVERIMG7270"
+#for 7390
+[ "${FBMOD}" == "7390" ] && R_IMG="$RECOVERIMG7270"
+#for 7570
+[ "${FBMOD}" == "7570" ] && R_IMG="$RECOVERIMG7270"
+#for a W503 
 #[ "${SPNUM}" == "503" ] && R_IMG="$RECOVERIMGC503"
-[ "$R_IMG" == "" ] &&  R_IMG="$RECOVERIMG7270"
 #-------------------------------------------------------------------------------------------------
 . $inc_DIR/includefunctions
 #echo "R_IMG: $R_IMG"
@@ -82,10 +114,10 @@ NEWNAME=$(echo "$NEWIMG" | sed -r 's/Speedport_//' | sed -r 's/-r-/-/' | sed -r 
 new_recover_file="$kernel_dir/$NEWNAME"
 new_recover_file="$kernel_dir/Speedport_W${SPNUM}V.recover-image.exe"
 
-cp -f "$output_dir/exe_start" "$output_dir/ori_start"
+##cp -f "$output_dir/exe_start" "$output_dir/ori_start"
 ! [ -f "$output_dir/exe_start" ] && echo "missing: $output_dir/exe_start" && sleep 10 && exit 1
 ! [ -f "$RDIR/ipsr" ] && echo "missing: $RDIR/ipsr" && sleep 10 && exit 1
-! [ -f "$output_dir/ori_start" ] && echo "missing: $output_dir/ori_start" && sleep 10 && exit 1
+##! [ -f "$output_dir/ori_start" ] && echo "missing: $output_dir/ori_start" && sleep 10 && exit 1
 
 [ "${SPNUM}" == "500" ] && sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box    Sinus ${SPNUM:0:3} |g" "$output_dir/exe_start"
 [ "${SPNUM}" == "501" ] && sed -i -e "s|FRITZ!Box Fon WLAN 7170|FRITZ!Box Speedp. W${SPNUM:0:3}V|g" "$output_dir/exe_start"
@@ -100,36 +132,45 @@ sed -i -e "s|FRITZ!Box Speedp. W${SPNUM:0:3}V v3|FRITZ!Box Speedp. W${SPNUM:0:3}
 sed -i -e "s|FRITZ!Box Speedp. W${SPNUM:0:3}V v3|FRITZ!Box Speedp. W${SPNUM:0:3}V   |g" "$output_dir/exe_start"
 #	test eax,eax pop eax => 85 C0 59
 #	jz => 0F 85
-!  $RDIR/ipsr s "0x85c0590f85........8d85" "0x85c0599090909090908d85" "$output_dir/exe_start"
-!  $RDIR/ipsr s "0x85c0590f85........399d" "0x85c059909090909090399d" "$output_dir/exe_start"
-!  $RDIR/ipsr s "0x3bfb74..83ffff89" "0x3bfbeb..83ffff89" "$output_dir/exe_start"
-!  $RDIR/ipsr s "0xc40c85c0..4a" "0xc40c85c0eb4a" "$output_dir/exe_start"
-!  $RDIR/ipsr s "0x73......50B68F00" "0x7300909050B68F00" "$output_dir/exe_start"
-!  $RDIR/ipsr s "0x72..81FFE8030000" "0x720881FFE8030000" "$output_dir/exe_start"
-!  $RDIR/ipsr s "0x72..397D0873..89" "0x73..397D0873..89" "$output_dir/exe_start"
-!  $RDIR/ipsr s "0x72..397d08730689" "0x73..397D08730689" "$output_dir/exe_start"
-!  $RDIR/ipsr s "0x003bc8..4a8d95"  "0x003bc8eb4a8d95" "$output_dir/exe_start"
-!  $RDIR/ipsr s "0x83c4243b4d18..458d85" "0x83c4243b4d18..458d85" "$output_dir/exe_start"
-!  $RDIR/ipsr s "0x734A8D9508FCFF" "0xEB4A8D9508FCFF" "$output_dir/exe_start"
+echo "do the main patch ..."
+# --> older variants
+sed -i \
+-e 's|\x73\x06\x89\x1D\x50\xB6\x8F\x00|\x73\x00\x90\x90\x50\xB6\x8F\x00|' \
+-e 's|\x72\x0E\x81\xFF\xE8\x03\x00\x00|\x72\x08\x81\xFF\xE8\x03\x00\x00|' \
+-e 's|\x74\x59\x83\xFF\xFF\x89\xBD|\xEB\x59\x83\xFF\xFF\x89\xBD|' \
+-e 's|\x73\x4A\x8D\x95\x08\xFC\xFF|\xEB\x4A\x8D\x95\x08\xFC\xFF|' \
+"$output_dir/exe_start"
+# <--
+# --> neue 7390 recover.exe
+!  $RDIR/ipsr s "0x85c0590f85........8d85" "0x85c0599090909090908d85" "$output_dir/exe_start" && echo "-- firmware version not found check error!" && checkerror="y"
+!  $RDIR/ipsr s "0x85c0590f85........399d" "0x85c059909090909090399d" "$output_dir/exe_start" && echo "-- OEM check not found error!" && checkerror="y"
+!  $RDIR/ipsr s "0x3bfb74..83ffff89" "0x3bfbeb..83ffff89" "$output_dir/exe_start"  && echo "-- kernel check not found error!" && checkerror="y"
+!  $RDIR/ipsr s "0xc40c85c0..4a" "0xc40c85c0eb4a" "$output_dir/exe_start" && echo "-- CRC check not found error!" && checkerror="y"
+!  $RDIR/ipsr s "0x72..397D0873..89" "0x73..397D0873..89" "$output_dir/exe_start" && echo "-- urloader update not found error!" && checkerror="y"
+!  $RDIR/ipsr s "0x003bc8..4a8d95"  "0x003bc8eb4a8d95" "$output_dir/exe_start" && echo "-- check kernel size remove error!" && checkerror="y"
+!  $RDIR/ipsr s "0x83c4243b4d18..458d85" "0x83c4243b4d18..458d85" "$output_dir/exe_start" && echo "-- check2 kernel size not found error!" && checkerror="y"
+# <--
 
   ! $RDIR/ipsr s "0x85c0599090909090908d85" "$output_dir/exe_start" && echo "-- firmware version remove error!" && checkerror="y"
-  ! $RDIR/ipsr s "0x85c0590f85........8d85" "$output_dir/ori_start" && echo "-- firmware version not found check error!" && checkerror="y"
   ! $RDIR/ipsr s "0x85c059909090909090399d" "$output_dir/exe_start" && echo "-- OEM check remove error!" && checkerror="y"
-  ! $RDIR/ipsr s "0x85c0590f85........399d" "$output_dir/ori_start" && echo "-- OEM check not found error!" && checkerror="y"
   ! $RDIR/ipsr s "0x3bfbeb..83ffff89" "$output_dir/exe_start" && echo "-- kernel check remove error!" && checkerror="y"
-  ! $RDIR/ipsr s "0x3bfb74..83ffff89" "$output_dir/ori_start" && echo "-- kernel check not found error!" && checkerror="y"
   ! $RDIR/ipsr s "0xc40c85c0eb4a" "$output_dir/exe_start" && echo "-- CRC check remove error!" && checkerror="y"
-  ! $RDIR/ipsr s "0xc40c85c0..4a" "$output_dir/ori_start" && echo "-- CRC check not found error!" && checkerror="y"
-! ($RDIR/ipsr s "0x72..81ffe8030000" "$output_dir/exe_start" || \
-   $RDIR/ipsr s "0x7300909050b68f00" "$output_dir/exe_start" || \
-   $RDIR/ipsr s "0x73..397D08730689" "$output_dir/exe_start" ) && echo "-- urloader update remove error!" && checkerror="y"
-! ($RDIR/ipsr s "0x72..81ffe8030000" "$output_dir/ori_start" || \
-   $RDIR/ipsr s "0x73......50b68f00" "$output_dir/ori_start" || \
-   $RDIR/ipsr s "0x72..397d08730689" "$output_dir/ori_start" ) && echo "-- urloader update not found error!" && checkerror="y"
-!  $RDIR/ipsr s "0x003bc8eb4a8d95" "$output_dir/exe_start" && echo "-- check kernel size remove error!" && checkerror="y"
-!  $RDIR/ipsr s "0x003bc8..4a8d95" "$output_dir/ori_start" && echo "-- check kernel size not found error!" && checkerror="y"
-!  $RDIR/ipsr s "0x83c4243b4d18..458d85" "$output_dir/exe_start" && echo "-- check2 kernel size remove error!" && checkerror="y"
-!  $RDIR/ipsr s "0x83c4243b4d18..458d85" "$output_dir/ori_start" && echo "-- check2 kernel size not found error!" && checkerror="y"
+  ! ($RDIR/ipsr s "0x72..81ffe8030000" "$output_dir/exe_start" || \
+    $RDIR/ipsr s "0x7300909050b68f00" "$output_dir/exe_start" || \
+    $RDIR/ipsr s "0x73..397D08730689" "$output_dir/exe_start" ) && echo "-- urloader update remove error!" && checkerror="y"
+  ! $RDIR/ipsr s "0x003bc8eb4a8d95" "$output_dir/exe_start" && echo "-- check kernel size remove error!" && checkerror="y"
+  ! $RDIR/ipsr s "0x83c4243b4d18..458d85" "$output_dir/exe_start" && echo "-- check2 kernel size remove error!" && checkerror="y"
+  ! $RDIR/ipsr s "0x83c4243b4d1877..8d85" "0x83c4243b4d18eb..8d85" "$output_dir/exe_start" && echo "-- check2 kernel size not found error!" && checkerror="y"
+
+##  ! $RDIR/ipsr s "0x85c0590f85........8d85" "$output_dir/ori_start" && echo "-- firmware version not found check error!" && checkerror="y"
+##  ! $RDIR/ipsr s "0x85c0590f85........399d" "$output_dir/ori_start" && echo "-- OEM check not found error!" && checkerror="y"
+##  ! $RDIR/ipsr s "0x3bfb74..83ffff89" "$output_dir/ori_start" && echo "-- kernel check not found error!" && checkerror="y"
+##  ! $RDIR/ipsr s "0xc40c85c0..4a" "$output_dir/ori_start" && echo "-- CRC check not found error!" && checkerror="y"
+##! ($RDIR/ipsr s "0x72..81ffe8030000" "$output_dir/ori_start" || \
+##   $RDIR/ipsr s "0x73......50b68f00" "$output_dir/ori_start" || \
+##   $RDIR/ipsr s "0x72..397d08730689" "$output_dir/ori_start" ) && echo "-- urloader update not found error!" && checkerror="y"
+##!  $RDIR/ipsr s "0x003bc8..4a8d95" "$output_dir/ori_start" && echo "-- check kernel size not found error!" && checkerror="y"
+##!  $RDIR/ipsr s "0x83c4243b4d18..458d85" "$output_dir/ori_start" && echo "-- check2 kernel size not found error!" && checkerror="y"
 
 act_size=`ls -l "$output_dir/kernel.image" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 new_act_size=`ls -l "$kernel_dir/kernel.image" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
@@ -150,12 +191,12 @@ OldRversion="$(dd if=$output_dir/exe_mid bs=1 count=16  2> /dev/null)"
 OldRversion_C="$(dd if=$output_dir/exe_mid bs=1 count=16  2> /dev/null | sed 's/-//' | tr -d '[:alpha:]' | sed 's/-\.//' )"
 New_Rversion=$AVM_New_version$(dd if=$output_dir/exe_mid bs=1 count=16  2> /dev/null | sed 's/-it/   /' | sed 's/-en/   /' | sed 's/-fr/   /' | sed 's/-sp/   /' | sed 's/ \./  /' | sed "s|$OldRversion_C||")
 [ "$ORI" != "y" ] && echo "New recoverversion: .$New_Rversion."
+echo "patch revison ..."
 #echo "Old recoverversion : .$OldRversion."
 #echo "Old recoverversionC: .$OldRversion_C."
 [ "$ORI" != "y" ] && sed -i -e "s|$OldRversion|$New_Rversion|" "$output_dir/exe_mid"
-
+echo "concat all parts ..."
 dd if=/dev/zero bs=1 count=$act_diff >$output_dir/zerro.image 2> /dev/null
-#echo "concat all parts ..."
 cat $output_dir/exe_start >$new_recover_file
 cat $kernel_dir/kernel.image >>$new_recover_file
 cat $output_dir/zerro.image >>$new_recover_file
