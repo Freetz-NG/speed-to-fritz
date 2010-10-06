@@ -35,51 +35,15 @@ if [ "$BUILDRECOVER" = "y" ]; then
 fi
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
-RECOVERIMG7170="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/x_misc/deutsch/fritz.box_fon_wlan_7170.04.80.recover-image.exe"
+#RECOVERIMG7170="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7170/x_misc/deutsch/fritz.box_fon_wlan_7170.04.80.recover-image.exe"
 # multilingual recover firmware is usual larger and preverable if new ones are avalabel
 # v3 recover can be used as well for all 7270 compatibel boxes
 # 7390 recover can be used for 7270 compatibel boxes as well
 RECOVERIMG7270="ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/FRITZ.Box_Fon_WLAN_7390.04.86.recover-image.exe"
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
-#5010, 5012, FB Fon und FB Fon WLAN
-[ "${FBMOD}" == "FBDW" ] && R_IMG="$RECOVERIMG7170"
-[ "${FBMOD}" == "FBFo" ] && R_IMG="$RECOVERIMG7170"
-[ "${FBMOD}" == "5010" ] && R_IMG="$RECOVERIMG7170"
-[ "${FBMOD}" == "5012" ] && R_IMG="$RECOVERIMG7170"
-#5140, IAD5130, 7050
-[ "${FBMOD}" == "5130" ] && R_IMG="$RECOVERIMG7170"
-[ "${FBMOD}" == "5140" ] && R_IMG="$RECOVERIMG7170"
-[ "${FBMOD}" == "7050" ] && R_IMG="$RECOVERIMG7170"
-#5050
-[ "${FBMOD}" == "5050" ] && R_IMG="$RECOVERIMG7170"
-#7113, 7140, 7141, 7150
-[ "${FBMOD}" == "7113" ] && R_IMG="$RECOVERIMG7170"
-[ "${FBMOD}" == "7140" ] && R_IMG="$RECOVERIMG7170"
-[ "${FBMOD}" == "7141" ] && R_IMG="$RECOVERIMG7170"
-[ "${FBMOD}" == "7150" ] && R_IMG="$RECOVERIMG7170"
-#for all newer 8mb boxes
-[ "${FBMOD}" == "7170" ] && R_IMG="$RECOVERIMG7170"
-#for W501
-[ "${SPNUM}" == "501" ] && R_IMG="$RECOVERIMG7170"
-#for a Sinus500 
-[ "${SPNUM}" == "500" ] && R_IMG="$RECOVERIMG7170"
-#for all 16MB boxes
-[ "${FBMOD}" == "7270" ] && R_IMG="$RECOVERIMG7270"
-[ "${FBMOD}" == "7240" ] && R_IMG="$RECOVERIMG7270"
-#7270v3
-[ "${FBMOD}" == "7273" ] && R_IMG="$RECOVERIMG7270"
-#for 7390
-[ "${FBMOD}" == "7390" ] && R_IMG="$RECOVERIMG7270"
-#for 7570
-[ "${FBMOD}" == "7570" ] && R_IMG="$RECOVERIMG7270"
-#for a W503 
 #[ "${SPNUM}" == "503" ] && R_IMG="$RECOVERIMGC503"
-if  [ "$R_IMG" == "" ];then
-    R_IMG="$RECOVERIMG7170"
-    echo "No special original recover firmware selected, 7170 used as default!"
-    sleep 5
-fi
+[ "$R_IMG" == "" ] &&  R_IMG="$RECOVERIMG7270"
 #-------------------------------------------------------------------------------------------------
 . $inc_DIR/includefunctions
 #echo "R_IMG: $R_IMG"
@@ -136,8 +100,6 @@ sed -i -e "s|FRITZ!Box Speedp. W${SPNUM:0:3}V v3|FRITZ!Box Speedp. W${SPNUM:0:3}
 sed -i -e "s|FRITZ!Box Speedp. W${SPNUM:0:3}V v3|FRITZ!Box Speedp. W${SPNUM:0:3}V   |g" "$output_dir/exe_start"
 #	test eax,eax pop eax => 85 C0 59
 #	jz => 0F 85
-#sed -i -e 's| 85 C0 59     0F 85    EF 01 00 00 8D 85
-#do the sed replacements line by line to give more output in case of errors
 !  $RDIR/ipsr s "0x85c0590f85........8d85" "0x85c0599090909090908d85" "$output_dir/exe_start"
 !  $RDIR/ipsr s "0x85c0590f85........399d" "0x85c059909090909090399d" "$output_dir/exe_start"
 !  $RDIR/ipsr s "0x3bfb74..83ffff89" "0x3bfbeb..83ffff89" "$output_dir/exe_start"
