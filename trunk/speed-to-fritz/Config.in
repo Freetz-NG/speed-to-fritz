@@ -220,9 +220,9 @@ config AVM_7240_73_04_80
     string
     default "@AVM/fritz.box/fritzbox.fon_wlan_7240/firmware/deutsch/FRITZ.Box_Fon_WLAN_7240.73.04.80.image"
 
-config AVM_7240_73_04_86
+config AVM_7240_73_04_87
     string
-    default "@AVM/fritz.box/fritzbox.fon_wlan_7240/firmware/deutsch/FRITZ.Box_Fon_WLAN_7240.73.04.86.image"
+    default "@AVM/fritz.box/fritzbox.fon_wlan_7240/firmware/deutsch/FRITZ.Box_Fon_WLAN_7240.73.04.87.image"
 
 config AVM_PRE_7240_18237
     string
@@ -254,11 +254,11 @@ config AVM_7272_m54_04_81
 
 config AVM_7272_54_04_80
     string
-    default "@AVM/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.80.image"
+    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.54.04.80.image mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237302e35342e30342e38302e7a6970.zip"
 
 config AVM_7273_74_04_80
     string
-    default "@AVM/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.80.image"
+    default "./Firmware.orig/Release_FRITZ.Box_Fon_WLAN_7270v3.54.04.80.image"
 
 config AVM_7271_54_04_86
     string
@@ -1277,8 +1277,8 @@ choice
 		help
 			FRITZ! release: 80
 
-	config TYPE_7240_73_04_86
-		bool "AVM 7240 73.04.86 18306"
+	config TYPE_7240_73_04_87
+		bool "AVM 7240 73.04.87 18306"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 #		depends on EXPERT_MOD 
 		help
@@ -1771,8 +1771,8 @@ choice
 	config TYPE_SRC3_AVM_7240_73_04_80
 		bool "AVM 7240 73.04.80"
 
-	config TYPE_SRC3_AVM_7240_73_04_86
-		bool "AVM 7240 73.04.86 18306"
+	config TYPE_SRC3_AVM_7240_73_04_87
+		bool "AVM 7240 73.04.87 18306"
 
 	config TYPE_SRC3_AVM_PRE_7240_18237
 		bool "AVM 7240 18237 (PREVIEW)"
@@ -2093,7 +2093,7 @@ config AVM_IMG
 	default "$AVM_MINI_7170_14935"				if TYPE_7170_MINI_14935 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_BETA_7170_16352"				if TYPE_7170_PRE_16352 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7240_73_04_80"				if ( TYPE_7240_73_04_80 )
-	default "$AVM_7240_73_04_86"				if ( TYPE_7240_73_04_86 )
+	default "$AVM_7240_73_04_87"				if ( TYPE_7240_73_04_87 )
 	default "$AVM_7570_75_04_82"				if ( TYPE_7570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX
 	default "$AVM_7272_54_04_86"				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7272_m54_04_76" 				if ( TYPE_SPEEDPORT_W920V || TYPE_OR_503_722 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && ! TYPE_LANG_DE
@@ -2196,7 +2196,7 @@ config SRC2_IMG
 	default "$AVM_7240_73_04_80" 			if TYPE_SRC3_AVM_7240_73_04_80
 	default "$AVM_7272_54_04_80" 			if TYPE_SRC3_AVM_7272_54_04_80
 	default "$AVM_7273_74_04_80" 			if TYPE_SRC3_AVM_7273_74_04_80
-	default "$AVM_7240_73_04_86" 			if TYPE_SRC3_AVM_7240_73_04_86
+	default "$AVM_7240_73_04_87" 			if TYPE_SRC3_AVM_7240_73_04_87
 	default "$AVM_7271_54_04_86" 			if TYPE_SRC3_AVM_7271_54_04_86
 	default "$AVM_7272_54_04_86" 			if TYPE_SRC3_AVM_7272_54_04_86
 	default "$AVM_7273_74_04_86" 			if TYPE_SRC3_AVM_7273_74_04_86
@@ -2287,7 +2287,7 @@ config TYPE_7273_TYPE
 config TYPE_V3_OR_7240
 	bool
 	default "y" 		if  TYPE_7273_TYPE ||TYPE_CORE_7240_16540 || TYPE_CORE_7240_16540 || TYPE_PHONE_7240_16376 || TYPE_PRE_7240_18237 || \
-				TYPE_7240_73_04_80 || TYPE_7240_73_04_86
+				TYPE_7240_73_04_80 || TYPE_7240_73_04_87
 
 config TYPE_LABOR_TYPE
 	string
@@ -2299,7 +2299,7 @@ config TYPE_LABOR_TYPE
 	default "77" 		if TYPE_7170_29_04_77 || TYPE_7113_60_04_77
 	default "70" 		if TYPE_7170_70 || TYPE_7272_54_04_70
 	default "76m" 		if TYPE_7272_m54_04_76
-#	default "86"		if TYPE_7272_54_04_86 || TYPE_7273_54_04_86 || TYPE_7273_73_04_86
+#	default "86"		if TYPE_7272_54_04_86 || TYPE_7273_54_04_86 || TYPE_7273_74_04_86
 	default "CORE"	 	if TYPE_CORE_7273_15220 || TYPE_CORE_7272_15220 || TYPE_CORE_7271_16540 || TYPE_CORE_7272_16540 || TYPE_CORE_7273_16540 || TYPE_CORE_7240_16540 || TYPE_7240_CORE_16540
 	default "PREVIEW"	if TYPE_PRE_7240_18237 || TYPE_PRE_7271_17828 || TYPE_PRE_7272_17828 || TYPE_PRE_7273_17828 || TYPE_PRE_7271_18255 || TYPE_PRE_7272_18255 || TYPE_PRE_7273_18255 || \
 				TYPE_7170_PRE_16352 || TYPE_7390_PRE_18101 || TYPE_PRE_72XX
