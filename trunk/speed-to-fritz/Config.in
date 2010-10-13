@@ -4271,6 +4271,9 @@ if ! EXPORT_ATA_ONLY
 		config WRAP_DSLD_LIBSLAB
 			bool "Add libslab to DSLD wrapper"
 			default n 
+		config PATCH_DSLIP_AR7
+			bool "Set dslIP to 169.254.2.1"
+			default n 
 	endif
 
 #    config FORCE_OLD_DSL_ROUTE

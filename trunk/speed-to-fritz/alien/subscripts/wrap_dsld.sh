@@ -37,14 +37,30 @@ DSLD_DIR=/lib/dsld
 mkdir -p "${SRC}/$DSLD_DIR"
 
 # build dsld-wrappers.sh
+[ "$PATCH_DSLIP_AR7" = "y" ] && \
 cat <<EOF > "${SRC}/${DSLD_DIR}/dsld-wrapper.sh"
+#!/bin/sh
+LD_LIBRARY_PATH="${DSLD_DIR}:\$LD_LIBRARY_PATH"
+LD_LIBRARY_PATH="\${LD_LIBRARY_PATH%:}"
+cp /var/flash/ar7.cfg /var/flash/ar7
+sed -i -e "/\(dslinterface .\)/,/\(\}\)/ { /dslinterface ./b; /\}/b; s/ipaddr =.*/ipaddr = 169.254.2.1;/ }" /var/flash/ar7
+sed -i -e "/\(dslinterface .\)/,/\(\}\)/ { /dslinterface ./b; /\}/b; s/netmask =.*/netmask = 255.255.255.255;/ }" /var/flash/ar7
+sed -i -e "/\(dslinterface .\)/,/\(\}\)/ { /dslinterface ./b; /\}/b; s/dstipaddr =.*/dstipaddr = 169.254.2.1;/ }" /var/flash/ar7
+cp /var/flash/ar7 /var/flash/ar7.cfg
+export LD_LIBRARY_PATH
+exec ${DSLD_DIR}/dsld "\$@"
+EOF
+
+[ "$PATCH_DSLIP_AR7" != "y" ] && \
+cat <<EOOF > "${SRC}/${DSLD_DIR}/dsld-wrapper.sh"
 #!/bin/sh
 LD_LIBRARY_PATH="${DSLD_DIR}:\$LD_LIBRARY_PATH"
 LD_LIBRARY_PATH="\${LD_LIBRARY_PATH%:}"
 export LD_LIBRARY_PATH
 exec ${DSLD_DIR}/dsld "\$@"
-EOF
+EOOF
 chmod 755 "${SRC}/${DSLD_DIR}/dsld-wrapper.sh"
+
 
 rm -f "${SRC}/sbin/dsld"
 ln -sf ..${DSLD_DIR}/dsld-wrapper.sh "${SRC}/sbin/dsld"
@@ -57,5 +73,6 @@ for lib in $LIBS; do
 		ln -s "$target" "${SRC}/${DSLD_DIR}/${target%.[0-9]}"
 		target="${target%.[0-9]}"
 	done
+
 done
 
