@@ -1,7 +1,7 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="
-        * Bump 7240/7270 v2/v3 Labor Preview to 18202"
+comment="  * Readd set name to config in was removed in r1090 by mistake."
+
 echo "-------------------------------------------------------------------------------------------------------------"
 if [ `id -u` -eq 0 ]; then
  clear
@@ -43,6 +43,11 @@ echo "------------------------------------------------------------------" >>"$DS
 #svn propedit svn:ignore trunk
 cd trunk
 #sleep 20
+#svn delete --force ./speed-to-fritz/alien/subscripts/br
+#svn delete --force ./speed-to-fritz/alien/subscripts/build_new_recover_firmware
+
+#svn delete --force ./speed-to-fritz/recoversubscripts/ipsr.c
+#svn delete --force ./speed-to-fritz/recoversubscripts/log
 #svn delete --force ./wrtjp/wrtjp.5.1/bin/Release/start.bat
 #svn delete --force ./uploader/Program-dialog1.cs
 #svn delete --force ./uploader/release.exe

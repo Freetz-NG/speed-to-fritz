@@ -1,0 +1,1386 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="labelErase.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="RouterIPLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 13</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="&gt;&gt;label10.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelOf.Name" xml:space="preserve">
+    <value>labelOf</value>
+  </data>
+  <data name="&gt;&gt;labelGW.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;progressBar2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelOf.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelStartWait.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonSP.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="checkBox2.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>19</value>
+  </data>
+  <data name="labelNoPW.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="ANNEXBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>109, 227</value>
+  </data>
+  <data name="&gt;&gt;labelSecElapsed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label10.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="&gt;&gt;labelStartWait.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelSecElapsed.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;RouterIP.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="labelNoPW.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="testText.Text" xml:space="preserve">
+    <value> --&gt; Switch Router Power Line Off And On Again,
+   then Click 'OK' Button Within Three Seconds.
+
+--&gt; If it did not work the first time wait until this Popup comes up again and repeat.
+
+ Attention:
+    Static PC LAN IP settings are needed. IP: </value>
+  </data>
+  <data name="labelStartWait.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;checkBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="progressBar2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>226, 85</value>
+  </data>
+  <data name="&gt;&gt;labelLogWrittenTo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSwitch.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="ANNEXBox.Items1" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="&gt;&gt;labelFreetzPackages.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelLooking.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSecElapsed.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelGW.Text" xml:space="preserve">
+    <value>1. Switsh Router on and connect PC and
+    Router with a Patch, better would be
+    to put a HUB between PC and Router
+2. Set up static PC LAN:
+    IP:192.168.178.2 Mask: 255.255.0.0
+3. Disable all other Devices that use 
+    IP Addresses on the PC
+4. Disable Firewall
+5. Click Start Upload </value>
+  </data>
+  <data name="labelErrorServer.Text" xml:space="preserve">
+    <value>Error: Must be connected to a server.</value>
+  </data>
+  <data name="checkBox1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="RouterIP.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="&gt;&gt;labelStartWait.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tB1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="WKey.Text" xml:space="preserve">
+    <value>speedboxspeedbox</value>
+  </data>
+  <data name="labelGW.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 294</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>232, 141</value>
+  </data>
+  <data name="label10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 13</value>
+  </data>
+  <data name="Start.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;labelGW.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="labelErasemtd1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="labelGW.Size" type="System.Drawing.Size, System.Drawing">
+    <value>201, 117</value>
+  </data>
+  <data name="&gt;&gt;labelUploadmtd1.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="labelUploadmtd1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="labelSecElapsed.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="&gt;&gt;label10.Name" xml:space="preserve">
+    <value>label10</value>
+  </data>
+  <data name="labelErase.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="&gt;&gt;labelErasemtd1.Name" xml:space="preserve">
+    <value>labelErasemtd1</value>
+  </data>
+  <data name="labelLooking.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Firmware Uploader V1.1</value>
+  </data>
+  <data name="labelErasemtd1.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="labelLooking.Text" xml:space="preserve">
+    <value>Looking for Router on IP:  </value>
+  </data>
+  <data name="labelKInotfound.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 13</value>
+  </data>
+  <data name="PBox.Text" xml:space="preserve">
+    <value>Upload Progress</value>
+  </data>
+  <data name="&gt;&gt;labelLogWrittenTo.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="OEMBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="labelUploadmtd1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 20</value>
+  </data>
+  <data name="textBox1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;labelDisconnecting.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="Start.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="progressBar2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelGW.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="RouterIP.Text" xml:space="preserve">
+    <value>192.168.178.1</value>
+  </data>
+  <data name="labelLogWrittenTo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 316</value>
+  </data>
+  <data name="&gt;&gt;labelLooking.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;Start.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="label10.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RouterIP.Items1" xml:space="preserve">
+    <value>192.168.2.1</value>
+  </data>
+  <data name="labelUploadmtd1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelStartWait.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelUploadmtd1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;testText.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelErasemtd1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 155</value>
+  </data>
+  <data name="textBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>23</value>
+  </data>
+  <data name="labelSwitch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 57</value>
+  </data>
+  <data name="Start.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 62</value>
+  </data>
+  <data name="labelSecElapsed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 244</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>97, 13</value>
+  </data>
+  <data name="&gt;&gt;buttonSP.Name" xml:space="preserve">
+    <value>buttonSP</value>
+  </data>
+  <data name="labelStartWait.TabIndex" type="System.Int32, mscorlib">
+    <value>34</value>
+  </data>
+  <data name="&gt;&gt;labelNoPW.Name" xml:space="preserve">
+    <value>labelNoPW</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>27</value>
+  </data>
+  <data name="OEMBox.ToolTip" xml:space="preserve">
+    <value>If backgrond coler changes, we could not find the value, but default Values are mostlikly correct.</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="labelDisconnecting.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 386</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>626, 523</value>
+  </data>
+  <data name="&gt;&gt;labelErase.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 38</value>
+  </data>
+  <data name="&gt;&gt;labelErase.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSwitch.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelErase.Name" xml:space="preserve">
+    <value>labelErase</value>
+  </data>
+  <data name="Start.Text" xml:space="preserve">
+    <value>Start Upload</value>
+  </data>
+  <data name="&gt;&gt;labelUploadmtd1.Name" xml:space="preserve">
+    <value>labelUploadmtd1</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 195</value>
+  </data>
+  <data name="&gt;&gt;labelKInotfound.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;Start.ZOrder" xml:space="preserve">
+    <value>38</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 13</value>
+  </data>
+  <data name="testText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>147, 68</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;progressBar2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelErasemtd1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelOf.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="progressBar1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>389, 10</value>
+  </data>
+  <data name="labelSecElapsed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 17</value>
+  </data>
+  <data name="labelPartition.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;PBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 203</value>
+  </data>
+  <data name="labelSwitch.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 19</value>
+  </data>
+  <data name="labelErase.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="labelStartWait.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 82</value>
+  </data>
+  <data name="&gt;&gt;labelErase.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>ANNEX Typ</value>
+  </data>
+  <data name="ANNEXBox.Items2" xml:space="preserve">
+    <value>Multi</value>
+  </data>
+  <data name="&gt;&gt;Fsel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelLooking.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelDisconnecting.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="Fsel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 31</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelLogWrittenTo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 20</value>
+  </data>
+  <data name="&gt;&gt;RouterIPLabel.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="ANNEXBox.Text" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="label10.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;PBox0.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="checkBox2.ToolTip" xml:space="preserve">
+    <value>Usualy You mast keep this as it is. </value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 13</value>
+  </data>
+  <data name="&gt;&gt;labelUploadmtd1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="progressBar1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;Fsel.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="&gt;&gt;labelGW.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelDisconnecting.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="testText.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="&gt;&gt;RouterIP.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelKInotfound.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;WKey.Name" xml:space="preserve">
+    <value>WKey</value>
+  </data>
+  <data name="label10.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;progressBar2.Name" xml:space="preserve">
+    <value>progressBar2</value>
+  </data>
+  <data name="ANNEXBox.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="&gt;&gt;PBox0.ZOrder" xml:space="preserve">
+    <value>32</value>
+  </data>
+  <data name="labelNoPW.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 110</value>
+  </data>
+  <data name="&gt;&gt;labelOf.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="tB1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label7.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="labelDisconnecting.TabIndex" type="System.Int32, mscorlib">
+    <value>48</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="labelLogWrittenTo.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="labelOf.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="&gt;&gt;labelPartition.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="label4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="textBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>606, 20</value>
+  </data>
+  <data name="PBox0.Text" xml:space="preserve">
+    <value>Erase Progress</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>OEM (Banding)</value>
+  </data>
+  <data name="labelSecElapsed.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.Name" xml:space="preserve">
+    <value>progressBar1</value>
+  </data>
+  <data name="labelNoPW.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;buttonSP.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="buttonSP.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;WKey.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelFreetzPackages.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelFreetzPackages.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="ANNEXBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 21</value>
+  </data>
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="PBox.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="&gt;&gt;labelDisconnecting.Name" xml:space="preserve">
+    <value>labelDisconnecting</value>
+  </data>
+  <data name="checkBox1.Text" xml:space="preserve">
+    <value>Clear mtd3/4</value>
+  </data>
+  <data name="PBox0.Size" type="System.Drawing.Size, System.Drawing">
+    <value>389, 13</value>
+  </data>
+  <data name="labelDisconnecting.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 13</value>
+  </data>
+  <data name="tB1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>226, 157</value>
+  </data>
+  <data name="&gt;&gt;ANNEXBox.ZOrder" xml:space="preserve">
+    <value>24</value>
+  </data>
+  <data name="ANNEXBox.ToolTip" xml:space="preserve">
+    <value>If backgrond coler changes, we could not find the value, but default Values are mostlikly correct.</value>
+  </data>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;RouterIP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;testText.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="PBox0.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>30, 13</value>
+  </data>
+  <data name="&gt;&gt;progressBar2.ZOrder" xml:space="preserve">
+    <value>35</value>
+  </data>
+  <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="labelLooking.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 16</value>
+  </data>
+  <data name="&gt;&gt;labelGW.Name" xml:space="preserve">
+    <value>labelGW</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;labelSecElapsed.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="PBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>389, 13</value>
+  </data>
+  <data name="labelStartWait.Text" xml:space="preserve">
+    <value>--&gt; Start --&gt; Wait for response ...</value>
+  </data>
+  <data name="RouterIP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 21</value>
+  </data>
+  <data name="&gt;&gt;RouterIP.Name" xml:space="preserve">
+    <value>RouterIP</value>
+  </data>
+  <data name="&gt;&gt;tB1.Name" xml:space="preserve">
+    <value>tB1</value>
+  </data>
+  <data name="labelErase.Text" xml:space="preserve">
+    <value>Erase </value>
+  </data>
+  <data name="&gt;&gt;OEMBox.ZOrder" xml:space="preserve">
+    <value>29</value>
+  </data>
+  <data name="&gt;&gt;labelKInotfound.Name" xml:space="preserve">
+    <value>labelKInotfound</value>
+  </data>
+  <data name="&gt;&gt;labelLooking.Name" xml:space="preserve">
+    <value>labelLooking</value>
+  </data>
+  <data name="RouterIPLabel.Text" xml:space="preserve">
+    <value>Router Adam IP</value>
+  </data>
+  <data name="&gt;&gt;PBox0.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>Default WLAN Key</value>
+  </data>
+  <data name="tB1.ScrollBars" type="System.Windows.Forms.ScrollBars, System.Windows.Forms">
+    <value>Vertical</value>
+  </data>
+  <data name="labelErrorServer.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;Start.Name" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="&gt;&gt;ANNEXBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelOf.Text" xml:space="preserve">
+    <value>of </value>
+  </data>
+  <data name="buttonSP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 9</value>
+  </data>
+  <data name="&gt;&gt;PBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelLooking.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelFreetzPackages.Text" xml:space="preserve">
+    <value>Firmware is a Freetz Firmware with the following Packages:</value>
+  </data>
+  <data name="tB1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>389, 355</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;checkBox2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelPartition.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 16</value>
+  </data>
+  <data name="&gt;&gt;labelErasemtd1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelKInotfound.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="labelErasemtd1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;labelNoPW.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="checkBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>109, 109</value>
+  </data>
+  <data name="RouterIPLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="OEMBox.Text" xml:space="preserve">
+    <value>avm</value>
+  </data>
+  <data name="&gt;&gt;textBox1.ZOrder" xml:space="preserve">
+    <value>23</value>
+  </data>
+  <data name="labelNoPW.Text" xml:space="preserve">
+    <value>No password has been set.</value>
+  </data>
+  <data name="labelLooking.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;textBox1.Name" xml:space="preserve">
+    <value>textBox1</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelErrorServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 136</value>
+  </data>
+  <data name="labelSecElapsed.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;tB1.ZOrder" xml:space="preserve">
+    <value>37</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="OEMBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>109, 157</value>
+  </data>
+  <data name="&gt;&gt;labelStartWait.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;OEMBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelLogWrittenTo.Text" xml:space="preserve">
+    <value>Log written to: </value>
+  </data>
+  <data name="labelStartWait.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 22</value>
+  </data>
+  <data name="&gt;&gt;RouterIPLabel.Name" xml:space="preserve">
+    <value>RouterIPLabel</value>
+  </data>
+  <data name="labelErase.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="labelUploadmtd1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 267</value>
+  </data>
+  <data name="&gt;&gt;labelLogWrittenTo.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelErrorServer.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="checkBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>87, 17</value>
+  </data>
+  <data name="buttonSP.Text" xml:space="preserve">
+    <value>Deutsch</value>
+  </data>
+  <data name="RouterIP.Items" xml:space="preserve">
+    <value>192.168.178.1</value>
+  </data>
+  <data name="&gt;&gt;OEMBox.Name" xml:space="preserve">
+    <value>OEMBox</value>
+  </data>
+  <data name="Start.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 426</value>
+  </data>
+  <data name="labelLogWrittenTo.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="checkBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 109</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 160</value>
+  </data>
+  <data name="labelNoPW.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;PBox0.Name" xml:space="preserve">
+    <value>PBox0</value>
+  </data>
+  <data name="Fsel.Text" xml:space="preserve">
+    <value>Select Firmware</value>
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>26</value>
+  </data>
+  <data name="checkBox2.Text" xml:space="preserve">
+    <value>Upload Firmware</value>
+  </data>
+  <data name="&gt;&gt;labelErasemtd1.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="OEMBox.MaxLength" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="labelSecElapsed.Text" xml:space="preserve">
+    <value> sec elapsed</value>
+  </data>
+  <data name="labelKInotfound.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 367</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="RouterIPLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="labelErrorServer.TabIndex" type="System.Int32, mscorlib">
+    <value>37</value>
+  </data>
+  <data name="labelLogWrittenTo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>Form1</value>
+  </data>
+  <data name="labelPartition.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="labelDisconnecting.Text" xml:space="preserve">
+    <value>--&gt; Disconnecting.</value>
+  </data>
+  <data name="&gt;&gt;PBox.Name" xml:space="preserve">
+    <value>PBox</value>
+  </data>
+  <data name="&gt;&gt;buttonSP.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Start.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Lucida Console, 8.25pt</value>
+  </data>
+  <data name="&gt;&gt;labelKInotfound.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="tB1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Lucida Console, 7pt</value>
+  </data>
+  <data name="RouterIPLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 266</value>
+  </data>
+  <data name="labelKInotfound.Text" xml:space="preserve">
+    <value>File kernel.image not found! Select a Firmware first.
+ 
+'kernel.image' file can be extracted from every AVM Firmware. 
+Rename Firmware to any name with extension 'tar', untar and look into the subdirectory  \tmp for kernel.image
+</value>
+  </data>
+  <data name="labelKInotfound.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;labelPartition.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelLogWrittenTo.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelFreetzPackages.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="labelOf.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 17</value>
+  </data>
+  <data name="WKey.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="RouterIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>109, 263</value>
+  </data>
+  <data name="tB1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>0, 13</value>
+  </data>
+  <data name="labelUploadmtd1.Text" xml:space="preserve">
+    <value>Upload kernel.image to mtd1: </value>
+  </data>
+  <data name="&gt;&gt;labelSwitch.Name" xml:space="preserve">
+    <value>labelSwitch</value>
+  </data>
+  <data name="&gt;&gt;Fsel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelNoPW.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 20</value>
+  </data>
+  <data name="&gt;&gt;labelOf.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;labelNoPW.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="labelFreetzPackages.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;labelErrorServer.Name" xml:space="preserve">
+    <value>labelErrorServer</value>
+  </data>
+  <data name="labelPartition.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;labelFreetzPackages.Name" xml:space="preserve">
+    <value>labelFreetzPackages</value>
+  </data>
+  <data name="&gt;&gt;Start.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;OEMBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelPartition.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PBox0.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="labelDisconnecting.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelFreetzPackages.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="&gt;&gt;labelLogWrittenTo.Name" xml:space="preserve">
+    <value>labelLogWrittenTo</value>
+  </data>
+  <data name="&gt;&gt;Fsel.Name" xml:space="preserve">
+    <value>Fsel</value>
+  </data>
+  <data name="labelGW.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="ANNEXBox.Items" xml:space="preserve">
+    <value>A</value>
+  </data>
+  <data name="buttonSP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>606, 23</value>
+  </data>
+  <data name="labelPartition.Text" xml:space="preserve">
+    <value> partition ...</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="PBox0.Location" type="System.Drawing.Point, System.Drawing">
+    <value>226, 64</value>
+  </data>
+  <data name="&gt;&gt;labelErrorServer.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;RouterIPLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelErrorServer.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelPartition.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 222</value>
+  </data>
+  <data name="testText.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;labelKInotfound.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="checkBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 17</value>
+  </data>
+  <data name="&gt;&gt;RouterIPLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelSwitch.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelUploadmtd1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>FTP:</value>
+  </data>
+  <data name="openFileDialog1.Title" xml:space="preserve">
+    <value>Select Firmware</value>
+  </data>
+  <data name="tB1.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;checkBox2.ZOrder" xml:space="preserve">
+    <value>30</value>
+  </data>
+  <data name="&gt;&gt;labelPartition.Name" xml:space="preserve">
+    <value>labelPartition</value>
+  </data>
+  <data name="labelOf.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 293</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;openFileDialog1.Name" xml:space="preserve">
+    <value>openFileDialog1</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="PBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>226, 103</value>
+  </data>
+  <data name="&gt;&gt;labelSecElapsed.Name" xml:space="preserve">
+    <value>labelSecElapsed</value>
+  </data>
+  <data name="labelFreetzPackages.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 19</value>
+  </data>
+  <data name="labelErase.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 17</value>
+  </data>
+  <data name="WKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>109, 192</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="PBox.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Fsel.TabIndex" type="System.Int32, mscorlib">
+    <value>24</value>
+  </data>
+  <data name="labelFreetzPackages.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 342</value>
+  </data>
+  <data name="&gt;&gt;checkBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;PBox.ZOrder" xml:space="preserve">
+    <value>33</value>
+  </data>
+  <data name="progressBar1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="progressBar2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>389, 10</value>
+  </data>
+  <data name="&gt;&gt;labelDisconnecting.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelErase.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 180</value>
+  </data>
+  <data name="labelSwitch.TabIndex" type="System.Int32, mscorlib">
+    <value>33</value>
+  </data>
+  <data name="&gt;&gt;checkBox1.Name" xml:space="preserve">
+    <value>checkBox1</value>
+  </data>
+  <data name="labelFreetzPackages.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;labelStartWait.Name" xml:space="preserve">
+    <value>labelStartWait</value>
+  </data>
+  <data name="&gt;&gt;labelNoPW.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="checkBox1.ToolTip" xml:space="preserve">
+    <value>Usualy You mast keep this as it is.  Clear mdt3/4 removes all box settings. Is not in every case needed! </value>
+  </data>
+  <data name="Fsel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 64</value>
+  </data>
+  <data name="&gt;&gt;labelOf.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Fsel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;WKey.ZOrder" xml:space="preserve">
+    <value>28</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="RouterIP.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelGW.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;labelSwitch.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tB1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="OEMBox.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="textBox1.Text" xml:space="preserve">
+    <value>kernel.image</value>
+  </data>
+  <data name="&gt;&gt;WKey.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ANNEXBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;testText.Name" xml:space="preserve">
+    <value>testText</value>
+  </data>
+  <data name="&gt;&gt;checkBox2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelLooking.TabIndex" type="System.Int32, mscorlib">
+    <value>31</value>
+  </data>
+  <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>226, 124</value>
+  </data>
+  <data name="WKey.MaxLength" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="WKey.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="&gt;&gt;testText.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="labelLooking.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 16</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 231</value>
+  </data>
+  <data name="checkBox2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="testText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 405</value>
+  </data>
+  <data name="progressBar2.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="labelSwitch.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="labelErasemtd1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 19</value>
+  </data>
+  <data name="WKey.ToolTip" xml:space="preserve">
+    <value>Your orignal default WLAN key You can look up at a label on the back of your Box.</value>
+  </data>
+  <data name="labelDisconnecting.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBox1.ZOrder" xml:space="preserve">
+    <value>31</value>
+  </data>
+  <data name="labelErasemtd1.Text" xml:space="preserve">
+    <value>Erase Flash mtd1 partition, please wait up to three minutes... </value>
+  </data>
+  <data name="labelErrorServer.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 13</value>
+  </data>
+  <data name="&gt;&gt;progressBar1.ZOrder" xml:space="preserve">
+    <value>36</value>
+  </data>
+  <data name="labelKInotfound.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 38</value>
+  </data>
+  <data name="RouterIPLabel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;labelPartition.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="labelSwitch.Text" xml:space="preserve">
+    <value>, Switch Router OFF and On again!</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>34</value>
+  </data>
+  <data name="labelUploadmtd1.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="&gt;&gt;checkBox2.Name" xml:space="preserve">
+    <value>checkBox2</value>
+  </data>
+  <data name="&gt;&gt;labelErasemtd1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;textBox1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="labelErrorServer.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="&gt;&gt;labelErrorServer.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonSP.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;ANNEXBox.Name" xml:space="preserve">
+    <value>ANNEXBox</value>
+  </data>
+  <data name="labelOf.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelSwitch.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>de</value>
+  </metadata>
+  <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>114, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>25</value>
+  </metadata>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+</root>

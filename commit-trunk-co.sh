@@ -1,8 +1,7 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="installer: Divide shortcuts into sections"
-
-
+comment="installer: add  
+	* # Do not rename coLinux network devices"
 
 echo "-------------------------------------------------------------------------------------------------------------"
 echo

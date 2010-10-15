@@ -1,0 +1,464 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="Start.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 441</value>
+  </data>
+  <data name="Start.Size" type="System.Drawing.Size, System.Drawing">
+    <value>200, 69</value>
+  </data>
+  <data name="Start.Text" xml:space="preserve">
+    <value>Übertragung starten</value>
+  </data>
+  <data name="Start.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tB1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>225, 158</value>
+  </data>
+  <data name="tB1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>225, 125</value>
+  </data>
+  <data name="progressBar1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="progressBar2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>225, 86</value>
+  </data>
+  <data name="progressBar2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>231, 142</value>
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>225, 104</value>
+  </data>
+  <data name="PBox.Text" xml:space="preserve">
+    <value>Überragungsfortschritt</value>
+  </data>
+  <data name="PBox.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PBox0.Location" type="System.Drawing.Point, System.Drawing">
+    <value>225, 65</value>
+  </data>
+  <data name="PBox0.Text" xml:space="preserve">
+    <value>Löschfortschritt</value>
+  </data>
+  <data name="PBox0.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="checkBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 110</value>
+  </data>
+  <data name="checkBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 17</value>
+  </data>
+  <data name="checkBox1.Text" xml:space="preserve">
+    <value>mtd3/4 löschen</value>
+  </data>
+  <data name="checkBox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>11, 128</value>
+  </data>
+  <data name="checkBox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>122, 17</value>
+  </data>
+  <data name="checkBox2.Text" xml:space="preserve">
+    <value>Firmware übertragen</value>
+  </data>
+  <data name="OEMBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>108, 158</value>
+  </data>
+  <data name="WKey.Location" type="System.Drawing.Point, System.Drawing">
+    <value>108, 193</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 161</value>
+  </data>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 196</value>
+  </data>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 232</value>
+  </data>
+  <data name="label4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ANNEXBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>108, 228</value>
+  </data>
+  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 39</value>
+  </data>
+  <data name="textBox1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Fsel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 65</value>
+  </data>
+  <data name="Fsel.Text" xml:space="preserve">
+    <value>Firmware auswählen</value>
+  </data>
+  <data name="Fsel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="openFileDialog1.Title" xml:space="preserve">
+    <value>Firmware auswählen</value>
+  </data>
+  <data name="RouterIP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>108, 264</value>
+  </data>
+  <data name="RouterIP.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RouterIPLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 267</value>
+  </data>
+  <data name="RouterIPLabel.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelGW.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 295</value>
+  </data>
+  <data name="labelGW.Size" type="System.Drawing.Size, System.Drawing">
+    <value>202, 130</value>
+  </data>
+  <data name="labelGW.Text" xml:space="preserve">
+    <value>1. Router einschalten und PC und Router
+    mit einen Patch-Kabel verbinden,
+    besser ist es einen HUB oder Switch
+    dazwischen zu schalten.
+2. Statische Einträge beim PC LAN:
+    IP:192.168.178.2 Maske: 255.255.0.0
+3. Deaktiviren sie alle anderen Geräte
+    am PC die IP Adressen benutzen 
+4. Deaktivieren Sie die Firewall
+5. Klicken Sie 'Übertragung starten'</value>
+  </data>
+  <data name="labelGW.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="testText.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="testText.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="testText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 373</value>
+  </data>
+  <data name="testText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 117</value>
+  </data>
+  <data name="testText.Text" xml:space="preserve">
+    <value>--&gt; Router Stromversorgung Aus und Einschalten
+ anschließend innerhal drei Sekunden  'OK'  betätigen.
+
+--&gt; Sollte es das erste mal nicht funktioniert haben, 
+ erneut warten bis dieses Fenster erscheint
+ ( Kann mehrmals wiederholt werden).
+
+ Achtung: 
+ Das PC LAN braucht statische IP Einstellungen: </value>
+  </data>
+  <data name="testText.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="testText.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="labelLooking.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 12</value>
+  </data>
+  <data name="labelLooking.Text" xml:space="preserve">
+    <value>Suche Router mit IP:  </value>
+  </data>
+  <data name="labelLooking.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 33</value>
+  </data>
+  <data name="label7.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelSwitch.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 51</value>
+  </data>
+  <data name="labelSwitch.Text" xml:space="preserve">
+    <value>, Router wieder AUS und EIN schalten!</value>
+  </data>
+  <data name="labelSwitch.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelStartWait.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 75</value>
+  </data>
+  <data name="labelStartWait.Text" xml:space="preserve">
+    <value>--&gt; Start --&gt; Warte auf eine Antwort vom Router ...</value>
+  </data>
+  <data name="labelStartWait.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelNoPW.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 102</value>
+  </data>
+  <data name="labelNoPW.Text" xml:space="preserve">
+    <value>Es wurde kein Passwort gesetzt.</value>
+  </data>
+  <data name="labelNoPW.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelPartition.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 209</value>
+  </data>
+  <data name="labelPartition.Text" xml:space="preserve">
+    <value> Partition ...</value>
+  </data>
+  <data name="labelPartition.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelErase.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 169</value>
+  </data>
+  <data name="labelErase.Text" xml:space="preserve">
+    <value>Lösche </value>
+  </data>
+  <data name="labelErase.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelErasemtd1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 145</value>
+  </data>
+  <data name="labelErasemtd1.Text" xml:space="preserve">
+    <value>Lösche Flash Partition mtd1, bitte warte, es kann bis zu drei Minuten dauern ... </value>
+  </data>
+  <data name="labelErasemtd1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label10.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 191</value>
+  </data>
+  <data name="label10.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelErrorServer.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 127</value>
+  </data>
+  <data name="labelErrorServer.Text" xml:space="preserve">
+    <value>Fehler: Es besteht keinen Verbindung.</value>
+  </data>
+  <data name="labelErrorServer.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelSecElapsed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 230</value>
+  </data>
+  <data name="labelSecElapsed.Text" xml:space="preserve">
+    <value> sec verstrichen</value>
+  </data>
+  <data name="labelSecElapsed.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelOf.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 277</value>
+  </data>
+  <data name="labelOf.Text" xml:space="preserve">
+    <value>von </value>
+  </data>
+  <data name="labelOf.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelUploadmtd1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 252</value>
+  </data>
+  <data name="labelUploadmtd1.Text" xml:space="preserve">
+    <value>Übertrage kernel.image nach mtd1: </value>
+  </data>
+  <data name="labelUploadmtd1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelKInotfound.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 348</value>
+  </data>
+  <data name="labelKInotfound.Text" xml:space="preserve">
+    <value> Die Datei kernel.image fehlt! 
+ Wählen Sie voher eine Firmware oder ein kernel.image aus.
+
+</value>
+  </data>
+  <data name="labelKInotfound.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelFreetzPackages.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 324</value>
+  </data>
+  <data name="labelFreetzPackages.Text" xml:space="preserve">
+    <value>Diese Firmware ist eine Freetz Firmware mit den folgenden Packeten:</value>
+  </data>
+  <data name="labelFreetzPackages.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelLogWrittenTo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>656, 299</value>
+  </data>
+  <data name="labelLogWrittenTo.Text" xml:space="preserve">
+    <value>Ereignisses gespeichert in: </value>
+  </data>
+  <data name="labelLogWrittenTo.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="labelDisconnecting.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="buttonSP.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 10</value>
+  </data>
+  <data name="buttonSP.Text" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="buttonSP.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>625, 525</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Firmware Lader V1.1</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+</root>
