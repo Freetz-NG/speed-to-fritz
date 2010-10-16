@@ -4093,7 +4093,7 @@ if ! EXPORT_ATA_ONLY
     config EXPORT_ADD_VDSL_PROFILE
 	depends on TYPE_OR_7570_920 || TYPE_SPEEDPORT_W721V
 	depends on EXPERT_MOD 
-	bool "Replace feedback tab with VDSL profile settings pages"
+	bool "Add tab with VDSL profile settings pages"
 	default n
 	help
 		Use this additional option to enable profile settings pages for VDSL.
