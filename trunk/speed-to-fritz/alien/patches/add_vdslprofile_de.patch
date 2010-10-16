@@ -31,15 +31,15 @@
 +<input type="hidden" name="var:errorpagename" value="vdsl_profile" />
 +<input type="hidden" name="var:menu" value="internet" />
 +VDSL Profil auswaehlen
-+<select name="vdsl:settings/vdsl_profile" id="vdsl_profile_box">
++<select name="sar:settings/UsNoiseBits" id="vdsl_profile_box">
 +<option value="0">annex17a</option>
-+<option value="1">annex8a</option>
-+<option value="2">annex8b</option>
-+<option value="3">annex8d</option>
-+<option value="4">annex12a</option>
-+<option value="5">annex12b</option>
-+<option value="6">annex17b</option>
-+<option value="7">annex30a</option>
++<option value="1">annex30a</option>
++
++
++
++
++
++
 +</select>
 +<input type="submit" value="Uebernehmen" />
 +</p>
@@ -53,11 +53,11 @@
 +<input type="hidden" name="var:pagename" value="vdsl_profile" />
 +<input type="hidden" name="var:errorpagename" value="vdsl_profile" />
 +<input type="hidden" name="var:menu" value="internet" />
-+Filter Auswahl:
-+<select name="vdsl:settings/vdsl_filter" id="vdsl_filter_box">
-+<option value="0">Filter Off</option>
-+<option value="1">ISND Filter</option>
-+<option value="2">POTS Filter</option>
++Nachspann Auswahl:
++<select name="sar:settings/RFI_mode" id="vdsl_filter_box">
++<option value="0">Trellies ON</option>
++<option value="1">Trellies OFF</option>
++
 +</select>
 +<input type="submit" value="Uebernehmen" />
 +</p>
@@ -86,8 +86,8 @@
 +}
 +function uiDoOnLoad() {
 +document.title = "<? print `$var:BoxName` ?>" + " " + "DSL Info";
-+Select('vdsl_profile_box',"<? query vdsl:settings/vdsl_profile ?>");
-+Select('vdsl_filter_box',"<? query vdsl:settings/vdsl_filter ?>");
++Select('vdsl_profile_box',"<? query sar:settings/UsNoiseBits ?>");
++Select('vdsl_filter_box',"<? query sar:settings/RFI_mode ?>");
 +}
 +function uiDoHelp() {
 +jslPopHelp("hilfe_dslinfo_ATM");

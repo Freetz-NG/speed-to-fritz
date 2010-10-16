@@ -24,5 +24,15 @@ EOF
   [ "$avm_Lang" != "de" ] && modpatch "${SRC}/${USRWWW}" "$P_DIR/add_vdslprofile_en.patch"
  fi
 fi
+
+sed -i -e '/Trellis="on"/i\
+local profil_conf=`ctlmgr_ctl r sar settings/UsNoiseBits`\
+local trellis_conf=`ctlmgr_ctl r sar settings/RFI_mode`\
+' "${SRC}/etc/init.d/rc.vdsl.sh"
+
+sed -i -e 's|#Profile="30A"|[ $profil_conf == "1" ] \&\& Profile="30A"|' "${SRC}/etc/init.d/rc.vdsl.sh"
+sed -i -e 's|#Trellis="off"|[ $trellis_conf == "1" ] \&\& Trellis="off"|' "${SRC}/etc/init.d/rc.vdsl.sh"
+
+
 exit 0
 
