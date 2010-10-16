@@ -3,15 +3,15 @@
 @@ -0,0 +1,65 @@
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
-+Settings
++VDSL Settings
 +</div></div></div></div></div></div>
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
 +<ul class="tabs">
-+<li><a href="javascript:uiDoOverviewPage()">Uebersicht" </a></li>
++<li><a href="javascript:uiDoOverviewPage()">Overview</a></li>
 +<li><a href="javascript:uiDoADSLPage()">DSL</a></li>
-+<li><a href="javascript:uiDoBitsPage()">Spektrum</a></li>
-+<li><a href="javascript:uiDoATMPage()">Statistik</a></li>
-+<li><a href="javascript:uiDoSNRPage()">Einstellungen</a></li>
++<li><a href="javascript:uiDoBitsPage()">Spectrum</a></li>
++<li><a href="javascript:uiDoATMPage()">Statistic</a></li>
++<li><a href="javascript:uiDoSNRPage()">Settings</a></li>
 +<li class="tabs_on"><div class="activtab">Vdsl Profile</div></li>
 +
 +
