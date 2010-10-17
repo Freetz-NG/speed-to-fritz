@@ -939,7 +939,7 @@ choice
 	default TYPE_TCOM_7570_17599
 	
 	config TYPE_TCOM_7570_15245
-		bool "AVM 7570 75.04.76 dump 1und1 15245"
+		bool "AVM 7570 75.04.76 1und1 15245"
 	
 	config TYPE_TCOM_7570_75_04_78
 		bool "AVM 7570 75.04.78.en-de-fr 15564"
@@ -957,7 +957,7 @@ choice
 		bool "AVM 7570 75.04.82.en-de-fr 17057"
 
 	config TYPE_TCOM_7570_16971
-		bool "AVM 7570 81.04.86 16971"
+		bool "AVM 7570 81.04.86 (HN alice) 16971"
 
 	config TYPE_LOCAL_TCOM_7570
 		bool "CUSTOM 7570 firmware"
@@ -1613,7 +1613,7 @@ choice
 		default TYPE_AVM_7570_75_04_82
 
 	config TYPE_AVM_7570_15245
-		bool "AVM 7570 75.04.76 dump 1und1 15245"
+		bool "AVM 7570 75.04.76 1und1 15245"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
@@ -1635,7 +1635,7 @@ choice
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_16971
-		bool "AVM 7570 81.04.86 16971"
+		bool "AVM 7570 81.04.86 (HN alice) 16971"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
@@ -1913,7 +1913,7 @@ choice
 ### 7570 Firmware
 
 	config TYPE_SRC3_AVM_7570_15245
-		bool "AVM 7570 75.04.76 dump 15245"
+		bool "AVM 7570 75.04.76 1und1 15245"
 
 	config TYPE_SRC3_AVM_7570_75_04_78
 		bool "AVM 7570 75.04.78.en-de-fr 15564"
@@ -1931,7 +1931,7 @@ choice
 		bool "AVM 7570 75.04.82.en-de-fr 17057"
 
 	config TYPE_SRC3_AVM_7570_81_04_86
-		bool "AVM 7570 81.04.86 16971"
+		bool "AVM 7570 81.04.86 (HN alice) 16971"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	config TYPE_SRC3_TCOM_W500_27
@@ -4284,7 +4284,8 @@ if ! EXPORT_ATA_ONLY
 			default n 
 		config PATCH_DSLIP_AR7
 			bool "Set dslIP to 169.254.2.1"
-			default n 
+			default y
+			
 	endif
 
 #    config FORCE_OLD_DSL_ROUTE
