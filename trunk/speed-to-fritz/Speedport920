@@ -296,10 +296,10 @@ if [ ${ATA_ONLY} = "y" ]; then
 fi
 #wrap dsld and ar7cfg.lib
 [ "${WRAP_DSLD}" = "y" ] && . $sh_DIR/wrap_dsld.sh
-# remove SNR part - rename Tab, if not Multiannex remove SNR tab
-$sh_DIR/patch_dslinformation_page.sh "${SRC}"
 # replace feedback tab with vdsl profile page
 $sh_DIR/add_vdslprofilepage.sh "${SRC}"
+# remove SNR part - rename Tab, if not Multiannex remove SNR tab
+$sh_DIR/patch_dslinformation_page.sh "${SRC}"
 # add kapselung and annex settings page if missing
 # must be after VLAN settings because oem of authform is altered in some cases
 $sh_DIR/add_multi_settings.sh
