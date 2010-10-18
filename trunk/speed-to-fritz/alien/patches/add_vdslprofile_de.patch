@@ -7,7 +7,7 @@
 +</div></div></div></div></div></div>
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
 +<ul class="tabs">
-+<li><a href="javascript:uiDoOverviewPage()">Übersicht</a></li>
++<li><a href="javascript:uiDoOverviewPage()">{?txtOverview?}</a></li>
 +<li><a href="javascript:uiDoADSLPage()">DSL</a></li>
 +<li><a href="javascript:uiDoBitsPage()">Spektrum</a></li>
 +<li><a href="javascript:uiDoATMPage()">Statistik</a></li>
@@ -41,7 +41,7 @@
 +
 +
 +</select>
-+<input type="submit" value="Übernehmen" />
++<input type="submit" value="{?txtApply?}" />
 +</p>
 +</form>
 +<br>
@@ -59,7 +59,7 @@
 +<option value="1">Trellies OFF</option>
 +
 +</select>
-+<input type="submit" value="Übernehmen" />
++<input type="submit" value="{?txtApply?}" />
 +</p>
 +</form>
 +</div></div></div></div></div></div>
