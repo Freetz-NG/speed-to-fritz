@@ -295,8 +295,10 @@ if [ ${ATA_ONLY} = "y" ]; then
     rm -fdr "${SRC}"/lib/modules/dsp_ur8
 fi
 #wrap dsld and ar7cfg.lib
-[ "${WRAP_DSLD}" = "y" ] && . $sh_DIR/wrap_dsld.sh 
-# add feedback tab with vdsl profile page
+[ "${WRAP_DSLD}" = "y" ] && . $sh_DIR/wrap_dsld.sh
+# remove SNR part - rename Tab, if not Multiannex remove SNR tab
+$sh_DIR/patch_dslinformation_page.sh "${SRC}"
+# replace feedback tab with vdsl profile page
 $sh_DIR/add_vdslprofilepage.sh "${SRC}"
 # add kapselung and annex settings page if missing
 # must be after VLAN settings because oem of authform is altered in some cases
@@ -318,7 +320,6 @@ echo "-- DSL Annex A driver was removed from ${SORCE_PRODUKT}!"
 sed -i -e "/ \/etc\/init.d\/rc.conf/a\
 sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg\n\
 cat \/var\/flash\/ar7.cfg | grep ifacectl && echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"
-
 #---
 [ -f "${SRC}"/lib/libpng.so.3.32.0 ] || cp -fdrp "${DST}"/lib/libpng.so.3.32.0* --target-directory=${SRC}/lib 2> /dev/null
 [ -f "${SRC}"/lib/libexif.so.12.3.0 ] || cp -fdrp "${DST}"/lib/libexif.so.12.3.0* --target-directory=${SRC}/lib 2> /dev/null
