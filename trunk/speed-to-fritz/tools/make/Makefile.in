@@ -19,17 +19,16 @@ else
 TOOLS_DOT_CONFIG:=.config
 endif
 
-SEDTOOL+=sed
-
-TOOLS+=sed
+##SEDTOOL+=sed
+##TOOLS+=sed
 TOOLS+=tar
 TOOLS+=busybox-tools
 TOOLS+=find-squashfs
 TOOLS+=lzma
-#TOOLS+=lzma2eva
+##TOOLS+=lzma2eva
 TOOLS+=squashfs
 TOOLS+=squashfs3
 TOOLS+=squashfs4
 TOOLS+=tichksum
 TOOLS+=fakeroot
-#TOOLS+=xdelta
+##TOOLS+=xdelta
