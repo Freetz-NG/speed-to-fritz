@@ -11,8 +11,8 @@ for file_n in $DIRI; do
     sed -i -e "/uiDoFeedbackPage()/d" "$file_n"
     sed -i -e 's|<? if neq $var:Annex A|<? if neq A A|' "$file_n"
     grep -q "<? if neq A A" "$file_n" && echo2 "  removed SNR setting from file:${file_n##*/}"
-  [ "${FORCE_MULTI_COUNTRY}" != "y" ] && sed -i -e "/Annex A/B/d" "$file_n"
-    grep -q "Annex A/B" "$file_n" && echo2 "    replaced tabtext Stoersicherheit with Annex A/B in file:${file_n##*/}"
+  [ "${FORCE_MULTI_COUNTRY}" != "y" ] && sed -i -e ",Annex A/B,d" "$file_n"
+    grep -q "Annex A.B" "$file_n" && echo2 "    replaced tabtext Stoersicherheit with Annex A/B in file:${file_n##*/}"
 done
 
 exit 0
