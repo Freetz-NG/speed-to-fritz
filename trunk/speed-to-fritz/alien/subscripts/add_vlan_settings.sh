@@ -1,34 +1,6 @@
 #!/bin/bash
 # include modpatch function
 . ${include_modpatch}
-if [ "${RPL_AUTHFORM_WITH_81}" == "y" ]; then
- echo "-- replace authform ..."
- USRWWW="usr/www/${OEMLINK}/html/de"
- rm -f "$SRC/${USRWWW}/internet/authform.js"
- rm -f "$SRC/${USRWWW}/internet/authform.html"
- PatchfileName="add_authform"
- modpatch "$SRC/${USRWWW}" "$P_DIR/${PatchfileName}.patch"
- [ "$avm_Lang" = "de" ] &&  modpatch "$SRC/${USRWWW}" "$P_DIR/${PatchfileName}_de.patch"
-fi
-OEML="avm" && [ -d "${DST}"/usr/www/avme ] && OEML="avme"
-OEML2="avm" && [ -d "${SRC_2}"/usr/www/avme ] && OEML2="avme"
-FILELIST=" /html/de/internet/authform.frm /html/de/internet/authform.js"
-if [ "${RPL_AUTHFORM_WITH_SR2}" == "y" ]; then  
- for file_n in $FILELIST ; do
-     if [ -f "${SRC_2}/usr/www/${OEML}/$file_n" ]; then
-      cp -fdrp "${SRC_2}/usr/www/${OEML}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo "-- Copy from 2nd AVM firmware: $file_n"
-      sed -i -e s'|{?de.first.first_ISP_..html:5?}|{?g_txt_TestInternetConn?}|' "${SRC}/usr/www/${OEMLINK}/$file_n"
-     fi
- done
-fi
-if [ "${RPL_AUTHFORM_WITH_DST}" == "y" ]; then
- for file_n in $FILELIST ; do
-     if [ -f "${DST}/usr/www/${OEML}/$file_n" ]; then
-      cp -fdrp "${DST}/usr/www/${OEML}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo "-- Copy from orignal basis firmware: $file_n"
-      sed -i -e s'|{?de.first.first_ISP_..html:5?}|{?g_txt_TestInternetConn?}|' "${SRC}/usr/www/${OEMLINK}/$file_n"
-     fi
- done
-fi
 echo "-- adding vlan settings ..."
 #--------------------------------------------------------------------------------
 # remove WDS autodedect courses problems 
@@ -86,6 +58,7 @@ FILE="${SRC}/usr/www/${OEMLINK}/html/de/internet/internet_expert.html"
  InitVlan();' "${SRC_WWW_INERNET}/kabelmodem.js"
 fi
 #-------------------------------
+exit 0
 # enable some setting usual only set if OEM is avme
 FILE="${SRC}/usr/www/${OEMLINK}/html/de/internet/internet_expert.html"
 if [ -f "$FILE" ]; then
@@ -103,6 +76,12 @@ if [ -f "$FILE" ]; then
     sed -i -e "s|if (oem != 'avme'|if ('avm' != 'avm'|g"  "$FILE"
     grep -q 'if eq avme avme' "$FILE" && echo2 "  -- enable setting for OEM avm on: authform.js"
 fi
+
+FILE="${SRC}/usr/www/${OEMLINK}/html/de/first/provider.js"
+if [ -f "$FILE" ]; then
+    sed -i -e "s|if (g_boxInfo.oem == 'avme' .. (g_boxInfo.country == '043'|if (g_boxInfo.oem == '${OEMLINK}' \&\& (g_boxInfo.country == '043'|g"  "$FILE"
+fi
+
 rpl_avme_avm()
 {
 	for file_n in $1; do
@@ -117,5 +96,4 @@ if [ "${OEM}" = "avm" ]; then
   rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.frm)" 
 fi
 
-exit 0
 

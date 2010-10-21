@@ -275,7 +275,7 @@ fi' "${SRC}/etc/init.d/rc.S"
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #copy second source internet dsl menue
-[ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLIST}"
+[ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEM}"
  echo2 "New WEB GUI will be modified"
 #use scond source web GUI
 [ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"

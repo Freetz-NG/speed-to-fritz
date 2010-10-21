@@ -67,11 +67,11 @@ fi
 
 if [  -e "${SPDIR}/var/install" ] && [  -e "${FBDIR}/var/install" ] && [  -e "${FBDIR_2}/var/install" ]; then
 echo "--------------------------------------------------------------------------------"
-echo -e "HW Feature\t${CONFIG_PRODUKT}\t${SORCE_PRODUKT}\t${SORCE_2_PRODUKT}"
+echo -e "HW Feature\t${CONFIG_PRODUKT_FN}\t${SORCE_PRODUKT}\t${SORCE_2_PRODUKT}"
 echo "--------------------------------------------------------------------------------"
 elif [  -e "${SPDIR}/var/install" ] && [  -e "${FBDIR}/var/install" ] && ! [  -e "${FBDIR_2}/var/install" ]; then
 echo "--------------------------------------------------------------------------------"
-echo -e "HW Feature\t${CONFIG_PRODUKT}\t${SORCE_PRODUKT}"
+echo -e "HW Feature\t${CONFIG_PRODUKT_FN}\t${SORCE_PRODUKT}"
 echo "--------------------------------------------------------------------------------"
 elif [  -e "${FBDIR}/var/install" ] && [  -e "${FBDIR_2}/var/install" ] && ! [  -e "${SPDIR}/var/install" ]; then
 echo "--------------------------------------------------------------------------------"

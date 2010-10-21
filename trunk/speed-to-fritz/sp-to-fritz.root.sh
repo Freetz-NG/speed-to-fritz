@@ -142,8 +142,8 @@ export KAPSELUNG="1"
 export CONFIG_ACCESSORY_URL=""
 export CONFIG_FIRMWARE_URL="http://www.t-com.de/downloads"
 # Set defaults for branding ('avm') and hostname ('fritz.box')
-export OEMLIST="avme avm aol 1und1 freenet tcom all congstar otwo"
-export OEMLINKS="aol 1und1 freenet tcom congstar otwo"
+export OEMLIST="avme avm aol 1und1 freenet hansenet tcom all congstar otwo"
+export OEMLINKS="aol 1und1 freenet hansenet tcom all congstar otwo"
 export OEM="avm"
 export CONFIG_OEM_DEFAULT="avm"
 export HOSTNAME=""
@@ -1520,12 +1520,11 @@ fi
 if [ "$ORI" != "y" ]; then
  #add patches taken from freetz without adaptions
  [ "$FREETZ_SCRIPTS" == "y" ] && $sh2_DIR/add_freetz_type_patches.sh "${SRC}" "${DST}"
- #move avm or freenet dir if avm or $oem is missing
+ #move avm or freenet, hansenet, avm or avme dir, if $OEM dir is missing
  $sh_DIR/move_avm_to_OEM.sh "${SRC}"
- #prepare for use of Freetz Firmware 
+ #prepare for use with Freetz Firmware, replace oem dirs with links to $OEM
  [ "$MOVE_ALL_to_OEM" = "y" ] && $sh_DIR/move_all_to_OEM.sh "${SRC}" || $sh_DIR/remake_link_avm.sh "${SRC}"
- export OEMLINK="avm"
- [ -d "${SRC}"/usr/www/avme ] && export OEMLINK="avme"
+ [ -d "${SRC}"/usr/www/$OEM ] && export OEMLINK=$OEM
  # looks like there is no need for using device-table.txt if the complete sp-fritz.sh is wraped with fake root
  cp -fdrp "${DST}/dev" "${SRC}/dev" && export MAKE_DEV="n" && echo "-- merged source and destination /dev directory"
  #enable ext2
@@ -1599,19 +1598,19 @@ if [ "$ORI" != "y" ]; then
  	cp -fdpr  ./addon/tmp/squashfs-root/*  --target-directory="${SRC}"
  fi
  #patch p_maxTimeout on intenet page
- [ "$SET_PMAXTIMEOUT" = "y" ] && $sh_DIR/patch_pmaxTimeout.sh "${SRC}" "${OEMLIST}"
+ [ "$SET_PMAXTIMEOUT" = "y" ] && $sh_DIR/patch_pmaxTimeout.sh "${SRC}" "${OEM}"
  #patch download url and add menuitem support , and freetz
- $sh2_DIR/patch_url "${SRC}" "${OEMLIST}"
+ $sh2_DIR/patch_url "${SRC}" "${OEM}"
  #add dsl expert pages support
- [ "$ADD_DSL_EXPERT_MNUE" = "y" ] && $sh_DIR/add_dsl_expert.sh "${SRC}" "${OEMLIST}"
+ [ "$ADD_DSL_EXPERT_MNUE" = "y" ] && $sh_DIR/add_dsl_expert.sh "${SRC}" "${OEM}"
  #add omlinecounter pages 
- [ "$ADD_ONLINECOUNTER" = "y" ] && $sh_DIR/add_onlinecounter.sh "${SRC}" "${OEMLIST}"
+ [ "$ADD_ONLINECOUNTER" = "y" ] && $sh_DIR/add_onlinecounter.sh "${SRC}" "${OEM}"
  #replace assistent menuitem with enhanced settings 
- [ "$RPL_ASSIST" = "y" ] && $sh2_DIR/rpl_ass_menuitem "${SRC}" "${OEMLIST}" 
+ [ "$RPL_ASSIST" = "y" ] && $sh2_DIR/rpl_ass_menuitem "${SRC}" "${OEM}" 
  #tam bugfix remove tams
  [ "$DONT_PATCH_TAMFIX" != "y" ] && $sh_DIR/patch_tam.sh "${SRC}"
  #gsm page    
- [ "$DO_GSM_PATCH" = "y" ] && $sh_DIR/disply_gsm.sh "${SRC}" "${OEMLIST}"
+ [ "$DO_GSM_PATCH" = "y" ] && $sh_DIR/disply_gsm.sh "${SRC}" "${OEM}"
  #enable all providers
  [ "$SET_ALLPROVIDERS" = "y" ] && $sh_DIR/set_allproviders.sh
  #enable provider AON
@@ -1621,8 +1620,8 @@ if [ "$ORI" != "y" ]; then
  # reverse phonebook lookup
  [ "$DO_LOOKUP_PATCH" = "y" ] && $sh2_DIR/patch_fc "${SRC}"
  # add MAC settings to internet page
- [ "$ADD_MACSETTING" = "y" ] && $sh_DIR/add_MAC_settings.sh  "${SRC}" "${OEMLIST}"
- # remove tcom and some other oem dirs and add link instead to enable other brands.
+ [ "$ADD_MACSETTING" = "y" ] && $sh_DIR/add_MAC_settings.sh  "${SRC}" "${OEM}"
+ # add tcom link
  [ "$DONT_LINK_OENDIRS" != "y" ] && $sh2_DIR/add_tcom_link "${SRC}"
  #add kaid for xbox 
  [ "$ADD_KAID" = "y" ] && $sh2_DIR/add_kaid

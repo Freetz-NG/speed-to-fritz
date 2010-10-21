@@ -1,6 +1,6 @@
 #!/bin/bash
  . $include_modpatch
-for DIR in ${OEMLIST}; do
+for DIR in ${OEM}; do
     HTML="$DIR/html"
     DSTI="usr/www/$HTML/de"
     if [ -d "$1"/${DSTI} ] ; then

@@ -262,7 +262,7 @@ fi
 #<---- en variante
 fi
 #addon source toolsdir is different if original base firmware is patched
-for OEMDIR in ${OEMLIST}; do
+for OEMDIR in ${OEM}; do
   export HTML="$OEMDIR/html"
  for html in ${HTML} ${HTML}/de ; do
   for FILE in downgrade.html flash.html flash2.html update_not_signed.html update_not_signed_no_password.html restart.html update_result.html; do

@@ -5,7 +5,7 @@ SR1="$1"
 
 # change DECT text for infoled 
 #if [ "$avm_Lang" != "en" ] ; then
- for OEMDIR in ${OEMLIST}; do
+ for OEMDIR in ${OEM}; do
 #  if [ "$OEMDIR" = "avme" ] ; then
 #   export HTML="$OEMDIR/$avm_Lang/html"
 #  else

@@ -2,7 +2,7 @@
 # include modpatch function
 . $include_modpatch
 #echo "-- Adding Header ..."
-for DIR in ${OEMLIST}; do
+for DIR in ${OEM}; do
     HTML="$DIR/html"
     DSTI="$1"/usr/www/$HTML/de
     if [ -d ${DSTI}/images ] ; then

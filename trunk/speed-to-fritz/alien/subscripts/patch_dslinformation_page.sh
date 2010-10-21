@@ -1,5 +1,5 @@
-#!/bin/bash 
- . $include_modpatch
+#!/bin/bash
+. $include_modpatch
 echo "-- adjust tabs on dsl-information page ..."
 DIRI="$(find ${1}/usr/www/ \( -name adsl.html -o -name dslsnrset.html -o -name atm.html -o -name bits.html -o -name overview.html -o -name feedback.html -o -name vdsl_profile.html \) -type f -print)"
 for file_n in $DIRI; do

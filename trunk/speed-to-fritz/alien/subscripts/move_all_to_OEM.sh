@@ -1,27 +1,19 @@
 #!/bin/bash
- # include modpatch function
- . ${include_modpatch}
-#move freenet oem dir to avm
-if ! [ -d "$1/etc/default.${SORCE_PRODUKT}/avm" ]; then
- [ -d "$1/etc/default.${SORCE_PRODUKT}/freenet" ] && mv "$1/etc/default.${SORCE_PRODUKT}/freenet" "$1/etc/default.${SORCE_PRODUKT}/avm"
- [ -d "$1/etc/default.${SORCE_PRODUKT}/hansenet" ] && mv "$1/etc/default.${SORCE_PRODUKT}/hansenet" "$1/etc/default.${SORCE_PRODUKT}/avm"
-fi
-for webdir in ${1}/usr/www ${1}/usr/www.nas; do
- if [ -d "${webdir}" ]; then
-  if ! [ -d "${webdir}/avm" ]; then
-   [ -d "${webdir}/freenet" ] &&  mv "${webdir}/freenet" "${webdir}/avm"
-   [ -d "${webdir}/hansenet" ] &&  mv "${webdir}/hansenet" "${webdir}/avm"
-  fi
-  for DIR in ${OEMLIST}; do
+# include modpatch function
+. ${include_modpatch}
+for wwwdir in usr/www usr/www.nas; do
+ webdir="${1}/${wwwdir}"
+   for DIR in ${OEM}; do
     if [ -d ${webdir}/$DIR ] ; then
 	[ "$DIR" = "all" ] && rm -fd -R ${webdir}/$OEM
-	[ "$DIR" = "all" ] && mv ${webdir}/all  ${webdir}/$OEM && echo2 "  -- moving /www/all to /www/$OEM ..." 
-        [ "$DIR" != "$OEM" ] && rm -fd -R ${webdir}/${DIR} && echo2 "  -- removed directory: www/$DIR"
+	[ "$DIR" = "all" ] && mv ${webdir}/all  ${webdir}/$OEM && echo2 "-- moving $wwwdir/all to $wwwdir/$OEM ..." 
+        if [ "$DONT_LINK_OENDIRS" != "y" ]; then
+    	    [ "$DIR" != "$OEM" ] && rm -fd -R ${webdir}/${DIR} && echo2 "-- removed directory: $wwwdir/$DIR"
+	    [ -L ${webdir}/$DIR ] && [ "$DIR" != "$OEM" ] && rm -fd -R ${webdir}/${DIR} && echo2 "-- removed link: $wwwdir/$DIR"
+	    #add link for all, solve freetz OPenVPN Problem
+	    [ -d ${webdir}/$OEM ] && [ "$DIR" != "$OEM" ] && ln -sf ${webdir}/$OEM ${webdir}/$DIR && echo2 "-- added link: $wwwdir/$DIR"
+        fi
     fi
-    [ -L ${webdir}/$DIR ] && [ "$DIR" != "$OEM" ] && rm -fd -R ${webdir}/${DIR} && echo2 "  -- removed link: www/'$DIR'"
-  done
-  #add link for all, should solve freetz OPenVPN Problem
-  [ -d ${webdir}/$OEMLINK ] && ln -sf ${webdir}/$OEMLINK ${webdir}/all
- fi
+   done
 done
 exit 0

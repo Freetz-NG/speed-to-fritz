@@ -1,6 +1,6 @@
 #!/bin/bash
  . $include_modpatch
-for DIR in ${OEMLIST}; do
+for DIR in ${OEM}; do
  if [ "$DIR" = "avme" ] ; then
   html="$avm_Lang/html"
  else

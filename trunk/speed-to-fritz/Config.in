@@ -2545,9 +2545,10 @@ config EXPORT_FORCE_MULTI_COUNTRY
 
 config FORCE_OEM_AVME
 	bool
-	default y 	if TYPE_IPV6_7273_17603 || TYPE_IPV6_7272_17603 || TYPE_IPV6_7273_17599 || TYPE_IPV6_7272_17599 || TYPE_IPV6_72XX || TYPE_7272_m54_04_81
+	default y 	if TYPE_ANNEX_A || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_IPV6_7273_17603 || TYPE_IPV6_7272_17603 || TYPE_IPV6_7273_17599 || TYPE_IPV6_7272_17599 || TYPE_IPV6_72XX || TYPE_7272_m54_04_81
 
 config EXPORT_OEM
+
 	string
 	#!!! In case of ORI: OEM is set later in sp-to-fritz.sh !!!
 	default "tcom" if ( ORI && ! TYPE_AVM_7570_XX && ! FORCE_OEM_AVME) || TYPE_OR_721_722
@@ -2574,13 +2575,14 @@ config SET_OEM
 	    In case of option ORI branding will always be set through the script.
 
 config EXPORT_OEM
-	string "Branding (OEM)"
+	string "Edit Branding (OEM)"
 	depends on SET_OEM
 	help
 	    Branding should be left as it is, but if needed you may specify your own.
-	    You can only specify a branding implemented within the AVM firmware used!
-	    (avm, avme, tcom, 1und1, aol, freenet)
-	    In case of option ORI branding will always set to basis later through the script.
+	    (avm, avme, tcom, 1und1, aol, freenet, hansenet, otwo, ...)
+	    If multiannex or Annex A is selected, we use brandig avme as default.
+	    In case of option 'restore original' branding will always be set to the 
+	    one used in base firmware.
 
 config SET_FBHWRevision
 	bool "Box Hardware revision (setup)"

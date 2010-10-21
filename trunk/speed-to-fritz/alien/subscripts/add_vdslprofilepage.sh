@@ -6,16 +6,17 @@ if [ "${ADD_VDSL_PROFILE}" = "y" ]; then
  DIRI="$(find ${1}/usr/www/ \( -name adsl.html -o -name dslsnrset.html -o -name atm.html -o -name bits.html -o -name overview.html -o -name feedback.html -o -name vdsl_profile.html \) -type f -print)"
  #-----------------------------------------------------------------
  for file_n in $DIRI; do
-    [ "${file_n##*/}" == "vdsl_profile.html" ] &&\
-    sed -i -e 's|<li class="tabs_on"><div class="activtab">.*</div></li>|<li class="tabs_on"><div class="activtab">Vdsl Profile</div></li>|g' "$file_n"
+  [ "${file_n##*/}" == "vdsl_profile.html" ] &&\
+  sed -i -e 's|<li class="tabs_on"><div class="activtab">.*</div></li>|<li class="tabs_on"><div class="activtab">Vdsl Profile</div></li>|g' "$file_n"
   sed -i -e '/uiDoSNRPage()/a\
 <li><a href="javascript:uiDoVdslProfilePage()">Vdsl Profile</a></li>'  "$file_n"
   sed -i -e "/uiDoFeedbackPage()/d" "$file_n"
-    [ "${file_n##*/}" == "dslsnrset.html" ] &&\
+  [ "${file_n##*/}" == "dslsnrset.html" ] &&\
   sed -i -e '/class="activtab"/a\
 <li><a href="javascript:uiDoVdslProfilePage()">Vdsl Profile</a></li>'  "$file_n"
   sed -i -e "/uiDoFeedbackPage()/d" "$file_n"
-    grep -q "Vdsl Profile" "$file_n" && echo2 "    added tab 'Vdsl Profile' in file:${file_n##*/}"
+  grep -q "Vdsl Profile" "$file_n" && echo2 "    added tab 'Vdsl Profile' in file:${file_n##*/}"
+  sed -i -e 's|<? if eq $var:isMultiAnnex 1|<? if eq 1 1|g' "$file_n"
  done 
 
 cat >> "${1}/usr/www/${OEMLINK}/html/de/internet/awatch.js" << EOF

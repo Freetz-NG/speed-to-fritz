@@ -1,7 +1,7 @@
 #!/bin/bash
  . ${include_modpatch}
 SR1="$1"
- for OEMDIR in ${OEMLIST}; do
+ for OEMDIR in ${OEM}; do
    export HTML="$OEMDIR/html"
     if [ -e "$SR1"/usr/www/${HTML}/de/system/infoled.inc ]; then
      echo2 "  -- change TextBlinkDECT in: /usr/www/${HTML}/de/system/infoled.inc"

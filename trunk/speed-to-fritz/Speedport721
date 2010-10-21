@@ -474,7 +474,7 @@ if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] 
 fi
 $sh_DIR/patch_leddefinition.sh "${SRC}" "${DST}"
 # add missing gives
-$sh_DIR/add_vdslscale.sh "${SRC}" "${OEMLIST}"
+$sh_DIR/add_vdslscale.sh "${SRC}" "${OEM}"
 # 721 
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 721
 #remove menus 
