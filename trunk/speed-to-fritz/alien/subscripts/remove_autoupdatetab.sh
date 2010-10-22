@@ -17,11 +17,15 @@ done
 #new lua type pages on 18577
 DIRI="$(find ${1}/usr/www/ \( -name menu_show.lua  \) -type f -print)"
 for file_n in $DIRI; do
-    echo2 "      ${DIRI}"
+    ##echo2 "      ${DIRI}"
     grep -q 'menu.show_page...system.update.lua.. = false' "$file_n" || \
     sed -i -e '/menu.show_page...system.update_file.lua.. = expert_mode/a\
 menu.show_page\["\/system\/update.lua"\] = false' "$file_n"
     grep -q 'menu.show_page...system.update.lua.. = false' "$file_n" && echo2 "    removed Online-Update tab from file: ${file_n##*/}"
+    tz_lua="$(find ${1}/usr/www/ -name /system/timezone.lua )"
+    grep -q "/system/timezone.lua" "$tz_lua" ||\
+    sed -i -e 's/system.timezone.lua.. = box.query..env:status.OEM.. == .avme./system\/timezone\.lua\"\] = false/' "$file_n"
+    grep -q 'system.timezone.lua.. = false' "$file_n" && echo2 "    removed timezone page in file: ${file_n##*/}"
 done
 exit 0
 #example for tabs

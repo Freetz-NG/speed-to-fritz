@@ -2535,6 +2535,15 @@ config EXPORT_FORCE_MULTI_LANGUAGE
 	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!  
 	    To make this work you must have a basis or 2nd AVM firmware that supplies the needed feature.
 config EXPORT_FORCE_MULTI_COUNTRY
+	bool "Use Multi country from base firmware"
+	depends on ( TYPE_SRC3_AVM_7272_m54_04_76 || TYPE_SRC3_AVM_7570_XX || TYPE_OR_TCOM7570XX_LOCALTCOM_LOCALAVM ) && ( ! TYPE_AVM_7570_XX  || ! TYPE_AVM_7272_m54_04_76 )
+#	depends on EXPERT_MOD 
+ 	default n if ! FORCE_OEM_AVME
+ 	default y if FORCE_OEM_AVME
+	help
+	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!
+	    To make this work you must have a basis or 2nd AVM firmware that supplies the needed feature, some text may be wrong or missing!.
+config EXPORT_FORCE_MULTI_COUNTRY_SRC2
 	bool "Use Multi country from 2nd AVM firmware"
 	depends on ( TYPE_SRC3_AVM_7272_m54_04_76 || TYPE_SRC3_AVM_7570_XX || TYPE_OR_TCOM7570XX_LOCALTCOM_LOCALAVM ) && ( ! TYPE_AVM_7570_XX  || ! TYPE_AVM_7272_m54_04_76 ) && SOURCE2
 	depends on EXPERT_MOD 
@@ -4052,12 +4061,12 @@ config EXPORT_ENABLE_EXT2
 		"2.6.19.2" must match the kernel version!  
 		Or you can select a 2nd AVM firmware from which the driver will be taken.
 
-#config EXPORT_ADD_VLAN_BRIDGE
-#	bool "Enable or add Vlan bridge option"
-#	depends on TYPE_OR_7570_503_722_920
-#	default n
-#	help
-#	    Adds or enables settings in GUI for specifing VLANs
+config EXPORT_ADD_VLAN_BRIDGE
+	bool "Enable or add Vlan bridge GUI option"
+	depends on TYPE_OR_7570_503_722_920
+	default y
+	help
+	    Adds or enables settings in GUI for specifing VLANs
 	    
 config EXPORT_RPL_AUTHFORM_WITH_81
 	bool "Use authform page from 7270v2 multi firmware"

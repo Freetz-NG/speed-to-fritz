@@ -6,7 +6,7 @@ rm -f "${1}"/var/info.txt
 #modpatch "${1}" "$P_DIR/add_var-install.patch"
 #cp -fdpr  ./addon/tmp/var  --target-directory="${1}"
 #echo "Path: ${1}/var/install"
-echo "--patch install script ..."
+echo "-- patch install script ..."
 sed -i -e "/Force: factorysettings done./a\
 ##MARKER##" "${1}"/var/install
 sed -i -e "/##MARKER##/,/Accept Firmware Version/d" "${1}"/var/install
