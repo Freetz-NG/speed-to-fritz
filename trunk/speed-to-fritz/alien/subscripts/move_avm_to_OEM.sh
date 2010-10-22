@@ -14,7 +14,7 @@ for oem_dir in freenet hansenet avm avme; do
   webdir="${1}/${wwwdir}"
   [ -d "${webdir}" ] && \
    ! [ -d "${webdir}/${OEM}" ] && \
-    [ -d "${webdir}/$oem_dir" ] &&  mv "${webdir}/$oem_dir" "${webdir}/${OEM}" && echo "-- moved $wwwdir/$oem_dir to $wwwdir/${OEM}"
+    [ -d "${webdir}/$oem_dir" ] &&  mv "${webdir}/$oem_dir" "${webdir}/${OEM}" && echo "   moved $wwwdir/$oem_dir to $wwwdir/${OEM}"
  done
 done
 exit 0

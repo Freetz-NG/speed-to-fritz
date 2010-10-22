@@ -7,7 +7,7 @@ SR1="$1"
  # include modpatch function
  . ${include_modpatch}
 
-for DIR in ${OEM}; do
+for DIR in ${OEMLINKS}; do
  if [ "$DIR" = "avme" ] ; then
   html="$avm_Lang/html"
  else

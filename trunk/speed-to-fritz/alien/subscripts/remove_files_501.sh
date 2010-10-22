@@ -1,7 +1,7 @@
 #!/bin/bash
  . ${include_modpatch}
 echo2 "  -- removing files ..."
-for DIR in ${OEM}; do
+for DIR in ${OEMLINKS}; do
 # if [ "$DIR" = "avme" ] ; then
 #  export HTML="$DIR/$avm_Lang/html"
 # else

@@ -1647,13 +1647,15 @@ if [ "$ORI" != "y" ]; then
  [ "$DONT_ADD_MODINFO" != "y" ] && $sh2_DIR/patch_system_status "${SRC}"
  #export download links
  $HOMEDIR/extract_rpllist.sh
+ # add oem links
+ $sh_DIR/make_oem_links.sh "${SRC}" "${OEMLINKS}"
  # set OEM via rc.S not via environment
  [ "$PATCH_OEM" = "y" ] && $sh2_DIR/patch_OEMandMyIP "${SRC}"
  # fix default route
  [ "$ADD_DEFAULT_ROUTE_FIX" = "y" ] && $sh_DIR/patch_default_route_fix.sh "${SRC}"
  #packing takes place on SPDIR
  export SPDIR="${FBDIR}"
- #--> Add patches here if the shold not be applayed with Option restore original!
+ #--> Add patches here if this patches shold not be applayed with option restore original!
  # If patches should only be applyed to a special type, then add this patches
  # on the end of individual files like "Speedport920".
  #<-- Add patches here - end!

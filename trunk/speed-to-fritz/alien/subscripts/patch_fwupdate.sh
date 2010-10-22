@@ -1,5 +1,5 @@
 #!/bin/bash
-for DIR in ${OEM}; do
+for DIR in ${OEMLINKS}; do
 # if [ "$DIR" = "avme" ] ; then
 #  html="$avm_Lang/html"
 # else

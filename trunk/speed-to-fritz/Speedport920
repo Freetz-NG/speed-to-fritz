@@ -183,7 +183,7 @@ fi' "${SRC}/etc/init.d/rc.S"
 #remove FON3 menus
 [ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
 # add missing gifs
-$sh_DIR/add_vdslscale.sh "${SRC}" "${OEM}"
+$sh_DIR/add_vdslscale.sh "${SRC}" "${OEMLIST}"
 $sh_DIR/patch_leddef_7270.sh "${SRC}" "${DST}"
 #xilix W920 driver must be for the hardware in use
 rm -f "${SRC}"/lib/modules/microvoip_isdn_top.bit
@@ -281,7 +281,7 @@ fi
 sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
 
 #copy second source internet dsl menue
-[ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEM}"
+[ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLIST}"
  echo2 "New WEB GUI will be modified"
 #use scond source web GUI
 [ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
@@ -294,19 +294,17 @@ if [ ${ATA_ONLY} = "y" ]; then
     sed -i -e 's|. /etc/init.d/rc.vdsl.sh||' "${SRC}/etc/init.d/rc.S" 
     rm -fdr "${SRC}"/lib/modules/dsp_ur8
 fi
-#wrap dsld and ar7cfg.lib, patch default dsl route to 169.254.2.1
+#wrap dsld and ar7cfg.lib
 [ "${WRAP_DSLD}" = "y" ] && . $sh_DIR/wrap_dsld.sh
-# replace feedback tab with vdsl profile page
-$sh_DIR/add_vdslprofilepage.sh "${SRC}"
 # remove SNR part - rename Tab, if not Multiannex remove SNR tab
 $sh_DIR/patch_dslinformation_page.sh "${SRC}"
+# replace feedback tab with vdsl profile page
+$sh_DIR/add_vdslprofilepage.sh "${SRC}"
 # add kapselung and annex settings page if missing
 # must be after VLAN settings because oem of authform is altered in some cases
 $sh_DIR/add_multi_settings.sh
-# patch some VLAN settings
+# patch some VLAN settings, and authform
 $sh_DIR/add_vlan_settings.sh "${SRC}"
-# authform and /first/providers
-$sh_DIR/add_authform.sh "${SRC}"
 ## patch default dsl route to 169.254.2.1
 ##[ "${FORCE_OLD_DSL_ROUTE}" = "y" ] && $sh_DIR/set_dslroute.sh "${SRC}"
 #remove kids and help

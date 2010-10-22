@@ -7,7 +7,7 @@
 [ "$ATA_ONLY" = "y" ] && echo "-- disable ADSL Option, from setup page ..."
 #[ "$CONFIG_DECT" = "n" ] && echo "-- Removing 'DECT' from setup page ..."
 
-for DIR in ${OEM}; do
+for DIR in ${OEMLINKS}; do
   export HTML="$DIR/html"
     DSTI="${1}"/usr/www/$HTML
     if [ -d ${DSTI} ] ; then
