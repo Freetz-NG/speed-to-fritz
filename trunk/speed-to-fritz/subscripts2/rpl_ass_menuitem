@@ -1,6 +1,6 @@
 #!/bin/bash
     echo "-- Replace menu-item assistent..."
-for DIR in $2; do
+for DIR in ${OEMLINKS}; do
 # if [ "$DIR" = "avme" ] ; then
 #  html="$avm_Lang/html"
 # else

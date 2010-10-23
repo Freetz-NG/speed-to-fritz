@@ -8,7 +8,7 @@ echo "-- set expertview ..."
  {
 	for file in $1; do
 	if [ -f "$file" ]; then
-	grep -q 'expertmode =' "$file"&& echo2 "  'expertmode removed in file: ${file##*etc}"
+	grep -q 'expertmode =' "$file"&& echo2 "  expertmode removed in file: ${file##*etc}"
 	sed -i -e '/expertmode =/d' "$file" 
 	sed -i -e '/webui ./a\
 expertmode = yes;' "$file"
@@ -17,7 +17,7 @@ expertmode = yes;' "$file"
 webui {\
 expertmode = yes;\
 }' "$file"
-	grep -q 'expertmode =' "$file" && echo2 "  'in file: ${file##*etc}"
+	grep -q 'expertmode =' "$file" && echo2 "  in file: ${file##*etc}"
 	fi 
 	done
  }

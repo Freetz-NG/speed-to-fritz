@@ -62,16 +62,16 @@ fi
     #use scond source web GUI
    if [ ${USE_SOURCE2_WEBMNUE} = "y" ]; then
     #copy second source www dir
-    $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
+    $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}"
     . $inc_DIR/get_SRC2_ver 
-    [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect.sh "${SRC}" "${SRC_2}" "${OEMLINK}"
+    [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect.sh "${SRC}" "${SRC_2}" "${OEMLINKS}"
    else
     [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect_section.sh "${SRC}"
-    [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect.sh "${SRC}" "X" "${OEMLINK}"
+    [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect.sh "${SRC}" "X" "${OEMLINKS}"
 #    cp -fdprv  $P_DIR/libdect.so  --target-directory="$SRC"/usr/share/ctlmgr
    fi
    #copy second source internet dsl menue
-   [ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
+   [ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}"
   cp -fdpr  "${DST}"/usr/share/ctlmgr/libdect.so  --target-directory="${SRC}"/usr/share/ctlmgr
 
 

@@ -20,23 +20,19 @@
  }
 OEML="avm" && [ -d "${DST}"/usr/www/avme ] && OEML="avme"
 OEML2="avm" && [ -d "${SRC_2}"/usr/www/avme ] && OEML2="avme"
- USRWWW="usr/www/${OEMLINK}/html/de"
-file_nLIST="/html/de/internet/dslsnrset.frm \
-/html/de/internet/dslsnrset.html \
-/html/de/first/basic_first_Annex.js \
-/html/de/first/basic_first_Annex.frm \
-/html/de/first/basic_first_Annex.html"
+USRWWW="usr/www/${OEMLINK}/html/de"
 # show settings tub
 #-----------------------------------------------------------------
-for file_n in adsl.html atm.html bits.html overview.html; do
-   if [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n" ]; then 
-    sed -i -e "s|<? if neq \$var:Annex A|<? if neq 0 1|" "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n"
-   fi
-done
+#for file_n in adsl.html atm.html bits.html overview.html; do
+#   if [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n" ]; then 
+#    sed -i -e "s|<? if neq \$var:Annex A|<? if neq 0 1|" "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n"
+#   fi
+#done
 ##---------------------------------------------------------------
+# include, order of includes may count
 . $sh_DIR/add_multicountry.sh
-. $sh_DIR/add_multilingual.sh
 . $sh_DIR/add_multiannex.sh
+. $sh_DIR/add_multilingual.sh
 
 if [ "${FORCE_LANGUAGE}" != "de" ]; then
    #[ -f "${SRC}"/etc/htmltext_de.db ] || echo -e "-- \033[1mAttention:\033[0m 1st Firmware is not usabel for force language!" && sleep 7

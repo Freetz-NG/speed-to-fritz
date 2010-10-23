@@ -47,10 +47,6 @@ if [ "${FORCE_DSL_MULTI_ANNEX}" = "y" ]; then
 	[ "$avm_Lang" != "de" ] && modpatch "${SRC}/${USRWWW}" "$P_DIR/add_first_annex_en.patch"
   #    fi
   fi
-  file_nLIST="$file_nLIST \
-/html/de/system/timeZone.js \
-/html/de/system/timeZone.frm \
-/html/de/system/timeZone.html"
   if ! `grep -q 'ar7cfg.dslglobalconfig.Annex' "${SRC}"/etc/init.d/rc.conf`; then
      sed -i -e '/export ANNEX=.cat .CONFIG_ENVIRONMENT_PATH.annex./d' "${SRC}"/etc/init.d/rc.conf
      sed -i -e '/"$annex_param"/a\
@@ -126,10 +122,10 @@ jslSetChecked("uiViewAnnexB", n==1);\
    sed -i -e 's/Change Annex/You did change the DSL wire configuration. A worong setting will lead to a loss off connection. Reboot is neede that the changes can be but to ation, shold that be done?/'  "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"
   fi
   Unicode_ut8="n"
-  `cat "${SRC}"/usr/www/${OEMLINK}/html/index.html | grep -q 'charset=utf-8' ` && Unicode_ut8="y" 
-  file_nLIST="/html/de/internet/dslsnrset.html \
-/html/de/first/basic_first_Annex.html \
-/html/de/internet/dslsnrset.js"
+  `cat "${SRC}"/usr/www/${OEMLINK}/html/index.html | grep -q 'charset=utf-8' ` && Unicode_ut8="y"
+  ##file_nLIST="/html/de/internet/dslsnrset.frm html/de/internet/dslsnrset.html html/de/first/basic_first_Annex.js /html/de/first/basic_first_Annex.frm /html/de/first/basic_first_Annex.html"
+  ##file_nLIST="$file_nLIST html/de/system/timeZone.js html/de/system/timeZone.frm html/de/system/timeZone.html"
+  file_nLIST="/html/de/internet/dslsnrset.html html/de/first/basic_first_Annex.html html/de/internet/dslsnrset.js"
   for file_n in $file_nLIST; do
     file_nname="${SRC}/usr/www/${OEMLINK}${file_n}"
     if [ "$Unicode_ut8" = "y" ] && [ "$avm_Lang" = "de" ]; then

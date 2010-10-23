@@ -36,7 +36,7 @@ fi #<-- multicountry
 
 if [ "${FORCE_MULTI_COUNTRY_SRC2}" = "y" ] || [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
  sed -i -e 's/CONFIG_MULTI_COUNTRY="n"/CONFIG_MULTI_COUNTRY="y"/' "${SRC}"/etc/init.d/rc.conf
- file_nLIST="menu2_system.html sitemap.html authform.html vpn.html pppoe.html first_Sip_1.html first_ISP_0.html first_ISP_3.frm"
+ ##file_nLIST="menu2_system.html sitemap.html authform.html vpn.html pppoe.html first_Sip_1.html first_ISP_0.html first_ISP_3.frm"
  if [ "${OEM}" = "avm" ]; then
   rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.html)" 
   rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.frm)" 

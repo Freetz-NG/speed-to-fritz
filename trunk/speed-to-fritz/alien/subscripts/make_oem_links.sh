@@ -3,9 +3,7 @@
  . ${include_modpatch}
  echo "-- add oem links ..."
  oems="all"
- if ! [ "$DONT_LINK_OENDIRS" == "y" ]; then
-  oems=$2
- fi
+ ! [ "$DONT_LINK_OENDIRS" == "y" ] && ! [ "$PATCH_OEM" == "y" ] && oems=$2
  #$2 = OEMLINKS
  for DIR in $oems; do
   #echo "--->DIR: $DIR"

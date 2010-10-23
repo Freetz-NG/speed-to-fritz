@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "-- add support menu-item..."
-for DIR in $2; do
+for DIR in ${OEMLINKS}; do
  html="html"
  DIRI="usr/www/$DIR/$html/de"
  #patch download url and add menuitem support

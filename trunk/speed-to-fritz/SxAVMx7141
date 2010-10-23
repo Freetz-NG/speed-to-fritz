@@ -52,11 +52,11 @@ echo2 "New WEB GUI will be modified"
 #use scond source web GUI
 if [ ${USE_SOURCE2_WEBMNUE} = "y" ]; then
     #copy second source www dir
-    $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
+    $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}"
     . $inc_DIR/get_SRC2_ver 
 fi
 #copy second source internet dsl menue
-[ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
+[ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}"
 if [ "${ENFORCE_HWREVISION}" != "y" ]; then
 #But pluginsupport needs AVM HWrevision to setup the download URL for plugins 
 #workaround for HWRevision

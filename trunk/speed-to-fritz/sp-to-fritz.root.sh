@@ -1600,13 +1600,13 @@ if [ "$ORI" != "y" ]; then
  #patch p_maxTimeout on intenet page
  [ "$SET_PMAXTIMEOUT" = "y" ] && $sh_DIR/patch_pmaxTimeout.sh "${SRC}" "${OEM}"
  #patch download url and add menuitem support , and freetz
- $sh2_DIR/patch_url "${SRC}" "${OEM}"
+ $sh2_DIR/patch_url "${SRC}"
  #add dsl expert pages support
  [ "$ADD_DSL_EXPERT_MNUE" = "y" ] && $sh_DIR/add_dsl_expert.sh "${SRC}" "${OEM}"
  #add omlinecounter pages 
- [ "$ADD_ONLINECOUNTER" = "y" ] && $sh_DIR/add_onlinecounter.sh "${SRC}" "${OEM}"
+ [ "$ADD_ONLINECOUNTER" = "y" ] && $sh_DIR/add_onlinecounter.sh "${SRC}"
  #replace assistent menuitem with enhanced settings 
- [ "$RPL_ASSIST" = "y" ] && $sh2_DIR/rpl_ass_menuitem "${SRC}" "${OEM}" 
+ [ "$RPL_ASSIST" = "y" ] && $sh2_DIR/rpl_ass_menuitem "${SRC}" 
  #tam bugfix remove tams
  [ "$DONT_PATCH_TAMFIX" != "y" ] && $sh_DIR/patch_tam.sh "${SRC}"
  #gsm page    

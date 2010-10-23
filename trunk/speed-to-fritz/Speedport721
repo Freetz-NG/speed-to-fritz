@@ -19,10 +19,10 @@ if [ "${OEM}" == "tcom" ]; then
  echo "-- OEM tcom is in use, IP adress of Box is as with T-com Firmware!"
 fi
 #copy second source internet dsl menue
-[ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
+[ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}"
 #use scond source web GUI
 echo2 "New WEB GUI will be modified"
-[ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}" "${OEMLINK}"
+[ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}"
 
 
 #ATA only--->
@@ -474,7 +474,7 @@ if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] 
 fi
 $sh_DIR/patch_leddefinition.sh "${SRC}" "${DST}"
 # add missing gives
-$sh_DIR/add_vdslscale.sh "${SRC}" "${OEMLIST}"
+$sh_DIR/add_vdslscale.sh "${SRC}"
 # 721 
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 721
 #remove menus 

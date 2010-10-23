@@ -6,18 +6,11 @@ FILELIST="adsl atm bits labor_dsl overview"
 EXTESIONLIST="js inc html frm" 
 
 
-for DIR in $3; do
-# if [ "$DIR" = "avme" ] ; then
-#  html="$avm_Lang/html"
-# else
-  html="html"
-# fi
-
-DIRI="usr/www/$DIR/$html/de"
-FILE="images/balkeneinheit24-blau.gif"
-[ -e "$2/$DIRI/$FILE" ] && cp  "$2/$DIRI/$FILE"   "$1/$DIRI/$FILE"
-
-
+for DIR in ${OEMDIRS}; do
+ html="html"
+ DIRI="usr/www/$DIR/$html/de"
+ FILE="images/balkeneinheit24-blau.gif"
+ [ -e "$2/$DIRI/$FILE" ] && cp  "$2/$DIRI/$FILE"   "$1/$DIRI/$FILE"
  TREE="$DIRI/internet"
  if [ -d "$2"/$TREE ]; then
   # is newer version so coppy comlete internet directory
