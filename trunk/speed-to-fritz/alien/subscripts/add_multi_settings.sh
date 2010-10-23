@@ -21,14 +21,6 @@
 OEML="avm" && [ -d "${DST}"/usr/www/avme ] && OEML="avme"
 OEML2="avm" && [ -d "${SRC_2}"/usr/www/avme ] && OEML2="avme"
 USRWWW="usr/www/${OEMLINK}/html/de"
-# show settings (annexA/B) tub
-#-----------------------------------------------------------------
-for file_n in adsl.html atm.html bits.html overview.html; do
-   if [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n" ]; then 
-    sed -i -e "s|<? if neq \$var:Annex A|<? if neq 0 1|" "${SRC}/usr/www/${OEMLINK}/html/de/internet/$file_n"
-   fi
-done
-##---------------------------------------------------------------
 # include, order of includes may count
 . $sh_DIR/add_multicountry.sh
 . $sh_DIR/add_multiannex.sh
