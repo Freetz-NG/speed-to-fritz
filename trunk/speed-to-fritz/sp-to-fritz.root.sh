@@ -1484,7 +1484,7 @@ echo "**************************************************************************
 [ "$MOVE_AVM_to_OEM" = "y" ] && $sh_DIR/move_avm_to_OEM.sh
 # create backup for final compare
 #[ "$DO_FINAL_DIFF" = "y" ] || [ "$DO_FINAL_KDIFF3_2" = "y" ] || [ "$DO_FINAL_KDIFF3_3" = "y" ] && 
-mkdir -p "${TEMPDIR}" && cp -fdpr "${FBDIR}"/*  --target-directory="${TEMPDIR}"
+[ -d "${FBDIR}" ] && mkdir -p "${TEMPDIR}" && cp -fdpr "${FBDIR}"/*  --target-directory="${TEMPDIR}"
 # do a compare of AVM and AVM 2nd
 [ -n "$TYPE_SXXX_MODEL" ] && [ "$TYPE_SXXX_MODEL" == "y" ] && [ "$DO_KDIFF3_3" = "y" ] && kdiff3 "${FBDIR}" "${FBDIR_2}"
 # do a compare of TCOM and AVM
