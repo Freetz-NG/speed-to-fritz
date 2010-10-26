@@ -17,9 +17,10 @@ for FILE in ${REMOVELIST_USB}; do
 	[ -f "${1}${FILE}" ] && echo2 "      ${FILE}"
 	[ -f "${1}${FILE}" ] && rm -fdr "${1}${FILE}"
 done
+
+. $sh_DIR/remove_luna_usb.sh
 $sh_DIR/rmv_usb_menu "$1"
 echo2 "   -- Removing directory:"
 echo2 "      /usr/www/${HTML}/${avm_Lang}/usb"
 rm -rf "$1"/usr/www/${HTML}/${avm_Lang}/usb
-
 exit 0
