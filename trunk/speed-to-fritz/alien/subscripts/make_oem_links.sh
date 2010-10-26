@@ -3,8 +3,7 @@
  . ${include_modpatch}
  echo "-- add oem links ..."
  oems="all"
- ! [ "$DONT_LINK_OENDIRS" == "y" ] && ! [ "$PATCH_OEM" == "y" ] && oems=$2
- #$2 = OEMLINKS
+ ! [ "$DONT_LINK_OENDIRS" == "y" ] && ! [ "$PATCH_OEM" == "y" ] && oems=$OEMLINKS
  for DIR in $oems; do
   #echo "--->DIR: $DIR"
   for wwwdir in usr/www usr/www.nas; do

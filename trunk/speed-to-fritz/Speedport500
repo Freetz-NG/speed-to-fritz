@@ -86,7 +86,7 @@ replaced="0"
 echo2 "New WEB GUI will be modified"
 #    $sh_DIR/add_dect_section.sh "${SRC}"
     #.56 dect pages can be used as the are but old vesion can be adden to give more funtioalyty
-    [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect.sh "${SRC}" "X" "${OEMLINK}"
+    [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect.sh "${SRC}" "X"
 #set DECT hardwaetype 
 #sed -i -e "s/dect_hw=./dect_hw=1/" "${SRC}/etc/init.d/rc.S" 
 sed -i -e '/isdn_params="${isdn_params} dect_hw=/d' "${SRC}/etc/init.d/rc.S" 

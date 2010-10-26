@@ -3,7 +3,7 @@
 if [ "${FORCE_MULTI_COUNTRY_SRC2}" = "y" ]; then
   for file_n in /html/de/first/basic_first.js /html/de/first/basic_first.frm; do
     if [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ] && ! [ -f "${SRC}/usr/www/${OEMLINK}/$file_n" ]; then
-     cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "  -- copy from 2nd AVM firmware: $file_n"
+     cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "    copy from 2nd AVM firmware: $file_n"
     fi
   done
  for file_n in basic_first_Country.js basic_first_Country.frm basic_first_Country.html; do
@@ -21,7 +21,7 @@ fi #<-- multicountry SRC_2
 if [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
   for file_n in /html/de/first/basic_first.js /html/de/first/basic_first.frm; do
     if [ -f "${DST}/usr/www/${OEML}/$file_n" ] && ! [ -f "${SRC}/usr/www/${OEMLINK}/$file_n" ]; then
-     cp -fdrp "${DST}/usr/www/${OEML}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "  -- copy from 2nd AVM firmware: $file_n"
+     cp -fdrp "${DST}/usr/www/${OEML}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "    copy from 2nd AVM firmware: $file_n"
     fi
   done
  for file_n in basic_first_Country.js basic_first_Country.frm basic_first_Country.html; do

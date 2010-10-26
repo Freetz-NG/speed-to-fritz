@@ -25,6 +25,7 @@ USRWWW="usr/www/${OEMLINK}/html/de"
 . $sh_DIR/add_multicountry.sh
 . $sh_DIR/add_multiannex.sh
 . $sh_DIR/add_multilingual.sh
+. $sh_DIR/remove_timezone.sh
 
 if [ "${FORCE_LANGUAGE}" != "de" ]; then
    #[ -f "${SRC}"/etc/htmltext_de.db ] || echo -e "-- \033[1mAttention:\033[0m 1st Firmware is not usabel for force language!" && sleep 7

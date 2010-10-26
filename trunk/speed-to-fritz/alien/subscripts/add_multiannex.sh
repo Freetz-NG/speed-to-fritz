@@ -24,9 +24,6 @@ if [ "${FORCE_DSL_MULTI_ANNEX}" = "y" ]; then
  if  `grep -q 'MultiAnnex' "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.js"`; then
   echo "-- multi Annex is in use, because 1st firmware is a multiannex."
  else
-  echo "-- adding timezone pages ..."
-  [ "$avm_Lang" = "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_de.patch" )
-  [ "$avm_Lang" != "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_en.patch" )
 
   echo "-- adding Annex selection to dslsnrset pages ..."
   [ -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.frm" ] && rm -f "${SRC}/usr/www/${OEMLINK}/html/de/internet/dslsnrset.frm"
