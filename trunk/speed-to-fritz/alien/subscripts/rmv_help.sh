@@ -2,7 +2,7 @@
  . ${include_modpatch}
  # include modpatch function
 echo2 "  -- removing system help to reduce image size ..."
-for DIR in ${OEMLINKS}; do
+for DIR in ${OEMLIST}; do
 # if [ "$DIR" = "avme" ] ; then
 #  export HTML="$DIR/$avm_Lang/html"
 # else

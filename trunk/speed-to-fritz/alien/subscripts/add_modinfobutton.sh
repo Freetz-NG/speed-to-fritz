@@ -3,7 +3,7 @@
 . ${include_modpatch}
 . $inc_DIR/includefunctions
 echo "-- adding 'Info' button and display of mod related data ..."
-for DIR in ${OEMLINKS}; do
+for DIR in ${OEMLIST}; do
  export HTML="$DIR/html"
  DSS="/usr/www/$HTML/de"
  DSTI="$1"${DSS}
@@ -123,11 +123,11 @@ fi #<-- help dir exist
 # --> 17671 new GUI 
 if ! [ -f "$1/usr/www/$DIR/help/help.lua" ]; then
 DIRHELP="${DSTI}/help"
-echo2 "     ${DSS}/help/modinfo.html"
+#echo2 "     ${DSS}/help/modinfo.html"
 else #<--
 # old GUI
 DIRHELP="$1/usr/www/$DIR/help"
-echo2 "     /usr/www/$DIR/help/modinfo.html"
+#echo2 "     /usr/www/$DIR/help/modinfo.html"
 fi
 DSTF="${DIRHELP}"/modinfo.html
 if [ -d "${DIRHELP}" ]; then

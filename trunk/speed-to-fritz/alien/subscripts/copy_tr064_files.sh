@@ -2,7 +2,7 @@
  . $include_modpatch
 echo "-- adding TR064 setup pages..."
 # copy missing files in OEM dir 
-for DIR in ${OEMLINKS}; do
+for DIR in ${OEMLIST}; do
  if [ -d "${DST}/etc/default.${DEST_PRODUKT}/${DIR}" ]; then
   for FILE in $(ls "${DST}/etc/default.${DEST_PRODUKT}/${DIR}"); do
     if  [ -f "${DST}/etc/default.${DEST_PRODUKT}/${DIR}/${FILE}" ]; then

@@ -1,7 +1,7 @@
 #!/bin/bash
  . $include_modpatch
     echo "-- add missing VDSL scale images"
-for DIR in  ${OEMLINKS}; do
+for DIR in  ${OEMLIST}; do
 # if [ "$DIR" = "avme" ] ; then
 #  html="$avm_Lang/html"
 # else

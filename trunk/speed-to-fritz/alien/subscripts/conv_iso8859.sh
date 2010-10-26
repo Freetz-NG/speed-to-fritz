@@ -1,6 +1,6 @@
 #!/bin/bash
  . $include_modpatch
-for DIR in ${OEMLINKS}; do
+for DIR in ${OEMLIST}; do
 # if [ "$DIR" = "avme" ] ; then
 #  export HTML="$DIR/$avm_Lang/html"
 # else

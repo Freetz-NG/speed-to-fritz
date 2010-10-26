@@ -1,7 +1,7 @@
 #!/bin/bash
  . $include_modpatch
  echo "-- increase timeout for autodisconnect ..."
-for DIR in ${OEMLINKS}; do
+for DIR in ${OEMLIST}; do
     DSTI="${1}"/usr/www/$DIR/html/de/internet/authform.js
     if [ -f ${DSTI} ] ; then
 #------------------------------------------------------------------
