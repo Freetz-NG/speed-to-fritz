@@ -64,10 +64,10 @@ fi
     #copy second source www dir
     $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}"
     . $inc_DIR/get_SRC2_ver 
-    [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect.sh "${SRC}" "${SRC_2}" "${OEMLIST}"
+    [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect.sh "${SRC}" "${SRC_2}" "${OEMLINK}"
    else
     [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect_section.sh "${SRC}"
-    [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect.sh "${SRC}" "X" "${OEMLIST}"
+    [ ${ADD_OLD_DECTMENU} = "y" ] && $sh_DIR/add_dect.sh "${SRC}" "X" "${OEMLINK}"
 #    cp -fdprv  $P_DIR/libdect.so  --target-directory="$SRC"/usr/share/ctlmgr
    fi
    #copy second source internet dsl menue

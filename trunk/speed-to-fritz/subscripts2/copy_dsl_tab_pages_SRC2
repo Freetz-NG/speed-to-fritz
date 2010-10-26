@@ -6,7 +6,7 @@ FILELIST="adsl atm bits labor_dsl overview"
 EXTESIONLIST="js inc html frm" 
 
 
-for DIR in ${OEMDIRS}; do
+for DIR in ${OEMLINK}; do
  html="html"
  DIRI="usr/www/$DIR/$html/de"
  FILE="images/balkeneinheit24-blau.gif"
