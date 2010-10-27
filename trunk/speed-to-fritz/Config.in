@@ -1,4 +1,5 @@
-comment "General settings for Speed-to-fritz --------------------------------"
+#comment "--------------------------------------------------------------------"
+comment "--------------- General settings for Speed-to-fritz ----------------"
 mainmenu " Configuration"
 ### General help for syntax used within this Config.in File see: /tools/config/kconfig-language.txt
 ### If alternative download link is a pointer, then the first filename is needed with .zip extension.
@@ -524,7 +525,8 @@ config FORCE_VDSL
 		ADSL or Annex A PPPoA users usuly shuld not use this setting.
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-comment "--> Select router TYPE ---------------------------------------------"
+comment "--------------------------------------------------------------------"
+comment "-------------------------- Router TYPE -----------------------------"
 #comment "Select router TYPE -------------------------------------------------"
 ### ATTENTION! Most variables set up here are in use by various scripts later, so do not change,
 ### except numbers within variable names corresponding to the above firmware names.
@@ -893,8 +895,8 @@ config ORI_FIRMWARE_IS_MULI
     bool
     default n
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ comment "--------------------------------------------------------------------"
  comment "------------- Basic firmware for DSL-Driver (optional) -------------"
-#comment "--------------------------------------------------------------------"
 config TYPE_BETATCOM
 	bool "Select a special basis firmware (optional) --->"
 	depends on TYPE_OR_7570_920 && ! ( TYPE_7570 && ORI )
@@ -1021,8 +1023,8 @@ choice
 		bool "TCOM W721V 64.04.60"
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#comment "------------------ language and annex (optional) -------------------"
 comment  "--------------------------------------------------------------------"
+#comment "------------------ language and annex (optional) -------------------"
 choice
 	depends ! ORI
 	prompt "Select firmware default language (optional)"
@@ -1094,8 +1096,8 @@ config ANNEX
 	default "A" if TYPE_ANNEX_A 
 	default "B" if TYPE_ANNEX_B || EXPORT_FORCE_DSL_MULTI_ANNEX
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ comment  "--------------------------------------------------------------------"
   comment "------ AVM firmware for web-interface and features (optional) ------"
-#comment  "--------------------------------------------------------------------"
 #config COMMENT
 #	depends on TYPE_LABOR
 #	string "If you change between W920V and back read this help!"
@@ -1687,8 +1689,8 @@ config AVM_7570_LOCAL
 
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- comment  "--- additonal firmware for LED driver or other things (optional) ---"
-#comment  "--------------------------------------------------------------------"
+ comment  "--------------------------------------------------------------------"
+ comment  "--- Additonal firmware for LED driver or other things (optional) ---"
 config SOURCE2
 	depends on ! ORI
 	bool "2nd AVM Type firmware (optional)"
@@ -2528,7 +2530,7 @@ config EXPORT_FREETZ_TYPE_LANG_EN
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 comment  "--------------------------------------------------------------------"
-#comment "Select Multisettings and OEM  (optional) ---------------------------"
+#comment  "---------------- Multisettings and OEM  (optional) -----------------"
 config EXPORT_FORCE_MULTI_LANGUAGE
 	bool "Use Multilingual from 2nd AVM firmware (optional)"
 	depends on ( TYPE_SRC3_AVM_7272_m54_04_76 || TYPE_SRC3_AVM_7570_XX || TYPE_OR_TCOM7570XX_LOCALTCOM_LOCALAVM ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7272_m54_04_76 ) && SOURCE2
@@ -3009,7 +3011,8 @@ config EXPORT_FBHWRevision
 	default "175" if HWR175 
 
 menu "Options"
-comment "Optional settings for Speed-to-fritz -------------------------------"
+comment "--------------------------------------------------------------------"
+comment "------------- Optional settings for Speed-to-fritz -----------------"
 ###---> no restore original firmware
 config EXPORT_PATCH_OEM
 	bool "Force branding"
