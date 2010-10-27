@@ -524,7 +524,8 @@ config FORCE_VDSL
 		ADSL or Annex A PPPoA users usuly shuld not use this setting.
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-comment "Select router TYPE -------------------------------------------------"
+comment "--> Select router TYPE ---------------------------------------------"
+#comment "Select router TYPE -------------------------------------------------"
 ### ATTENTION! Most variables set up here are in use by various scripts later, so do not change,
 ### except numbers within variable names corresponding to the above firmware names.
 ### If a firmware version or subversion changes replace all the partial numbers accuring within this config file.
@@ -892,8 +893,8 @@ config ORI_FIRMWARE_IS_MULI
     bool
     default n
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#comment "Select basis firmware, 1st Firmware (optional) --------------------"
-comment  "--------------------------------------------------------------------"
+ comment "------------- Basic firmware for DSL-Driver (optional) -------------"
+#comment "--------------------------------------------------------------------"
 config TYPE_BETATCOM
 	bool "Select a special basis firmware (optional) --->"
 	depends on TYPE_OR_7570_920 && ! ( TYPE_7570 && ORI )
@@ -1020,7 +1021,7 @@ choice
 		bool "TCOM W721V 64.04.60"
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#comment "Select language and annex (optional) -------------------------------"
+#comment "------------------ language and annex (optional) -------------------"
 comment  "--------------------------------------------------------------------"
 choice
 	depends ! ORI
@@ -1093,8 +1094,8 @@ config ANNEX
 	default "A" if TYPE_ANNEX_A 
 	default "B" if TYPE_ANNEX_B || EXPORT_FORCE_DSL_MULTI_ANNEX
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#comment "Select AVM firmware (optional) -------------------------------------"
-comment  "--------------------------------------------------------------------"
+  comment "------ AVM firmware for web-interface and features (optional) ------"
+#comment  "--------------------------------------------------------------------"
 #config COMMENT
 #	depends on TYPE_LABOR
 #	string "If you change between W920V and back read this help!"
@@ -1686,7 +1687,8 @@ config AVM_7570_LOCAL
 
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-comment  "--------------------------------------------------------------------"
+ comment  "--- additonal firmware for LED driver or other things (optional) ---"
+#comment  "--------------------------------------------------------------------"
 config SOURCE2
 	depends on ! ORI
 	bool "2nd AVM Type firmware (optional)"
