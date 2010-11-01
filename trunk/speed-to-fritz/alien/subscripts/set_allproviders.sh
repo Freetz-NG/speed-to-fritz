@@ -2,7 +2,7 @@
 # include modpatch function
 . ${include_modpatch}
 echo "-- set all provoders ..."
-DIRI="$(find ${1}/usr/www/ \( -name authform.html -o -name sip1.js -o -name siplist.js\) -type f -print)"
+DIRI="$(find ${1}/usr/www/ \( -name authform.html -o -name sip1.js -o -name siplist.js \) -type f -print)"
 for file_n in $DIRI; do
     ##echo2 "      ${file_n}"
     sed -i -e 's/$var:allprovider 1/ 1 1/' "$file_n"
