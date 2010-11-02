@@ -6,3 +6,41 @@
 
 1280165726 c:\shared\wrtjp-5.2\inpout32.h
 
+1288740800 source:c:\shared\wrtjp-5.2\wrt54g.c
+	<stdio.h>
+	<string.h>
+	<time.h>
+	"wrt54g.h"
+	"ports.c"
+	<inttypes.h>
+	<ctype.h>
+	<stdlib.h>
+	<errno.h>
+	<assert.h>
+	"spi.h"
+	<windows.h>
+	<conio.h>
+
+1288697954 c:\shared\wrtjp-5.2\wrt54g.h
+	<unistd.h>
+	<dev/ppbus/ppi.h>
+	<dev/ppbus/ppbconf.h>
+	<stdio.h>
+	<stdlib.h>
+	<fcntl.h>
+
+1280165726 c:\shared\wrtjp-5.2\ports.c
+	"ports.h"
+	"stdio.h"
+	"inpout32.h"
+	<windows.h>
+	<unistd.h>
+	<dev/ppbus/ppi.h>
+	<dev/ppbus/ppbconf.h>
+	<linux/ppdev.h>
+	<sys/ioctl.h>
+
+1280165726 c:\shared\wrtjp-5.2\ports.h
+
+1251292706 c:\shared\wrtjp-5.2\spi.h
+

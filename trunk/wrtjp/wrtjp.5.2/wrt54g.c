@@ -3352,119 +3352,116 @@ int main(int argc, char** argv)
         if (debug) { printf("out-> PRACC | PROBEN | SETDEV: "); ShowData(PRACC | PROBEN | SETDEV,32); printf("in <- : "); ShowData(ctrl_reg,32);}
         if (debug) { printf("BRKST ? ");  ShowData(BRKST,32); printf("\n");}
         if ( !(ctrl_reg & BRKST))  printf("!!! Processor did NOT enter Debug Mode !!! --> Programexecution stoped!\n");
-        else printf("<Processor did NOT enter Debug Mode!> ... ");
-        //printf("Done\n");
-      }
-      else printf("Halting Processor Skipped\n");
-      // ----------------------------------
-      // Clear Watchdog
-      // ----------------------------------
+       else
+       {
+        printf("<------ Processor Entered Debug Mode ------>\n");
+        // ----------------------------------
+        // Clear Watchdog
+        // ----------------------------------
 ////	    if (issue_watchdog) {printf("Clearing Watchdog (0xb8000080) ... Done\n"); ejtag_write(0xb8000080,0);}
 ////        printf("\nTAP reset ... \n");
 ////        tap_reset();
-      if (issue_watchdog)
-      {
-        printf("Clearing Watchdog (0xb8000080) ... Done\n");
+        if (issue_watchdog)
+        {
+            printf("Clearing Watchdog (0xb8000080) ... Done\n");
+            if (proc_id == 0x00000001)
+            {
+                ejtag_write(0xbc003000, 0xffffffff);
+                ejtag_write(0xbc003008, 0); // Atheros AR5312
+                ejtag_write(0xbc004000, 0x05551212);
+                printf("Done\n");
+            }
+            else
+            {
+                ejtag_write(0xb8000080,0);
+                printf("Done\n");
+            }
+        }
+        else printf("Clearing Watchdog Skipped\n");
+        isbrcm();
+        //mscan();
+        //------------------------------------
+        // Enable Flash Read/Write for Atheros
+        //------------------------------------
         if (proc_id == 0x00000001)
         {
-
-            ejtag_write(0xbc003000, 0xffffffff);
-
-            ejtag_write(0xbc003008, 0); // Atheros AR5312
-
-            ejtag_write(0xbc004000, 0x05551212);
-
+            printf("\nEnabling Atheros Flash Read/Write ... ");
+            //ejtag_write(0xb8400000, 0x000e3ce1); //8bit
+            ejtag_write(0xb8400000, 0x100e3ce1); //16bit
             printf("Done\n");
         }
-        else
+        //----------------------------------------------------------------
+        // Enable Flash Read/Write for Atheros and check Revision Register
+        //
+        // Ejtag IDCODE does not tell us what Atheros Processor it has found..
+        // so lets try to detect via the Revision Register
+        if (proc_id == 0x00000001)
         {
-            ejtag_write(0xb8000080,0);
-            printf("Done\n");
-        }
-      }
-      else printf("Clearing Watchdog Skipped\n");
-      isbrcm();
-      //mscan();
-      //------------------------------------
-      // Enable Flash Read/Write for Atheros
-      //------------------------------------
-      if (proc_id == 0x00000001)
-      {
-        printf("\nEnabling Atheros Flash Read/Write ... ");
-        //ejtag_write(0xb8400000, 0x000e3ce1); //8bit
-        ejtag_write(0xb8400000, 0x100e3ce1); //16bit
-        printf("Done\n");
-      }
-      //----------------------------------------------------------------
-      // Enable Flash Read/Write for Atheros and check Revision Register
-      //
-      // Ejtag IDCODE does not tell us what Atheros Processor it has found..
-      // so lets try to detect via the Revision Register
-      if (proc_id == 0x00000001)
-      {
-        printf("\n.RE-Probing Atheros processor....");
-        uint32_t ARdevid;
-        ARdevid = (ejtag_read(AR5315_SREV) &AR5315_REV_MAJ) >> AR5315_REV_MAJ_S;
-        switch (ARdevid)
-        {
-        case 0x9:
-            printf("\n..Found a Atheros AR2317\n");
-            break;
-            /* FIXME: how can we detect AR2316? */
-        case 0x8:
-            printf("\n..Found a Atheros AR2316\n");
-            break;
-        default:
+            printf("\n.RE-Probing Atheros processor....");
+            uint32_t ARdevid;
+            ARdevid = (ejtag_read(AR5315_SREV) &AR5315_REV_MAJ) >> AR5315_REV_MAJ_S;
+            switch (ARdevid)
+            {
+            case 0x9:
+                printf("\n..Found a Atheros AR2317\n");
+                break;
+                /* FIXME: how can we detect AR2316? */
+            case 0x8:
+                printf("\n..Found a Atheros AR2316\n");
+                break;
+            default:
             //mips_machtype = ATHEROS AR2315;
             break;
+            }
         }
-      }
-      // ----------------------------------
-      // Flash Chip Detection
-      //printf("<------ flash ------>\n");
-      // ----------------------------------
-      if (selected_fc != 0) sflash_config(); else sflash_probe();
-      // ----------------------------------
-      // Execute Requested Operation
-      // ----------------------------------
-      if ((flash_size > 0) && (AREA_LENGTH > 0))
-      {
+        // ----------------------------------
+        // Flash Chip Detection
+        //printf("<------ flash ------>\n");
+        // ----------------------------------
+        if (selected_fc != 0) sflash_config(); else sflash_probe();
+        // ----------------------------------
+        // Execute Requested Operation
+        // ----------------------------------
+        if ((flash_size > 0) && (AREA_LENGTH > 0))
+        {
     		if (run_option == 1 )  run_backup(AREA_NAME, AREA_START, AREA_LENGTH);
     		if (run_option == 2 )  run_erase(AREA_NAME, AREA_START, AREA_LENGTH);
     		if (run_option == 3 )  run_flash(AREA_NAME, AREA_START, AREA_LENGTH);
-      ////        if (run_option == 4 ) {};  // Probe was already run so nothing else needed
-      }
-      if (run_option == 5 )  run_load(AREA_NAME, 0x80040000);
-      if (run_option == 6 )  spi_chiperase(0x1fc00000);
+        ////        if (run_option == 4 ) {};  // Probe was already run so nothing else needed
+        }
+        if (run_option == 5 )  run_load(AREA_NAME, 0x80040000);
+        if (run_option == 6 )  spi_chiperase(0x1fc00000);
 	    printf("\n\n *** REQUESTED OPERATION IS COMPLETE ***\n\n");
-      if (issue_reboot)
-      {
-        printf("Reset Processor ...\n");
-        ExecuteDebugModule(pracc_read_depc);
-        printf("DEPC: 0x%08x\n", data_register);
-        address_register = 0xA0000000;
-        data_register    = 0xBFC00000;
-        //data_register    -= 4;
-        ExecuteDebugModule(pracc_write_depc);
-        // verify my return address
-        ExecuteDebugModule(pracc_read_depc);
-        printf("DEPC: 0x%08x\n", data_register);
+        if (issue_reboot)
+        {
+            printf("Reset Processor ...\n");
+            ExecuteDebugModule(pracc_read_depc);
+            printf("DEPC: 0x%08x\n", data_register);
+            address_register = 0xA0000000;
+            data_register    = 0xBFC00000;
+            //data_register    -= 4;
+            ExecuteDebugModule(pracc_write_depc);
+            // verify my return address
+            ExecuteDebugModule(pracc_read_depc);
+            printf("DEPC: 0x%08x\n", data_register);
+        }
+        if (proc_id == 0x00000001)
+        {
+            printf("Resuming Processor ...\n");
+            return_from_debug_mode();
+            WriteIR(INSTR_RESET);
+            tap_reset();
+            WriteIR(INSTR_CONTROL);
+            ctrl_reg = ReadWriteData(PRRST | PERRST,32);
+            printf(" ECR: 0x%08x\n", ctrl_reg);
+        }
+       }
       }
-      if (proc_id == 0x00000001)
-      {
-        printf("Resuming Processor ...\n");
-        return_from_debug_mode();
-        WriteIR(INSTR_RESET);
-        tap_reset();
-        WriteIR(INSTR_CONTROL);
-        ctrl_reg = ReadWriteData(PRRST | PERRST,32);
-        printf(" ECR: 0x%08x\n", ctrl_reg);
-      }
-  } //not test end
-  waitTime(300000);
-  chip_shutdown();
-  lpt_closeport();
-  return 0;
+    } //not test end
+    waitTime(300000);
+    chip_shutdown();
+    lpt_closeport();
+    return 0;
 } //main ende
 // **************************************************************************
 // **************************************************************************
