@@ -1,6 +1,7 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="  * Readd set name to config in was removed in r1090 by mistake."
+comment="  * Fix set all providers warning"
+
 
 echo "-------------------------------------------------------------------------------------------------------------"
 if [ `id -u` -eq 0 ]; then
@@ -61,12 +62,12 @@ cd trunk
 #svn delete --force ./speed-to-fritz/0r
 #svn delete --force ./speed-to-fritz/kernel_7390.patch
 #svn delete --force ./Config.in
-#svn delete --force ./speed-to-fritz/tools/tar
+#svn delete --force ./speed-to-fritz/tools/usr/lib/libfakeroot.la
 #svn delete --force ./speed-to-fritz/tools/conf
 #svn delete --force ./speed-to-fritz/tools/mconf
 #svn delete --force ./speed-to-fritz/alien/subscripts/add_freetz_type_patches.sh
 #svn delete --force ./speed-to-fritz/alien/add_dect_7150.inc
-#svn delete --force ./speed-to-fritz/alien/subscripts/500.init
+svn delete --force ./speed-to-fritz/alien/subscripts/time
 #svn delete --force ./speed-to-fritz/alien/subscripts/501.init
 #svn delete --force ./speed-to-fritz/alien/subscripts/701.init
 #svn delete --force ./speed-to-fritz/alien/subscripts/900.init

@@ -1,7 +1,7 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="installer: add  
-	* # Do not rename coLinux network devices"
+comment="
+	* # Update jtag tool"
 
 echo "-------------------------------------------------------------------------------------------------------------"
 echo

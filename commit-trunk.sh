@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* Ftp_uploade update, added de language"
+comment="* update ejtag tool"
 
 
 
@@ -33,7 +33,7 @@ svn delete --force ./patch.diff
 #svn propedit svn:ignore .
 
 #svn revert 
-#svn add * --force
+svn add * --force
 
 svn status
 svn diff > ../patch.diff
