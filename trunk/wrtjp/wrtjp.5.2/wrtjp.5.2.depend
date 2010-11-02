@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1280165726 source:c:\shared\wrtjp-5.2\inpout32.c
+	<windows.h>
+	<stdio.h>
+	"inpout32.h"
+
+1280165726 c:\shared\wrtjp-5.2\inpout32.h
+

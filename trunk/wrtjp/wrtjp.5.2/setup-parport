@@ -1,0 +1,18 @@
+echo
+echo
+echo "-------------------------------------------------------------------------------------------"
+# on linux parport must be usable
+#############################################
+rmmod lpt
+rmmod lp
+rmmod parport_pc
+rmmod ppdev
+rmmod parport
+mknod /dev/parport0 c 99 0 -m 666
+
+modprobe parport
+##modprobe ppdev
+
+
+#lsmod |more
+##############################################
