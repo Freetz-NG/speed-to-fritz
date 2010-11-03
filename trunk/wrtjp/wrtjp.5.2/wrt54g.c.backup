@@ -1938,7 +1938,7 @@ void chip_shutdown(void)
 {
     fflush(stdout);
     tap_reset();
-
+    //lpt_closeport();
 }
 void run_backup(char *filename, unsigned int start, unsigned int length)
 {
@@ -1950,13 +1950,17 @@ void run_backup(char *filename, unsigned int start, unsigned int length)
 //    int swp_endian = (cmd_type == CMD_TYPE_SPI);
     time_t start_time = time(0);
     time_t end_time, elapsed_seconds;
+
     struct tm* lt = localtime(&start_time);
-    char time_str[16]; //char time_str[15];
+    char time_str[16];
+    //char time_str[15];
     sprintf(time_str, "%04d%02d%02d_%02d%02d%02d",
             lt->tm_year + 1900, lt->tm_mon + 1, lt->tm_mday,
             lt->tm_hour, lt->tm_min, lt->tm_sec
            );
+
     printf("*** You Selected to Backup the %s ***\n\n",filename);
+
     strcpy(newfilename,filename);
     strcat(newfilename,".SAVED");
     if (issue_timestamp)
@@ -1964,15 +1968,18 @@ void run_backup(char *filename, unsigned int start, unsigned int length)
         strcat(newfilename,"_");
         strcat(newfilename,time_str);
     }
+
     fd = fopen(newfilename, "wb" );
     if (fd<=0)
     {
         fprintf(stderr,"Could not open %s for writing\n", newfilename);
         exit(1);
     }
+
     printf("=========================\n");
     printf("Backup Routine Started\n");
     printf("=========================\n");
+
     printf("\nSaving %s to Disk...\n",newfilename);
     for (addr=start; addr<(start+length); addr+=4)
     {
@@ -1980,19 +1987,31 @@ void run_backup(char *filename, unsigned int start, unsigned int length)
         percent_complete = (counter * 100 / length);
         if (!silent_mode)
             if ((addr&0xF) == 0)  printf("[%3d%% Backed Up]   %08x: ", percent_complete, addr);
+
         data = ejtag_read(addr);
+
+
         if (swap_endian) data = byteSwap_32(data);
         fwrite( (unsigned char*) &data, 1, sizeof(data), fd);
+
         if (silent_mode)  printf("%4d%%   byte count: %d\r", percent_complete, counter);
         else              printf("%08x%c", data, (addr&0xF)==0xC?'\n':' ');
+
         fflush(stdout);
     }
+
+
+
     fclose(fd);
+
     printf("Done  (%s saved to Disk OK)\n\n",newfilename);
+
     printf("bytes written: %d\n", counter);
+
     printf("=========================\n");
     printf("Backup Routine Complete\n");
     printf("=========================\n");
+
     time(&end_time);
     elapsed_seconds = difftime(end_time, start_time);
     printf("elapsed time: %d seconds\n", (int)elapsed_seconds);
