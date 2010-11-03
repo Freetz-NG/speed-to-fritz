@@ -1601,7 +1601,7 @@ void detectOne(void) {
    unsigned char x   = 0;
     x=(32 * device);
     //printf ("'%d' Device * 32\n", x);
-    if ((selected_device > 9) || (selected_device < 0)) printf (" You must select a device number in the range of 1 ... 10, by option: /dev:XX");
+    if ((selected_device > 9) || (selected_device < 0)) printf (" You must select a device number in the range of 1 ... 10, by option: /dv:XX");
     if (debug1) printf ("\n Device '%d' is selcted \n", (selected_device+1) );
     if (debug1) printf ("Beginning scan for cpu\n");
     tap_reset();
@@ -1825,8 +1825,8 @@ void chip_detect(void)
 	    autodetect(1);
 	    instruction_length=instr_l;
         printf("Done\n");
-	    printf("\nProcessing is stopped now, you must now specify new commandline options:\n");
-	    printf("/skipdetect and /dev:XX with the device number of the CPU found.\n");
+	    printf("\nProcessing is stopped now, you must specify new commandline options now:\n");
+	    printf("/skipdetect and /dv:XX with the device number of the CPU found.\n");
 	    chip_shutdown();
 	    exit(0);
 	    if (ndevs==0) {
@@ -2849,7 +2849,7 @@ void show_usage(void)
            "            /dedug ............. show all CPU read/write\n"
            "            /test .............. manual set of ports, siglstep, ...\n"
            "            /check ............. check every flash read and write\n"
-           "            /fc:XX = Optional (Manual) Flash Chip Selection\n"
+           "            /fc:XX ............. Optional (Manual) Flash Chip Selection\n"
            "            /dv:XX ............. Optional (Manual) CPU Chip Selection\n"
            "            /wiggler ........... use wiggler cable, this option is no\n"
            "                                 logeger supported, \n"
@@ -3300,7 +3300,6 @@ int main(int argc, char** argv)
       // ----------------------------------
       printf("\ncheck EJTAG ... \n");
       check_ejtag_features();
-
       // ----------------------------------
       // Reset State Machine For Good Measure
       // ----------------------------------
@@ -3308,6 +3307,7 @@ int main(int argc, char** argv)
       {
         if ((proc_id & 0xfffffff) == 0x535417f)
         {
+        printf("\nIssuing Processor / Peripheral Reset ... \n");
         WriteIR(INSTR_CONTROL);
         WriteData(PRRST | PERRST,32);
         WriteData(0,32);
@@ -3315,27 +3315,27 @@ int main(int argc, char** argv)
         }
         else
         {
+        printf("\nIssuing Processor / Peripheral Reset ... \n");
         WriteIR(INSTR_CONTROL);
         ctrl_reg = ReadWriteData(PRRST | PERRST,32);
         if (debug) { printf("PRRST | PERRST: ");  ShowData(PRRST | PERRST,32); printf("in <- : "); ShowData(ctrl_reg,32); printf("\n");}
         printf("Done\n");
         }
       }
-      else printf("Skipped\n");
       // ----------------------------------
       // Enable Memory Writes
       // ----------------------------------
       // Always skip for EJTAG versions 2.5 and 2.6 since they do not support DMA transactions.
       // Memory Protection bit only applies to EJTAG 2.0 based chips.
       if (ejtag_version != 0)  issue_enable_mw = 0;
-      printf("Enabling Memory Writes ... ");
       if (issue_enable_mw)
       {
+        printf("Enabling Memory Writes ... ");
         // Clear Memory Protection Bit in DCR
         ejtag_dma_write(0xff300000, (ejtag_dma_read(0xff300000) & ~(1<<2)) );
         printf("Done\n");
       }
-      else printf("Skipped\n");
+      else printf("Enabling Memory Writes Skipped\n");
       // ----------------------------------
       // Put into EJTAG Debug Mode
       // ----------------------------------
@@ -3359,13 +3359,11 @@ int main(int argc, char** argv)
         // Clear Watchdog
         // ----------------------------------
 ////	    if (issue_watchdog) {printf("Clearing Watchdog (0xb8000080) ... Done\n"); ejtag_write(0xb8000080,0);}
-////        printf("\nTAP reset ... \n");
-////        tap_reset();
         if (issue_watchdog)
         {
-            printf("Clearing Watchdog (0xb8000080) ... Done\n");
             if (proc_id == 0x00000001)
             {
+                printf("Atheros - Clearing Watchdog (0xb8000080) ... Done\n");
                 ejtag_write(0xbc003000, 0xffffffff);
                 ejtag_write(0xbc003008, 0); // Atheros AR5312
                 ejtag_write(0xbc004000, 0x05551212);
@@ -3373,11 +3371,13 @@ int main(int argc, char** argv)
             }
             else
             {
+                printf("Clearing Watchdog (0xb8000080) ... Done\n");
                 ejtag_write(0xb8000080,0);
                 printf("Done\n");
             }
         }
-        else printf("Clearing Watchdog Skipped\n");
+        //printf("\nTAP reset ... \n");
+        //tap_reset();
         isbrcm();
         //mscan();
         //------------------------------------
@@ -3414,6 +3414,8 @@ int main(int argc, char** argv)
             break;
             }
         }
+        printf("\nTAP reset ... \n");
+        tap_reset();
         // ----------------------------------
         // Flash Chip Detection
         //printf("<------ flash ------>\n");
