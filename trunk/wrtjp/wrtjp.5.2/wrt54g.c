@@ -1938,7 +1938,6 @@ void chip_shutdown(void)
 {
     fflush(stdout);
     tap_reset();
-
 }
 void run_backup(char *filename, unsigned int start, unsigned int length)
 {
@@ -2680,73 +2679,149 @@ void sflash_reset(void)
 
 void sflash_write_word(unsigned int addr, unsigned int data)
 {
-unsigned int data_lo, data_hi;
+    unsigned int data_lo, data_hi;
+
+
     if (USE_DMA)
     {
-    	 // DMA Uses Byte Lanes
-       data_lo = data;
-       data_hi = data;
+        // DMA Uses Byte Lanes
+        data_lo = data;
+        data_hi = data;
+
     }
     else
     {
-    	 // PrAcc Does Not
-       data_lo = (data & 0xFFFF);
-       data_hi = ((data >> 16) & 0xFFFF);
+        // PrAcc Does Not
+        // Speedtouch does not accept flashing with DMA, so you have to use /nodma
+
+        data_lo = (data & 0xFFFF);
+        data_hi = ((data >> 16) & 0xFFFF);
+
+    }
+
+    if (cmd_type == CMD_TYPE_SPI)
+    {
+        spiflash_write_word(addr, data);
     }
 
     if (cmd_type == CMD_TYPE_AMD)
     {
-      // Handle Half Of Word
-      ejtag_write_h(FLASH_MEMORY_START+(0x555 << 1), 0x00AA00AA);
-      ejtag_write_h(FLASH_MEMORY_START+(0x2AA << 1), 0x00550055);
-      ejtag_write_h(FLASH_MEMORY_START+(0x555 << 1), 0x00A000A0);
-      ejtag_write_h(addr, data_lo);
-      // Wait for Completion
-      sflash_poll(addr, (data & 0xffff));
-      // Now Handle Other Half Of Word
-      ejtag_write_h(FLASH_MEMORY_START+(0x555 << 1), 0x00AA00AA);
-      ejtag_write_h(FLASH_MEMORY_START+(0x2AA << 1), 0x00550055);
-      ejtag_write_h(FLASH_MEMORY_START+(0x555 << 1), 0x00A000A0);
-      ejtag_write_h(addr+2, data_hi);
-      // Wait for Completion
-      sflash_poll(addr+2, ((data >> 16) & 0xffff));
+
+        if (cl_bypass)
+        {
+            if (proc_id == 0x00000001)
+            {
+                ejtag_write_h(FLASH_MEMORY_START+(0x555 << 1), 0x00A000A0);
+                ejtag_write_h(addr+2, data_lo);
+                tnano(100);
+
+
+                ejtag_write_h(FLASH_MEMORY_START+(0x555 << 1), 0x00A000A0);
+                ejtag_write_h(addr, data_hi);
+                tnano(100);
+            }
+            else
+            {
+
+                ejtag_write_h(FLASH_MEMORY_START+(0x555 << 1), 0x00A000A0);
+                ejtag_write_h(addr, data_lo);
+
+                ejtag_write_h(FLASH_MEMORY_START+(0x555 << 1), 0x00A000A0);
+                ejtag_write_h(addr+2, data_hi);
+
+            }
+        }
+        else
+
+            if (speedtouch || proc_id == 0x00000001)
+            {
+                // Speedtouch uses a different flash address pattern.
+                // Handle Half Of Word
+                ejtag_write_h(FLASH_MEMORY_START+(0x555 << 1), 0x00AA00AA);
+                ejtag_write_h(FLASH_MEMORY_START+(0x2AA << 1), 0x00550055);
+                ejtag_write_h(FLASH_MEMORY_START+(0x555 << 1), 0x00A000A0);
+                ejtag_write_h(addr+2, data_lo);
+
+                // Wait for Completion
+                sflash_poll(addr, (data & 0xffff));
+
+                // Now Handle Other Half Of Word
+                ejtag_write_h(FLASH_MEMORY_START+(0x555 << 1), 0x00AA00AA);
+                ejtag_write_h(FLASH_MEMORY_START+(0x2AA << 1), 0x00550055);
+                ejtag_write_h(FLASH_MEMORY_START+(0x555 << 1), 0x00A000A0);
+                ejtag_write_h(addr, data_hi);
+
+                // Wait for Completion
+                sflash_poll(addr+2, ((data >> 16) & 0xffff));
+            }
+
+            else
+            {
+                ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00AA00AA);
+                ejtag_write_h(FLASH_MEMORY_START+(0x2AAA << 1), 0x00550055);
+                ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00A000A0);
+                ejtag_write_h(addr, data_lo);
+
+                // Wait for Completion
+                sflash_poll(addr, (data & 0xffff));
+
+                // Now Handle Other Half Of Word
+                ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00AA00AA);
+                ejtag_write_h(FLASH_MEMORY_START+(0x2AAA << 1), 0x00550055);
+                ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00A000A0);
+                ejtag_write_h(addr+2, data_hi);
+
+                // Wait for Completion
+                sflash_poll(addr+2, ((data >> 16) & 0xffff));
+            }
+
+
     }
+
     if (cmd_type == CMD_TYPE_SST)
     {
-      // Handle Half Of Word
-      ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00AA00AA);
-      ejtag_write_h(FLASH_MEMORY_START+(0x2AAA << 1), 0x00550055);
-      ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00A000A0);
-      ejtag_write_h(addr, data_lo);
-      // Wait for Completion
-      sflash_poll(addr, (data & 0xffff));
-      // Now Handle Other Half Of Word
-      ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00AA00AA);
-      ejtag_write_h(FLASH_MEMORY_START+(0x2AAA << 1), 0x00550055);
-      ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00A000A0);
-      ejtag_write_h(addr+2, data_hi);
-      // Wait for Completion
-      sflash_poll(addr+2, ((data >> 16) & 0xffff));
+        // Handle Half Of Word
+        ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00AA00AA);
+        ejtag_write_h(FLASH_MEMORY_START+(0x2AAA << 1), 0x00550055);
+        ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00A000A0);
+        ejtag_write_h(addr, data_lo);
+
+        // Wait for Completion
+        sflash_poll(addr, (data & 0xffff));
+
+        // Now Handle Other Half Of Word
+        ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00AA00AA);
+        ejtag_write_h(FLASH_MEMORY_START+(0x2AAA << 1), 0x00550055);
+        ejtag_write_h(FLASH_MEMORY_START+(0x5555 << 1), 0x00A000A0);
+        ejtag_write_h(addr+2, data_hi);
+
+        // Wait for Completion
+        sflash_poll(addr+2, ((data >> 16) & 0xffff));
     }
+
     if ((cmd_type == CMD_TYPE_BSC) || (cmd_type == CMD_TYPE_SCS))
     {
-       // Handle Half Of Word
-       ejtag_write_h(addr, 0x00500050);     // Clear Status Command
-       ejtag_write_h(addr, 0x00400040);     // Write Command
-       ejtag_write_h(addr, data_lo);        // Send HalfWord Data
-       ejtag_write_h(addr, 0x00700070);     // Check Status Command
-       // Wait for Completion
-       sflash_poll(addr, STATUS_READY);
-       // Now Handle Other Half Of Word
-       ejtag_write_h(addr+2, 0x00500050);   // Clear Status Command
-       ejtag_write_h(addr+2, 0x00400040);   // Write Command
-       ejtag_write_h(addr+2, data_hi);      // Send HalfWord Data
-       ejtag_write_h(addr+2, 0x00700070);   // Check Status Command
-       // Wait for Completion
-       sflash_poll(addr+2, STATUS_READY);
+
+
+        // Handle Half Of Word
+        ejtag_write_h(addr, 0x00500050);     // Clear Status Command
+        ejtag_write_h(addr, 0x00400040);     // Write Command
+        ejtag_write_h(addr, data_lo);        // Send HalfWord Data
+//       ejtag_write_h(addr, 0x00700070);     // Check Status Command
+
+        // Wait for Completion
+        sflash_poll(addr, STATUS_READY);
+
+        // Now Handle Other Half Of Word
+        ejtag_write_h(addr+2, 0x00500050);   // Clear Status Command
+        ejtag_write_h(addr+2, 0x00400040);   // Write Command
+        ejtag_write_h(addr+2, data_hi);      // Send HalfWord Data
+        //     ejtag_write_h(addr+2, 0x00700070);   // Check Status Command
+
+
+        sflash_poll(addr, STATUS_READY);
     }
 }
-
 void show_usage(void)
 {
 
