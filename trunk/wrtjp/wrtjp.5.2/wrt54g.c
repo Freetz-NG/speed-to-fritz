@@ -7,7 +7,7 @@
 //  and other misc routers.
 //
 //  New for v5.2 - Added all Tornado Options:
-//               - See changlog.txt for more details
+//               - See changelog.txt for more details
 //  New for v5.1 - Added 1 new Flash types to the list:
 //               - /check ............. do check flash reed and write
 //				 - fix segmetation fault in PrAcc routine,
@@ -1684,53 +1684,48 @@ void autodetect(unsigned char notquiet ) {
 //###################################################################################################
 void setHeaderTrailer(void) {
    unsigned int x=0;
-  // Get the number of devices on the scan chain
    if (debug1) printf("\n");
-   autodetect(1);
+   autodetect(1); // Get the number of devices on the chain
    if (debug1) printf("\n");
-
    if (ndevs==0) { // autoscan did not find the number of devices
      printf ("Could not set the bypass bits, you must du this by Optins! ") ;
      exit(0); }
-
-  // Ensure selected device is in range
+   // Ensure selected device is in range
    if (selected_device > ndevs)  {
     printf ("Selected device number %d to identify is not defined in scan chain\n", selected_device) ;
     exit(0);
-  }
-    //devices found are seved upside down
-    device = ndevs-selected_device-1;
-    //printf ("\ndevice: '%d' ndevs: '%d' \n", device, ndevs);
-    //set device
-    if (setBypass) set_tir_hir(); /* parameter 0 means take instr from chip table */
-
-    detectOne();
-    if (debug1) printf("\n");
-    int instruct=instruction;
-    instruction_length=instr_l;
-
+   }
+   //devices found are saved upside down
+   device = ndevs-selected_device-1;
+   //printf ("\ndevice: '%d' ndevs: '%d' \n", device, ndevs);
+   //set device
+   if (setBypass) set_tir_hir(); /* parameter 0 means take instr from chip table */
+   detectOne();
+   if (debug1) printf("\n");
+   int instruct=instruction;
+   instruction_length=instr_l;
    if (!hdr) hdr = ndevs-1-selected_device; //Calculate header drbits count
    if (!tdr) tdr = ndevs-1-hdr; //Calculate trailer drbits count
-   printf ("\nCount devives: '%d' selected device: '%d' count header bits added to DR: '%d' count trailing bits added to DR: '%d'\n", ndevs, device+1, hdr, tdr);
+   printf ("\nCount devives: '%d' Selected device: '%d' count header bits added to DR: '%d' count trailing bits added to DR: '%d'\n", ndevs, device+1, hdr, tdr);
    if (((!hir) && (!tir)) && (ndevs!=1)) { printf ("You must specify /tir:X or /hir:X by Option! \n\n"); exit (0);
    } else {
      if (!tir && ChainLength)  tir = (ChainLength)-instruction_length-hir; //Calculate trailer irbits count
      if (!hir && ChainLength)  hir = (ChainLength)-instruction_length-tir; //Calculate header irbits count
      printf ("Chain length: '%d' Selected IR length: '%d' Sum of added header bits to IR: '%d' Sum of added trailer bits to IR: '%d'\n\n", ChainLength, instruction_length, hir, tir);
    }
-    WriteIR(instruct);
-    x=ReadData(32);
-    lookupCipList(x, 1);
-    //test
-    if (debug1) {
+   WriteIR(instruct);
+   x=ReadData(32);
+   lookupCipList(x, 1);
+   //test
+   if (debug1) {
 	printf ("\nDevice number: '%d'\n", selected_device+1);
 	printf ("\nInsruction:\n");
 	ShowDataLine(instruct,instruction_length);
 	printf ("\nChip ID wanted:\n");
 	ShowDataLine(idcode_in_use,32);
 	printf ("\n");
-    }
-    if ((idcode_in_use) != (x)) {
+   }
+   if ((idcode_in_use) != (x)) {
 	printf ("\n---- Chip is not selected as disired!! ----\n");
 	printf ("\nDevice number: '%d'\n", selected_device+1);
 	printf ("\nInsruction:\n");
@@ -1738,10 +1733,10 @@ void setHeaderTrailer(void) {
 	printf ("\nChip ID wanted:\n");
 	ShowDataLine(idcode_in_use,32);
 	printf ("\n");
-        lookupCipList(x, 1);
+    lookupCipList(x, 1);
 	printf ("\n");
 	exit(0);
-    }
+   }
 }
 //###################################################################################################
 //###################################################################################################
@@ -1756,7 +1751,7 @@ void detectChainLength(void)
     unsigned int retries = 10000;
     unsigned int recive_data = 0;
     unsigned char recive_bit = 0;
-    printf("Beginning dedect scan leangth... \n");
+    printf("Beginning detect scan leangth... \n");
     printf("Switch on power!...\n");
     rep:
     tap_reset();
@@ -1788,7 +1783,7 @@ void detectChainLength(void)
     if ((i<=0) || (i==64)) {
        if (retries--) goto rep;
 	printf("\n\n==================================\n");
-	printf("Chain leangh could not be dedected.\n");
+	printf("Chain leangh could not be detected.\n");
 	printf("Not powerd on, or TDI TDO shorted!\n");
 	printf("Or Watchdog is on.\n");
 	printf("==================================\n\n");
@@ -1797,7 +1792,6 @@ void detectChainLength(void)
     printf("Chain lenght: %d IR-Chain: ",i);
     ShowData(recive_data,i);
     ChainLength=i;
-
     // Return to RTI state
     //tap_reset();
     //printf ("Auto-detect complete\n");
@@ -1807,7 +1801,6 @@ void chip_detect(void)
 {
     printf("Probing bus ...\n");
     tap_reset();
-
     hir = selected_hir;
     tir = selected_tir;
     hdr = selected_hdr;
@@ -1828,8 +1821,8 @@ void chip_detect(void)
 	    printf("\nProcessing is stopped now, you must specify new commandline options now:\n");
 	    printf("/skipdetect and /dv:XX with the device number of the CPU found.\n");
 	    chip_shutdown();
-	    exit(0);
-	    if (ndevs==0) {
+        /*if (ndevs==0)
+        {
             printf("*** Possible Causes:\n");
             printf("*** Unknown or NO CPU Chip ID Detected ***\n\n");
             printf("*** Possible Causes:\n");
@@ -1837,9 +1830,10 @@ void chip_detect(void)
             printf("    2) Device is not Powered On.\n");
             printf("    3) Improper JTAG Cable.\n");
             printf("    4) Unrecognized CPU Chip ID.\n");
-	    }
+        }*/
+	    exit(0);
     }
-setHeaderTrailer();
+    setHeaderTrailer(); // Detect the number of devices on the chain and set bits
 }
 //###################################################################################################*/
 void chip_detecty(void)
@@ -1854,7 +1848,7 @@ void chip_detecty(void)
     tap_reset();
     if (skipdetect)
     {
-    	 // Manual Override CPU Chip ID
+       // Manual Override CPU Chip ID
        instruction_length = instrlen;
        WriteIR(INSTR_IDCODE);
        id = ReadData(32);
@@ -2282,12 +2276,13 @@ void sflash_config(void)
 }
 void sflash_probe(void)
 {
-    int retries = 0;
+    //int retries = 0;
+    int retries = 30;
+    int check1= check;
+    check = 0;
     if (strcasecmp(AREA_NAME,"CUSTOM")==0)
     {
-////   int retries = 30;
-////   int check1= check;
-////   check = 0;
+
         FLASH_MEMORY_START = selected_window;
     }
     else
@@ -2350,7 +2345,6 @@ again:
         ejtag_write_h(FLASH_MEMORY_START + (0x5555 << 1), 0x00900090);
         vendid = ejtag_read_h(FLASH_MEMORY_START);
         devid  = ejtag_read_h(FLASH_MEMORY_START+2);
-
         if (Flash_DEBUG)
         {
             printf("\nDebug SST Vendid :    ");
@@ -2365,7 +2359,6 @@ again:
     {
         cmd_type = CMD_TYPE_BSC;
         sflash_reset();
-
         ejtag_write_h(FLASH_MEMORY_START, 0x00900090);
         vendid = ejtag_read(FLASH_MEMORY_START);
         devid  = ejtag_read(FLASH_MEMORY_START+2);
@@ -2388,12 +2381,11 @@ again:
             //id2 = spiflash_sendcmd(BCM_SPI_RD_RES);
         }
         else
-            id = spiflash_sendcmd(SPI_RD_ID);
+        id = spiflash_sendcmd(SPI_RD_ID);
         id <<= 8;
         id = byteSwap_32(id);
         vendid = id >> 16;
         devid  = id & 0x0000ffff;
-
         if (Flash_DEBUG)
         {
             printf("\nDebug SPI id :    ");
@@ -2413,8 +2405,10 @@ again:
         {
             printf("Done\n\n");
             printf("*** Unknown or NO Flash Chip Detected ***");
+            waitTime(300000);
         }
     }
+    check = check1;
     return;
 }
 int spiflash_poll(void)
@@ -3042,7 +3036,6 @@ void isbrcm(void)
     if ((proc_id & 0x00000fff) == 0x17f)
     {
         bcmproc = 1;
-
         spi_flash_read = BRCM_SPI_READ;
         spi_flash_mmr = BRCM_SPI_MMR;
         spi_flash_mmr_size = BRCM_SPI_MMR_SIZE;
@@ -3063,7 +3056,6 @@ void isbrcm(void)
         spi_ctl_start = AR_SPI_CTL_START;
         spi_ctl_busy = AR_SPI_CTL_BUSY;
     }
-
     if (Flash_DEBUG)
     {
         printf("spi_flash_read 0x%08x\n", spi_flash_read);
@@ -3303,6 +3295,8 @@ int main(int argc, char** argv)
       // ----------------------------------
       // Reset State Machine For Good Measure
       // ----------------------------------
+      printf("\nTAP reset ... \n");
+      tap_reset();
       if (issue_reset)
       {
         if ((proc_id & 0xfffffff) == 0x535417f)
@@ -3358,7 +3352,6 @@ int main(int argc, char** argv)
         // ----------------------------------
         // Clear Watchdog
         // ----------------------------------
-////	    if (issue_watchdog) {printf("Clearing Watchdog (0xb8000080) ... Done\n"); ejtag_write(0xb8000080,0);}
         if (issue_watchdog)
         {
             if (proc_id == 0x00000001)
@@ -3376,9 +3369,7 @@ int main(int argc, char** argv)
                 printf("Done\n");
             }
         }
-        //printf("\nTAP reset ... \n");
-        //tap_reset();
-        isbrcm();
+        isbrcm(); //set broadcom or spi registers
         //mscan();
         //------------------------------------
         // Enable Flash Read/Write for Atheros
@@ -3389,14 +3380,11 @@ int main(int argc, char** argv)
             //ejtag_write(0xb8400000, 0x000e3ce1); //8bit
             ejtag_write(0xb8400000, 0x100e3ce1); //16bit
             printf("Done\n");
-        }
         //----------------------------------------------------------------
         // Enable Flash Read/Write for Atheros and check Revision Register
         //
         // Ejtag IDCODE does not tell us what Atheros Processor it has found..
         // so lets try to detect via the Revision Register
-        if (proc_id == 0x00000001)
-        {
             printf("\n.RE-Probing Atheros processor....");
             uint32_t ARdevid;
             ARdevid = (ejtag_read(AR5315_SREV) &AR5315_REV_MAJ) >> AR5315_REV_MAJ_S;
@@ -3410,12 +3398,12 @@ int main(int argc, char** argv)
                 printf("\n..Found a Atheros AR2316\n");
                 break;
             default:
-            //mips_machtype = ATHEROS AR2315;
-            break;
+                //mips_machtype = ATHEROS AR2315;
+                break;
             }
         }
-        printf("\nTAP reset ... \n");
-        tap_reset();
+        //printf("\nTAP reset ... \n");
+        //tap_reset();
         // ----------------------------------
         // Flash Chip Detection
         //printf("<------ flash ------>\n");
