@@ -433,9 +433,9 @@ config AVM_7390_84_04_86
    string
      default "@AVM/fritz.box/fritzbox.fon_wlan_7390/firmware/deutsch/FRITZ.Box_Fon_WLAN_7390.84.04.86.image"
 
-config AVM_PRE_7390_18255
+config AVM_PRE_7390_18561
    string
-     default "http://www.avm.de/de/Service/Service-Portale/Labor/7390_vorschau_release_candidate/labor_start_neues_aus_der_entwicklung.php HW156:fritzbox-labor-7390-18255.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7390.Labor.84.04.85-18255.image"
+     default "http://www.avm.de/de/Service/Service-Portale/Labor/7390_vorschau_release_candidate/labor_start_neues_aus_der_entwicklung.php HW156:fritzbox-labor-7390-18561.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7390.Labor.84.04.86-18561.image"
 
 config AVM_DSL_7390_18419
    string
@@ -1135,8 +1135,8 @@ choice
 		default TYPE_PRE_7272_17828 if TYPE_OR_7570_920
 		default TYPE_PRE_7273_18563 if TYPE_7240
 		#->(only for testing)
-#		default TYPE_PRE_7390_18101 if TYPE_7390
-		default TYPE_DSL_7390_18419 if TYPE_7390
+		default TYPE_PRE_7390_18561 if TYPE_7390
+#		default TYPE_DSL_7390_18419 if TYPE_7390
 #		default TYPE_PHONE_7390_18516 if TYPE_7390
 #		default TYPE_7390_84_04_86 if TYPE_7390
 		default TYPE_W722_80_04_76 if TYPE_SPEEDPORT_W722V
@@ -1589,8 +1589,8 @@ choice
 		help 
 			FRITZ!Lab (PREVIEW):
 
-	config TYPE_PRE_7390_18101
-		bool "AVM 7390 84.04.85 18101 Prerelase"
+	config TYPE_PRE_7390_18561
+		bool "AVM 7390 84.04.86 18561 Prerelase"
 		depends on TYPE_OR_7390_722
 		help 
 			FRITZ!Lab (PREVIEW):
@@ -1927,8 +1927,8 @@ choice
 	config TYPE_SRC3_AVM_PRE_7390_17370
 		bool "AVM 7390 17370"
 
-	config TYPE_SRC3_AVM_PRE_7390_18255
-		bool "AVM 7390 18255"
+	config TYPE_SRC3_AVM_PRE_7390_18561
+		bool "AVM 7390 18561"
 
 	config TYPE_SRC3_AVM_PHONE_7390_18377
 		bool "AVM 7390 84.04.86 18377"
@@ -2086,9 +2086,9 @@ config TCOM_IMG
 #	default "$AVM_7390_84_04_82"		if TYPE_7390
 #	default "$AVM_7390_84_04_84"		if TYPE_7390
 #	default "$AVM_7390_84_04_86"		if TYPE_7390
-#	default "$AVM_PRE_7390_18255"		if TYPE_7390
+	default "$AVM_PRE_7390_18561"		if TYPE_7390
 #	default "$AVM_PHONE_7390_18377"		if TYPE_7390
-	default "$AVM_DSL_7390_18419"		if TYPE_7390
+#	default "$AVM_DSL_7390_18419"		if TYPE_7390
 	default "$TCOM_LOCAL"	 			if TYPE_LOCAL_TCOM
 	default "$TCOM_7570_LOCAL"	 		if TYPE_LOCAL_TCOM_7570
 
@@ -2188,7 +2188,7 @@ config AVM_IMG
 	default "$AVM_7390_84_04_82"					if TYPE_7390_84_04_82
 	default "$AVM_7390_84_04_84"					if TYPE_7390_84_04_84
 	default "$AVM_7390_84_04_86"					if TYPE_7390_84_04_86
-	default "$AVM_PRE_7390_18255"					if TYPE_PRE_7390_18101
+	default "$AVM_PRE_7390_18561"					if TYPE_PRE_7390_18561
 	default "$AVM_PHONE_7390_18377"					if TYPE_PHONE_7390_18377
 	default "$AVM_DSL_7390_18419"					if TYPE_DSL_7390_18419
 	default "$TCOM_W722_80_04_76" 					if TYPE_W722_80_04_76
@@ -2269,7 +2269,7 @@ config SRC2_IMG
 	default "$AVM_7390_84_04_82"			if TYPE_SRC3_AVM_PRE_7390_16165
 	default "$AVM_7390_84_04_84"			if TYPE_SRC3_AVM_7390_84_04_84
 	default "$AVM_7390_84_04_86"			if TYPE_SRC3_AVM_7390_84_04_86
-	default "$AVM_PRE_7390_18255"			if TYPE_SRC3_AVM_PRE_7390_18255
+	default "$AVM_PRE_7390_18561"			if TYPE_SRC3_AVM_PRE_7390_18561
 	default "$AVM_PHONE_7390_18377"			if TYPE_SRC3_AVM_PHONE_7390_18377
 	default "$AVM_DSL_7390_18419"			if TYPE_SRC3_AVM_DSL_7390_18419
 	default "$AVM_PHONE_72XX"				if TYPE_SRC3_AVM_PHONE_72XX
@@ -2341,7 +2341,7 @@ config TYPE_LABOR_TYPE
 #	default "86"		if TYPE_7272_54_04_86 || TYPE_7273_54_04_86 || TYPE_7273_74_04_86
 	default "CORE"	 	if TYPE_CORE_7273_15220 || TYPE_CORE_7272_15220 || TYPE_CORE_7271_16540 || TYPE_CORE_7272_16540 || TYPE_CORE_7273_16540 || TYPE_CORE_7240_16540 || TYPE_7240_CORE_16540
 	default "PREVIEW"	if TYPE_PRE_7240_18237 || TYPE_PRE_7271_17828 || TYPE_PRE_7272_17828 || TYPE_PRE_7273_17828 || TYPE_PRE_7271_18255 || TYPE_PRE_7272_18563 || TYPE_PRE_7273_18563 || \
-				TYPE_7170_PRE_16352 || TYPE_7390_PRE_18101 || TYPE_PRE_72XX
+				TYPE_7170_PRE_16352 || TYPE_7390_PRE_18561 || TYPE_PRE_72XX
 #	default "13948" 	if TYPE_7170_13948
 #	default "13486" 	if TYPE_7272_13486
 	default "NAS"		if TYPE_NAS_7272_16561 || TYPE_NAS_7273_16561
