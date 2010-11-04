@@ -67,8 +67,6 @@
 #define false 0
 #define TRUE  1
 #define FALSE 0
-#define RETRY_ATTEMPTS 16
-
 
 #define DATA_PORT 0x378
 #define STATUS_PORT 0x378+1
