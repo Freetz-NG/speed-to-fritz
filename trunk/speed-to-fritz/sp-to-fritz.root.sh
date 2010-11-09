@@ -997,6 +997,17 @@ export CONFIG_ETH_COUNT="4"
 	export CONFIG_BOX_FEEDBACK="n"
 	export CONFIG_LED_NO_DSL_LED="n"
 	export CONFIG_DECT_ONOFF="n"
+	
+	export CONFIG_DECT_NO_EMISSION="y"
+	export CONFIG_DECT="y"
+	export CONFIG_DECT_MONI_EX="y"
+	export CONFIG_DECT2="y"
+
+	export CONFIG_GDB="n"
+	export CONFIG_GDB_FULL="n"
+	export CONFIG_GDB_SERVER="n"
+	export CONFIG_PLUGIN="n"
+	
 	export CONFIG_VOL_COUNTER="y"
 # is set via menu
 #	export CONFIG_TR064=""
@@ -1034,7 +1045,7 @@ export CONFIG_ETH_COUNT="4"
 	export kernel_size="7798784"
 	;;
 "920"|"7570"|"757H")
-  if [ "$1" == "7570HN" ]; then
+  if [ "$1" == "757H" ]; then
 	export CLASS=""
 	export SPNUM="7570"
 	export PROD="7570_HN"
@@ -1125,19 +1136,39 @@ export CONFIG_ETH_COUNT="4"
 	export CONFIG_UsbHost="1" 
 	export CONFIG_UsbStorage="1"
 	export CONFIG_UsbPrint="1"
-#	export kernel_start="0x90010000"
-	export kernel_start="0x90020000"
-	export kernel_size="16121856"
-#	export filesystem_start="0x90000000"
-#	export filesystem_size="0"
-	export urlader_start="0x90000000"
-#	export urlader_size="65536"
-	export urlader_size="131072"
 	# needs differnet tool
 	export MKSQUASHFS_TOOL="mksquashfs3-lzma"
 	export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
 	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
+#	export filesystem_size="0"
+#	export filesystem_start="0x90000000"
+	export urlader_start="0x90000000"
+#	export urlader_size="65536"  #0x10000
+	export urlader_size="131072" #0x20000
+#	export kernel_start="0x90010000"
+	export kernel_start="0x90020000" 
+	export kernel_size="16121856" #0xF60000
+if [ "$1" == "757H" ]; then
+	export urlader_size="262144" #0x40000
+	export kernel_start="0x90040000"
+	export kernel_size="7995392" #0x7A0000
+fi
 	;;
+#HN env.          size 
+#    mtd0:         0000          0x90000000,0x90000000 # "rootfs"
+#    mtd1:     0x7A0000          0x90040000,0x907E0000 # "kernel"
+#    mtd2:      0x40000          0x90000000,0x90040000 # "urlader"
+#    mtd3:      0x40000          0x90F80000,0x90FC0000 # "tffs (1)"
+#    mtd4:      0x40000          0x90FC0000,0x91000000 # "tffs (2)"
+#    mtd5:     0x7A0000          0x907E0000,0x90F80000 # "rootfs" +  "kernel" #(6bd500 + e2b00 = 7A0000)
+# cat /proc/mtd sagt das hier:
+#dev:    size   erasesize  name
+#mtd0: 006bd500 00020000 "rootfs" # (6bd500 
+#mtd1: 000e2b00 00020000 "kernel" # + e2b00 = 7A0000)
+#mtd2: 00040000 00020000 "urlader"
+#mtd3: 00040000 00020000 "tffs (1)"
+#mtd4: 00040000 00020000 "tffs (2)"
+#mtd5: 01000000 00020000 "reserved" # size dez: 16777216
 "7271")
 	export CLASS=""
 	export SPNUM="7270"
@@ -1648,7 +1679,7 @@ if [ "$ORI" != "y" ]; then
  #export download links
  $HOMEDIR/extract_rpllist.sh
  # add oem links
- $sh_DIR/make_oem_links.sh "${SRC}"
+ $sh_DIR/make_oem_links.sh "${SRC}" "${OEMLINKS}"
  # set OEM via rc.S not via environment
  [ "$PATCH_OEM" = "y" ] && $sh2_DIR/patch_OEMandMyIP "${SRC}"
  # fix default route
