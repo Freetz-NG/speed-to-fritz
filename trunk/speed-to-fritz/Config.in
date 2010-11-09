@@ -196,9 +196,9 @@ config AVM_7170_en_29_04_82
     string
     default "@AVM/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_b/FRITZ.Box_Fon_WLAN_7170.AnnexB.en.29.04.82.image"
 
-#config AVM_BETA_7170_16352
-#  string
-#    default "http://www.avm.de/de/Service/Service-Portale/Labor/7170_vorschau_release_candidate/fritz_box-labor-16352.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Laobr.29.04.80-16352.image"
+config AVM_BETA_7170_18618
+  string
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7170_vorschau_release_candidate/fritz_box-labor-18618.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.86-18618.image"
 
 #config AVM_7170_13948
 #    string
@@ -1153,14 +1153,11 @@ choice
 #			fixes for Wifi (Green AP, sources of interference), Facsimile
 #			reception and DECT-support and expands NAS functionality.
 
-#	config TYPE_7170_PRE_16352
-#		bool "7170 16352 - Alles in einem pre-release"
-#		depends on (TYPE_7170 || TYPE_OR_701_721_SPECIAL721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
-#		help
-#			FRITZ!Lab AIO: This release combines several software improvements.
-#			Therefore AIO means All-In-One. As of now, it contains various
-#			fixes for Wifi (Green AP, sources of interference), Facsimile
-#			reception and DECT-support and expands NAS functionality.
+	config TYPE_7170_PRE_18618
+		bool "7170 18618 - pre-release"
+		depends on (TYPE_7170 || TYPE_OR_701_721_SPECIAL721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
+		help
+			FRITZ!Lab 29.04.86-18618
 
 	config TYPE_7170_DSL_14119
 		bool "AVM 7170 14119 Labor-DSL"
@@ -1789,8 +1786,8 @@ choice
 	config TYPE_SRC3_AVM_MINI_7170_14935
 		bool "AVM 7170 14935 MINI"
 
-#	config TYPE_SRC3_AVM_PRE_7170_16352
-#		bool "AVM 7170 16352 (PREVIEW)"
+	config TYPE_SRC3_AVM_PRE_7170_18618
+		bool "AVM 7170 18618 (PREVIEW)"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7240 Firmware
@@ -2126,7 +2123,7 @@ config AVM_IMG
 	default "$AVM_DSL_7170_14119"				if TYPE_7170_DSL_14119 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_GAMING_7170_11435"			if TYPE_7170_GAMING_11435 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_MINI_7170_14935"				if TYPE_7170_MINI_14935 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_BETA_7170_16352"				if TYPE_7170_PRE_16352 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_BETA_7170_18618"				if TYPE_7170_PRE_18618 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7240_73_04_80"				if ( TYPE_7240_73_04_80 )
 	default "$AVM_7240_73_04_87"				if ( TYPE_7240_73_04_87 )
 	default "$AVM_7570_75_04_82"				if ( TYPE_7570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX
@@ -2221,7 +2218,7 @@ config SRC2_IMG
 	default "$AVM_DSL_7170_14119"			if TYPE_SRC3_AVM_DSL_7170_14119
 	default "$AVM_GAMING_7170_11435"		if TYPE_SRC3_AVM_GAMING_7170_11435
 	default "$AVM_MINI_7170_14935"			if TYPE_SRC3_AVM_MINI_7170_14935
-	default "$AVM_BETA_7170_16352"			if TYPE_SRC3_AVM_PRE_7170_16352
+	default "$AVM_BETA_7170_18618"			if TYPE_SRC3_AVM_PRE_7170_18618
 	default "$AVM_LOCAL"				if TYPE_LOCAL_AVM_IMAGE
 	
 	default "$AVM_7272_54_04_57" 			if TYPE_SRC3_AVM_7272_54_04_57
@@ -2341,7 +2338,7 @@ config TYPE_LABOR_TYPE
 #	default "86"		if TYPE_7272_54_04_86 || TYPE_7273_54_04_86 || TYPE_7273_74_04_86
 	default "CORE"	 	if TYPE_CORE_7273_15220 || TYPE_CORE_7272_15220 || TYPE_CORE_7271_16540 || TYPE_CORE_7272_16540 || TYPE_CORE_7273_16540 || TYPE_CORE_7240_16540 || TYPE_7240_CORE_16540
 	default "PREVIEW"	if TYPE_PRE_7240_18237 || TYPE_PRE_7271_17828 || TYPE_PRE_7272_17828 || TYPE_PRE_7273_17828 || TYPE_PRE_7271_18255 || TYPE_PRE_7272_18563 || TYPE_PRE_7273_18563 || \
-				TYPE_7170_PRE_16352 || TYPE_7390_PRE_18561 || TYPE_PRE_72XX
+				TYPE_7170_PRE_18618 || TYPE_7390_PRE_18561 || TYPE_PRE_72XX
 #	default "13948" 	if TYPE_7170_13948
 #	default "13486" 	if TYPE_7272_13486
 	default "NAS"		if TYPE_NAS_7272_16561 || TYPE_NAS_7273_16561
