@@ -1679,7 +1679,7 @@ if [ "$ORI" != "y" ]; then
  #export download links
  $HOMEDIR/extract_rpllist.sh
  # add oem links
- $sh_DIR/make_oem_links.sh "${SRC}" "${OEMLINKS}"
+ $sh_DIR/make_oem_links.sh "${SRC}"
  # set OEM via rc.S not via environment
  [ "$PATCH_OEM" = "y" ] && $sh2_DIR/patch_OEMandMyIP "${SRC}"
  # fix default route

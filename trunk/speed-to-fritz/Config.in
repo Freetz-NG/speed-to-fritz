@@ -2562,7 +2562,7 @@ config EXPORT_OEM
 
 	string
 	#!!! In case of ORI: OEM is set later in sp-to-fritz.sh !!!
-	default "tcom" if ( ORI && ! TYPE_AVM_7570_XX && ! FORCE_OEM_AVME) || TYPE_OR_721_722
+	default "tcom" if ( ORI && ! TYPE_AVM_7570_XX && ! FORCE_OEM_AVME) || TYPE_SPEEDPORT_W722V
 	default "avm" if ( TYPE_LANG_DE && ! TYPE_7272_m54_04_76 && ! TYPE_AVM_7570_XX && ! EXPORT_FORCE_MULTI_LANGUAGE && ! FORCE_OEM_AVME )
 	default "avme" if (( ! TYPE_LANG_DE  || TYPE_7272_m54_04_76 || TYPE_AVM_7570_XX  ) && ! EXPORT_FORCE_MULTI_LANGUAGE ) || FORCE_OEM_AVME
 
@@ -4528,7 +4528,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
  config MOVE_ALL_to_OEM
 	bool "MOVE ALL to OEM"
 	default y
-	depends on ! TYPE_SPEEDPORT_W721V
+#	depends on ! TYPE_SPEEDPORT_W721V
 	help
 		Set this to "y" if Freetz 7170 firmwares are used instead of original AVM firmware,
 		WWW "all" directory is moved to "$OEM"
