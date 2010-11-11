@@ -38,11 +38,15 @@ config TCOM_W503_66_04_68
 
 config CONGSTAR_W701_33_04_58
     string
-    default "http://cms.congstar.de/uploads/tx_templavoila/congstar_DSL-Box.AnnexB.33.04.58.zip"
-
+#                              default "http://cms.congstar.de/uploads/tx_templavoila/congstar_DSL-Box.AnnexB.33.04.58.zip"
+    default "http://www.congstar.de/fileadmin/files_congstar/documents/hilfe-service/congstar_DSL-Box.AnnexB.33.04.58.zip"
 config CONGSTAR_W503_66_04_69
     string
-    default "http://cms.congstar.de/uploads/tx_templavoila/congstar_komplett_Box.AnnexB.66.04.69.zip"
+    default "Firmware.orig/congstar-komplett-Box.AnnexB.66.04.69.zip mirror http://upload.crunkbass.de/big636f6e67737461722d6b6f6d706c6574742d426f782e416e6e6578422e36362e30342e36392e7a6970.zip
+
+config CONGSTAR_W503_66_04_71
+    string
+    default "http://www.congstar.de/fileadmin/files_congstar/documents/hilfe-service/firmware/congstar_komplett_Box.AnnexB.66.04.71.zip"
 
 config TCOM_W701_33_04_57
     string
@@ -1004,10 +1008,12 @@ config TYPE_SPECIALW503_TCOM
 choice
 	prompt "Select W503 or congstar firmware"
 		depends on TYPE_SPECIALW503_TCOM
-	config TYPE_TCOM_W503V_64_04_78
-		bool "TCOM W503V 64.04.78"
+	config TYPE_STAR_W503_66_04_71
+		bool "CONGSTAR W503V DSL-Box.AnnexB.66.04.71"
 	config TYPE_STAR_W503_66_04_69
 		bool "CONGSTAR W503V DSL-Box.AnnexB.66.04.69"
+	config TYPE_TCOM_W503V_64_04_78
+		bool "TCOM W503V 64.04.78"
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config TYPE_SPECIALW721_TCOM
@@ -1127,7 +1133,7 @@ choice
 		default TYPE_7272_54_04_86 if EXPORT_TYPE_LOCAL_MODEL && ! TYPE_7141 && ! TYPE_7240
 		default TYPE_7170_29_04_80 if ( EXPORT_TYPE_LOCAL_MODEL && TYPE_7141 ) || ( ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V )
 		default TYPE_7170_29_04_80 if TYPE_7140
-		default TYPE_7272_54_04_59 if TYPE_SPEEDPORT_W503V
+		default TYPE_7271_54_04_86 if TYPE_SPEEDPORT_W503V
 		default TYPE_7170_58_04_80 if ( ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V )
 		default TYPE_AIO_7272_14543 if ! EXPORT_TYPE_LOCAL_MODEL
 #		default TYPE_PRE_7272_18563 if TYPE_OR_7570_920 && ! FORCE_VDSL
@@ -2022,6 +2028,9 @@ choice
 	config TYPE_SRC3_CONGSTAR_W503_66_04_69
 		bool "CONGSTAR W503 66.04.69"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	config TYPE_SRC3_CONGSTAR_W503_66_04_71
+		bool "CONGSTAR W503 66.04.71"
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	config TYPE_LOCAL_TCOM_IMAGE
 		bool "TCOM LOCAL IMAGE"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
@@ -2051,9 +2060,10 @@ config TCOM_IMG
 	default "$TCOM_W501_28_04_38" 		if TYPE_SPEEDPORT_W501V
 	default "$TCOM_W701_33_04_57" 		if ( ! TYPE_SPECIALCONGSTAR ) && ( TYPE_SPEEDPORT_W701V )
 	default "$CONGSTAR_W701_33_04_58"	if TYPE_STAR_W701V_58 && ( TYPE_SPEEDPORT_W701V )
-	default "$TCOM_W503_66_04_66" 		if ( ! TYPE_TCOM_W503V_64_04_78 && ! TYPE_STAR_W503_66_04_69 ) && TYPE_SPEEDPORT_W503V
-	default "$TCOM_W503_66_04_68" 		if ( TYPE_TCOM_W503V_64_04_78 ) && TYPE_SPEEDPORT_W503V
+	default "$TCOM_W503_66_04_66" 		if ( ! TYPE_TCOM_W503V_64_04_78 && ! TYPE_STAR_W503_66_04_69 && ! TYPE_STAR_W503_66_04_71 ) && TYPE_SPEEDPORT_W503V
+	default "$TCOM_W503_64_04_78" 		if ( TYPE_TCOM_W503V_64_04_78 ) && TYPE_SPEEDPORT_W503V
 	default "$CONGSTAR_W503_66_04_69" 	if ( TYPE_STAR_W503_66_04_69 ) && TYPE_SPEEDPORT_W503V
+	default "$CONGSTAR_W503_66_04_71" 	if ( TYPE_STAR_W503_66_04_71 ) && TYPE_SPEEDPORT_W503V
 	default "$TCOM_W721_64_04_60" 		if ( TYPE_TCOM_W721_64_04_60 ) && ( TYPE_SPEEDPORT_W721V )
 	default "$TCOM_W721_64_04_74" 		if ( ! TYPE_TCOM_W721_64_04_60 ) && ( TYPE_SPEEDPORT_W721V )
 #	default "$TCOM_W722_14111" 		if ( TYPE_TCOM_W722V_14111 ) && ( TYPE_SPEEDPORT_W722V )
@@ -2283,6 +2293,7 @@ config SRC2_IMG
 	default "$TCOM_W503_66_04_66" 			if TYPE_SRC3_TCOM_W503_66_04_66
 	default "$TCOM_W503_66_04_68" 			if TYPE_SRC3_TCOM_W503_66_04_68
 	default "$CONGSTAR_W503_66_04_69" 		if TYPE_SRC3_CONGSTAR_W503_66_04_69
+	default "$CONGSTAR_W503_66_04_71" 		if TYPE_SRC3_CONGSTAR_W503_66_04_71
 	default "$TCOM_W701_33_04_57" 			if TYPE_SRC3_TCOM_W701_33_04_57
 	default "$TCOM_W721_64_04_60" 			if TYPE_SRC3_TCOM_W721_64_04_60
 	default "$TCOM_W721_64_04_74" 			if TYPE_SRC3_TCOM_W721_64_04_74
@@ -4564,8 +4575,8 @@ endif #ORI && ! TYPE_SPEEDPORT_W722V
  config XCHANGE_KERNEL
 	bool "Xchange kernel between basis and avm source"
 	depends on EXPERT_MOD || ORI
-	default y if ( TYPE_SPECIALW721_TCOM && ! ORI  ) || ( TYPE_SPEEDPORT_W503V && ! ORI && ! TYPE_STAR_W503_66_04_69 )
-	default n if ( ! TYPE_SPECIALW721_TCOM && ! TYPE_SPEEDPORT_W503V ) || ORI || TYPE_STAR_W503_66_04_69
+	default y if ( TYPE_SPECIALW721_TCOM && ! ORI  ) || ( TYPE_SPEEDPORT_W503V && ! ORI && ! TYPE_STAR_W503_66_04_71 )
+	default n if ( ! TYPE_SPECIALW721_TCOM && ! TYPE_SPEEDPORT_W503V ) || ORI || TYPE_STAR_W503_66_04_71
 	help
 		For normal this is "n", but for testing this may be used, this option is dangerous,
 		but it can be used in combination with the option restore original firmware as well.
