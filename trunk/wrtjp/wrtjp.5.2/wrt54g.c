@@ -245,6 +245,7 @@ unsigned int spi_ctl_start;
 unsigned int spi_ctl_busy;
 #define CID_ID_MASK  0x0000ffff
 struct STAT_REG_BITS p;
+
 typedef struct _processor_chip_type {
   unsigned int        chip_mask;      // Processor Chip ID maske
   unsigned int        chip_id;        // Processor Chip ID
@@ -273,7 +274,8 @@ processor_chip_type  processor_chip_list[] = {
  { 0xFFFFFFFF, 0x0000100F, 0x1, 5, "TI AR7WRD TNETD7200ZWD Rev 1 CPU" },   // TI AR7WRD Only Partially Verified
  { 0xFFFFFFFF, 0x0000110F, 0x1, 5, "TI AR7WRD TNETD7200ZWD Rev 1 CPU" },   // TI AR7WRD Only Partially Verified
 //  ------------------------  0x1 not veryfied
- { 0xFFFFFFFF, 0x0633817F, 0x1, 5, "Broadcom BCM6338 Rev 1 CPU" },    // Speedtouch
+ { 0xFFFFFFFF, 0x0000B413, 0x1, 5, "IKANOS Fusiv IKF6850" },   // Partially Verified
+ { 0xFFFFFFFF, 0x0633817F, 0x1, 5, "Broadcom BCM6338 Rev 1 CPU" },          // Speedtouch
  { 0xFFFFFFFF, 0x0635817F, 0x1, 5, "Broadcom BCM6358 Rev 1 CPU" },          // brjtag Fully Tested
  { 0xFFFFFFFF, 0x0636817F, 0x1, 5, "Broadcom BCM6368 Rev 1 CPU" },          // brjtag
  { 0xFFFFFFFF, 0x1432117F, 0x1, 5, "Broadcom BCM4321 RADIO STOP" },         // Radio JP3 on a WRT300N V1.1
