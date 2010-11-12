@@ -24,15 +24,15 @@ config TCOM_W501_28_04_38
 	string 
     default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W501V/fw_Speedport_W501V_v_28.04.38.image"
 
-config TCOM_W501_66_04_65
+config TCOM_W501_64_04_65
     string 
-    default "http://hilfe.telekom.de/dlp/eki/downloads/503_66.04.65.image"
+    default "http://hilfe.telekom.de/dlp/eki/downloads/503_64.04.65.image"
 
 config TCOM_W503_66_04_66
     string
     default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20503V%20Typ%20A/fw_Speedport_W503V_v66.04.66.image"
 
-config TCOM_W503_66_04_68
+config TCOM_W503_66_04_78
     string
     default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport%20W%20503V%20Typ%20A/fw_Speedport_W503V_v66.04.78.image"
 
@@ -1008,12 +1008,12 @@ config TYPE_SPECIALW503_TCOM
 choice
 	prompt "Select W503 or congstar firmware"
 		depends on TYPE_SPECIALW503_TCOM
-	config TYPE_STAR_W503_66_04_71
-		bool "CONGSTAR W503V DSL-Box.AnnexB.66.04.71"
+	config TYPE_TCOM_W503V_66_04_78
+		bool "TCOM W503V 66.04.78"
 	config TYPE_STAR_W503_66_04_69
 		bool "CONGSTAR W503V DSL-Box.AnnexB.66.04.69"
-	config TYPE_TCOM_W503V_64_04_78
-		bool "TCOM W503V 64.04.78"
+	config TYPE_STAR_W503_66_04_71
+		bool "CONGSTAR W503V DSL-Box.AnnexB.66.04.71"
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config TYPE_SPECIALW721_TCOM
@@ -1982,8 +1982,8 @@ choice
 	config TYPE_SRC3_TCOM_W503_66_04_66
 		bool "TCOM W503 66.04.66"
 
-	config TYPE_SRC3_TCOM_W503_66_04_68
-		bool "TCOM W503 66.04.68"
+	config TYPE_SRC3_TCOM_W503_66_04_78
+		bool "TCOM W503 66.04.78"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	config TYPE_SRC3_TCOM_W701_33_04_57
 		bool "TCOM W701 33.04.57"
@@ -2061,7 +2061,7 @@ config TCOM_IMG
 	default "$TCOM_W701_33_04_57" 		if ( ! TYPE_SPECIALCONGSTAR ) && ( TYPE_SPEEDPORT_W701V )
 	default "$CONGSTAR_W701_33_04_58"	if TYPE_STAR_W701V_58 && ( TYPE_SPEEDPORT_W701V )
 	default "$TCOM_W503_66_04_66" 		if ( ! TYPE_TCOM_W503V_64_04_78 && ! TYPE_STAR_W503_66_04_69 && ! TYPE_STAR_W503_66_04_71 ) && TYPE_SPEEDPORT_W503V
-	default "$TCOM_W503_64_04_78" 		if ( TYPE_TCOM_W503V_64_04_78 ) && TYPE_SPEEDPORT_W503V
+	default "$TCOM_W503_66_04_78" 		if ( TYPE_TCOM_W503V_66_04_78 ) && TYPE_SPEEDPORT_W503V
 	default "$CONGSTAR_W503_66_04_69" 	if ( TYPE_STAR_W503_66_04_69 ) && TYPE_SPEEDPORT_W503V
 	default "$CONGSTAR_W503_66_04_71" 	if ( TYPE_STAR_W503_66_04_71 ) && TYPE_SPEEDPORT_W503V
 	default "$TCOM_W721_64_04_60" 		if ( TYPE_TCOM_W721_64_04_60 ) && ( TYPE_SPEEDPORT_W721V )
@@ -2289,7 +2289,7 @@ config SRC2_IMG
 	default "$AVM_7570_16971" 				if TYPE_SRC3_AVM_7570_16971
 	default "$TCOM_SINUS_27_04_27" 			if TYPE_SRC3_TCOM_W500_27
 	default "$TCOM_W501_28_04_38" 			if TYPE_SRC3_TCOM_W501_28_04_38
-	default "$TCOM_W501_66_04_65" 			if TYPE_SRC3_TCOM_W501_66_04_65
+	default "$TCOM_W501_64_04_65" 			if TYPE_SRC3_TCOM_W501_64_04_65
 	default "$TCOM_W503_66_04_66" 			if TYPE_SRC3_TCOM_W503_66_04_66
 	default "$TCOM_W503_66_04_68" 			if TYPE_SRC3_TCOM_W503_66_04_68
 	default "$CONGSTAR_W503_66_04_69" 		if TYPE_SRC3_CONGSTAR_W503_66_04_69
