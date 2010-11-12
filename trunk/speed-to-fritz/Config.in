@@ -24,9 +24,9 @@ config TCOM_W501_28_04_38
 	string 
     default "http://hilfe.telekom.de/dlp/eki/downloads/Speedport/Speedport_W501V/fw_Speedport_W501V_v_28.04.38.image"
 
-config TCOM_W501_64_04_65
+config TCOM_W501_66_04_65
     string 
-    default "http://hilfe.telekom.de/dlp/eki/downloads/503_64.04.65.image"
+    default "http://hilfe.telekom.de/dlp/eki/downloads/503_66.04.65.image"
 
 config TCOM_W503_66_04_66
     string
@@ -2289,7 +2289,7 @@ config SRC2_IMG
 	default "$AVM_7570_16971" 				if TYPE_SRC3_AVM_7570_16971
 	default "$TCOM_SINUS_27_04_27" 			if TYPE_SRC3_TCOM_W500_27
 	default "$TCOM_W501_28_04_38" 			if TYPE_SRC3_TCOM_W501_28_04_38
-	default "$TCOM_W501_64_04_65" 			if TYPE_SRC3_TCOM_W501_64_04_65
+	default "$TCOM_W501_66_04_65" 			if TYPE_SRC3_TCOM_W501_66_04_65
 	default "$TCOM_W503_66_04_66" 			if TYPE_SRC3_TCOM_W503_66_04_66
 	default "$TCOM_W503_66_04_68" 			if TYPE_SRC3_TCOM_W503_66_04_68
 	default "$CONGSTAR_W503_66_04_69" 		if TYPE_SRC3_CONGSTAR_W503_66_04_69
