@@ -192,6 +192,8 @@ export __N="\033[m"
 #                 "7271" (for AVM 7270v1)
 #                 "7272" (for AVM 7270v2)
 #                 "7273" (for AVM 7270v3)
+#                 "7570" (for AVM 7570)
+#                 "757H" (for HN 7570)
 #                     "*" (for Any user TYPE)
 ##########################################################################
 function set_model()
@@ -1045,12 +1047,6 @@ export CONFIG_ETH_COUNT="4"
 	export kernel_size="7798784"
 	;;
 "920"|"7570"|"757H")
-  if [ "$1" == "757H" ]; then
-	export CLASS=""
-	export SPNUM="7570"
-	export PROD="7570_HN"
-	export HWID="153"
-  fi
   if [ "$1" == "920" ]; then
 	export CLASS="Speedport"
 	export SPNUM="920"
@@ -1061,6 +1057,13 @@ export CONFIG_ETH_COUNT="4"
 	export SPNUM="7570"
 	export PROD="7570"
 	export HWID="146"
+  fi
+  if [ "$1" == "757H" ]; then
+	export CLASS=""
+	export SPNUM="7570"
+	export PROD="7570_HN"
+	export HWID="153"
+	#export FBHWRevision="153"
   fi
 	export SPMOD="$1"
 #	FBMOD variable is read later from 2nd Firmware
@@ -1698,6 +1701,7 @@ else
  readConfig "OEM_DEFAULT" "OEM" "${DST}/etc/init.d"
  [ -d "${DST}/usr/www/avme" ] && export OEM="avme"
  [ -d "${DST}/usr/www/tcom" ] && export OEM="tcom"
+ [ -d "${DST}/usr/www/hansenet" ] && export OEM="hansenet"
  for BRANDING in congstar 1und1 ; do 
   if [ -d "${DST}/usr/www/$BRANDING" ]; then
     KEY="x"

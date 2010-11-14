@@ -413,8 +413,7 @@ config AVM_7570_16087
 
 config HN_7570_16971
    string
-      default "./Firmware.orig/HN-81.04.86-16971.zip mirror http://upload.crunkbass.de/big484e2d38312e30342e38362d31363937312e7a6970.zip"
-
+      default "./Firmware.orig/HN-81.04.86-16971.zip mirror http://upload.crunkbass.de/big62634f6b327650704477755a484e2d38312e30342e38362d31363937312e7a6970.zip"
 ### Not available only in use by AVM <--
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7390 AVM Firmware
@@ -573,10 +572,10 @@ choice
 		bool "Speedport W920V"
 #		select SET_FREETZ_REVISION
 
-	config TYPE_7570
+	config TYPE_AVM_7570
 		bool "AVM 7570 (or pure 7570 on W920V)"
 
-	config TYPE_7570HN
+	config TYPE_HN_7570
 		bool "AVM 7570 HN"
 
 #		select TYPE_LANG_EN
@@ -680,8 +679,8 @@ if ! LOCAL_X_MODEL
 	default "722"		if TYPE_SPEEDPORT_W722V
 	default "900"		if TYPE_SPEEDPORT_W900V
 	default "920"		if TYPE_SPEEDPORT_W920V
-	default "7570"		if TYPE_7570
-	default "757H"		if TYPE_7570HN
+	default "7570"		if TYPE_AVM_7570
+	default "757H"		if TYPE_HN_7570
 	default "500"		if TYPE_SINUS_W500V
 	default "7390"		if TYPE_7390
 	default "7273"		if TYPE_7273
@@ -800,7 +799,12 @@ if TYPE_OR_503_701_721_722_900 || TYPE_OR_7570_920_LOCALTCOM_LOCALAVM
     bool
     default y
 endif
-if  TYPE_7570HN || TYPE_7570 || TYPE_SPEEDPORT_W920V
+if  TYPE_HN_7570 || TYPE_AVM_7570
+    config TYPE_7570
+    bool
+    default y
+endif
+if  TYPE_7570 || TYPE_SPEEDPORT_W920V
     config TYPE_OR_7570_920
     bool
     default y
@@ -1146,6 +1150,7 @@ choice
 #		default TYPE_PHONE_7390_18516 if TYPE_7390
 #		default TYPE_7390_84_04_86 if TYPE_7390
 		default TYPE_W722_80_04_76 if TYPE_SPEEDPORT_W722V
+		default TYPE_HN_7570_16971 if TYPE_HN_7570
 		#<--
 
 		
@@ -2082,7 +2087,7 @@ config TCOM_IMG
 	default "$AVM_7570_15245" 			if TYPE_TCOM_7570_15245 && ( TYPE_OR_7570_920 || ORI  )
 	default "$AVM_7570_16068" 			if TYPE_TCOM_7570_16068 && ( TYPE_OR_7570_920 || ORI  )
 	default "$AVM_7570_16087" 			if TYPE_TCOM_7570_16087 && ( TYPE_OR_7570_920 || ORI  )
-	default "$HN_7570_16971" 			if TYPE_HN_7570_16971 && ( TYPE_OR_7570_920 || ORI  )
+	default "$HN_7570_16971" 			if TYPE_HN_7570_16971
 	default "$AVM_7570_17599" 			if TYPE_TCOM_7570_17599 && ( TYPE_OR_7570_920 || ORI  )
 	default "$AVM_7113_60_04_77"		if TYPE_7113
 	default "$AVM_7141_40_04_76"		if TYPE_7141
