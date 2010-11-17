@@ -411,7 +411,7 @@ config AVM_7570_16087
    string
       default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.80-16087.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373537305f7644534c2e656e2d64652d66722e37352e30342e38302d31363038372e7a6970.zip"
 
-config HN_7570_16971
+config AVM_HN_7570_16971
    string
       default "./Firmware.orig/HN-81.04.86-16971.zip mirror http://upload.crunkbass.de/big62634f6b327650704477755a484e2d38312e30342e38362d31363937312e7a6970.zip"
 ### Not available only in use by AVM <--
@@ -468,6 +468,7 @@ config EXPERT_MOD
 	    you want a special selection.
 config EXPORT_DOCHECK
 	bool "Check AVM Labor Website for new Firmware"
+	depends on ! ORI
 	default y
 	help
 	    this will look for new Laborfirmware on AVMs Http
@@ -503,6 +504,7 @@ config EXPORT_BUILDRECOVER
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_RUNFREETZ
 	bool "Run Freetz also (./start-freetz.sh)"
+	depends on ! ORI
 	default n
 	select SET_UP
 	select NOT_VERBOSE
@@ -948,15 +950,17 @@ config TCOM_LOCAL
 config TYPE_TCOM_7570_XX 
 	bool "Select a special 7570 firmware as basis firmware (optional) --->"
 	depends on ( TYPE_OR_7570_920 && ! TYPE_BETATCOM && ! ORI ) || ( TYPE_7570 && ORI )
-	default n
+	default n if ! ( TYPE_HN_7570 && ORI )
+	default y if ( TYPE_HN_7570 && ORI )
 	help
 		Enable this to compile the mod based on an special AVM firmware.
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 choice
 	prompt "basis 7570 alternative firmware"
-	depends on TYPE_TCOM_7570_XX 
-	default TYPE_TCOM_7570_17599
-	
+	depends on TYPE_TCOM_7570_XX
+	default TYPE_TCOM_7570_17599 if ! TYPE_HN_7570
+	default TYPE_TCOM_HN_7570_16971 if TYPE_HN_7570
+
 	config TYPE_TCOM_7570_15245
 		bool "AVM 7570 75.04.76 1und1 15245"
 	
@@ -975,7 +979,7 @@ choice
 	config TYPE_TCOM_7570_75_04_82
 		bool "AVM 7570 75.04.82.en-de-fr 17057"
 
-	config TYPE_HN_7570_16971
+	config TYPE_TCOM_HN_7570_16971
 		bool "AVM 7570 81.04.86 (HN alice) 16971"
 
 	config TYPE_LOCAL_TCOM_7570
@@ -1150,7 +1154,7 @@ choice
 #		default TYPE_PHONE_7390_18516 if TYPE_7390
 #		default TYPE_7390_84_04_86 if TYPE_7390
 		default TYPE_W722_80_04_76 if TYPE_SPEEDPORT_W722V
-		default TYPE_HN_7570_16971 if TYPE_HN_7570
+		default TYPE_AVM_HN_7570_16971 if TYPE_HN_7570
 		#<--
 
 		
@@ -1668,7 +1672,7 @@ choice
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
-	config TYPE_HN_7570_16971
+	config TYPE_AVM_HN_7570_16971
 		bool "AVM 7570 81.04.86 (HN alice) 16971"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
@@ -1971,7 +1975,7 @@ choice
 	config TYPE_SRC3_AVM_7570_75_04_82
 		bool "AVM 7570 75.04.82.en-de-fr 17057"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
-	config TYPE_SRC3_HN_7570_16971
+	config TYPE_SRC3_AVM_HN_7570_16971
 		bool "AVM 7570 81.04.86 (HN alice) 16971"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	config TYPE_SRC3_TCOM_W500_27
@@ -2064,8 +2068,8 @@ config TCOM_IMG
 	default "$TCOM_W501_28_04_38" 		if TYPE_SPEEDPORT_W501V
 	default "$TCOM_W701_33_04_57" 		if ( ! TYPE_SPECIALCONGSTAR ) && ( TYPE_SPEEDPORT_W701V )
 	default "$CONGSTAR_W701_33_04_58"	if TYPE_STAR_W701V_58 && ( TYPE_SPEEDPORT_W701V )
-	default "$TCOM_W503_66_04_66" 		if ( ! TYPE_TCOM_W503V_66_04_78 && ! TYPE_STAR_W503_66_04_69 && ! TYPE_STAR_W503_66_04_71 ) && TYPE_SPEEDPORT_W503V
-	default "$TCOM_W503_66_04_78" 		if ( TYPE_TCOM_W503V_66_04_78 ) && TYPE_SPEEDPORT_W503V
+	default "$TCOM_W503_66_04_78" 		if ( ! TYPE_TCOM_W503V_66_04_66 && ! TYPE_STAR_W503_66_04_69 && ! TYPE_STAR_W503_66_04_71 ) && TYPE_SPEEDPORT_W503V
+	default "$TCOM_W503_66_04_66" 		if ( TYPE_TCOM_W503V_66_04_66 ) && TYPE_SPEEDPORT_W503V
 	default "$CONGSTAR_W503_66_04_69" 	if ( TYPE_STAR_W503_66_04_69 ) && TYPE_SPEEDPORT_W503V
 	default "$CONGSTAR_W503_66_04_71" 	if ( TYPE_STAR_W503_66_04_71 ) && TYPE_SPEEDPORT_W503V
 	default "$TCOM_W721_64_04_60" 		if ( TYPE_TCOM_W721_64_04_60 ) && ( TYPE_SPEEDPORT_W721V )
@@ -2087,7 +2091,7 @@ config TCOM_IMG
 	default "$AVM_7570_15245" 			if TYPE_TCOM_7570_15245 && ( TYPE_OR_7570_920 || ORI  )
 	default "$AVM_7570_16068" 			if TYPE_TCOM_7570_16068 && ( TYPE_OR_7570_920 || ORI  )
 	default "$AVM_7570_16087" 			if TYPE_TCOM_7570_16087 && ( TYPE_OR_7570_920 || ORI  )
-	default "$HN_7570_16971" 			if TYPE_HN_7570_16971
+	default "$AVM_HN_7570_16971" 			if TYPE_TCOM_HN_7570_16971
 	default "$AVM_7570_17599" 			if TYPE_TCOM_7570_17599 && ( TYPE_OR_7570_920 || ORI  )
 	default "$AVM_7113_60_04_77"		if TYPE_7113
 	default "$AVM_7141_40_04_76"		if TYPE_7141
@@ -2190,7 +2194,7 @@ config AVM_IMG
 	default "$AVM_7570_15245"					if ( TYPE_AVM_7570_15245 ) && ( TYPE_OR_7570_503_722_920 )
 	default "$AVM_7570_16068"					if ( TYPE_AVM_7570_16068 ) && ( TYPE_OR_7570_503_722_920 )
 	default "$AVM_7570_16087"					if ( TYPE_AVM_7570_16087 ) && ( TYPE_OR_7570_503_722_920 )
-	default "$HN_7570_16971"					if ( TYPE_HN_7570_16971 ) && ( TYPE_OR_7570_503_722_920 )
+	default "$AVM_HN_7570_16971"					if ( TYPE_AVM_HN_7570_16971 ) && ( TYPE_OR_7570_503_722_920 )
 	default "$AVM_7570_17599"					if ( TYPE_AVM_7570_17599 ) && ( TYPE_OR_7570_503_722_920 )
 	default "$AVM_LOCAL"						if TYPE_LOCAL_AVM && ( TYPE_OR_7570_503_722_701_721_900_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7570_LOCAL"					if TYPE_LOCAL_AVM_7570 && ( TYPE_OR_7570_503_722_701_721_900_920 || EXPORT_TYPE_LOCAL_MODEL )
@@ -2290,7 +2294,7 @@ config SRC2_IMG
 	default "$AVM_7570_15245" 				if TYPE_SRC3_AVM_7570_15245
 	default "$AVM_7570_16068" 				if TYPE_SRC3_AVM_7570_16068
 	default "$AVM_7570_16087" 				if TYPE_SRC3_AVM_7570_16087
-	default "$HN_7570_16971" 				if TYPE_SRC3_HN_7570_16971
+	default "$AVM_HN_7570_16971" 				if TYPE_SRC3_AVM_HN_7570_16971
 	default "$TCOM_SINUS_27_04_27" 			if TYPE_SRC3_TCOM_W500_27
 	default "$TCOM_W501_28_04_38" 			if TYPE_SRC3_TCOM_W501_28_04_38
 	default "$TCOM_W501_66_04_65" 			if TYPE_SRC3_TCOM_W501_66_04_65
@@ -4575,12 +4579,12 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 endif
 endif #ORI && ! TYPE_SPEEDPORT_W722V 
 
- # In use within sp-to-fritz.sh		
+ # In use within sp-to-fritz.sh
  config XCHANGE_KERNEL
 	bool "Xchange kernel between basis and avm source"
 	depends on EXPERT_MOD || ORI
-	default y if ( TYPE_SPECIALW721_TCOM && ! ORI  ) || ( TYPE_SPEEDPORT_W503V && ! ORI && ! TYPE_STAR_W503_66_04_71 )
-	default n if ( ! TYPE_SPECIALW721_TCOM && ! TYPE_SPEEDPORT_W503V ) || ORI || TYPE_STAR_W503_66_04_71
+	default y if ( TYPE_SPECIALW721_TCOM && ! ORI  )
+	default n if ! TYPE_SPECIALW721_TCOM  || ORI
 	help
 		For normal this is "n", but for testing this may be used, this option is dangerous,
 		but it can be used in combination with the option restore original firmware as well.
