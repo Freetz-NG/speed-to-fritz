@@ -249,10 +249,6 @@ config AVM_7272_m54_04_81
 #    string
 #    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270.54.04.70.image"
 
-#config AVM_7272_54_04_76
-#    string
-#    default "@AVM/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270.54.04.76.image"
-
 #config AVM_7273_74_04_76
 #    string
 #    default "@AVM/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.76.image"
@@ -276,6 +272,14 @@ config AVM_7272_54_04_86
 config AVM_7273_74_04_86
     string
     default "@AVM/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.86.image"
+
+config AVM_7272_54_04_88
+    string
+    default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270_v2/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v2.54.04.88.image"
+
+config AVM_7273_74_04_88
+    string
+    default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.88.image"
 
 #x#config AVM_7272_13486
 #    string
@@ -423,6 +427,7 @@ config AVM_HN_7570_16971
 config AVM_7390_84_04_81
    string
      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7390.AnnexB.84.04.81.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373339302e416e6e6578422e38342e30342e38312e7a6970.zip"
+
 #16165
 config AVM_7390_84_04_82
    string
@@ -436,6 +441,10 @@ config AVM_7390_84_04_86
    string
      default "@AVM/fritz.box/fritzbox.fon_wlan_7390/firmware/deutsch/FRITZ.Box_Fon_WLAN_7390.84.04.86.image"
 
+config AVM_7390_84_04_88
+   string
+     default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7390/firmware/deutsch/FRITZ.Box_Fon_WLAN_7390.84.04.88.image"
+
 config AVM_PRE_7390_18762
    string
      default "http://www.avm.de/de/Service/Service-Portale/Labor/7390_vorschau_release_candidate/labor_start_neues_aus_der_entwicklung.php HW156:fritzbox-labor-7390-18762.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7390.Labor.84.04.86-18762.image"
@@ -444,9 +453,9 @@ config AVM_DSL_7390_18721
    string
      default "http://www.avm.de/de/Service/Service-Portale/Labor/7390_dsl/labor_start_dsl.php HW156:fritz_box-labor-73908-18721.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7390_LabDSL.AnnexB.84.04.86-18721.image"
 
-config AVM_PHONE_7390_18377
-   string
-     default "http://www.avm.de/de/Service/Service-Portale/Labor/7390_telefonie/labor_start_telefonie.php HW156:fritz_box-labor-7390-18377.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7390.84.04.86-18377.image"
+# config AVM_PHONE_7390_18377
+#    string
+#      default "http://www.avm.de/de/Service/Service-Portale/Labor/7390_telefonie/labor_start_telefonie.php HW156:fritz_box-labor-7390-18377.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7390.84.04.86-18377.image"
 
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1153,6 +1162,7 @@ choice
 #		default TYPE_DSL_7390_18721 if TYPE_7390
 #		default TYPE_PHONE_7390_18516 if TYPE_7390
 #		default TYPE_7390_84_04_86 if TYPE_7390
+#		default TYPE_7390_84_04_88 if TYPE_7390
 		default TYPE_W722_80_04_76 if TYPE_SPEEDPORT_W722V
 		default TYPE_AVM_HN_7570_16971 if TYPE_HN_7570
 		#<--
@@ -1375,6 +1385,20 @@ choice
 		help
 			FRITZ! release: 86
 
+	config TYPE_7272_54_04_88
+		bool "AVM 7270v2 54.04.88 18808"
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
+#		depends on EXPERT_MOD 
+		help
+			FRITZ! release: 88
+
+	config TYPE_7273_74_04_88
+		bool "AVM 7270v3 74.04.88 18808"
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
+#		depends on EXPERT_MOD 
+		help
+			FRITZ! release: 88
+
 #	config TYPE_PRE_72XX
 #		bool "AVM 72XX select from update download (PREVIEW)"
 #		depends on ( TYPE_OR_7272_7273_7570_503_722_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
@@ -1596,10 +1620,17 @@ choice
 			FRITZ!Lab (PREVIEW):
 
 	config TYPE_7390_84_04_86
-		bool "AVM 7390 84.04.86 18306 (only for testing)"
+		bool "AVM 7390 84.04.86 18306"
 		depends on TYPE_OR_7390_722
 		help 
-			FRITZ!Lab (PREVIEW):
+			FRITZ! : release 86
+
+	config TYPE_7390_84_04_88
+		bool "AVM 7390 84.04.88 18808"
+		depends on TYPE_OR_7390_722
+		help 
+			FRITZ! : release 88
+
 
 	config TYPE_PRE_7390_18762
 		bool "AVM 7390 84.04.86 18762 Prerelase"
@@ -1607,11 +1638,11 @@ choice
 		help 
 			FRITZ!Lab (PREVIEW):
 
-	config TYPE_PHONE_7390_18377
-		bool "AVM 7390 84.04.86 18377 PHONE"
-		depends on TYPE_OR_7390_722
-		help 
-			FRITZ!Lab (DSL):
+#	config TYPE_PHONE_7390_18377
+#		bool "AVM 7390 84.04.86 18377 PHONE"
+#		depends on TYPE_OR_7390_722
+#		help 
+#			FRITZ!Lab (DSL):
 
 	config TYPE_DSL_7390_18721
 		bool "AVM 7390 84.04.86 18721 DSL"
@@ -1852,6 +1883,12 @@ choice
 	config TYPE_SRC3_AVM_7273_74_04_86
 		bool "AVM 7270v3 74.04.86 18306"
 
+	config TYPE_SRC3_AVM_7272_54_04_88
+		bool "AVM 7270v2 54.04.88 18808"
+
+	config TYPE_SRC3_AVM_7273_74_04_88
+		bool "AVM 7270v3 74.04.88 18808"
+
 #	config TYPE_SRC3_AVM_7272_13486
 #		bool "AVM 7270v2 13486"
 
@@ -1942,8 +1979,8 @@ choice
 	config TYPE_SRC3_AVM_PRE_7390_18762
 		bool "AVM 7390 18762"
 
-	config TYPE_SRC3_AVM_PHONE_7390_18377
-		bool "AVM 7390 84.04.86 18377"
+#	config TYPE_SRC3_AVM_PHONE_7390_18377
+#		bool "AVM 7390 84.04.86 18377"
 
 	config TYPE_SRC3_AVM_DSL_7390_18721
 		bool "AVM 7390 84.04.86 18721"
@@ -1953,6 +1990,9 @@ choice
 
 	config TYPE_SRC3_AVM_7390_84_04_86
 		bool "AVM 7390 84.04.86 18306"
+
+	config TYPE_SRC3_AVM_7390_84_04_88
+		bool "AVM 7390 84.04.88 18808"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 Firmware
@@ -2101,6 +2141,7 @@ config TCOM_IMG
 #	default "$AVM_7390_84_04_82"		if TYPE_7390
 #	default "$AVM_7390_84_04_84"		if TYPE_7390
 #	default "$AVM_7390_84_04_86"		if TYPE_7390
+#	default "$AVM_7390_84_04_88"		if TYPE_7390
 	default "$AVM_PRE_7390_18762"		if TYPE_7390
 #	default "$AVM_PHONE_7390_18377"		if TYPE_7390
 #	default "$AVM_DSL_7390_18721"		if TYPE_7390
@@ -2146,6 +2187,7 @@ config AVM_IMG
 	default "$AVM_7240_73_04_87"				if ( TYPE_7240_73_04_87 )
 	default "$AVM_7570_75_04_82"				if ( TYPE_7570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX
 	default "$AVM_7272_54_04_86"				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
+	default "$AVM_7272_54_04_88"				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7272_m54_04_76" 				if ( TYPE_SPEEDPORT_W920V || TYPE_OR_503_722 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && ! TYPE_LANG_DE
 	default "$AVM_7240_73_04_59" 				if ( TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7272_54_04_58" 				if ( TYPE_7272_54_04_58 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
@@ -2159,7 +2201,9 @@ config AVM_IMG
 	default "$AVM_7273_74_04_80"				if ( TYPE_7273_74_04_80 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7271_54_04_86"				if ( TYPE_7271_54_04_86 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7272_54_04_86"				if ( TYPE_7272_54_04_86 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7272_54_04_88"				if ( TYPE_7272_54_04_88 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7273_74_04_86"				if ( TYPE_7273_74_04_86 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7273_74_04_88"				if ( TYPE_7273_74_04_88 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7272_m54_04_81" 				if ( TYPE_7272_m54_04_81 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL ) 
 	default "$AVM_CORE_7272_15220"				if ( TYPE_CORE_7272_15220 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_CORE_7273_15220"				if ( TYPE_CORE_7273_15220 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
@@ -2203,8 +2247,9 @@ config AVM_IMG
 	default "$AVM_7390_84_04_82"					if TYPE_7390_84_04_82
 	default "$AVM_7390_84_04_84"					if TYPE_7390_84_04_84
 	default "$AVM_7390_84_04_86"					if TYPE_7390_84_04_86
+	default "$AVM_7390_84_04_88"					if TYPE_7390_84_04_88
 	default "$AVM_PRE_7390_18762"					if TYPE_PRE_7390_18762
-	default "$AVM_PHONE_7390_18377"					if TYPE_PHONE_7390_18377
+#	default "$AVM_PHONE_7390_18377"					if TYPE_PHONE_7390_18377
 	default "$AVM_DSL_7390_18721"					if TYPE_DSL_7390_18721
 	default "$TCOM_W722_80_04_76" 					if TYPE_W722_80_04_76
 #<--
@@ -2251,6 +2296,7 @@ config SRC2_IMG
 	default "$AVM_7240_73_04_87" 			if TYPE_SRC3_AVM_7240_73_04_87
 	default "$AVM_7271_54_04_86" 			if TYPE_SRC3_AVM_7271_54_04_86
 	default "$AVM_7272_54_04_86" 			if TYPE_SRC3_AVM_7272_54_04_86
+	default "$AVM_7272_54_04_88" 			if TYPE_SRC3_AVM_7272_54_04_88
 	default "$AVM_7273_74_04_86" 			if TYPE_SRC3_AVM_7273_74_04_86
 	default "$AVM_CORE_7272_15220" 			if TYPE_SRC3_AVM_CORE_7272_15220
 	default "$AVM_CORE_7273_15220" 			if TYPE_SRC3_AVM_CORE_7273_15220
@@ -2284,8 +2330,9 @@ config SRC2_IMG
 	default "$AVM_7390_84_04_82"			if TYPE_SRC3_AVM_PRE_7390_16165
 	default "$AVM_7390_84_04_84"			if TYPE_SRC3_AVM_7390_84_04_84
 	default "$AVM_7390_84_04_86"			if TYPE_SRC3_AVM_7390_84_04_86
+	default "$AVM_7390_84_04_88"			if TYPE_SRC3_AVM_7390_84_04_88
 	default "$AVM_PRE_7390_18762"			if TYPE_SRC3_AVM_PRE_7390_18762
-	default "$AVM_PHONE_7390_18377"			if TYPE_SRC3_AVM_PHONE_7390_18377
+#	default "$AVM_PHONE_7390_18377"			if TYPE_SRC3_AVM_PHONE_7390_18377
 	default "$AVM_DSL_7390_18721"			if TYPE_SRC3_AVM_DSL_7390_18721
 	default "$AVM_PHONE_72XX"				if TYPE_SRC3_AVM_PHONE_72XX
 	default "$AVM_7570_75_04_78" 			if TYPE_SRC3_AVM_7570_75_04_78
