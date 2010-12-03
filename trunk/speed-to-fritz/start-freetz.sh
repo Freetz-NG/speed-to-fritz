@@ -28,14 +28,16 @@ FREETZ_DL_LINK="http://svn.freetz.org/trunk"
 # 900 or W701<--
 #7390 or W722-->
   DO_COPY="y" # n is just for testing - uses the complet addon patch for freetz W722
-  if [ "$FBMOD" = "7390" ] || [ "$SPNUM" = "722" ] ; then
-    echo -e "\033[32mAlternative trunk is used for 7390 or W722V Type A\033[0m"
-    export FREETZ_DIR="freetz-trunk-7390"
-    #patches are at the moment for revision:
-    FREETZREVISION="4909"
-    echo -e "\033[31mRevision  is set to: $FREETZREVISION (current patches do need this revision)\033[0m "
-    FREETZ_DL_LINK="http://svn.freetz.org/branches/oliver/7390"
-  fi    
+#Freetz trunk for 7390 is not separate any more
+#  if [ "$FBMOD" = "7390" ] || [ "$SPNUM" = "722" ] ; then
+#    echo -e "\033[32mAlternative trunk is used for 7390 or W722V Type A\033[0m"
+#    export FREETZ_DIR="freetz-trunk-7390"
+#--> ! patches not updatet jet !
+    #patches fit only for revision 4909:
+#    FREETZREVISION="4909"
+#    echo -e "\033[31mRevision  is set to: $FREETZREVISION (current patches do need this revision)\033[0m "
+#    FREETZ_DL_LINK="http://svn.freetz.org/branches/oliver/7390"
+#  fi    
 # 7390 or W722<--
 export SVN_VERSION="X${FREETZREVISION}"
 if [ "$FIRST_RUN" = "y" ]; then  
