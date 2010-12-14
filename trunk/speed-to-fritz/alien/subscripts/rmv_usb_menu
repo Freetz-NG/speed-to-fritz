@@ -15,7 +15,7 @@ sed -i -e "/txt036/d" "$1"/usr/www/${HTML}/${avm_Lang}/home/home.html
 sed -i -e "/^.*<tr>$/{N;/^.*<tr>\n.*<.tr>$/d}" "$1"/usr/www/${HTML}/${avm_Lang}/home/home.html
 grep -q "Usb" "$1"/usr/www/${HTML}/${avm_Lang}/home/home.html && echo2 "  -- usb menu entry not removed on: /usr/www/${HTML}/${avm_Lang}/home/home.html"
 #remove  usb item .80
-sed -i -e "/usbdisk_cut/d" "$1"/usr/www/${HTML}/${avm_Lang}/menus/menu2_homehome.html
+##sed -i -e "/usbdisk_cut/d" "$1"/usr/www/${HTML}/${avm_Lang}/menus/menu2_homehome.html
 #remove  usb item
 sed -i -e "/'status'/d" "$1"/usr/www/${HTML}/${avm_Lang}/menus/menu2_homehome.html
 #the following removes are diffent on newer versions
@@ -31,7 +31,7 @@ for ITEM in fon home konfig internet wlan system software; do
 done
 echo "-- removing GUI USB-entrys ..."
 #remove enhsettings usb item .80
-[ -f "$1"/usr/www/${HTML}/${avm_Lang}/enhsettings/enhsettings.js ] && sed -i -e "s/<? setvariable var:showUsb 1 ?>/<? setvariable var:showUsb 0 ?>/" "$1"/usr/www/${HTML}/${avm_Lang}/enhsettings/enhsettings.js
+##[ -f "$1"/usr/www/${HTML}/${avm_Lang}/enhsettings/enhsettings.js ] && sed -i -e "s/<? setvariable var:showUsb 1 ?>/<? setvariable var:showUsb 0 ?>/" "$1"/usr/www/${HTML}/${avm_Lang}/enhsettings/enhsettings.js
 #remove enhsettings usb item
 [ -f "$1"/usr/www/${HTML}/${avm_Lang}/enhsettings/enhsettings.html ] && sed -i -e "s/<? setvariable var:myConfigflag 'BoxHatUsb' ?>/<? setvariable var:myConfigflag 'BoxHatWlanOderDectAberOhneUsb' ?>/" "$1"/usr/www/${HTML}/${avm_Lang}/enhsettings/enhsettings.html
  #remove sitemap usb item ok
