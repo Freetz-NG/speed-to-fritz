@@ -7,8 +7,8 @@ for FILE in "menus/menu2_usb.inc" "home/menu2_usb.html"; do
 done
 #the following removes work on all versions
 #remove  usb item .80
-sed -i -e "/usbhost/d" "$1"/usr/www/${HTML}/${avm_Lang}/home/home.html
-grep -q "usbhost" "$1"/usr/www/${HTML}/${avm_Lang}/home/home.html && echo2 "  -- usb menu entry not removed on: /usr/www/${HTML}/${avm_Lang}/home/home.html"
+##sed -i -e "/usbhost/d" "$1"/usr/www/${HTML}/${avm_Lang}/home/home.html
+##grep -q "usbhost" "$1"/usr/www/${HTML}/${avm_Lang}/home/home.html && echo2 "  -- usb menu entry not removed on: /usr/www/${HTML}/${avm_Lang}/home/home.html"
 #the following removes work on all versions
 sed -i -e "/Usb/d" "$1"/usr/www/${HTML}/${avm_Lang}/home/home.html
 sed -i -e "/txt036/d" "$1"/usr/www/${HTML}/${avm_Lang}/home/home.html
@@ -31,7 +31,7 @@ for ITEM in fon home konfig internet wlan system software; do
 done
 echo "-- removing GUI USB-entrys ..."
 #remove enhsettings usb item .80
-##[ -f "$1"/usr/www/${HTML}/${avm_Lang}/enhsettings/enhsettings.js ] && sed -i -e "s/<? setvariable var:showUsb 1 ?>/<? setvariable var:showUsb 0 ?>/" "$1"/usr/www/${HTML}/${avm_Lang}/enhsettings/enhsettings.js
+[ -f "$1"/usr/www/${HTML}/${avm_Lang}/enhsettings/enhsettings.js ] && sed -i -e "s/<? setvariable var:showUsb 1 ?>/<? setvariable var:showUsb 0 ?>/" "$1"/usr/www/${HTML}/${avm_Lang}/enhsettings/enhsettings.js
 #remove enhsettings usb item
 [ -f "$1"/usr/www/${HTML}/${avm_Lang}/enhsettings/enhsettings.html ] && sed -i -e "s/<? setvariable var:myConfigflag 'BoxHatUsb' ?>/<? setvariable var:myConfigflag 'BoxHatWlanOderDectAberOhneUsb' ?>/" "$1"/usr/www/${HTML}/${avm_Lang}/enhsettings/enhsettings.html
  #remove sitemap usb item ok
