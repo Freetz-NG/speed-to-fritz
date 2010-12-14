@@ -10,4 +10,3 @@ for file_n in $DIRI; do
     grep -q 'if 1 == 0 then' "$file_n" && echo2 "    removed ram check from file: ${file_n##*/}"
     grep -q 'if 0 == 0 then' "$file_n" && echo2 "    removed usb count from file: ${file_n##*/}"
 done
-exit 0
