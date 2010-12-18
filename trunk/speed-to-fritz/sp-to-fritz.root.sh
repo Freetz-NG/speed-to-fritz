@@ -611,15 +611,13 @@ fi
 #	export MKSQUASHFS_TOOL="mksquashfs4-lzma"
 #	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
 #	export MKSQUASHFS_OPTIONS="-noappend -all-root -info -no-progress -no-exports -no-sparse"
-	export kernel_start=0x9F020000
-	export kernel_size="16121856"
+	export kernel_start="0x9F020000"
+	export kernel_size="15597568"
 	export filesystem_start="0x9F000000"
 	export filesystem_size="0"
 	export urlader_start="0x9F000000"
 	export urlader_size="131072"
     ;;
-    
-
 "7390")
 ## neds more updating !!!!!
 	export SPMOD="7390"
@@ -841,12 +839,13 @@ export CONFIG_ETH_COUNT="4"
 #	export MKSQUASHFS_TOOL="mksquashfs4-lzma"
 #	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
 #	export MKSQUASHFS_OPTIONS="-noappend -all-root -info -no-progress -no-exports -no-sparse"
-	export kernel_start=0x9F020000
+	export kernel_start="0x9F020000"
 	export kernel_size="15597568"
 	export filesystem_start="0x9F000000"
 	export filesystem_size="0"
 	export urlader_start="0x9F000000"
 	export urlader_size="131072"
+	export flash_start="520093696"
     ;;
 #mtd0	0x9F000000,0x9F000000
 #mtd1	0x9F020000,0x9FF00000
