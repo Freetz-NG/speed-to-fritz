@@ -1,7 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="  * Fix set all providers warning"
-
+comment="  * Update squashfs patches"
 
 echo "-------------------------------------------------------------------------------------------------------------"
 if [ `id -u` -eq 0 ]; then
@@ -62,12 +61,15 @@ cd trunk
 #svn delete --force ./speed-to-fritz/0r
 #svn delete --force ./speed-to-fritz/kernel_7390.patch
 #svn delete --force ./Config.in
+svn delete --force ./speed-to-fritz/tools/make/patches/110-allow-symlinks.squashfs3.patch
+svn delete --force ./speed-to-fritz/tools/make/patches/110-allow-symlinks.squashfs4.patch
+
 #svn delete --force ./speed-to-fritz/tools/usr/lib/libfakeroot.la
 #svn delete --force ./speed-to-fritz/tools/conf
 #svn delete --force ./speed-to-fritz/tools/mconf
 #svn delete --force ./speed-to-fritz/alien/subscripts/add_freetz_type_patches.sh
 #svn delete --force ./speed-to-fritz/alien/add_dect_7150.inc
-svn delete --force ./speed-to-fritz/alien/subscripts/time
+#svn delete --force ./speed-to-fritz/alien/subscripts/time
 #svn delete --force ./speed-to-fritz/alien/subscripts/501.init
 #svn delete --force ./speed-to-fritz/alien/subscripts/701.init
 #svn delete --force ./speed-to-fritz/alien/subscripts/900.init

@@ -1,7 +1,7 @@
 #!/bin/bash
 #place your comment for this uptade here:
 comment="
-	* # Update jtag tool"
+	* #Update jtag tool, added one CPU type not tested."
 
 echo "-------------------------------------------------------------------------------------------------------------"
 echo
@@ -15,7 +15,7 @@ if [ `id -u` -eq 0 ]; then
 fi
 echo "-------------------------------------------------------------------------------------------------------------"
 echo "Looking for new trunk version, wait ..."
-svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
+#svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
 cd trunk
 #svn delete --force ./co/henrynestler/upload-file.sh
 #svn delete --force ./co/henrynestler/s
@@ -26,7 +26,7 @@ cd trunk
 #svn delete --force ./co/bfin-colinux-ori/trunk/upstream/coLinux-0.7.3.exe
 #svn delete --force ./co/bfin-colinux-ori/trunk/upstream/putty-0.60-installer.exe
 #svn delete --force ./co/bfin-colinux-ori/trunk/scripts/init.sh
-#svn delete --force ./co/bfin-colinux-ori/trunk/tarballs/configs
+#svn delete --force ./wrtjp/wrtjp.5.2
 
 #svn revert 
 svn add * --force

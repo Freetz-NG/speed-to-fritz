@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* update ejtag tool"
+comment="* update 7390 downloads"
 
 
 
