@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* update 7390 downloads"
+comment="* update 7390 recover.exe download link"
 
 
 

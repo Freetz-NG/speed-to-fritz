@@ -36,11 +36,14 @@ fi
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
 #RECOVERIMG7170="@AVM/fritz.box/fritzbox.fon_wlan_7170/x_misc/deutsch/fritz.box_fon_wlan_7170.04.80.recover-image.exe"
-RECOVERIMG7170="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.86.recover-image.exe"
 # multilingual recover firmware is usual larger and preverable if new ones are avalabel
 # v3 recover can be used as well for all 7270 compatibel boxes
 # 7390 recover can be used for 7270 compatibel boxes as well
-RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.86.recover-image.exe"
+##RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.86.recover-image.exe"
+RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.89.recover-image.exe"
+#RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.84.recover-image.exe"
+#RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/english/FRITZ.Box_Fon_WLAN_7390.en-de-es-it-fr.04.87.recover-image.exe"
+RECOVERIMG7170="$RECOVERIMG7270"
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
 R_IMG="$RECOVERIMG7270"

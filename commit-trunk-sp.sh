@@ -61,8 +61,8 @@ cd trunk
 #svn delete --force ./speed-to-fritz/0r
 #svn delete --force ./speed-to-fritz/kernel_7390.patch
 #svn delete --force ./Config.in
-svn delete --force ./speed-to-fritz/tools/make/patches/110-allow-symlinks.squashfs3.patch
-svn delete --force ./speed-to-fritz/tools/make/patches/110-allow-symlinks.squashfs4.patch
+#svn delete --force ./speed-to-fritz/tools/make/patches/110-allow-symlinks.squashfs3.patch
+#svn delete --force ./speed-to-fritz/tools/make/patches/110-allow-symlinks.squashfs4.patch
 
 #svn delete --force ./speed-to-fritz/tools/usr/lib/libfakeroot.la
 #svn delete --force ./speed-to-fritz/tools/conf
