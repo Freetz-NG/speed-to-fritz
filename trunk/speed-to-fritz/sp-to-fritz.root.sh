@@ -1686,6 +1686,8 @@ if [ "$ORI" != "y" ]; then
  [ "$PATCH_OEM" = "y" ] && $sh2_DIR/patch_OEMandMyIP "${SRC}"
  # fix default route
  [ "$ADD_DEFAULT_ROUTE_FIX" = "y" ] && $sh_DIR/patch_default_route_fix.sh "${SRC}"
+ # replace inittab as it is done with freetz
+ $sh_DIR/rpl_inittab.sh "${SRC}"
  #packing takes place on SPDIR
  export SPDIR="${FBDIR}"
  #--> Add patches here if this patches shold not be applayed with option restore original!
