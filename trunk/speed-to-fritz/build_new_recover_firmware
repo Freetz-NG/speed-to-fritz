@@ -27,7 +27,7 @@ if [ "$BUILDRECOVER" = "y" ]; then
  echo "--------------------------------------------------------------------------------"
  echo
  echo "If you don't want a recover firmware you can use 'Control C'"
- echo "or better disable this Option within Speed-to-fritz menu."
+ echo "or better disable this option within speed-to-fritz menu."
  echo "Generation of recover firmware takes about two times as"
  echo "long as it did take to build the patched firmware."
  echo
@@ -40,7 +40,7 @@ fi
 # v3 recover can be used as well for all 7270 compatibel boxes
 # 7390 recover can be used for 7270 compatibel boxes as well
 ##RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.86.recover-image.exe"
-RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.89.recover-image.exe"
+RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.90.recover-image.exe"
 #RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.84.recover-image.exe"
 #RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/english/FRITZ.Box_Fon_WLAN_7390.en-de-es-it-fr.04.87.recover-image.exe"
 RECOVERIMG7170="$RECOVERIMG7270"
@@ -223,8 +223,8 @@ if [ "$checkerror" == "y" ]; then
     echo
 else
 [ $act_size -eq $new_act_size ] && [ -f "$new_recover_file" ] && echo -e "New recover: \033[32m$new_recover_file\033[0m\n\
-To load firmware into Your router, transfer this new recover to windows and start it.\n\
-This is an other method to update a firmware, in most cases this will be\n\
+To load firmware into your router, transfer this new recover to windows and start it.\n\
+This is another method to update a firmware, in most cases this will be\n\
 the most reliable way to do a firmware update.\n\
 The fastest way is to use the speed-to-fritz LINUX FTP push option.\n\
 Update via web-interface is preferable, if settings should be restored or push \n\

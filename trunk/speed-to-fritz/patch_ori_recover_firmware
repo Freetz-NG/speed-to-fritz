@@ -98,7 +98,7 @@ new_act_size=`ls -l "$new_recover_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[
 Transfer this file to windows and start it to to recover your router."
 if [ "$checkerror" == "y" ]; then
     rm "$new_recover_file"
-    echo "No Recover image was built!"
+    echo "No Recover image was build!"
     echo
 fi
 #((elasped=SECONDS-orig))
