@@ -451,9 +451,9 @@ config AVM_7390_84_04_87
    string
       default "@AVM/fritz.box/fritzbox.fon_wlan_7390/firmware/english/FRITZ.Box_Fon_WLAN_7390.en-de-es-it-fr.84.04.87.image"
 
-config AVM_7390_84_04_89
+config AVM_7390_84_04_91
    string
-      default "@AVM/fritz.box/fritzbox.fon_wlan_7390/firmware/deutsch/FRITZ.Box_Fon_WLAN_7390.84.04.89.image" 
+      default "@AVM/fritz.box/fritzbox.fon_wlan_7390/firmware/deutsch/FRITZ.Box_Fon_WLAN_7390.84.04.91.image" 
 
 config AVM_PRE_7390_18762
    string
@@ -1171,11 +1171,11 @@ choice
 		default TYPE_PRE_7273_18563 if TYPE_7240
 		#->(only for testing)
 #		default TYPE_PRE_7390_18762 if TYPE_7390
-		default TYPE_DSL_7390_18985 if TYPE_7390
+#		default TYPE_DSL_7390_18985 if TYPE_7390
 #		default TYPE_PHONE_7390_18516 if TYPE_7390
 #		default TYPE_7390_84_04_86 if TYPE_7390
 #		default TYPE_7390_84_04_87 if TYPE_7390
-#		default TYPE_7390_84_04_89 if TYPE_7390
+		default TYPE_7390_84_04_91 if TYPE_7390
 		default TYPE_W722_80_04_76 if TYPE_SPEEDPORT_W722V
 		default TYPE_AVM_HN_7570_16971 if TYPE_HN_7570
 		#<--
@@ -1651,12 +1651,6 @@ choice
 		help 
 			FRITZ! : release 88
 
-	config TYPE_7390_84_04_89
-		bool "AVM 7390 84.04.89 18834"
-		depends on TYPE_OR_7390_722
-		help 
-			FRITZ! : release 89
-
 
 	config TYPE_PRE_7390_18762
 		bool "AVM 7390 84.04.86 18762 Prerelase"
@@ -1671,10 +1665,16 @@ choice
 #			FRITZ!Lab (DSL):
 
 	config TYPE_DSL_7390_18985
-		bool "AVM 7390 84.04.89 18945 DSL"
+		bool "AVM 7390 84.04.89 18985 DSL"
 		depends on TYPE_OR_7390_722
 		help 
 			FRITZ!Lab (DSL):
+
+	config TYPE_7390_84_04_91
+		bool "AVM 7390 84.04.91 19238"
+		depends on TYPE_OR_7390_722
+		help 
+			FRITZ! : release 91
 
 	config TYPE_W722_80_04_76
 		bool "AVM W722 80.04.76 (only for testing)"
@@ -1759,7 +1759,7 @@ config AVM_7570_LOCAL
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  comment  "--------------------------------------------------------------------"
- comment  "--- Additonal firmware for LED driver or other things (optional) ---"
+ comment  "--- Additional firmware for LED driver or other things (optional) ---"
 config SOURCE2
 	depends on ! ORI
 	bool "2nd AVM Type firmware (optional)"
@@ -2020,12 +2020,8 @@ choice
 	config TYPE_SRC3_AVM_7390_84_04_87
 		bool "AVM 7390 84.04.87.en-de-es-it-fr 18914"
 
-	config TYPE_SRC3_AVM_7390_84_04_89
-		bool "AVM 7390 84.04.89 18834"
-
-	config TYPE_SRC3_AVM_DSL_7390_18985
-		bool "AVM 7390 84.04.89 18945"
-
+	config TYPE_SRC3_AVM_7390_84_04_91
+		bool "AVM 7390 84.04.91 19238"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 Firmware
 
@@ -2174,7 +2170,7 @@ config TCOM_IMG
 #	default "$AVM_7390_84_04_84"		if TYPE_7390
 #	default "$AVM_7390_84_04_86"		if TYPE_7390
 #	default "$AVM_7390_84_04_87"		if TYPE_7390
-	default "$AVM_7390_84_04_89"		if TYPE_7390
+	default "$AVM_7390_84_04_91"		if TYPE_7390
 #	default "$AVM_PRE_7390_18762"		if TYPE_7390
 #	default "$AVM_PHONE_7390_18377"		if TYPE_7390
 #	default "$AVM_DSL_7390_18985"		if TYPE_7390
@@ -2282,7 +2278,7 @@ config AVM_IMG
 	default "$AVM_7390_84_04_84"					if TYPE_7390_84_04_84
 	default "$AVM_7390_84_04_86"					if TYPE_7390_84_04_86
 	default "$AVM_7390_84_04_87"					if TYPE_7390_84_04_87
-	default "$AVM_7390_84_04_89"					if TYPE_7390_84_04_89
+	default "$AVM_7390_84_04_91"					if TYPE_7390_84_04_91
 	default "$AVM_PRE_7390_18762"					if TYPE_PRE_7390_18762
 #	default "$AVM_PHONE_7390_18377"					if TYPE_PHONE_7390_18377
 	default "$AVM_DSL_7390_18985"					if TYPE_DSL_7390_18985
@@ -2367,7 +2363,7 @@ config SRC2_IMG
 	default "$AVM_7390_84_04_84"			if TYPE_SRC3_AVM_7390_84_04_84
 	default "$AVM_7390_84_04_86"			if TYPE_SRC3_AVM_7390_84_04_86
 	default "$AVM_7390_84_04_87"			if TYPE_SRC3_AVM_7390_84_04_87
-	default "$AVM_7390_84_04_89"			if TYPE_SRC3_AVM_7390_84_04_89
+	default "$AVM_7390_84_04_91"			if TYPE_SRC3_AVM_7390_84_04_91
 	default "$AVM_PRE_7390_18762"			if TYPE_SRC3_AVM_PRE_7390_18762
 #	default "$AVM_PHONE_7390_18377"			if TYPE_SRC3_AVM_PHONE_7390_18377
 	default "$AVM_DSL_7390_18985"			if TYPE_SRC3_AVM_DSL_7390_18985
