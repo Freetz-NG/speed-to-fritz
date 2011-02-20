@@ -40,7 +40,7 @@ fi
 # v3 recover can be used as well for all 7270 compatibel boxes
 # 7390 recover can be used for 7270 compatibel boxes as well
 ##RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.86.recover-image.exe"
-RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.90.recover-image.exe"
+RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.91.recover-image.exe"
 #RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.84.recover-image.exe"
 #RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/english/FRITZ.Box_Fon_WLAN_7390.en-de-es-it-fr.04.87.recover-image.exe"
 RECOVERIMG7170="$RECOVERIMG7270"
