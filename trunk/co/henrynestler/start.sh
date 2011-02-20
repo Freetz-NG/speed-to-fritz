@@ -50,17 +50,17 @@ TESTING="n"
 #------------------------------------------
 if  [ "$TESTING" == "y" ]; then
 ### -->!!!<--
- LINUX_VERSION="2.6.33.4"
+ LINUX_VERSION="2.6.33.7"
  CO_SUBDIR="testing/kernel-$LINUX_VERSION"
  CO_SUBDIR2="packages"
  DVERSION="20100530"
  REVISION="-testing"
  TMP=$DVERSION
- export COLINUX_VER="0.7.8-$DVERSION"
+ export COLINUX_VER="0.7.9-$DVERSION"
  #modulversion
- M_COLINUX_VER="0.7.8$REVISION-$DVERSION"
+ M_COLINUX_VER="0.7.9$REVISION-$DVERSION"
  #vmlinuxversion
- V_COLINUX_VER="0.7.8$REVISION-$DVERSION"
+ V_COLINUX_VER="0.7.9$REVISION-$DVERSION"
  [ -f ./vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip ] || wget "http://www.henrynestler.com/colinux/testing/kernel-2.6.33/packages/$DVERSION/vmlinux-$LINUX_VERSION-co-$V_COLINUX_VER.zip"
  [ -f ./modules-$LINUX_VERSION-co-$COLINUX_VER.tgz ] || wget "http://www.henrynestler.com/colinux/testing/kernel-2.6.33/packages/$DVERSION/modules-$LINUX_VERSION-co-$M_COLINUX_VER.tgz"
  [ -f ./modules-$LINUX_VERSION-co-$COLINUX_VER.tgz ] || mv -v "./modules-$LINUX_VERSION-co-$M_COLINUX_VER.tgz" ./modules-$LINUX_VERSION-co-$COLINUX_VER.tgz
@@ -91,10 +91,10 @@ else
  rm -f readme.txt
  #REVISION="-r1527"
  echo "Revision: $REVISION"
- LINUX_VERSION="2.6.33.5"
- export COLINUX_VER="0.7.8-$DVERSION"
- M_COLINUX_VER="0.7.8$REVISION-$DVERSION"
- V_COLINUX_VER="0.7.8$REVISION-$DVERSION"
+ LINUX_VERSION="2.6.33.7"
+ export COLINUX_VER="0.7.9-$DVERSION"
+ M_COLINUX_VER="0.7.9$REVISION-$DVERSION"
+ V_COLINUX_VER="0.7.9$REVISION-$DVERSION"
 fi
 sleep 1
 sed -i -e "/$DVERSION/d" $TMP
@@ -112,8 +112,8 @@ do
     [ "$REVISION" == "-r" ] && REVISION=""
     rm -f readme.txt
     echo "Revision: $REVISION"
-    M_COLINUX_VER="0.7.8$REVISION-$DVERSION_PRI"
-    export LONG_VER="$LINUX_VERSION-co-0.7.8$REVISION"
+    M_COLINUX_VER="0.7.9$REVISION-$DVERSION_PRI"
+    export LONG_VER="$LINUX_VERSION-co-0.7.9$REVISION"
     wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/devel-$DVERSION_PRI/modules-$LINUX_VERSION-co-$M_COLINUX_VER.tgz" \
     && mv "./modules-$LINUX_VERSION-co-$M_COLINUX_VER.tgz" "./modules-$LINUX_VERSION-co-$COLINUX_VER.tgz" \
     && return 0
@@ -132,7 +132,7 @@ do
     [ "$REVISION" == "-r" ] && REVISION=""
     rm -f readme.txt
     echo "Revision: $REVISION"
-    V_COLINUX_VER="0.7.8$REVISION-$DVERSION_PRI"
+    V_COLINUX_VER="0.7.9$REVISION-$DVERSION_PRI"
     wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/devel-$DVERSION_PRI/vmlinux-$LINUX_VERSION-co-$V_COLINUX_VER.zip" \
     && mv "./vmlinux-$LINUX_VERSION-co-$V_COLINUX_VER.zip" "./vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip" \
     && return 0
@@ -152,7 +152,7 @@ if [ "$USE_SNAP" != "y" ]; then
  [ -f ./vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip ] || mv -v "./vmlinux-$LINUX_VERSION-co-$V_COLINUX_VER.zip" ./vmlinux-$LINUX_VERSION-co-$COLINUX_VER.zip
 fi
 #patches werden nur fuers skript gebraucht, muessen nicht neu geladen werden
-#[ -f ./linux-2.6.26.8-co-20100524.patch.gz ] || wget "http://www.henrynestler.com/colinux/testing/devel-0.7.8/20100524-Snapshot/kernel-patches/linux-2.6.26.8-co-20100524.patch.gz"
+#[ -f ./linux-2.6.26.8-co-20100524.patch.gz ] || wget "http://www.henrynestler.com/colinux/testing/devel-0.7.9/20100524-Snapshot/kernel-patches/linux-2.6.26.8-co-20100524.patch.gz"
 #[ -f ./patches-$LINUX_VERSION-$COLINUX_VER.tar.gz ] || wget "http://www.henrynestler.com/colinux/$CO_SUBDIR/$CO_SUBDIR2/patches-$LINUX_VERSION-$COLINUX_VER.tar.gz"
 echo "___---___"
 #sleep 50
@@ -166,10 +166,11 @@ DL_DIR="$home/../bfin-colinux-ori/trunk/upstream"
 cd $DL_DIR
 # use devel.exe - only in use for supplying initrd.gz or if snapshot is used
 #--------------------------------------------------------------------
-DEVEL_VER="20100702"
-#http://www.henrynestler.com/colinux/testing/devel-0.7.8/20100702-Snapshot/devel-coLinux-20100702.exe
+DEVEL_VER="20110205"
+#http://www.henrynestler.com/colinux/testing/devel-0.7.9/20100702-Snapshot/devel-coLinux-20100702.exe
+#http://www.henrynestler.com/colinux/testing/devel-0.7.9/20110205-Snapshot/devel-coLinux-20110205.exe
 #--------------------------------------------------------------------
-[ -f devel-coLinux-${DEVEL_VER}.exe ] || wget "http://www.henrynestler.com/colinux/testing/devel-0.7.8/${DEVEL_VER}-Snapshot/devel-coLinux-${DEVEL_VER}.exe"
+[ -f devel-coLinux-${DEVEL_VER}.exe ] || wget "http://www.henrynestler.com/colinux/testing/devel-0.7.9/${DEVEL_VER}-Snapshot/devel-coLinux-${DEVEL_VER}.exe"
 [ -f devel-coLinux-${DEVEL_VER}.exe ] && cp ./devel-coLinux-${DEVEL_VER}.exe ./coLinux-${DEVEL_VER}.exe
 #### -> This would be the old stabile
 ###[ -f coLinux-0.7.3.exe ] || wget "http://www.henrynestler.com/colinux/releases/0.7.3/coLinux-0.7.3.exe"
@@ -227,7 +228,7 @@ cd $home
 tar zxf ../bfin-colinux/trunk/and/vmlinux-modules.tar.gz
 export LONG_VER=$(ls lib/modules)
 rm -fdR lib
-#export LONG_VER="$LINUX_VERSION-co-0.7.8$REVISION"
+#export LONG_VER="$LINUX_VERSION-co-0.7.9$REVISION"
 echo "Modulversion in use: $LONG_VER"
 ./build-and-installer.sh
 #./pack.sh
