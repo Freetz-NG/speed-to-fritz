@@ -40,9 +40,14 @@ fi
 # v3 recover can be used as well for all 7270 compatibel boxes
 # 7390 recover can be used for 7270 compatibel boxes as well
 ##RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.86.recover-image.exe"
-RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.91.recover-image.exe"
+
+#RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.91.recover-image.exe"
+# not useabel RECOVERIMG7270="@AVM/fritz.box/fritzbox.wlan_3370/x_misc/deutsch/fritz.box_wlan_3370_103.05.04.recover-image.exe"
 #RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch/fritz.box_wlan_7390_84.04.84.recover-image.exe"
 #RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/english/FRITZ.Box_Fon_WLAN_7390.en-de-es-it-fr.04.87.recover-image.exe"
+#RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7340/x_misc/english/FRITZ.Box_Fon_WLAN_7340.en-de-es-it-fr.04.90.recover-image.exe"
+#the bigest at the moment
+RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7390.en-de-es-it-fr.04.88.recover-image.exe"
 RECOVERIMG7170="$RECOVERIMG7270"
 #-------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------
@@ -136,6 +141,7 @@ sed -i -e "s|FRITZ!Box Speedp. W${SPNUM:0:3}V v3|FRITZ!Box Speedp. W${SPNUM:0:3}
 sed -i -e "s|FRITZ!Box Speedp. W${SPNUM:0:3}V v3|FRITZ!Box Speedp. W${SPNUM:0:3}V   |g" "$output_dir/exe_start"
 #	test eax,eax pop eax => 85 C0 59
 #	jz => 0F 85
+#sleep 1000
 echo "do the main patch ..."
 # --> older variants
 sed -i \
@@ -150,8 +156,8 @@ sed -i \
 !  $RDIR/ipsr s "0x85c0590f85........399d" "0x85c059909090909090399d" "$output_dir/exe_start" && echo "-- OEM check not found error!" && checkerror="y"
 !  $RDIR/ipsr s "0x3bfb74..83ffff89" "0x3bfbeb..83ffff89" "$output_dir/exe_start"  && echo "-- kernel check not found error!" && checkerror="y"
 !  $RDIR/ipsr s "0xc40c85c0..4a" "0xc40c85c0eb4a" "$output_dir/exe_start" && echo "-- CRC check not found error!" && checkerror="y"
-!  $RDIR/ipsr s "0x72..397D0873..89" "0x73..397D0873..89" "$output_dir/exe_start" && echo "-- urloader update not found error!" && checkerror="y"
-!  $RDIR/ipsr s "0x003bc8..4a8d95"  "0x003bc8eb4a8d95" "$output_dir/exe_start" && echo "-- check kernel size remove error!" && checkerror="y"
+!  $RDIR/ipsr s "0x72..397D0873..89" "0x73..397D0873..89" "$output_dir/exe_start" && echo "-- urloader update not found error!" && checkerror="y" 
+!  $RDIR/ipsr s "0x3bc8..4a8d95"  "0x3bc8eb4a8d95" "$output_dir/exe_start" && echo "-- check kernel size remove error!" && checkerror="y"
 !  $RDIR/ipsr s "0x83c4243b4d18..458d85" "0x83c4243b4d18..458d85" "$output_dir/exe_start" && echo "-- check2 kernel size not found error!" && checkerror="y"
 # <--
 
@@ -162,7 +168,7 @@ sed -i \
   ! ($RDIR/ipsr s "0x72..81ffe8030000" "$output_dir/exe_start" || \
     $RDIR/ipsr s "0x7300909050b68f00" "$output_dir/exe_start" || \
     $RDIR/ipsr s "0x73..397D08730689" "$output_dir/exe_start" ) && echo "-- urloader update remove error!" && checkerror="y"
-  ! $RDIR/ipsr s "0x003bc8eb4a8d95" "$output_dir/exe_start" && echo "-- check kernel size remove error!" && checkerror="y"
+  ! $RDIR/ipsr s "0x3bc8eb4a8d95" "$output_dir/exe_start" && echo "-- check2 kernel size remove error!" && checkerror="y"
   ! $RDIR/ipsr s "0x83c4243b4d18..458d85" "$output_dir/exe_start" && echo "-- check2 kernel size remove error!" && checkerror="y"
   ! $RDIR/ipsr s "0x83c4243b4d1877..8d85" "0x83c4243b4d18eb..8d85" "$output_dir/exe_start" && echo "-- check2 kernel size not found error!" && checkerror="y"
 
