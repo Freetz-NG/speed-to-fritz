@@ -1001,10 +1001,10 @@ choice
 		bool "AVM 7570 17599.en-de-fr (IPv6) 17599"
 
 	config TYPE_TCOM_7570_75_04_82
-		bool "AVM 7570 75.04.82.en-de-fr 19715"
+		bool "AVM 7570 75.04.82.en-de-fr 17057"
 
 	config TYPE_TCOM_7570_75_04_90
-		bool "AVM 7570 75.04.90.en-de-fr 17057"
+		bool "AVM 7570 75.04.90.en-de-fr 19715"
 
 	config TYPE_TCOM_HN_7570_16971
 		bool "AVM 7570 81.04.86 (HN alice) 16971"
@@ -2058,10 +2058,10 @@ choice
 		bool "AVM 7570 17599.en-de-fr (IPv6) 17599"
 
 	config TYPE_SRC3_AVM_7570_75_04_82
-		bool "AVM 7570 75.04.82.en-de-fr 19715"
+		bool "AVM 7570 75.04.82.en-de-fr 17057"
 
 	config TYPE_SRC3_AVM_7570_75_04_90
-		bool "AVM 7570 75.04.90.en-de-fr 17057"
+		bool "AVM 7570 75.04.90.en-de-fr 19715"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	config TYPE_SRC3_AVM_HN_7570_16971
 		bool "AVM 7570 81.04.86 (HN alice) 16971"
