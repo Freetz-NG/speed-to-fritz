@@ -393,7 +393,7 @@ else
    echo "Be patient ..."
    ./start-${SPNUM}
   else
-   mv $HOMEDIR/Firmware.orig/${FREETZ_TYPE_STRING}_freetz.image $HOMEDIR/Firmware.new/${FREETZ_TYPE_STRING}_freetz.image
+   mv $HOMEDIR/Firmware.orig/${modimage} $HOMEDIR/Firmware.new/${modimage}
   fi
  done
 fi
