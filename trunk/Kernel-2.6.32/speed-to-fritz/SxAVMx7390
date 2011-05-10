@@ -1,0 +1,24 @@
+#!/bin/bash
+#KernelVersion="2.6.19.2"
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# only executed if productname is changed
+#if [ ! -e "${SRC}"/etc/default.${CONFIG_PRODUKT} ]; then
+#echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
+# echo2 "-- Move contents of OEM directory:"
+# echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
+#    mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
+#   "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
+#    rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
+#fi
+
+#Add buchsend button to fon bookpage
+ [ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
+
+# add kapselung and annex settings page if missing
+# $sh_DIR/add_multi_settings.sh
+#remove kids and help
+ [ "${REMOVE_KIDS}" = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
+ [ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
+ echo "********************************************************************************"
+

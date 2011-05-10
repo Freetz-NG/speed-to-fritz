@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="  * Update squashfs patches"
+comment="  * fix Update start-freetz.sh for 7570 75.04.90 Firmware"
 
 echo "-------------------------------------------------------------------------------------------------------------"
 if [ `id -u` -eq 0 ]; then
