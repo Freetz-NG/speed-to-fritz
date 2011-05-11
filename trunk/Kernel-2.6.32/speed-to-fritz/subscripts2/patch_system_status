@@ -1,0 +1,15 @@
+#!/bin/bash
+ . $include_modpatch
+DIRI="`find $1/usr/bin/ -name system_status`" 
+if  [ -f $DIRI ]; then
+ echo2 "  -- patch system_status file ..."
+ echo2 "      ${DIRI}"
+     sed -i -e "/# /d" ${DIRI}
+     sed -i -e "/###/d" ${DIRI}
+     sed -i -e "/<.body><.html>/i \
+echo -e \"<br>\"\n\
+echo -e \"FRITZ!Box Speed-to-fritz Modifikation Skript Datum und Revisionsnummer: ${SKRIPT_DATE_ISO}${SVN_VERSION}<\/a>\"\n\
+echo -e \" --- Optionen: Siehe \/etc\/Firmware.conf\ und Modinfo on Statusseite.\"\n\
+echo -e \"<br>\"" ${DIRI}
+fi
+exit 0

@@ -1,0 +1,898 @@
+#!/bin/bash
+ . $include_modpatch
+# $1 multible items
+# $2 item count position
+# $3 return Varablename 
+function get_item()
+{
+item_count="0"
+for i in ${1}; do
+case $item_count in
+$2)
+echo "$i"
+[ $3 ] && eval $3="$i";;
+esac
+item_count=$((item_count + 1))
+done
+}
+do_download()
+{
+  # $1 = full download URL, $2 = target directory
+  wget -t2 --timeout=20 --passive-ftp -P "$1" "$2"
+  wget_result=$?
+  if [ "$wget_result" != "0" ]; then
+    echo "Download failed - $2  ->  error code $wget_result" >&2
+    fname=$(basename $2)
+    rm -f $1/$fname
+    return $wget_result
+  fi
+  #echo "Download succeeded - $2  ->  saved to folder $1"
+}
+function get_php()
+{
+DLD_PATH="${1%/*}/"
+IMG_REQ="${1##*/}"
+DLD_DIR="$2"
+EXT="${1##*.}"
+#if [ "$DOCHECK" == "y" ] || [ "${3:6}" == "" ] || [ "$6" == "" ];then
+if [ "$DOCHECK" == "y" ]; then
+ echo "-- checking AVM Labor php for latest firmware file ..."
+ rm -f $DLD_DIR/$IMG_REQ
+ rm -f $DLD_DIR/index*
+ wget -P "$DLD_DIR" "$1" 2>&1 > /dev/null
+ if [ ! -e $DLD_DIR/$IMG_REQ ]; then 
+ 	return 0
+ else
+  LOCAL_HWID=${3:2:3}
+  cat "$DLD_DIR/$IMG_REQ" | sed -n "/<div  id=.B_$LOCAL_HWID.>/,/<\/div>/{/diese Hardware-Version der.*/p}" | grep -q 'diese Hardware-Version der' && echo "There is no Labor firmware for this Hardware version $LOCAL_HWID avalabel!" && sleep 20
+  IMG_REQ1="$(cat "$DLD_DIR/$IMG_REQ" | sed -n "/<div  id=.B_$LOCAL_HWID.>/,/<\/div>/{/<a href=.*/p}" | sed "s/.*<a href=\"//" | sed "s/\".*//")"
+  if [ "$IMG_REQ1" != "" ] && [ "${3:6}" != "${IMG_REQ1}" ]; then
+     sed -i -e "s|\"$1 HW$LOCAL_HWID.*\"|\"$1 HW$LOCAL_HWID:${IMG_REQ1}\"|" "$HOMEDIR/Config.in"
+     sed -i -e "s|\"$1 HW$LOCAL_HWID.*\"|\"$1 HW$LOCAL_HWID:${IMG_REQ1}\"|" "$HOMEDIR/$firmwareconf_file_name"
+    if [ "${3:6}" != "" ]; then
+    REVISON="$(echo "$IMG_REQ1" | sed -e 's/^.*\(.\{5\}\)....$/\1/' | tr -d '[:alpha:]')"
+    OLDREVISON="$(echo "${3:6}" | sed -e 's/^.*\(.\{5\}\)....$/\1/' | tr -d '[:alpha:]')"
+    OLDAVMNUM="7$(echo "${6}" | sed "s/.*_7//" | sed "s/0.v//" | sed "s/\.//" | tr -d '[:alpha:]' | sed -e 's/^\(.\{3\}\).*$/\1/' )"
+    OLDXXVERSION="04$(echo "${6}" | sed "s/.*04//" | sed -e 's/^\(.\{9\}\).*$/\1/' | tr -d '[:alpha:]')"
+    XXVERSION="$(cat "$DLD_DIR/$IMG_REQ" | sed -n "/<div  id=.B_$LOCAL_HWID.>/,/<\/div>/{/xx\.04\.*/p}" | sed "s/.*<td>xx.//" | sed -e 's/^\(.\{11\}\).*$/\1/' | tr -d '[:alpha:]')"
+    AVMNUM="$(cat "$DLD_DIR/$IMG_REQ" | grep "H_$LOCAL_HWID" | sed -e "s/0 v//" | sed -e "s/<\/h3>//" | sed -e 's/^.*\(.\{4\}\).$/\1/' | tr -d '[:alpha:]' )"
+     if ! [ -z "$REVISON" ] && ! [ -z "$AVMNUM" ] && ! [ -z "$OLDREVISON" ] && ! [ -z "$OLDAVMNUM" ]; then
+     sed -i -e "s|${OLDAVMNUM}_${OLDREVISON}|${AVMNUM}_${REVISON}|g" "$HOMEDIR/Config.in"
+     [ "${AVMNUM:3:1}" != "0" ] && [ "${OLDAVMNUM:3:1}" != "0" ] && AVMNUM="${AVMNUM:0:3}0v${AVMNUM:3:1}" && OLDAVMNUM="${OLDAVMNUM:0:3}0v${OLDAVMNUM:3:1}"
+     sed -i -e "s|${OLDAVMNUM} ${OLDREVISON}|${AVMNUM} ${REVISON}|g" "$HOMEDIR/Config.in"
+     eval "export $7=DONTUSE"
+     fi
+    fi
+   fi
+  eval "export $4=${DLD_PATH}${IMG_REQ1}"
+ fi
+else
+  eval "export $4=${DLD_PATH}${3:6}"
+fi
+return 0
+}
+function get_fw_from_ftp()
+{
+DLD_PATH="${1%/*}/"
+! `echo $1 | grep -q '@'` && `echo $1 | grep -q 'update.avm.de'` && DLD_PATH="ftp://jason:274jgjg85hh36@${DLD_PATH##*//}"
+IMG_REQ="${1##*/}"
+DLD_DIR="$2"
+IMG_DESC="$3"
+IMG_TPL=$( echo "$IMG_REQ" | sed -e 's/\...\.image/\.\*\.image/' )
+DLD_TPL="${DLD_PATH}/${IMG_TPL}"
+echo "-- checking ftp.avm.de for latest firmware file ..."
+rm -f $DLD_DIR/.listing
+wget --spider --no-remove-listing -P "$DLD_DIR" "$DLD_PATH" 2>&1 > /dev/null
+if [ ! -e $DLD_DIR/.listing ]; then
+	echo "-- could not retrieve listing from ftp.avm.de"
+	eval "export $4=${IMG_REQ}"
+	sleep 5
+	return 1
+else
+	IMG_LIST=$( cat "$DLD_DIR/.listing" | grep -wo "FRITZ.*.image" )
+	IMG_CNTS=$( cat "$DLD_DIR/.listing" | grep -wc "FRITZ.*.image" )
+	SELECT=0
+	YESNO="n"
+	while [ "$YESNO" != "y" ]; do
+		CNT=1
+		for IMG_FILE in $IMG_LIST; do
+			IMG[$CNT]="$IMG_FILE"
+			echo "   ${CNT}. --- ${IMG[$CNT]}"
+			let CNT=$CNT+1 
+		done
+		NN=2 && [ $IMG_CNTS -lt 10 ] &&  NN=1
+		echo -n "   Select index of firmware image to use: "; read -n $NN SELECT; echo
+		echo
+		if [ $SELECT -gt 0 ] && [ $SELECT -lt $CNT ]; then
+		    echo -n "   Your selection: '${IMG[$SELECT]}'. Correct (y/n)? "; read -n 1 -s YESNO; echo
+		    echo
+		fi
+	done
+	[ "$YESNO" = "y" ] && [ $SELECT -gt 0 ] && eval "export $4=${DLD_PATH}${IMG[$SELECT]}"
+fi
+return 0
+}
+#########################################################################
+#                                                                       #
+# Function fwselect()                                                   #
+#                                                                       #
+# Usage: fwselect img_path dld_dir img_desc var_by_ref                  #
+#   $1:         full download path to required image                    #
+#   $2:         local directory where images are stored                 #
+#   $3:         image description to be used in prompt                  #
+#   $4:         image description 2                                     #
+#   $5:         mirror download link                                    #
+#   $6:         alternativ local filename or HWrevision or mirror       #
+#   $7:         firmware number  XXXX or NO_NUMBER                      #
+#                                                                       #
+# fwselect() returns name of selected image in variable                 #
+# name referenced by var_by_ref ($4)                                    #
+#                                                                       #
+#########################################################################
+function fwselect()
+{
+DLD_TPL="$1"
+DLD_DIR="$2"
+FW_TYPE="$7"
+X_ENTRY="$5"
+[ "${1##*.}" == "php" ] && get_php "$DLD_TPL" "$DLD_DIR" "$6" "DLD_TPL" "$6" "$5" "X_ENTRY" 
+IMG_REQ="${DLD_TPL##*/}"
+DLD_PATH="${DLD_TPL%/*}"
+FIRST_ENTRY=""
+SECOND_ENTRY="$6"
+if [ "$SECOND_ENTRY" != "mirror" ] && [ "${6:0:2}" != "HW" ]; then
+    [ -z "$SECOND_ENTRY" ] || IMG_REQ=$SECOND_ENTRY
+    FIRST_ENTRY="$1"
+else
+    if [ "${IMG_REQ##*.}" == "zip" ] || [ "${IMG_REQ##*.}" == "ZIP" ];then
+	[ "${6:0:2}" == "HW" ] && FIRST_ENTRY="$1 ${6:0:5}:$IMG_REQ"
+	! [ -f $DLD_DIR/$IMG_REQ ] && SECOND_ENTRY="${6:0:2}"
+    else
+	[ "${6:0:2}" == "HW" ] && FIRST_ENTRY="$1 ${6:0:5}"
+    fi
+fi
+get_fw "$DLD_TPL" "$2" "$3" "$4" "$X_ENTRY" "$SECOND_ENTRY" "$FIRST_ENTRY"
+if [ $? -ne 0 ]; then
+    IMG_REQ_OLD=$IMG_REQ
+    DLD_TPL_OLD=$DLD_TPL
+    #echo ":1:$IMG_REQ_OLD"
+    X_version=""
+    X_subversion=""
+    X_minorversion=""
+    export X_X=`echo $IMG_REQ_OLD | grep '.04.' | sed -e 's|-|\.|' | sed -e 's|_|\.|' | sed -e 's|M||' | sed 's/.*\(...04.*\)/\1/'`
+    if `echo "${X_X:15:5}" | grep -q 'image'` || `echo "${X_X:15:3}" | grep -q 'zip'` || `echo "${X_X:15:3}" | grep -q 'ZIP'` ; then
+     X_version=${X_X:0:2}
+     X_minorversion=${X_X:6:2}
+     X_subversion=${X_X:9:5}
+     #echo "Firmware Version: $X_version.04.$X_minorversion-$X_subversion"
+    else 
+	if `echo "${X_X:9:5}" | grep -q 'image'` || `echo "${X_X:9:3}" | grep -q 'zip'` || `echo "${X_X:9:3}" | grep -q 'ZIP'` ; then
+    	    X_version=${X_X:0:2}
+    	    X_minorversion=${X_X:6:2}
+    	    #echo "Firmware Version: $X_version.04.$X_minorversion"
+	fi
+    fi
+ `  echo $DLD_TPL | grep -q 'ftp://'` && get_fw "$DLD_TPL" "$2" "$3" "$4" "select" "$SECOND_ENTRY" "$FIRST_ENTRY"
+    if [ $? -ne 0 ]; then
+	if [ $? -eq 1 ]; then
+	    echo "Check your internet connection!"
+	    echo "In some cases the download won't start even the file exists on the given locoction."
+	fi
+	echo "Unable to retrieve file '$IMG_REQ'"
+	echo "Please download the file to the following directory:"
+	echo "      $DLD_DIR"
+	eval "$4=''"
+	return 1
+    fi 
+	IMG_REQ="${DLD_TPL##*/}"
+	cp "${HOMEDIR}"/Config.in "${HOMEDIR}"/Config.in.ori
+	sed -i -e "s|$DLD_TPL_OLD|$DLD_TPL|g" "${HOMEDIR}"/Config.in
+	sed -i -e "s|$IMG_REQ_OLD|$IMG_REQ|g" "${HOMEDIR}"/Config.in
+	Y_version=""
+	Y_subversion=""
+	Y_minorversion=""
+	MULTI="_"
+	MULTI_T='"'
+	`echo $IMG_REQ_OLD | grep -q 'en-de'` && `echo $IMG_REQ | grep -q 'en-de'` && MULTI="m" && MULTI_T=".en-de"
+	
+	X_Y=`echo $IMG_REQ | grep '.04.' | sed -e 's|-|\.|g' | sed -e 's|_|\.|g' | sed -e 's|M||' | sed 's/.*\(...04.*\)/\1/'`
+	if [ "X_Y" != "" ] && [ "X_X" != "" ] ; then 
+    	    if `echo "${X_Y:15:5}" | grep -q 'image'` || `echo "${X_Y:15:3}" | grep -q 'zip'` || `echo "${X_Y:15:3}" | grep -q 'ZIP'` ; then
+		Y_version=${X_Y:0:2}
+		Y_minorversion=${X_Y:6:2}
+		Y_subversion=${X_Y:9:5}
+		echo "Version:${MULTI}$Y_version.04.$Y_minorversion-$Y_subversion"
+    	    else
+    	        if `echo "${X_Y:9:5}" | grep -q 'image'` || `echo "${X_Y:9:3}" | grep -q 'zip'` || `echo "${X_Y:9:3}" | grep -q 'ZIP'` ; then
+		Y_version=${X_Y:0:2}
+		Y_minorversion=${X_Y:6:2}
+		echo "Version:${MULTI}$Y_version.04.$Y_minorversion"
+		fi
+    	    fi
+	    if [ "$X_version" != "" ] && [ "$Y_version" != "" ] && [ "$X_version$X_minorversion" != "$Y_version$Y_minorversion" ]; then 
+		echo "Config.in changed, diff saved to Config.in.diff"
+		sed -i -e "s|$X_version\.04\.$X_minorversion${MULTI_T}|$Y_version\.04\.$Y_minorversion${MULTI_T}|g" "${HOMEDIR}"/Config.in
+		sed -i -e "s|${MULTI}${X_version}_04_${X_minorversion}|${MULTI}${Y_version}_04_${Y_minorversion}|g" "${HOMEDIR}"/Config.in
+	    fi
+	    if [ "$X_subversion" != "" ] && [ "$Y_subversion" != "" ] && [ "$X_subversion" != "$Y_subversion" ] ; then 
+		sed -i -e "s|$X_subversion${MULTI_T}|$Y_subversion${MULTI_T}|g" "${HOMEDIR}"/Config.in
+		sed -i -e "s|_$X_subversion|_$Y_subversion|g" "${HOMEDIR}"/Config.in
+	    fi
+	fi
+    diff -Naur "${HOMEDIR}"/Config.in.ori "${HOMEDIR}"/Config.in > "${HOMEDIR}"/Config.in.diff
+fi
+}
+function get_fw()
+{
+DLD_TPL="$1"
+DLD_DIR="$2"
+IMG_DESC="$3"
+IMG_DESC2="$4"
+if [ "$5" == "select" ]; then
+    get_fw_from_ftp "$DLD_TPL" "$DLD_DIR" "$IMG_DESC" "DLD_TPL"
+    MIRROR_DLD_PATH=""
+    MIRROR_DLD_TPL=""
+    FILENAME_DLD_TPL=""
+else
+    MIRROR_DLD_PATH="${5%/*}"
+    MIRROR_DLD_TPL="$5"
+    FILENAME_DLD_TPL="$6"
+    [ "${6:0:2}" == "HW" ] && ! [ -z "$5" ] && FILENAME_DLD_TPL="$5"
+    [ "${6:0:2}" == "HW" ] && MIRROR_DLD_TPL=""
+fi
+FIRST_ENTRY="$7"
+IMG_REQ="${DLD_TPL##*/}"
+DLD_PATH="${DLD_TPL%/*}"
+EXT="${DLD_TPL##*.}"
+#echo "test----------------------------"
+#echo "DLD_TPL:$DLD_TPL" 
+#echo "MIRROR_DLD_TPL:$MIRROR_DLD_TPL" 
+#echo "FILENAME_DLD_TPL:$FILENAME_DLD_TPL"
+#echo "test----------------------------"
+IMG_REQ_N="${IMG_REQ%.*}"
+if [ -f "$DLD_DIR/${FILENAME_DLD_TPL##*/}" ]; then
+#echo "#alternative local filename -->"
+    IMG_REQ="${FILENAME_DLD_TPL##*/}"
+    EXT="${FILENAME_DLD_TPL##*.}"
+    DLD_PATH="${FILENAME_DLD_TPL%/*}"
+else #<--alternative local filename --
+
+ if [ -f "$DLD_DIR/$IMG_REQ_N.image" ]; then
+ #echo "---->>>> IMG_REQ_N: $IMG_REQ_N"
+    IMG_REQ="$IMG_REQ_N.image"
+    EXT="image"
+ else
+  if [ "$MIRROR_DLD_TPL" ]; then
+    #echo "#---use mirrorimage-->"
+    if ! [ -f "$DLD_DIR/$IMG_REQ" ]; then
+	case "$MIRROR_DLD_PATH" in
+		ftp://*)
+			wget --passive-ftp --output-document="$DLD_DIR/$IMG_REQ" "$MIRROR_DLD_TPL" 2>&1
+			;;
+		http://*)
+			wget --output-document="$DLD_DIR/$IMG_REQ" "$MIRROR_DLD_TPL" 2>&1
+			;;
+	esac
+    fi
+    #echo "#<---use mirrorimage"
+    else
+    if ! [ -f "$DLD_DIR/$IMG_REQ" ]; then
+	case "$DLD_PATH" in
+		@AVM*)
+		    #echo "# Fill array 'sites' with download server URLs, first primary site (if specified)"
+		    DLD_0=${DLD_PATH/@AVM\//}
+		    sites[0]=ftp://ftp.avm.de/$DLD_0
+		    sites[1]=http://download.avm.de/$DLD_0
+		    sites[2]=ftp://download.avm.de/$DLD_0
+		    # Loop over servers until a download succeeds or all requests have failed.
+		    for i in ${sites[@]} ; do
+			    do_download "$DLD_DIR" "$i/$IMG_REQ" && break
+		    done
+			;;
+		ftp://*)
+			#do_download "$DLD_DIR" "$DLD_TPL"
+			wget --passive-ftp -P "$DLD_DIR" "$DLD_TPL" 2>&1
+			;;
+		http://*)
+			#echo "  html download ..."
+#			DLD_TPL_NEW=""
+#			rm -f $DLD_DIR/404*
+			wget -P "$DLD_DIR" "$DLD_TPL" 2>&1
+#			if [ ! -e $DLD_DIR/404.html ]; then
+#			    # follows if last digit of miniorversion is diffent
+#			    DLD_TPL_NEW=`wget --spider -P "$DLD_DIR" "$DLD_TPL" 2>&1 | grep 'Location:' | sed -e 's/Location://' | sed -e 's/ //' | sed 's/\(ZIP\).*/\1/' | sed 's/\(zip\).*/\1/'`
+#			    if ! `echo "$DLD_TPL_NEW" | grep -q '404.html' `;then
+#			     if [ "$DLD_TPL_NEW" != "" ] && [ "$DLD_TPL_NEW" != "$DLD_TPL" ]; then
+#				echo ":old   :$DLD_TPL"
+#				echo ":select:$DLD_TPL_NEW"
+#				cp "${HOMEDIR}"/Config.in "${HOMEDIR}"/Config_ori.in
+#				sed -i -e "s|"$DLD_TPL.*$"|$DLD_TPL_NEW\"|g" "${HOMEDIR}"/Config.in
+#				diff -Naur "${HOMEDIR}"/Config_ori.in "${HOMEDIR}"/Config.in >> "${HOMEDIR}"/diff-config.in
+#				IMG_REQ="${DLD_TPL_NEW##*/}"
+#			    fi
+#			   fi
+#			fi
+			;;
+	esac
+    fi
+  fi
+ fi #<--alternative local filename --
+fi
+if [ -f "$DLD_DIR/$IMG_REQ" ]; then
+    #act_size=`ls -l "$DLD_DIR/$IMG_REQ" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
+    #echo "size: $act_size"
+    #[  "$act_size" == "0" ] && rm -f $DLD_DIR/$IMG_REQ
+    check_or_write_md5_to_DB "$DLD_DIR/$IMG_REQ" && check_html "$DLD_DIR/$IMG_REQ" && \
+    eval "$4=''" && return 2
+fi
+if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
+    if [ "$EXT" = "zip" ] || [ "$EXT" = "ZIP" ]; then
+	IMG_REQ1="${IMG_REQ%.*}"
+	echo "-- extracting $IMG_REQ1 from archive "$IMG_REQ" ..."
+	rm -fdR "$DLD_DIR/$IMG_REQ1"
+	mkdir "$DLD_DIR/$IMG_REQ1"
+	check_or_write_md5_to_DB "$DLD_DIR/$IMG_REQ"
+	unzip -qoj "$DLD_DIR/$IMG_REQ" -d "$DLD_DIR/$IMG_REQ1" 	#option j added because AVM added path inside zipfile with fritz_box-labor-7270-13362.zip 
+	#--> look for file supplied via Config.in as 2nd parameter -->  
+	if [ -f "$DLD_DIR/$IMG_REQ1/${FILENAME_DLD_TPL##*/}" ]; then
+		IMG_EXTRACTED="${FILENAME_DLD_TPL##*/}"
+	else
+	#echo "#<--look for file supplied via Config.in as 2nd parameter"
+	#-->only used if more than one .image file is within the zipfile-->
+		IMG_EXTRACTED=`ls "$DLD_DIR/$IMG_REQ1" | grep  'image'`
+		IMG_CNTS=`ls "$DLD_DIR/$IMG_REQ1" | grep -c 'image'`
+		SELECT=0
+		YESNO="y"
+		if [ $IMG_CNTS -gt 1 ]; then
+		    YESNO="n"
+		    echo "-- more than one match for '*.image' found:"
+		    echo
+		fi
+		while [ "$YESNO" != "y" ]; do
+		    CNT=1
+		    for IMG_FILE in $IMG_EXTRACTED; do
+			IMG[$CNT]="$IMG_FILE"
+			echo "   ${CNT}. --- ${IMG[$CNT]}"
+			let CNT=$CNT+1 
+		    done
+		    echo -n "   Select index of firmware image to use: "; read -n 1 SELECT; echo
+		    echo
+		    if [ $SELECT -gt 0 ] && [ $SELECT -lt $CNT ]; then
+			echo -n "   Your selection: '${IMG[$SELECT]}'. Correct (y/n)? "; read -n 1 -s YESNO; echo
+		    fi
+		    [ "$YESNO" = "y" ] && IMG_EXTRACTED="${IMG[$SELECT]}"
+		done
+	#<--only used if more than one .image file is within the zipfile
+	fi #<--look for file supplied via Config.in as 2nd parameter
+		#workaround problem with filenames including SPC
+		IMG_EXTRACTED_SPC="$(echo $IMG_EXTRACTED | sed -e "s/ /-/g")" 
+		mv "$DLD_DIR/$IMG_REQ1/$IMG_EXTRACTED" "$DLD_DIR/$IMG_EXTRACTED_SPC" 
+		if [ -f "$DLD_DIR/$IMG_EXTRACTED_SPC" ]; then
+		check_or_write_md5_to_DB "$DLD_DIR/$IMG_EXTRACTED_SPC"
+		#echo "-----> $FIRST_ENTRY"
+		echo "$IMG_EXTRACTED" | grep -q ' ' || ([ "$MIRROR_DLD_TPL" == "" ] && sed -i -e "s|\"$FIRST_ENTRY\"|\"$FIRST_ENTRY \./$FWORIGDIR/$IMG_EXTRACTED_SPC\"|" "$HOMEDIR/Config.in")
+		[ "$MIRROR_DLD_TPL" == "" ] && sed -i -e "s|\"$FIRST_ENTRY\"|\"$FIRST_ENTRY \./$FWORIGDIR/$IMG_EXTRACTED_SPC\"|" "$HOMEDIR/$firmwareconf_file_name"
+		 # workaroud because LaborCORE zip includes now DOS filenames with !, delite did hang.
+		 for file in $(ls "$DLD_DIR/$IMG_REQ1"); do
+		    #echo "$file"
+		    rm -fr "$DLD_DIR/$IMG_REQ1/$file"
+		 done
+		 rm -fr "$DLD_DIR/$IMG_REQ1/"
+		 rmdir  --ignore-fail-on-non-empty "$DLD_DIR/$IMG_REQ1" > /dev/null 2>&1
+#####		 rm -f "$DLD_DIR/$IMG_REQ"
+		fi
+		echo "image extracted: $IMG_EXTRACTED_SPC"
+		eval "$4=$IMG_EXTRACTED_SPC"
+		return 0
+     else
+		eval "$4=$IMG_REQ"
+		#echo "existing image: $IMG_REQ"
+		return 0
+    fi
+fi
+#echo "No image"
+eval "$4=''"
+return 1
+}
+function check_html()
+{
+    echo "--------> wrong mtd5-checksum!"
+    sleep 1
+    if $(grep -q '</html>' "$1" ); then
+	echo "Recived HTML file instead!"
+	sleep 2
+	mv "$1" "$1.html"
+	lynx "$1.html"
+	rm -f $1.html
+	return 1
+    fi
+    rm -f $1
+    return 0
+}
+function check_or_write_md5_to_DB()
+{
+	act_size="$(ls -l "$1" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/')"
+	temp="$($TOOLS_DIR/md5sum "$1")"
+	MD5SUM="${temp%% *}"
+	filename=$(basename "${temp#* }")
+	#echo "MD5SUM:$MD5SUM"
+	#echo "filename:$filename"
+	[ -f $HOMEDIR/md5list ] || touch $HOMEDIR/md5list
+	if ! $(grep -q "$filename" "$HOMEDIR/md5list" ); then
+	     if ! $(grep -q '</html>' "$1" ); then
+	      if (($act_size>4000000)); then
+	       echo "$filename $MD5SUM" >> $HOMEDIR/md5list
+	       echo "Added "$filename" to ./md5lst"
+	      fi
+	     else
+	      mv "$1" "$1.html"
+	      lynx "$1.html"
+	      rm -f $1.html
+	     fi 
+	    return 1
+	else
+	    temp=$(grep "$filename" $HOMEDIR/md5list)
+	    DB_MD5SUM="${temp#* }"
+	    DB_filename=$(basename "${temp%% *}")
+	    #echo "DB_MD5SUM:$DB_MD5SUM"
+	    #echo "DB_filename:$DB_filename"
+	fi
+	if [ "$DB_MD5SUM" == "$MD5SUM" ] && (($act_size>4000000)); then
+	    return 1
+	else
+	    return 0
+	fi
+}
+
+function print_ftperror()
+{
+sed -i -e '/Permission denied/d' ${HOMEDIR}/ftperr.log
+ftperr_size=`ls -l "${HOMEDIR}/ftperr.log" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
+[ $ftperr_size -gt "0" ] && \
+echo -e "---------------------------------------------------------- \n\
+Your PC or/and VM machine net-card is not set up correctly \n\
+---------------------------------------------------------- \n\
+Make sure only one net-card is installed or specify the proper eth0 .. eth9 \n\
+within speed-to-fritz menu options, WLAN-, IDSN- or TV-cards do count as as well. \n\
+If a VM (virtual machine) is in use make sure VM is stared with administrator rights. \n\
+Right click on the VM program and select 'Start as administrator' " && return 1
+return 0
+}
+#########################################################################
+#                                                                       #
+# Function pushconfig()                                                 #
+#                                                                       #
+# pushconfig waits for Speedport's ping reply after reboot to           #
+# automatically transfer the file 'kernel.image' via ftp (adam2)        #
+#                                                                       #
+#########################################################################
+function pushconfig()
+{
+IMAGEDIR="$1"
+OEM="$2"
+CONFIG_PRODUKT="$3"
+HWRevision="$4"
+#ETH_IF="$5"
+IPADDRESS="$6"
+CONFIG_jffs2_size="$7"
+kernel_args="$8"
+ANNEX="$9"
+
+img=""
+img="${IMAGEDIR}/kernel.image"
+if tar tf "${IMAGEDIR}/kernel.image" ./var/tmp/kernel.image > /dev/null 2>&1; then
+	echo >&2
+	echo "Hint: file seems to be a full firmware image archive in 'tar' format" >&2
+	echo "containing the 'kernel.image' you are looking for. Please extract the archive" >&2
+	echo "by means of 'tar xf', then call this script again upon the extracted " >&2
+	echo "'kernel.image'." >&2
+	sleep 20
+	echo >&2
+	sleep 20; exit 1
+fi
+CNET=${6%.*}
+#NET_4=${6##*.}
+NET=${CNET%.*}
+#NET_3=${CNET##*.}
+#NET_1=${NET%.*}
+#NET_2=${NET##*.}
+ETHLIST=" eth0 eth1 eth2 eth3 eth4 eth5"
+if [ $ETH_IF ]; then 
+ ETHLIST="$ETH_IF"
+ echo "Network cards set up for search active net connections: $ETHLIST"
+else 
+ echo "Network  cards set up for search active netconnections: $ETHLIST"
+ echo "This list was set to default, but can be set to advance." 
+fi
+for ETH_IF in ${ETHLIST} ; do
+  if  ifconfig $ETH_IF >/dev/null ; then
+ echo2 "Ethernet card found on: $ETH_IF"
+   break
+  fi  
+done  
+PTEST=" finalize=1 subnet=2.18"
+for i in ${PTEST} ; do
+	case $i in
+		subnet=*)
+ PTEST_SERVER=${NET}.${i##subnet=}
+    esac
+done
+echo2 "Imagedirectory=${IMAGEDIR}"
+echo2 "oem: ${OEM}  Produkt: ${CONFIG_PRODUKT}  HWResvison: ${HWRevision}\
+  Eth: ${ETH_IF}  IP: ${IPADDRESS}  jffs2size: ${CONFIG_jffs2_size}  kernel_args: ${kernel_args}"
+echo
+ifconfig $ETH_IF add ${CNET}.10 &> /dev/null
+ifconfig $ETH_IF | grep 'inet addr' | sed -e "s/inet addr/PC Netcardaddr. /g"
+echo
+if [ $FORCE_CLEAR_FLASH ]; then
+echo "-----------------------------------------------------------------------"
+echo "All settings will be removed, because clear mtd3 and mtd4 was selected!"
+echo "-----------------------------------------------------------------------"
+echo
+echo "Press 'ENTER' to proceed!"
+while !(read -s); do
+    sleep 1
+done
+fi 
+if ! [ $FORCE_CLEAR_FLASH ]; then
+ping_params="-c1 -w1"
+echo "You should now reboot your box. Waiting for box to shut down for restart ..."
+while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
+ echo -n "."
+ sleep 1
+done 
+while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+ echo -n "."
+done 
+echo  "."
+echo "Initiating file transfer of 'kernel.image' ..."
+echo "Please be patient, it takes about one minute to erase the mtd1 partition ..."
+rm -f ${HOMEDIR}/.packed
+ftp -n -p <<EOT 2> ${HOMEDIR}/ftperr.log && touch ${HOMEDIR}/.packed &
+open "${IPADDRESS}"
+user adam2 adam2
+binary
+quote MEDIA FLSH
+debug
+put "${IMAGEDIR}"/kernel.image mtd1
+!echo -e -n "\r"
+quote SETENV firmware_version $OEM
+quote SETENV autoload yes
+quote SETENV my_ipaddress $IPADDRESS
+quote SETENV ProductID  $CONFIG_PRODUKT
+quote SETENV HWRevision  $HWRevision
+quote SETENV kernel_args $kernel_args
+quote SETENV annex $ANNEX
+! echo quote REBOOT was not excuted - dont reboot, you must type in 'go' within the serial console to start this 7270 firmware on a W920
+quit
+EOT
+printprogress
+print_ftperror || return 1
+else # <--not FORCE_CLEAR_FLASH
+ping_params="-c1 -w1"
+echo "You should now reboot your box. Waiting for box to shut down for restart ..."
+while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
+ echo -n "."
+ sleep 1
+done 
+while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+ echo -n "."
+done 
+echo  "."
+echo "Initiating file transfer of 'kernel.image' ..."
+echo "Please be patient, it takes about one minute to erase the mtd1 partition ..."
+rm -f ${HOMEDIR}/.packed
+ftp -n -p <<EOT 2> ${HOMEDIR}/ftperr.log && touch ${HOMEDIR}/.packed &
+open "${IPADDRESS}"
+user adam2 adam2
+binary
+quote MEDIA FLSH
+debug
+put "${IMAGEDIR}"/kernel.image mtd1
+!echo -e -n "\r"
+put "${HOMEDIR}"/empty mtd3
+!echo -e -n "\r"
+put "${HOMEDIR}"/empty mtd4
+!echo -e -n "\r"
+quote REBOOT
+quit
+EOT
+printprogress
+print_ftperror || return 1
+ifconfig $ETH_IF add 192.168.2.10
+echo "Waiting for box to shut down and restart ..."
+#echo "If the Box is not rebooting you have to switch off / on the powerline of the box now."
+while [ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
+sleep 1
+echo -n "."
+done 
+while [ `ping -c1 -w1 192.168.2.1 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+[ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+echo -n "."
+done 
+echo "."
+echo "Box is back up again..."
+ftp -n -p  <<EOT 2> ${HOMEDIR}/ftperr.log
+open 192.168.2.1
+user adam2 adam2
+binary
+quote MEDIA FLSH
+quote SETENV firmware_version $OEM
+quote SETENV autoload yes
+quote SETENV my_ipaddress $IPADDRESS
+quote SETENV ProductID  $CONFIG_PRODUKT
+quote SETENV HWRevision  $HWRevision
+quote SETENV kernel_args $kernel_args
+quote SETENV annex $ANNEX
+! echo quote REBOOT was not excuted - dont reboot, you must type in 'go' within the serial console to start this 7270 firmware on a W920
+quit
+EOT
+print_ftperror || return 1
+fi
+return 0
+}
+
+function modunsqfs()
+{
+	if [ "$VERBOSE" == "-v" ]; then
+		"$UNSQUASHFS" -dest "$1" "$2" 2>&1 | grep -v "^$" | sed -e "s/^/${L1}/g"
+	else
+		"$UNSQUASHFS" -dest "$1" "$2" > /dev/null
+	fi
+}
+
+#untar and unSQUASHFS firmware
+function fw_unpack()
+{
+	ARCHIVE="$1"
+	DESTDIR="$2"
+	# Do we have the tool ?
+	if [ ! -x "$RMTICHKSUM" ]; then
+		echo  "cannot find the tool $RMTICHKSUM_TOOL"
+		return 1
+	fi
+	if [ ! -x "$UNSQUASHFS" ]; then
+		echo "cannot find the tool $UNSQUASHFS_TOOL"
+		return 1
+	fi
+	# Do we have the tool ?
+	if [ ! -x "$TICHKSUM" ]; then
+		echo  "cannot find the tool $TICHKSUM_TOOL"
+		return 1
+	fi
+	if [ ! -x "$MKSQUASHFS" ]; then
+		echo "cannot find the tool $MKSQUASHFS_TOOL"
+		return 1
+	fi
+	if [ ! -x "$FINDSQUASHFS" ]; then
+		echo "cannot find the very useful tool $FINDSQUASHFS_TOOL"
+		return 1
+	fi
+
+	
+	rm -rf "$DESTDIR"
+	mkdir "$DESTDIR"
+        if [ "$DESTDIR" = "$SPDIR"  ] && [ -s "$HOMEDIR/kernel.image" ]; then
+	 echo "-- Could locate './kernel.image' in work directory."
+	 echo "-- If you keep this file it will be used instead of:"
+	 echo "-- ${ARCHIVE##*/}"
+	 echo "   Remove ./kernel.image file? (y/n)"
+	    read -n 1 -s DL 
+		if [ "$DL" = "y" ]; then
+		 rm ./kernel.image
+	 echo "   ./kernel.image removed!"
+		else
+	 echo "   ./kernel.image not removed!"
+		 cp "$HOMEDIR/kernel.image" "$DESTDIR"/kernel.image
+		fi 
+         fi
+        if   [ "$DESTDIR" != "$SPDIR"  ] || [ ! -s "$HOMEDIR/kernel.image" ]; then
+	 if  [ "${ARCHIVE##*/}" = "kernel.image" ]; then
+	  cp "${ARCHIVE}" "$DESTDIR"/kernel.image
+	 else
+    	  "$TAR" -xf "$ARCHIVE" -C "$DESTDIR"
+          cp "$DESTDIR"/var/tmp/kernel.image "$DESTDIR"/kernel.image
+         fi
+        fi 
+		
+	if [ ! -r "${DESTDIR}/kernel.image" ]; then
+		echo "cannot find kernel.image"
+		return 1
+	fi
+	echo2 "remove tichksum"
+	"$RMTICHKSUM" -f "${DESTDIR}/kernel.image" > /dev/null
+	if [ -f ${DESTDIR}/var/tmp/filesystem.image ] && [ ! "0" =  "`cat ${DESTDIR}/var/tmp/filesystem.image | wc -c`" ]; then
+            cp "$DESTDIR"/var/tmp/filesystem.image "$DESTDIR"/filesystem.image
+    	    echo2 "Hidden Root detected! Concat kernel.image and filesystem.image"
+    	    "$RMTICHKSUM" -f "${DESTDIR}/filesystem.image" > /dev/null
+    	    mv "${DESTDIR}/kernel.image" "${DESTDIR}/kernel_part.image"
+    	    cat "${DESTDIR}/kernel_part.image" "${DESTDIR}/filesystem.image" > "${DESTDIR}/kernel.image"
+	    rm -f "$DESTDIR"/filesystem.image
+        fi
+	echo2 "splitting kernel image"
+	( cd "$DESTDIR" && "$FINDSQUASHFS" "${DESTDIR}/kernel.image" > /dev/null 2>&1 && cd "$HOMEDIR")
+	if [ ! -r "${DESTDIR}/kernel.raw" -o ! -r "${DESTDIR}/kernelsquashfs.raw" ]; then
+		echo "kernel splitting failed"
+		return 1
+	fi
+	echo2 "Extract Filesystem ..."
+	modunsqfs "$DESTDIR/$SQUASHFSROOT" "$DESTDIR/kernelsquashfs.raw"
+	rm -f "$DESTDIR"/kernel.image
+	chmod -R +w "${DESTDIR}/${SQUASHFSROOT}"
+	if [ ! -r "${DESTDIR}/${SQUASHFSROOT}/var" ]; then
+		echo "could not unpack the filesystem image"
+		return 1
+	fi
+	VARTAR="${DESTDIR}/${SQUASHFSROOT}/var.tar"
+	VARTAR_DIR="${DESTDIR}/var.tar"
+	if [ ! -r "$VARTAR" ]; then
+		echo "no var.tar found"
+		return 1
+	fi
+	echo2 "unpacking var.tar"
+	mkdir "$VARTAR_DIR"
+	"$TAR" -xf "$VARTAR" -C "$VARTAR_DIR" || return 1
+	return 0
+}
+################################
+## Pack the modified firmware ##
+################################
+fw_pack()
+{
+    rm -f $HOMEDIR/.packed
+    fw_pack1 $1 $2 $3
+    touch $HOMEDIR/.packed
+    return $?
+}
+fw_pack1()
+{
+    #unpacked firmware
+    DIR="$1"
+    #output directory
+    NEWDIR="$2"
+    #resulting tared filename
+    modimage="$2/$3"
+
+    MOD_DIR="${DIR}/modified"
+    KERNEL_SUBDIR="/kernel"
+    RAW_KERNEL_FILE="kernel.raw"
+    RAW_HIDDEN_FILE="kernelsquashfs.raw"
+    FILESYSTEM="${DIR}/${RAW_HIDDEN_FILE}"
+    FIRMWARE_MOD_DIR="${MOD_DIR}/firmware"
+    #FILESYSTEM_MOD_DIR="${MOD_DIR}/filesystem"
+    FILESYSTEM_MOD_DIR="${DIR}/$SQUASHFSROOT"
+    KERNEL_MOD_DIR="${MOD_DIR}${KERNEL_SUBDIR}"
+    KERNEL_MOD="${FIRMWARE_MOD_DIR}/var/tmp/kernel.image"
+    RAW_KERNEL_MOD="${KERNEL_MOD_DIR}/${RAW_KERNEL_FILE}"
+    RAW_HIDDEN_MOD="${KERNEL_MOD_DIR}/${RAW_HIDDEN_FILE}"
+    ROOTFS_TAR="${NEWDIR}/${3}.rootfs.tar"
+    # Do we have the tool ?
+    [ ! -x "$TICHKSUM" ] && echo  "cannot find the tool $TICHKSUM_TOOL" && return 1
+    [ ! -x "$MKSQUASHFS" ] && echo "cannot find the tool $MKSQUASHFS_TOOL" && return 1
+    [ ! -x "$MKSQUASHFS" ] && echo "cannot find $MKSQUASHFS_TOOL" && return 1
+    [ ! -x "$TAR" ] && echo  "cannot find the tool $TAR_TOOL" && return 1
+    chmod -R +xr "${DIR}"
+    [ -d "$MOD_DIR" ] && rm -fd -R "$MOD_DIR"
+    mkdir "$MOD_DIR"
+    if [ ! -d "$KERNEL_MOD_DIR" ]; then 
+	mkdir "$KERNEL_MOD_DIR"
+	cp -fdpr "$DIR/$RAW_KERNEL_FILE" --target-directory="$KERNEL_MOD_DIR"
+    fi
+    if [ ! -d "$FIRMWARE_MOD_DIR" ]; then
+	mkdir "$FIRMWARE_MOD_DIR"
+	cp -fdpr "$DIR/var" --target-directory="$FIRMWARE_MOD_DIR"
+    fi
+    # Remove left over Subversion directories
+    find "$DIR" -type d -name .svn | xargs rm -rf
+    [ "$(od -c -N 1 -j 0 "$FILESYSTEM" | sed -n -e '1s/.* //' -e 1p)" == "h" ] && FILESYSTEM_BLOCKSIZE="$((1<<$(od -i -N 1 -j 34 "$FILESYSTEM" | sed -n -e '1s#.* ##' -e 1p)))"
+    [ "$(od -c -N 1 -j 0 "$FILESYSTEM" | sed -n -e '1s/.* //' -e 1p)" == "s" ] && FILESYSTEM_BLOCKSIZE="$((1<<$(od -i -N 1 -j 35 "$FILESYSTEM" | sed -n -e '1s/.* //' -e 1p)))"
+    if [ "$PACK_VARTAR" = "y" ]; then
+	# Pack var.tar (use old tar for compatibility)
+	echo2 "Packing var.tar"
+	VARTAR_MOD="${FILESYSTEM_MOD_DIR}/var.tar"
+	cp -fdpr "$DIR/var.tar" --target-directory="$KERNEL_MOD_DIR"
+	"$TAR" -c $TAR_OPTIONS -C "$DIR/var.tar" . > "$VARTAR_MOD" || return 1
+	[ ! -s "$VARTAR_MOD" ] && echo "Packing of var.tar failed" && return 1
+    fi
+    [ "$VERBOSE" = "-v" ] && echo "Squashfs filesystem blocksize: $FILESYSTEM_BLOCKSIZE"
+    [ "$MAKE_DEV" = "y" ] && $MAKEDEVS -d $MAKEDEVS_FILE $FILESYSTEM_MOD_DIR > $HOMEDIR/mkdev.log 2>&1
+    $MKSQUASHFS $FILESYSTEM_MOD_DIR/* $RAW_HIDDEN_MOD $MKSQUASHFS_OPTIONS -b $FILESYSTEM_BLOCKSIZE > $HOMEDIR/filesystem.log 2>&1
+    [ "$ADD_USBROOT" = "y" ] && strace -o./strace.log -q -ewrite "$TAR" cf "${ROOTFS_TAR}" $TAR_RFS_OPTIONS -C $FILESYSTEM_MOD_DIR/. . 2> $HOMEDIR/tarusbroot.log 2>&1
+    [ -f "${ROOTFS_TAR}" ] && echo "USBROOT file: ${ROOTFS_TAR}"
+    [ ! -s "$RAW_HIDDEN_MOD" ] && echo "Creation of filesystem failed" && return 1
+    echo
+    #echo "Merging kernel image"
+    dd if="$RAW_KERNEL_MOD" of="$KERNEL_MOD" bs=256 conv=sync 2> /dev/null
+    cat "$RAW_HIDDEN_MOD" >> "$KERNEL_MOD"
+    mkdir -p "${FIRMWARE_MOD_DIR}/var/tmp"
+#    cp -v ./kernel.image "$KERNEL_MOD"
+#    cp -fdpr ./kernel.image --target-directory="${FIRMWARE_MOD_DIR}/var/tmp"
+    [ ! -s "$KERNEL_MOD" ] && echo "Kernel merging failed" && return 1
+    let act_kernel_size="$(wc -c < "$KERNEL_MOD")"
+    let DIFF="act_kernel_size-kernel_size"
+    if [ $act_kernel_size -gt $kernel_size ]; then
+	echo "Kernel does not fit into FLASH, reduce size by: $((-DIFF))" >> ${ERR_LOGFILE}
+	echo "Kernel does not fit into FLASH, reduce size by: $((-DIFF))"
+	return 1
+    fi
+    if [ $kernel_size -gt $act_kernel_size ]; then
+	echo "Test kernel size is OK"
+	echo "kernel image size: $act_kernel_size (max: $kernel_size, free: $((-DIFF)))"
+	# Calculate aproximately free space in seconds for the answering machine
+	FREE_BYTE_JFFS2=$((($kernel_size - $act_kernel_size - 233472)))
+	FREE_MINUTES=$((($FREE_BYTE_JFFS2 / 2017 / 60)))
+	echo "-- Approximately free time for the answering machine: $((($FREE_BYTE_JFFS2 / 2017)))s (${FREE_MINUTES}min $((($FREE_BYTE_JFFS2 / 2017 - $FREE_MINUTES * 60)))s)"
+    fi
+    echo2 "Adding checksum"
+    "$TICHKSUM" "$KERNEL_MOD" > "${DIR}/kernelchksum.log"
+    echo "Generation of new 'kernel.image' completed successfully!"
+    # Pack firmware image (use old tar for compatibility)
+    echo "Packing ..."
+    rm -f "${modimage}"
+    "$TAR" -c $TAR_OPTIONS -C "$FIRMWARE_MOD_DIR" ./var > "${modimage}" || return 1
+#    [ -r "${modimage}" ] && [ ${FAKEROOT_ON} != "y" ] && chown -R --reference=$0 "$NEWDIR"
+    [ -r "${modimage}" ] && chown -R --reference=$0 "$NEWDIR"
+    mv "$FIRMWARE_MOD_DIR/var/tmp/kernel.image" "$NEWDIR/kernel.image"
+    #cleanup tempdir
+    rm -fd -R  "$MOD_DIR"
+    return 0
+}
+function readConfig()
+{
+	if [ -n "$1" ]; then
+		if [ -e "$3/rc.conf" ] && `cat "$3/rc.conf" | grep -q "export CONFIG_$1="` ; then
+			VAR=$(echo $1 | sed -e "s/^_//")
+#			echo "VAR: $VAR"
+			sed -i -e "/export CONFIG_VERSION_MAJOR=.10./d" "$3/rc.conf"
+			VAL=`grep -e "export CONFIG_${VAR}=." "$3/rc.conf" | grep -m 1 -o -e "CONFIG_${VAR}=.*" | awk -F "[= ]" '{print $2}' | sed -e "s/\"//g"`
+			eval "export $2=$VAL"
+		elif [ -e "$3/rc.init" ] && `cat "$3/rc.init" | grep -q "$1="` ; then
+			VAR=$(echo $1 | sed -e "s/^_//")
+			VAL=`sed -e "/VERSION_MAJOR=10/d" "$3/rc.init" | grep -m 1 -o -e "${VAR}=..*$" | awk -F "[= ]" '{print $2}' | sed -e "s/\"//g"`
+			eval "export $2=$VAL"
+		else
+			return 1
+		fi
+	else
+		return 1
+	fi
+
+	return 0
+}
+function printprogress(){
+count=0;
+timeout=0;
+sleep 1
+echo -e -n "\r"
+while [ ! -e $HOMEDIR/.packed ]; do
+    echo -e -n "["
+    for ((i=0; i<=count; i++))
+    do
+	echo -e -n "="
+    done
+    echo -e -n ">"
+    for ((i=count; i<76; i++))
+    do
+	echo -e -n " "
+    done
+    echo -e -n "]\r"
+    let count=count+1
+    if [ "$count" == "77" ]; then
+	count="1"
+    fi
+    sleep 2
+    let timeout=timeout+1
+    if [ "$timeout" == "500" ]; then
+        echo "error timeout!"
+	return 1
+    fi
+done 
+echo -e -n "]\r"
+for ((i=0; i<82; i++))
+do
+	echo -e -n " "
+done
+echo -e  "\r"
+}

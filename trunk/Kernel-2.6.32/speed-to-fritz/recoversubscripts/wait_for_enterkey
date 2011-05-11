@@ -1,0 +1,7 @@
+#!/bin/bash
+# file is used es include and stops with exit 1
+echo "Press 'ENTER' to finish"
+while !(read -s);do
+	sleep 1
+done
+exit 1

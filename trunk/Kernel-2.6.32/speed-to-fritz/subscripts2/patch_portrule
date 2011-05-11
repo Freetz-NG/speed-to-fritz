@@ -1,0 +1,9 @@
+#!/bin/bash
+ . $include_modpatch
+DIRI="`find $1/usr/www/ -name portrule.js`" 
+if  [ -f $DIRI ]; then
+ echo2 " -- Patch portrule:"
+ echo2 "      ${DIRI}"
+       sed -i -e "s/return g_mldIpAdr0000/return null/" ${DIRI}
+fi
+exit 0

@@ -1,0 +1,7 @@
+#!/bin/bash
+. $inc_DIR/includefunctions
+chown -hR root $1
+chgrp -hR root $1
+fw_pack "$1" "$2" "$3"
+
+

@@ -1,0 +1,38 @@
+#!/bin/bash
+mod_base="."
+case $# in
+1)
+input_file="$1"
+output_dir1="$(basename "$input_file" | sed -r 's/(.*)\.[^\.]*/\1/')"
+;;
+2)
+mod_base="$1"
+input_file="$2"
+output_dir1="$(basename "$input_file" | sed -r 's/(.*)\.[^\.]*/\1/')"
+;;
+3)
+mod_base="$1"
+input_file="$2"
+output_dir1="$3"
+;;
+*)
+echo "usage: $0 [<base directory>] <input file> [<output directory>] ">&2
+echo " - base directory defaults to '.'" >&2
+exit 1
+esac
+#. split_functions
+
+# the same as split_image but with tar
+kernel_dir="$output_dir1"
+echo -e "\nExtracting root kernel (kernel.image) from:\n $input_file ..."
+	tar -xf "$kernel_dir/$input_file" -C .
+	mv -f "$mod_base/var/tmp/kernel.image" "$kernel_dir/kernel.image"
+	rm -drf $mod_base/var
+	if [ ! -r "$kernel_dir/kernel.image" ]; then
+		echo "Cannot find kernel.image"
+		sleep 20
+		exit 1
+	fi
+#	echo "Remove checksum"
+#	$mod_base/tools/rmtichksum -f "$mod_base/$output_dir/kernel.image" > /dev/null
+exit

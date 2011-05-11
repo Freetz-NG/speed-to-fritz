@@ -1,0 +1,40 @@
+#!/bin/bash
+abs_split_header="`find -name split_header`"
+. $abs_split_header
+#echo "New output directory: $output_dir1"
+#echo "New output file: $new_output_file"
+new_output_file="new_$output_dir1.exe"
+output_dir="$mod_base/$output_dir1"
+mkdir -p "$output_dir"
+extract_exe_start
+extract_kernel_plus_mid
+#extract_kernel_image not working correctly
+extract_bootloader
+extract_exe_end
+
+#echo
+#echo "New output filename: $new_output_file"
+#echo
+#echo "Concat all parts to one for chacking"
+
+cat $output_dir/exe_start >$output_dir/$new_output_file
+cat $output_dir/kernel.image >>$output_dir/$new_output_file
+cat $output_dir/exe_mid >>$output_dir/$new_output_file
+cat $output_dir/urlader.image >>$output_dir/$new_output_file
+cat $output_dir/exe_end >>$output_dir/$new_output_file
+
+chmod -x $output_dir/$new_output_file
+
+act_size=`ls -l "$input_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
+new_act_size=`ls -l "$output_dir/$new_output_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
+
+rm $output_dir/$new_output_file
+
+echo "actual size= $act_size,  new actual size= $new_act_size" 
+[ $act_size -eq $new_act_size ] || echo "ERROR!!" 
+
+
+##The following lines my be neede if kernel.image is used for somthing else
+
+#echo "Add checksum to: kernel.image ..."
+#"$mod_base/tools/tichksum" "$output_dir/kernel.image"

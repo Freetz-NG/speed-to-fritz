@@ -1,0 +1,59 @@
+#!/bin/bash
+echo "#!/bin/bash" > incl_var
+echo "export PATH=$PATH:/sbin" >> incl_var
+echo "export NEWIMG=\"${NEWIMG}\"" >> incl_var
+echo "export inc_DIR=\"${inc_DIR}\"" >> incl_var
+echo "export TOOLS_DIR=\"${TOOLS_DIR}\"" >> incl_var
+echo "export include_modpatch=\"${include_modpatch}\"" >> incl_var
+echo "export VERBOSE=\"${VERBOSE}\"" >> incl_var
+echo "export NEWDIR=\"${NEWDIR}\"" >> incl_var
+echo "export OEM=\"${OEM}\"" >> incl_var
+echo "export CONFIG_PRODUKT=\"${CONFIG_PRODUKT}\"" >> incl_var
+echo "export HWRevision=\"${HWRevision}\"" >> incl_var
+echo "export FBHWRevision=\"${FBHWRevision}\"" >> incl_var
+echo "export ETH_IF=\"${ETH_IF}\"" >> incl_var
+echo "export IPADDRESS=\"${IPADDRESS}\"" >> incl_var
+echo "export CONFIG_jffs2_size=\"${CONFIG_jffs2_size}\"" >> incl_var
+echo "export ANNEX=\"${ANNEX}\"" >> incl_var
+echo "export avm_Lang=\"${avm_Lang}\"" >> incl_var
+echo "export SKRIPT_DATE=\"${SKRIPT_DATE}\"" >> incl_var
+echo "export AVM_VERSION_MAJOR=\"${AVM_VERSION_MAJOR}\"" >> incl_var
+echo "export TCOM_VERSION_MAJOR=\"${TCOM_VERSION_MAJOR}\"" >> incl_var
+echo "export AVM_VERSION=\"${AVM_VERSION}\"" >> incl_var
+echo "export TCOM_VERSION=\"${TCOM_VERSION}\"" >> incl_var
+echo "export SPNUM=\"${SPNUM}\"" >> incl_var
+echo "export CLASS=\"${CLASS}\"" >> incl_var
+echo "export TCOM_SUBVERSION=\"${TCOM_SUBVERSION}\"" >> incl_var
+echo "export AVM_SUBVERSION=\"${AVM_SUBVERSION}\"" >> incl_var
+echo "export firmwareconf_file_name=\"${firmwareconf_file_name}\"" >> incl_var
+echo "export cml=\"${cml}\"" >> incl_var
+echo "export Options=\"${Options}\"" >> incl_var
+echo "export FWBASE=\"${FWBASE}\"" >> incl_var
+echo "export P_DIR=\"${P_DIR}\"" >> incl_var
+echo "export sh_DIR=\"${sh_DIR}\"" >> incl_var
+echo "export sh2_DIR=\"${sh2_DIR}\"" >> incl_var
+echo "export SPDIR=\"${SPDIR}\"" >> incl_var
+echo "export FBDIR=\"${FBDIR}\"" >> incl_var
+echo "export FBMOD=\"${FBMOD}\"" >> incl_var
+echo "export SRC=\"${SRC}\"" >> incl_var
+echo "export FBDIR_2=\"${FBDIR_2}\"" >> incl_var
+echo "export SRC_2=\"${SRC_2}\"" >> incl_var
+echo "export FBIMG=\"${FBIMG}\"" >> incl_var
+echo "export FBIMG_2=\"${FBIMG_2}\"" >> incl_var
+[ "$AVM_SUBVERSION" == "18306" ] && TYPE_LABOR=""
+echo "export TYPE_LABOR=\"${TYPE_LABOR}\"" >> incl_var
+[ "$TYPE_LABOR" == "y" ] && echo "export TYPE_LABOR_TYPE=\"${TYPE_LABOR_TYPE}\"" >> incl_var
+[ "$TYPE_LABOR" == "y" ] && echo "export TYPE_${TYPE_LABOR_TYPE}=\"y\"" >> incl_var
+echo "export ATA_ONLY=\"${ATA_ONLY}\"" >> incl_var
+echo "export FORCE_CLEAR_FLASH=\"${FORCE_CLEAR_FLASH}\"" >> incl_var
+echo "export REUSECONF=\"${REUSECONF}\"" >> incl_var
+echo "export FREETZREVISION=\"${FREETZREVISION}\"" >> incl_var
+echo "export SET_UP=\"${SET_UP}\"" >> incl_var
+echo "export PUSHCONF=\"${PUSHCONF}\"" >> incl_var
+echo "export kernel_size=\"${kernel_size}\"" >> incl_var
+echo "export ORI=\"${ORI}\"" >> incl_var
+echo "export PATCH_OEM=\"${PATCH_OEM}\"" >> incl_var
+echo "export RUNFREETZ=\"${RUNFREETZ}\"" >> incl_var
+
+sed -i -e "s|${HOMEDIR}|\${HOMEDIR}|" incl_var
+

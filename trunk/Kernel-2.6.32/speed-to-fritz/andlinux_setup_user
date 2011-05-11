@@ -1,0 +1,81 @@
+#!/bin/bash
+#Run this from  the FLTK shell!
+NewUser="freetz"
+#----------------------------------------------------------------------------------------
+if ! [ `id -u` -eq 0 ]; then
+ clear
+  echo
+  echo "This script needs to be executed with 'su' privileges."
+  echo "Login as root!"
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  sleep 10
+  exit 0
+fi
+
+# Edit /usr/local/sbin/launcher.pl 
+# $sock = new IO::Socket::INET(LocalPort ? 8081, Reuse ? 1, Listen ? 20) or die(?Error creating local socket: $@\n?); dit 
+echo
+echo " Can only be run from the FLTK shell! --------------- "
+if ! `cat "/usr/local/sbin/launcher.pl" | grep -q "8081" `; then
+ echo "Launcher port changed! ATTENTION! Must be added in windows registre as well!"
+ sed -i -e 's| 81,| 8081,|' "/usr/local/sbin/launcher.pl"
+ sleep 5
+fi
+cat "/usr/local/sbin/launcher.pl" | grep "8081"
+echo
+#useradd -m NewUser um einen nicht root Benutzer mit den Namen ?NewUser? und mit home Verzeichnis anlegen.
+echo "New user will be created: $NewUser"
+
+useradd -m $NewUser
+echo
+echo "Install sudo via apt-get install, there has to be an active internetconnection!"
+apt-get install sudo
+apt-get install patch
+echo " --------------- "
+#Der erstellte neue Benutzer muss aber noch in /etc/sudoers eingetragen werden.
+#Das File /etc/sudoers mit visudo oeffnen, und die folgende Zeile anhaengen.
+#(Dazu visudo [Enter] NewUser ALL=(ALL) ALL als letzte Zeile eintippen, Strg O [Enter], Strg X)
+#NewUser ALL=(ALL) ALL
+#Default Benutzer fuer Konsole
+cp -f "/etc/sudoers" "/etc/sudoers.tmp"
+sed -i -e 's/#.*\%/\%/' "/etc/sudoers.tmp"
+if ! `cat "/etc/sudoers.tmp" | grep -q "$NewUser" `; then
+ echo "$NewUser ALL=(ALL) ALL" >> "/etc/sudoers.tmp" 
+ echo "$NewUser ALL=(ALL) ALL ,inserted into /etc/sudoers, to enable the use of sudo for the user $NewUser" 
+sleep 5
+fi
+cat "/etc/sudoers.tmp" | grep  "$NewUser"
+cp -f "/etc/sudoers.tmp" "/etc/sudoers"
+echo " --------------- "
+sleep 5
+#Edit von /usr/bin/startwindowsterminalsession ersetzen von 'root' mit 'NewUser'. (Optional, ansonsten login NewUser nachdem ein Konsolenfenster geöffnet wurde)
+
+if `cat "/usr/bin/startwindowsterminalsession" | grep -q "termcommand" `; then
+ echo "Replacee terminaluser with $NewUser in: /usr/bin/startwindowsterminalsession"
+ sed -i -e "s|sux.*\${termcommand}|sux - $NewUser \${termcommand}|" "/usr/bin/startwindowsterminalsession"
+fi
+cat "/usr/bin/startwindowsterminalsession" | grep "sux "
+echo " --------------- "
+sleep 10
+#Schreibrechte, müssen nicht sein, aber es vereinfacht das Kopieren von Files!
+#Edit /etc/fstab um einem nicht root Benutzer Schreibrechte auf /mnt/win zu ermöglichen.
+#Letzte Zeile von "/dev/cofs0 /mnt/win cofs defaults 0 0" auf "/dev/cofs0 /mnt/win cofs defaults,uid=1001,gid=100 0 0" aendern.
+#Der uid Parameter in der letzten Zeile ist wichtig und der sollte der id des Benutzers ?NewUser? entsprechen.
+#Der erste Benutzer der angelegt wird hat id 1001, aber um sicherzugehen, dass NewUser wirklich id 1001 hat bitte wie folgt nachprüfen:
+#Zur Kontrolle für Benutzername ?NewUser?:
+#id NewUser [Enter] sollte das Ergebnis liefern:
+#uid=1001(NewUser) gid=1001(NewUser) groups=1001(NewUser)
+User_uid=$(id $NewUser)
+User_uid="${User_uid:0:8}" 
+if ! `cat "/etc/fstab" | grep -q "$User_uid" `; then 
+    echo "Cofs Rechte for $NewUser added" 
+    echo "$NewUser:  $User_uid"
+    sed -i -e "s|\(/dev/cofs0 /mnt/win cofs defaults\).*$|\1,$User_uid,gid=100 0 0|" "/etc/fstab"
+fi
+cat "/etc/fstab" | grep  "$User_uid"
+echo " --------------- "
+sleep 10
+#eues Passwort fuer NewUser vergeben.
+passwd $NewUser
+
+#login $NewUser

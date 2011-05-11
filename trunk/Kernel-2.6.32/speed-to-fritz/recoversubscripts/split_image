@@ -1,0 +1,15 @@
+#!/bin/bash
+abs_split_header="`find -name split_header`"
+. $abs_split_header
+#echo "New output directory: $output_dir1"
+#echo "New output file: $new_output_file"
+new_output_file="new_$output_dir1.exe"
+output_dir="$mod_base/$output_dir1"
+mkdir -p "$output_dir"
+#------------------------
+extract_kernel_image
+##My be neede if kernel.image is used
+#echo "Add checksum to: kernel.image ..."
+#"$mod_base/tools/tichksum" "$output_dir/kernel.image"
+
+

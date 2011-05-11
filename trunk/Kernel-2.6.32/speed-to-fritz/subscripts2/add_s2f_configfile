@@ -1,0 +1,3 @@
+#!/bin/bash
+ . $include_modpatch
+sed -i 's/mknod \/var\/flash\/ar7.cfg \(.*\)71\(.*\)/&\n#########################################################################\n## add own node and extract files\n#########################################################################\nmknod \/var\/flash\/s2f \13c\2\nmkdir -p \/var\/tmp\/s2f\ncat \/var\/flash\/s2f | tar -x -C \/var\/tmp\/s2f 2> \/dev\/null/' ${1}/etc/init.d/rc.S

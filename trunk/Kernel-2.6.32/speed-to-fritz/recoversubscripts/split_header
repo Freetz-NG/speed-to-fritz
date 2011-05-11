@@ -1,0 +1,69 @@
+#!/bin/bash
+# Parameter handling
+mod_base="."
+case $# in
+1)
+input_file="$1"
+output_dir1="$(basename "$input_file" | sed -r 's/(.*)\.[^\.]*/\1/')"
+;;
+2)
+mod_base="$1"
+input_file="$2"
+output_dir1="$(basename "$input_file" | sed -r 's/(.*)\.[^\.]*/\1/')"
+;;
+3)
+mod_base="$1"
+input_file="$2"
+output_dir1="$3"
+;;
+*)
+echo "usage: $0 [<base directory>] <input file> [<output directory>] ">&2
+echo " - base directory defaults to '.'" >&2
+exit 1
+esac
+#. split_functions
+abs_split_functions="`find $mod_base -name split_functions`"
+. $abs_split_functions
+# Magic byte sequences prepared for 'hexgrep' usage
+# dont change number of bytes counts are defind within routine
+#alt KERNEL_MAGIC="81 12 ED FE .. .. .. 00 00 00 00 94 01 02 5a 07"
+#neu KERNEL_MAGIC="81 12 ED FE .. .. .. .. 00 00 01 80 01 02 5a 07"
+KERNEL_MAGIC="81 12 ED FE .. .. .. .. .. .. .. .. 01 02 5a 07"
+KERNEL_MAGIC_2="0x8112edfe"
+KERNEL_MAGIC_3="81 12 ED FE"
+#	/*BIG ENDIAN MAGIC*/
+SQUASHFS_MAGIC="68 73 71 73 .. .. 00 00 .. .. .. .."
+BOOTLOADER_MAGIC="00 90 80 40"
+BOOTLOADER_MAGIC_2="0x00908040"
+#	/*LITTLE ENDIAN MAGIC*/
+SQUASHFS_MAGIC_L="73 71 73 68 00 00 .. .. .. .. .. .."
+BOOTLOADER_MAGIC_L="40 80 90 00"
+BOOTLOADER_MAGIC_L_2="0x40809000"
+FV="0x2E30342E" #= .04.
+echo "--------------------------------------------------------------------------------"
+echo "Looking for bootloader start kernel start and kernel end ..."
+bootloder_start_at="$(recoversubscripts/ipsr p "$BOOTLOADER_MAGIC_2" "$input_file")" || \
+bootloder_start_at=$(recoversubscripts/ipsr p "$BOOTLOADER_MAGIC_L_2" "$input_file") || ret="1"
+kernel_end_at=$(recoversubscripts/ipsr p "$FV" "$input_file") || ret="2"
+kernel_start_at=$(recoversubscripts/ipsr p "$KERNEL_MAGIC_2" "$input_file") || ret="3"
+[ "$ret" == "1" ] && echo " Bootlader magic number not found in exe file, may be original recover is broken." && exit 1
+[ "$ret" == "2" ] && echo " Kernel end (.04.) not found in exe file, may be original recover is broken." && exit 1
+[ "$ret" == "3" ] && echo " Kernel magic number not found in exe file, may be original recover is broken." && exit 1
+bootloder_start_at=$((bootloder_start_at + 1))
+echo "bootloader start at: $bootloder_start_at"
+kernel_end_at=$((kernel_end_at - 1))
+#echo "kernel end at: $kernel_end_at"
+kernel_start_at=$((kernel_start_at + 1))
+echo "kernel start at: $kernel_start_at"
+
+
+psize=$((bootloder_start_at - kernel_end_at))
+#old way, look for old filenames 
+basename "$input_file" | grep -q 'en-de' && kernel_end_at="1"
+if [ "$kernel_end_at" == "1" ]; then
+ psize=53
+ kernel_end_at=$((bootloder_start_at - psize))
+fi
+kernel_end=$kernel_end_at
+echo "kernel end at: $kernel_end_at"
+# No exit 0 is used as incudefile

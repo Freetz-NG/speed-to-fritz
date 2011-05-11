@@ -1,0 +1,99 @@
+#!/bin/bash
+echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $AVM_2_VERSION-$AVM_2_SUBVERSION"
+echo "Replacing hardware related files of AVM firmware images ..."
+#echo2 "-- Copy original AVM module:"
+#echo2 "      /lib/modules"
+if [ ${ATA_ONLY} = "n" ]; then
+ #add DSL driver dependig on the settings made
+ find_dslfirmware() {
+ ANNEX_FIRMWARE=/lib/modules/microvoip-dsl.bin
+ [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/ar0700xx.bin
+ [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/ar0700aa.bin
+ [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/ubik/ubik2-dsl.bin
+# [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/dsp_ur8/ur8-A-dsl.bin
+# [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/dsp_ur8/ur8-B-dsl.bin
+# [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/vinax_fw_adsl_A.bin
+# [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/vinax_fw_adsl_B.bin
+# [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/vinax_fw_adsl.bin
+# [ ! -f $1${ANNEX_FIRMWARE} ] && ANNEX_FIRMWARE=/lib/modules/vinax_fw_vdsl.bin
+ if [ ! -f $1${ANNEX_FIRMWARE} ] ; then
+  echo2 "Error:$2 '${ANNEX_FIRMWARE}' not found "
+ else
+  echo2 "$2 ${ANNEX_FIRMWARE}'"
+ fi
+ }
+ if ! [ -d "${SRC}/lib/modules/dsp_ur8"  ]; then
+  find_dslfirmware "${SRC}" "  -- AVM source 1 DSL driver:"
+  SRC_ANNEX_FIRMWARE="$ANNEX_FIRMWARE"
+  [ -n "$FBIMG_2" ] && find_dslfirmware ${SRC_2} "  -- AVM source 2 DSL driver:"
+  [ -n "$FBIMG_2" ] && SRC_2_ANNEX_FIRMWARE="$ANNEX_FIRMWARE"
+  [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}"${SRC_ANNEX_FIRMWARE}  ] && cp -fdrp "${SRC}"${SRC_ANNEX_FIRMWARE}  ./addon/tmp/modules/dsl.bin &&\
+  echo "-- AVM source 1 DSL driver saved as: ./addon/tmp/modules/dsl.bin"
+  [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"${SRC_2_ANNEX_FIRMWARE}  ] && cp -fdrp "${SRC_2}"${SRC_2_ANNEX_FIRMWARE}  ./addon/tmp/modules/dsl.bin &&\
+  echo "-- AVM source 2 DSL driver saved as: ./addon/tmp/modules/dsl.bin"
+  [ ${USE_OWN_DSL} = "y" ] && [ -f "./addon/tmp/modules/dsl.bin"  ] && cp -fdrp ./addon/tmp/modules/dsl.bin "${SRC}"${SRC_ANNEX_FIRMWARE} &&\
+  echo "-- DSL driver was taken from local directory ./addon/tmp/modules/dsl.bin"
+  [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}"$SRC_2_ANNEX_FIRMWARE  ] && cp -fdrp "${SRC_2}"$SRC_2_ANNEX_FIRMWARE "${SRC}"${SRC_ANNEX_FIRMWARE} &&\
+  echo "-- DSL driver was taken from ${SORCE_2_PRODUKT}!"
+ else 
+  #7270 
+  #annex B driver
+  mkdir -p ./addon/tmp/modules/dsp_ur8
+  [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp "${SRC}"/lib/modules/dsp_ur8/ur8-B-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
+  echo "-- AVM DSL Annex B driver saved to: ./addon/tmp/modules!"
+  [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-B-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
+  echo "-- AVM DSL Annex B driver saved to: ./addon/tmp/modules!"
+  [ ${USE_OWN_DSL} = "y" ] && [ -f "./addon/tmp/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp ./addon/tmp/modules/dsp_ur8/ur8-B-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
+  echo "-- DSL Annex B driver was taken from local directory ./addon/tmp/modules!"
+  [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-B-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-B-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
+  echo "-- DSL Annex B driver was taken from ${SORCE_2_PRODUKT}!" 
+  #annex A driver
+  [ ${SAVE_AVM_DSL} = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-A-dsl.bin"  ] && cp -fdrp "${SRC}"/lib/modules/dsp_ur8/ur8-A-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
+  echo "-- AVM DSL Annex A driver saved to: ./addon/tmp/modules!"
+  [ ${SAVE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-A-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-A-dsl.bin --target-directory=./addon/tmp/modules/dsp_ur8 &&\
+  echo "-- AVM DSL Annex A driver saved to: ./addon/tmp/modules!"
+  [ ${USE_OWN_DSL} = "y" ] && [ -f "./addon/tmp/modules/dsp_ur8/ur8-A-dsl.bin"  ] && cp -fdrp ./addon/tmp/modules/dsp_ur8/ur8-A-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
+  echo "-- DSL Annex A driver was taken from local directory ./addon/tmp/modules!"
+  [ ${USE_SRC2_DSL} = "y" ] && [ -f "${SRC_2}/lib/modules/dsp_ur8/ur8-A-dsl.bin"  ] && cp -fdrp "${SRC_2}"/lib/modules/dsp_ur8/ur8-A-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
+  echo "-- DSL Annex A driver was taken from ${SORCE_2_PRODUKT}!" 
+ fi
+else
+ #remove ADSL
+ #dont start dsl
+ sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
+ rm -fdr "${SRC}"/lib/modules/dsp_ur8
+ rm -f "${SRC}"/lib/modules/microvoip-dsl.bin
+ rm -f "${SRC}"/lib/modules/ar0700xx.bin
+ rm -f "${SRC}"/lib/modules/ar0700aa.bin
+ rm -f "${SRC}"/lib/modules/ubik/ubik2-dsl.bin
+#<-- ATA only
+fi
+#save space on 8MB boxes specially
+[ "${REMOVE_ANNEX_B_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin" ] && rm -f "${SRC}"/lib/modules/dsp_ur8/ur8-B-dsl.bin &&\
+echo "-- DSL Annex B driver was removed from ${SORCE_PRODUKT}!"
+#save space on 8MB boxes specially
+[ "${REMOVE_ANNEX_A_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-A-dsl.bin" ] && rm -f "${SRC}"/lib/modules/dsp_ur8/ur8-A-dsl.bin &&\
+echo "-- DSL Annex A driver was removed from ${SORCE_PRODUKT}!"
+#7050 fix 
+[ -f "${SRC}"/lib/modules/ubik/ubik2-dsl.bin ] && sed -i -e '/modprobe tiatm/a\
+sleep 1' "${SRC}/etc/init.d/rc.S"
+[ -f "${SRC}"/lib/modules/fw_radia_1130_ap.bin ] && [ -f "${SRC}/etc/init.d/rc.dsl.sh" ] && sed -i -e '/modprobe tiatm/a\
+sleep 1' "${SRC}/etc/init.d/rc.dsl.sh"
+
+#copy second source www dir
+[ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}"
+[ ${USE_SOURCE2_WEBMNUE} = "y" ] && . $inc_DIR/get_SRC2_ver 
+#copy second source internet dsl menue
+[ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}"
+#patch annex parameter
+$sh_DIR/patch_annex.sh "${SRC}"
+# add kapselung and annex settings page if missing
+$sh_DIR/add_multi_settings.sh
+# add buchsend button to fon bookpage
+[ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
+#remove kids and help
+[ "${REMOVE_KIDS}" = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
+[ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
+
+echo "********************************************************************************"
+sleep 1
