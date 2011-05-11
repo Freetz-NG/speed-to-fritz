@@ -3144,40 +3144,40 @@ comment "--------------------------------------------------------------------"
 endif
 ###<--- Expert user
 
-#config EXPORT_REMOVE_SOME_LANGUAGE
-#	bool "Force single language"
-#	default y if EXPORT_BUILDRECOVER
-#	default n
-#	help
-#		Language driver will be removed if it is a 72XX firmware.
-#		Boxes with 8MB lack of space, so set this option with older boxes.
-#		Answering machine may have no space left to record if not set.
-#		The resulting text within the generated firmware may be not completely in this language, 
-#		text not found in the selected language will be displayed in german or english,
-#		if fallback language german or english is removed some text will be missing.
-#		
-#	if EXPORT_REMOVE_SOME_LANGUAGE
-#		config EXPORT_REMOVE_DE
-#			bool "Remove language de if possible"
-#			default y if EXPORT_BUILDRECOVER && ! TYPE_LANG_DE
-#			default n 
-#		config EXPORT_REMOVE_EN
-#			bool "Remove language en if possible"
-#			default y if EXPORT_BUILDRECOVER && ! TYPE_LANG_EN
-#			default n 
-#		config EXPORT_REMOVE_ES
-#			bool "Remove language es if possible"
-#			default y if EXPORT_BUILDRECOVER && ! TYPE_LANG_ES
-#			default n 
-#		config EXPORT_REMOVE_IT
-#			bool "Remove language it if possible"
-#			default y if EXPORT_BUILDRECOVER && ! TYPE_LANG_IT
-#			default n 
-#		config EXPORT_REMOVE_FR
-#			bool "Remove language fr if possible"
-#			default y if EXPORT_BUILDRECOVER && ! TYPE_LANG_FR
-#			default n 
-#	endif
+config EXPORT_REMOVE_SOME_LANGUAGE
+	bool "Force single language"
+	default y if EXPORT_BUILDRECOVER
+	default n
+	help
+		Language driver will be removed if it is a 72XX firmware.
+		Boxes with 8MB lack of space, so set this option with older boxes.
+		Answering machine may have no space left to record if not set.
+		The resulting text within the generated firmware may be not completely in this language, 
+		text not found in the selected language will be displayed in german or english,
+		if fallback language german or english is removed some text will be missing.
+		
+	if EXPORT_REMOVE_SOME_LANGUAGE
+		config EXPORT_REMOVE_DE
+			bool "Remove language de if possible"
+			default y if EXPORT_BUILDRECOVER && ! TYPE_LANG_DE
+			default n 
+		config EXPORT_REMOVE_EN
+			bool "Remove language en if possible"
+			default y if EXPORT_BUILDRECOVER && ! TYPE_LANG_EN
+			default n 
+		config EXPORT_REMOVE_ES
+			bool "Remove language es if possible"
+			default y if EXPORT_BUILDRECOVER && ! TYPE_LANG_ES
+			default n 
+		config EXPORT_REMOVE_IT
+			bool "Remove language it if possible"
+			default y if EXPORT_BUILDRECOVER && ! TYPE_LANG_IT
+			default n 
+		config EXPORT_REMOVE_FR
+			bool "Remove language fr if possible"
+			default y if EXPORT_BUILDRECOVER && ! TYPE_LANG_FR
+			default n 
+	endif
 
 config EXPORT_PATCH_PORTRULE
 	bool "Enable portforwarding to box itself (remove refuse destination IP 0.0.0.0)"
@@ -3381,18 +3381,18 @@ config VERBOSE
 	default "-v" if ! NOT_VERBOSE
 	default "" if NOT_VERBOSE
 
-#config EXPORT_ENABLE_EXT2
-#	bool "add ext2 (ext3) driver"
-#	depends on EXPERT_MOD 
-#	default n
-#	help
-#		With new AVM versions in most cases no drivers are present, 
-#		you my place your own driver to: 
-#		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext2/ext2.ko 
-#		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext3/ext3.ko
-#		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/mbcache.ko
-#		"2.6.19.2" must match the kernel version!  
-#		Or you can select a 2nd AVM firmware from which the driver will be taken.
+config EXPORT_ENABLE_EXT2
+	bool "add ext2 (ext3) driver"
+	depends on EXPERT_MOD 
+	default n
+	help
+		With new AVM versions in most cases no drivers are present, 
+		you my place your own driver to: 
+		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext2/ext2.ko 
+		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/ext3/ext3.ko
+		./addon/tmp/W920/squshfs-root/lib/modules/2.6.19.2/fs/mbcache.ko
+		"2.6.19.2" must match the kernel version!  
+		Or you can select a 2nd AVM firmware from which the driver will be taken.
 
 #config EXPORT_ADD_VLAN_BRIDGE
 #	bool "Enable or add Vlan bridge GUI option"
