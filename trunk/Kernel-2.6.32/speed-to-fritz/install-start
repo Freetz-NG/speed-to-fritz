@@ -1,0 +1,49 @@
+#!/bin/bash
+# On some systems this tools are missing. They are in use with menuconfig
+# They only need to be installed once, you may remove the apt-get line for repeated use
+echo "----------------------------------------------------------------------------------------------"
+echo "----------------------------------------------------------------------------------------------"
+echo "Attempt to update some tools, this only works on Debian, Ubuntu, openSUSE ..."
+echo "----------------------------------------------------------------------------------------------"
+echo "On some systems even sudo must be installed first, see Wiki for andLINUX   ..."
+echo "If sudo is missing, do the following:"
+echo "apt-get install sudo (as root)"
+echo "Setup a new user and insert this new users to /etc/sudoers with visudo" 
+echo "----------------------------------------------------------------------------------------------"
+
+ARCHPKG=
+DEB_HOST_ARCH=
+if [ -x /usr/bin/dpkg-architecture ]; then
+	eval "$(/usr/bin/dpkg-architecture)"
+fi
+case "$DEB_HOST_ARCH" in
+	amd64) ARCHPKG="libc6-i386 lib32gcc1 lib32ncurses5 lib32stdc++6 lib32z1" ;;
+esac
+
+if [ -e /etc/SuSE-release -a -x /usr/bin/zypper ] ; then
+ 	echo "installing packages for openSUSE (tested on 11.1)"
+	case `uname -m` in
+		x86_64) ARCHPKG="glibc-32bit libgcc43-32bit libncurses5-32bit libstdc++43-32bit zlib-32bit" ;;
+	esac
+
+	sudo zypper --non-interactive install \
+		make gcc-c++ glibc-devel ncurses-devel automake patch \
+		subversion lukemftp kdiff3  $ARCHPKG lynx
+else
+    sudo apt-get -y install \
+	fakeroot \
+	make \
+	build-essential \
+	libncurses5-dev \
+	automake \
+	patch \
+	subversion \
+	ftp \
+	kdiff3 \
+	apt-xapian-index \
+	$ARCHPKG \
+	lynx
+fi
+echo "----------------------------------------------------------------------------------------------"
+. ./start
+
