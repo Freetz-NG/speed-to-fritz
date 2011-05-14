@@ -1,0 +1,3 @@
+#!/bin/bash
+[ -e ./Firmware.conf.tar ] && echo "run speed-to-freetz with ./Firmware.conf.tar as configuration" && sleep 5 && tar xfv ./Firmware.conf.tar && ./sp-to-fritz.sh -z -c Firmware.conf
+! [ -e ./Firmware.conf.tar ] && echo "./Firmware.conf.tar not found" && sleep 5
