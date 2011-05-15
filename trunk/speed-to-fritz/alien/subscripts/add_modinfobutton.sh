@@ -84,7 +84,7 @@ fi #<-- modinfo button
 # add Speedportinfo Produktname
 if [ -e "$1"/usr/www/$DIR/home/home.lua ]; then
  [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" != "7570" ] && sed -i -e "s|<?lua box.out(g_Productname) ?>|<?lua box.out(g_Productname) ?>  ${CLASS} W${SPNUM}V|" "$1"/usr/www/$DIR/home/home.lua
- [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" == "7570" ] && sed -i -e "s|<?lua box.out(g_Productname) ?>|<?lua box.out(g_Productname) ?>  ${CLASS} (${SPNUM})|" "$1"/usr/www/$DIR/home/home.lua
+ [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ] && [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" == "7570" ] && sed -i -e "s|<?lua box.out(g_Productname) ?>|<?lua box.out(g_Productname) ?>  ${CLASS} (${SPNUM})|" "$1"/usr/www/$DIR/home/home.lua
 fi
 #<-- 17675
 #------------------------------------------------------------------------------------------------
@@ -92,7 +92,7 @@ if [ -d ${DSTI}/help ] ; then
 # for all versions
 # add Speedportinfo  Produktname
 [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" != "7570" ] && sed -i -e "s|<? echo \$var:ProduktName ?>|<? echo \$var:ProduktName ?>  ${CLASS} W${SPNUM}V|" "${DSTI}"/home/home.html
-[ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" == "7570" ] && sed -i -e "s|<? echo \$var:ProduktName ?>|<? echo \$var:ProduktName ?>  ${CLASS} (${SPNUM})|" "${DSTI}"/home/home.html
+[ "7570" == "${TYPE_LABOR_TYPE:0:4}" ] && [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" == "7570" ] && sed -i -e "s|<? echo \$var:ProduktName ?>|<? echo \$var:ProduktName ?>  ${CLASS} (${SPNUM})|" "${DSTI}"/home/home.html
 # add Service portal link (is set in rc.conf as well so we dont need this on new 17671 GUI)
 [ -f "${DSTI}"/help/popup.html ] && sed -i -e 's|var url = jslGetValue("uiPostPortal");|var url = "http://www.avm.de/de/Service/Service-Portale/Service-Portal/index.php?portal=FRITZ!Box_Fon_WLAN_<Modell-Nummer>"|' "${DSTI}"/help/popup.html
 [ -f "${DSTI}"/help/popup.html ] && sed -i -e "s|<Modell-Nummer>|${FBMOD}|" "${DSTI}"/help/popup.html
