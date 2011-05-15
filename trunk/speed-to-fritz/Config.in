@@ -528,6 +528,9 @@ choice
 	config TYPE_FBFO
 		bool "AVM FB Fon"
 
+	config TYPE_7570_to_7270
+		bool "use 7570 on 7270"
+
 	config LOCAL_X_MODEL
 		bool "Any AVM custom model"
 
@@ -594,6 +597,7 @@ if ! LOCAL_X_MODEL
 	default "5010"		if TYPE_5010
 	default "FBFW"		if TYPE_FBFW
 	default "FBFO"		if TYPE_FBFO
+	default "5to2"		if TYPE_7570_to_7270
 endif
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # shortcuts for Modell OR conditions
@@ -826,9 +830,9 @@ choice
 		bool "CUSTOM basis firmware"
 endchoice
 config TCOM_LOCAL
-    depends on TYPE_LOCAL_TCOM 
+    depends on TYPE_LOCAL_TCOM || TYPE_7570_to_7270 
     string "Enter the name of your custom basis firmware"
-    default "./Firmware.orig/..."
+    default "./Firmware.orig/1.image"
     help 
 	Enter the name of your custom basis firmware, in the same manner with path/filename as usually,
 	this is the name of the 1st firmware fitting completely to the hardware in use.
@@ -877,7 +881,7 @@ endchoice
 config TCOM_7570_LOCAL
     depends on TYPE_LOCAL_TCOM_7570
     string "Enter the name of your custom 7570 firmware"
-    default "./Firmware.orig/..."
+    default "./Firmware.orig/7570.image"
     help 
 	Enter the name of your custom 7570 firmware, in the same manner with path/filename as usually,
 	this is the name of the 1st firmware fitting completely to the hardware in use.
@@ -1301,9 +1305,9 @@ choice
 endchoice
 
 config AVM_LOCAL 
-    depends on TYPE_LOCAL_AVM
+    depends on TYPE_LOCAL_AVM || TYPE_7570_to_7270
     string "Enter the name of your custom type AVM firmware"
-    default "./Firmware.orig/..."
+    default "./Firmware.orig/2.image"
     help 
 	Enter the name of your custom type AVM firmware, in the same manner with path/filename as usually.
 config TYPE_AVM_7570_XX
@@ -1370,7 +1374,7 @@ endchoice
 config AVM_7570_LOCAL
     depends on TYPE_LOCAL_AVM_7570
     string "Enter the name of your custom 7570 firmware"
-    default "./Firmware.orig/..."
+    default "./Firmware.orig/7570.image"
     help 
 	Enter the name of your custom 7570 firmware, in the same manner with path/filename as usually,
 	this is the name of the 1st firmware fitting completely to the hardware in use.
@@ -1633,7 +1637,7 @@ endchoice
 config SRC3_LOCAL 
     depends on TYPE_SRC3_LOCAL_IMAGE
     string "Enter the name of your custom type AVM like firmware"
-    default "./Firmware.orig/..."
+    default "./Firmware.orig/3.image"
     help 
 	Enter the name of your custom type AVM firmware, in the same manner with path/filename as usually.
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1644,6 +1648,8 @@ config SRC3_LOCAL
 ### Based on the above four menu sections, here the corresponding firmwares are set up with "if"
 config TCOM_IMG
 	string
+	default "$TCOM_LOCAL"	 		if TYPE_7570_to_7270
+#	default "$AVM_7272_54_04_88"	        if TYPE_7570_to_7270
 	default "$TCOM_SINUS_27_04_27" 		if TYPE_SINUS_W500V
 	default "$TCOM_W501_28_04_38" 		if TYPE_SPEEDPORT_W501V
 	default "$TCOM_W701_33_04_57" 		if ( ! TYPE_SPECIALCONGSTAR ) && ( TYPE_SPEEDPORT_W701V )
@@ -1682,6 +1688,8 @@ config TCOM_IMG
 config AVM_IMG
 	depends on ! ORI || XCHANGE_KERNEL
 	string
+	default "$AVM_LOCAL"	 				if TYPE_7570_to_7270
+#	default "$AVM_HN_7570_16971" 				if TYPE_7570_to_7270
 	default "$AVM_7140_39_04_43"				if TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
 	default "$AVM_7140_en_39_04_67"				if TYPE_SPEEDPORT_W501V && ! TYPE_LANG_DE
 	default "$AVM_7141_40_04_76" 				if TYPE_7141_40_04_76 && ( EXPORT_TYPE_LOCAL_MODEL )
@@ -2572,11 +2580,20 @@ config RUN_PATCH_DECT
 	help
 		W900 und Sinus 500 use a external pseudoimage to updat DECT firmware.
 		This update is usual not needed.
-config EXPORT_ADD_MODINFOICON
-	bool "Add modinfo icon on status page"
-	default y if ( ! TYPE_SPEEDPORT_W721V )
+
+config EXPORT_DONT_ADD_MODINFO
+	bool "Don't applay mode info button"
+	default n if ( ! TYPE_SPEEDPORT_W721V && ! EXPORT_TYPE_LOCAL_MODEL )
+	default y if ( TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	help
-		Add modinfo icon on status page, modinfo button is always displayed.
+	    Keep this info if you want, but it is not needed.
+
+#config EXPORT_ADD_MODINFOICON
+#	bool "Add modinfo icon on status page"
+#	default y if ( ! TYPE_SPEEDPORT_W721V )
+#	help
+#		Add modinfo icon on status page, modinfo button is always displayed.
+
 config EXPORT_REMOVE_MENU_ITEM
 	bool "Unusable menu's (remove)"
 	default y
@@ -3473,7 +3490,7 @@ config EXPORT_DONT_LINK_OENDIRS
 		If this is set to "y" nothing is changed in respect of OEM directorys, 
 		set this to "n" if OEM avme or avm is in use, usual you can set this
 		to "n" without any noticabel diffence in functionality.
-if EXPORT_TYPE_LOCAL_MODEL
+if EXPORT_TYPE_LOCAL_MODEL || TYPE_7570
  config EXPORT_DONT_REM_SIGNATUR
 	bool "Don't remove red wariniges on statuspage"
 	default n
@@ -3495,11 +3512,6 @@ if EXPORT_TYPE_LOCAL_MODEL
 	default y
 	help
 	    This fix is usual not needed any more and is not applayed anyway if newer firmware is in use.
- config EXPORT_DONT_ADD_MODINFO
-	bool "Don't applay mode info button"
-	default y
-	help
-	    Keep this info if you want, but it is not needed.
  config EXPORT_DONT_REM_AUTOUPDATETAB
 	bool "Don't remove autoupdate tab"
 	default n
@@ -3726,14 +3738,14 @@ if ! EXPORT_ATA_ONLY
 	depends on TYPE_OR_7570_920_721_722
 	default n
 	help
-		Use KDSLDMOD from local directory ./addon/tmp/WXXX/.....
+		Use KDSLDMOD from local directory ./addon/tmp/WXXX/...
     config SAVE_SRC2_KDSLDMOD
 	bool "Save 2nd AVM source KDSLDMOD driver to ./addon/tmp/WXXX/"
 	depends on EXPERT_MOD 
 	depends on TYPE_OR_7570_920_721_722
 	default n
 	help
-		Save KDSLDMOD to local directory ./addon/tmp/WXXX/.....
+		Save KDSLDMOD to local directory ./addon/tmp/WXXX/...
 		At present time only older kdsldmod.ko modules are usable with Annex A and ADSL.
     config USE_SRC2_VINAX_ADSLFW
 	bool "Use 2nd AVM source DSL vinax driver"
@@ -3768,7 +3780,7 @@ if ! EXPORT_ATA_ONLY
 	depends on EXPERT_MOD 
 	default n
 	help
-		Use (V)DSL DRIVER from local directory ./addon/tmp/WXXX/....
+		Use (V)DSL DRIVER from local directory ./addon/tmp/WXXX/...
 		WXXX is the respective speedport type, the files here are a saved DSL driver from before.
 		No files get removed within this directory so if you do more than one save with different settings
 		more files may be within this directory than really wanted.
@@ -3983,15 +3995,15 @@ config FORCE_OWN_DECTDRIVER
 	depends on TYPE_OR_7570_920 || EXPORT_TYPE_LOCAL_MODEL
 	default n
 	help
-		Use DECT driver from local directory ./addon/tmp/WXXX/.....
-		V3 firmware DECT driver canït be used with W920, ... 
+		Use DECT driver from local directory ./addon/tmp/WXXX/...
+		V3 firmware DECT driver canït be used with W920, ...
 config SAVE_SRC2_DECTDRIVER
 	bool "Save 2nd AVM source DECT driver to ./addon/tmp/XXXX/"
 	depends on EXPERT_MOD 
 	depends on TYPE_OR_7570_920 || EXPORT_TYPE_LOCAL_MODEL
 	default n
 	help
-		Save DECT driver to local directory ./addon/tmp/XXXX/.....
+		Save DECT driver to local directory ./addon/tmp/XXXX/...
 		V3 firmware DECT driver canït be used with W920, ...
 ### NO AVM Modells 7XXX--->
 if ! EXPORT_TYPE_LOCAL_MODEL

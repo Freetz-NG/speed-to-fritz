@@ -1,0 +1,185 @@
+#!/bin/bash
+#KernelVersion="2.6.19.2"
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# only executed if productname is changed
+if [ ! -e "${SRC}"/etc/default.${CONFIG_PRODUKT} ]; then
+ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
+ echo2 "  -- move contents of OEM directory:"
+ echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
+ mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
+ "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
+ rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
+fi
+#remove 7570 VDSL
+rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
+rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko
+#
+[ "${FORCE_TCOM_KDSLDMOD}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
+[ "${FORCE_TCOM_PCMLINK}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2/pcmlink.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2
+[ "${FORCE_TCOM_USRMAN}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/userman/userman_mod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/driver/userman
+
+[ -d "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsl ] || mkdir "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsl
+cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsl/dsl_ur8.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsl
+cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory="${SRC}"/lib/modules/$KernelVersion
+cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.alias --target-directory="${SRC}"/lib/modules/$KernelVersion
+cp -u "${DST}"/usr/sbin/* --target-directory="${SRC}"/usr/sbin 2> /dev/null
+cp -fdrp "${DST}"/lib/modules/dsp_ur8 --target-directory="${SRC}"/lib/modules &&\
+echo "-- DSL driver was taken from the original base firmware"
+[ -f "${SRC}"/usr/share/ctlmgr/libdsl.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
+[ -f "${SRC}"/usr/share/ctlmgr/libtr064.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libtr064.so --target-directory=${SRC}/usr/share/ctlmgr
+
+
+[ "${USE_OWN_DSL}" = "y" ] && cp -fdrp ./addon/tmp/W920/squashfs-root/* --target-directory="${SRC}" &&\
+echo "-- VINAX DSL driver was taken from local directory ./addon/tmp/W920"
+if [ "${SAVE_SRC2_KDSLDMOD}" = "y" ]; then
+    mkdir -p ./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld
+    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory=./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld &&\
+    echo "-- 2nd AVM Firmware kdslmod driver saved to: ./addon/tmp/W920"
+fi
+[ "${FORCE_SRC2_KDSLDMOD}" = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld &&\
+echo "-- kdslmod driver was taken from 2nd AVM source."
+
+if [ "${FORCE_OWN_KDSLDMOD}" = "y" ] && ! [ -f ./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko ]; then
+ echo "You must save kdsld driver form 2nd AVM source before" && sleep 10 && exit 1
+fi
+[ "${FORCE_OWN_KDSLDMOD}" = "y" ] && cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
+echo "-- kdslmod driver was taken from local directory ./addon/tmp/W920"
+
+rm -rf "${SRC}"/lib/modules/*_488.hex
+if [ "${SAVE_SRC2_DECTDRIVER}" = "y" ]; then
+    mkdir -p ./addon/tmp/W920/squashfs-root/lib/modules
+    cp -fdrp "${SRC_2}"/lib/modules/dectfw_firstlevel.hex --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
+    cp -fdrp "${SRC_2}"/lib/modules/dectfw_secondlevel.hex --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
+    echo "-- 2nd AVM Firmware DECT driver saved to: ./addon/tmp/W920"
+fi
+[ "${FORCE_DST_DECTDRIVER}" = "y" ] && cp -fdrp "${DST}"/lib/modules/dectfw_firstlevel.hex --target-directory="${SRC}"/lib/modules &&\
+cp -fdrp "${DST}"/lib/modules/dectfw_secondlevel.hex --target-directory="${SRC}"/lib/modules &&\
+echo "-- DECT driver was taken from 1st source (base firmware)."
+[ "${FORCE_SRC2_DECTDRIVER}" = "y" ] && cp -fdrp "${SRC_2}"/lib/modules/dectfw_firstlevel.hex --target-directory="${SRC}"/lib/modules &&\
+cp -fdrp "${SRC_2}"/lib/modules/dectfw_secondlevel.hex --target-directory="${SRC}"/lib/modules &&\
+echo "-- DECT driver was taken from 2nd AVM source."
+[ "${FORCE_OWN_DECTDRIVER}" = "y" ] && cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/dectfw_firstlevel.hex --target-directory="${SRC}"/lib/modules &&\
+cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/dectfw_secondlevel.hex --target-directory="${SRC}"/lib/modules &&\
+echo "-- DECT driver was taken from local directory ./addon/tmp/W920"
+if `cat "${SRC}/etc/init.d/rc.S" | grep -q '_488.hex' ` && ! [ -f "${SRC}"/lib/modules/dectfw_firstlevel.hex ]; then
+ echo "You must use dect driver form 2nd AVM source or one that was saved before" && sleep 10 && exit 1
+fi
+##########################################################################################
+### Fritz_Box_7270_16
+### DECT-Anlage braucht den 96 MHz Takt NICHT (250E): 'piglet_use_pll3_clk=1' entfällt, da fpga den 96 MHz Takt aus dem DECT Takt selbst erzeugt.
+###########################################################################################
+#piglet_bitfile=/lib/modules/microvoip_isdn_top.bit${HWRevision_BitFileCount}
+#dect_firstlevelfile=/lib/modules/dectfw_firstlevel.hex
+#dect_secondlevelfile=/lib/modules/dectfw_secondlevel.hex
+#piglet_load_params="\
+#"
+#modprobe Piglet_noemif \
+#piglet_bitfile=$piglet_bitfile \
+#piglet_enable_button=2 \
+#dect_firstlevelfile=$dect_firstlevelfile \
+#dect_secondlevelfile=$dect_secondlevelfile \
+#$piglet_load_params
+#
+### Fritz_Box_7570_HN - hw7570
+###########################################################################################
+#piglet_bitfile=/lib/modules/bitfile.bit${HWRevision_BitFileCount}
+#dect_firstlevelfile=/lib/modules/dectfw_firstlevel.hex
+#dect_secondlevelfile=/lib/modules/dectfw_secondlevel.hex
+#piglet_load_params="\
+#"
+#modprobe Piglet_noemif \
+#piglet_bitfile=$piglet_bitfile \
+#piglet_enable_button=3 \
+#dect_firstlevelfile=$dect_firstlevelfile \
+#dect_secondlevelfile=$dect_secondlevelfile \
+#$piglet_load_params
+##############################################################################################
+#v3 dect fix
+sed -i -e 's|_488.hex|.hex|' "${SRC}/etc/init.d/rc.S" 
+#
+sed -i -e 's|piglet_enable_button=3|piglet_enable_button=2|' "${SRC}/etc/init.d/rc.S" 
+#inable 7270 led controll
+sed -i -e 's|mknod .dev.led c .led_c_major 0|led-ctrl device_init_start|' "${SRC}/etc/init.d/rc.S" 
+
+sed -i -e 's|/vinax/drv_vinax.ko|/dsl/dsl_ur8.ko|' "${SRC}"/lib/modules/$KernelVersion/modules.dep
+echo "/lib/modules/$KernelVersion/kernel/drivers/dsl/dsl_ur8.ko" >> "${SRC}"/lib/modules/$KernelVersion/modules.dep
+
+
+#DSL skripts--->
+#copy DSL Skript
+cp -fdpr  "${DST}"/etc/init.d/rc.dsl.sh  --target-directory="${SRC}"/etc/init.d
+#include vdsl skript
+sed -i -e 's|/etc/init.d/rc.vdsl.sh start|\. /etc/init.d/rc.dsl.sh|' "${SRC}/etc/init.d/rc.S" 
+
+#diffence in rc.dsl.sh  
+sed -i -e 's|tiatm|dsl_ur8|' "${SRC}/etc/init.d/rc.dsl.sh"
+sed -i -e '/modprobe tiatm/a\
+echo "MODE = dsl" > \/dev\/avm_power' "${SRC}/etc/init.d/rc.dsl.sh"
+#<---DSL skripts
+
+#remove FON3 menus
+[ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
+# add missing gifs
+#xilix driver must be for the hardware in use
+rm -f "${SRC}"/lib/modules/microvoip_isdn.bit
+rm -f "${SRC}"/lib/modules/bitfile.bit
+sed -i -e 's|bitfile.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
+sed -i -e 's|microvoip_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
+# 7240
+rm -f "${SRC}"/lib/modules/bitfile_pots.bit 
+rm -f "${SRC}"/lib/modules/bitfile_isdn.bit 
+sed -i -e 's|bitfile_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
+
+[ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules &&\
+echo "-- Xilinx bitfile was taken from the original base firmware"
+[ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
+echo "-- Xilinx bitfile was taken from the original base firmware"
+
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
+[ ${FORCE_TCOM_PIGLET} = "y" ] &&\
+cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet_noemif/Piglet_noemif.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet_noemif &&\
+echo "-- Xilinx Piglet_noemif.ko driver was taken from the original base firmware"
+#Fon driver
+[ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon5/zzz/* --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon5/zzz
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# set led definition 
+if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ "${FORCE_TCOM_LEDDRIVER}" = "y" ]; then
+    cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
+    cp -fdrp "${DST}"/lib/libled* --target-directory="${SRC}"/lib
+    cp -fdrp "${DST}"/bin/led* --target-directory="${SRC}"/bin
+    cp -fr "${DST}"/bin/update_led_on ${SRC}/bin/update_led_on
+    cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
+    echo "-- LED driver was taken from the original base firmware"
+fi
+if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ "${FORCE_SRC2_LEDDRIVER}" = "y" ]; then
+    cp -fdrp "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
+    cp -fdrp "${SRC_2}"/lib/libled* --target-directory="${SRC}"/lib
+    cp -fdrp "${SRC_2}"/bin/led* --target-directory="${SRC}"/bin
+    cp -fr "${SRC_2}"/bin/update_led_on ${SRC}/bin/update_led_on
+    cp -fr "${SRC_2}"/bin/update_led_off ${SRC}/bin/update_led_off
+    echo "-- LED driver was taken from AVM source 2 firmware"
+fi
+
+if [ "${ENFORCE_HWREVISION}" != "y" ]; then
+echo "-- download plugin URL uses Hardware Revision Number: $FBHWRevision"
+#workaround for HWRevision
+ if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
+sed -i -e "/url=\"\`\/sbin\/pluginurl\`\"/i\
+	export HWRevision=\"$FBHWRevision\"" "${SRC}/sbin/start_plugin.sh"
+sed -i -e "/url=\"\`\/sbin\/pluginurl\`\"/a\
+	export HWRevision=\"$HWID\"" "${SRC}/sbin/start_plugin.sh"
+ fi
+fi
+sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"
+
+#save space
+[ "${REMOVE_ANNEX_B_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/ur8-B-dsl.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_adsl_B.bin &&\
+echo "-- DSL Annex B driver was removed from ${SORCE_PRODUKT}!"
+#save space
+[ "${REMOVE_ANNEX_A_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/ur8-A-dsl.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_adsl_A.bin &&\
+echo "-- DSL Annex A driver was removed from ${SORCE_PRODUKT}!"
+echo "********************************************************************************"

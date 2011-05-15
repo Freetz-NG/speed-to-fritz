@@ -1069,6 +1069,7 @@ export CONFIG_ETH_COUNT="4"
 	[ "$FBMOD" == "" ] && export FBMOD="7270"
 	[ "$FBHWRevision" == "" ] && export FBHWRevision="139"
 	echo $AVM_IMG | grep -q "v1" && [ "$FBHWRevision" == "139" ] && export FBHWRevision="122"
+	echo $AVM_IMG | grep -q "7570" && [ "$FBHWRevision" == "139" ] && export FBHWRevision="145"
 	export CONFIG_INSTALL_TYPE="ur8_16MB_xilinx_4eth_2ab_isdn_nt_te_pots_wlan_mimo_usb_host_dect_multiannex_13589"
 	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
 	export HWRevision="${HWID}.1.0.6"
@@ -1595,6 +1596,8 @@ if [ "$ORI" != "y" ]; then
  . SxAVMx7270v3;;
  "7390")
  . SxAVMx7390;;
+ "5to2")
+ . 7570to7270;;
  *)
  . SxxxAVM;;
  esac
@@ -1633,7 +1636,7 @@ if [ "$ORI" != "y" ]; then
  #patch p_maxTimeout on intenet page
  [ "$SET_PMAXTIMEOUT" = "y" ] && $sh_DIR/patch_pmaxTimeout.sh "${SRC}" "${OEM}"
  #patch download url and add menuitem support , and freetz
- $sh2_DIR/patch_url "${SRC}"
+ [ "$ADD_SUPPORT" == "y" ] && $sh2_DIR/patch_url "${SRC}"
  #add dsl expert pages support
  [ "$ADD_DSL_EXPERT_MNUE" = "y" ] && $sh_DIR/add_dsl_expert.sh "${SRC}" "${OEM}"
  #add omlinecounter pages 
@@ -1680,13 +1683,13 @@ if [ "$ORI" != "y" ]; then
  [ "$DONT_ADD_MODINFO" != "y" ] && $sh2_DIR/patch_system_status "${SRC}"
  #export download links
  $HOMEDIR/extract_rpllist.sh
- # add oem links
+ # add oem links all, ...
  $sh_DIR/make_oem_links.sh "${SRC}"
  # set OEM via rc.S not via environment
  [ "$PATCH_OEM" = "y" ] && $sh2_DIR/patch_OEMandMyIP "${SRC}"
  # fix default route
  [ "$ADD_DEFAULT_ROUTE_FIX" = "y" ] && $sh_DIR/patch_default_route_fix.sh "${SRC}"
- # replace inittab as it is done with freetz
+ # replace inittab as it is done with freetz, not executed on 7390, 722
  $sh_DIR/rpl_inittab.sh "${SRC}"
  #packing takes place on SPDIR
  export SPDIR="${FBDIR}"
