@@ -3490,7 +3490,7 @@ config EXPORT_DONT_LINK_OENDIRS
 		If this is set to "y" nothing is changed in respect of OEM directorys, 
 		set this to "n" if OEM avme or avm is in use, usual you can set this
 		to "n" without any noticabel diffence in functionality.
-if EXPORT_TYPE_LOCAL_MODEL || TYPE_7570
+if EXPORT_TYPE_LOCAL_MODEL || TYPE_7570 || TYPE_7570_to_7270
  config EXPORT_DONT_REM_SIGNATUR
 	bool "Don't remove red wariniges on statuspage"
 	default n

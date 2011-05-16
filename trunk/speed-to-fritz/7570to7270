@@ -1,6 +1,7 @@
 #!/bin/bash
 #KernelVersion="2.6.19.2"
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 # only executed if productname is changed
 if [ ! -e "${SRC}"/etc/default.${CONFIG_PRODUKT} ]; then
  echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
@@ -44,6 +45,9 @@ if [ "${FORCE_OWN_KDSLDMOD}" = "y" ] && ! [ -f ./addon/tmp/W920/squashfs-root/li
 fi
 [ "${FORCE_OWN_KDSLDMOD}" = "y" ] && cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
 echo "-- kdslmod driver was taken from local directory ./addon/tmp/W920"
+
+# correct setings to fit hardware
+$sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 7270
 
 rm -rf "${SRC}"/lib/modules/*_488.hex
 if [ "${SAVE_SRC2_DECTDRIVER}" = "y" ]; then
@@ -109,12 +113,12 @@ echo "/lib/modules/$KernelVersion/kernel/drivers/dsl/dsl_ur8.ko" >> "${SRC}"/lib
 #copy DSL Skript
 cp -fdpr  "${DST}"/etc/init.d/rc.dsl.sh  --target-directory="${SRC}"/etc/init.d
 #include vdsl skript
-sed -i -e 's|/etc/init.d/rc.vdsl.sh start|\. /etc/init.d/rc.dsl.sh|' "${SRC}/etc/init.d/rc.S" 
+sed -i -e 's|rc.vdsl.sh|rc.dsl.sh start|' "${SRC}/etc/init.d/rc.S"
 
-#diffence in rc.dsl.sh  
-sed -i -e 's|tiatm|dsl_ur8|' "${SRC}/etc/init.d/rc.dsl.sh"
-sed -i -e '/modprobe tiatm/a\
-echo "MODE = dsl" > \/dev\/avm_power' "${SRC}/etc/init.d/rc.dsl.sh"
+##diffence in rc.dsl.sh  
+#sed -i -e 's|tiatm|dsl_ur8|' "${SRC}/etc/init.d/rc.dsl.sh"
+#sed -i -e '/modprobe tiatm/a\
+#echo "MODE = dsl" > \/dev\/avm_power' "${SRC}/etc/init.d/rc.dsl.sh"
 #<---DSL skripts
 
 #remove FON3 menus

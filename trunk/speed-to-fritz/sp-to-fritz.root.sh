@@ -1444,7 +1444,43 @@ fi
 	export CONFIG_UsbPrint="1"
 	export kernel_size="7798784"
 	;;
-
+"5to2")
+	export CLASS=""
+	export SPNUM="7270"
+	export PROD="7570_HN"
+	export HWID="153"
+	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
+	[ "$FBMOD" == "" ] && export FBMOD="7570"
+	[ "$FBHWRevision" == "" ] && export FBHWRevision="153"
+	export HWRevision="${HWID}.1.0.6"
+	export CONFIG_RAMSIZE="64"
+	export CONFIG_ROMSIZE="16"
+	export CONFIG_DIAGNOSE_LEVEL="1"
+	export CONFIG_DECT_14488="n"
+	if [ "$ATA_ONLY" = "y" ]; then
+	  export CONFIG_ATA="n"  
+	  export CONFIG_ATA_FULL="y"
+	  export CONFIG_VDSL="n"
+ 	  export CONFIG_LABOR_DSL="n"
+	fi 
+	export CONFIG_AB_COUNT="3"
+	export CONFIG_ETH_COUNT="4"
+	export CONFIG_Pots="1"
+	export CONFIG_IsdnNT="1"
+	export CONFIG_IsdnTE="1"
+	export CONFIG_Usb="1" 
+	export CONFIG_UsbHost="1" 
+	export CONFIG_UsbStorage="1"
+	export CONFIG_UsbPrint="1"
+	export kernel_start="0x90020000"
+	export kernel_size="16121856"
+	export urlader_start="0x90000000"
+	export urlader_size="131072"
+	# needs different tool
+	export MKSQUASHFS_TOOL="mksquashfs3-lzma"
+	export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
+	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
+	;;
 *)
 	export SPMOD="$1"
 	export CLASS=""
