@@ -1840,7 +1840,9 @@ in a reboot loop, the router is waiting for a firmware on one of the following \
 FTP IPs 192.168.178.1 or 192.168.2.1. If you have trouble to establish a \n\
 connection, add to your PC Network settings a static IP 192.168.178.2 and \n\
 mask 255.255.0.0 gateway IP 192.168.178.1.\n\
-If a VM machine is in use be sure you did start the VM as Administrator.$ECHO_END"
+If a VM machine is in use be sure you did start the VM as Administrator.\n\
+In case of problems a windows program can also be used to upload a firmware.\n\
+Link:  http://www.hyperbox.org/jpascher/1/ftp_uploader.exe.exe"$ECHO_END
 	##########################################################################
 	echo "********************************************************************************"
 	echo "Flashing firmware image $NEWDIR/kernel.image..."
@@ -1879,6 +1881,9 @@ fi
 # a control C brack will keep the unstripped Firmware.conf 
 # Firmware.conf.tar was generated earlyer.
 ## . FirmwareConfStrip
+	echo "A windows program can also be used to upload a firmware."
+	echo "Link:  http://www.hyperbox.org/jpascher/1/ftp_uploader.exe.exe"
+echo
 echo "All done .... Press 'ENTER' to return to the calling shell."
 while !(read -s); do
     sleep 1
