@@ -168,7 +168,18 @@ if [ ${ATA_ONLY} = "y" ]; then
     rm -fdr "${SRC}"/lib/modules/dsp_ur8
 fi
 #not 7570 only--->
-if ! [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ]; then 
+if [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ]; then
+ #freetz modifies subversion we dont like this
+ sed -i -e "s/CONFIG_SUBVERSION=\".*$/CONFIG_SUBVERSION=\"${TCOM_SUBVERSION}\"/g" "${SRC}/etc/init.d/rc.conf"
+ sed -i -e "s/hardware=\${HWRevision}/hardware=$FBHWRevision/" "${SRC}/etc/init.d/rc.conf"
+ if [ -e ${SRC}/etc/.freetz-version ]; then
+  Fversion=`cat ${SRC}/etc/.freetz-version`
+  [ -e "${SRC}/usr/www/$OEM/home/home.lua" ] && sed -i -e "s|<?lua box.out(g_Firmware_Version) ?>|<?lua box.out(g_Firmware_Version) ?>  ($Fversion)|" "${SRC}/usr/www/$OEM/home/home.lua" && \
+  echo2 "-- freetz version added to product info on home.lua"
+  [ -e "${SRC}/usr/www/$OEM/html/de/home/home.html" ] && sed -i -e "s|<? echo \$var:ProduktName ?>|<? echo \$var:ProduktName ?> ($Fversion)|" "${SRC}/usr/www/$OEM/html/de/home/home.html" && \
+  echo2 "-- freetz version added to product info on home.html"
+ fi
+else
 #v3 dect fix
 sed -i -e 's|_488.hex|.hex|' "${SRC}/etc/init.d/rc.S" 
 sed -i -e '/piglet_use_pll3_clk=1 \\/d' "${SRC}/etc/init.d/rc.S" 

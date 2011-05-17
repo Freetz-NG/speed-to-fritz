@@ -1,8 +1,9 @@
 #!/bin/bash
 # include modpatch function
 . ${include_modpatch}
-echo "-- set all provoders ..."
+[ -e ${SRC}/etc/.freetz-version ] && exit 0 # freetz fils are missing
 DIRI="$(find ${1}/usr/www/ \( -name authform.html -o -name sip1.js -o -name siplist.js \) -type f -print)"
+echo "-- set all provoders ..."
 for file_n in $DIRI; do
     ##echo2 "      ${file_n}"
     sed -i -e 's/$var:allprovider 1/ 1 1/' "$file_n"

@@ -13,6 +13,10 @@ echo "--------------------------------------------------------------------------
 export HOMEDIR="`pwd`"
 #include variables from last run of speed-to-fritz
 . ./incl_var
+# fix scrit, if it is run a second time without starting speed-to-fritz in advance
+echo $FBIMG | grep -q 'freetz' && cp ./incl_var.bac  ./incl_var && . ./incl_var
+cp ./incl_var  ./incl_var.bac
+#
 export FREETZ_DIR="freetz-trunk"
 FREETZ_DL_LINK="http://svn.freetz.org/trunk"
 #W900 or W701-->
@@ -136,7 +140,7 @@ while [ "$KEY" != "y" ]; do
  echo
  echo "Download Freetz the first time, or do a freetz update?"
  echo
- echo "I case of problems do a 'make dirclean' at the commandline this will remove all changes made by you."
+ echo "In case of problems do a 'make dirclean' at the commandline this will remove all changes made by you."
  echo "For using the commandline you must change to the freetz-trunk directory first. 'cd ../freetz-trunk'"  
  echo "To download a specific revision of the trunk you would need to set the number via menu option!"
  echo "--> You shuld type 'y' <--" 

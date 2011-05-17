@@ -10,7 +10,7 @@ else
 	sudo apt-get -y update && sudo apt-get -y upgrade &&\
 	sudo apt-get -y install libtool make libncurses5-dev zlib1g-dev flex bison patch texinfo
 	sudo apt-get -y update && sudo apt-get -y upgrade &&\
-	sudo apt-get -y install tofrodos gettext jam pkg-config jikes fastjar realpath perl
+	sudo apt-get -y install tofrodos gettext jam pkg-config jikes fastjar realpath perl libglib2.0-dev
 	sudo apt-get -y update && sudo apt-get -y upgrade &&\
 	sudo apt-get -y install libstring-crc32-perl ruby ruby1.8 gawk python subversion bzip2 $EXTRAPKG lynx
 fi

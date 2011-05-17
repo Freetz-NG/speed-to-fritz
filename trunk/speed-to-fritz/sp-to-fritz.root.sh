@@ -1873,13 +1873,16 @@ if [ "$SET_UP" = "n" ]; then
 	echo -e "${ECHO_GRUEN}\n\
 Don't restart the PC in case the router is or ends up in a reboot loop, \n\
 repeat the flashing, or repeat the complete script if it did not work in the \n\
-first place. There is no need to power of a router that is in a reboot loop even \n\
+first place. $ECHO_BOLD./ftpXXX 'ENTER'$ECHO_END ${ECHO_GRUEN}restarts the transfer.\n\
+There is no need to power of a router that is in a reboot loop even \n\
 the script asks you to do this. Nothig is damaged if the router ends up or stays \n\
 in a reboot loop, the router is waiting for a firmware on one of the following \n\
 FTP IPs 192.168.178.1 or 192.168.2.1. If you have trouble to establish a \n\
 connection, add to your PC Network settings a static IP 192.168.178.2 and \n\
 mask 255.255.0.0 gateway IP 192.168.178.1.\n\
-If a VM machine is in use be sure you did start the VM as Administrator.$ECHO_END"
+If a VM machine is in use be sure you did start the VM as Administrator.\n\
+In case of problems a windows program can also be used to upload a firmware.\n\
+Link:  http://www.hyperbox.org/jpascher/1/ftp_uploader.exe.exe"$ECHO_END
 	##########################################################################
 	echo "********************************************************************************"
 	echo "Flashing firmware image $NEWDIR/kernel.image..."
@@ -1918,6 +1921,9 @@ fi
 # a control C brack will keep the unstripped Firmware.conf 
 # Firmware.conf.tar was generated earlyer.
 ## . FirmwareConfStrip
+	echo "A windows program can also be used to upload a firmware."
+	echo "Link:  http://www.hyperbox.org/jpascher/1/ftp_uploader.exe.exe"
+echo
 echo "All done .... Press 'ENTER' to return to the calling shell."
 while !(read -s); do
     sleep 1
