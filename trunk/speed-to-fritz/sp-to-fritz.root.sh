@@ -149,6 +149,9 @@ export CONFIG_OEM_DEFAULT="avm"
 export HOSTNAME=""
 export NEWNAME=""
 export FBHWRevision=""
+# Preset if no specified lat
+# This as the default up to 29.04.80.
+export flash_start="0x1f000000"
 # Not all variables are used later on.
 # It is a bit wiered how the information is carried on to the resulting image,
 # usually this information is overwritten by other settings made later on.
