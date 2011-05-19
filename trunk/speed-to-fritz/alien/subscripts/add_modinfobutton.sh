@@ -180,7 +180,7 @@ Die Doku dazu finden Sie ebenfalls <a href="http://wiki.ip-phone-forum.de/skript
 <p>Die Anwendung dieser Modifikation erfolgt auf eigene Gefahr. Sie verlieren dadurch Ihren Supportanspruch gegenüber dem Hersteller. 
 Die Autoren von 'Speed2Fritz' lehnen jegliche Haftung für Schäden ab, die durch die Installation des Skripts oder der modifizierten Firmware entstehen.</p>
 <p></p>
-<p>2006-2010</p>
+<p>2006-2011</p>
 </div></div></div></div></div></div>
 <? include ../html/de/help/rback.html ?>
 </div>

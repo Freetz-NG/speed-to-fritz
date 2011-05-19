@@ -2582,17 +2582,18 @@ config RUN_PATCH_DECT
 		This update is usual not needed.
 
 config EXPORT_DONT_ADD_MODINFO
-	bool "Don't applay mode info button"
+	bool "Don't add modinfo icon on status page"
 	default n if ( ! TYPE_SPEEDPORT_W721V && ! EXPORT_TYPE_LOCAL_MODEL )
 	default y if ( TYPE_SPEEDPORT_W721V || EXPORT_TYPE_LOCAL_MODEL )
 	help
 	    Keep this info if you want, but it is not needed.
 
-#config EXPORT_ADD_MODINFOICON
-#	bool "Add modinfo icon on status page"
-#	default y if ( ! TYPE_SPEEDPORT_W721V )
-#	help
-#		Add modinfo icon on status page, modinfo button is always displayed.
+config EXPORT_ADD_MODINFOICON
+	bool "Add modinfo icon on status page"
+	depends on ! EXPORT_DONT_ADD_MODINFO
+	default y if ( ! TYPE_SPEEDPORT_W721V )
+	help
+		Add modinfo icon on status page, modinfo button is always displayed.
 
 config EXPORT_REMOVE_MENU_ITEM
 	bool "Unusable menu's (remove)"
