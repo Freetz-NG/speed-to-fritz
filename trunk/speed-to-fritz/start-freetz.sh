@@ -22,12 +22,22 @@ FREETZ_DL_LINK="http://svn.freetz.org/trunk"
 #W900 or W701-->
   DO_COPY="y" # n is just for testing - uses the complet addon patch for freetz W722
   if [ "$SPNUM" = "900" ] || [ "$SPNUM" = "701" ] ; then
-    echo -e "\033[32mStabil freetz-stable-1.1 is used for W${SPNUM}V\033[0m"
-    export FREETZ_DIR="freetz-stable-1.1"
-    #patches are at the moment for revision:
-    #FREETZREVISION=""
-    #echo -e "\033[31mRevision  is set to: $FREETZREVISION (current patches do need this revision)\033[0m "
-    FREETZ_DL_LINK="http://svn.freetz.org/branches/freetz-stable-1.1"
+   KEY="x"
+    while [ "$KEY" != "y" ]; do
+     echo
+     echo "Devel or stable branch desition."
+     echo
+     echo -n "   Use freetz-stable-1.1 (y/n)?"; read -n 1 -s YESNO; echo
+     [ "$YESNO" = "y" ] || [ "$YESNO" = "n" ] &&  KEY="y" || echo "wrong key!"
+       if [ "$YESNO" = "y" ]; then
+         echo -e "\033[32mStabil freetz-stable-1.1 is used for W${SPNUM}V\033[0m"
+         export FREETZ_DIR="freetz-stable-1.1"
+         #patches are at the moment for revision:
+         #FREETZREVISION=""
+         #echo -e "\033[31mRevision  is set to: $FREETZREVISION (current patches do need this revision)\033[0m "
+         FREETZ_DL_LINK="http://svn.freetz.org/branches/freetz-stable-1.1"
+       fi
+    done
   fi 
 # 900 or W701<--
 #7390 or W722-->
@@ -206,6 +216,10 @@ echo
 KEY="x"
 while [ "$KEY" != "y" ]; do
  echo
+ echo "If you terminate with controll C or skip all following questions you will be left"
+ echo "with a clean freetz installation, and you can use freetz in command line mode,"
+ echo "as it is explained on freetz help page. Then type in 'make menuconfig' first." 
+ echo 
  echo "If started:" 
  echo "Ignore WARNINGS, especially the first time this tool is started!"
  echo
