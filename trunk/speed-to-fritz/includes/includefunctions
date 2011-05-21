@@ -415,6 +415,7 @@ function check_or_write_md5_to_DB()
 	temp="$($TOOLS_DIR/md5sum "$1")"
 	MD5SUM="${temp%% *}"
 	filename=$(basename "${temp#* }")
+	echo "$filename" | grep -q 'dect_update' && return 1
 	#echo "MD5SUM:$MD5SUM"
 	#echo "filename:$filename"
 	[ -f $HOMEDIR/md5list ] || touch $HOMEDIR/md5list
