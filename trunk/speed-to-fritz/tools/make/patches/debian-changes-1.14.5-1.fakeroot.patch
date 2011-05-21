@@ -1,6 +1,6 @@
 --- libfakeroot.c
 +++ libfakeroot.c
-@@ -206,6 +206,8 @@ void load_library_symbols(void){
+@@ -211,6 +211,8 @@ void load_library_symbols(void){
  
  #endif /* LIBFAKEROOT_DEBUGGING */
    for(i=0; next_wrap[i].doit; i++){
