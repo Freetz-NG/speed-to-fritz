@@ -140,5 +140,6 @@ $sh_DIR/add_multi_settings.sh
 #remove kids and help
 [ "${REMOVE_KIDS}" = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
 [ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
-$sh_DIR/remove_dect_menue.sh "${SRC}"
+# no need to rmove menue entry any more
+#$sh_DIR/remove_dect_menue.sh "${SRC}"
 echo "********************************************************************************"

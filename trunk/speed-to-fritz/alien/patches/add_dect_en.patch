@@ -88,12 +88,12 @@
 +<input type="button" value="Send directory" id="uiSendBook" onclick="uiDoSendBook()" class="Pushbutton" style="width:180px;">
 +</div>
 +</div></div></div></div></div></div>
-+
 +<div class="backdialog" id="uiApplyCancelButtons"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="forebuttons">
 +<input type="button" onclick="uiDoSave()" value="Apply" class="Pushbutton" id="buttonSave">
 +<input type="button" onclick="uiDoCancel()" value="Cancel" class="Pushbutton" id="buttonCancel">
 +<input type="button" onclick="uiDoHelp()" value="Help" class="Pushbutton" id="buttonHilfe">
 +</div></div></div></div></div></div>
++</div></div></div></div></div></div></div>
 +</div>
 --- fon/dect0.js	2008-01-01 19:00:00.000000000 -0500
 +++ fon/dect0.js	2008-08-15 07:46:06.000000000 -0400
@@ -510,7 +510,6 @@
 --- fon/foneditdect.html	2008-01-01 19:00:00.000000000 -0500
 +++ fon/foneditdect.html	2008-08-15 11:56:17.000000000 -0400
 @@ -0,0 +1,58 @@
-+
 +<div id="content">
 +<div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">
 +DECT handsets
@@ -568,6 +567,7 @@
 +<input type="button" onclick="uiDoCancel()" value="Cancel" class="Pushbutton" id="buttonCancel">
 +<input type="button" onclick="uiDoHelp()" value="Help" class="Pushbutton" id="buttonHilfe">
 +</div></div></div></div></div></div>
++</div></div></div></div></div></div></div>
 +</div>
 --- fon/foneditdect.js	2008-01-01 19:00:00.000000000 -0500
 +++ fon/foneditdect.js	2008-08-15 11:44:42.000000000 -0400
