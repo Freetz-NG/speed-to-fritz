@@ -35,9 +35,9 @@ text = \[\[DECT Telefon Handteile\]\],\n\
 menu = \"dect\",\n\
 tabs = \{\n\
 \{ page = \"\/dect\/dect0.lua\", text = \[\[Uebersicht\]\]\},\n\
-\{ page = \"\/dect\/foneditdect.lua\", text = \[\[Interne Nummern\]\]\},\n\
+\{ page = \"\/dect\/fonlistdect.lua\", text = \[\[Interne Nummern\]\]\},\n\
 \{ page = \"\/dect\/fonsetupdect.lua\", text = \[\[Zuordnung\]\]\},\n\
-\{ page = \"\/dect\/fonlistdect.lua\", text = \[\[Anmelden\]\]\}\n\
+\{ page = \"\/dect\/foneditdect.lua\", text = \[\[Anmelden\]\]\}\n\
 \},\n\
 --ENDE--" "$file_n" && \
  grep -q "dect0.lua" "$file_n" && echo "-- old dect menue added to: /menus/menu_data.lua"
