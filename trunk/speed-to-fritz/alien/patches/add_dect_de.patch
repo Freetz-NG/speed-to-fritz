@@ -54,7 +54,7 @@
 +</div></div></div></div></div></div>
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
 +<ul class="tabs">
-+<li class="tabs_on"><a href="javascript:uiDoRefresh()">Übersicht</a></li>
++<li class="tabs_on"><div class="activtab">Übersicht</div></li>
 +<li><a href="javascript:uiDoListDect()">Interne Nummern</a></li>
 +<li><a href="javascript:uiDoSetupDect()">Zuordnung</a></li>
 +<li><a href="javascript:uiDoEditDect()">Anmelden</a></li>
@@ -519,7 +519,7 @@
 +<li><a href="javascript:uiDoDect()">Übersicht</a></li>
 +<li><a href="javascript:uiDoListDect()">Interne Nummern</a></li>
 +<li><a href="javascript:uiDoSetupDect()">Zuordnung</a></li>
-+<li class="tabs_on"><a href="javascript:uiDoCancel()">Anmelden</a></li>
++<li class="tabs_on"><div class="activtab">Anmelden</div></li>
 +</ul>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
 +<p class="mb10">Sie können DECT-Telefone an der FRITZ!Box an- und abmelden. Zum Anmelden eines DECT-Telefons müssen Sie die System-PIN (im Lieferzustand: 0000) am Mobilteil eingeben. Weiterhin können Sie die Bezeichnung der Schnurlostelefone (DECT) in der FRITZ!Box ändern.</p>
@@ -682,7 +682,7 @@
 +<? if eq '$var:usePSTN' 1 `
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
 +<ul class="tabs">
-+<li class="tabs_on"><a href="javascript:uiDoCancel()">Übersicht</a></li>
++<li class="tabs_on"><div class="activtab">Übersicht</div></li>
 +<li><a href="javascript:uiDoMsn()">Festnetzrufnummern</a></li>
 +</ul>
 +` ?>
@@ -740,7 +740,7 @@
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
 +<ul class="tabs">
 +<li><a href="javascript:uiDoDect()">Übersicht</a></li>
-+<li class="tabs_on"><a href="javascript:uiDoCancel()">Interne Nummer</a></li>
++<li class="tabs_on"><div class="activtab">Interne Nummer</div></li>
 +<li><a href="javascript:uiDoSetupDect()">Zuordnung</a></li>
 +<li><a href="javascript:uiDoEditDect()">Anmelden</a></li>
 +</ul>
@@ -861,7 +861,7 @@
 +<ul class="tabs">
 +<li><a href="javascript:uiDoDect()">Übersicht</a></li>
 +<li><a href="javascript:uiDoListDect()">Interne Nummern</a></li>
-+<li class="tabs_on"><a href="javascript:uiDoCancel()">Zuordnung</a></li>
++<li class="tabs_on"><div class="activtab">Zuordnung</div></li>
 +<li><a href="javascript:uiDoEditDect()">Anmelden</a></li>
 +</ul>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">

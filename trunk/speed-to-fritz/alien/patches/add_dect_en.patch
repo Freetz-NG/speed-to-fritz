@@ -54,7 +54,7 @@
 +</div></div></div></div></div></div>
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
 +<ul class="tabs">
-+<li class="tabs_on"><a href="javascript:uiDoRefresh()">Overview</a></li>
++<li class="tabs_on"><div class="activtab">Overview</div></li>
 +<li><a href="javascript:uiDoListDect()">Internal phonenumbers</a></li>
 +<li><a href="javascript:uiDoSetupDect()">Phonenumber mappings</a></li>
 +<li><a href="javascript:uiDoEditDect()">Handset registration</a></li>
@@ -519,7 +519,7 @@
 +<li><a href="javascript:uiDoDect()">Overview</a></li>
 +<li><a href="javascript:uiDoListDect()">Internal phonenumbers</a></li>
 +<li><a href="javascript:uiDoSetupDect()">Phonenumber mappings</a></li>
-+<li class="tabs_on"><a href="javascript:uiDoCancel()">Additional devices</a></li>
++<li class="tabs_on"><div class="activtab">Additional devices</div></li>
 +</ul>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
 +<p class="mb10">You can register and de-register DECT handsets to your SPEED!Box. To register a DECT device you need to enter the PIN (0000 - default).</p>
@@ -682,7 +682,7 @@
 +<? if eq '$var:usePSTN' 1 `
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
 +<ul class="tabs">
-+<li class="tabs_on"><a href="javascript:uiDoCancel()">Overvew</a></li>
++<li class="tabs_on"><div class="activtab">Overvew</div></li>
 +<li><a href="javascript:uiDoMsn()">Fixed subscriber line</a></li>
 +</ul>
 +` ?>
@@ -740,7 +740,7 @@
 +<div class="backframe"><div class="ecklm"><div class="eckrm"><div class="rundrb"><div class="rundlb"><div class="foredialog"><div class="ie_b10">
 +<ul class="tabs">
 +<li><a href="javascript:uiDoDect()">Overview</a></li>
-+<li class="tabs_on"><a href="javascript:uiDoCancel()">Internal phonenumbers</a></li>
++<li class="tabs_on"><div class="activtab">Internal phonenumbers</div></li>
 +<li><a href="javascript:uiDoSetupDect()">Phonenumber mappings</a></li>
 +<li><a href="javascript:uiDoEditDect()">Additional devices</a></li>
 +</ul>
@@ -861,7 +861,7 @@
 +<ul class="tabs">
 +<li><a href="javascript:uiDoDect()">Overview</a></li>
 +<li><a href="javascript:uiDoListDect()">Internal phonenumbers</a></li>
-+<li class="tabs_on"><a href="javascript:uiDoCancel()">Phonenumber mappings</a></li>
++<li class="tabs_on"><div class="activtab">Phonenumber mappings</div></li>
 +<li><a href="javascript:uiDoEditDect()">Handset registration</a></li>
 +</ul>
 +<div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
