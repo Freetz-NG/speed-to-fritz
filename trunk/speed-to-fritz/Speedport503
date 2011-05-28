@@ -123,7 +123,7 @@ rm -rf ${SRC}/lib/modules/microvoip_isdn_top.bit
 cp -fdrp "${DST}"/lib/modules/bitfile_pots.bit --target-directory="${SRC}"/lib/modules
 cp -fdrp "${DST}"/lib/modules/bitfile_isdn.bit --target-directory="${SRC}"/lib/modules
 cp -fdrp "${DST}"/lib/modules/wlan_eeprom_hw0.bin --target-directory="${SRC}"/lib/modules
-#cp -fdrp "${DST}"/lib/modules/c55.hex --target-directory="${SRC}"/lib/modules
+cp -fdrp "${DST}"/lib/modules/c55.hex --target-directory="${SRC}"/lib/modules # .04.88 braucht das vom tcom firmware
 
 if [ ${ATA_ONLY} = "n" ]; then
  #annex B driver
@@ -181,7 +181,7 @@ echo "-- fon driver was taken from base Firmware!"
 #cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsl --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
 [ "${XCHANGE_KERNEL}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
 [ "${XCHANGE_KERNEL}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
-# wlan bracht t-com kernel
+# wlan bracht t-com kernel mit .04.88 Firmware nicht mehr 
 [ "${XCHANGE_KERNEL}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/net --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers &&\
 echo "-- WLAN driver was taken from base Firmware!"
 #adapt parameters for Piglet bitfile to be

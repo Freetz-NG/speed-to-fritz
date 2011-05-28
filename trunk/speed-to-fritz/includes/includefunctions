@@ -522,7 +522,7 @@ echo2 "Imagedirectory=${IMAGEDIR}"
 echo2 "oem: ${OEM}  Produkt: ${CONFIG_PRODUKT}  HWResvison: ${HWRevision}\
   Eth: ${ETH_IF}  IP: ${IPADDRESS}  jffs2size: ${CONFIG_jffs2_size}  kernel_args: ${kernel_args}"
 echo
-ifconfig $ETH_IF add ${CNET}.10 &> /dev/null
+ifconfig $ETH_IF ${CNET}.10 &> /dev/null
 ifconfig $ETH_IF | grep 'inet addr' | sed -e "s/inet addr/PC Netcardaddr. /g"
 echo
 if [ $FORCE_CLEAR_FLASH ]; then
