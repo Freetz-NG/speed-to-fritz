@@ -248,9 +248,9 @@ config AVM_PRE_7272_17828
    string
     default "./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v2.54.04.85-17828.zip mirror http://upload.crunkbass.de/big4c61626f725f465249545a2e426f785f466f6e5f574c414e5f373237305f76322e35342e30342e38352d31373832382e7a6970.zip"
 
-config AVM_PRE_7273_19798
+config AVM_PRE_7273_19896
    string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_cebit_labor/labor_start_cebit_labor.php HW145:fritzbox-labor-7270v3-19798.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v3.74.05.04-19798.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_cebit_labor/labor_start_cebit_labor.php HW145:fritzbox-labor-7270v3-19896.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v3.74.05.04-19896.image"
 #   default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_cebit_labor/labor_start_cebit_labor.php HWXXX:" #HW145
 
 config AVM_DSL_7271_18237
@@ -266,7 +266,7 @@ config AVM_DSL_7273_18956
     string
     default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_dsl/labor_start_dsl.php HW145:fritz_box-labor-7270v3-18956.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3.74.04.88-18956.image"
 
-config AVM_NAS_7272_18956
+config AVM_NAS_7272_19759
    string
    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v2.54.05.04-19759.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237305f76322e35342e30342e38382d31383935362e7a6970.zip"
 ###
@@ -1036,8 +1036,8 @@ choice
 		default TYPE_7170_29_04_80 if TYPE_7140
 		default TYPE_7271_54_04_88 if TYPE_SPEEDPORT_W503V
 		default TYPE_7170_58_04_80 if ( ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V )
-		default TYPE_NAS_7272_18956 if TYPE_OR_7570_920
-		default TYPE_PRE_7273_19798 if TYPE_7240
+		default TYPE_NAS_7272_19759 if TYPE_OR_7570_920
+		default TYPE_PRE_7273_19896 if TYPE_7240
 		#->(only for testing)
 		default TYPE_7390_84_04_91 if TYPE_7390
 		default TYPE_W722_80_04_76 if TYPE_SPEEDPORT_W722V
@@ -1186,8 +1186,8 @@ choice
 #		help
 #			FRITZ! release: 76
 
-	config TYPE_PRE_7273_19798
-		bool "AVM 7270v3 19798 (PREVIEW)"
+	config TYPE_PRE_7273_19896
+		bool "AVM 7270v3 19896 (PREVIEW)"
 		depends on ( TYPE_OR_7240_7273_7390_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help 
 			FRITZ!Lab (PREVIEW): CeBIT-Labor
@@ -1208,8 +1208,8 @@ choice
 			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
 			(Internet Protocol Version 6) and 6to4 tunnels.
 
-	config TYPE_NAS_7272_18956
-		bool "AVM 7270v2 18956 (Labor)"
+	config TYPE_NAS_7272_19759
+		bool "AVM 7270v2 19759 (Labor)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab Last known funktional.
@@ -1519,8 +1519,8 @@ choice
 	config TYPE_SRC3_AVM_DSL_7273_18956
 		bool "AVM 7270v3 18956 Labor DSL"
 
-	config TYPE_SRC3_AVM_NAS_7272_18956
-		bool "AVM 7270v2 18956 (Labor)"
+	config TYPE_SRC3_AVM_NAS_7272_19759
+		bool "AVM 7270v2 19759 (Labor)"
 
 	config TYPE_SRC3_AVM_PRE_7272_17828
 		bool "AVM 7270v2 17828 (old PREVIEW)"
@@ -1528,8 +1528,8 @@ choice
 	config TYPE_SRC3_AVM_PRE_7272_19896
 		bool "AVM 7270v2 19896 (PREVIEW)"
 
-	config TYPE_SRC3_AVM_PRE_7273_19798
-		bool "AVM 7270v3 19798 (PREVIEW)"
+	config TYPE_SRC3_AVM_PRE_7273_19896
+		bool "AVM 7270v3 19896 (PREVIEW)"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7390 Firmware
@@ -1747,8 +1747,8 @@ config AVM_IMG
 	default "$AVM_IPV6_7272_17599"				if ( TYPE_IPV6_7272_17599 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_IPV6_7273_17599"				if ( TYPE_IPV6_7273_17599 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PHONE_7240_16376"				if ( TYPE_PHONE_7240_16376 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_NAS_7272_18956"				if ( TYPE_NAS_7272_18956 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_PRE_7273_19798"				if ( TYPE_PRE_7273_19798 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_NAS_7272_19759"				if ( TYPE_NAS_7272_19759 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_PRE_7273_19896"				if ( TYPE_PRE_7273_19896 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PRE_7272_19896"				if ( TYPE_PRE_7272_19896 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PRE_7272_17828"				if ( TYPE_PRE_7272_17828 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_PRE_7240_19798"				if ( TYPE_PRE_7240_19798 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
@@ -1815,9 +1815,9 @@ config SRC2_IMG
 	default "$AVM_PRE_7240_19798"			if TYPE_SRC3_AVM_PRE_7240_19798
 	default "$AVM_PRE_7272_17828"			if TYPE_SRC3_AVM_PRE_7272_17828
 	default "$AVM_PRE_7272_19896"			if TYPE_SRC3_AVM_PRE_7272_19896
-	default "$AVM_PRE_7273_19798"			if TYPE_SRC3_AVM_PRE_7273_19798
+	default "$AVM_PRE_7273_19896"			if TYPE_SRC3_AVM_PRE_7273_19896
 	default "$AVM_PHONE_7240_16376"			if TYPE_SRC3_AVM_PHONE_7240_16376
-	default "$AVM_NAS_7272_18956"			if TYPE_SRC3_AVM_NAS_7272_18956
+	default "$AVM_NAS_7272_19759"			if TYPE_SRC3_AVM_NAS_7272_19759
 	default "$AVM_7390_84_04_81"			if TYPE_SRC3_AVM_PRE_7390_15936
 	default "$AVM_7390_84_04_82"			if TYPE_SRC3_AVM_PRE_7390_16165
 	default "$AVM_7390_84_04_84"			if TYPE_SRC3_AVM_7390_84_04_84
@@ -1865,12 +1865,12 @@ config TYPE_7271_TYPE
 config TYPE_7272_TYPE
 	bool
 	default "y"	 	if  TYPE_7272_m54_04_76 || TYPE_DSL_7272_18956 || TYPE_PRE_7272_17828 || TYPE_7272_UMTS_13265 || \
-				TYPE_IPV6_7272_17599 || TYPE_NAS_7272_18956 || TYPE_7272_54_04_80 || \
+				TYPE_IPV6_7272_17599 || TYPE_NAS_7272_19759 || TYPE_7272_54_04_80 || \
 				TYPE_7272_54_04_86 || TYPE_7272_m54_04_81
 
 config TYPE_7273_TYPE
 	bool
-	default "y"	 	if  TYPE_IPV6_7273_17599 || TYPE_PRE_7273_19798 || \
+	default "y"	 	if  TYPE_IPV6_7273_17599 || TYPE_PRE_7273_19896 || \
 				TYPE_PRE_7273_17828 || \
 				TYPE_7273_74_04_86 || TYPE_7273_m74_04_81 || TYPE_7273_m74_04_89
 
@@ -1887,9 +1887,9 @@ config TYPE_LABOR_TYPE
 	default "76" 		if TYPE_7170_54_04_76 || TYPE_7113_76
 	default "70" 		if TYPE_7170_70
 	default "76m" 		if TYPE_7272_m54_04_76
-	default "PREVIEW"	if TYPE_PRE_7240_19798 || TYPE_PRE_7271_17828 || TYPE_PRE_7272_17828 || TYPE_PRE_7273_17828 || TYPE_PRE_7272_19896 || TYPE_PRE_7273_19798 || \
+	default "PREVIEW"	if TYPE_PRE_7240_19798 || TYPE_PRE_7271_17828 || TYPE_PRE_7272_17828 || TYPE_PRE_7273_17828 || TYPE_PRE_7272_19896 || TYPE_PRE_7273_19896 || \
 				TYPE_7170_PRE_19817 || TYPE_7390_PRE_19798
-	default "NAS"		if TYPE_NAS_7272_18956
+	default "NAS"		if TYPE_NAS_7272_19759
 	default "DSL" 		if TYPE_DSL_7271_18237 || TYPE_DSL_7272_18956 || TYPE_DSL_7273_18956 || TYPE_DSL_7390_18985
 	default "GAMING" 	if TYPE_7272_GAMING || TYPE_7170_GAMING_11435
 	default "PHONE" 	if TYPE_PHONE_7240_16376 || TYPE_7170_PHONE
