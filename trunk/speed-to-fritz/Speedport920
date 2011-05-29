@@ -3,13 +3,15 @@
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # only executed if productname is changed
 if [ ! -e "${SRC}"/etc/default.${CONFIG_PRODUKT} ]; then
- echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
+echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
  echo2 "  -- move contents of OEM directory:"
  echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
- mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
- "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
- rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
+    mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
+   "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
+    rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
+#Attention! Vinax uses aditional /dev/vinax device entrys the are generateed via /tools/device_table.txt (makedevice option)
+cp -fdrp "${DST}"/dev --target-directory="${SRC}" #this copy is only usable if run as root
 [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
 [ "${FORCE_TCOM_PCMLINK}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2/pcmlink.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2
 [ "${FORCE_TCOM_USRMAN}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/userman/userman_mod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/driver/userman
@@ -87,6 +89,7 @@ else
  fi
 fi
 
+
 [ "${USE_OWN_DSL}" = "y" ] && cp -fdrp ./addon/tmp/W920/squashfs-root/* --target-directory="${SRC}" &&\
 echo "-- VINAX DSL driver was taken from local directory ./addon/tmp/W920"
 if [ "${SAVE_SRC2_KDSLDMOD}" = "y" ]; then
@@ -131,6 +134,78 @@ echo "-- PPPoA compatible KDSLDMOD driver is in use!"
 echo "-- compatible VINAX DSL driver is in use!"
 [ "${FORCE_KDSLD_DRV_77}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
 echo "-- compatible KDSLDMOD driver is in use!"
+#v3 dect fix
+sed -i -e 's|_488.hex|.hex|' "${SRC}/etc/init.d/rc.S" 
+sed -i -e '/piglet_use_pll3_clk=1 \\/d' "${SRC}/etc/init.d/rc.S" 
+sed -i -e 's|piglet_enable_button=2|piglet_enable_button=3|' "${SRC}/etc/init.d/rc.S" 
+sed -i -e '/piglet_bitfilemode=/d' "${SRC}/etc/init.d/rc.S" 
+sed -i -e 's|piglet_potsbitfile=$piglet_potsbitfile ||' "${SRC}/etc/init.d/rc.S" 
+#disable 7270 led controll
+sed -i -e 's|led-ctrl festnetz_led_disable|#led-ctrl festnetz_led_disable|' "${SRC}/etc/init.d/rc.S" 
+sed -i -e 's|led-ctrl dect_led_enable|#led-ctrl dect_led_enable|' "${SRC}/etc/init.d/rc.S" 
+
+#not 7570 only--->
+if ! [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ]; then 
+#sed -i -e 's|/dsl/dsl_ur8.ko|/vinax/drv_vinax.ko|' "${SRC}"/lib/modules/$KernelVersion/modules.dep
+echo "/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:" >> "${SRC}"/lib/modules/$KernelVersion/modules.dep
+
+#add entrys in modules.sybols
+sed -i -e '/ alias symbol:pcmlink_ul_dspfwversion_pcmrouter pcmlink/a\
+alias symbol:pcmlink_ul_closeslots pcmlink\
+alias symbol:pcmlink_ul_linkhandle_to_handle pcmlink\
+alias symbol:pcmlink_ul_openslots pcmlink' "${SRC}"/lib/modules/$KernelVersion/modules.symbols
+
+## Default: ggfs. notweniger pcmlink-Treiber wird von modprobe automatisch
+## ueber kernel-dependencys ermittelt und vor dem isdn-treiber gestartet
+## sed -i -e '/modprobe ${pcm_link} ${pcm_link_params}/d' "${SRC}/etc/init.d/rc.S" 
+## rm -fdr "${SRC}"/lib/modules/c55fw.hex
+
+#DSL skripts--->
+#copy VDSL Skript
+cp -fdpr  "${DST}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d
+#include vdsl skript
+sed -i -e 's|/etc/init.d/rc.dsl.sh start|\. /etc/init.d/rc.vdsl.sh|' "${SRC}/etc/init.d/rc.S" 
+
+#diffence in rc.dsl.sh  
+sed -i -e 's|dsl_ur8|tiatm|' "${SRC}/etc/init.d/rc.dsl.sh"
+sed -i -e '/modprobe tiatm/a\
+echo "MODE = vdsl" > \/dev\/avm_power' "${SRC}/etc/init.d/rc.dsl.sh"
+
+#dont think it is needed, but for safty
+sed -i -e '/CONFIG_VDSL=/a\
+export CONFIG_VINAX="y"' "${SRC}/etc/init.d/rc.conf" 
+#<---DSL skripts
+#tests 
+sed -i -e '/export ANNEX_TEST/a\
+if [ "$STATUS_TEST" != "0" ]; then\
+/usr/bin/dsl_info.sh /&\
+fi' "${SRC}/etc/init.d/rc.S" 
+#remove FON3 menus
+[ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
+# add missing gifs
+$sh_DIR/add_vdslscale.sh "${SRC}"
+$sh_DIR/patch_leddef_7270.sh "${SRC}" "${DST}"
+#xilix W920 driver must be for the hardware in use
+rm -f "${SRC}"/lib/modules/microvoip_isdn_top.bit
+rm -f "${SRC}"/lib/modules/bitfile.bit
+sed -i -e 's|bitfile.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
+sed -i -e 's|microvoip_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
+# 7240
+rm -f "${SRC}"/lib/modules/bitfile_pots.bit 
+rm -f "${SRC}"/lib/modules/bitfile_isdn.bit 
+sed -i -e 's|bitfile_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
+[ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules &&\
+echo "-- Xilinx bitfile was taken from the original base firmware"
+[ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
+echo "-- Xilinx bitfile was taken from the original base firmware"
+#patch annex parameter
+$sh_DIR/patch_annex.sh "${SRC}"
+fi
+#not 7570  only <---
+$sh_DIR/add_ppp_setting.sh
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
 [ ${FORCE_TCOM_PIGLET} = "y" ] &&\
@@ -158,110 +233,48 @@ if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko 
     cp -fr "${SRC_2}"/bin/update_led_off ${SRC}/bin/update_led_off
     echo "-- LED driver was taken from AVM source 2 firmware"
 fi
-## fix led-errormessage in fw-update process
-##[ -f "${SRC}/bin/update_led_on" ] && sed -i -e 's|/var/led|/dev/led|' "${SRC}/bin/update_led_on"
-##[ -f "${SRC}/bin/update_led_off" ] && sed -i -e 's|/var/led|/dev/led|' "${SRC}/bin/update_led_off"
-if [ ${ATA_ONLY} = "y" ]; then
-    #remove ADSL
-    sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
-    sed -i -e 's|. /etc/init.d/rc.vdsl.sh||' "${SRC}/etc/init.d/rc.S" 
-    rm -fdr "${SRC}"/lib/modules/dsp_ur8
-fi
-#not 7570 only--->
-if [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ]; then
- #freetz modifies subversion we dont like this
- sed -i -e "s/CONFIG_SUBVERSION=\".*$/CONFIG_SUBVERSION=\"${TCOM_SUBVERSION}\"/g" "${SRC}/etc/init.d/rc.conf"
- sed -i -e "s/hardware=\${HWRevision}/hardware=$FBHWRevision/" "${SRC}/etc/init.d/rc.conf"
- if [ -e ${SRC}/etc/.freetz-version ]; then
-  Fversion=`cat ${SRC}/etc/.freetz-version`
-  [ -e "${SRC}/usr/www/$OEM/home/home.lua" ] && sed -i -e "s|<?lua box.out(g_Firmware_Version) ?>|<?lua box.out(g_Firmware_Version) ?>  ($Fversion)|" "${SRC}/usr/www/$OEM/home/home.lua" && \
-  echo2 "-- freetz version added to product info on home.lua"
-  [ -e "${SRC}/usr/www/$OEM/html/de/home/home.html" ] && sed -i -e "s|<? echo \$var:ProduktName ?>|<? echo \$var:ProduktName ?> ($Fversion)|" "${SRC}/usr/www/$OEM/html/de/home/home.html" && \
-  echo2 "-- freetz version added to product info on home.html"
- fi
-else
-#v3 dect fix
-sed -i -e 's|_488.hex|.hex|' "${SRC}/etc/init.d/rc.S" 
-sed -i -e '/piglet_use_pll3_clk=1 \\/d' "${SRC}/etc/init.d/rc.S" 
-sed -i -e 's|piglet_enable_button=2|piglet_enable_button=3|' "${SRC}/etc/init.d/rc.S" 
-sed -i -e '/piglet_bitfilemode=/d' "${SRC}/etc/init.d/rc.S" 
-sed -i -e 's|piglet_potsbitfile=$piglet_potsbitfile ||' "${SRC}/etc/init.d/rc.S" 
-#disable 7270 led controll
-sed -i -e 's|led-ctrl festnetz_led_disable|#led-ctrl festnetz_led_disable|' "${SRC}/etc/init.d/rc.S" 
-sed -i -e 's|led-ctrl dect_led_enable|#led-ctrl dect_led_enable|' "${SRC}/etc/init.d/rc.S" 
-#sed -i -e 's|/dsl/dsl_ur8.ko|/vinax/drv_vinax.ko|' "${SRC}"/lib/modules/$KernelVersion/modules.dep
-echo "/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:" >> "${SRC}"/lib/modules/$KernelVersion/modules.dep
-#add entrys in modules.sybols
-sed -i -e '/ alias symbol:pcmlink_ul_dspfwversion_pcmrouter pcmlink/a\
-alias symbol:pcmlink_ul_closeslots pcmlink\
-alias symbol:pcmlink_ul_linkhandle_to_handle pcmlink\
-alias symbol:pcmlink_ul_openslots pcmlink' "${SRC}"/lib/modules/$KernelVersion/modules.symbols
-## Default: ggfs. notweniger pcmlink-Treiber wird von modprobe automatisch
-## ueber kernel-dependencys ermittelt und vor dem isdn-treiber gestartet
-## sed -i -e '/modprobe ${pcm_link} ${pcm_link_params}/d' "${SRC}/etc/init.d/rc.S" 
-## rm -fdr "${SRC}"/lib/modules/c55fw.hex
-
-#DSL skripts--->
-#copy VDSL Skript
-cp -fdpr  "${DST}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d
-
-#include vdsl skript
-sed -i -e 's|/etc/init.d/rc.dsl.sh start|\. /etc/init.d/rc.vdsl.sh|' "${SRC}/etc/init.d/rc.S" 
-
-#diffence in rc.dsl.sh  
-sed -i -e 's|dsl_ur8|tiatm|' "${SRC}/etc/init.d/rc.dsl.sh"
-sed -i -e '/modprobe tiatm/a\
-echo "MODE = vdsl" > \/dev\/avm_power' "${SRC}/etc/init.d/rc.dsl.sh"
-
-#dont think it is needed, but for safty
-sed -i -e '/CONFIG_VDSL=/a\
-export CONFIG_VINAX="y"' "${SRC}/etc/init.d/rc.conf" 
-#<---DSL skripts
-
-#tests 
-sed -i -e '/export ANNEX_TEST/a\
-if [ "$STATUS_TEST" != "0" ]; then\
-/usr/bin/dsl_info.sh /&\
-fi' "${SRC}/etc/init.d/rc.S" 
-
-#remove FON3 menus
-[ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
-
-# add missing gifs
-$sh_DIR/add_vdslscale.sh "${SRC}"
-
-#
-$sh_DIR/patch_leddef_7270.sh "${SRC}" "${DST}"
-
-#xilix W920 driver must be for the hardware in use
-rm -f "${SRC}"/lib/modules/microvoip_isdn_top.bit
-rm -f "${SRC}"/lib/modules/bitfile.bit
-sed -i -e 's|bitfile.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
-sed -i -e 's|microvoip_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
-# 7240
-rm -f "${SRC}"/lib/modules/bitfile_pots.bit 
-rm -f "${SRC}"/lib/modules/bitfile_isdn.bit 
-sed -i -e 's|bitfile_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
-[ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules &&\
-echo "-- Xilinx bitfile was taken from the original base firmware"
-[ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
-echo "-- Xilinx bitfile was taken from the original base firmware"
-
-#patch annex parameter
-$sh_DIR/patch_annex.sh "${SRC}"
-# fix config 
+# fix led-errormessage in fw-update process
+[ -f "${SRC}/bin/update_led_on" ] && sed -i -e 's|/var/led|/dev/led|' "${SRC}/bin/update_led_on"
+[ -f "${SRC}/bin/update_led_off" ] && sed -i -e 's|/var/led|/dev/led|' "${SRC}/bin/update_led_off"
+# 920 
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 920
+#there is still no option within the menus
+#case $KAPSELUNG in 
+#    "0") 
+#        VNX_PPP="dslencap_pppoe"
+#    ;;
+#    "1")   
+#        VNX_PPP="dslencap_pppoa_llc"
+#    ;;
+#    "2")
+#        VNX_PPP="dslencap_pppoa"
+#    ;;
+#    *)  echo "Unknown PPP Mode, Using default Mode PPPoE."
+#    ;;
+#esac
+#[ "${KAPSELUNG}" != "" ] && sed -i -e "s/local ppp_conf=.*$/local ppp_conf=${VNX_PPP}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+#VNX_PPP=0 #default is PPPoE
+#[ "${KAPSELUNG}" != "" ] && sed -i -e "s/VNX_PPP=0/VNX_PPP=${VNX_PPP}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+#Annex default  
+#sed -i -e "s/VNX_Mode=\"VB\"/VNX_Mode=\"V$ANNEX\"/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+#set DSLMOD
+#[ "${DSLMOD}" != "" ] && sed -i -e "s/local DSLMODE=.*$/local DSLMODE=${DSLMOD}/" "${SRC}/etc/init.d/rc.vdsl.sh" 
+
+#VDSL would not start if wrong HWrevision is in use, so it only can be set in ATA mod
+#But pluginsupport needs AVM HWrevision to setup the download URL for plugins 
+#woarkaround v1 Firmware 
+##echo "FBIMG: $FBIMG"
 echo $FBIMG | grep -q "v1" && \
 [ "$FBHWRevision" == "139" ] && export FBHWRevision="122"
 if [ "${ENFORCE_HWREVISION}" != "y" ]; then
 echo "-- download plugin URL uses Hardware Revision Number: $FBHWRevision"
 #workaround for HWRevision
- if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
+if [ -f "${SRC}/sbin/start_plugin.sh" ]; then
 sed -i -e "/url=\"\`\/sbin\/pluginurl\`\"/i\
 	export HWRevision=\"$FBHWRevision\"" "${SRC}/sbin/start_plugin.sh"
 sed -i -e "/url=\"\`\/sbin\/pluginurl\`\"/a\
 	export HWRevision=\"$HWID\"" "${SRC}/sbin/start_plugin.sh"
- fi
+fi
 else
  sed -i -e "s|VINAX_IRQ=10|VINAX_IRQ=9|" "${SRC}/etc/init.d/rc.vdsl.sh"
 fi
@@ -275,30 +288,25 @@ echo2 "-- New WEB GUI will be modified"
 #Add buchsend button to fon bookpage
 [ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
 ## skripts for startig ftp on USB
-#wrap dsld and ar7cfg.lib ## patch default dsl route to 169.254.2.1, Config.in var. PATCH_DSLIP_AR7 is in use in wrap_dsld.sh
+if [ ${ATA_ONLY} = "y" ]; then
+#remove ADSL
+    sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
+    sed -i -e 's|. /etc/init.d/rc.vdsl.sh||' "${SRC}/etc/init.d/rc.S" 
+    rm -fdr "${SRC}"/lib/modules/dsp_ur8
+fi
+#wrap dsld and ar7cfg.lib
 [ "${WRAP_DSLD}" = "y" ] && . $sh_DIR/wrap_dsld.sh
-$sh_DIR/add_ppp_setting.sh
 # remove SNR part - rename Tab, if not Multiannex remove SNR tab
 $sh_DIR/patch_dslinformation_page.sh "${SRC}"
 # replace feedback tab with vdsl profile page
 $sh_DIR/add_vdslprofilepage.sh "${SRC}"
 # add kapselung and annex settings page if missing
 # must be after VLAN settings because oem of authform is altered in some cases
-echo "multi"
-sleep 5
 $sh_DIR/add_multi_settings.sh
 # patch some VLAN settings, and authform
 $sh_DIR/add_vlan_settings.sh "${SRC}"
-#
-[ -f "${SRC}"/lib/libpng.so.3.32.0 ] || cp -fdrp "${DST}"/lib/libpng.so.3.32.0* --target-directory=${SRC}/lib 2> /dev/null
-[ -f "${SRC}"/lib/libexif.so.12.3.0 ] || cp -fdrp "${DST}"/lib/libexif.so.12.3.0* --target-directory=${SRC}/lib 2> /dev/null
-[ -f "${SRC}"/lib/libsqlite3-3.6.16.so.0.8.6 ] || cp -fdrp "${DST}"/lib/libsqlite* --target-directory=${SRC}/lib 2> /dev/null
-#fix ADSL interface accsess restrictions
-sed -i -e "/ \/etc\/init.d\/rc.conf/a\
-sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg\n\
-cat \/var\/flash\/ar7.cfg | grep ifacectl && echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"
-#---
-fi #not 7570  only <---
+## patch default dsl route to 169.254.2.1
+##[ "${FORCE_OLD_DSL_ROUTE}" = "y" ] && $sh_DIR/set_dslroute.sh "${SRC}"
 #remove kids and help
 [ "${REMOVE_KIDS}" = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"
 [ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
@@ -308,4 +316,12 @@ echo "-- DSL Annex B driver was removed from ${SORCE_PRODUKT}!"
 #save space
 [ "${REMOVE_ANNEX_A_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/vinax_fw_adsl_A.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_adsl_A.bin &&\
 echo "-- DSL Annex A driver was removed from ${SORCE_PRODUKT}!"
+#fix ADSL interface accsess restrictions
+sed -i -e "/ \/etc\/init.d\/rc.conf/a\
+sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg\n\
+cat \/var\/flash\/ar7.cfg | grep ifacectl && echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"
+#---
+[ -f "${SRC}"/lib/libpng.so.3.32.0 ] || cp -fdrp "${DST}"/lib/libpng.so.3.32.0* --target-directory=${SRC}/lib 2> /dev/null
+[ -f "${SRC}"/lib/libexif.so.12.3.0 ] || cp -fdrp "${DST}"/lib/libexif.so.12.3.0* --target-directory=${SRC}/lib 2> /dev/null
+[ -f "${SRC}"/lib/libsqlite3-3.6.16.so.0.8.6 ] || cp -fdrp "${DST}"/lib/libsqlite* --target-directory=${SRC}/lib 2> /dev/null
 echo "********************************************************************************"
