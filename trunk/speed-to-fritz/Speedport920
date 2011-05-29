@@ -135,6 +135,12 @@ echo "-- compatible VINAX DSL driver is in use!"
 [ "${FORCE_KDSLD_DRV_77}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}/lib/modules/$KernelVersion/kernel/drivers/dsld" &&\
 echo "-- compatible KDSLDMOD driver is in use!"
 #v3 dect fix
+grep -q "488" "${SRC}/etc/init.d/rc.S" && \
+echo "-- 7270v3 firmware" && \
+cp -fdrp "${DST}"/lib/modules/wlan_eeprom_hw0.bin --target-directory="${SRC}"/lib/modules && \
+echo "-- use wlan_eeprom_hw0.bin from 1st firmware" && \
+cp -fdrp "${DST}"/lib/modules/c55fw.hex --target-directory="${SRC}"/lib/modules && \
+echo "-- use c55fw.hex from 1st firmware" && \
 sed -i -e 's|_488.hex|.hex|' "${SRC}/etc/init.d/rc.S" 
 sed -i -e '/piglet_use_pll3_clk=1 \\/d' "${SRC}/etc/init.d/rc.S" 
 sed -i -e 's|piglet_enable_button=2|piglet_enable_button=3|' "${SRC}/etc/init.d/rc.S" 
