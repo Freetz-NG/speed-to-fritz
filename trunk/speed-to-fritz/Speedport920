@@ -141,8 +141,8 @@ sed -i -e 's|piglet_enable_button=2|piglet_enable_button=3|' "${SRC}/etc/init.d/
 sed -i -e '/piglet_bitfilemode=/d' "${SRC}/etc/init.d/rc.S" 
 sed -i -e 's|piglet_potsbitfile=$piglet_potsbitfile ||' "${SRC}/etc/init.d/rc.S" 
 #disable 7270 led controll
-sed -i -e 's|led-ctrl festnetz_led_disable|#led-ctrl festnetz_led_disable|' "${SRC}/etc/init.d/rc.S" 
-sed -i -e 's|led-ctrl dect_led_enable|#led-ctrl dect_led_enable|' "${SRC}/etc/init.d/rc.S" 
+sed -i -e 's|led-ctrl festnetz_led_disable|echo "festnetz_led_disable removed"|' "${SRC}/etc/init.d/rc.S" 
+sed -i -e 's|led-ctrl dect_led_enable|echo "dect_led_enable removed"|' "${SRC}/etc/init.d/rc.S" 
 
 #not 7570 only--->
 if ! [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ]; then 
@@ -233,9 +233,9 @@ if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko 
     cp -fr "${SRC_2}"/bin/update_led_off ${SRC}/bin/update_led_off
     echo "-- LED driver was taken from AVM source 2 firmware"
 fi
-# fix led-errormessage in fw-update process
-[ -f "${SRC}/bin/update_led_on" ] && sed -i -e 's|/var/led|/dev/led|' "${SRC}/bin/update_led_on"
-[ -f "${SRC}/bin/update_led_off" ] && sed -i -e 's|/var/led|/dev/led|' "${SRC}/bin/update_led_off"
+## fix led-errormessage in fw-update process
+#[ -f "${SRC}/bin/update_led_on" ] && sed -i -e 's|/var/led|/dev/led|' "${SRC}/bin/update_led_on"
+#[ -f "${SRC}/bin/update_led_off" ] && sed -i -e 's|/var/led|/dev/led|' "${SRC}/bin/update_led_off"
 # 920 
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 920
 #there is still no option within the menus
@@ -318,8 +318,7 @@ echo "-- DSL Annex B driver was removed from ${SORCE_PRODUKT}!"
 echo "-- DSL Annex A driver was removed from ${SORCE_PRODUKT}!"
 #fix ADSL interface accsess restrictions
 sed -i -e "/ \/etc\/init.d\/rc.conf/a\
-sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg\n\
-cat \/var\/flash\/ar7.cfg | grep ifacectl && echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"
+\[-e \/var\/flash\/ar7.cfg \] \&\& sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg \&\& cat \/var\/flash\/ar7.cfg | grep ifacectl && echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"
 #---
 [ -f "${SRC}"/lib/libpng.so.3.32.0 ] || cp -fdrp "${DST}"/lib/libpng.so.3.32.0* --target-directory=${SRC}/lib 2> /dev/null
 [ -f "${SRC}"/lib/libexif.so.12.3.0 ] || cp -fdrp "${DST}"/lib/libexif.so.12.3.0* --target-directory=${SRC}/lib 2> /dev/null

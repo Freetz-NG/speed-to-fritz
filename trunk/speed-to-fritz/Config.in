@@ -266,9 +266,9 @@ config AVM_DSL_7273_18956
     string
     default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_dsl/labor_start_dsl.php HW145:fritz_box-labor-7270v3-18956.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3.74.04.88-18956.image"
 
-config AVM_NAS_7272_19759
-   string
-   default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v2.54.05.04-19759.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237305f76322e35342e30342e38382d31383935362e7a6970.zip"
+#config AVM_NAS_7272_19759
+#   string
+
 ###
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 AVM Firmware
@@ -1118,11 +1118,11 @@ choice
 		help
 			FRITZ! release: 82
 
-	config TYPE_PRE_7240_19798
-		bool "AVM 7240 19798 (PREVIEW)"
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
-		help
-			FRITZ!Lab (PREVIEW):
+#	config TYPE_PRE_7240_19798
+#		bool "AVM 7240 .05.01 19798 (PREVIEW)"
+#		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
+#		help
+#			FRITZ!Lab (PREVIEW):
 
 	config TYPE_7272_54_04_58
 		bool "AVM 7270v2 54.04.58"
@@ -1208,11 +1208,11 @@ choice
 			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
 			(Internet Protocol Version 6) and 6to4 tunnels.
 
-	config TYPE_NAS_7272_19759
-		bool "AVM 7270v2 19759 (Labor)"
-		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
-		help
-			FRITZ!Lab Last known funktional.
+#	config TYPE_NAS_7272_19759
+#		bool "AVM 7270v2 19759 (Labor)"
+#		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
+#		help
+#			FRITZ!Lab Last known funktional.
 
 	config TYPE_DSL_7271_18237
 		bool "AVM 7270v1 18237 Labor-DSL"
@@ -1472,7 +1472,7 @@ choice
 ### 7240 Firmware
 
 	config TYPE_SRC3_AVM_PRE_7240_19798
-		bool "AVM 7240 19798 (PREVIEW)"
+		bool "AVM 7240 .05.01 19798 (PREVIEW)"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7270v2 Firmware
@@ -1519,8 +1519,8 @@ choice
 	config TYPE_SRC3_AVM_DSL_7273_18956
 		bool "AVM 7270v3 18956 Labor DSL"
 
-	config TYPE_SRC3_AVM_NAS_7272_19759
-		bool "AVM 7270v2 19759 (Labor)"
+#	config TYPE_SRC3_AVM_NAS_7272_19759
+#		bool "AVM 7270v2 19759 (Labor)"
 
 	config TYPE_SRC3_AVM_PRE_7272_17828
 		bool "AVM 7270v2 17828 (old PREVIEW)"
@@ -1544,7 +1544,7 @@ choice
 		bool "AVM 7390 17370"
 
 	config TYPE_SRC3_AVM_PRE_7390_19798
-		bool "AVM 7390 19798 CeBIT-Labor"
+		bool "AVM 7390 85.05.01 19798 CeBIT"
 
 	config TYPE_SRC3_AVM_7390_84_04_84
 		bool "AVM 7390 84.04.84"

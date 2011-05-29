@@ -2,7 +2,7 @@
 . ${include_modpatch}
 cat "${1}/etc/init.d/rc.conf" | grep 'export CONFIG_.*=' | sort > 1_init.log
 #set some variabels  
-echo2 "  -- adjusting config parms in:"
+echo2 "  -- adjusting config params in:"
 echo2 "      /etc/init.d/rc.conf"
 echo2 "  -- changing product to ${CONFIG_PRODUKT}"
 # set hostname

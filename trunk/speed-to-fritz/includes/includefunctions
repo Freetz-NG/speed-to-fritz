@@ -523,7 +523,7 @@ echo2 "oem: ${OEM}  Produkt: ${CONFIG_PRODUKT}  HWResvison: ${HWRevision}\
   Eth: ${ETH_IF}  IP: ${IPADDRESS}  jffs2size: ${CONFIG_jffs2_size}  kernel_args: ${kernel_args}"
 echo
 ifconfig $ETH_IF ${CNET}.10 &> /dev/null
-ifconfig $ETH_IF | grep 'inet addr' | sed -e "s/inet addr/PC Netcardaddr. /g"
+ifconfig $ETH_IF | grep 'inet .d' | sed -e "s/inet .d/PC Netcard Ad/g"
 echo
 if [ $FORCE_CLEAR_FLASH ]; then
 echo "-----------------------------------------------------------------------"
@@ -602,7 +602,7 @@ quit
 EOT
 printprogress
 print_ftperror || return 1
-ifconfig $ETH_IF add 192.168.2.10
+ifconfig $ETH_IF 192.168.2.10
 echo "Waiting for box to shut down and restart ..."
 #echo "If the Box is not rebooting you have to switch off / on the powerline of the box now."
 while [ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
