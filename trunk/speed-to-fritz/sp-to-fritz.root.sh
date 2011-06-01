@@ -1662,7 +1662,7 @@ if [ "$ORI" != "y" ]; then
  [ -f "${SRC}"/etc/Firmware.conf ] && tar --owner=0 --group=0 --mode=0755 -cf "$Firmware_conf_tar" "$firmwareconf_file_name"
  #[ -f $Firmware_conf_tar ] && echo " -- craeted: $Firmware_conf_tar"
  #[ -f "${NEWDIR}/$Firmware_conf_tar" ] && echo "moved $Firmware_conf_tar to $NEWDIR"
- [ "$CLASS"="Speedport" ] && SPNUM="W${SPNUM}"
+ [ "$CLASS" == "Speedport" ] && SPNUM="W${SPNUM}"
  DSLTYPE="/ADSL"
  grep -q 'FORCE_VDSL=y' "$firmwareconf_file_name" && DSLTYPE="/VDSL"
  AVM_SUBVERSION_DIR="$AVM_SUBVERSION"
@@ -1821,7 +1821,7 @@ else
  # Copy stripped Firmware.conf to Firmware.conf.tar and save in coresponding directorys
  Firmware_conf_tar="${SPIMG}_OriginalFirmwareAdjusted${ANNEX}${Language}_Firmware.conf.tar"
  [ -f $firmwareconf_file_name ] && tar --owner=0 --group=0 --mode=0755 -cf "$Firmware_conf_tar" "$firmwareconf_file_name"
- [ "$CLASS"="Speedport" ] && SPNUM="W${SPNUM}"
+ [ "$CLASS" == "Speedport" ] && SPNUM="W${SPNUM}"
  TCOM_SUBVERSION_DIR="$TCOM_SUBVERSION"
  [ "$TCOM_SUBVERSION" == "" ] && TCOM_SUBVERSION_DIR=${TCOM_VERSION}
  CONFDIR="./conf/${SPNUM}/RESTORE/${TCOM_SUBVERSION_DIR}/ANNEX_${ANNEX}"
