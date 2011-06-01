@@ -349,7 +349,7 @@ config AVM_DSL_7390_18985
 comment "--------------------------------------------------------------------"
 comment "--------------------     Config or Menu    -------------------------"
 config SEL_FIRMWARE_CONF_TO_USE
-	bool "Use peconfigured config (Firmware.conf)"
+	bool "Use preconfigured config (Firmware.conf)"
 	default n
 	help
 	    Any preconfigured config may be selected no other selctions are needed.
@@ -366,7 +366,7 @@ comment "--------------- General settings for Speed-to-fritz ----------------"
 config EXPERT_MOD
 	bool "Expert user (all options)"
 	depends on ! ORI
-	default y
+	default n
 	help
 	    Turns on all possible options within this menue.
 	    Normaly dont change options, defaults are the best

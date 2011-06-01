@@ -32,7 +32,8 @@ chmod 755 "./incl_var"
 fi
 #  add ready made configs to menu 
 export HOMEDIR="`pwd`"
-! [ -e "./conf/conf.in" ] && ./conf/add_config.sh
+#! [ -e "./conf/conf.in" ] && 
+./conf/add_config.sh
 make
 if ! `cat "./Firmware.conf" | grep -q 'SAVED_CONF=y'`; then
     echo "You must save configuration to './Firmware.conf' when exiting the menu!"
