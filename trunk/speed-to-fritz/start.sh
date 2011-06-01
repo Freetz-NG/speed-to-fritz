@@ -30,13 +30,19 @@ export firmwareconf_file_name="Firmware.conf"
 EOF
 chmod 755 "./incl_var"
 fi
+#  add ready made configs to menu 
+export HOMEDIR="`pwd`"
+! [ -e "./conf/conf.in" ] && ./conf/add_config.sh
 make
 if ! `cat "./Firmware.conf" | grep -q 'SAVED_CONF=y'`; then
     echo "You must save configuration to './Firmware.conf' when exiting the menu!"
     echo "Run './start' again."
-    sleep 5
+    sleep 10
     exit 0
 fi
+grep -q 'SEL_FIRMWARE_CONF_TO_USE=y' "./Firmware.conf" && eval `grep 'FIRMWARE_CONF_PATH_TO_USE' "./Firmware.conf"`
+#echo FIRMWARE_CONF_PATH_TO_USE: $FIRMWARE_CONF_PATH_TO_USE
+cp -fv ./conf/$FIRMWARE_CONF_PATH_TO_USE/Firmware.conf ./Firmware.conf && ./restart && exit 0
 #. FirmwareConfStrip
 ./sp-to-fritz.sh -z
 # run Freetz if it was selected in speed-to-fritz menue.

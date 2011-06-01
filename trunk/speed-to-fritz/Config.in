@@ -1,6 +1,4 @@
 #comment "--------------------------------------------------------------------"
-
-comment "--------------- General settings for Speed-to-fritz ----------------"
 mainmenu " Configuration"
 ### General help for syntax used within this Config.in File see: /tools/config/kconfig-language.txt
 ### If alternative download link is a pointer, then the first filename is needed with .zip extension.
@@ -348,10 +346,27 @@ config AVM_DSL_7390_18985
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+comment "--------------------------------------------------------------------"
+comment "--------------------     Config or Menu    -------------------------"
+config SEL_FIRMWARE_CONF_TO_USE
+	bool "Use peconfigured config (Firmware.conf)"
+	default n
+	help
+	    Any preconfigured config may be selected no other selctions are needed.
+	    Just select one for your box, ANNEX and ADSL type.
+	    In most cases ANNEX B and ADSL is needed.
+	    Multy ANNEX uses ANNEX B as selection, VDSL my work if ADSL is selected.
+	source conf/conf.in
+comment "--------------------------------------------------------------------"
+if ! SEL_FIRMWARE_CONF_TO_USE # if set -- execution ends here
+comment "--------------- General settings for Speed-to-fritz ----------------"
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPERT_MOD
 	bool "Expert user (all options)"
 	depends on ! ORI
-	default n
+	default y
 	help
 	    Turns on all possible options within this menue.
 	    Normaly dont change options, defaults are the best
@@ -1389,7 +1404,7 @@ config AVM_7570_LOCAL
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  comment  "--------------------------------------------------------------------"
- comment  "--- Additional firmware for LED driver or other things (optional) ---"
+ comment  "-- Additional firmware for LED driver or other things (optional)  --"
 config SOURCE2
 	depends on ! ORI
 	bool "2nd AVM Type firmware (optional)"
@@ -4482,11 +4497,17 @@ config SET_FREETZ_REVISION
 		start-freetz.sh.
 #### <-- END ! ORI
 endif
+###---------------------------------------------------------------------------
 comment "--------------------------------------------------------------------"
+comment "---------------- Manual Load or Save Firmware.conf -----------------"
+comment "If you save or load the configuration with a different name, you must"
+comment "save with name 'Firmware.conf' again, only this file name is in use."
+###---------------------------------------------------------------------------
+endif # if ! SEL_FIRMWARE_CONF_TO_USE
+###---------------------------------------------------------------------------
 config SAVED_CONF
         bool 
         default y
-comment "If you save or load the configuration with a different name, you must"
-comment "save with name 'Firmware.conf' again, only this file name is in use."
 #( do not remove the following line)
+###---------------------------------------------------------------------------
 ### FILE_ENDE ###
