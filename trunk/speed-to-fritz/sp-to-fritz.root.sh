@@ -1541,7 +1541,7 @@ echo
 echo
 echo
 echo "********************************************************************************"
-echo -e "\033[1mSpeed-to-Fritz version: ${MODVER}\033[0m"
+echo -e "\033[1mSpeed-to-Fritz revision: ${SVN_REVISION}\033[0m"
 echo "--------------------------------------------------------------------------------"
 # ensure that scripts in sh_DIR, sh2_dir are executable because svn does not store unix metadata ;(
 chmod +x "$sh_DIR"/* "$sh2_DIR"/*
@@ -1586,11 +1586,6 @@ fi
 . $sh2_DIR/settings
 #print some Hardware setting found in the two firmwares in use
 $sh2_DIR/dedect_HW
-if SVN_VERSION="$(svnversion . | tr ":" "_")"; then
- [ "${SVN_VERSION:0:6}" == "export" ] && SVN_VERSION=""
- [ "$SVN_VERSION" != "" ] && SVN_VERSION="-r-$SVN_VERSION"
- SKRIPT_DATE+="$SVN_VERSION"
-fi
 # make sure all is set to correct rights
 #[ ${FAKEROOT_ON} = "n" ] && chmod -R 777 . #&& echo "Scrit is executed as root, 777 set to all files."
 # Flashing original firmware image ...
@@ -1656,18 +1651,19 @@ if [ "$ORI" != "y" ]; then
  cp $firmwareconf_file_name "${SRC}"/etc/Firmware.conf
  #tar Firmware.conf 
  # Copy stripped Firmware.conf to Firmware.conf.tar and save in coresponding directorys
- NAME="${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}-${act_firmwareconf_size}_OEM-${OEM}${PANNEX}${Language}"
- [ "$ATA_ONLY" = "y" ] && NAME="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}-${act_firmwareconf_size}_OEM-${OEM}_ATA-ONLY${Language}"
+ NAME="${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr${SVN_REVISION}-${act_firmwareconf_size}_OEM-${OEM}${PANNEX}${Language}"
+ [ "$ATA_ONLY" = "y" ] && NAME="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr${SVN_REVISION}-${act_firmwareconf_size}_OEM-${OEM}_ATA-ONLY${Language}"
  Firmware_conf_tar="${NAME}_Firmware.conf.tar"
  [ -f "${SRC}"/etc/Firmware.conf ] && tar --owner=0 --group=0 --mode=0755 -cf "$Firmware_conf_tar" "$firmwareconf_file_name"
  #[ -f $Firmware_conf_tar ] && echo " -- craeted: $Firmware_conf_tar"
  #[ -f "${NEWDIR}/$Firmware_conf_tar" ] && echo "moved $Firmware_conf_tar to $NEWDIR"
  [ "$CLASS" == "Speedport" ] && SPNUM="W${SPNUM}"
+ echo "-- Timestamp (Year, month, day, hour, minute): $DATE"
  DSLTYPE="/ADSL"
  grep -q 'FORCE_VDSL=y' "$firmwareconf_file_name" && DSLTYPE="/VDSL"
  AVM_SUBVERSION_DIR="$AVM_SUBVERSION"
  [ "$AVM_SUBVERSION" == "" ] && AVM_SUBVERSION_DIR=${AVM_VERSION}
- CONFDIR="./conf/${SPNUM}$DSLTYPE/${AVM_SUBVERSION_DIR}/ANNEX_${ANNEX}"
+ CONFDIR="./conf/${SPNUM}$DSLTYPE/${AVM_SUBVERSION_DIR}/ANNEX_${ANNEX}/$DATE"
  mkdir -p "${CONFDIR}"
  cp -f "$firmwareconf_file_name" --target-directory="${CONFDIR}"
  mv -f "$Firmware_conf_tar" --target-directory="$NEWDIR"
@@ -1823,8 +1819,9 @@ else
  [ -f $firmwareconf_file_name ] && tar --owner=0 --group=0 --mode=0755 -cf "$Firmware_conf_tar" "$firmwareconf_file_name"
  [ "$CLASS" == "Speedport" ] && SPNUM="W${SPNUM}"
  TCOM_SUBVERSION_DIR="$TCOM_SUBVERSION"
+ echo "-- Timestamp (Year, month, day, hour, minute): $DATE"
  [ "$TCOM_SUBVERSION" == "" ] && TCOM_SUBVERSION_DIR=${TCOM_VERSION}
- CONFDIR="./conf/${SPNUM}/RESTORE/${TCOM_SUBVERSION_DIR}/ANNEX_${ANNEX}"
+ CONFDIR="./conf/${SPNUM}/RESTORE/${TCOM_SUBVERSION_DIR}/ANNEX_${ANNEX}/$DATE"
  mkdir -p "${CONFDIR}"
  cp -f "$firmwareconf_file_name" --target-directory="${CONFDIR}"
  mv -f "$Firmware_conf_tar" --target-directory="$NEWDIR"
@@ -1876,11 +1873,11 @@ Language="_${avm_Lang}"
 [ "$FORCE_CLEAR_FLASH" == "y" ] && CLEAR="C_" || CLEAR="" 
 [ "$CLASS" != "" ] && CLASS+="_"
 [ "$SPNUM" != "" ] && SPNUM+="_"
-[ "$ORI" != "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}-${act_firmwareconf_size}_OEM-${OEM}${PANNEX}${Language}.image"
+[ "$ORI" != "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr${SVN_REVISION}-${act_firmwareconf_size}_OEM-${OEM}${PANNEX}${Language}.image"
 [ "$ORI" == "y" ] && export NEWIMG="${SPIMG}_OriginalFirmwareAdjusted${PANNEX}${Language}.image"
-[ "$ATA_ONLY" = "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}-${act_firmwareconf_size}_OEM-${OEM}_ATA-ONLY${Language}.image"
+[ "$ATA_ONLY" = "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr${SVN_REVISION}-${act_firmwareconf_size}_OEM-${OEM}_ATA-ONLY${Language}.image"
 #only AVM + 2nd AVM Firmware was in use
-[ "$TYPE_SXXX_MODEL" == "y" ] && export NEWIMG="fw_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_2_VERSION_MAJOR}.${AVM_2_VERSION}-${AVM_2_SUBVERSION}${FREETZ_REVISION}-sp2fr-${SKRIPT_DATE_ISO}${SVN_VERSION}-${act_firmwareconf_size}_OEM-${OEM}${PANNEX}${Language}.image"
+[ "$TYPE_SXXX_MODEL" == "y" ] && export NEWIMG="fw_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_2_VERSION_MAJOR}.${AVM_2_VERSION}-${AVM_2_SUBVERSION}${FREETZ_REVISION}-sp2fr${SVN_REVISION}-${act_firmwareconf_size}_OEM-${OEM}${PANNEX}${Language}.image"
 echo "export MULTI_LANGUAGE=\"${MULTI_LANGUAGE}\"" >> incl_var
 echo "export kernel_args=\"${kernel_args}\"" >> incl_var
 echo "export NEWIMG=\"${NEWIMG}\"" >> incl_var

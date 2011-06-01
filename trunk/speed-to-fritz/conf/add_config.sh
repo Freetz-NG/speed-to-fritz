@@ -1,4 +1,5 @@
 #!/bin/bash
+echo
 echo "-- Add configs to menu..."
 rm -f $HOMEDIR/conf/conf.in
 DIRI="$(find $HOMEDIR/conf \( -name Firmware.conf  \) -type f -print)"

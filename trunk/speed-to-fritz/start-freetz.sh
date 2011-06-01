@@ -53,7 +53,7 @@ FREETZ_DL_LINK="http://svn.freetz.org/trunk"
 #    FREETZ_DL_LINK="http://svn.freetz.org/branches/oliver/7390"
 #  fi    
 # 7390 or W722<--
-export SVN_VERSION="X${FREETZREVISION}"
+export SVN_REVISION="X${FREETZREVISION}"
 if [ "$FIRST_RUN" = "y" ]; then  
 echo "" 
 echo "" 
@@ -176,7 +176,7 @@ while [ "$KEY" != "y" ]; do
   echo "Looking for new freetz version, wait ..."
   if [ "$FREETZREVISION" ]; then
 	svn co $FREETZ_DL_LINK $FREETZ_DIR -r $FREETZREVISION
-	export SVN_VERSION="$FREETZREVISION"
+	export SVN_REVISION="$FREETZREVISION"
   else
 	svn co $FREETZ_DL_LINK $FREETZ_DIR
   fi

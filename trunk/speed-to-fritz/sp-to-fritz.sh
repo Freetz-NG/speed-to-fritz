@@ -12,14 +12,17 @@ fi
 export cml="$0"
 export Options="$*"
 ##########################################################################
-# Date of current version:
-# TODO: LC_ALL= LANG= LC_TIME= svn info . | awk '/^Last Changed Date: / {print $4}'
-#dont chang this line formwat is used in ./start to get script version into Firmware.conf
-Tag="01"; Monat="06"; Jahr="11"
+if SVN_REVISION="$(svnversion . )"; then
+ let "SVN_REVISION=$(echo ${SVN_REVISION##*:} | tr -d '[:alpha:]') + 1"
+fi
+export SVN_REVISION
+# Date of invocation:
+export DATE=$(date +%Y%m%d%H%M)
+Jahr=$(date +%y)
+Monat=$(date +%m)
+Tag=$(date +%d) 
 export SKRIPT_DATE="$Tag.$Monat.$Jahr"
 export SKRIPT_DATE_ISO="$Jahr.$Monat.$Tag"
-export SKRIPT_REVISION="$Jahr$Monat$Tag"
-export MODVER="${SKRIPT_DATE}-multi"
 ##########################################################################
 TOOLS_SUBDIR="tools"
 export TOOLS_DIR="./${TOOLS_SUBDIR}"
