@@ -27,7 +27,7 @@ date=$(date +%Y%m%d-%H%M)
 #svn delete --force ./getversion.patch
 #svn delete --force ./getprodukt.patch
 #svn delete --force ./includefunctions.patch
-svn delete --force ./patch.diff
+#svn delete --force ./patch.diff
 #svn delete --force ./trunk/patch.diff
 #svn delete --force ./trunk/sp-to-fritz.sh
 #svn add * --force
