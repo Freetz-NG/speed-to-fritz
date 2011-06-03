@@ -1161,24 +1161,27 @@ export CONFIG_ETH_COUNT="4"
 if [ "$1" == "757H" ]; then
 	export urlader_size="262144" #0x40000
 	export kernel_start="0x90040000"
-	export kernel_size="7995392" #0x7A0000
+	export kernel_size="7995392" #0x7A0000 Original Eintrg bei alice
+	#angepasst
+	export kernel_size="15990784" #0xF40000
 fi
+#7570
 	;;
 #HN env.          size 
 #    mtd0:         0000          0x90000000,0x90000000 # "rootfs"
-#    mtd1:     0x7A0000          0x90040000,0x907E0000 # "kernel"
 #    mtd2:      0x40000          0x90000000,0x90040000 # "urlader"
+#    mtd1:     0x7A0000          0x90040000,0x907E0000 # "kernel"
+#    mtd5:     0x7A0000          0x907E0000,0x90F80000 # "rootfs" +  "kernel" #(6bd500 + e2b00 = 7A0000)
 #    mtd3:      0x40000          0x90F80000,0x90FC0000 # "tffs (1)"
 #    mtd4:      0x40000          0x90FC0000,0x91000000 # "tffs (2)"
-#    mtd5:     0x7A0000          0x907E0000,0x90F80000 # "rootfs" +  "kernel" #(6bd500 + e2b00 = 7A0000)
 # cat /proc/mtd sagt das hier:
 #dev:    size   erasesize  name
-#mtd0: 006bd500 00020000 "rootfs" # (6bd500 
-#mtd1: 000e2b00 00020000 "kernel" # + e2b00 = 7A0000)
+#mtd0: 006bd500 00020000 "rootfs" 
 #mtd2: 00040000 00020000 "urlader"
+#mtd1: 000e2b00 00020000 "kernel" # (6bd500 + e2b00 = 7A0000)
+#mtd5: 01000000 00020000 "reserved" # size dez: 16777216
 #mtd3: 00040000 00020000 "tffs (1)"
 #mtd4: 00040000 00020000 "tffs (2)"
-#mtd5: 01000000 00020000 "reserved" # size dez: 16777216
 "7271")
 	export CLASS=""
 	export SPNUM="7270"
