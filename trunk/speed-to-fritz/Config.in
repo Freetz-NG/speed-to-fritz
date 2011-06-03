@@ -3704,13 +3704,13 @@ if ! EXPORT_ATA_ONLY
 ###---> NO AVM Modells 7XXX
  if ! EXPORT_TYPE_LOCAL_MODEL
  # In use within sp-to-fritz.sh
-    config EXPORT_ADD_VDSL_PROFILE
-	depends on TYPE_OR_7570_920 || TYPE_SPEEDPORT_W721V
-	depends on EXPERT_MOD 
-	bool "Add tab with VDSL profile settings pages"
-	default n
-	help
-		Use this additional option to enable profile settings pages for VDSL.
+#    config EXPORT_ADD_VDSL_PROFILE
+#	depends on TYPE_OR_7570_920 || TYPE_SPEEDPORT_W721V
+#	depends on EXPERT_MOD 
+#	bool "Add tab with VDSL profile settings pages"
+#	default n
+#	help
+#		Use this additional option to enable profile settings pages for VDSL.
     config EXPORT_USE_SOURCE2_DSLMNUE
 	bool "Use 2nd AVM source DSL web files"
 	depends on EXPERT_MOD 

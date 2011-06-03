@@ -12,6 +12,7 @@ done
 echo "-- adding timezone pages ..."
 [ "$avm_Lang" = "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_de.patch" )
 [ "$avm_Lang" != "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_en.patch" )
+
 DIRI="$(find ${1}/usr/www/ \( -name menu2_system.html  \) -type f -print)"
 for file_n in $DIRI; do
     find ${1}/usr/www/ -name timeZone.js | grep -q "timeZone.js" ||\

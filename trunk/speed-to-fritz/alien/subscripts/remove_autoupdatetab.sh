@@ -22,16 +22,10 @@ for file_n in $DIRI; do
     sed -i -e '/menu.show_page...system.update_file.lua.. = expert_mode/a\
 menu.show_page\["\/system\/update.lua"\] = false' "$file_n"
     grep -q 'menu.show_page...system.update.lua.. = false' "$file_n" && echo2 "    removed Online-Update tab from file: ${file_n##*/}"
-    find ${1}/usr/www/ -name timezone.lua | grep -q "timezone.lua" ||\
-    sed -i -e 's/system.timezone.lua.. = box.query..env:status.OEM.. == .avme./system\/timezone\.lua\"\] = false/' "$file_n"
-    grep -q 'system.timezone.lua.. = false' "$file_n" && echo2 "    removed timezone page in file: ${file_n##*/}"
-done
-#old menues remove timezone entry
-DIRI="$(find ${1}/usr/www/ \( -name menu2_system.html  \) -type f -print)"
-for file_n in $DIRI; do
-    sed -i -e "/system...timeZone/d" "$file_n"
 done
 exit 0
+
+
 #example for tabs
 menu.exists_page\["system\/update.lua?tab=1"\] = true\
 menu.show_page\["system\/update.lua?tab=1"\] = true\
