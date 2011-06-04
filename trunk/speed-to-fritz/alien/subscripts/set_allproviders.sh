@@ -2,7 +2,7 @@
 # include modpatch function
 . ${include_modpatch}
 [ -e ${SRC}/etc/.freetz-version ] && exit 0 # freetz fils are missing
-DIRI="$(find ${1}/usr/www/ \( -name authform.html -o -name sip1.js -o -name siplist.js \) -type f -print)"
+DIRI="$(find ${SRC}/usr/www/ \( -name authform.html -o -name sip1.js -o -name siplist.js \) -type f -print)"
 echo "-- set all provoders ..."
 for file_n in $DIRI; do
     ##echo2 "      ${file_n}"

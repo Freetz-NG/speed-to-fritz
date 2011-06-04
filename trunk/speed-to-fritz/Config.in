@@ -3669,13 +3669,14 @@ config EXPORT_RPL_AUTHFORM_WITH_DST
 #	    This is usual set to no in most cases, within the AVM GUI. 
 
 config EXPORT_USE_SOURCE2_WEBMNUE
-	bool "Use 2nd AVM source webfiles"
+	bool "Use 2nd AVM source web GUI files (no binarys)"
 	depends on EXPERT_MOD 
 	depends on SOURCE2
 	select DO_NOT_STOP_ON_ERROR
 	default n
 	help
-		Use this additional option if new firmware with alternative menus is used, 
+		In most cases this ption is of no use at all and leads to a loss of GUI.
+		Use this additional option if new firmware with alternative menus is used,
 		with limited functionality but interesting for experiments.
 comment "DSL Options --------------------------------------------------------"
 config EXPORT_ATA_ONLY
@@ -4403,8 +4404,8 @@ config SET_EXPERT
 # In use within sp-to-fritz.sh
 config SET_ALLPROVIDERS
 	bool "Enable all providers"
-	depends on EXPERT_MOD 
-	default y
+	depends on EXPERT_MOD
+	default n
 	help
 	    This is usual set to no in most cases, within the AVM GUI. 
 endmenu

@@ -290,7 +290,7 @@ sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init
 [ ${USE_SOURCE2_DSLMNUE} = "y" ] && $sh2_DIR/copy_dsl_tab_pages_SRC2 "${SRC}" "${SRC_2}"
 echo2 "-- New WEB GUI will be modified"
 #use scond source web GUI
-[ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_SRC2 "${SRC}" "${SRC_2}"
+[ ${USE_SOURCE2_WEBMNUE} = "y" ] && $sh2_DIR/copy_www_lua_SRC2
 #Add buchsend button to fon bookpage
 [ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
 ## skripts for startig ftp on USB
@@ -324,9 +324,11 @@ echo "-- DSL Annex B driver was removed from ${SORCE_PRODUKT}!"
 echo "-- DSL Annex A driver was removed from ${SORCE_PRODUKT}!"
 #fix ADSL interface accsess restrictions
 sed -i -e "/ \/etc\/init.d\/rc.conf/a\
-\[-e \/var\/flash\/ar7.cfg \] \&\& sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg \&\& cat \/var\/flash\/ar7.cfg | grep ifacectl && echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"
+\[ -f \/var\/flash\/ar7.cfg \] \&\& sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg \&\& cat \/var\/flash\/ar7.cfg | grep ifacectl \&\& echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"
 #---
 [ -f "${SRC}"/lib/libpng.so.3.32.0 ] || cp -fdrp "${DST}"/lib/libpng.so.3.32.0* --target-directory=${SRC}/lib 2> /dev/null
 [ -f "${SRC}"/lib/libexif.so.12.3.0 ] || cp -fdrp "${DST}"/lib/libexif.so.12.3.0* --target-directory=${SRC}/lib 2> /dev/null
 [ -f "${SRC}"/lib/libsqlite3-3.6.16.so.0.8.6 ] || cp -fdrp "${DST}"/lib/libsqlite* --target-directory=${SRC}/lib 2> /dev/null
 echo "********************************************************************************"
+[ "${AVM_V_MINOR}" = "89" ] && $sh_DIR/patch_lua_aura.sh
+#echo "AVM minorversion: $AVM_V_MINOR"

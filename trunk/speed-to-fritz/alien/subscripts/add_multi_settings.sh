@@ -21,11 +21,20 @@
 OEML="avm" && [ -d "${DST}"/usr/www/avme ] && OEML="avme"
 OEML2="avm" && [ -d "${SRC_2}"/usr/www/avme ] && OEML2="avme"
 USRWWW="usr/www/${OEMLINK}/html/de"
+
+. $inc_DIR/includefunctions
+readConfig "MULTI_COUNTRY" "AVM_TMP_MULTI_COUNTRY" "${SRC}/etc/init.d"
+readConfig "DSL_MULTI_ANNEX" "AVM_TMP_MULTI_ANNEX" "${SRC}/etc/init.d"
+readConfig "MULTI_LANGUAGE" "AVM_TMP_MULTI_LANGUAGE" "${SRC}/etc/init.d"
+
+
+export CONFIG_MULTI_COUNTRY="y"
+
 # include, order of includes may count
-. $sh_DIR/add_multicountry.sh
-. $sh_DIR/add_multiannex.sh
-. $sh_DIR/add_multilingual.sh
-. $sh_DIR/remove_timezone.sh
+[ "$AVM_TMP_MULTI_COUNTRY" != "y" ] && . $sh_DIR/add_multicountry.sh && . $sh_DIR/remove_timezone.sh || echo "-- 1st firmware is multicountry"
+[ "$AVM_TMP_MULTI_ANNEX" != "y" ] && . $sh_DIR/add_multiannex.sh || echo "-- 1st firmware is multiannex"
+[ "$AVM_TMP_MULTI_ANNEX" != "y" ] && . $sh_DIR/add_multilingual.sh || echo "-- 1st firmware is multilingual"
+
 
 if [ "${FORCE_LANGUAGE}" != "de" ]; then
    #[ -f "${SRC}"/etc/htmltext_de.db ] || echo -e "-- \033[1mAttention:\033[0m 1st Firmware is not usabel for force language!" && sleep 7

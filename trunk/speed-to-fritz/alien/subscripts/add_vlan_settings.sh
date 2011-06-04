@@ -4,10 +4,9 @@
 echo "-- adding vlan settings ..."
 #--------------------------------------------------------------------------------
 # remove WDS autodedect courses problems
-[ -f "${SRC}/usr/www/${OEMLINK}/html/de/wlan/wds.js" ] &&\
-grep -q "uiPostAutodetect" "${SRC}/usr/www/${OEMLINK}/html/de/wlan/wds.js" &&\ 
-sed -i -e '/uiPostAutodetect/d'  "${SRC}/usr/www/${OEMLINK}/html/de/wlan/wds.js" &&\ 
-[ -f "${SRC}/usr/www/${OEMLINK}/html/de/wlan/wds.frm" ] && sed -i -e '/uiPostAutodetect/d'  "${SRC}/usr/www/${OEMLINK}/html/de/wlan/wds.frm"&&\
+[ -f "${SRC}/usr/www/${OEMLINK}/html/de/wlan/wds.js" ] && grep -q "uiPostAutodetect" "${SRC}/usr/www/${OEMLINK}/html/de/wlan/wds.js" &&\
+sed -i -e '/uiPostAutodetect/d'  "${SRC}/usr/www/${OEMLINK}/html/de/wlan/wds.js" &&\
+[ -f "${SRC}/usr/www/${OEMLINK}/html/de/wlan/wds.frm" ] && sed -i -e '/uiPostAutodetect/d' "${SRC}/usr/www/${OEMLINK}/html/de/wlan/wds.frm" &&\
 echo "-- Autodetect removed from /html/de/wlan/wds.js"
 # vlan settings
 grep -q "uiPostVlanId" "${SRC}/usr/www/${OEMLINK}/html/de/first/first_ISP_3.frm" ||\
