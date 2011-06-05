@@ -1646,33 +1646,9 @@ if [ "$ORI" != "y" ]; then
  echo "********************************************************************************"
  echo -e "\033[1mPhase 3:\033[0m Apply modell independet changes"
  echo "********************************************************************************"
- #copy Firmware.conf into image
- cp -f $firmwareconf_file_name .unstripped
- . FirmwareConfStrip
- #count bytes in Firmware.conf
  let act_firmwareconf_size="$(wc -c < "$firmwareconf_file_name")"
- cp $firmwareconf_file_name "${SRC}"/etc/Firmware.conf
- #tar Firmware.conf 
- # Copy stripped Firmware.conf to Firmware.conf.tar and save in coresponding directorys
- NAME="${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr${SVN_REVISION}-${act_firmwareconf_size}_OEM-${OEM}${PANNEX}${Language}"
- [ "$ATA_ONLY" = "y" ] && NAME="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr${SVN_REVISION}-${act_firmwareconf_size}_OEM-${OEM}_ATA-ONLY${Language}"
- Firmware_conf_tar="${NAME}_Firmware.conf.tar"
- [ -f "${SRC}"/etc/Firmware.conf ] && tar --owner=0 --group=0 --mode=0755 -cf "$Firmware_conf_tar" "$firmwareconf_file_name"
- #[ -f $Firmware_conf_tar ] && echo " -- craeted: $Firmware_conf_tar"
- #[ -f "${NEWDIR}/$Firmware_conf_tar" ] && echo "moved $Firmware_conf_tar to $NEWDIR"
- SP_NUM="${SPNUM}" 
- [ "$CLASS" == "Speedport" ] && SP_NUM="W${SPNUM}"
- echo "-- Timestamp (Year, month, day, hour, minute): $DATE"
- DSLTYPE="/ADSL"
- grep -q 'FORCE_VDSL=y' "$firmwareconf_file_name" && DSLTYPE="/VDSL"
- AVM_SUBVERSION_DIR="$AVM_SUBVERSION"
- [ "$AVM_SUBVERSION" == "" ] && AVM_SUBVERSION_DIR=${AVM_VERSION}
- CONFDIR="./conf/${SP_NUM}$DSLTYPE/${AVM_SUBVERSION_DIR}/ANNEX_${ANNEX}/$DATE"
- mkdir -p "${CONFDIR}"
- cp -f "$firmwareconf_file_name" --target-directory="${CONFDIR}"
- mv -f "$Firmware_conf_tar" --target-directory="$NEWDIR"
- [ -f "${CONFDIR}/$firmwareconf_file_name" ] && echo "-- copyed $firmwareconf_file_name to $CONFDIR"
- mv -f .unstripped $firmwareconf_file_name
+ #tar Firmware.conf
+ . FirmwareConfArch
  #bug in home.js, causes mailfunction with tcom firmware, status page is empty
  [ "$DONT_ADD_HOMEFIX" != "y" ] && $sh_DIR/fix_homebug.sh
  #add missing files for tr064
@@ -1815,23 +1791,9 @@ else
  $sh_DIR/patch_tools.sh "${DST}"
  # set OEM via rc.S not via environment
  [ "$PATCH_OEM" = "y" ] && $sh2_DIR/patch_OEMandMyIP "${DST}"
- # Copy stripped Firmware.conf to Firmware.conf.tar
- cp -f $firmwareconf_file_name .unstripped
- . FirmwareConfStrip
- # Copy stripped Firmware.conf to Firmware.conf.tar and save in coresponding directorys
- Firmware_conf_tar="${SPIMG}_OriginalFirmwareAdjusted${ANNEX}${Language}_Firmware.conf.tar"
- [ -f $firmwareconf_file_name ] && tar --owner=0 --group=0 --mode=0755 -cf "$Firmware_conf_tar" "$firmwareconf_file_name"
- SP_NUM="${SPNUM}"
- [ "$CLASS" == "Speedport" ] && SP_NUM="W${SPNUM}"
- TCOM_SUBVERSION_DIR="$TCOM_SUBVERSION"
- echo "-- Timestamp (Year, month, day, hour, minute): $DATE"
- [ "$TCOM_SUBVERSION" == "" ] && TCOM_SUBVERSION_DIR=${TCOM_VERSION}
- CONFDIR="./conf/${SP_NUM}/RESTORE/${TCOM_SUBVERSION_DIR}/ANNEX_${ANNEX}/$DATE"
- mkdir -p "${CONFDIR}"
- cp -f "$firmwareconf_file_name" --target-directory="${CONFDIR}"
- mv -f "$Firmware_conf_tar" --target-directory="$NEWDIR"
- [ -f "${CONFDIR}/$firmwareconf_file_name" ] && echo "-- copyed $firmwareconf_file_name to $CONFDIR"
- mv -f .unstripped $firmwareconf_file_name
+ # Copy stripped Firmware.conf ...
+ FWCT_DIR="$NEWDIR/conf/${SPIMG}_OriginalFirmwareAdjusted${ANNEX}${Language}_Firmware.conf.tar"
+ . FirmwareConfArch
  # <-- Only Tcom
 fi
 #-->All firmwares, if patches added here the are applied to tcom firmware with option "restore original" as well!

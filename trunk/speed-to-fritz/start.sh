@@ -35,6 +35,8 @@ export HOMEDIR="`pwd`"
 #! [ -e "./conf/conf.in" ] && 
 ./conf/add_config.sh
 make
+grep -q 'UPDATE_SP2FR=y' "./Firmware.conf" && eval `grep 'UPDATE_SP2FR' "./Firmware.conf"` && rm Firmware.conf && echo "Looking vor new version ..."  && svn up && make
+
 if ! `cat "./Firmware.conf" | grep -q 'SAVED_CONF=y'`; then
     echo "You must save configuration to './Firmware.conf' when exiting the menu!"
     echo "Run './start' again."

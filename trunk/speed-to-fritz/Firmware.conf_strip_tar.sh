@@ -16,4 +16,5 @@ mkdir -p "${CONFDIR}"
 cp -f "$firmwareconf_file_name" --target-directory="${CONFDIR}"
 mv -f "$Firmware_conf_tar" --target-directory="$NEWDIR"
 [ -f "${CONFDIR}/$firmwareconf_file_name" ] && echo "-- copyed $firmwareconf_file_name to $CONFDIR"
+
 sleep 10

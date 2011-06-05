@@ -1,0 +1,25 @@
+#!/bin/bash
+ cp -f $firmwareconf_file_name .unstripped
+ . FirmwareConfStrip
+ [ "$ORI" != "y" ] &&  cp $firmwareconf_file_name "${SRC}"/etc/Firmware.conf
+ [ -f $firmwareconf_file_name ] && tar --owner=0 --group=0 --mode=0755 -cf "Firmware_conf.tar" "$firmwareconf_file_name"
+ [ "$ATA_ONLY" = "y" ] && X1="ATA-ONLY"
+ [ "$ATA_ONLY" != "y" ] && X1="${ANNEX}"
+ [ "$ORI" != "y" ] && FWCT="${CLEAR}_${CLASS}_${SPNUM}_${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_\
+ ${CONFIG_PRODUKT_FN}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}-sp2fr-${SVN_REVISION}-${act_firmwareconf_size}_OEM-${OEM}_${X1}"
+ [ "$ORI" == "y" ] &&  FWCT="${SPIMG}_OriginalFirmwareAdjusted${ANNEX}${Language}_Firmware.conf.tar"
+ SP_NUM="${SPNUM}"
+ [ "$CLASS" == "Speedport" ] && SP_NUM="W${SPNUM}"
+ echo "-- Timestamp (Year, month, day, hour, minute): $DATE"
+ [ "$ORI" == "y" ] && [ "$TCOM_SUBVERSION" == "" ] && FIRSTDIR=${TCOM_VERSION} || FIRSTDIR="$TCOM_SUBVERSION"
+ [ "$ORI" != "y" ] && [ "$TCOM_SUBVERSION" == "" ] && FIRSTDIR=${AVM_VERSION} || FIRSTDIR="$AVM_SUBVERSION"
+ DSLTYPE="/ADSL"
+ grep -q 'FORCE_VDSL=y' "$firmwareconf_file_name" && DSLTYPE="/VDSL"
+ [ "$ORI" == "y" ] && DSLTYPE="/RESTORE"
+ CONFDIR="./conf/${SP_NUM}$DSLTYPE/${FIRSTDIR}/ANNEX_${ANNEX}/$DATE"
+ mkdir -p "${CONFDIR}"
+ cp -f "$firmwareconf_file_name" --target-directory="${CONFDIR}"
+ [ -d "$NEWDIR"/conf ] || mkdir -p "$NEWDIR"/conf
+ cp -f "Firmware_conf.tar" "$NEWDIR/conf/$FWCT"
+ [ -f "${CONFDIR}/$firmwareconf_file_name" ] && echo "-- copyed $firmwareconf_file_name to $CONFDIR"
+ mv -f .unstripped $firmwareconf_file_name

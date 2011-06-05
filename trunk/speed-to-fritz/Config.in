@@ -359,6 +359,14 @@ config SEL_FIRMWARE_CONF_TO_USE
 	source conf/conf.in
 comment "--------------------------------------------------------------------"
 if ! SEL_FIRMWARE_CONF_TO_USE # if set -- execution ends here
+comment "---------------------------- Update --------------------------------"
+config UPDATE_SP2FR
+	bool "Look vor new speed to fritz version on the net"
+	default n
+	help
+	    runs svn up in advance.
+comment "--------------------------------------------------------------------"
+if ! UPDATE_SP2FR # if set -- execution ends here
 comment "--------------- General settings for Speed-to-fritz ----------------"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -4504,6 +4512,7 @@ comment "---------------- Manual Load or Save Firmware.conf -----------------"
 comment "If you save or load the configuration with a different name, you must"
 comment "save with name 'Firmware.conf' again, only this file name is in use."
 ###---------------------------------------------------------------------------
+endif # if ! UPDATE_SP2FR
 endif # if ! SEL_FIRMWARE_CONF_TO_USE
 ###---------------------------------------------------------------------------
 config SAVED_CONF
