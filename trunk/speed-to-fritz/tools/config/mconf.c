@@ -930,7 +930,6 @@ int main(int ac, char **av)
 	case -1:
 		printf(_("\n\n"
 			"*** End of Speed-to-fritz configuration.\n"
-			"*** Execute 'sp-to-fritz.sh' to build Speed-to-fritz."
 			"\n\n"));
 		break;
 	default:
