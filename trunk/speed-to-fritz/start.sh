@@ -1,5 +1,6 @@
 #!/bin/bash
-
+echo
+echo
 if ! [ -f "./incl_var" ] || `cat "./incl_var" | grep -q 'REUSECONF="y"'`; then
     [ -f "./Firmware.conf" ] && rm -fdr ./Firmware.conf
     echo "You are starting with clean configuration, all settings made last time are removed!"
