@@ -12,9 +12,8 @@ fi
 export cml="$0"
 export Options="$*"
 ##########################################################################
-if SVN_REVISION="$(svnversion . )"; then
- let "SVN_REVISION=$(echo ${SVN_REVISION##*:} | tr -d '[:alpha:]') + 1"
-fi
+SVN_REVISION="$(svnversion . )"
+let "SVN_REVISION=$(echo ${SVN_REVISION##*:} | tr -d '[:alpha:]')"
 export SVN_REVISION
 # Date of invocation:
 export DATE=$(date +%Y%m%d%H%M)

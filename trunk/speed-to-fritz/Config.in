@@ -377,10 +377,11 @@ config SET_SP2FR_REVISION
 config  EXPORT_SP2FR_REVISION
 	depends on SET_SP2FR_REVISION
 	string "--> Set revision number "
-	    default "1263"
+	    default "1265" #dont edit this line is changed via ./start.sh
 	help
 	    This is the revision number used with speed-to-fritz
-		example 1263
+	    example 1265.
+	    Shown default is always the latest revision.
 comment "--------------------------------------------------------------------"
 if ! UPDATE_SP2FR # if set -- execution ends here
 comment "--------------- General settings for Speed-to-fritz ----------------"
