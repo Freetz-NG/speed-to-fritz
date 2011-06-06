@@ -1,10 +1,11 @@
 #!/bin/bash
 echo
 echo
-if ! [ -f "./incl_var" ] || `cat "./incl_var" | grep -q 'REUSECONF="y"'`; then
-    [ -f "./Firmware.conf" ] && rm -fdr ./Firmware.conf
-    echo "You are starting with clean configuration, all settings made last time are removed!"
-fi
+! [ -f ./incl_var ] && touch ./incl_var
+! grep -q 'REUSECONF="y"' ./incl_var && [ -f "./Firmware.conf" ] && rm -fdr ./Firmware.conf &&\
+echo "You are starting with clean configuration, all settings made last time are removed!" &&\
+sleep 3
+
 if ! [ -f "./Firmware.conf" ]; then
     echo "#!/bin/bash" > ./Firmware.conf
     echo "# Automatically generated make config: don't edit" >> ./Firmware.conf
@@ -60,8 +61,7 @@ if ! `cat "./Firmware.conf" | grep -q 'SAVED_CONF=y'`; then
     exit 0
 fi
 grep -q 'SEL_FIRMWARE_CONF_TO_USE=y' "./Firmware.conf" && eval `grep 'FIRMWARE_CONF_PATH_TO_USE' "./Firmware.conf"` && \
-[ -f "./conf/$FIRMWARE_CONF_PATH_TO_USE/Firmware.conf" ] && cp -fv ./conf/$FIRMWARE_CONF_PATH_TO_USE/Firmware.conf ./Firmware.conf && ./restart && exit 0
-#. FirmwareConfStrip
+[ -f "./conf/$FIRMWARE_CONF_PATH_TO_USE/Firmware.conf" ] && cp -fv ./conf/$FIRMWARE_CONF_PATH_TO_USE/Firmware.conf ./Firmware.conf
 ./sp-to-fritz.sh -z
 # run Freetz if it was selected in speed-to-fritz menue.
 . ./incl_var
