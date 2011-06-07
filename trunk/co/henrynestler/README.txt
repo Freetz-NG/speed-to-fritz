@@ -74,6 +74,3 @@ andLinux version is still Ubuntu 9.04 juanty.
 original apt-get sources dont work any more, to fix this.
 etc/apt/sources.list is overwitten with one that still works.
 
-If you use it on a diffent version you must replace this 
-entrys with the ons sutabel for your version.
-

@@ -80,6 +80,7 @@ NewUser_pw=$CL_NEWUSERPW
 mountshare="$(echo $mountpath | sed -e 's|.*\\||')"
 KERNEL_Version="$CL_KERNEL_VERSION"
 #ls
+[ -e /etc/apt/sources.list ] && grep -qs 'jaunty' /etc/apt/sources.list && sed -e 's|http.*archive.ubuntu|http:\/\/old-releases.ubuntu|g' /etc/apt/sources.list && echo "---------- /etc/apt/sources.list patched"
 # Generate ssh keys
 [ -e /etc/ssh/ssh_host_dsa_key ] || ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N ''
 [ -e /etc/ssh/ssh_host_rsa_key ] || ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ''
@@ -461,7 +462,7 @@ rm -f  /var/log/wtmp
 rm -fr /tmp/*
 rm -f /src/var/state/apt/lists/ayo.freshrpms.*
 rm -f /src/var/cache/apt/*.bin
-
+[ -e /etc/apt/sources.list ] && grep -qs 'jaunty' /etc/apt/sources.list && sed -e 's|http.*archive.ubuntu|http:\/\/old-releases.ubuntu|g' /etc/apt/sources.list && echo "---------- /etc/apt/sources.list patched"
 sudo apt-get autoremove -y
 sudo apt-get autoclean -y
 sudo apt-get clean -y
