@@ -80,7 +80,7 @@ NewUser_pw=$CL_NEWUSERPW
 mountshare="$(echo $mountpath | sed -e 's|.*\\||')"
 KERNEL_Version="$CL_KERNEL_VERSION"
 #ls
-[ -e /etc/apt/sources.list ] && grep -qs 'jaunty' /etc/apt/sources.list && sed -i -e 's|http.*archive|http:\/\/old-releases|g' /etc/apt/sources.list
+[ -e /etc/apt/sources.list ] && grep -qs 'jaunty' /etc/apt/sources.list && sed -i -e 's|http.*.ubuntu.com|http:\/\/old-releases.ubuntu.com|g' /etc/apt/sources.list
 grep -qs 'old-releases' /etc/apt/sources.list && echo "---------- /etc/apt/sources.list patched"
 # Generate ssh keys
 [ -e /etc/ssh/ssh_host_dsa_key ] || ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key -N ''
@@ -463,7 +463,7 @@ rm -f  /var/log/wtmp
 rm -fr /tmp/*
 rm -f /src/var/state/apt/lists/ayo.freshrpms.*
 rm -f /src/var/cache/apt/*.bin
-[ -e /etc/apt/sources.list ] && grep -qs 'jaunty' /etc/apt/sources.list && sed -i -e 's|http.*archive|http:\/\/old-releases|g' /etc/apt/sources.list
+[ -e /etc/apt/sources.list ] && grep -qs 'jaunty' /etc/apt/sources.list && sed -i -e 's|http.*.ubuntu.com|http:\/\/old-releases.ubuntu.com|g' /etc/apt/sources.list
 grep -qs 'old-releases' /etc/apt/sources.list && echo "---------- /etc/apt/sources.list patched"
 sudo apt-get autoremove -y
 sudo apt-get autoclean -y
