@@ -64,13 +64,11 @@ Changes since 05.05.2009:
 base.drv is now called base.vdi
 This was done to be compatible to andLinux beta2 final
 
+Changes 06.06.2011
 coLinux kernelversion is now 2.7.10, but dont worry
 coLinux kernel version must not be the same as the kernelversion 
 used on the system installed.
 
-Changes 06.06.2011:
-
 andLinux version is still Ubuntu 9.04 juanty.
-original apt-get sources dont work any more, to fix this.
-etc/apt/sources.list is overwitten with one that still works.
-
+original apt-get sources don't work any more, to fix this,
+etc/apt/sources.list is patched.
