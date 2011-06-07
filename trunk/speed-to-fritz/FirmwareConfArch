@@ -1,6 +1,7 @@
 #!/bin/bash
  cp -f $firmwareconf_file_name .unstripped
  . FirmwareConfStrip
+ let act_firmwareconf_size="$(wc -c < "$firmwareconf_file_name")"
  [ "$ORI" != "y" ] &&  cp $firmwareconf_file_name "${SRC}"/etc/Firmware.conf
  [ -f $firmwareconf_file_name ] && tar --owner=0 --group=0 --mode=0755 -cf "Firmware_conf.tar" "$firmwareconf_file_name"
  [ "$ATA_ONLY" = "y" ] && X1="ATA-ONLY"

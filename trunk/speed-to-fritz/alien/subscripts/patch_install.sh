@@ -42,7 +42,12 @@ echo \"echo ${OEM} > \/proc\/sys\/urlader\/firmware_version\" >>\/var\/post_inst
 echo \"echo firmware_version ${OEM} > \/proc\/sys\/urlader\/environment\" >>\/var\/post_install \n\
 echo \"echo ${ANNEX} > \/proc\/sys\/urlader\/annex\" >>\/var\/post_install \n\
 echo \"echo annex ${ANNEX} > \/proc\/sys\/urlader\/environment\" >>\/var\/post_install" "${1}"/var/install
-
+if [ "${PROD}" == "7570_HN" ]; then
+### 7570_HN: set mtd1 to max size and unset mtd5 
+sed -i -e "/echo \"echo language > \/proc\/sys\/urlader\/environment\"/a \
+echo \"mtd5 > \/proc\/sys\/urlader\/annex\" >>\/var\/post_install \n\
+echo \"mtd1 0x90040000,0x90F80000 > \/proc\/sys\/urlader\/environment\" >>\/var\/post_install" "${1}"/var/install
+fi
 sed -i -e "s|^newFWver=.*$|newFWver=${AVM_VERSION}|" "${1}"/var/install
 sed -i -e "s|# Versioninfo:.*$|${SP_Vesioninfo}|" "${1}"/var/install
 sed -i -e "s|# Checkpoint:.*$|${SP_Checkpoint}|" "${1}"/var/install

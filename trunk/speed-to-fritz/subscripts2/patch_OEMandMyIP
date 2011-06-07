@@ -17,6 +17,12 @@ echo 'echo wlan_key '${WLANKEY}' > $CONFIG_ENVIRONMENT_PATH/environment' >> "${1
 echo 'echo my_ipaddress 192.168.178.1 > $CONFIG_ENVIRONMENT_PATH/environment' >> "${1}/etc/init.d/rc.S"
 echo 'echo ProductID '$CONFIG_PRODUKT' > $CONFIG_ENVIRONMENT_PATH/environment' >> "${1}/etc/init.d/rc.S"
 [ "${ENFORCE_HWREVISION}" == "y" ] && echo 'echo HWRevision '$HWRevision' > $CONFIG_ENVIRONMENT_PATH/environment' >> "${1}/etc/init.d/rc.S"
+if [ "${PROD}" == "7570_HN" ]; then
+### 7570_HN: set mtd1 to max size and unset mtd5 
+echo 'mtd5 > $CONFIG_ENVIRONMENT_PATH/environment' >> "${1}/etc/init.d/rc.S"
+echo 'mtd1 0x90040000,0x90F80000 > $CONFIG_ENVIRONMENT_PATH/environment' >> "${1}/etc/init.d/rc.S"
+fi
+
 cat >> "${1}/etc/init.d/rc.S" << EOF
 umount /proc
 EOF
@@ -30,4 +36,5 @@ grep -q "echo my_ipaddress 192.168.178.1 >" "${1}/etc/init.d/rc.S" && echo -e " 
 grep -q "echo ProductID $CONFIG_PRODUKT >" "${1}/etc/init.d/rc.S" && echo -e " ProductID set via firmware to:${ECHO_TUERKIS} $CONFIG_PRODUKT$ECHO_END"
 grep -q "echo HWRevision $HWRevision >" "${1}/etc/init.d/rc.S" && echo -e " HWRevision set via firmware to:${ECHO_TUERKIS} $HWRevision$ECHO_END"
 grep -q "kernel_args annex=A console" "${1}/etc/init.d/rc.S" && echo -e " ANNEX set via firmware to:${ECHO_TUERKIS} A$ECHO_END"
+grep -q "mtd1 0x90040000,0x90F80000" "${1}/etc/init.d/rc.S" && echo -e " mtd1 size set to:${ECHO_TUERKIS}0x90040000,0x90F80000$ECHO_END"
 exit 0

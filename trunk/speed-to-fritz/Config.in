@@ -377,7 +377,7 @@ config SET_SP2FR_REVISION
 config  EXPORT_SP2FR_REVISION
 	depends on SET_SP2FR_REVISION
 	string "--> Set revision number "
-	    default "1265" #dont edit this line is changed via ./start.sh
+	    default "1234" # dont edit this line is changed via ./start.sh - numner "1234" may differ
 	help
 	    This is the revision number used with speed-to-fritz
 	    example 1265.
@@ -575,6 +575,13 @@ choice
 		bool "Any AVM custom model"
 
 endchoice
+
+config EXPORT_TYPE_HN_7570_8_16
+	bool "select 16 MB (see help)"
+	depends TYPE_HN_7570
+	help 
+	    Only useabel if a kernel made with freetz and replace kernel was in use.
+
 if LOCAL_X_MODEL
  config SPMOD
 	    string "Any AVM custom model type --->"

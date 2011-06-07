@@ -38,7 +38,7 @@ export HOMEDIR="`pwd`"
 ##! [ -e "./conf/conf.in" ] && 
 ./conf/add_config.sh
 #set last used revision in Config.in
-SVN_REV="$(svnversion . )" && let "SVN_REV=$(echo ${SVN_REV##*:} | tr -d '[:alpha:]')" && sed -i -e "s|default \"....\" #|default \"$SVN_REV\" #|" ./Config.in
+SVN_REV="$(svnversion . )" && let "SVN_REV=$(echo ${SVN_REV##*:} | tr -d '[:alpha:]')" && sed -i -e "s|default \"....\" # dont edit this line|default \"$SVN_REV\" # dont edit this line|" ./Config.in
 make
 grep -q 'UPDATE_SP2FR=y' "./Firmware.conf" && eval `grep 'UPDATE_SP2FR' "./Firmware.conf"`
 grep -q 'SET_SP2FR_REVISION=y' "./Firmware.conf" && eval `grep 'SET_SP2FR_REVISION' "./Firmware.conf"`

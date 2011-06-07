@@ -1162,7 +1162,8 @@ if [ "$1" == "757H" ]; then
 	export urlader_size="262144" #0x40000
 	export kernel_start="0x90040000"
 	export kernel_size="7995392" #0x7A0000 Original Eintrg bei alice
-	#angepasst
+	#angepasst braucht Freetz kernel
+	[ "$TYPE_HN_7570_8_16" == "y" ] && export kernel_size="15990784" #0xF40000
 	export kernel_size="15990784" #0xF40000
 fi
 #7570
@@ -1646,7 +1647,6 @@ if [ "$ORI" != "y" ]; then
  echo "********************************************************************************"
  echo -e "\033[1mPhase 3:\033[0m Apply modell independet changes"
  echo "********************************************************************************"
- let act_firmwareconf_size="$(wc -c < "$firmwareconf_file_name")"
  #tar Firmware.conf
  . FirmwareConfArch
  #bug in home.js, causes mailfunction with tcom firmware, status page is empty
@@ -1840,11 +1840,12 @@ Language="_${avm_Lang}"
 [ "$FORCE_CLEAR_FLASH" == "y" ] && CLEAR="C_" || CLEAR="" 
 [ "$CLASS" != "" ] && CLASS+="_"
 [ "$SPNUM" != "" ] && SPNUM+="_"
-[ "$ORI" != "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr${SVN_REVISION}-${act_firmwareconf_size}_OEM-${OEM}${PANNEX}${Language}.image"
+[ "$ATA_ONLY" = "y" ] && X1="_ATA-ONLY"
+X2="${FREETZ_REVISION}-sp2fr-${SVN_REVISION}-${act_firmwareconf_size}_OEM-${OEM}${X1}${Language}.image"
 [ "$ORI" == "y" ] && export NEWIMG="${SPIMG}_OriginalFirmwareAdjusted${PANNEX}${Language}.image"
-[ "$ATA_ONLY" = "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${FREETZ_REVISION}-sp2fr${SVN_REVISION}-${act_firmwareconf_size}_OEM-${OEM}_ATA-ONLY${Language}.image"
+[ "$ORI" != "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${X2}"
 #only AVM + 2nd AVM Firmware was in use
-[ "$TYPE_SXXX_MODEL" == "y" ] && export NEWIMG="fw_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_2_VERSION_MAJOR}.${AVM_2_VERSION}-${AVM_2_SUBVERSION}${FREETZ_REVISION}-sp2fr${SVN_REVISION}-${act_firmwareconf_size}_OEM-${OEM}${PANNEX}${Language}.image"
+[ "$TYPE_SXXX_MODEL" == "y" ] && export NEWIMG="fw_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_2_VERSION_MAJOR}.${AVM_2_VERSION}-${AVM_2_SUBVERSION}${X2}"
 echo "export MULTI_LANGUAGE=\"${MULTI_LANGUAGE}\"" >> incl_var
 echo "export kernel_args=\"${kernel_args}\"" >> incl_var
 echo "export NEWIMG=\"${NEWIMG}\"" >> incl_var
