@@ -67,8 +67,13 @@ gzip -9 coLinux/bin/initrd
 rmdir initrd
 
 # Build the installer
+
 COLINUX_INSTALL=${BASE}/coLinux/src/src/colinux/os/winnt/user/install
-sed -i -e "s/!define KERNEL_VERSION ..KERNEL_VERSION./!define KERNEL_VERSION \"$LONG_VER\"/" ${COLINUX_INSTALL}/colinux_def.sh
+sed -i -e "s/!define KERNEL_VERSION.*$/!define KERNEL_VERSION \"$LONG_VER\"/" ${COLINUX_INSTALL}/colinux_def.sh
+sed -i -e "s/!define VERSION.*$/!define VERSION \"$COLINUX_SHORT_VER\"/" ${COLINUX_INSTALL}/colinux_def.sh
+sed -i -e "s/!define LONGVERSION.*$/!define LONGVERSION \"$COLINUX_LONG_VER\"/" ${COLINUX_INSTALL}/colinux_def.sh
+sed -i -e "/!define PRE_VERSION/d" ${COLINUX_INSTALL}/colinux_def.sh
+
 cd ${BASE}/coLinux/src
 sh ${COLINUX_INSTALL}/colinux_def.sh
 ln -s ${BASE}/coLinux/bin ${COLINUX_INSTALL}/premaid
