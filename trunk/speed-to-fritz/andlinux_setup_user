@@ -17,7 +17,7 @@ fi
 echo
 echo " Can only be run from the FLTK shell! --------------- "
 if ! `cat "/usr/local/sbin/launcher.pl" | grep -q "8081" `; then
- echo "Launcher port changed! ATTENTION! Must be added in windows registre as well!"
+ echo "Launcher port changed! ATTENTION! Must be added in windows registry as well!"
  sed -i -e 's| 81,| 8081,|' "/usr/local/sbin/launcher.pl"
  sleep 5
 fi

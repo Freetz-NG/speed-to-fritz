@@ -1,6 +1,6 @@
 #!/bin/bash
 . incl_var
-echo "--WARNING: This skript will clear environment variables on older Speedports without EVA Bootloader!!--"
+echo "--WARNING: This script will clear environment variables on older Speedports without EVA Bootloader!!--"
 echo "If this is the case you need to add some individual variables into this skript at the marked position."
 echo "Make sure only one netcard is installed in your PC, or set a interface via Speed-to-fritz menu.-------"
 echo "You must run ./install-start first, to set up OEM, IPADRESS and LAN! ---------------------------------"
@@ -73,7 +73,7 @@ done
 
 exit 0
 
-Commennt:
+Comment:
 
 quote SETENV firmware_version tcom 
 if you use this script to downgrade to tcom firmware you must use: firmware_version tcom

@@ -1,7 +1,7 @@
 #!/bin/bash
 echo
 echo "-----------------------------------------------------------------------------------------------------"
-echo "WARNING: This skript will clear enviroment variables on older Speeports without EVA Bootloader!!!!!"
+echo "WARNING: This script will clear enviroment variables on older Speeports without EVA Bootloader!!!!!"
 echo "If this is the case you need to add some individual variables into this skript at the marked position"
 echo "-----------------------------------------------------------------------------------------------------"
 echo
@@ -26,7 +26,7 @@ echo
 echo "You should now turn off and on your box and then, when the Power LED"
 echo "of your box is flashing the first time, press ENTER here on the PC..."
 echo "The right time for pushing the ENTER Key is critical, maybe you"
-echo "must repeat the starting of this skript several times until you"
+echo "must repeat the starting of this script several times until you"
 echo "get a positive answer!"
 echo
 while !(read -s);do

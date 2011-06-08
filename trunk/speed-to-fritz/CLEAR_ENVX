@@ -1,8 +1,8 @@
 #!/bin/bash
 . incl_var
-echo "--WARNING: This skript will clear environment variables on older Speedports without EVA Bootloader!!--"
-echo "If this is the case you need to add some individual variables into this skript at the marked position."
-echo "Make sure only one netcard is installed in your PC, or set a interface via Speed-to-fritz menu.-------"
+echo "--WARNING: This script will clear environment variables on older Speedports without EVA Bootloader!!--"
+echo "If this is the case you need to add some individual variables into this script at the marked position."
+echo "Make sure only one netcard is installed in your PC, or set an interface via Speed-to-fritz menu.------"
 echo "You must run ./install-start first, to set up OEM, IPADRESS and LAN! ---------------------------------"
 echo "Or you may edit in ./incl_var the following three variables:"
 echo 'export OEM="avm"'
@@ -75,7 +75,7 @@ done
 
 exit 0
 
-Commennt:
+Comment:
 if you use this script to downgrade to tcom firmware you must use: firmware_version tcom
 quote SETENV wlan_key key
 replace "key" with the key you like to use (factory key can be found on the back of your box)

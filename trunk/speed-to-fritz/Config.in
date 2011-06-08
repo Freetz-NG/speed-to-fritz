@@ -370,7 +370,7 @@ config SET_SP2FR_REVISION
 	depends on UPDATE_SP2FR
 	default n
 	help
-	    Normaly this is not needed, but in special cases new revisions of 
+	    Normally this is not needed, but in special cases new revisions of 
 	    speed-to-fritz may have a bug or can't be used in combination 
 	    with the firmware one wants to use.
 
@@ -403,7 +403,7 @@ config EXPORT_DOCHECK
 	depends on ! ORI
 	default y
 	help
-	    this will look for new Laborfirmware on AVMs Http
+	    this will look for new labor firmware on AVMs http
 	    php pages first.
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config  ORI
@@ -428,10 +428,10 @@ config EXPORT_BUILDRECOVER
 	select EXPORT_PATCH_OEM
 	select EXPORT_REMOVE_SOME_LANGUAGE
 	help
-		This reconcates a AVM Recover firmware with changed kernel.image.
+		This reconcile a AVM Recover firmware with changed kernel.image.
 		Not in every case the size of the new kernel.image will fit.
-		In some cases therfore no Recover Firmware will be genareted.
-		Resulting windows executabel can be usesd in the same way as 
+		In some cases therefore no Recover Firmware will be generated.
+		Resulting windows executable can be used in the same way as 
 		original Recover.
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_RUNFREETZ
@@ -442,7 +442,7 @@ config EXPORT_RUNFREETZ
 	select NOT_VERBOSE
 	help
 		This Option will setup and run freetz in combination with speed-to-fritz.
-		First speed-to-fritz is run to setup the model and do some preperation.
+		First speed-to-fritz is run to setup the model and do some preparation.
 		Then ./start-freetz.sh is executed, more info can be found in Ernest015
 		"Anleitung"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -458,8 +458,8 @@ config FORCE_VDSL
 	depends on TYPE_OR_7570_920 
 	default n
 	help
-		Dont do any change for ADSL to the firmware.
-		ADSL or Annex A PPPoA users usuly shuld not use this setting.
+		Don't do any change for ADSL to the firmware.
+		ADSL or Annex A PPPoA users usuly should not use this setting.
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 comment "--------------------------------------------------------------------"
@@ -580,7 +580,7 @@ config EXPORT_TYPE_HN_7570_8_16
 	bool "select 16 MB (see help)"
 	depends TYPE_HN_7570
 	help 
-	    Only useabel if a kernel made with freetz and replace kernel was in use.
+	    Only useable if a kernel made with freetz and replace kernel was in use.
 
 if LOCAL_X_MODEL
  config SPMOD
@@ -984,11 +984,11 @@ choice
 	prompt "Select firmware default language (optional)"
 	help
 	    The selected firmware language is usual the one used by the AVM firmware.
-	    If 1st AVM and 2nd AVM firmware is a multilingual firmware, one of this firmware languages 
+	    If 1st AVM and 2nd AVM firmware are multilingual firmwares, one of this firmware languages 
 	    can be forced, but this is only possible with 7270 or 7570 firmwares.
 	    The resulting text within the generated firmware may be not completely in this language, 
 	    text not found in the selected language will be displayed in german or english,
-	    if fallback language german or english is removed some text will be missing.
+	    if fallback language german or english is removed, some text will be missing.
 	default TYPE_LANG_EN if  TYPE_7570
 	config TYPE_LANG_DE
 		bool "de - german"
@@ -1014,7 +1014,7 @@ config EXPORT_FORCE_DSL_MULTI_ANNEX
 #	default y if ! ORI_FIRMWARE_IS_MULI && ! TYPE_7140 && ! TYPE_7141
 	help
 	    To make this work you must have a firmware that supplies the needed feature, firmware with minor version > 70 (7270 like).
-	    In case of 7170 Firmwares, it is usual better to stay without this optin because the drivers are optimized for a special annex type.
+	    In case of 7170 Firmwares, it is usual better to stay without this option because the drivers are optimized for a special annex type.
 
 choice
 	depends ! EXPORT_FORCE_DSL_MULTI_ANNEX
@@ -2297,7 +2297,7 @@ config SET_FBHWRevision
 		HWR 174 = Alice IAD WLAN 3331
 		HWR 175 = FRITZ!Box WLAN 3370
 choice
-	prompt "select a target hardware revioson (optional): "
+	prompt "select a target hardware revision (optional): "
 	depends on SET_FBHWRevision || TYPE_7272_m54_04_76 || ( TYPE_OR_7570_920 && ! TYPE_LANG_DE )
 	config HWAUTO
 	   bool "Use original box hardware revision number"
@@ -2609,14 +2609,14 @@ config EXPORT_PATCH_OEM
 	default y
 	help
 	    Force branding, sets the selected branding (OEM) within the firmware,
-	    environment settings are not taken in acount any more!
+	    environment settings are not taken in account any more!
 	    Recover firmware needs this option to be set on!
 config EXPORT_ENFORCE_HWREVISION
 	bool "Enforce hardware revision number"
 	default n
 	help
 	    Force hardware revision number, sets the selected hardware revision number
-	    within the firmware, environment settings are not taken in acount any more!
+	    within the firmware, environment settings are not taken in account any more!
 	    		
 if ! ORI && ! TYPE_SPEEDPORT_W722V
 config EXPORT_ADD_OLD_DECTMENU
@@ -2637,7 +2637,7 @@ config RUN_PATCH_DECT
 	depends on EXPERT_MOD
 	default n
 	help
-		W900 und Sinus 500 use a external pseudoimage to updat DECT firmware.
+		W900 und Sinus 500 use a external pseudoimage to update DECT firmware.
 		This update is usual not needed.
 
 config EXPORT_DONT_ADD_MODINFO
@@ -3011,7 +3011,7 @@ config EXPORT_FREETZ_REMOVE_CAPIOVERTCP
 	help
 		Remove CAPIoverTCP (capiotcp_server). Use this if you don't want to use
 		Fritz!Fax or any other program that uses AVM's CAPIoverTCP. This is similar
-		to rcapid, but independant.
+		to rcapid, but independent.
 		This will save about 15kB uncompressed size.
 
 config EXPORT_FREETZ_REMOVE_CHRONYD
@@ -3493,7 +3493,7 @@ config EXPORT_ADD_MACSETTING
 	bool "Add MAC settings to internet page"
 	default y
 	help
-		Readds MAC setting options to internet setuppage as it ware present on Versions XX.XX.70.
+		Reads MAC setting options to internet setup page as it were present on Versions XX.XX.70.
 config EXPORT_ADD_PHONESEND
 	bool "Add Phonebook send button"
 	default y
@@ -3563,21 +3563,21 @@ if EXPORT_TYPE_LOCAL_MODEL || TYPE_7570 || TYPE_7570_to_7270
 		If this is set to "y" nothing is changed on Install text pages. 
 		Install skript is still modified to set correct ANNEX type.
  config EXPORT_DONT_PATCH_TAMFIX
-	bool "Don't applay tam bug fix"
+	bool "Don't apply tam bug fix"
 	default y
 	help
-	    This fix is usual not needed any more and is not applayed anyway if newer firmware is in use.
+	    This fix is usual not needed any more and is not applied anyway if newer firmware is in use.
  config EXPORT_DONT_ADD_HOMEFIX
-	bool "Don't applay home bug fix"
+	bool "Don't apply home bug fix"
 	default y
 	help
-	    This fix is usual not needed any more and is not applayed anyway if newer firmware is in use.
+	    This fix is usual not needed any more and is not applied anyway if newer firmware is in use.
  config EXPORT_DONT_REM_AUTOUPDATETAB
 	bool "Don't remove autoupdate tab"
 	default n
 	help
 	    This removes the autoupdate tab, usual there is no need to have this tab at all,
-	    but on firmwares with very little changes you may keep ths tab.
+	    but on firmwares with very little changes you may keep this tab.
 endif
 ### AVM Modells 7XXX<---
 
@@ -3675,7 +3675,7 @@ config EXPORT_RPL_AUTHFORM_WITH_81
 	default n
 #	select ADD_PROVIDER_AON
 	help
-	    Fixes problms with providersettings, best selection for aon
+	    Fixes problems with provider settings, best selection for aon
 config EXPORT_RPL_AUTHFORM_WITH_SR2
 	bool "Use authform page from 2nd AVM source"
 	depends on SOURCE2 || TYPE_OR_7570_503_722_920 || TYPE_SPEEDPORT_W721V 
@@ -3683,7 +3683,7 @@ config EXPORT_RPL_AUTHFORM_WITH_SR2
 	depends on EXPERT_MOD 
 #	select ADD_PROVIDER_AON
 	help
-	    Fixes problms with providersettings
+	    Fixes problems with provider settings
 config EXPORT_RPL_AUTHFORM_WITH_DST
 	bool "Use authform page form basis firmware"
 	depends on TYPE_OR_7570_503_722_920
@@ -3707,7 +3707,7 @@ config EXPORT_USE_SOURCE2_WEBMNUE
 	select DO_NOT_STOP_ON_ERROR
 	default n
 	help
-		In most cases this ption is of no use at all and leads to a loss of GUI.
+		In most cases this option is useless at all and leads to a loss of GUI.
 		Use this additional option if new firmware with alternative menus is used,
 		with limited functionality but interesting for experiments.
 comment "DSL Options --------------------------------------------------------"
@@ -3876,8 +3876,8 @@ if ! EXPORT_ATA_ONLY
 	help
 		Save (V)DSL DRIVER from basis source to ./addon/tmp/WXXX.
 		WXXX is the respective Speedport type.
-		No files get removed within this directory so if you do more than one save with diffent settings
-		more files may be within this directory than realy wanted.
+		No files get removed within this directory so if you do more than one save with different settings
+		more files may be within this directory than really wanted.
 
     config FORCE_VLAN7
 	bool "Force VLAN7 and tcom ar7.cfg"
@@ -4039,7 +4039,7 @@ config FORCE_DST_DECTDRIVER
 	default n if ! TYPE_V3_OR_7240 || EXPORT_TYPE_LOCAL_MODEL
 	help
 		Use DECT driver from 1st basis source.
-		V3 firmware DECT driver canït be used with W920 
+		V3 firmware DECT driver can't be used with W920 
 
 config FORCE_SRC2_DECTDRIVER
 	bool "Use DECT driver from 2nd AVM firmware"
@@ -4048,7 +4048,7 @@ config FORCE_SRC2_DECTDRIVER
 	default n
 	help
 		Use DECT driver from 2nd AVM source.
-		V3 firmware DECT driver canït be used with W920 
+		V3 firmware DECT driver can't be used with W920 
 
 config FORCE_OWN_DECTDRIVER
 	bool "Use own DECT driver from ./addon/tmp/XXXX/"
@@ -4057,7 +4057,7 @@ config FORCE_OWN_DECTDRIVER
 	default n
 	help
 		Use DECT driver from local directory ./addon/tmp/WXXX/...
-		V3 firmware DECT driver canït be used with W920, ...
+		V3 firmware DECT driver can't be used with W920, ...
 config SAVE_SRC2_DECTDRIVER
 	bool "Save 2nd AVM source DECT driver to ./addon/tmp/XXXX/"
 	depends on EXPERT_MOD 
@@ -4065,7 +4065,7 @@ config SAVE_SRC2_DECTDRIVER
 	default n
 	help
 		Save DECT driver to local directory ./addon/tmp/XXXX/...
-		V3 firmware DECT driver canït be used with W920, ...
+		V3 firmware DECT driver can't be used with W920, ...
 ### NO AVM Modells 7XXX--->
 if ! EXPORT_TYPE_LOCAL_MODEL
 
@@ -4140,7 +4140,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 #	depends on EXPERT_MOD 
 #	depends on TYPE_OR_7570_920
 #	help
-#		Set this to "y" if normal 7270 firmwares in combination with multilingual firmwares are used, but usual this is not needed.
+#		Set this to "y" if normal 7270 firmwares in combination with multilingual firmwares are used, but usually this is not needed.
 #		WWW "avm" directory is moved to "$OEM"
  config EXPORT_CONFIG_TR069
 	bool "Enable TR069 disable ATA"
@@ -4178,7 +4178,7 @@ endif #ORI && ! TYPE_SPEEDPORT_W722V
 	default n
 	help
 		Set this to 'y' if you like to include all files within the directory
-		./addon/tmp/squashfs-root in combination with option restore orignal firmware.
+		./addon/tmp/squashfs-root in combination with option restore original firmware.
 if ORI
 
 # In use within sp-to-fritz.sh

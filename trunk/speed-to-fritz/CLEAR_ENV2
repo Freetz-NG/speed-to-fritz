@@ -1,11 +1,11 @@
 #!/bin/bash
 #nmap --send-eth -oG -PE -n -p21 192.168.178.1 102.168.2.1
 echo "-------------------------------------------------------------------------------------------------------"
-echo "--WARNING: This skript will clear environment variables on older Speedports without EVA Bootloader!!--"
+echo "--WARNING: This script will clear environment variables on older Speedports without EVA Bootloader!!--"
 echo "If this is the case you need to add some individual variables into this skript at the marked position."
 echo "-------------------   Make sure only one netcard is installed in your PC!  ---------------------------"
 echo "---------------------------------------- 192.168.2.1 -------------------------------------------------"
-echo "--------------------------------------- BRANDIG: tcom ------------------------------------------------"
+echo "--------------------------------------- BRANDING: tcom -----------------------------------------------"
 . incl_var
 ETHLIST=" eth0 eth1 eth2 eth3"
 if [ $ETH_IF ]; then 
@@ -89,7 +89,7 @@ done
 
 exit 0
 
-Commennt:
+Comment:
 
 remove "! # " in the above section to activate some lines 
 put ./kernel.image mtd1

@@ -232,7 +232,7 @@ This is another method to update a firmware, in most cases this will be\n\
 the most reliable way to do a firmware update.\n\
 The fastest way is to use the speed-to-fritz LINUX FTP push option.\n\
 Update via web-interface is preferable, if settings should be restored or push \n\
-FTP transfer did not work because PC network settings ware wrong."
+FTP transfer did not work because PC network settings are wrong."
 fi
 #((elasped=SECONDS-orig))
 #echo "elasped time: ${elasped}s"
