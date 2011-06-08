@@ -332,6 +332,7 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
  fi #<-- nicht 7570
 done
 #echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+sed -i -e 's|if [ "$KERNEL_SIZE" -gt "$KERNEL_LIMIT" ]; then|KERNEL_LIMIT=$KERNEL_SIZE; if [ "$KERNEL_SIZE" -gt "$KERNEL_LIMIT" ]; then|' "./fwmod" 2> /dev/null
 #sed -i -e 's|\(${FIRMWAREVERSION}${SUBVERSION}\).|\1.${SVN_FREETZ_VERSION}.|' "./fwmod" 2> /dev/null
 sed -i -e 's|${FIRMWARE
 [21~VERSION}${SUBVERSION}.|${FIRMWAREVERSION}${SUBVERSION}${SVN_FREETZ_VERSION}.|' "./fwmod" 2> /dev/null
