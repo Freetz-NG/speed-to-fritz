@@ -58,26 +58,26 @@ fi
 FONDRV_PATH="lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz"
 replaced="0"
       [ -f "${DST}/${FONDRV_PATH}/isdn_fbox.ko" ] && [ "${FORCE_TCOM_FON}" == "y" ] && cp -fdrp "${DST}/${FONDRV_PATH}/isdn_fbox.ko" "${SRC}/${FONDRV_PATH}/isdn_fbox_fon4.ko" &&\
-      ( echo "-- FON driver 'isdn_fbox.ko' was taken from original base Firmware" 
+      ( echo "-- FON driver 'isdn_fbox.ko' was taken from original base firmware" 
       rm -rf ${SRC}/${FONDRV_PATH}/isdn_fbox.ko
       replaced="1" )
       [ -f "${SRC_2}/${FONDRV_PATH}/isdn_fbox.ko" ] && [ "${USE_SRC2_FON}" == "y" ] && cp -fdrp "${SRC_2}/${FONDRV_PATH}/isdn_fbox.ko" "${SRC}/${FONDRV_PATH}/isdn_fbox_fon4.ko" &&\
-      (echo "-- FON driver 'isdn_fbox.ko' was taken from 3rd source Firmware"
+      (echo "-- FON driver 'isdn_fbox.ko' was taken from 3rd source firmware"
       rm -rf ${SRC}/${FONDRV_PATH}/isdn_fbox.ko
       replaced="1" )
       [ -f "${DST}/${FONDRV_PATH}/isdn_fbox_fon4.ko" ] && [ "${FORCE_TCOM_FON}" = "y" ] && cp -fdrp ${DST}/${FONDRV_PATH}/isdn_fbox_fon4.ko --target-directory="${SRC}/${FONDRV_PATH}" &&\
       ( rm -rf ${SRC}/${FONDRV_PATH}/isdn_fbox.ko  
-      echo "-- FON driver 'isdn_fbox_fon4.ko' was taken from original base Firmware"
+      echo "-- FON driver 'isdn_fbox_fon4.ko' was taken from original base firmware"
       replaced="1" )
       [ -f "${SRC_2}/${FONDRV_PATH}/isdn_fbox_fon4.ko" ] && [ "${USE_SRC2_FON}" = "y" ] && cp -fdrp ${SRC_2}/${FONDRV_PATH}/isdn_fbox_fon4.ko --target-directory="${SRC}/${FONDRV_PATH}" &&\
       ( rm -rf ${SRC}/${FONDRV_PATH}/isdn_fbox.ko 
-      echo "-- FON driver 'isdn_fbox_fon4.ko' was taken from 3rd source Firmware"
+      echo "-- FON driver 'isdn_fbox_fon4.ko' was taken from 3rd source firmware"
       replaced="1" )
 
 ( [ "${USE_SRC2_FON}" = "y" ] || [ "${FORCE_TCOM_FON}" = "y" ] ) && [ "${replaced}" = "0" ] &&\
 ( 
   echo "----------------------------------------------------------"
-  echo "-- No replacemnt of FON DRIVER ware made!"
+  echo "-- No replacement of FON DRIVER ware made!"
   echo "-- Wrong kernelversion for replacing driver."
   echo "----------------------------------------------------------"
 ) 

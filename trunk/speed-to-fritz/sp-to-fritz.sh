@@ -4,7 +4,7 @@ if [ `id -u` -ne 0 ]; then
 		echo -e "\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n"
 else
 	export FAKEROOT_ON="n"
-		echo "ATTENTION! Normaly you should not run this skrit as root!"
+		echo "ATTENTION! Normally you should not run this script as root!"
 		echo "If you do for some reason, keep in mind that once run as root"
 		echo "a second time run as normal user will result in errors."
 fi

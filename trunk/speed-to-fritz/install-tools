@@ -28,5 +28,5 @@ make toolsdirclean
 #included binarys are made with knoppix DVD 5.1
 #svn up
 make tools
-echo "Installation finshed!"
+echo "Installation finished!"
 sleep 10

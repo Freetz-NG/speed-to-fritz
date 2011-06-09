@@ -53,7 +53,7 @@ rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn/capi
 
 rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/char/ubik2
 rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/atm
-echo "ATTENTION: Fon is not useabel because dsl driver was removed by option! "
+echo "ATTENTION: Fon is not useable because DSL driver was removed by option! "
 echo "With this option there are still some unused files within the firmware. "
 
 sleep 3

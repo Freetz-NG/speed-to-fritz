@@ -216,7 +216,7 @@ echo
 KEY="x"
 while [ "$KEY" != "y" ]; do
  echo
- echo "If you terminate with controll C or skip all following questions you will be left"
+ echo "If you terminate with control C or skip all following questions you will be left"
  echo "with a clean freetz installation, and you can use freetz in command line mode,"
  echo "as it is explained on freetz help page. Then type in 'make menuconfig' first." 
  echo 
@@ -404,7 +404,7 @@ else
  KEY="x"
  while [ "$KEY" != "y" ]; do
   echo 
-  [ "$SPNUM" == "7570" ] && [ "$AVM_VERSION" == "04.90" ] && echo "This firmware was completly suppored by freetz, runnig speed-to-fritz is optional."
+  [ "$SPNUM" == "7570" ] && [ "$AVM_VERSION" == "04.90" ] && echo "This firmware was completely supported by freetz, running speed-to-fritz is optional."
   echo -n "   Invoke 'speed-to-fritz' now? (y/n)? "; read -n 1 -s YESNO; echo
   [ "$YESNO" = "n" ] || [ "$YESNO" = "y" ] &&  KEY="y"
   [ "$KEY" = "x" ] && echo "wrong key!"

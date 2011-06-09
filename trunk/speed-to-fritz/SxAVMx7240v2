@@ -117,7 +117,7 @@ echo "-- DECT driver was taken from 2nd AVM source."
 cp -fdrp ./addon/tmp/W920/squashfs-root/lib/modules/dectfw_secondlevel_488.hex --target-directory="${SRC}"/lib/modules &&\
 echo "-- DECT driver was taken from local directory ./addon/tmp/W920"
 if `cat "${SRC}/etc/init.d/rc.S" | grep -q 'level.hex' ` && ! [ -f "${SRC}"/lib/modules/dectfw_firstlevel_488.hex ]; then
- echo "You must use dect driver form 2nd AVM source or one that was saved before" && sleep 10 && exit 1
+ echo "You must use DECT driver from 2nd AVM source or one that was saved before" && sleep 10 && exit 1
 fi
 
 ! `cat "${SRC}/etc/init.d/rc.S" | grep -q 'xx=.cat /proc/mtd | grep ."jffs2.".' ` &&\

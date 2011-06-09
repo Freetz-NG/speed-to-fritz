@@ -77,7 +77,7 @@ export TAR_OPTIONS="--owner=0 --group=0 --mode=0755 --format=oldgnu"
 ##--> temporarily use system tar to unpack avm images 
 #export UNTAR="$(which tar)"
 ## dont use options
-#### lead to 'Puefsummenfeher' if firmware is updatet via GUI
+#### lead to 'Puefsummenfeher' if firmware is updated via GUI
 #export TAR_RFS_OPTIONS=""
 #export TAR_OPTIONS=""
 ##<-- temporaril
@@ -1781,7 +1781,7 @@ else
  echo
  echo "Some changes are made to the original tar file, so it can also be used on"
  echo "Speedports with AVM Web GUI to flash to the selected firmware."
- echo "If the router is rebooting because somthing went wrong, do the flashing"
+ echo "If the router is rebooting because something went wrong, do the flashing"
  echo "via push ftp again, dont restart the PC to keep your network settings."
  echo "********************************************************************************"
  echo -e "\033[1mPhase 3:\033[0m Apply modell independet  changes"
@@ -1873,12 +1873,12 @@ Don't restart the PC in case the router is or ends up in a reboot loop, \n\
 repeat the flashing, or repeat the complete script if it did not work in the \n\
 first place. $ECHO_BOLD./ftpXXX 'ENTER'$ECHO_END ${ECHO_GRUEN}restarts the transfer.\n\
 There is no need to power of a router that is in a reboot loop even \n\
-the script asks you to do this. Nothig is damaged if the router ends up or stays \n\
+the script asks you to do this. Nothing is damaged if the router ends up or stays \n\
 in a reboot loop, the router is waiting for a firmware on one of the following \n\
 FTP IPs 192.168.178.1 or 192.168.2.1. If you have trouble to establish a \n\
-connection, add to your PC Network settings a static IP 192.168.178.2 and \n\
-mask 255.255.0.0 gateway IP 192.168.178.1.\n\
-If a VM machine is in use be sure you did start the VM as Administrator.\n\
+connection, add a static IP 192.168.178.2 and \n\
+mask 255.255.0.0 gateway IP 192.168.178.1 to your PC network settings.\n\
+If a VM machine is in use be sure you did start the VM as administrator.\n\
 In case of problems a windows program can also be used to upload a firmware.\n\
 Link:  http://www.hyperbox.org/jpascher/1/ftp_uploader.exe.exe"$ECHO_END
 	##########################################################################

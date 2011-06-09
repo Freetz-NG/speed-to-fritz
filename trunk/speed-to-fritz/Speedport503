@@ -165,10 +165,10 @@ fi
 
 #echo "-- matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_SUBVERSION"
 [ ${FORCE_TCOM_PIGLET} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers &&\
-echo "-- piglet driver was taken from base Firmware!" 
+echo "-- piglet driver was taken from base firmware!" 
 #Fon driver
 [ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers &&\
-echo "-- fon driver was taken from base Firmware!" 
+echo "-- fon driver was taken from base firmware!" 
 #copy wlan config
 #########
 
@@ -183,7 +183,7 @@ echo "-- fon driver was taken from base Firmware!"
 [ "${XCHANGE_KERNEL}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
 # wlan bracht t-com kernel mit .04.88 Firmware nicht mehr 
 [ "${XCHANGE_KERNEL}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/net --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers &&\
-echo "-- WLAN driver was taken from base Firmware!"
+echo "-- WLAN driver was taken from base firmware!"
 #adapt parameters for Piglet bitfile to be
 
 sed -i -e 's/Fritz_Box_7270/Fritz_Box_W503/' "${SRC}/etc/init.d/rc.S"
@@ -226,7 +226,7 @@ sed -i -e "/modprobe dect_io/d" "${SRC}/etc/init.d/rc.S"
 
 ## pcmlink boot error, da modul nicht kompatibel ist
 [ "${XCHANGE_KERNEL}" = "y" ] || [ "${DISABLE_PCMLINK}" = "y" ] &&\
-sed -i -e "/pcm_link/d" "${SRC}/etc/init.d/rc.S" && echo "-- pcmlink removed, phone capi not useabel!" &&\
+sed -i -e "/pcm_link/d" "${SRC}/etc/init.d/rc.S" && echo "-- pcmlink removed, phone capi not useable!" &&\
 rm -f "${SRC}"/lib/modules/c55fw.hex &&\
 rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn/capi_codec &&\
 echo "-- Capi removed because it is not usabel with base kernel" && sleep 5 
