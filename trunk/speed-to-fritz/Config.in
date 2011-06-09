@@ -348,6 +348,48 @@ config AVM_DSL_7390_18985
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+comment "--------------------------------------------------------------------" 	 
+comment "--------------------     Config or Menu    -------------------------" 	 
+config SEL_FIRMWARE_CONF_TO_USE 	 
+	bool "Use preconfigured config (Firmware.conf)" 	 
+        default n 	 
+        help 	 
+            Any preconfigured config may be selected no other selctions are needed. 	 
+            Just select one for your box, ANNEX and ADSL type. 	 
+            In most cases ANNEX B and ADSL is needed. 	 
+            Multi-ANNEX uses ANNEX B as selection, VDSL my work if ADSL is selected. 	 
+        source conf/conf.in 	 
+comment "--------------------------------------------------------------------" 	 
+if ! SEL_FIRMWARE_CONF_TO_USE # if set -- execution ends here 	 
+comment "---------------------------- Update --------------------------------" 	 
+config UPDATE_SP2FR 	 
+         bool "Look for new speed-to-fritz version on the net" 	 
+         default n 	 
+         help 	 
+             runs svn up in advance. 	 
+config SET_SP2FR_REVISION 	 
+        bool "Set an older speed-to-fritz revision" 	 
+        depends on UPDATE_SP2FR 	 
+        default n 	 
+        help 	 
+             Normally this is not needed, but in special cases new revisions of 	 
+             speed-to-fritz may have a bug or can't be used in combination 	 
+             with the firmware one wants to use. 	 
+	  	 
+config  EXPORT_SP2FR_REVISION 	 
+	depends on SET_SP2FR_REVISION 	 
+	        string "--> Set revision number " 	 
+	            default "1276" # dont edit this line is changed via ./start.sh - numner "1234" may differ 	 
+	        help 	 
+	            This is the revision number used with speed-to-fritz 	 
+	            example 1265. 	 
+	            Shown default is always the latest revision. 	 
+comment "--------------------------------------------------------------------" 	 
+	if ! UPDATE_SP2FR # if set -- execution ends here 	 
+comment "--------------- General settings for Speed-to-fritz ----------------" 	 
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------  
 config EXPERT_MOD
 	bool "Expert user (all options)"
 	depends on ! ORI
@@ -535,6 +577,13 @@ choice
 		bool "Any AVM custom model"
 
 endchoice
+
+config EXPORT_TYPE_HN_7570_8_16 	 
+         bool "select 16 MB (see help)" 	 
+         depends TYPE_HN_7570 	 
+         help 	 
+             Only useable if a kernel made with freetz and replace kernel was in use.
+
 if LOCAL_X_MODEL
  config SPMOD
 	    string "Any AVM custom model type --->"
@@ -3660,6 +3709,7 @@ config EXPORT_USE_SOURCE2_WEBMNUE
 	select DO_NOT_STOP_ON_ERROR
 	default n
 	help
+		In most cases this option is useless at all and leads to a loss of GUI.
 		Use this additional option if new firmware with alternative menus is used, 
 		with limited functionality but interesting for experiments.
 comment "DSL Options --------------------------------------------------------"
@@ -4483,10 +4533,18 @@ config SET_FREETZ_REVISION
 #### <-- END ! ORI
 endif
 comment "--------------------------------------------------------------------"
+comment "---------------- Manual Load or Save Firmware.conf -----------------" 	 
+comment "If you save or load the configuration with a different name, you must" 	 
+comment "save with name 'Firmware.conf' again, only this file name is in use." 	 
+###--------------------------------------------------------------------------- 	 
+endif # if ! UPDATE_SP2FR 	 
+endif # if ! SEL_FIRMWARE_CONF_TO_USE 	 
+###---------------------------------------------------------------------------
 config SAVED_CONF
         bool 
         default y
 comment "If you save or load the configuration with a different name, you must"
 comment "save with name 'Firmware.conf' again, only this file name is in use."
 #( do not remove the following line)
+###--------------------------------------------------------------------------- 	 
 ### FILE_ENDE ###
