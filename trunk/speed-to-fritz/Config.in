@@ -1,4 +1,6 @@
 #comment "--------------------------------------------------------------------"
+
+comment "--------------- General settings for Speed-to-fritz ----------------"
 mainmenu " Configuration"
 ### General help for syntax used within this Config.in File see: /tools/config/kconfig-language.txt
 ### If alternative download link is a pointer, then the first filename is needed with .zip extension.
@@ -159,9 +161,9 @@ config AVM_7170_en_29_04_82
     string
     default "@AVM/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_b/FRITZ.Box_Fon_WLAN_7170.AnnexB.en.29.04.82.image"
 
-config AVM_BETA_7170_19957
+config AVM_BETA_7170_19817
   string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7170_vorschau_release_candidate/fritz_box-labor-19957.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.86-19957.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7170_vorschau_release_candidate/fritz_box-labor-19817.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.86-19817.image"
 ###------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM 72XX Firmware
 ### AVM 72XX Firmware
@@ -264,9 +266,9 @@ config AVM_DSL_7273_18956
     string
     default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_dsl/labor_start_dsl.php HW145:fritz_box-labor-7270v3-18956.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3.74.04.88-18956.image"
 
-#config AVM_NAS_7272_19759
-#   string
-
+config AVM_NAS_7272_19759
+   string
+   default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v2.54.05.04-19759.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237305f76322e35342e30342e38382d31383935362e7a6970.zip"
 ###
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 AVM Firmware
@@ -346,48 +348,6 @@ config AVM_DSL_7390_18985
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-comment "--------------------------------------------------------------------"
-comment "--------------------     Config or Menu    -------------------------"
-config SEL_FIRMWARE_CONF_TO_USE
-	bool "Use preconfigured config (Firmware.conf)"
-	default n
-	help
-	    Any preconfigured config may be selected no other selctions are needed.
-	    Just select one for your box, ANNEX and ADSL type.
-	    In most cases ANNEX B and ADSL is needed.
-	    Multy ANNEX uses ANNEX B as selection, VDSL my work if ADSL is selected.
-	source conf/conf.in
-comment "--------------------------------------------------------------------"
-if ! SEL_FIRMWARE_CONF_TO_USE # if set -- execution ends here
-comment "---------------------------- Update --------------------------------"
-config UPDATE_SP2FR
-	bool "Look for new speed-to-fritz version on the net"
-	default n
-	help
-	    runs svn up in advance.
-config SET_SP2FR_REVISION
-	bool "Set an older speed-to-fritz revision"
-	depends on UPDATE_SP2FR
-	default n
-	help
-	    Normally this is not needed, but in special cases new revisions of 
-	    speed-to-fritz may have a bug or can't be used in combination 
-	    with the firmware one wants to use.
-
-config  EXPORT_SP2FR_REVISION
-	depends on SET_SP2FR_REVISION
-	string "--> Set revision number "
-	    default "1276" # dont edit this line is changed via ./start.sh - numner "1234" may differ
-	help
-	    This is the revision number used with speed-to-fritz
-	    example 1265.
-	    Shown default is always the latest revision.
-comment "--------------------------------------------------------------------"
-if ! UPDATE_SP2FR # if set -- execution ends here
-comment "--------------- General settings for Speed-to-fritz ----------------"
-###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPERT_MOD
 	bool "Expert user (all options)"
 	depends on ! ORI
@@ -403,7 +363,7 @@ config EXPORT_DOCHECK
 	depends on ! ORI
 	default y
 	help
-	    this will look for new labor firmware on AVMs http
+	    this will look for new Laborfirmware on AVMs Http
 	    php pages first.
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config  ORI
@@ -428,10 +388,10 @@ config EXPORT_BUILDRECOVER
 	select EXPORT_PATCH_OEM
 	select EXPORT_REMOVE_SOME_LANGUAGE
 	help
-		This reconcile a AVM Recover firmware with changed kernel.image.
+		This reconcates a AVM Recover firmware with changed kernel.image.
 		Not in every case the size of the new kernel.image will fit.
-		In some cases therefore no Recover Firmware will be generated.
-		Resulting windows executable can be used in the same way as 
+		In some cases therfore no Recover Firmware will be genareted.
+		Resulting windows executabel can be usesd in the same way as 
 		original Recover.
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_RUNFREETZ
@@ -442,7 +402,7 @@ config EXPORT_RUNFREETZ
 	select NOT_VERBOSE
 	help
 		This Option will setup and run freetz in combination with speed-to-fritz.
-		First speed-to-fritz is run to setup the model and do some preparation.
+		First speed-to-fritz is run to setup the model and do some preperation.
 		Then ./start-freetz.sh is executed, more info can be found in Ernest015
 		"Anleitung"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -458,8 +418,8 @@ config FORCE_VDSL
 	depends on TYPE_OR_7570_920 
 	default n
 	help
-		Don't do any change for ADSL to the firmware.
-		ADSL or Annex A PPPoA users usuly should not use this setting.
+		Dont do any change for ADSL to the firmware.
+		ADSL or Annex A PPPoA users usuly shuld not use this setting.
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 comment "--------------------------------------------------------------------"
@@ -575,13 +535,6 @@ choice
 		bool "Any AVM custom model"
 
 endchoice
-
-config EXPORT_TYPE_HN_7570_8_16
-	bool "select 16 MB (see help)"
-	depends TYPE_HN_7570
-	help 
-	    Only useable if a kernel made with freetz and replace kernel was in use.
-
 if LOCAL_X_MODEL
  config SPMOD
 	    string "Any AVM custom model type --->"
@@ -984,11 +937,11 @@ choice
 	prompt "Select firmware default language (optional)"
 	help
 	    The selected firmware language is usual the one used by the AVM firmware.
-	    If 1st AVM and 2nd AVM firmware are multilingual firmwares, one of this firmware languages 
+	    If 1st AVM and 2nd AVM firmware is a multilingual firmware, one of this firmware languages 
 	    can be forced, but this is only possible with 7270 or 7570 firmwares.
 	    The resulting text within the generated firmware may be not completely in this language, 
 	    text not found in the selected language will be displayed in german or english,
-	    if fallback language german or english is removed, some text will be missing.
+	    if fallback language german or english is removed some text will be missing.
 	default TYPE_LANG_EN if  TYPE_7570
 	config TYPE_LANG_DE
 		bool "de - german"
@@ -1014,7 +967,7 @@ config EXPORT_FORCE_DSL_MULTI_ANNEX
 #	default y if ! ORI_FIRMWARE_IS_MULI && ! TYPE_7140 && ! TYPE_7141
 	help
 	    To make this work you must have a firmware that supplies the needed feature, firmware with minor version > 70 (7270 like).
-	    In case of 7170 Firmwares, it is usual better to stay without this option because the drivers are optimized for a special annex type.
+	    In case of 7170 Firmwares, it is usual better to stay without this optin because the drivers are optimized for a special annex type.
 
 choice
 	depends ! EXPORT_FORCE_DSL_MULTI_ANNEX
@@ -1091,11 +1044,11 @@ choice
 		default TYPE_AVM_HN_7570_16971 if TYPE_HN_7570
 		#<--
 
-	config TYPE_7170_PRE_19957
-		bool "7170 19957 - pre-release"
+	config TYPE_7170_PRE_19817
+		bool "7170 19817 - pre-release"
 		depends on (TYPE_7170 || TYPE_OR_701_721_SPECIAL721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
-			FRITZ!Lab 29.04.86-19957
+			FRITZ!Lab 29.04.86-19817
 
 #<--MOVED
 
@@ -1165,11 +1118,11 @@ choice
 		help
 			FRITZ! release: 82
 
-#	config TYPE_PRE_7240_19798
-#		bool "AVM 7240 .05.01 19798 (PREVIEW)"
-#		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
-#		help
-#			FRITZ!Lab (PREVIEW):
+	config TYPE_PRE_7240_19798
+		bool "AVM 7240 19798 (PREVIEW)"
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
+		help
+			FRITZ!Lab (PREVIEW):
 
 	config TYPE_7272_54_04_58
 		bool "AVM 7270v2 54.04.58"
@@ -1255,11 +1208,11 @@ choice
 			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
 			(Internet Protocol Version 6) and 6to4 tunnels.
 
-#	config TYPE_NAS_7272_19759
-#		bool "AVM 7270v2 19759 (Labor)"
-#		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
-#		help
-#			FRITZ!Lab Last known funktional.
+	config TYPE_NAS_7272_19759
+		bool "AVM 7270v2 19759 (Labor)"
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
+		help
+			FRITZ!Lab Last known funktional.
 
 	config TYPE_DSL_7271_18237
 		bool "AVM 7270v1 18237 Labor-DSL"
@@ -1436,7 +1389,7 @@ config AVM_7570_LOCAL
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  comment  "--------------------------------------------------------------------"
- comment  "-- Additional firmware for LED driver or other things (optional)  --"
+ comment  "--- Additional firmware for LED driver or other things (optional) ---"
 config SOURCE2
 	depends on ! ORI
 	bool "2nd AVM Type firmware (optional)"
@@ -1512,14 +1465,14 @@ choice
 	config TYPE_SRC3_AVM_7170_en_29_04_82
 		bool "AVM 7170 29.04.82 en (english, Annex B)"
 
-	config TYPE_SRC3_AVM_PRE_7170_19957
-		bool "AVM 7170 19957 (PREVIEW)"
+	config TYPE_SRC3_AVM_PRE_7170_19817
+		bool "AVM 7170 19817 (PREVIEW)"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7240 Firmware
 
 	config TYPE_SRC3_AVM_PRE_7240_19798
-		bool "AVM 7240 .05.01 19798 (PREVIEW)"
+		bool "AVM 7240 19798 (PREVIEW)"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7270v2 Firmware
@@ -1566,8 +1519,8 @@ choice
 	config TYPE_SRC3_AVM_DSL_7273_18956
 		bool "AVM 7270v3 18956 Labor DSL"
 
-#	config TYPE_SRC3_AVM_NAS_7272_19759
-#		bool "AVM 7270v2 19759 (Labor)"
+	config TYPE_SRC3_AVM_NAS_7272_19759
+		bool "AVM 7270v2 19759 (Labor)"
 
 	config TYPE_SRC3_AVM_PRE_7272_17828
 		bool "AVM 7270v2 17828 (old PREVIEW)"
@@ -1591,7 +1544,7 @@ choice
 		bool "AVM 7390 17370"
 
 	config TYPE_SRC3_AVM_PRE_7390_19798
-		bool "AVM 7390 85.05.01 19798 CeBIT"
+		bool "AVM 7390 19798 CeBIT-Labor"
 
 	config TYPE_SRC3_AVM_7390_84_04_84
 		bool "AVM 7390 84.04.84"
@@ -1766,7 +1719,7 @@ config AVM_IMG
 	default "$AVM_7113_60_04_68"				if ( TYPE_7113_60_04_68 ) && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7113_90_04_82"				if ( TYPE_7113_90_04_82 ) && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_GAMING_7170_11435"			if TYPE_7170_GAMING_11435 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_BETA_7170_19957"				if TYPE_7170_PRE_19957 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_BETA_7170_19817"				if TYPE_7170_PRE_19817 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7240_73_04_87"				if ( TYPE_7240_73_04_87 )
 #	default "$AVM_7570_75_04_82"				if ( TYPE_7570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX
 	default "$AVM_7570_75_04_90"				if ( TYPE_7570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX
@@ -1837,7 +1790,7 @@ config SRC2_IMG
 	default "$AVM_7141_40_04_76" 			if TYPE_SRC3_AVM_7141_40_04_76
 	default "$AVM_7170_29_04_80" 			if TYPE_SRC3_AVM_7170_29_04_80
 	default "$AVM_GAMING_7170_11435"		if TYPE_SRC3_AVM_GAMING_7170_11435
-	default "$AVM_BETA_7170_19957"			if TYPE_SRC3_AVM_PRE_7170_19957
+	default "$AVM_BETA_7170_19817"			if TYPE_SRC3_AVM_PRE_7170_19817
 	default "$AVM_LOCAL"				if TYPE_LOCAL_AVM_IMAGE
 	
 	default "$AVM_7272_54_04_57" 			if TYPE_SRC3_AVM_7272_54_04_57
@@ -1935,7 +1888,7 @@ config TYPE_LABOR_TYPE
 	default "70" 		if TYPE_7170_70
 	default "76m" 		if TYPE_7272_m54_04_76
 	default "PREVIEW"	if TYPE_PRE_7240_19798 || TYPE_PRE_7271_17828 || TYPE_PRE_7272_17828 || TYPE_PRE_7273_17828 || TYPE_PRE_7272_19896 || TYPE_PRE_7273_19896 || \
-				TYPE_7170_PRE_19957 || TYPE_7390_PRE_19798
+				TYPE_7170_PRE_19817 || TYPE_7390_PRE_19798
 	default "NAS"		if TYPE_NAS_7272_19759
 	default "DSL" 		if TYPE_DSL_7271_18237 || TYPE_DSL_7272_18956 || TYPE_DSL_7273_18956 || TYPE_DSL_7390_18985
 	default "GAMING" 	if TYPE_7272_GAMING || TYPE_7170_GAMING_11435
@@ -2297,7 +2250,7 @@ config SET_FBHWRevision
 		HWR 174 = Alice IAD WLAN 3331
 		HWR 175 = FRITZ!Box WLAN 3370
 choice
-	prompt "select a target hardware revision (optional): "
+	prompt "select a target hardware revioson (optional): "
 	depends on SET_FBHWRevision || TYPE_7272_m54_04_76 || ( TYPE_OR_7570_920 && ! TYPE_LANG_DE )
 	config HWAUTO
 	   bool "Use original box hardware revision number"
@@ -2609,14 +2562,14 @@ config EXPORT_PATCH_OEM
 	default y
 	help
 	    Force branding, sets the selected branding (OEM) within the firmware,
-	    environment settings are not taken in account any more!
+	    environment settings are not taken in acount any more!
 	    Recover firmware needs this option to be set on!
 config EXPORT_ENFORCE_HWREVISION
 	bool "Enforce hardware revision number"
 	default n
 	help
 	    Force hardware revision number, sets the selected hardware revision number
-	    within the firmware, environment settings are not taken in account any more!
+	    within the firmware, environment settings are not taken in acount any more!
 	    		
 if ! ORI && ! TYPE_SPEEDPORT_W722V
 config EXPORT_ADD_OLD_DECTMENU
@@ -2637,7 +2590,7 @@ config RUN_PATCH_DECT
 	depends on EXPERT_MOD
 	default n
 	help
-		W900 und Sinus 500 use a external pseudoimage to update DECT firmware.
+		W900 und Sinus 500 use a external pseudoimage to updat DECT firmware.
 		This update is usual not needed.
 
 config EXPORT_DONT_ADD_MODINFO
@@ -3011,7 +2964,7 @@ config EXPORT_FREETZ_REMOVE_CAPIOVERTCP
 	help
 		Remove CAPIoverTCP (capiotcp_server). Use this if you don't want to use
 		Fritz!Fax or any other program that uses AVM's CAPIoverTCP. This is similar
-		to rcapid, but independent.
+		to rcapid, but independant.
 		This will save about 15kB uncompressed size.
 
 config EXPORT_FREETZ_REMOVE_CHRONYD
@@ -3493,7 +3446,7 @@ config EXPORT_ADD_MACSETTING
 	bool "Add MAC settings to internet page"
 	default y
 	help
-		Reads MAC setting options to internet setup page as it were present on Versions XX.XX.70.
+		Readds MAC setting options to internet setuppage as it ware present on Versions XX.XX.70.
 config EXPORT_ADD_PHONESEND
 	bool "Add Phonebook send button"
 	default y
@@ -3563,21 +3516,21 @@ if EXPORT_TYPE_LOCAL_MODEL || TYPE_7570 || TYPE_7570_to_7270
 		If this is set to "y" nothing is changed on Install text pages. 
 		Install skript is still modified to set correct ANNEX type.
  config EXPORT_DONT_PATCH_TAMFIX
-	bool "Don't apply tam bug fix"
+	bool "Don't applay tam bug fix"
 	default y
 	help
-	    This fix is usual not needed any more and is not applied anyway if newer firmware is in use.
+	    This fix is usual not needed any more and is not applayed anyway if newer firmware is in use.
  config EXPORT_DONT_ADD_HOMEFIX
-	bool "Don't apply home bug fix"
+	bool "Don't applay home bug fix"
 	default y
 	help
-	    This fix is usual not needed any more and is not applied anyway if newer firmware is in use.
+	    This fix is usual not needed any more and is not applayed anyway if newer firmware is in use.
  config EXPORT_DONT_REM_AUTOUPDATETAB
 	bool "Don't remove autoupdate tab"
 	default n
 	help
 	    This removes the autoupdate tab, usual there is no need to have this tab at all,
-	    but on firmwares with very little changes you may keep this tab.
+	    but on firmwares with very little changes you may keep ths tab.
 endif
 ### AVM Modells 7XXX<---
 
@@ -3675,7 +3628,7 @@ config EXPORT_RPL_AUTHFORM_WITH_81
 	default n
 #	select ADD_PROVIDER_AON
 	help
-	    Fixes problems with provider settings, best selection for aon
+	    Fixes problms with providersettings, best selection for aon
 config EXPORT_RPL_AUTHFORM_WITH_SR2
 	bool "Use authform page from 2nd AVM source"
 	depends on SOURCE2 || TYPE_OR_7570_503_722_920 || TYPE_SPEEDPORT_W721V 
@@ -3683,7 +3636,7 @@ config EXPORT_RPL_AUTHFORM_WITH_SR2
 	depends on EXPERT_MOD 
 #	select ADD_PROVIDER_AON
 	help
-	    Fixes problems with provider settings
+	    Fixes problms with providersettings
 config EXPORT_RPL_AUTHFORM_WITH_DST
 	bool "Use authform page form basis firmware"
 	depends on TYPE_OR_7570_503_722_920
@@ -3701,14 +3654,13 @@ config EXPORT_RPL_AUTHFORM_WITH_DST
 #	    This is usual set to no in most cases, within the AVM GUI. 
 
 config EXPORT_USE_SOURCE2_WEBMNUE
-	bool "Use 2nd AVM source web GUI files (no binarys)"
+	bool "Use 2nd AVM source webfiles"
 	depends on EXPERT_MOD 
 	depends on SOURCE2
 	select DO_NOT_STOP_ON_ERROR
 	default n
 	help
-		In most cases this option is useless at all and leads to a loss of GUI.
-		Use this additional option if new firmware with alternative menus is used,
+		Use this additional option if new firmware with alternative menus is used, 
 		with limited functionality but interesting for experiments.
 comment "DSL Options --------------------------------------------------------"
 config EXPORT_ATA_ONLY
@@ -3737,13 +3689,13 @@ if ! EXPORT_ATA_ONLY
 ###---> NO AVM Modells 7XXX
  if ! EXPORT_TYPE_LOCAL_MODEL
  # In use within sp-to-fritz.sh
-#    config EXPORT_ADD_VDSL_PROFILE
-#	depends on TYPE_OR_7570_920 || TYPE_SPEEDPORT_W721V
-#	depends on EXPERT_MOD 
-#	bool "Add tab with VDSL profile settings pages"
-#	default n
-#	help
-#		Use this additional option to enable profile settings pages for VDSL.
+    config EXPORT_ADD_VDSL_PROFILE
+	depends on TYPE_OR_7570_920 || TYPE_SPEEDPORT_W721V
+	depends on EXPERT_MOD 
+	bool "Add tab with VDSL profile settings pages"
+	default n
+	help
+		Use this additional option to enable profile settings pages for VDSL.
     config EXPORT_USE_SOURCE2_DSLMNUE
 	bool "Use 2nd AVM source DSL web files"
 	depends on EXPERT_MOD 
@@ -3876,8 +3828,8 @@ if ! EXPORT_ATA_ONLY
 	help
 		Save (V)DSL DRIVER from basis source to ./addon/tmp/WXXX.
 		WXXX is the respective Speedport type.
-		No files get removed within this directory so if you do more than one save with different settings
-		more files may be within this directory than really wanted.
+		No files get removed within this directory so if you do more than one save with diffent settings
+		more files may be within this directory than realy wanted.
 
     config FORCE_VLAN7
 	bool "Force VLAN7 and tcom ar7.cfg"
@@ -4039,7 +3991,7 @@ config FORCE_DST_DECTDRIVER
 	default n if ! TYPE_V3_OR_7240 || EXPORT_TYPE_LOCAL_MODEL
 	help
 		Use DECT driver from 1st basis source.
-		V3 firmware DECT driver can't be used with W920 
+		V3 firmware DECT driver canït be used with W920 
 
 config FORCE_SRC2_DECTDRIVER
 	bool "Use DECT driver from 2nd AVM firmware"
@@ -4048,7 +4000,7 @@ config FORCE_SRC2_DECTDRIVER
 	default n
 	help
 		Use DECT driver from 2nd AVM source.
-		V3 firmware DECT driver can't be used with W920 
+		V3 firmware DECT driver canït be used with W920 
 
 config FORCE_OWN_DECTDRIVER
 	bool "Use own DECT driver from ./addon/tmp/XXXX/"
@@ -4057,7 +4009,7 @@ config FORCE_OWN_DECTDRIVER
 	default n
 	help
 		Use DECT driver from local directory ./addon/tmp/WXXX/...
-		V3 firmware DECT driver can't be used with W920, ...
+		V3 firmware DECT driver canït be used with W920, ...
 config SAVE_SRC2_DECTDRIVER
 	bool "Save 2nd AVM source DECT driver to ./addon/tmp/XXXX/"
 	depends on EXPERT_MOD 
@@ -4065,7 +4017,7 @@ config SAVE_SRC2_DECTDRIVER
 	default n
 	help
 		Save DECT driver to local directory ./addon/tmp/XXXX/...
-		V3 firmware DECT driver can't be used with W920, ...
+		V3 firmware DECT driver canït be used with W920, ...
 ### NO AVM Modells 7XXX--->
 if ! EXPORT_TYPE_LOCAL_MODEL
 
@@ -4140,7 +4092,7 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 #	depends on EXPERT_MOD 
 #	depends on TYPE_OR_7570_920
 #	help
-#		Set this to "y" if normal 7270 firmwares in combination with multilingual firmwares are used, but usually this is not needed.
+#		Set this to "y" if normal 7270 firmwares in combination with multilingual firmwares are used, but usual this is not needed.
 #		WWW "avm" directory is moved to "$OEM"
  config EXPORT_CONFIG_TR069
 	bool "Enable TR069 disable ATA"
@@ -4178,7 +4130,7 @@ endif #ORI && ! TYPE_SPEEDPORT_W722V
 	default n
 	help
 		Set this to 'y' if you like to include all files within the directory
-		./addon/tmp/squashfs-root in combination with option restore original firmware.
+		./addon/tmp/squashfs-root in combination with option restore orignal firmware.
 if ORI
 
 # In use within sp-to-fritz.sh
@@ -4436,8 +4388,8 @@ config SET_EXPERT
 # In use within sp-to-fritz.sh
 config SET_ALLPROVIDERS
 	bool "Enable all providers"
-	depends on EXPERT_MOD
-	default n
+	depends on EXPERT_MOD 
+	default y
 	help
 	    This is usual set to no in most cases, within the AVM GUI. 
 endmenu
@@ -4530,18 +4482,11 @@ config SET_FREETZ_REVISION
 		start-freetz.sh.
 #### <-- END ! ORI
 endif
-###---------------------------------------------------------------------------
 comment "--------------------------------------------------------------------"
-comment "---------------- Manual Load or Save Firmware.conf -----------------"
-comment "If you save or load the configuration with a different name, you must"
-comment "save with name 'Firmware.conf' again, only this file name is in use."
-###---------------------------------------------------------------------------
-endif # if ! UPDATE_SP2FR
-endif # if ! SEL_FIRMWARE_CONF_TO_USE
-###---------------------------------------------------------------------------
 config SAVED_CONF
         bool 
         default y
+comment "If you save or load the configuration with a different name, you must"
+comment "save with name 'Firmware.conf' again, only this file name is in use."
 #( do not remove the following line)
-###---------------------------------------------------------------------------
 ### FILE_ENDE ###
