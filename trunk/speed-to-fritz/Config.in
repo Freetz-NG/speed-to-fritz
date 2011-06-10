@@ -222,9 +222,17 @@ config AVM_7272_54_04_88
     string
     default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270_v2/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v2.54.04.88.image"
 
-config AVM_7273_74_04_88
+config AVM_7272_54_04_88
     string
-    default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.88.image"
+    default "http://download.avm.de/fritz.box/fritzbox.fon_wlan_7270_v2/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v2.54.04.88.image"
+
+config AVM_7272_m54_04_90
+    string
+    default "@AVM/fritz.box/fritzbox.fon_wlan_7270_v2/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7270_v2.en-de-es-it-fr.54.04.90.image"
+
+config AVM_7273_m74_04_90
+    string
+    default "@AVM/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/english/FRITZ.Box_Fon_WLAN_7270_v3.en-de-es-it-fr.74.04.90.image"
 
 config AVM_IPV6_7272_17599
     string
@@ -379,7 +387,7 @@ config SET_SP2FR_REVISION
 config  EXPORT_SP2FR_REVISION 	 
 	depends on SET_SP2FR_REVISION 	 
 	        string "--> Set revision number " 	 
-	            default "1276" # dont edit this line is changed via ./start.sh - numner "1234" may differ 	 
+	            default "1284" # dont edit this line is changed via ./start.sh - numner "1234" may differ 	 
 	        help 	 
 	            This is the revision number used with speed-to-fritz 	 
 	            example 1265. 	 
@@ -1305,6 +1313,20 @@ choice
 		help
 			FRITZ! : release 89 multilingual
 
+	config TYPE_7272_m54_04_90
+		bool "AVM 7270v2 54.04.90.en-de-es-it-fr 19715"
+		select ORI_FIRMWARE_IS_MULI
+		depends on TYPE_OR_7240_7570_920 || TYPE_OR_AVMX_LOCALTCOM
+		help
+			FRITZ! : release 90 multilingual
+
+	config TYPE_7273_m74_04_90
+		bool "AVM 7270v3 74.04.90.en-de-es-it-fr 19715"
+		select ORI_FIRMWARE_IS_MULI
+		depends on TYPE_OR_7240_7570_920 || TYPE_OR_AVMX_LOCALTCOM
+		help
+			FRITZ! : release 90 multilingual
+
 #-->only for testing
 	config TYPE_7390_84_04_81
 		bool "AVM 7390 84.04.81 15936 (only for testing)"
@@ -1541,14 +1563,20 @@ choice
 	config TYPE_SRC3_AVM_7273_m74_04_81
 		bool "AVM 7270v3 74.04.81.en-de-it-sp-fr 16838"
 
-	config TYPE_SRC3_AVM_7273_m74_04_89
-		bool "AVM 7270v3 74.04.89.en-de-it-sp-fr 19525"
-
 	config TYPE_SRC3_AVM_7271_54_04_88
 		bool "AVM 7270v1 54.04.88 18834"
 
 	config TYPE_SRC3_AVM_7272_54_04_88
 		bool "AVM 7270v2 54.04.88 18834"
+
+	config TYPE_SRC3_AVM_7273_m74_04_89
+		bool "AVM 7270v3 74.04.89.en-de-it-sp-fr 19525"
+
+	config TYPE_SRC3_AVM_7272_m54_04_90
+		bool "AVM 7270v2 54.04.90.en-de-it-sp-fr 19715"
+
+	config TYPE_SRC3_AVM_7272_m74_04_90
+		bool "AVM 7270v3 74.04.90.en-de-it-sp-fr 19715"
 
 	config TYPE_SRC3_AVM_7273_74_04_88
 		bool "AVM 7270v3 74.04.88 18808"
@@ -1775,6 +1803,8 @@ config AVM_IMG
 	default "$AVM_7272_54_04_86"				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7272_54_04_88"				if ( TYPE_SPEEDPORT_W920V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7272_m54_04_76" 				if ( TYPE_SPEEDPORT_W920V || TYPE_OR_503_722 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && ! TYPE_LANG_DE
+	default "$AVM_7272_m54_04_90" 				if ( TYPE_SPEEDPORT_W920V || TYPE_OR_503_722 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && ! TYPE_LANG_DE
+	default "$AVM_7273_m74_04_90" 				if ( TYPE_SPEEDPORT_W920V || TYPE_OR_503_722 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && ! TYPE_LANG_DE
 	default "$AVM_7240_73_04_59" 				if ( TYPE_SPEEDPORT_W722V ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX && TYPE_LANG_DE
 	default "$AVM_7272_54_04_58" 				if ( TYPE_7272_54_04_58 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7272_54_04_59"	 			if ( TYPE_7272_54_04_59 || ( TYPE_SPEEDPORT_W503V  && ! TYPE_LABOR ) )
@@ -1790,6 +1820,8 @@ config AVM_IMG
 	default "$AVM_7272_m54_04_81" 				if ( TYPE_7272_m54_04_81 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL ) 
 	default "$AVM_7273_m74_04_81" 				if ( TYPE_7273_m74_04_81 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL ) 
 	default "$AVM_7273_m74_04_89" 				if ( TYPE_7273_m74_04_89 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL ) 
+	default "$AVM_7272_m54_04_90" 				if ( TYPE_7272_m54_04_90 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7273_m74_04_90" 				if ( TYPE_7273_m74_04_90 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )  
 	default "$AVM_DSL_7271_18237"				if ( TYPE_DSL_7271_18237 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_DSL_7272_18956"				if ( TYPE_DSL_7272_18956 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_DSL_7273_18956"				if ( TYPE_DSL_7273_18956 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
@@ -1915,7 +1947,7 @@ config TYPE_7272_TYPE
 	bool
 	default "y"	 	if  TYPE_7272_m54_04_76 || TYPE_DSL_7272_18956 || TYPE_PRE_7272_17828 || TYPE_7272_UMTS_13265 || \
 				TYPE_IPV6_7272_17599 || TYPE_NAS_7272_19759 || TYPE_7272_54_04_80 || \
-				TYPE_7272_54_04_86 || TYPE_7272_m54_04_81
+				TYPE_7272_54_04_86 || TYPE_TY7272_m54_04_81 || TYPE_TY7272_m54_04_90
 
 config TYPE_7273_TYPE
 	bool
@@ -2151,7 +2183,7 @@ config EXPORT_FORCE_MULTI_COUNTRY_SRC2
 
 config FORCE_OEM_AVME
 	bool
-	default y 	if TYPE_ANNEX_A || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_IPV6_7273_17599 || TYPE_IPV6_7272_17599 || TYPE_7272_m54_04_81 || TYPE_7273_m74_04_81 || TYPE_7273_m74_04_89
+	default y 	if TYPE_ANNEX_A || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_IPV6_7273_17599 || TYPE_IPV6_7272_17599 || TYPE_7272_m54_04_81 || TYPE_7273_m74_04_81 || TYPE_7273_m74_04_89 || TYPE_7272_m54_04_90 || TYPE_7273_m74_04_90
 
 config EXPORT_OEM
 
