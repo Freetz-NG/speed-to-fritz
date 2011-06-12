@@ -34,8 +34,9 @@ EOF
 chmod 755 "./incl_var"
 fi
 export HOMEDIR="`pwd`"
+# exract packed ./conf directory
+! [ -e "./conf/conf.in" ] && [ -e "./conf.tar" ] && tar xf ./conf.tar -C . ./conf && echo "-- ./conf.tar extracted"
 #  add ready made configs to menu 
-##! [ -e "./conf/conf.in" ] && 
 ./conf/add_config.sh
 #set last used revision in Config.in
 SVN_REV="$(svnversion . )" && let "SVN_REV=$(echo ${SVN_REV##*:} | tr -d '[:alpha:]')" && sed -i -e "s|default \"....\" # dont edit this line|default \"$SVN_REV\" # dont edit this line|" ./Config.in

@@ -1,6 +1,0 @@
-
-Within this directory and subdirectorys tested Firmware.conf files are stored.
-
-Take one and move it to the speed-to-fritz diricory.
-Type ./restart to run speed-to-fritz with this Firmware.conf.
-
