@@ -140,7 +140,7 @@ cat << 'EOF' >> "${DSTF}"
 <div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
 <p>Die Firmware des <b>MODEL</b> wurde durch den <b>Speed2fritz-Mod</b> verändert.</p>
 <h2>Verwendete Skript-Version</h2>
-<p>Verwendet wurde das Skript <b>'speed2fritz'</b> in der Version vom <b>VERSION</b>. Folgende Optionen wurden verwendet:</p>
+<p>Verwendet wurde das Skript <b>'speed2fritz'</b> mit der Revision <b>VERSION</b>. Folgende Optionen wurden verwendet:</p>
 <ul>
 <li><b>Branding:</b> Das Branding der Box wurde vom Skript auf den Wert <b>'OEM'</b> gesetzt.</li>
 <li><b>Hostname:</b> Der Hostname der Box wurde auf <b>'HOSTNAME'</b> eingestellt.</li>
@@ -194,7 +194,7 @@ cat << 'EOF' >> "${DSTF}"
 <div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
 <p>The user interface of <b>MODEL</b> has been modified with <b>Speed2Fritz-Mod</b>. The following Script- and Firmware Versions have been used.</p>
 <h2>Script Version used:</h2>
-<p> <b>'speed2fritz'</b> version <b>VERSION</b> has been used.</p> 
+<p> <b>'speed2fritz'</b> revision <b>VERSION</b> has been used.</p> 
 <ul>
 <li>Used options:</li>
 <ul>
@@ -234,7 +234,7 @@ The manual also can be found <a href="http://wiki.ip-phone-forum.de/skript:speed
 <p>Using this modification is on your own risk. All guarantee and entitlement to the manufacturer for support is lost.
 The authors of 'Speed2Fritz' refuses any accountability for all damage occurred from the use of the script or a modified Firmware.</p>
 <p></p>
-<p>2006/2009</p>
+<p>2006/2011</p>
 </div></div></div></div></div></div>
 <? include ../html/de/help/rback.html ?>
 </div>
@@ -248,7 +248,7 @@ readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${1}/etc/init.d"
 [ "$SPNUM" == "7570" ] && sed -i -e "s/MODEL/${SPMOD}/" "${DSTF}"
 [ "$TYPE_LOCAL_MODEL" != "y" ] && sed -i -e "s/MODEL/W ${SPNUM}V/" "${DSTF}"
 [ "$TYPE_LOCAL_MODEL" == "y" ] && sed -i -e "s/MODEL/${SPMOD}/" "${DSTF}"
-sed -i -e "s/VERSION/${SKRIPT_DATE}/" "${DSTF}"
+sed -i -e "s/VERSION/${SVN_REVISION}/" "${DSTF}"
 sed -i -e "s/OEM/${OEM}/" "${DSTF}"
 sed -i -e "s/HOSTNAME/${HOSTNAME}/" "${DSTF}"
 [ "$TYPE_LOCAL_MODEL" != "y" ] && sed -i -e "s/IMG0_TCOM/${SPIMG}/" "${DSTF}"
