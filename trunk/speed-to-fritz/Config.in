@@ -230,6 +230,10 @@ config AVM_7273_74_04_88
     string
     default "@AVM/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.88.image"
 
+config AVM_7273_74_04_89
+    string
+    default "ftp://service.avm.de/7270_v3/FRITZ.Box_Fon_WLAN_7270_v3.AnnexB.74.04.89.image"
+
 config AVM_7272_m54_04_90
     string
     default "@AVM/fritz.box/fritzbox.fon_wlan_7270_v2/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7270_v2.en-de-es-it-fr.54.04.90.image"
@@ -392,7 +396,7 @@ config SET_SP2FR_REVISION
 config  EXPORT_SP2FR_REVISION
 	depends on SET_SP2FR_REVISION
 	        string "--> Set revision number "
-	            default "1280" # dont edit this line is changed via ./start.sh - numner "1234" may differ
+	            default "1290" # dont edit this line is changed via ./start.sh - numner "1234" may differ
 	        help
 	            This is the revision number used with speed-to-fritz
 	            example 1265.
@@ -1241,6 +1245,13 @@ choice
 		help
 			FRITZ! release: 88
 
+	config TYPE_7273_74_04_89
+		bool "AVM 7270v3 74.04.89 19590"
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
+#		depends on EXPERT_MOD 
+		help
+			FRITZ! release: 88
+
 	config TYPE_PRE_7272_19947
 		bool "AVM 7270v2 54.05.04 19947 (PREVIEW)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
@@ -1587,6 +1598,9 @@ choice
 	config TYPE_SRC3_AVM_7273_74_04_88
 		bool "AVM 7270v3 74.04.88 18808"
 
+	config TYPE_SRC3_AVM_7273_74_04_89
+		bool "AVM 7270v3 74.04.89 19590"
+
 	config TYPE_SRC3_AVM_7273_m74_04_89
 		bool "AVM 7270v3 74.04.89.en-de-it-sp-fr 19525"
 
@@ -1833,6 +1847,7 @@ config AVM_IMG
 	default "$AVM_7272_54_04_88"				if ( TYPE_7272_54_04_88 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7273_74_04_86"				if ( TYPE_7273_74_04_86 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7273_74_04_88"				if ( TYPE_7273_74_04_88 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7273_74_04_89"				if ( TYPE_7273_74_04_89 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7272_m54_04_81" 				if ( TYPE_7272_m54_04_81 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL ) 
 	default "$AVM_7273_m74_04_81" 				if ( TYPE_7273_m74_04_81 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL ) 
 	default "$AVM_7273_m74_04_89" 				if ( TYPE_7273_m74_04_89 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL ) 
@@ -1902,6 +1917,7 @@ config SRC2_IMG
 	default "$AVM_7271_54_04_88" 			if TYPE_SRC3_AVM_7271_54_04_88
 	default "$AVM_7272_54_04_88" 			if TYPE_SRC3_AVM_7272_54_04_88
 	default "$AVM_7273_74_04_88" 			if TYPE_SRC3_AVM_7273_74_04_88
+	default "$AVM_7273_74_04_89" 			if TYPE_SRC3_AVM_7273_74_04_89
 	default "$AVM_7272_m54_04_76"	 		if TYPE_SRC3_AVM_7272_m54_04_76
 	default "$AVM_7272_m54_04_81"	 		if TYPE_SRC3_AVM_7272_m54_04_81
 	default "$AVM_7273_m74_04_81"	 		if TYPE_SRC3_AVM_7273_m74_04_81
