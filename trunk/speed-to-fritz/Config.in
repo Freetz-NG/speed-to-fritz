@@ -396,7 +396,7 @@ config SET_SP2FR_REVISION
 config  EXPORT_SP2FR_REVISION
 	depends on SET_SP2FR_REVISION
 	        string "--> Set revision number "
-	            default "1293" # dont edit this line is changed via ./start.sh - numner "1234" may differ
+	            default "1290" # dont edit this line is changed via ./start.sh - numner "1234" may differ
 	        help
 	            This is the revision number used with speed-to-fritz
 	            example 1265.
@@ -1607,7 +1607,7 @@ choice
 	config TYPE_SRC3_AVM_7272_m54_04_90
 		bool "AVM 7270v2 54.04.90.en-de-it-sp-fr 19715"
 
-	config TYPE_SRC3_AVM_7272_m74_04_90
+	config TYPE_SRC3_AVM_7273_m74_04_90
 		bool "AVM 7270v3 74.04.90.en-de-it-sp-fr 19715"
 
 
@@ -1921,6 +1921,8 @@ config SRC2_IMG
 	default "$AVM_7272_m54_04_76"	 		if TYPE_SRC3_AVM_7272_m54_04_76
 	default "$AVM_7272_m54_04_81"	 		if TYPE_SRC3_AVM_7272_m54_04_81
 	default "$AVM_7273_m74_04_81"	 		if TYPE_SRC3_AVM_7273_m74_04_81
+	default "$AVM_7272_m54_04_90"	 		if TYPE_SRC3_AVM_7272_m54_04_90
+	default "$AVM_7273_m74_04_90"	 		if TYPE_SRC3_AVM_7273_m74_04_90
 	default "$AVM_7273_m74_04_89"	 		if TYPE_SRC3_AVM_7273_m74_04_89
 	default "$AVM_IPV6_7272_17599"			if TYPE_SRC3_AVM_IPV6_7272_17599
 	default "$AVM_IPV6_7273_17599"			if TYPE_SRC3_AVM_IPV6_7273_17599
@@ -1987,7 +1989,7 @@ config TYPE_7273_TYPE
 	bool
 	default "y"	 	if  TYPE_IPV6_7273_17599 || TYPE_PRE_7273_19947 || \
 				TYPE_PRE_7273_17828 || \
-				TYPE_7273_74_04_86 || TYPE_7273_m74_04_81 || TYPE_7273_m74_04_89
+				TYPE_7273_74_04_86 || TYPE_7273_m74_04_81 || TYPE_7273_m74_04_89 || TYPE_7273_m74_04_90
 
 config TYPE_V3_OR_7240
 	bool
