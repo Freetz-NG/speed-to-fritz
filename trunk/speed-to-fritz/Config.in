@@ -161,9 +161,9 @@ config AVM_7170_en_29_04_82
     string
     default "@AVM/fritz.box/fritzbox.fon_wlan_7170/firmware/english/annex_b/FRITZ.Box_Fon_WLAN_7170.AnnexB.en.29.04.82.image"
 
-config AVM_BETA_7170_19817
-  string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7170_vorschau_release_candidate/fritz_box-labor-19817.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.86-19817.image"
+#config AVM_BETA_7170_19817
+#  string
+#    default "http://www.avm.de/de/Service/Service-Portale/Labor/7170_vorschau_release_candidate/fritz_box-labor-19817.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.86-19817.image"
 
 config AVM_BETA_7170_19957
   string
@@ -1111,11 +1111,11 @@ choice
 		default TYPE_AVM_HN_7570_16971 if TYPE_HN_7570
 		#<--
 
-	config TYPE_7170_PRE_19817
-		bool "7170 19817 - pre-release"
-		depends on (TYPE_7170 || TYPE_OR_701_721_SPECIAL721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
-		help
-			FRITZ!Lab 29.04.86-19817
+#	config TYPE_7170_PRE_19817
+#		bool "7170 19817 - pre-release"
+#		depends on (TYPE_7170 || TYPE_OR_701_721_SPECIAL721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
+#		help
+#			FRITZ!Lab 29.04.86-19817
 
 	config TYPE_7170_PRE_19957
 		bool "7170 19957 - pre-release"
@@ -1559,8 +1559,8 @@ choice
 	config TYPE_SRC3_AVM_7170_en_29_04_82
 		bool "AVM 7170 29.04.82 en (english, Annex B)"
 
-	config TYPE_SRC3_AVM_PRE_7170_19817
-		bool "AVM 7170 19817 (PREVIEW)"
+#	config TYPE_SRC3_AVM_PRE_7170_19817
+#		bool "AVM 7170 19817 (PREVIEW)"
 
         config TYPE_SRC3_AVM_PRE_7170_19957
  	        bool "AVM 7170 19957 (PREVIEW)" 
@@ -1826,7 +1826,7 @@ config AVM_IMG
 	default "$AVM_7113_60_04_68"				if ( TYPE_7113_60_04_68 ) && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7113_90_04_82"				if ( TYPE_7113_90_04_82 ) && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_GAMING_7170_11435"			if TYPE_7170_GAMING_11435 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_BETA_7170_19817"				if TYPE_7170_PRE_19817 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
+#	default "$AVM_BETA_7170_19817"				if TYPE_7170_PRE_19817 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_BETA_7170_19957"				if TYPE_7170_PRE_19957 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7240_73_04_87"				if ( TYPE_7240_73_04_87 )
 #	default "$AVM_7570_75_04_82"				if ( TYPE_7570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX
@@ -1902,7 +1902,7 @@ config SRC2_IMG
 	default "$AVM_7141_40_04_76" 			if TYPE_SRC3_AVM_7141_40_04_76
 	default "$AVM_7170_29_04_80" 			if TYPE_SRC3_AVM_7170_29_04_80
 	default "$AVM_GAMING_7170_11435"		if TYPE_SRC3_AVM_GAMING_7170_11435
-	default "$AVM_BETA_7170_19817"			if TYPE_SRC3_AVM_PRE_7170_19817
+#	default "$AVM_BETA_7170_19817"			if TYPE_SRC3_AVM_PRE_7170_19817
 	default "$AVM_BETA_7170_19957"			if TYPE_SRC3_AVM_PRE_7170_19957
 	default "$AVM_LOCAL"				if TYPE_LOCAL_AVM_IMAGE
 	

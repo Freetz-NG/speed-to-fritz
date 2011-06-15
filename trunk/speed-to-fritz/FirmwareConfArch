@@ -1,4 +1,9 @@
 #!/bin/bash
+#pack ./conf directory, dont include last config
+rm -f ./conf/conf.in
+find ./conf -type d -name .svn | xargs rm -rf
+[ -d "./conf" ] && tar cf  ./conf.tar -C . ./conf
+#
  cp -f $firmwareconf_file_name .unstripped
  . FirmwareConfStrip
  let act_firmwareconf_size="$(wc -c < "$firmwareconf_file_name")"
@@ -24,7 +29,3 @@
  cp -f "Firmware_conf.tar" "$NEWDIR/conf/$FWCT"
  [ -f "${CONFDIR}/$firmwareconf_file_name" ] && echo "-- copyed $firmwareconf_file_name to $CONFDIR"
  mv -f .unstripped $firmwareconf_file_name
-#pack ./conf directory
-rm -f ./conf/conf.in
-find ./conf -type d -name .svn | xargs rm -rf
-[ -d "./conf" ] && tar cf  ./conf.tar -C . ./conf
