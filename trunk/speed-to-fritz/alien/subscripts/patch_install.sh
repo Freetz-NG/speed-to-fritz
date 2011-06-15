@@ -7,7 +7,6 @@ sed -i -e "/Force: factorysettings done./a\
 ##MARKER##" "${1}"/var/install
 sed -i -e "/##MARKER##/,/Accept Firmware Version/d" "${1}"/var/install
 sed -i -e '/echo ANNEX=$ANNEX/,/echo testing acceptance for device.*done/d' "${1}"/var/install
-sed -i -e "s/_Temp_HWID_/$Temp_HWID/" "${1}"/var/install
 Temp_HWID="${HWID}"
 case "$HWID" in 
         135 | 146 | 153 ) Temp_HWID="135 | 146 | 153" ;;
