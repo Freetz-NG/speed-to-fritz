@@ -41,6 +41,10 @@ config CONGSTAR_W701_33_04_58
     string
     default "http://www.congstar.de/fileadmin/files_congstar/documents/hilfe-service/congstar_DSL-Box.AnnexB.33.04.58.zip"
 
+config CONGSTAR_W701_33_04_80
+    string
+    default "http://www.congstar.de/fileadmin/files_congstar/documents/hilfe-service/firmware/congstar_DSL_Box_Firmware_33.04.80.zip"
+
 config CONGSTAR_W503_66_04_69
     string
     default "Firmware.orig/congstar-komplett-Box.AnnexB.66.04.69.zip mirror http://upload.crunkbass.de/big636f6e67737461722d6b6f6d706c6574742d426f782e416e6e6578422e36362e30342e36392e7a6970.zip"
@@ -964,6 +968,8 @@ choice
 		depends on TYPE_SPECIALCONGSTAR
 	config TYPE_STAR_W701V_58
 		bool "CONGSTAR W701V DSL-Box.AnnexB.33.04.58"
+	config TYPE_STAR_W701V_80
+		bool "CONGSTAR W701V DSL-Box.AnnexB.33.04.80"
 endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config TYPE_SPECIALW503_TCOM
@@ -1732,7 +1738,12 @@ choice
 
 	config TYPE_SRC3_TCOM_W920_13048
 		bool "TCOM W920 13048"
-
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	config TYPE_SRC3_CONGSTAR_W701_33_04_58
+		bool "CONGSTAR W701 33.04.58"
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	config TYPE_SRC3_CONGSTAR_W701_33_04_80
+		bool "CONGSTAR W701 33.04.80"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	config TYPE_SRC3_CONGSTAR_W503_66_04_69
 		bool "CONGSTAR W503 66.04.69"
@@ -1771,6 +1782,7 @@ config TCOM_IMG
 	default "$TCOM_W501_28_04_38" 		if TYPE_SPEEDPORT_W501V
 	default "$TCOM_W701_33_04_57" 		if ( ! TYPE_SPECIALCONGSTAR ) && ( TYPE_SPEEDPORT_W701V )
 	default "$CONGSTAR_W701_33_04_58"	if TYPE_STAR_W701V_58 && ( TYPE_SPEEDPORT_W701V )
+	default "$CONGSTAR_W701_33_04_80"	if TYPE_STAR_W701V_80 && ( TYPE_SPEEDPORT_W701V )
 	default "$TCOM_W503_66_04_78" 		if ( ! TYPE_TCOM_W503V_66_04_66 && ! TYPE_STAR_W503_66_04_69 && ! TYPE_STAR_W503_66_04_71 ) && TYPE_SPEEDPORT_W503V
 	default "$TCOM_W503_66_04_66" 		if ( TYPE_TCOM_W503V_66_04_66 ) && TYPE_SPEEDPORT_W503V
 	default "$CONGSTAR_W503_66_04_69" 	if ( TYPE_STAR_W503_66_04_69 ) && TYPE_SPEEDPORT_W503V
@@ -1958,6 +1970,8 @@ config SRC2_IMG
 	default "$CONGSTAR_W503_66_04_69" 		if TYPE_SRC3_CONGSTAR_W503_66_04_69
 	default "$CONGSTAR_W503_66_04_71" 		if TYPE_SRC3_CONGSTAR_W503_66_04_71
 	default "$TCOM_W701_33_04_57" 			if TYPE_SRC3_TCOM_W701_33_04_57
+	default "$CONGSTAR_W701_33_04_58" 		if TYPE_SRC3_CONGSTAR_W701_33_04_58
+	default "$CONGSTAR_W701_33_04_80" 		if TYPE_SRC3_CONGSTAR_W701_33_04_80
 	default "$TCOM_W721_64_04_60" 			if TYPE_SRC3_TCOM_W721_64_04_60
 	default "$TCOM_W721_64_04_74" 			if TYPE_SRC3_TCOM_W721_64_04_74
 	default "$TCOM_W722_80_04_76" 			if TYPE_SRC3_TCOM_W722_80_04_76

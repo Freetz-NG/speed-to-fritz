@@ -671,8 +671,6 @@ function fw_unpack()
 		echo "cannot find the very useful tool $FINDSQUASHFS_TOOL"
 		return 1
 	fi
-
-	
 	rm -rf "$DESTDIR"
 	mkdir "$DESTDIR"
         if [ "$DESTDIR" = "$SPDIR"  ] && [ -s "$HOMEDIR/kernel.image" ]; then
@@ -688,16 +686,26 @@ function fw_unpack()
 	 echo "   ./kernel.image not removed!"
 		 cp "$HOMEDIR/kernel.image" "$DESTDIR"/kernel.image
 		fi 
-         fi
+        fi
         if   [ "$DESTDIR" != "$SPDIR"  ] || [ ! -s "$HOMEDIR/kernel.image" ]; then
-	 if  [ "${ARCHIVE##*/}" = "kernel.image" ]; then
-	  cp "${ARCHIVE}" "$DESTDIR"/kernel.image
-	 else
-    	  "$TAR" -xf "$ARCHIVE" -C "$DESTDIR"
-          cp "$DESTDIR"/var/tmp/kernel.image "$DESTDIR"/kernel.image
-         fi
-        fi 
-		
+	    if  [ "${ARCHIVE##*/}" = "kernel.image" ]; then
+	        cp "${ARCHIVE}" "$DESTDIR"/kernel.image
+	    else 
+	        if [ "${ARCHIVE##*.}" == "exe" ];then
+		    #echo " -- is a recover.exe -- wie need to use a differnt tool"
+		    abs_split_recover="`find -name split_recover`"
+		    echo $abs_split_recover
+		    output_dir="$(basename "$ARCHIVE" | sed -r 's/(.*)\.[^\.]*/\1/')"
+		    rm -fdR "$output_dir"
+		    mkdir -p "$output_dir"
+		    $abs_split_recover $HOMEDIR $ARCHIVE $output_dir
+		    cp "$output_dir/kernel.image" "$DESTDIR"/kernel.image
+	        else
+    		    "$TAR" -xf "$ARCHIVE" -C "$DESTDIR"
+        	    cp "$DESTDIR"/var/tmp/kernel.image "$DESTDIR"/kernel.image
+    	        fi
+	    fi
+	fi
 	if [ ! -r "${DESTDIR}/kernel.image" ]; then
 		echo "cannot find kernel.image"
 		return 1
@@ -783,7 +791,7 @@ fw_pack1()
     fi
     if [ ! -d "$FIRMWARE_MOD_DIR" ]; then
 	mkdir "$FIRMWARE_MOD_DIR"
-	cp -fdpr "$DIR/var" --target-directory="$FIRMWARE_MOD_DIR"
+	[ -d "$DIR/var" ] && cp -fdpr "$DIR/var" --target-directory="$FIRMWARE_MOD_DIR" || echo " --> only kernel.image is complette"
     fi
     # Remove left over Subversion directories
     find "$DIR" -type d -name .svn | xargs rm -rf
@@ -806,8 +814,9 @@ fw_pack1()
     echo
     #echo "Merging kernel image"
     dd if="$RAW_KERNEL_MOD" of="$KERNEL_MOD" bs=256 conv=sync 2> /dev/null
-    cat "$RAW_HIDDEN_MOD" >> "$KERNEL_MOD"
+    ! [ -d "${FIRMWARE_MOD_DIR}/var/tmp" ] && echo " --> only kernel.image is complette, var/install for firmware update is missing!"
     mkdir -p "${FIRMWARE_MOD_DIR}/var/tmp"
+    cat "$RAW_HIDDEN_MOD" >> "$KERNEL_MOD"
 #    cp -v ./kernel.image "$KERNEL_MOD"
 #    cp -fdpr ./kernel.image --target-directory="${FIRMWARE_MOD_DIR}/var/tmp"
     [ ! -s "$KERNEL_MOD" ] && echo "Kernel merging failed" && return 1
