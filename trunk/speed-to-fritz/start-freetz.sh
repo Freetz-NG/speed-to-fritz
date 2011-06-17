@@ -255,7 +255,7 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
   else
   sed -i -e '/General/a\
 comment "Hardwaretype and language settings must be the same as in speed2fritz."\
-comment "Annex type is set by speed2fritz in a second run afrer freetz."\
+comment "Annex type is set by speed2fritz in a second run after freetz."\
 comment "----------------------------------------"' "./Config.in" 2> /dev/null
    sed -i -e "/config FREETZ_SUBVERSION_STRING/,/help/{s/default y/default n/}" "./Config.in" 2> /dev/null
    sed -i -e "/config FREETZ_TYPE_FON_WLAN_7270_16MB/,/help/{s/default n/default y/}" "./Config.in" 2> /dev/null
