@@ -400,7 +400,7 @@ config SET_SP2FR_REVISION
 config  EXPORT_SP2FR_REVISION
 	depends on SET_SP2FR_REVISION
 	        string "--> Set revision number "
-	            default "1301" # dont edit this line is changed via ./start.sh - numner "1234" may differ
+	            default "1303" # dont edit this line is changed via ./start.sh - numner "1234" may differ
 	        help
 	            This is the revision number used with speed-to-fritz
 	            example 1265.
@@ -2270,6 +2270,11 @@ config EXPORT_FORCE_LANGUAGE
 	default "es" if TYPE_LANG_ES
 	default "it" if TYPE_LANG_IT
 
+
+
+menu "Options"
+comment "-----------------------Default settings ----------------------------"
+###---> no restore original firmware
 config SET_OEM
 	bool "Select Branding"
 	depends on EXPERT_MOD 
@@ -2290,7 +2295,38 @@ config EXPORT_OEM
 	    If multiannex or Annex A is selected, we use brandig avme as default.
 	    In case of option 'restore original' branding will always be set to the 
 	    one used in base firmware.
-
+config EXPORT_PATCH_OEM
+	bool "Force branding"
+	default y
+	help
+	    Force branding, sets the selected branding (OEM) within the firmware,
+	    environment settings are not taken in acount any more!
+	    Recover firmware needs this option to be set on!
+config SET_WLANKEY
+	bool "Setup WLAN default key"
+	depends on ! ORI
+	default y if EXPORT_FORCE_CLEAR_FLASH
+	default n if ! EXPORT_FORCE_CLEAR_FLASH
+	select EXPORT_PATCH_OEM
+config EXPORT_WLANKEY
+    string "Edit this key-string - must be 16 characters long"
+    default "speedboxspeedbox"
+    depends on SET_WLANKEY
+    help
+        Only set this, if you want that the default security key for WLAN
+        is set. Number of characters must by 16. if the box did have a key,
+        the original key is written down on the Box level.
+        Only letters or and numbers my be used!
+        If less as 16 chars are inserted then the WLAN will not be secured!
+        It is recommended if clear mdt3/4 is selected.
+        If no key is used WLAN is also not secured by default, but can be
+        secured if this will be specified later within the router menu.
+config EXPORT_ENFORCE_HWREVISION
+	bool "Enforce hardware revision number"
+	default n
+	help
+	    Force hardware revision number, sets the selected hardware revision number
+	    within the firmware, environment settings are not taken in acount any more!
 config SET_FBHWRevision
 	bool "Box Hardware revision (setup)"
 	depends on EXPERT_MOD 
@@ -2702,25 +2738,7 @@ config EXPORT_FBHWRevision
 	default "171" if HWR171
 	default "174" if HWR174
 	default "175" if HWR175 
-
-menu "Options"
-comment "--------------------------------------------------------------------"
-comment "------------- Optional settings for Speed-to-fritz -----------------"
-###---> no restore original firmware
-config EXPORT_PATCH_OEM
-	bool "Force branding"
-	default y
-	help
-	    Force branding, sets the selected branding (OEM) within the firmware,
-	    environment settings are not taken in acount any more!
-	    Recover firmware needs this option to be set on!
-config EXPORT_ENFORCE_HWREVISION
-	bool "Enforce hardware revision number"
-	default n
-	help
-	    Force hardware revision number, sets the selected hardware revision number
-	    within the firmware, environment settings are not taken in acount any more!
-	    		
+comment "--------------- Optional settings for Speed-to-fritz ---------------"
 if ! ORI && ! TYPE_SPEEDPORT_W722V
 config EXPORT_ADD_OLD_DECTMENU
 	bool "DECT menu (add)"
@@ -4501,28 +4519,6 @@ config EXPORT_IPADDRESS
 	string
 	default "192.168.178.1" if TYPE_IP_178
 	default "192.168.2.1" if TYPE_IP_2
-
-comment "Default settings ---------------------------------------------------"
-
-config SET_WLANKEY
-	bool "Setup WLAN default key"
-	default y if EXPORT_FORCE_CLEAR_FLASH
-	default n if ! EXPORT_FORCE_CLEAR_FLASH
-	select EXPORT_PATCH_OEM
-
-config EXPORT_WLANKEY
-    string "Edit this key-string - must be 16 characters long"
-    default "speedboxspeedbox"
-    depends on SET_WLANKEY
-    help
-        Only set this, if you want that the default security key for WLAN
-        is set. Number of characters must by 16. if the box did have a key,
-        the original key is written down on the Box level.
-        Only letters or and numbers my be used!
-        If less as 16 chars are inserted then the WLAN will not be secured!
-        It is recommended if clear mdt3/4 is selected.
-        If no key is used WLAN is also not secured by default, but can be
-        secured if this will be specified later within the router menu.
 endmenu
 #### ---> ! ORI
 if ! ORI
