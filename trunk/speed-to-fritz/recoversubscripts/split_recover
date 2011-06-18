@@ -1,4 +1,12 @@
 #!/bin/bash
+abs_ispr="`find -name ipsr_1.c`"
+#echo "abs_ispr: $abs_ispr"
+abs_dir="${abs_ispr%/*}"
+#echo "abs_ispr_dir: $abs_dir"
+[ -d $abs_ispr/ispr ] ||\
+(cd $abs_dir
+make > /dev/null
+)
 abs_split_header="`find -name split_header`"
 . $abs_split_header
 #echo "New output directory: $output_dir1"

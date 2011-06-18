@@ -17,7 +17,9 @@ AVM_New_version="XX.XX.XX"
 TCOM_New_version="XX.XX.XX"
 #above settings are not in use if ./incl_var is included
 . ./incl_var
-RDIR="$HOMEDIR/recoversubscripts"
+abs_ispr="`find -name ipsr_1.c`"
+RDIR="${abs_ispr%/*}"
+#RDIR="$HOMEDIR/recoversubscripts"
 if [ "$PATCH_OEM" != "y" ]; then
     echo "Option 'Force branding' was not selectet!"
     sleep 5
@@ -108,10 +110,7 @@ if ! [ -f "$input_recover_file" ];then
     sleep 20
     exit 1
 fi
-rm -f "$RDIR/ipsr"
-(cd $RDIR
-make > /dev/null
-)
+# ispr is built now the first time split_recover is executed
 $RDIR/split_recover $HOMEDIR $input_recover_file $output_dir || . $RDIR/wait_for_enterkey
 
 NEWNAME=$(echo "$NEWIMG" | sed -r 's/Speedport_//' | sed -r 's/-r-/-/' | sed -r 's/_OEM-/-/' | sed -r 's/M-/-/' | sed -r 's/-sp2fr-/-/' | sed -r 's/_W...V_/_/' | sed -r 's/_Fritz_Box//' | sed -r 's/_DECT//' | sed -r 's/-0_/_/'| sed -r 's/.image//' | sed -r 's/fw_//' | sed -r 's/C_//' | cut -c-70 | sed -r "s/-$//" )-recover.exe
