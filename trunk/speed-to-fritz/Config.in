@@ -400,7 +400,7 @@ config SET_SP2FR_REVISION
 config  EXPORT_SP2FR_REVISION
 	depends on SET_SP2FR_REVISION
 	        string "--> Set revision number "
-	            default "1290" # dont edit this line is changed via ./start.sh - numner "1234" may differ
+	            default "1301" # dont edit this line is changed via ./start.sh - numner "1234" may differ
 	        help
 	            This is the revision number used with speed-to-fritz
 	            example 1265.
@@ -468,6 +468,25 @@ config EXPORT_RUNFREETZ
 		First speed-to-fritz is run to setup the model and do some preperation.
 		Then ./start-freetz.sh is executed, more info can be found in Ernest015
 		"Anleitung"
+config SET_FREETZ_REVISION
+	bool "Set a freetz revision in use with start-freetz.sh"
+	depends on EXPERT_MOD && EXPORT_RUNFREETZ
+	default n if ! ( TYPE_58  && TYPE_OR_7570_920 )
+	default y if   ( TYPE_58  && TYPE_OR_7570_920 )
+	help
+	    normaly this is not set, but in special cases new revisions of freetz
+	    can't be used in combination with the firmware one wants to use.
+	    So type in the revision number, this will be used with start-freetz.sh
+	    script only.
+ 	config  EXPORT_FREETZREVISION
+	    depends on SET_FREETZ_REVISION
+	    string "revision number"
+		    default "2636" if ! TYPE_OR_7570_920
+		    default "2600" if TYPE_OR_7570_920
+		    #2750 vor freetz 1.1
+	    help
+		This is the revision number used if freetz is started via
+		start-freetz.sh.
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config PUSHCONF
 	bool "Push firmware to box via FTP"
@@ -4588,30 +4607,6 @@ config EXPORT_ADD_PKG_DROPBEAR
 
 endmenu
 
-#comment "Options only in use with start-freetz.sh ---------------------------"
-
-config SET_FREETZ_REVISION
-	bool "Set a freetz revision in use with start-freetz.sh"
-	depends on EXPERT_MOD 
-	default n if ! ( TYPE_58  && TYPE_OR_7570_920 )
-	default y if   ( TYPE_58  && TYPE_OR_7570_920 )
-	help
-	    normaly this is not set, but in special cases new revisions of freetz
-	    can't be used in combination with the firmware one wants to use.
-	    So type in the revision number, this will be used with start-freetz.sh
-	    script only. 
-
- 	config  EXPORT_FREETZREVISION
-	    depends on SET_FREETZ_REVISION
-	    string "revision number"
-		    default "2636" if ! TYPE_OR_7570_920
-		    default "2600" if TYPE_OR_7570_920
-
-#2750 vor freetz 1.1
-
-	    help
-		This is the revision number used if freetz is started via
-		start-freetz.sh.
 #### <-- END ! ORI
 endif
 comment "--------------------------------------------------------------------"
