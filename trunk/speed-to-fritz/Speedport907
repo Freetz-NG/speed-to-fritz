@@ -130,6 +130,6 @@ $sh_DIR/add_multi_settings.sh
 [ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
 # can be on
 #$sh_DIR/remove_dect_menue.sh "${SRC}"
-fix 
+#fix
 $sh_DIR/patch_lua_dect.sh "${SRC}"
 echo "********************************************************************************"

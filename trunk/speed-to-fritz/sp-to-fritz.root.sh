@@ -1492,27 +1492,6 @@ fi
 	export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
 	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
 	;;
-*)
-	export SPMOD="$1"
-	export CLASS=""
-	export SPNUM="$1"
-	export PROD="$1" 
-	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
-#	FBMOD variable is read later from 2nd Firmware
-	[ "$FBMOD" == "" ] && export FBMOD="$1"
-	[ "$FBHWRevision" == "" ] && export FBHWRevision="139"
-	export HWID="139"
-	export HWRevision="${HWID}.1.0.6"
-	PROD2="${PROD:0:2}"
-	export kernel_size="16121856"
-	if [ "$PROD2" == "72" ]; then
-	    # 72XX firmwares needs differnet tool
-	    export MKSQUASHFS_TOOL="mksquashfs3-lzma"
-	    export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
-	    export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
-	    export kernel_size="16121856"
-	fi
-	;;
 	
 "5to7")
 	export CLASS=""
@@ -1562,11 +1541,11 @@ fi
 	#has S0 NT
 	export CONFIG_IsdnNT="0"
 	export CONFIG_IsdnTE="1"
-	export CONFIG_USB="n"
-	export CONFIG_Usb="0"
-	export CONFIG_UsbHost="0"
-	export CONFIG_UsbStorage="0"
-	export CONFIG_UsbPrint="0"
+	export CONFIG_USB="y"
+	export CONFIG_Usb="1"
+	export CONFIG_UsbHost="1"
+	export CONFIG_UsbStorage="1"
+	export CONFIG_UsbPrint="1"
 
 	if [ "$ATA_ONLY" = "y" ]; then
 	  export CONFIG_ATA="n"  
@@ -1580,6 +1559,27 @@ fi
 	kernel_start="0x90010000"
 	urlader_start="0x90000000"
 	urlader_size="65536"
+	;;
+*)
+	export SPMOD="$1"
+	export CLASS=""
+	export SPNUM="$1"
+	export PROD="$1" 
+	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
+#	FBMOD variable is read later from 2nd Firmware
+	[ "$FBMOD" == "" ] && export FBMOD="$1"
+	[ "$FBHWRevision" == "" ] && export FBHWRevision="139"
+	export HWID="139"
+	export HWRevision="${HWID}.1.0.6"
+	PROD2="${PROD:0:2}"
+	export kernel_size="16121856"
+	if [ "$PROD2" == "72" ]; then
+	    # 72XX firmwares needs differnet tool
+	    export MKSQUASHFS_TOOL="mksquashfs3-lzma"
+	    export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
+	    export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
+	    export kernel_size="16121856"
+	fi
 	;;
 esac
 if [ "${ENFORCE_HWREVISION}" == "y" ]; then
