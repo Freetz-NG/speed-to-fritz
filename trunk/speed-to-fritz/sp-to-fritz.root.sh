@@ -1514,6 +1514,73 @@ fi
 	fi
 	;;
 	
+"5to7")
+	export CLASS=""
+	export SPNUM="7150"
+	export PROD="7150"
+	export SPMOD="7150"
+	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
+#	FBMOD variable is read later from 2nd Firmware
+	[ "$FBMOD" == "" ] && export FBMOD="7170"
+	[ "$FBHWRevision" == "" ] && export FBHWRevision="94"
+	export HWID="106" #128 Annex A
+	export HWRevision="${HWID}.1.1.0"
+	export CONFIG_INSTALL_TYPE="ar7_8MB_xilinx_1eth_0ab_pots_isdn_te_usb_host_wlan_dect_57042"
+	export CONFIG_XILINX="y"
+	export CONFIG_BOX_FEEDBACK="n"
+	export CONFIG_LED_NO_DSL_LED="n"
+
+	export CONFIG_DECT_ONOFF="y"
+	export CONFIG_DECT="y"
+	export CONFIG_DECT_NO_EMISSION="n"
+	export CONFIG_DECT_MONI_EX="n"
+	export CONFIG_DECT2="y" # Eintrag unter Anschlsse verschwindet
+	export CONFIG_DECT_14488="n"
+
+	export CONFIG_GDB="n"
+	export CONFIG_GDB_FULL="n"
+	export CONFIG_GDB_SERVER="n"
+	export CONFIG_PLUGIN="n"
+	
+	export CONFIG_VOL_COUNTER="y"
+# is set via menu
+#	export CONFIG_TR064=""
+#	export CONFIG_TR069=""
+	export CONFIG_UsbWlan="0"
+	export CONFIG_Debug="0"
+	export CONFIG_jffs2_size="32"
+	export CONFIG_RAMSIZE="32"
+	export CONFIG_ROMSIZE="8"
+	export CONFIG_AB_COUNT="0"
+	export CONFIG_ETH_COUNT="1"
+	export CONFIG_MAILER="y"
+	export CONFIG_UPNP="y"
+	export CONFIG_TAM="y"
+	export CONFIG_TAM_MODE="1"
+	export CONFIG_MAILER2="y"
+	export CONFIG_Pots="1"
+	#has S0 NT
+	export CONFIG_IsdnNT="0"
+	export CONFIG_IsdnTE="1"
+	export CONFIG_USB="n"
+	export CONFIG_Usb="0"
+	export CONFIG_UsbHost="0"
+	export CONFIG_UsbStorage="0"
+	export CONFIG_UsbPrint="0"
+
+	if [ "$ATA_ONLY" = "y" ]; then
+	  export CONFIG_ATA="n"  
+	  export CONFIG_ATA_FULL="y"
+#	  export CONFIG_DSL="n"
+	  export CONFIG_DSL_MULTI_ANNEX="n"
+	  export CONFIG_VDSL="n"
+	  export CONFIG_LABOR_DSL="n"
+	fi 
+	export kernel_size="7798784"
+	kernel_start="0x90010000"
+	urlader_start="0x90000000"
+	urlader_size="65536"
+	;;
 esac
 if [ "${ENFORCE_HWREVISION}" == "y" ]; then
  middle_newHWver=${HWRevision%.*}; middle_newHWver=${middle_newHWver#*.} # dazwischen
@@ -1640,6 +1707,8 @@ if [ "$ORI" != "y" ]; then
  . SxAVMx7390;;
  "5to2")
  . 7570to7270;;
+ "5to7")
+ . 7150to7170;;
  *)
  . SxxxAVM;;
  esac

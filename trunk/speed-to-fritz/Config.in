@@ -97,10 +97,6 @@ config TCOM_W920_13048
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM 7113 Firmware
 
-config AVM_7113_60_04_58
-    string
-    default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7113/Archiv/fritz.box.fon.wlan.7113_60.04.58.image"
-
 config AVM_7113_60_04_68
     string
     default "@AVM/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch/FRITZ.Box_Fon_WLAN_7113.60.04.68.image"
@@ -148,10 +144,6 @@ config AVM_7150_38_04_71
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM 7170 Firmware
-
-config AVM_7150_29_04_59
-    string
-    default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.box.fon.wlan.7170/FRITZ.Box_Fon_WLAN_7170.29.04.59.image"
 
 config AVM_7170_29_04_80
   string
@@ -613,6 +605,9 @@ choice
 	config TYPE_7570_to_7270
 		bool "use 7570 on 7270"
 
+	config TYPE_7150_to_7170
+		bool "use 7170 on 7150"
+
 	config LOCAL_X_MODEL
 		bool "Any AVM custom model"
 
@@ -687,6 +682,7 @@ if ! LOCAL_X_MODEL
 	default "FBFW"		if TYPE_FBFW
 	default "FBFO"		if TYPE_FBFO
 	default "5to2"		if TYPE_7570_to_7270
+	default "5to7"		if TYPE_7150_to_7170
 endif
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # shortcuts for Modell OR conditions
@@ -826,7 +822,7 @@ if TYPE_OR_7240_7270 || TYPE_OR_7570_920
     bool
     default y
 endif
-if TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V
+if TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V || TYPE_7150_to_7170
     config TYPE_OR_701_900
     bool
     default y
@@ -836,7 +832,7 @@ if TYPE_OR_701_900 || TYPE_OR_AVMX_LOCALTCOM
     bool
     default y
 endif
-if TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V
+if TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W721V || TYPE_SPEEDPORT_W900V || TYPE_7150_to_7170
     config TYPE_OR_701_721_900
     bool
     default y
@@ -1053,7 +1049,7 @@ endchoice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config EXPORT_FORCE_DSL_MULTI_ANNEX 
 	bool "Force Multi annex (optional)"
-	depends on ( ! TYPE_7271_TYPE && ! ORI && ! TYPE_SPEEDPORT_W900V && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W701V && ! TYPE_SPEEDPORT_W503V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
+	depends on ( ! TYPE_7271_TYPE && ! ORI && ! TYPE_SPEEDPORT_W900V && ! TYPE_7150_to_7170 && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W701V && ! TYPE_SPEEDPORT_W503V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
 	default n
 #	default n if ORI_FIRMWARE_IS_MULI || TYPE_7140 || TYPE_7141
 #	default y if ! ORI_FIRMWARE_IS_MULI && ! TYPE_7140 && ! TYPE_7141
@@ -1535,9 +1531,6 @@ choice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 ### 7113 Firmware
 
-	config TYPE_SRC3_AVM_7113_60_04_58
-		bool "AVM 7113 60.04.58"
-
 	config TYPE_SRC3_AVM_7113_60_04_68
 		bool "AVM 7113 60.04.68"
 
@@ -1571,9 +1564,6 @@ choice
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7170 Firmware
-
-	config TYPE_SRC3_AVM_7150_29_04_59
-		bool "AVM 7150 38.04.59"
 
 	config TYPE_SRC3_AVM_7170_29_04_80
 		bool "AVM 7170 29.04.80"
@@ -1797,6 +1787,7 @@ config TCOM_IMG
 	string
 	default "$TCOM_LOCAL"	 		if TYPE_7570_to_7270
 #	default "$AVM_7272_54_04_88"	        if TYPE_7570_to_7270
+	default "$AVM_7150_38_04_71"	        if TYPE_7150_to_7170
 	default "$TCOM_SINUS_27_04_27" 		if TYPE_SINUS_W500V
 	default "$TCOM_W501_28_04_38" 		if TYPE_SPEEDPORT_W501V
 	default "$TCOM_W701_33_04_57" 		if ( ! TYPE_SPECIALCONGSTAR ) && ( TYPE_SPEEDPORT_W701V )
@@ -1853,7 +1844,6 @@ config AVM_IMG
 
 	default "$AVM_7170_29_04_80"				if TYPE_7140 && TYPE_LANG_DE
 
-	default "$AVM_7113_60_04_58"				if ( TYPE_7113_60_04_58 ) && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7113_60_04_68"				if ( TYPE_7113_60_04_68 ) && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7113_90_04_82"				if ( TYPE_7113_90_04_82 ) && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_GAMING_7170_11435"			if TYPE_7170_GAMING_11435 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
@@ -1926,8 +1916,6 @@ config SRC2_IMG
 	default "$AVM_7170_en_58_04_82" 		if TYPE_SRC3_AVM_7170_en_58_04_82
 	default "$AVM_7170_en_29_04_82" 		if TYPE_SRC3_AVM_7170_en_29_04_82
 	default "$AVM_7170_58_04_58" 			if TYPE_SRC3_AVM_7170_58
-	default "$AVM_7150_29_04_59" 			if TYPE_SRC3_AVM_7150_29_04_59
-	default "$AVM_7113_60_04_58" 			if TYPE_SRC3_AVM_7113_60_04_58
 	default "$AVM_7113_60_04_68" 			if TYPE_SRC3_AVM_7113_60_04_68
 	default "$AVM_7113_90_04_82" 			if TYPE_SRC3_AVM_7113_90_04_82
 	default "$AVM_7141_40_04_76" 			if TYPE_SRC3_AVM_7141_40_04_76
@@ -2031,8 +2019,8 @@ config TYPE_V3_OR_7240
 
 config TYPE_LABOR_TYPE
 	string
-	default "58" 		if TYPE_7113_60_04_58 || TYPE_7272_54_04_58
-	default "59" 		if TYPE_7150_29_04_59 || TYPE_7272_54_04_59
+	default "58" 		if TYPE_7272_54_04_58
+	default "59" 		if TYPE_7272_54_04_59
 	default "68" 		if TYPE_7113_60_04_68
 	default "76" 		if TYPE_7170_54_04_76 || TYPE_7113_76
 	default "70" 		if TYPE_7170_70
@@ -2742,19 +2730,19 @@ comment "--------------- Optional settings for Speed-to-fritz ---------------"
 if ! ORI && ! TYPE_SPEEDPORT_W722V
 config EXPORT_ADD_OLD_DECTMENU
 	bool "DECT menu (add)"
-	depends on ! EXPORT_TYPE_LOCAL_MODEL && ( TYPE_SPEEDPORT_W900V || TYPE_SINUS_W500V  || TYPE_LOCAL_TCOM )
+	depends on ! EXPORT_TYPE_LOCAL_MODEL && ( TYPE_7150_to_7170 || TYPE_SPEEDPORT_W900V || TYPE_SINUS_W500V  || TYPE_LOCAL_TCOM )
 	default y
 	help
 		Traditional DECT menu gives maximum functionality, both menu's can be used at the same time.
 config EXPORT_ADD_7150_DECTMNUE
 	bool "DECT 7150 menu (add)"
-	depends on ! EXPORT_TYPE_LOCAL_MODEL && ( TYPE_SPEEDPORT_W900V  || TYPE_LOCAL_TCOM )
+	depends on ! EXPORT_TYPE_LOCAL_MODEL && ( TYPE_7150_to_7170 || TYPE_SPEEDPORT_W900V  || TYPE_LOCAL_TCOM )
 	default y
 	help
 		Add some parts of DECT menu pages originating from 7150 .56, this patch is usable with .57 AVM version or similar versions.
 config RUN_PATCH_DECT
 	bool "Execute patch for DECT pseudoupdate"
-	depends on TYPE_SPEEDPORT_W900V
+	depends on TYPE_SPEEDPORT_W900V || TYPE_7150_to_7170
 	depends on EXPERT_MOD
 	default n
 	help
@@ -2843,7 +2831,8 @@ config EXPORT_FREETZ_HAS_DECT
 		TYPE_7390 || \
 		TYPE_OR_7570_920 || \
 		TYPE_SPEEDPORT_W503V || \
-		TYPE_SPEEDPORT_W900V
+		TYPE_SPEEDPORT_W900V || \
+		TYPE_7150_to_7170
 	default n
 	help
 		Select this if you have a box with DECT.
@@ -3042,7 +3031,7 @@ config EXPORT_FREETZ_PATCH_ALARMCLOCK
 		TYPE_OR_701_900 || \
 		TYPE_OR_7570_920 \
 		) \
-		&& ! ((TYPE_SPEEDPORT_W701V || TYPE_SPEEDPORT_W900V) && TYPE_FREETZ_LABOR_DSL)
+		&& ! ((TYPE_SPEEDPORT_W701V || TYPE_7150_to_7170 || TYPE_SPEEDPORT_W900V) && TYPE_FREETZ_LABOR_DSL)
 	default n
 	help
 		Adds a third alarm-clock to AVM-Webinterface
@@ -3065,7 +3054,7 @@ config EXPORT_FREETZ_PATCH_MULTIPLE_PRINTERS
 		TYPE_OR_701_900 || \
 		TYPE_7170 \
 		) \
-		&& ! (TYPE_SPEEDPORT_W701V || (TYPE_SPEEDPORT_W900V && TYPE_LABOR_FREETZ_DSL))
+		&& ! (TYPE_SPEEDPORT_W701V || ((TYPE_7150_to_7170 || TYPE_SPEEDPORT_W900V) && TYPE_LABOR_FREETZ_DSL))
 	default n
 	help
 		Use this patch if you want to use more than one printer.
@@ -4560,7 +4549,7 @@ config EXPORT_ADD_NTFS
 	bool "Add NTFS"
 	select EXPORT_ENABLE_EXT2
 	depends on EXPERT_MOD 
-	depends on TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM
+	depends on TYPE_7150_to_7170|| TYPE_SPEEDPORT_W900V || TYPE_LOCAL_TCOM
 	default n
 	help
 		With new AVM Versions in most cases NTFS is part of the firmware.
@@ -4570,7 +4559,7 @@ config EXPORT_ADD_USBROOT
 	bool "Add USBROOT"
 	select EXPORT_ENABLE_EXT2
 	depends on EXPERT_MOD 
-	depends on TYPE_SPEEDPORT_W900V || TYPE_OR_7570_920 || TYPE_LOCAL_TCOM
+	depends on TYPE_7150_to_7170 || TYPE_SPEEDPORT_W900V || TYPE_OR_7570_920 || TYPE_LOCAL_TCOM
 	default n
 	help
 		Generate a USB root file for use on a USB stick.
