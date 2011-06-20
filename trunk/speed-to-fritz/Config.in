@@ -1213,7 +1213,7 @@ choice
 			FRITZ! release: 82
 
 	config TYPE_PRE_7240_20025
-		bool "AVM 7240 73.05.01 19947 (PREVIEW)"
+		bool "AVM 7240 73.05.01 20025 (PREVIEW)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab (PREVIEW):
@@ -1274,7 +1274,7 @@ choice
 			FRITZ! release: 88
 
 	config TYPE_PRE_7272_20025
-		bool "AVM 7270v2 54.05.04 19947 (PREVIEW)"
+		bool "AVM 7270v2 54.05.04 20025 (PREVIEW)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab (PREVIEW): CeBIT-Labor
@@ -1288,7 +1288,7 @@ choice
 #			FRITZ! release: 76
 
 	config TYPE_PRE_7273_20025
-		bool "AVM 7270v3 74.05.04 19947 (PREVIEW)"
+		bool "AVM 7270v3 74.05.04 20025 (PREVIEW)"
 		depends on ( TYPE_OR_7240_7273_7390_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help 
 			FRITZ!Lab (PREVIEW): CeBIT-Labor
@@ -1584,7 +1584,7 @@ choice
 ### 7240 Firmware
 
 	config TYPE_SRC3_AVM_PRE_7240_20025
-		bool "AVM 7240 73.05.01 19947 (PREVIEW)"
+		bool "AVM 7240 73.05.01 20025 (PREVIEW)"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7270v2 Firmware
@@ -1648,10 +1648,10 @@ choice
 		bool "AVM 7270v2 17828 (old PREVIEW)"
 
 	config TYPE_SRC3_AVM_PRE_7272_20025
-		bool "AVM 7270v2 54.05.04 19947 (PREVIEW)"
+		bool "AVM 7270v2 54.05.04 20025 (PREVIEW)"
 
 	config TYPE_SRC3_AVM_PRE_7273_20025
-		bool "AVM 7270v3 74.05.04 19947 (PREVIEW)"
+		bool "AVM 7270v3 74.05.04 20025 (PREVIEW)"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7390 Firmware
