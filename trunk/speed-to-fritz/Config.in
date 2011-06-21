@@ -147,7 +147,10 @@ config AVM_7150_38_04_71
 
 config AVM_7170_29_04_80
   string
-    default "@AVM/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.80.image"
+    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.29.04.80.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373137302e32392e30342e38302e7a6970.zip"
+config AVM_7170_29_04_87
+  string    
+    default "@AVM/fritz.box/fritzbox.fon_wlan_7170/firmware/deutsch/FRITZ.Box_Fon_WLAN_7170.29.04.87.image"
 
 config AVM_7170_en_58_04_82
     string
@@ -163,7 +166,7 @@ config AVM_7170_en_29_04_82
 
 config AVM_BETA_7170_19957
   string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7170_vorschau_release_candidate/fritz_box-labor-19957.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.86-19957.image"
+    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7170.Labor.29.04.86-19957.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373137302e4c61626f722e32392e30342e38362d31393935372e7a6970.zip"
 ###------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM 72XX Firmware
 ### AVM 72XX Firmware
@@ -1120,8 +1123,8 @@ choice
 	prompt "Select Labor or any other non default firmware."
 		depends on TYPE_LABOR
 		default TYPE_7272_54_04_86 if EXPORT_TYPE_LOCAL_MODEL && ! TYPE_7141 && ! TYPE_7240
-		default TYPE_7170_29_04_80 if ( EXPORT_TYPE_LOCAL_MODEL && TYPE_7141 ) || ( ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V )
-		default TYPE_7170_29_04_80 if TYPE_7140
+		default TYPE_7170_29_04_87 if ( EXPORT_TYPE_LOCAL_MODEL && TYPE_7141 ) || ( ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V )
+		default TYPE_7170_29_04_87 if TYPE_7140
 		default TYPE_7271_54_04_88 if TYPE_SPEEDPORT_W503V
 		default TYPE_7170_58_04_80 if ( ! TYPE_SPECIALW721_TCOM && TYPE_SPEEDPORT_W721V )
 		default TYPE_7272_m54_04_90 if TYPE_OR_7570_920
@@ -1199,6 +1202,12 @@ choice
 		depends on ( TYPE_OR_7140_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_OR_701_721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ! release: 80
+			
+	config TYPE_7170_29_04_87
+		bool "AVM 7170 29.04.87"
+		depends on ( TYPE_OR_7140_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_OR_701_721_900_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
+		help
+			FRITZ! release: 87
 			
 	config TYPE_7113_60_04_68
 		bool "AVM 7113 60.04.68"
@@ -1568,6 +1577,9 @@ choice
 	config TYPE_SRC3_AVM_7170_29_04_80
 		bool "AVM 7170 29.04.80"
 
+	config TYPE_SRC3_AVM_7170_29_04_87
+		bool "AVM 7170 29.04.87"
+
 	config TYPE_SRC3_AVM_7170_en_58_04_82
 		bool "AVM 7170 58.04.82 en (english, Annex A)"
 
@@ -1837,12 +1849,13 @@ config AVM_IMG
 	default "$AVM_7150_38_04_71" 				if TYPE_7150_38_04_71 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL ) || ( TYPE_SINUS_W500V && ! TYPE_LABOR ) 
 	default "$AVM_7170_en_58_04_82" 			if ! TYPE_LANG_DE && TYPE_ANNEX_A && (TYPE_OR_701_721_900 )
 	default "$AVM_7170_en_29_04_82" 			if ! TYPE_LANG_DE && ! TYPE_ANNEX_A && (TYPE_OR_701_721_900 )
-	default "$AVM_7170_29_04_80" 				if TYPE_LANG_DE && (TYPE_OR_701_721_900 )  && ! TYPE_LABOR && TYPE_LANG_DE
+	default "$AVM_7170_29_04_87" 				if TYPE_LANG_DE && (TYPE_OR_701_721_900 )  && ! TYPE_LABOR && TYPE_LANG_DE
 	default "$AVM_7170_en_58_04_82" 			if TYPE_7170_en_58_04_82 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_en_29_04_82" 			if TYPE_7170_en_29_04_82 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7170_29_04_80" 				if TYPE_7170_29_04_80 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7170_29_04_87" 				if TYPE_7170_29_04_87 && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 
-	default "$AVM_7170_29_04_80"				if TYPE_7140 && TYPE_LANG_DE
+	default "$AVM_7170_29_04_87"				if TYPE_7140 && TYPE_LANG_DE
 
 	default "$AVM_7113_60_04_68"				if ( TYPE_7113_60_04_68 ) && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7113_90_04_82"				if ( TYPE_7113_90_04_82 ) && (TYPE_OR_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
@@ -1920,6 +1933,7 @@ config SRC2_IMG
 	default "$AVM_7113_90_04_82" 			if TYPE_SRC3_AVM_7113_90_04_82
 	default "$AVM_7141_40_04_76" 			if TYPE_SRC3_AVM_7141_40_04_76
 	default "$AVM_7170_29_04_80" 			if TYPE_SRC3_AVM_7170_29_04_80
+	default "$AVM_7170_29_04_87" 			if TYPE_SRC3_AVM_7170_29_04_87
 	default "$AVM_GAMING_7170_11435"		if TYPE_SRC3_AVM_GAMING_7170_11435
 #	default "$AVM_BETA_7170_19817"			if TYPE_SRC3_AVM_PRE_7170_19817
 	default "$AVM_BETA_7170_19957"			if TYPE_SRC3_AVM_PRE_7170_19957
