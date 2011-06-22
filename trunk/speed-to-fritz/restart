@@ -1,2 +1,3 @@
 #!/bin/bash
+./add_ll.sh
 ./sp-to-fritz.sh -z -c Firmware.conf

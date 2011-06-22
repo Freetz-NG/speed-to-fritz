@@ -62,7 +62,9 @@ if ! `cat "./Firmware.conf" | grep -q 'SAVED_CONF=y'`; then
     exit 0
 fi
 grep -q 'SEL_FIRMWARE_CONF_TO_USE=y' "./Firmware.conf" && eval `grep 'FIRMWARE_CONF_PATH_TO_USE' "./Firmware.conf"` && \
-[ -f "./conf/$FIRMWARE_CONF_PATH_TO_USE/Firmware.conf" ] && cp -fv ./conf/$FIRMWARE_CONF_PATH_TO_USE/Firmware.conf ./Firmware.conf
+if [ -f "./conf/$FIRMWARE_CONF_PATH_TO_USE/Firmware.conf" ]; then
+    cp -fv ./conf/$FIRMWARE_CONF_PATH_TO_USE/Firmware.conf ./Firmware.conf && ./add_ll.sh
+fi
 ./sp-to-fritz.sh -z
 # run Freetz if it was selected in speed-to-fritz menue.
 . ./incl_var
