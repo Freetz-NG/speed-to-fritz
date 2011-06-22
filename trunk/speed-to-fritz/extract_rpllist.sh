@@ -31,20 +31,5 @@ rm -f $HOMEDIR/rpllist.1
 rm -f $HOMEDIR/rpllist.2
 #echo "----------------------------------------------------------------------------------------------"
 #echo "done"
-sleep 2
+#sleep 2
 exit 0
-#examples
-var="a,b,c" ; for v in ${var//,/;}; do echo $v; done
-#--
-find -type d > dirlist.lst
-while
-read line; do
-cd "$line"
-touch index.html
-cd /zurueck/zum/script/
-done < dirlist.lst
-
-#--
-ls -d1 * > DIRLIST 
-#--
-man bash 2>/dev/null | less -p '\$\(< file\)'

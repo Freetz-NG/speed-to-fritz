@@ -8,7 +8,7 @@ find ./conf -type d -name .svn | xargs rm -rf
  . FirmwareConfStrip
  let act_firmwareconf_size="$(wc -c < "$firmwareconf_file_name")"
  [ "$ORI" != "y" ] &&  cp $firmwareconf_file_name "${SRC}"/etc/Firmware.conf
- [ -f $firmwareconf_file_name ] && tar --owner=0 --group=0 --mode=0755 -cf "Firmware_conf.tar" "$firmwareconf_file_name"
+ [ -f $firmwareconf_file_name ] && tar --owner=0 --group=0 --mode=0755 -cf "Firmware.conf.tar" "$firmwareconf_file_name"
  [ "$ATA_ONLY" = "y" ] && X1="ATA-ONLY"
  [ "$ATA_ONLY" != "y" ] && X1="${ANNEX}"
  [ "$ORI" != "y" ] && FWCT="${CLEAR}_${CLASS}_${SPNUM}_${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_\
@@ -26,6 +26,6 @@ find ./conf -type d -name .svn | xargs rm -rf
  mkdir -p "${CONFDIR}"
  cp -f "$firmwareconf_file_name" --target-directory="${CONFDIR}"
  [ -d "$NEWDIR"/conf ] || mkdir -p "$NEWDIR"/conf
- cp -f "Firmware_conf.tar" "$NEWDIR/conf/$FWCT"
+ cp -f "Firmware.conf.tar" "$NEWDIR/conf/$FWCT"
  [ -f "${CONFDIR}/$firmwareconf_file_name" ] && echo "-- copyed $firmwareconf_file_name to $CONFDIR"
  mv -f .unstripped $firmwareconf_file_name
