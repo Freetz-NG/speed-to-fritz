@@ -46,8 +46,13 @@ else
  [ ${FORCE_TCOM_FON} = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz/* --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/isdn_fon4/zzz
 fi
 ##7150
-[ -e "${DST}"/lib/modules/microvoip_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_top.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit
-sed -i -e 's|microvoip_isdn_top.bit${HWRevision_BitFileCount}|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S"
+rm "${SRC}"/lib/modules/microvoip_isdn_top.bit*
+[ -e "${DST}"/lib/modules/microvoip_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_top.bit --target-directory="${SRC}"/lib/modules &&\
+echo "-- microvoip_top.bit xilinx driver was taken from 7150 firmware"
+
+sed -i -e 's|microvoip_isdn_top.bit..HWRevision_BitFileCount.|microvoip_top.bit |' "${SRC}/etc/init.d/rc.S"
+grep -q 'microvoip_top.bit' "${SRC}/etc/init.d/rc.S" && echo "-- microvoip_top.bit xilinx driver set in rc.C"
+piglet_bitfile=/lib/modules/microvoip_isdn_top.bit${HWRevision_BitFileCount}
 ##
 echo2 "New WEB GUI will be modified"
 #use scond source web GUI

@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $AVM_2_VERSION-$AVM_2_SUBVERSION"
-echo "Replacing hardware related files of AVM firmware images ..."
+echo "-- Replacing hardware related files of AVM firmware images ..."
 #echo2 "-- Copy original AVM module:"
 #echo2 "      /lib/modules"
 if [ ${ATA_ONLY} = "n" ]; then

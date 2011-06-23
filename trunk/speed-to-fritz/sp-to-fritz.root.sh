@@ -428,7 +428,6 @@ fi
 	  export CONFIG_VDSL="n"
 	  export CONFIG_LABOR_DSL="n"
 	fi 
-
     ;;
 "721")
 	export SPMOD="721"
@@ -509,7 +508,6 @@ fi
 	  export CONFIG_LABOR_DSL="n"
 	fi 
     ;;
-    
 "722")
 	export SPMOD="722"
 	export CLASS="Speedport"
@@ -850,12 +848,6 @@ export CONFIG_ETH_COUNT="4"
 	export urlader_size="131072"
 	export flash_start="520093696"
     ;;
-#mtd0	0x9F000000,0x9F000000
-#mtd1	0x9F020000,0x9FF00000
-#mtd2	0x9F000000,0x9F020000
-#mtd3	0x9FF00000,0x9FF80000
-#mtd4	0x9FF80000,0xA0000000
-
 "503")
 	export SPMOD="503"
 	export CLASS="Speedport"
@@ -988,7 +980,6 @@ export CONFIG_ETH_COUNT="4"
 #	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
 #	export MKSQUASHFS_OPTIONS="-noappend -all-root -info -no-progress -no-exports -no-sparse"
     ;;
-
 "900"|"907") 
 	export SPMOD="907"
 	export CLASS="Speedport"
@@ -1167,7 +1158,6 @@ if [ "$1" == "757H" ]; then
 	export kernel_size="15990784" #0xF40000
 fi
 #7570
-	;;
 #HN env.          size 
 #    mtd0:         0000          0x90000000,0x90000000 # "rootfs"
 #    mtd2:      0x40000          0x90000000,0x90040000 # "urlader"
@@ -1183,6 +1173,7 @@ fi
 #mtd5: 01000000 00020000 "reserved" # size dez: 16777216
 #mtd3: 00040000 00020000 "tffs (1)"
 #mtd4: 00040000 00020000 "tffs (2)"
+    ;;
 "7271")
 	export CLASS=""
 	export SPNUM="7270"
@@ -1456,6 +1447,7 @@ fi
 	export kernel_size="7798784"
 	;;
 "5to2")
+	export SPMOD="$1"
 	export CLASS=""
 	export SPNUM="7270"
 	export PROD="7570_HN"
@@ -1492,12 +1484,11 @@ fi
 	export MKSQUASHFS_OPTIONS+=" -no-progress -no-exports -no-sparse"
 	export MKSQUASHFS="${TOOLS_DIR}/${MKSQUASHFS_TOOL}"
 	;;
-	
 "5to7")
+	export SPMOD="$1"
 	export CLASS=""
 	export SPNUM="7150"
 	export PROD="7150"
-	export SPMOD="7150"
 	export CONFIG_PRODUKT="Fritz_Box_${PROD}"
 #	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7170"
