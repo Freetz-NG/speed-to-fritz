@@ -60,6 +60,7 @@ jslSetValue("uiPostHandsets", bits);/' "$SR1"/${USRWWW}/fon/fon1dect.js
    #add dect menue entrys for old menutype
      DIRI="$SR1"/${USRWWW}/menus
     if ! `cat ${DIRI}/menu2_fon.html | grep -q "('fon','dect0')"` ; then
+    grep -q 'LMenuPfeil' "${DIRI}"/menu2_fon.html && LMenuPfeil_part='<img class=\"LMenuPfeil\" src=\"<? echo \$var:subpfeil ?>\">'
     sed -i -e "/^.*'fondevices'.*$/a \
 <? setvariable var:classname 'LSubitem' ?>\n\
 <? if eq \$var:pagename dect0 \`<? setvariable var:classname 'LSubitemaktiv' ?>\` ?>\n\
@@ -67,10 +68,9 @@ jslSetValue("uiPostHandsets", bits);/' "$SR1"/${USRWWW}/fon/fon1dect.js
 <? if eq \$var:pagename fonsetupdect \`<? setvariable var:classname 'LSubitemaktiv' ?>\` ?>\n\
 <? if eq \$var:pagename fonlistdect \`<? setvariable var:classname 'LSubitemaktiv' ?>\` ?>\n\
 <? if eq \$var:pagename fon1isdn \`<? setvariable var:classname 'LSubitemaktiv' ?>\` ?>\n\
-<li class=\"<? echo \$var:classname ?>\"><img class=\"LMenuPfeil\" src=\"<? echo \$var:subpfeil ?>\"><a href=\"javascript:jslGoTo('fon','dect0')\">${TextHandteile}<\/a><span class=\"PTextOnly\">${TextHandteile}<\/span><\/li>" "${DIRI}"/menu2_fon.html
+<li class=\"<? echo \$var:classname ?>\">${LMenuPfeil_part}<a href=\"javascript:jslGoTo('fon','dect0')\">${TextHandteile}<\/a><span class=\"PTextOnly\">${TextHandteile}<\/span><\/li>" "${DIRI}"/menu2_fon.html
    fi
   fi
-
 # 7170 mod dect is missing
 #  if [ "$FBMOD" = "7170" ] ; then
 # echo "-- FBBOX mode: 7170"
