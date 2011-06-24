@@ -12,3 +12,11 @@ if ! grep -q  '@AVM' ./Firmware.conf && ! grep -q  -e 'http://'  ./Firmware.conf
 	cat ./Firmware.conf.1 >> ./Firmware.conf
 	rm ./Firmware.conf.1
 fi
+[ -f "./conf.not" ] && rm ./conf.not
+grep  'config [A-Z]' "./Config.in" |  sed -e 's/^ *//' -e 's/#.*//' -e 's/ //' -e '/\t.*/d' -e 's/config/# /' -e '/^$/d' -e 's/ $//' -e 's/\(.*\)/\1 is not set/'  >> ./conf.not
+list=$(grep  'config [A-Z]' "./Config.in" |  sed -e 's/^ *//' -e 's/#.*//' -e 's/ //' -e '/\t.*/d' -e 's/config//' -e '/^$/d' -e 's/ $//' )
+for i in $list; do
+    grep -q "$i" "./Firmware.conf" && sed -i -e "/$i/d"  ./conf.not
+done
+cat ./conf.not >> ./Firmware.conf
+[ -f "./conf.not" ] && rm ./conf.not
