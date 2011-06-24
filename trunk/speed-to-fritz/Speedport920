@@ -40,15 +40,6 @@ else
  rm -fdr "${SRC}"/lib/modules/dsp_ur8
  rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsl
  # "vinax_driver"
- [ -d "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax ] || mkdir "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
- cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
- cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory="${SRC}"/lib/modules/$KernelVersion
- cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.alias --target-directory="${SRC}"/lib/modules/$KernelVersion
- cp -u "${DST}"/usr/sbin/* --target-directory="${SRC}"/usr/sbin 2> /dev/null
- cp -fdrp "${DST}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
- echo "-- DSL driver was taken from the original base firmware"
- [ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
- [ -f "${SRC}"/usr/share/ctlmgr/libtr064.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libtr064.so --target-directory=${SRC}/usr/share/ctlmgr
 
  if [ "${SAVE_TCOM_DSL}" = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/vinax* --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
@@ -229,6 +220,15 @@ if [ -f "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] 
     cp -fdrp "${DST}"/bin/led* --target-directory="${SRC}"/bin
     cp -fr "${DST}"/bin/update_led_on ${SRC}/bin/update_led_on
     cp -fr "${DST}"/bin/update_led_off ${SRC}/bin/update_led_off
+ [ -d "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax ] || mkdir "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
+ cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
+ cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory="${SRC}"/lib/modules/$KernelVersion
+ cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.alias --target-directory="${SRC}"/lib/modules/$KernelVersion
+ cp -u "${DST}"/usr/sbin/* --target-directory="${SRC}"/usr/sbin 2> /dev/null
+ cp -fdrp "${DST}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
+ echo "-- DSL driver was taken from the original base firmware"
+ [ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
+ [ -f "${SRC}"/usr/share/ctlmgr/libtr064.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libtr064.so --target-directory=${SRC}/usr/share/ctlmgr
     echo "-- LED driver was taken from the original base firmware"
 fi
 if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko ] && [ "${FORCE_SRC2_LEDDRIVER}" = "y" ]; then
@@ -294,11 +294,28 @@ echo2 "-- New WEB GUI will be modified"
 #Add buchsend button to fon bookpage
 [ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
 ## skripts for startig ftp on USB
+if [ "$TYPE_HN_7570_8_16" != "y" ]; then
+    #remove more
+    ATA_ONLY="y"
+    [ -f "${SRC}/lib/modules/c55fw.hex" ] && rm -f "${SRC}"/lib/modules/c55fw.hex &&\
+    echo "-- c55fw.hex driver was removed"
+    [ -f "${SRC}/lib/modules/dectfw_firstlevel.hex" ] && rm -f "${SRC}"/lib/modules/dectfw_firstlevel.hex &&\
+    echo "-- dectfw_firstlevel.hex driver was removed"
+    [ -f "${SRC}/lib/modules/dectfw_secondlevel.hex" ] && rm -f "${SRC}"/lib/modules/dectfw_secondlevel.hex &&\
+    echo "-- dectfw_secondlevel.hex driver was removed"
+fi
 if [ ${ATA_ONLY} = "y" ]; then
-#remove ADSL
+#remove (V)ADSL
     sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
     sed -i -e 's|. /etc/init.d/rc.vdsl.sh||' "${SRC}/etc/init.d/rc.S" 
     rm -fdr "${SRC}"/lib/modules/dsp_ur8
+    [ -f "${SRC}/lib/modules/vinax_fw_vdsl.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_vdsl.bin &&\
+    echo "-- VDSL driver was removed"
+    [ -f "${SRC}/lib/modules/vinax_fw_adsl_B.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_adsl_B.bin &&\
+    echo "-- DSL Annex B driver was removed"
+    [ -f "${SRC}/lib/modules/vinax_fw_adsl_A.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_adsl_A.bin &&\
+    echo "-- DSL Annex A driver was removed"
+    rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
 fi
 #wrap dsld and ar7cfg.lib
 [ "${WRAP_DSLD}" = "y" ] && . $sh_DIR/wrap_dsld.sh

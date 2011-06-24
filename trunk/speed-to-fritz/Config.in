@@ -299,7 +299,7 @@ config AVM_7570_75_04_78
 
 config AVM_7570_75_04_82
     string
-    default "@AVM/fritz.box/fritzbox.fon_wlan_7570/firmware/english/FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.90.image"
+    default "./Firmware.orig//FRITZ.Box_Fon_WLAN_7570_vDSL.en-de-fr.75.04.82.zip  mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373537305f7644534c2e656e2d64652d66722e37352e30342e38322e7a6970.zip"
 
 config AVM_7570_75_04_90
     string
@@ -403,7 +403,7 @@ config SET_SP2FR_REVISION
 config  EXPORT_SP2FR_REVISION
 	depends on SET_SP2FR_REVISION
 	        string "--> Set revision number "
-	            default "1305" # dont edit this line is changed via ./start.sh - numner "1234" may differ
+	            default "7201" # dont edit this line is changed via ./start.sh - numner "1234" may differ
 	        help
 	            This is the revision number used with speed-to-fritz
 	            example 1265.
