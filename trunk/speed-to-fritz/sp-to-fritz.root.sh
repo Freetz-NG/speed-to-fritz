@@ -1155,7 +1155,6 @@ if [ "$1" == "757H" ]; then
 	export kernel_size="7995392" #0x7A0000 Original Eintrg bei alice
 	#angepasst braucht Freetz kernel
 	[ "$TYPE_HN_7570_8_16" == "y" ] && export kernel_size="15990784" #0xF40000
-	export kernel_size="15990784" #0xF40000
 fi
 #7570
 #HN env.          size 

@@ -323,6 +323,10 @@ config AVM_7570_16087
 config AVM_HN_7570_16971
    string
       default "./Firmware.orig/HN-81.04.86-16971.zip mirror http://upload.crunkbass.de/big62634f6b327650704477755a484e2d38312e30342e38362d31363937312e7a6970.zip"
+
+config AVM_HN_7570_19715
+   string
+      default "./Firmware.orig/HN-7570_19715.zip mirror http://upload.crunkbass.de/big373537305f484e5f31393731352e7a6970.zip"
 ### Not available only in use by AVM <--
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7390 AVM Firmware
@@ -941,7 +945,7 @@ choice
 	prompt "basis 7570 alternative firmware"
 	depends on TYPE_TCOM_7570_XX
 	default TYPE_TCOM_7570_75_04_91 if ! TYPE_HN_7570
-	default TYPE_TCOM_HN_7570_16971 if TYPE_HN_7570
+	default TYPE_TCOM_HN_7570_19715 if TYPE_HN_7570
 
 	config TYPE_TCOM_7570_15245
 		bool "AVM 7570 75.04.76 1und1 15245"
@@ -969,6 +973,9 @@ choice
 
 	config TYPE_TCOM_HN_7570_16971
 		bool "AVM 7570 81.04.86 (HN alice) 16971"
+
+	config TYPE_TCOM_HN_7570_19715
+		bool "AVM 7570 75.04.90 (freetz kernel) 19715"
 
 	config TYPE_LOCAL_TCOM_7570
 		bool "CUSTOM 7570 firmware"
@@ -1139,7 +1146,7 @@ choice
 		#->(only for testing)
 		default TYPE_7390_84_04_91 if TYPE_7390
 		default TYPE_W722_80_04_76 if TYPE_SPEEDPORT_W722V
-		default TYPE_AVM_HN_7570_16971 if TYPE_HN_7570
+		default TYPE_AVM_HN_7570_19715 if TYPE_HN_7570
 		#<--
 
 #	config TYPE_7170_PRE_19817
@@ -1489,6 +1496,11 @@ choice
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
+	config TYPE_AVM_HN_7570_19715
+		bool "AVM 7570 75.04.90 (freetz kernel) 19715"
+		help
+		FRITZ! : 7570 release multilingual, for used in combination with alice
+
 	config TYPE_AVM_7570_17599
 		bool "AVM 7570 17599.en-de-fr (IPv6) 17599"
 		help
@@ -1730,6 +1742,9 @@ choice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	config TYPE_SRC3_AVM_HN_7570_16971
 		bool "AVM 7570 81.04.86 (HN alice) 16971"
+		
+	config TYPE_SRC3_AVM_HN_7570_19715
+		bool "AVM 7570 75.04.90 (freetz kernel) 19715"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	config TYPE_SRC3_TCOM_W500_27
 		bool "TCOM Sinus W500V 27.04.27"
@@ -1844,6 +1859,7 @@ config TCOM_IMG
 	default "$AVM_7570_16068" 			if TYPE_TCOM_7570_16068 && ( TYPE_OR_7570_920 || ORI  )
 	default "$AVM_7570_16087" 			if TYPE_TCOM_7570_16087 && ( TYPE_OR_7570_920 || ORI  )
 	default "$AVM_HN_7570_16971" 			if TYPE_TCOM_HN_7570_16971
+	default "$AVM_HN_7570_19715" 			if TYPE_TCOM_HN_7570_19715
 	default "$AVM_7570_17599" 			if TYPE_TCOM_7570_17599 && ( TYPE_OR_7570_920 || ORI  )
 	default "$AVM_7141_40_04_76"		if TYPE_7141
 	default "$AVM_7390_84_04_91"		if TYPE_7390
@@ -1857,7 +1873,7 @@ config AVM_IMG
 	depends on ! ORI || XCHANGE_KERNEL
 	string
 	default "$AVM_LOCAL"	 				if TYPE_7570_to_7270
-#	default "$AVM_HN_7570_16971" 				if TYPE_7570_to_7270
+#	default "$AVM_HN_7570_19715" 				if TYPE_7570_to_7270
 	default "$AVM_7140_39_04_43"				if TYPE_SPEEDPORT_W501V && TYPE_LANG_DE
 	default "$AVM_7140_en_39_04_67"				if TYPE_SPEEDPORT_W501V && ! TYPE_LANG_DE
 	default "$AVM_7141_40_04_76" 				if TYPE_7141_40_04_76 && ( EXPORT_TYPE_LOCAL_MODEL )
@@ -1923,6 +1939,7 @@ config AVM_IMG
 	default "$AVM_7570_16068"					if ( TYPE_AVM_7570_16068 ) && ( TYPE_OR_7570_503_722_920 )
 	default "$AVM_7570_16087"					if ( TYPE_AVM_7570_16087 ) && ( TYPE_OR_7570_503_722_920 )
 	default "$AVM_HN_7570_16971"					if ( TYPE_AVM_HN_7570_16971 ) && ( TYPE_OR_7570_503_722_920 )
+	default "$AVM_HN_7570_19715"					if ( TYPE_AVM_HN_7570_19715 ) && ( TYPE_OR_7570_503_722_920 )
 	default "$AVM_7570_17599"					if ( TYPE_AVM_7570_17599 ) && ( TYPE_OR_7570_503_722_920 )
 	default "$AVM_LOCAL"						if TYPE_LOCAL_AVM && ( TYPE_OR_7570_503_722_701_721_900_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7570_LOCAL"					if TYPE_LOCAL_AVM_7570 && ( TYPE_OR_7570_503_722_701_721_900_920 || EXPORT_TYPE_LOCAL_MODEL )
@@ -2002,6 +2019,7 @@ config SRC2_IMG
 	default "$AVM_7570_16068" 				if TYPE_SRC3_AVM_7570_16068
 	default "$AVM_7570_16087" 				if TYPE_SRC3_AVM_7570_16087
 	default "$AVM_HN_7570_16971" 				if TYPE_SRC3_AVM_HN_7570_16971
+	default "$AVM_HN_7570_19715" 				if TYPE_SRC3_AVM_HN_7570_19715
 	default "$TCOM_SINUS_27_04_27" 			if TYPE_SRC3_TCOM_W500_27
 	default "$TCOM_W501_28_04_38" 			if TYPE_SRC3_TCOM_W501_28_04_38
 	default "$TCOM_W501_66_04_65" 			if TYPE_SRC3_TCOM_W501_66_04_65
