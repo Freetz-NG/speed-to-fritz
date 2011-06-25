@@ -35,7 +35,7 @@ chmod 755 "./incl_var"
 fi
 export HOMEDIR="`pwd`"
 # exract packed ./conf directory
-! [ -e "./conf/conf.in" ] && [ -e "./conf.tar" ] && tar xf ./conf.tar -C . ./conf && echo "-- ./conf.tar extracted"
+! [ -d "./conf" ] && [ -e "./conf.tar" ] && tar xf ./conf.tar -C . ./conf && echo "-- ./conf.tar extracted"
 #  add ready made configs to menu 
 ./conf/add_config.sh
 #set last used revision in Config.in
@@ -48,12 +48,12 @@ grep -q 'EXPORT_SP2FR_REVISION=' "./Firmware.conf" && eval `grep 'EXPORT_SP2FR_R
 #echo "EXPORT_SP2FR_REVISION: $EXPORT_SP2FR_REVISION"
 #echo "SET_SP2FR_REVISION: $SET_SP2FR_REVISION"
 [ "$EXPORT_SP2FR_REVISION" == "" ] && SET_SP2FR_REVISION="n"
-[ "$SET_SP2FR_REVISION" == "y" ] && echo "Checkout older revision $EXPORT_SP2FR_REVISION, be patient ..."  && rm Firmware.conf &&\
+[ "$SET_SP2FR_REVISION" == "y" ] && echo "Checkout older revision $EXPORT_SP2FR_REVISION, be patient ..."  && rm Firmware.conf && rm link.lst &&\
 cd .. && svn co -r $EXPORT_SP2FR_REVISION https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk/speed-to-fritz speed-to-fritz-$EXPORT_SP2FR_REVISION &&\
 (cd speed-to-fritz-$EXPORT_SP2FR_REVISION && ./start.sh) && exit 0
 
 [ "$UPDATE_SP2FR" == "y" ] && [ "$SET_SP2FR_REVISION" != "y" ] && rm Firmware.conf && echo "Looking for new version ..."  && svn up && make
-grep -q 'UPDATE_SP2FR=y' "./Firmware.conf" && eval `grep 'UPDATE_SP2FR' "./Firmware.conf"` && rm Firmware.conf && echo "Looking for new version ..."  && svn up && make
+grep -q 'UPDATE_SP2FR=y' "./Firmware.conf" && eval `grep 'UPDATE_SP2FR' "./Firmware.conf"` && rm Firmware.conf && rm link.lst && echo "Looking for new version ..."  && svn up && make
 
 if ! `cat "./Firmware.conf" | grep -q 'SAVED_CONF=y'`; then
     echo "You must save configuration to './Firmware.conf' when exiting the menu!"

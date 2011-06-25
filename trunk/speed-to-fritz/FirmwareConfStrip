@@ -8,20 +8,11 @@ sed -i -e '1,/--- General settings for Speed-to-fritz ---/ s/.*//' -e '/---     
 act_size=`ls -l ./link.lst1 | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 #echo act_size:$act_size
 [ "$act_size" != "0" ] && mv ./link.lst1 ./link.lst || rm ./link.lst1
-sed -i -e '1,/---     Config or Menu    ---/,$ s/.*//' -e 's/#.*//' -e '/^$/ d' $FWC_FILE
+sed -i -e '1,/---     Config or Menu    ---/ s/.*//' -e 's/#.*//' -e '/^$/ d' -e '/TYPE_OR.*/d' $FWC_FILE
 echo "#!/bin/bash" > .tmpx
 echo "# Date: $(date +%Y%m%d-%H%M)" >> .tmpx
-echo "# Script: $Jahr$Monat$Tag-$(svnversion . | tr ":" "_")" >> .tmpx
+echo "# Script: $(svnversion . | tr ":" "_")" >> .tmpx
 echo "# Automatically generated and stripped" >> .tmpx
-grep  'TCOM_IMG=' "$FWC_FILE" >> .tmpx
-grep  'AVM_IMG=' "$FWC_FILE" >> .tmpx
-grep  'SRC2_IMG=' "$FWC_FILE" >> .tmpx
-grep  'TYPE_SRC3=' "$FWC_FILE" >> .tmpx
-#sort .tmpx | uniq -u > .tmpx
-sed -i -e "/^ *$/d" -e '/#/d' -e '/AVM_.*7/d' -e '/HN_7/d'  -e '/CONGSTAR_/d' -e '/TCOM_W/d' -e '/TCOM_SINUS/d' -e '/TCOM_LOCAL/d' -e '/AVM_LOCAL/d' -e '/SRC2_IMG=/d' -e '/SRC3_LOCAL=/d' -e '/TYPE_OR.*/d' "$FWC_FILE"
 #sort $FWC_FILE | uniq -u > $FWC_FILE
 cat "$FWC_FILE" >> .tmpx
 mv .tmpx "$FWC_FILE"
-#sed -i -e '/is not set/d' -e '/^$/d' "$FWC_FILE"
-
-
