@@ -294,7 +294,7 @@ echo2 "-- New WEB GUI will be modified"
 #Add buchsend button to fon bookpage
 [ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
 ## skripts for startig ftp on USB
-if [ "$TYPE_HN_7570_8_16" != "y" ]; then
+if [ "$TYPE_HN_7570_8_16" != "y" ] && [ "$SPMOD" == "757H" ]; then
     #remove more
     ATA_ONLY="y"
     [ -f "${SRC}/lib/modules/c55fw.hex" ] && rm -f "${SRC}"/lib/modules/c55fw.hex &&\
