@@ -1,0 +1,169 @@
+quote GETENV mtd0
+quote GETENV mtd1
+quote GETENV mtd2
+quote GETENV mtd3
+quote GETENV mtd4
+quote GETENV mtd5
+quote GETENV HWRevision
+quote GETENV ProductID
+quote GETENV bootloaderVersion
+quote GETENV my_ipaddress
+quote GETENV urlader-version
+quote GETENV firmware_version
+quote GETENV firmware_info
+quote GETENV flashsize
+quote GETENV firstfreeaddress
+quote GETENV memsize
+quote GETENV wlan_key
+quote GETENV kernel_args
+quote GETENV req_fullrate_freq
+quote GETENV cpufrequency
+quote GETENV webgui_pass
+quote GETENV maca
+quote GETENV macb
+quote GETENV macwlan
+quote GETENV macdsl
+quote GETENV wlan
+quote GETENV autoload
+quote GETENV annex
+quote GETENV sysfrequency
+quote GETENV usb_board_mac
+quote GETENV usb_rndis_mac
+quote GETENV usb_device_id
+quote GETENV usb_revision_id
+quote GETENV usb_manufacturer_name
+quote GETENV bootserverport
+quote GETENV SerialNumber
+quote GETENV jffs2_size
+quote GETENV prompt
+quote GETENV modetty1
+quote GETENV modetty2
+quote GETENV bluetooth
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
+quote REBOOT
