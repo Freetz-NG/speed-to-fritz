@@ -451,13 +451,21 @@ sed -i -e '/Permission denied/d' ${HOMEDIR}/ftperr.log
 ftperr_size=`ls -l "${HOMEDIR}/ftperr.log" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
 [ $ftperr_size -gt "0" ] && \
 echo -e "---------------------------------------------------------- \n\
-Your PC or/and VM machine net-card is not set up correctly \n\
+Transfer error !
 ---------------------------------------------------------- \n\
 Make sure only one net-card is installed or specify the proper eth0 .. eth9 \n\
 within speed-to-fritz menu options, WLAN-, IDSN- or TV-cards do count as as well. \n\
 If a VM (virtual machine) is in use make sure VM is stared with administrator rights. \n\
-Right click on the VM program and select 'Start as administrator' " && return 1
+Right click on the VM program and select 'Start as administrator' " && return 0
 return 0
+}
+#----
+function cleanup() {
+	[ -n "$tmpimg" -a -f "$tmpimg" ] && rm -rf "$tmpimg";
+	[ -n "$ddlog" -a -f "$ddlog" ] && rm -rf "$ddlog";
+	[ -n "${kernel_mtd1}" -a -f "${kernel_mtd1}" ] && rm -rf "${kernel_mtd1}";
+	[ -n "${kernel_mtd5}" -a -f "${kernel_mtd5}" ] && rm -rf "${kernel_mtd5}";
+	exit 1
 }
 #########################################################################
 #                                                                       #
@@ -478,39 +486,43 @@ IPADDRESS="$6"
 CONFIG_jffs2_size="$7"
 kernel_args="$8"
 ANNEX="$9"
-
-img=""
-img="${IMAGEDIR}/kernel.image"
-if tar tf "${IMAGEDIR}/kernel.image" ./var/tmp/kernel.image > /dev/null 2>&1; then
-	echo >&2
-	echo "Hint: file seems to be a full firmware image archive in 'tar' format" >&2
-	echo "containing the 'kernel.image' you are looking for. Please extract the archive" >&2
-	echo "by means of 'tar xf', then call this script again upon the extracted " >&2
-	echo "'kernel.image'." >&2
-	sleep 20
-	echo >&2
-	sleep 20; exit 1
-fi
-CNET=${6%.*}
-#NET_4=${6##*.}
+arg="${IMAGEDIR}/kernel.image"
+! tmpimg=$(mktemp -t speedXXX) && echo "Error creating temporary file." && return 1; 
+cp $arg $tmpimg
+arg=$tmpimg
+trap cleanup EXIT SIGTERM SIGINT
+while [ -z "$img" ]; do
+	if [ "$(uname -s)" == "Darwin" ]; then
+	    hexdump -n4 "$arg" | grep -iq "81 12 ed fe" && img="$arg"
+	else
+	    hexdump -n4 "$arg" | grep -iq "1281 feed" && img="$arg"
+	fi
+	if [ -z "$img" ]; then
+		if tar tf "$arg" ./var/tmp/kernel.image > /dev/null  2>&1; then
+		    echo >&2
+		    echo "Hint: file seems to be a full firmware image archive in 'tar' format" >&2
+		    echo "containing the 'kernel.image'. Now trying to unpack and use that image." >&2
+		    tar -Oxf "$arg" ./var/tmp/kernel.image > $tmpimg
+		    arg=$tmpimg
+		else
+		    echo >&2
+		    echo "Error: file is not a valid image to be written to mtd1. Please use a" >&2
+		    echo "hidden root 'kernel.image' containing both Linux kernel and file system." >&2
+		    return 1
+		fi
+	fi
+done
+CNET=${IPADDRESS%.*}
 NET=${CNET%.*}
-#NET_3=${CNET##*.}
-#NET_1=${NET%.*}
-#NET_2=${NET##*.}
 ETHLIST=" eth0 eth1 eth2 eth3 eth4 eth5"
-if [ $ETH_IF ]; then 
- ETHLIST="$ETH_IF"
- echo "Network cards set up for search active net connections: $ETHLIST"
-else 
- echo "Network  cards set up for search active netconnections: $ETHLIST"
- echo "This list was set to default, but can be set to advance." 
-fi
+[ $ETH_IF ] && ETHLIST="$ETH_IF"
+    echo2 "Network  cards set up for search active netconnections: $ETHLIST"
 for ETH_IF in ${ETHLIST} ; do
   if  ifconfig $ETH_IF >/dev/null ; then
- echo2 "Ethernet card found on: $ETH_IF"
+    echo2 "Ethernet card found on: $ETH_IF"
    break
-  fi  
-done  
+  fi
+done
 PTEST=" finalize=1 subnet=2.18"
 for i in ${PTEST} ; do
 	case $i in
@@ -525,7 +537,8 @@ echo
 ifconfig $ETH_IF ${CNET}.10 &> /dev/null
 ifconfig $ETH_IF | grep 'inet .d' | sed -e "s/inet .d/PC Netcard Ad/g"
 echo
-if [ $FORCE_CLEAR_FLASH ]; then
+WR_MDT1=y
+[ "$SPMOD" == "757H" ] && ISALICE=y
 echo "-----------------------------------------------------------------------"
 echo "All settings will be removed, because clear mtd3 and mtd4 was selected!"
 echo "-----------------------------------------------------------------------"
@@ -534,9 +547,10 @@ echo "Press 'ENTER' to proceed!"
 while !(read -s); do
     sleep 1
 done
-fi 
-if ! [ $FORCE_CLEAR_FLASH ]; then
+[ -e ${HOMEDIR}/.env.log ] && rm ${HOMEDIR}/.env.log
 ping_params="-c1 -w1"
+echo  "."
+if [ $ISALICE ] || [ $PRINTENV ]; then
 echo "You should now reboot your box. Waiting for box to shut down for restart ..."
 while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
  echo -n "."
@@ -546,95 +560,70 @@ while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||
 [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
  echo -n "."
 done 
-echo  "."
-echo "Initiating file transfer of 'kernel.image' ..."
-echo "Please be patient, it takes about one minute to erase the mtd1 partition ..."
-rm -f ${HOMEDIR}/.packed
-ftp -n -p <<EOT 2> ${HOMEDIR}/ftperr.log && touch ${HOMEDIR}/.packed &
+echo -e "n\Initiating read box settings ...\n"
+ftp -n -v -p <<EOOT >>${HOMEDIR}/.env.log
 open "${IPADDRESS}"
 user adam2 adam2
-binary
-quote MEDIA FLSH
-debug
-put "${IMAGEDIR}"/kernel.image mtd1
-!echo -e -n "\r"
-quote SETENV firmware_version $OEM
-quote SETENV autoload yes
-quote SETENV my_ipaddress $IPADDRESS
-quote SETENV ProductID  $CONFIG_PRODUKT
-quote SETENV HWRevision  $HWRevision
-quote SETENV kernel_args $kernel_args
-quote SETENV annex $ANNEX
+$(cat ./getvar.lst)
 quote REBOOT
 quit
-EOT
-printprogress
-print_ftperror || return 1
-else # <--not FORCE_CLEAR_FLASH
-ping_params="-c1 -w1"
-echo "You should now reboot your box. Waiting for box to shut down for restart ..."
-while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
- echo -n "."
- sleep 1
-done 
-while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
-[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
- echo -n "."
-done 
-echo  "."
-echo "Initiating file transfer of 'kernel.image' ..."
-echo "Please be patient, it takes about one minute to erase the mtd1 partition ..."
-rm -f ${HOMEDIR}/.packed
-ftp -n -p <<EOT 2> ${HOMEDIR}/ftperr.log && touch ${HOMEDIR}/.packed &
-open "${IPADDRESS}"
-user adam2 adam2
-binary
-quote MEDIA FLSH
-debug
-put "${IMAGEDIR}"/kernel.image mtd1
-!echo -e -n "\r"
-put "${HOMEDIR}"/empty mtd3
-!echo -e -n "\r"
-put "${HOMEDIR}"/empty mtd4
-!echo -e -n "\r"
-quote REBOOT
-quit
-EOT
-printprogress
-print_ftperror || return 1
-ifconfig $ETH_IF 192.168.2.10
-echo "Waiting for box to shut down and restart ..."
-#echo "If the Box is not rebooting you have to switch off / on the powerline of the box now."
-while [ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
-sleep 1
-echo -n "."
-done 
-while [ `ping -c1 -w1 192.168.2.1 2>&1 | grep -c 'nreachable'` != "0" ] ||\
-[ `ping -c1 -w1 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
-echo -n "."
-done 
-echo "."
-echo "Box is back up again..."
-ftp -n -p  <<EOT 2> ${HOMEDIR}/ftperr.log
-open 192.168.2.1
-user adam2 adam2
-binary
-quote MEDIA FLSH
-quote SETENV firmware_version $OEM
-quote SETENV autoload yes
-quote SETENV my_ipaddress $IPADDRESS
-quote SETENV ProductID  $CONFIG_PRODUKT
-quote SETENV HWRevision  $HWRevision
-quote SETENV kernel_args $kernel_args
-quote SETENV annex $ANNEX
-quote REBOOT
-quit
-EOT
-print_ftperror || return 1
+EOOT
+cat ${HOMEDIR}/.env.log | sed -e '/^[0-9]/d' -e '/^--->/d' -e '/bash/d' -e '/^$/d' -e '/Not /d' > ${HOMEDIR}/.boot.env
+[ $PRINTENV ] && cat ${HOMEDIR}/.boot.env
+VALUES="$(cat ${HOMEDIR}/.boot.env | grep -e '^mtd[1\|5]\|^HWRevision')"
+HWR=$(echo "$VALUES" | sed -n '/^HWRev/ s/HWRevision[^0-9]*//p' )
+MTD=$(echo "$VALUES" | sed -n '/^mtd/ s/mtd.[^0]*// p')
+    if [ $ISALICE ]; then
+	echo $MTD | tr -d '\n' | grep -qv '0x90040000,0x907E0000.*0x907E0000,0x90F80000' &&\
+	echo -e "Error veryfing mtd values for \"Alice\" box. Found values:\n$MTD" && unset ISALICE
+	[ "153" != "${HWR:0:3}" ] &&\
+	echo -e "Error veryfing HWRevision=153 as required for \"Alice\" FritzBox.\nFound: HWRevision: ${HWR:0:3}." && unset ISALICE
+	ddlog=$(mktemp -t ddlogXXX)
+	[ $ISALICE ] && kernel_mtd1=$(mktemp -t mtd1_XXX) && dd if=${arg} of=${kernel_mtd1} bs=1k 2> ${ddlog} &&\
+	grep -q '0 bytes (0 B) copied' ${ddlog} && echo "Error creating temporary file for mtd1." && return 1
+	[ $ISALICE ] && kernel_mtd5=$(mktemp -t mtd5_XXX) && dd if=${arg} of=${kernel_mtd5} bs=1k skip=7808 2> ${ddlog} &&\
+	grep -q '0 bytes (0 B) copied' ${ddlog} && echo "--> Firmware size < 8MB." && unset ISALICE
+    fi
+echo "Now you must reboot your box again."
 fi
+[ $ISALICE ] || kernel_mtd1="${arg}"
+echo "Waiting for box to shut down and restart ..."
+while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
+ echo -n "."
+ sleep 1
+done 
+while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+ echo -n "."
+done 
+echo -e "\nInitiating file transfer of 'kernel.image' ...\n"
+echo "Please be patient, it takes about one minute to erase the mtd1 partition ..."
+rm -f ${HOMEDIR}/.packed
+ftp -n -p <<EOT 2> ${HOMEDIR}/ftperr.log && touch ${HOMEDIR}/.packed &
+open "${IPADDRESS}"
+user adam2 adam2
+debug
+binary
+quote MEDIA FLSH
+$([ $WR_MDT1 ] && echo put ${kernel_mtd1} mtd1 )
+$([ $ISALICE ] && echo put ${kernel_mtd5} mtd5 )
+$([ $FORCE_CLEAR_FLASH ] && echo put ${HOMEDIR}/empty mtd3 )
+$([ $FORCE_CLEAR_FLASH ] && echo put ${HOMEDIR}/empty mtd4 )
+quote SETENV firmware_version $OEM
+quote SETENV autoload yes
+quote SETENV my_ipaddress $IPADDRESS
+quote SETENV ProductID  $CONFIG_PRODUKT
+quote SETENV HWRevision  $HWRevision
+quote SETENV kernel_args $kernel_args
+quote SETENV annex $ANNEX
+quote REBOOT
+quit
+EOT
+printprogress
+rm -f ${HOMEDIR}/.packed
+print_ftperror || return 1
 return 0
 }
-
 function modunsqfs()
 {
 	if [ "$VERBOSE" == "-v" ]; then
@@ -643,7 +632,6 @@ function modunsqfs()
 		"$UNSQUASHFS" -dest "$1" "$2" > /dev/null
 	fi
 }
-
 #untar and unSQUASHFS firmware
 function fw_unpack()
 {
