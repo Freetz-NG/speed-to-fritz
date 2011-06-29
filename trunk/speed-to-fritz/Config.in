@@ -500,7 +500,7 @@ config PUSHCONF
 	    depends on PUSHCONF
 	    default n
 	    help
-		Tis will produce a readout taht looks like this:
+		Will produce a readout like this:
 		Connected to 192.168.178.1.
 		Remote system type is AVM.
 		mtd0                  0x90000000,0x90000000
@@ -534,7 +534,8 @@ config PUSHCONF
 		prompt                Eva_AVM
 		modetty1              38400,n,8,1,hw
 		bluetooth             
-. 
+		-------------------------------------
+		Variabels to read are listed in ./speed-to-fritz/getvar.lst
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config FORCE_VDSL
 	bool "Force VDSL"
