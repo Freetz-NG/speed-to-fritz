@@ -486,6 +486,10 @@ IPADDRESS="$6"
 CONFIG_jffs2_size="$7"
 kernel_args="$8"
 ANNEX="$9"
+ECHO_ROT="\033[31m"
+ECHO_GELB="\033[33m"
+ECHO_BOLD="\033[1m"
+ECHO_END="\033[0m"
 arg="${IMAGEDIR}/kernel.image"
 ! tmpimg=$(mktemp -t speedXXX) && echo "Error creating temporary file." && return 1; 
 cp $arg $tmpimg
@@ -551,7 +555,7 @@ done
 ping_params="-c1 -w1"
 echo  "."
 if [ $ISALICE ] || [ $PRINTENV ]; then
-echo "You should now reboot your box. Waiting for box to shut down for restart ..."
+echo -e "You must ${ECHO_BOLD}${ECHO_GELB}reboot${ECHO_END} your box now. Waiting for box to shut down for restart ...\n"
 while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
  echo -n "."
  sleep 1
@@ -560,7 +564,7 @@ while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||
 [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
  echo -n "."
 done 
-echo -e "n\Initiating read box settings ...\n"
+echo -e "\nInitiating read box settings ...\n"
 ftp -n -v -p <<EOOT >>${HOMEDIR}/.env.log
 open "${IPADDRESS}"
 user adam2 adam2
@@ -568,8 +572,9 @@ $(cat ./getvar.lst)
 quote REBOOT
 quit
 EOOT
-cat ${HOMEDIR}/.env.log | sed -e '/^[0-9]/d' -e '/^--->/d' -e '/bash/d' -e '/^$/d' -e '/Not /d' > ${HOMEDIR}/.boot.env
-[ $PRINTENV ] && cat ${HOMEDIR}/.boot.env
+Date=$(date +%Y%m%d%H%M)
+cat ${HOMEDIR}/.env.log | sed -e '/^[0-9]/d' -e '/^--->/d' -e '/bash/d' -e '/^$/d' -e '/Not /d' > ${HOMEDIR}/.bootEnv_$Date.lst
+[ $PRINTENV ] && cat ${HOMEDIR}/.bootEnv_$Date.lst
 VALUES="$(cat ${HOMEDIR}/.boot.env | grep -e '^mtd[1\|5]\|^HWRevision')"
 HWR=$(echo "$VALUES" | sed -n '/^HWRev/ s/HWRevision[^0-9]*//p' )
 MTD=$(echo "$VALUES" | sed -n '/^mtd/ s/mtd.[^0]*// p')
@@ -584,7 +589,7 @@ MTD=$(echo "$VALUES" | sed -n '/^mtd/ s/mtd.[^0]*// p')
 	[ $ISALICE ] && kernel_mtd5=$(mktemp -t mtd5_XXX) && dd if=${arg} of=${kernel_mtd5} bs=1k skip=7808 2> ${ddlog} &&\
 	grep -q '0 bytes (0 B) copied' ${ddlog} && echo "--> Firmware size < 8MB." && unset ISALICE
     fi
-echo "Now you must reboot your box again."
+echo -e "${ECHO_BOLD}${ECHO_ROT}Now you must reboot your box again.${ECHO_END}\n"
 fi
 [ $ISALICE ] || kernel_mtd1="${arg}"
 echo "Waiting for box to shut down and restart ..."
@@ -611,7 +616,7 @@ $([ $FORCE_CLEAR_FLASH ] && echo put ${HOMEDIR}/empty mtd3 )
 $([ $FORCE_CLEAR_FLASH ] && echo put ${HOMEDIR}/empty mtd4 )
 quote SETENV firmware_version $OEM
 quote SETENV autoload yes
-quote SETENV my_ipaddress $IPADDRESS
+quote SETENV my_ipaddress 192.168.178.1
 quote SETENV ProductID  $CONFIG_PRODUKT
 quote SETENV HWRevision  $HWRevision
 quote SETENV kernel_args $kernel_args

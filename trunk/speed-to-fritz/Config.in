@@ -536,6 +536,8 @@ config PUSHCONF
 		bluetooth             
 		-------------------------------------
 		Variabels to read are listed in ./speed-to-fritz/getvar.lst
+		This readout is also saved to a file with the name:
+		./speed-to-fritz/.bootEnv_X.lst (X=DATE+TIME)
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config FORCE_VDSL
 	bool "Force VDSL"
