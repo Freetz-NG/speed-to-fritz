@@ -575,7 +575,7 @@ EOOT
 Date=$(date +%Y%m%d%H%M)
 cat ${HOMEDIR}/.env.log | sed -e '/^[0-9]/d' -e '/^--->/d' -e '/bash/d' -e '/^$/d' -e '/Not /d' > ${HOMEDIR}/.bootEnv_$Date.lst
 [ $PRINTENV ] && cat ${HOMEDIR}/.bootEnv_$Date.lst
-VALUES="$(cat ${HOMEDIR}/.boot.env | grep -e '^mtd[1\|5]\|^HWRevision')"
+VALUES="$(cat ${HOMEDIR}/.bootEnv_$Date.lst | grep -e '^mtd[1\|5]\|^HWRevision')"
 HWR=$(echo "$VALUES" | sed -n '/^HWRev/ s/HWRevision[^0-9]*//p' )
 MTD=$(echo "$VALUES" | sed -n '/^mtd/ s/mtd.[^0]*// p')
     if [ $ISALICE ]; then
