@@ -3,14 +3,21 @@ modprobe ext2
 mkdir -p /var/media/ftp/MD
 chmod 777 /var/media/ftp/MD
 mount -t ext2 /dev/sda1 /var/media/ftp/MD -rw
-mount -o bind /var/media/ftp/MD/www /usr/www
-
+#mount -o bind /var/media/ftp/uStor01/ww3/avme/html/de/nas /usr/www/avme/html/de/nas
+#mount -o bind /var/media/ftp/USB2-0-FlashDisk-01/ww3/avme/html/de/nas /usr/www/avme/html/de/nas
+#mount -o bind /var/media/ftp/USB2-0-FlashDisk-01/ww3/avme/ /usr/www/avme/storage
+#mount -o bind /var/media/ftp/USB2-0-FlashDisk-01/ww5/menus /usr/www/avme/menus
+#umount /usr/www/avme
+#umount /usr/www 
 #echo "Mount www Directory on  USB Stick mit Linux Partition as www Directory. Press 'ENTER' ..."
 #while !(read -s);do
 #	sleep 1
 #done
 
+#cd /var/media/ftp/USB2-0-FlashDisk-01/microcom
+
 exit 0
+
 ftp uebers menu ausschalten
 mountwww
 umountftp
@@ -18,4 +25,12 @@ startftp
 mountwww (fehlermeldung normal)
 ftp uebersmenue einschalten
 
-damit ftpzugiff funktionirt weis noch nicht warum, muss erst suchen woran es liegt
+#----
+-n str1	str1 is non-null (i.e. is not an empty string)
+-z str1	str1 is null (i.e. has length zero)
+var1 -lt var2	var1 is less than var2
+var1 -le var2	var1 is less than or equal to var2
+var1 -eq var2	var1 is equal to var2
+var1 -ne var2	var1 is not equal to var2
+var1 -gt var2 	var1 is greater than var2
+var1 -ge var2 	var1 is greater than or equal to var2
