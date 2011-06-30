@@ -4,7 +4,7 @@
 FWC_FILE="./$firmwareconf_file_name"
 ## link.lst is extracted in ./start as well
 cat "$FWC_FILE" > ./link.lst1
-if `grep -q '---     Config or Menu    ---' $FWC_FILE`; then 
+if `grep -q "    Config or Menu    " $FWC_FILE`; then
     sed -i -e '1,/--- General settings for Speed-to-fritz ---/ s/.*//' -e '/---     Config or Menu    ---/,$ s/.*//' ./link.lst1
     sed -i -e '1,/---     Config or Menu    ---/ s/.*//' $FWC_FILE
 else
@@ -20,3 +20,4 @@ echo "# Automatically generated and stripped" >> .tmpx
 #sort $FWC_FILE | uniq -u > $FWC_FILE
 cat "$FWC_FILE" >> .tmpx
 mv .tmpx "$FWC_FILE"
+
