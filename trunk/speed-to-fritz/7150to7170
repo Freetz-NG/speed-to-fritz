@@ -132,4 +132,5 @@ $sh_DIR/add_multi_settings.sh
 #$sh_DIR/remove_dect_menue.sh "${SRC}"
 #fix
 $sh_DIR/patch_lua_dect.sh "${SRC}"
+$sh_DIR/remove_luamenu_infoled.sh "${SRC}"
 echo "********************************************************************************"

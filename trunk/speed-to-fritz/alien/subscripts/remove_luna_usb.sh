@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "-- removing luna usb ..."
-
+. ${include_modpatch}
 #new lua type pages on 18577
 DIRI="$(find ${1}/usr/www/ \( -name usb_devices.lua  \) -type f -print)"
 for file_n in $DIRI; do
