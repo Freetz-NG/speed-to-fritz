@@ -1,26 +1,22 @@
 #!/bin/bash
  # include modpatch function
  . ${include_modpatch}
+echo "-- Remove USB directory and/or files ..."
 #### USB-Zubehoer ####
 # Remove extra files and directories not required for this product
-#REMOVELIST_USB="/etc/hotplug /etc/usbclass.tab /etc/usbdevice.tab /usr/share/ctlmgr/libctlusb.so /bin/pause /bin/usbhostchanged \
-#/sbin/eventadd /sbin/hotplug /sbin/lsusb /sbin/printserv /lib/modules/2.6.13.1-ohio/kernel/drivers/usb \ 
-#/lib/modules/2.6.13.1-ohio/kernel/drivers/scsi"
-REMOVELIST_USB="/etc/hotplug /etc/usbclass.tab /etc/usbdevice.tab /usr/share/ctlmgr/libctlusb.so /bin/usbhostchanged \
+REMOVELIST_USB="/etc/hotplug /etc/usbclass.tab /etc/usbdevice.tab /bin/usbhostchanged \
 /sbin/eventadd /sbin/hotplug /sbin/lsusb /sbin/printserv /lib/modules/2.6.13.1-ohio/kernel/drivers/usb \ 
 /lib/modules/2.6.13.1-ohio/kernel/drivers/scsi"
-#REMOVELIST_USB="/usr/share/ctlmgr/libctlusb.so \
-#/lib/modules/2.6.13.1-ohio/kernel/drivers/usb \ 
-#/lib/modules/2.6.13.1-ohio/kernel/drivers/scsi"
+REMOVELIST_USB+="bin/pause bin/reinit_jffs2 bin/*usb* sbin/*usb* usr/bin/*usb* usr/sbin/*usb* \
+etc/samba_control etc/default.*/*/*usb* etc/init.d/rc.*usb* etc/*usb*.tab \
+lib/lib*usb*.so* usr/share/*/lib*usb*.so* usr/www/*/*usb* usr/www/*/html/*usb* \
+usr/www/*/html/*/*usb* usr/www/*/html/*/*/*usb* /usr/www/*/*/usb"
 
 for FILE in ${REMOVELIST_USB}; do
-	[ -f "${1}${FILE}" ] && echo2 "      ${FILE}"
-	[ -f "${1}${FILE}" ] && rm -fdr "${1}${FILE}"
+	rm -fr $VERBOSE "${1}${FILE}" | sed "s/.*\//\t'/"
 done
+rm -rf $VERBOSE "$1"/usr/www/${HTML}/${avm_Lang}/usb | sed "s/.*\//\t'/"
 
 . $sh_DIR/remove_luna_usb.sh
 $sh_DIR/rmv_usb_menu "$1"
-echo2 "   -- Removing directory:"
-echo2 "      /usr/www/${HTML}/${avm_Lang}/usb"
-rm -rf "$1"/usr/www/${HTML}/${avm_Lang}/usb
 exit 0
