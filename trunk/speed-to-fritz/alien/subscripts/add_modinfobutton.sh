@@ -86,7 +86,7 @@ fi #<-- modinfo button
 [ "$TYPE_LOCAL_MODEL" = "y" ] || [ "$SPNUM" = "7570" ] || [ "$SPNUM" = "7150" ] && model=" (${SPNUM})"
 [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ] && [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" == "7570" ] && model=" (7570)"
 [ "$NEWNAME" ] && unset model
-[ -e "$1"/usr/www/$DIR/home/home.lua ] && sed -i -e "s|<?lua box.out(g_Productname) ?>|<?lua box.out(g_Productname) ?> ${model}|" "$1"/usr/www/$DIR/home/home.lua
+[ -e "$1"/usr/www/$DIR/home/home.lua ] && sed -i -e "s|<?lua box.out(g_Productname) ?>|<?lua box.out(g_Productname) ?>${model}|" "$1"/usr/www/$DIR/home/home.lua
 #<-- 17675
 #------------------------------------------------------------------------------------------------
 if [ -d ${DSTI}/help ] ; then
