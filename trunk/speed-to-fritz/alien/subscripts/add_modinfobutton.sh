@@ -82,21 +82,20 @@ var mi = "<?lua box.js(box.get.helppage) ?>";' "$1"/usr/www/$DIR/help/help.lua
   fi #<-- help.lua exists
 fi #<-- modinfo button
 # add Speedportinfo Produktname
-if [ -e "$1"/usr/www/$DIR/home/home.lua ]; then
- [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" != "7570" ] && sed -i -e "s|<?lua box.out(g_Productname) ?>|<?lua box.out(g_Productname) ?>  ${CLASS} W${SPNUM}V|" "$1"/usr/www/$DIR/home/home.lua
- [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ] && [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" == "7570" ] && sed -i -e "s|<?lua box.out(g_Productname) ?>|<?lua box.out(g_Productname) ?>  ${CLASS} (${SPNUM})|" "$1"/usr/www/$DIR/home/home.lua
-fi
+[ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" != "7570" ] && [ "$SPNUM" != "7150" ] && model=" (${CLASS} W${SPNUM}V)"
+[ "$TYPE_LOCAL_MODEL" = "y" ] || [ "$SPNUM" = "7570" ] || [ "$SPNUM" = "7150" ] && model=" (${SPNUM})"
+[ "7570" == "${TYPE_LABOR_TYPE:0:4}" ] && [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" == "7570" ] && model=" (7570)"
+[ "$NEWNAME" ] && unset model
+[ -e "$1"/usr/www/$DIR/home/home.lua ] && sed -i -e "s|<?lua box.out(g_Productname) ?>|<?lua box.out(g_Productname) ?> ${model}|" "$1"/usr/www/$DIR/home/home.lua
 #<-- 17675
 #------------------------------------------------------------------------------------------------
 if [ -d ${DSTI}/help ] ; then
 # for all versions
 # add Speedportinfo  Produktname
-[ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" != "7570" ] && sed -i -e "s|<? echo \$var:ProduktName ?>|<? echo \$var:ProduktName ?>  ${CLASS} W${SPNUM}V|" "${DSTI}"/home/home.html
-[ "7570" == "${TYPE_LABOR_TYPE:0:4}" ] && [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" == "7570" ] && sed -i -e "s|<? echo \$var:ProduktName ?>|<? echo \$var:ProduktName ?>  ${CLASS} (${SPNUM})|" "${DSTI}"/home/home.html
+sed -i -e "s|<? echo \$var:ProduktName ?>|<? echo \$var:ProduktName ?>${model}|" "${DSTI}"/home/home.html
 # add Service portal link (is set in rc.conf as well so we dont need this on new 17671 GUI)
 [ -f "${DSTI}"/help/popup.html ] && sed -i -e 's|var url = jslGetValue("uiPostPortal");|var url = "http://www.avm.de/de/Service/Service-Portale/Service-Portal/index.php?portal=FRITZ!Box_Fon_WLAN_<Modell-Nummer>"|' "${DSTI}"/help/popup.html
 [ -f "${DSTI}"/help/popup.html ] && sed -i -e "s|<Modell-Nummer>|${FBMOD}|" "${DSTI}"/help/popup.html
-
 echo2 "  -- patching files:"
 if [ "$avm_Lang" = "de" ]; then
 echo2 "      ${DSS}/home/home.html"
@@ -138,7 +137,7 @@ cat << 'EOF' >> "${DSTF}"
 <div class="Hilfe">
 <div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Informationen</div></div></div></div></div></div>
 <div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
-<p>Die Firmware des <b>MODEL</b> wurde durch den <b>Speed2fritz-Mod</b> verändert.</p>
+<p>Die Firmware wurde durch den <b>Speed2fritz-Mod</b> verändert.</p>
 <h2>Verwendete Skript-Version</h2>
 <p>Verwendet wurde das Skript <b>'speed2fritz'</b> mit der Revision <b>VERSION</b>. Folgende Optionen wurden verwendet:</p>
 <ul>
@@ -148,7 +147,6 @@ cat << 'EOF' >> "${DSTF}"
 <li><b>LAN Auto Konfiguration TR64:</b> Das automatische Einrichten durch den Dienstanbieter aus dem lokalen Netz vom PC aus ist <b>LANTR64TEXT</b>.</li>
 <li><b>Weitere Informationen zu den verwendeten Skriptoptionen in:</b> /etc/Firmwae.conf.</li>
 <li><b>Kompatibilität:</b> Der Produktname wurde <b>PREFIX</b> erweitert.</li>
-<li>Die Statusseite zeigt den AVM Produktnamen plus <b>(MODEL)</b></li>
 <li><b>TelefonMenü:</b> Die Menüführung für die Einrichtung von Telefongeräten wurde <b>FONMENU</b>.</li>
 ADD_7150_DECTMNUE
 ADD_DSL_EXPERT_MNUE
@@ -192,7 +190,7 @@ cat << 'EOF' >> "${DSTF}"
 <div class="Hilfe">
 <div class="backtitel"><div class="rundrt"><div class="rundlt"><div class="ecklb"><div class="eckrb"><div class="foretitel">Information</div></div></div></div></div></div>
 <div class="backdialog"><div class="ecklm"><div class="eckrm"><div class="ecklb"><div class="eckrb"><div class="foredialog">
-<p>The user interface of <b>MODEL</b> has been modified with <b>Speed2Fritz-Mod</b>. The following Script- and Firmware Versions have been used.</p>
+<p>The user interface of has been modified with <b>Speed2Fritz-Mod</b>. The following Script- and Firmware Versions have been used.</p>
 <h2>Script Version used:</h2>
 <p> <b>'speed2fritz'</b> revision <b>VERSION</b> has been used.</p> 
 <ul>
@@ -245,9 +243,6 @@ chmod 755 "${DSTF}"
 readConfig "HOSTNAME" "HOSTNAME" "${1}/etc/init.d"
 
 readConfig "DSL_MULTI_ANNEX" "DSL_MULTI_ANNEX" "${1}/etc/init.d"
-[ "$SPNUM" == "7570" ] && sed -i -e "s/MODEL/${SPMOD}/" "${DSTF}"
-[ "$TYPE_LOCAL_MODEL" != "y" ] && sed -i -e "s/MODEL/W ${SPNUM}V/" "${DSTF}"
-[ "$TYPE_LOCAL_MODEL" == "y" ] && sed -i -e "s/MODEL/${SPMOD}/" "${DSTF}"
 sed -i -e "s/VERSION/${SVN_REVISION}/" "${DSTF}"
 sed -i -e "s/OEM/${OEM}/" "${DSTF}"
 sed -i -e "s/HOSTNAME/${HOSTNAME}/" "${DSTF}"
