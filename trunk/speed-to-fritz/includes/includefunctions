@@ -543,6 +543,7 @@ ifconfig $ETH_IF | grep 'inet .d' | sed -e "s/inet .d/PC Netcard Ad/g"
 echo
 WR_MDT1=y
 [ "$SPMOD" == "757H" ] && ISALICE=y
+if [ $FORCE_CLEAR_FLASH ]; then
 echo "-----------------------------------------------------------------------"
 echo "All settings will be removed, because clear mtd3 and mtd4 was selected!"
 echo "-----------------------------------------------------------------------"
@@ -551,6 +552,7 @@ echo "Press 'ENTER' to proceed!"
 while !(read -s); do
     sleep 1
 done
+fi
 [ -e ${HOMEDIR}/.env.log ] && rm ${HOMEDIR}/.env.log
 ping_params="-c1 -w1"
 echo  "."
