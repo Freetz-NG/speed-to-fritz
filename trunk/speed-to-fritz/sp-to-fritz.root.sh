@@ -1945,7 +1945,7 @@ Link:  http://www.hyperbox.org/jpascher/1/ftp_uploader.exe.exe"$ECHO_END
 	echo "Flashing firmware image $NEWDIR/kernel.image..."
 	echo "********************************************************************************"
 	echo
- 	#FTP kann nicht mit zwei Parametern von quote uebergeben,  ${kernel_args} verursacht Fehlermeldung	
+	#FTP kann nicht mit zwei Parametern von quote uebergeben,  ${kernel_args} verursacht Fehlermeldung
 	pushconfig "${NEWDIR}" "${OEM}" "${CONFIG_PRODUKT}" "${HWRevision}" "${ETH_IF}" "${IPADDRESS}" "${CONFIG_jffs2_size}" "${kernel_args}" "${ANNEX}"
 	echo
 	echo "Finished transfering kernel.image to Speedport. Enjoy!"
@@ -1955,29 +1955,15 @@ Link:  http://www.hyperbox.org/jpascher/1/ftp_uploader.exe.exe"$ECHO_END
 	echo "********************************************************************************"
 	echo -e "You may now use it in regular ${ECHO_BOLD}firmware upgrade$ECHO_END process."
 	echo "Or:"
-	echo " Continue with upload of new kernel.image to speedport via ftp ..."
-	echo " 1. Login to 192.168.178.1 as adam2 (pw adam2)"
-	echo " 2. Issue commands:     bin, passiv, quote MEDIA FLSH"
-	echo " 3. Transfer file:      put kernel.image mtd1"
-	echo " 4. Change branding:    quote SETENV firmware_version ${OEM}"
-	echo " 5. Change kernel_args: quote SETENV kernel_args ${kernel_args}"
-	echo " 6. Reboot speedport:   quote REBOOT"
-	echo " 7. Exit ftp:           quit "
-	echo "Or:"
-	echo -e " Use $ECHO_BOLD./ftpXXX 'ENTER'$ECHO_END to do the above, if you have a functional netconnection "
-	echo " on this LINUX System to your Speedport, no additional settings are needed."
+	echo -e " Use $ECHO_BOLD./ftpXXX 'ENTER'$ECHO_END to do the upload,"
+	echo " no additional settings are needed."
 	echo "********************************************************************************"
  fi
-
 else
  echo "No output generated, because this was specified via setup! "
  exit 0
 fi
 [ "$RUN_PATCH_DECT" == "y" ] && $HOMEDIR/patch_dect.sh
-# Strip Firmware.conf only if all was completed without error
-# a control C brack will keep the unstripped Firmware.conf 
-# Firmware.conf.tar was generated earlyer.
-## . FirmwareConfStrip
 	echo "A windows program can also be used to upload a firmware."
 	echo "Link:  http://www.hyperbox.org/jpascher/1/ftp_uploader.exe.exe"
 echo
