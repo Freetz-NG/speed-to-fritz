@@ -112,12 +112,12 @@ if ! [ -f "$input_recover_file" ];then
 fi
 # ispr is built now the first time split_recover is executed
 $RDIR/split_recover $HOMEDIR $input_recover_file $output_dir || . $RDIR/wait_for_enterkey
-
-NEWNAME=$(echo "$NEWIMG" | sed -r 's/Speedport_//' | sed -r 's/-r-/-/' | sed -r 's/_OEM-/-/' | sed -r 's/M-/-/' | sed -r 's/-sp2fr-/-/' | sed -r 's/_W...V_/_/' | sed -r 's/_Fritz_Box//' | sed -r 's/_DECT//' | sed -r 's/-0_/_/'| sed -r 's/.image//' | sed -r 's/fw_//' | sed -r 's/C_//' | cut -c-70 | sed -r "s/-$//" )-recover.exe
-#echo "new name lenght: ${#NEWNAME}"
-#echo "new name: $NEWNAME"
-new_recover_file="$kernel_dir/$NEWNAME"
-new_recover_file="$kernel_dir/Speedport_W${SPNUM}V.recover-image.exe"
+Date=$(date +%Y%m%d%H%M)
+[ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" != "7570" ] && [ "$SPNUM" != "7150" ] && Xmodel="${CLASS}_W${SPNUM}V"
+[ "$TYPE_LOCAL_MODEL" = "y" ] || [ "$SPNUM" = "7570" ] || [ "$SPNUM" = "7150" ] && Xmodel="${SPNUM}"
+[ "7570" == "${TYPE_LABOR_TYPE:0:4}" ] && [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" == "7570" ] && Xmodel="7570"
+[ "$ORI" == "y" ] && Xmodel="${Xmodel}_R"
+new_recover_file="$kernel_dir/${Xmodel}_$Date.recover.exe"
 ##cp -f "$output_dir/exe_start" "$output_dir/ori_start"
 ! [ -f "$output_dir/exe_start" ] && echo "missing: $output_dir/exe_start" && sleep 10 && exit 1
 ! [ -f "$RDIR/ipsr" ] && echo "missing: $RDIR/ipsr" && sleep 10 && exit 1
