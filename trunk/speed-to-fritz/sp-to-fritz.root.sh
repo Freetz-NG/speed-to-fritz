@@ -1890,21 +1890,21 @@ fi
 # compose filename for new .tar file
 [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ] && AVM_SUBVERSION="7570-$AVM_SUBVERSION"
 [ "y" == "${TYPE_TCOM_7570_70}" ] && TCOM_SUBVERSION="7570-$TCOM_SUBVERSION"
-[ ${FREETZ_REVISION} ] && FREETZ_REVISION="-freetz-${FREETZ_REVISION}"
-PANNEX="_annex${ANNEX}"
-[ "$DSL_MULTI_ANNEX" == "y" ] && PANNEX=""
+[ ${FREETZ_REVISION} ] && FREETZ_REVISION="_freetz-${FREETZ_REVISION}"
+readConfig "PRODUKT" "PR"  "${SRC}/etc/init.d"
 readConfig "MULTI_LANGUAGE" "MULTI_LANGUAGE" "${SRC}/etc/init.d"
 Language="_${avm_Lang}"
-[ "$MULTI_LANGUAGE" == "y" ] && Language=""
-[ "$FORCE_CLEAR_FLASH" == "y" ] && CLEAR="C_" || CLEAR="" 
+Pannex="_annex${ANNEX}"
+[ "$MULTI_LANGUAGE" == "y" ] && Language="" && Pannex=""
+[ "$FORCE_CLEAR_FLASH" == "y" ] && CLEAR="C_" || CLEAR=""
 [ "$CLASS" != "" ] && CLASS+="_"
 [ "$SPNUM" != "" ] && SPNUM+="_"
-[ "$ATA_ONLY" = "y" ] && X1="_ATA-ONLY"
-X2="${FREETZ_REVISION}-sp2fr-${SVN_REVISION}-${act_firmwareconf_size}_OEM-${OEM}${X1}${Language}.image"
-[ "$ORI" == "y" ] && export NEWIMG="${SPIMG}_OriginalFirmwareAdjusted${PANNEX}${Language}.image"
-[ "$ORI" != "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${X2}"
+[ "$ATA_ONLY" = "y" ] && Pannex="_ATA-ONLY"
+X2="${FREETZ_REVISION}_sp2fr-${SVN_REVISION}-${act_firmwareconf_size}_${OEM}${Pannex}${Language}.image"
+[ "$ORI" == "y" ] && export NEWIMG="${SPIMG}_OriginalFirmwareAdjusted${Pannex}${Language}.image"
+[ "$ORI" != "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${PR}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${X2}"
 #only AVM + 2nd AVM Firmware was in use
-[ "$TYPE_SXXX_MODEL" == "y" ] && export NEWIMG="fw_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}_${CONFIG_PRODUKT_FN}_${AVM_2_VERSION_MAJOR}.${AVM_2_VERSION}-${AVM_2_SUBVERSION}${X2}"
+[ "$TYPE_SXXX_MODEL" == "y" ] && export NEWIMG="fw_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}_${PR}_${AVM_2_VERSION_MAJOR}.${AVM_2_VERSION}-${AVM_2_SUBVERSION}${X2}"
 echo "export MULTI_LANGUAGE=\"${MULTI_LANGUAGE}\"" >> incl_var
 echo "export kernel_args=\"${kernel_args}\"" >> incl_var
 echo "export NEWIMG=\"${NEWIMG}\"" >> incl_var

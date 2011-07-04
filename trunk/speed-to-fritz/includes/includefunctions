@@ -520,7 +520,7 @@ CNET=${IPADDRESS%.*}
 NET=${CNET%.*}
 ETHLIST=" eth0 eth1 eth2 eth3 eth4 eth5"
 [ $ETH_IF ] && ETHLIST="$ETH_IF"
-    echo2 "Network  cards set up for search active netconnections: $ETHLIST"
+    echo2 "Search active netconnections on: $ETHLIST"
 for ETH_IF in ${ETHLIST} ; do
   if  ifconfig $ETH_IF >/dev/null ; then
     echo2 "Ethernet card found on: $ETH_IF"
@@ -534,9 +534,14 @@ for i in ${PTEST} ; do
  PTEST_SERVER=${NET}.${i##subnet=}
     esac
 done
-echo2 "Imagedirectory=${IMAGEDIR}"
-echo2 "oem: ${OEM}  Produkt: ${CONFIG_PRODUKT}  HWResvison: ${HWRevision}\
-  Eth: ${ETH_IF}  IP: ${IPADDRESS}  jffs2size: ${CONFIG_jffs2_size}  kernel_args: ${kernel_args}"
+echo2 "Parameter in use:"
+echo2 "             Eth ${ETH_IF}"
+echo2 "              IP ${IPADDRESS}"
+echo2 "             OEM ${OEM}"
+echo2 "         Produkt ${CONFIG_PRODUKT}"
+echo2 "      HWResvison ${HWRevision}"
+echo2 "     kernel_args ${kernel_args}"
+echo2 "  Imagedirectory ${IMAGEDIR}"
 echo
 ifconfig $ETH_IF ${CNET}.10 &> /dev/null
 ifconfig $ETH_IF | grep 'inet .d' | sed -e "s/inet .d/PC Netcard Ad/g"
@@ -555,7 +560,7 @@ done
 fi
 [ -e ${HOMEDIR}/.env.log ] && rm ${HOMEDIR}/.env.log
 ping_params="-c1 -w1"
-echo  "."
+echo
 if [ $ISALICE ] || [ $PRINTENV ]; then
 echo -e "You must ${ECHO_BOLD}${ECHO_GELB}reboot${ECHO_END} your box now. Waiting for box to shut down for restart ...\n"
 while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
@@ -591,7 +596,7 @@ MTD=$(echo "$VALUES" | sed -n '/^mtd/ s/mtd.[^0]*// p')
 	[ $ISALICE ] && kernel_mtd5=$(mktemp -t mtd5_XXX) && dd if=${arg} of=${kernel_mtd5} bs=1k skip=7808 2> ${ddlog} &&\
 	grep -q '0 bytes (0 B) copied' ${ddlog} && echo "--> Firmware size < 8MB." && unset ISALICE
     fi
-echo -e "${ECHO_BOLD}${ECHO_ROT}Now you must reboot your box again.${ECHO_END}\n"
+echo -e "${ECHO_BOLD}${ECHO_ROT}If no restart on its own, you must reboot your box again.${ECHO_END}\n"
 fi
 [ $ISALICE ] || kernel_mtd1="${arg}"
 echo "Waiting for box to shut down and restart ..."
