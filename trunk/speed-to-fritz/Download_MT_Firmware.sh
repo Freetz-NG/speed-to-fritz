@@ -53,7 +53,7 @@ while ! [ "$hw" ]; do
     fi
  fi
 done
-def=$sw,$oem,$country,$fw
+def=$sw,$oem,$country,$lang,$fw
 KEY=
 while [ "$KEY" != "y" ]; do
 	    echo
@@ -62,16 +62,21 @@ while [ "$KEY" != "y" ]; do
 done
 if [ "$YESNO" != "y" ]; then
     IFS=','
-    echo -e "Bitte fuenf Parameter, getrennt durch Komma eingeben:\n\
+    echo -e "Bitte einen bis fuenf Parameter, getrennt durch Komma eingeben:\n\
+Bei nicht angegebenen Parametern werden Voreinstellungen verwendet\n\
 02.45, Softwareversion derzeit am MT in Verwendung\n\
 avm, ein gueltiger OEM zB: avme, avm, 1und1,...\n\
 de, Sprache zB: de, en, ...\n\
 049, Landeskennug zB: 049, 043, ...\n\
 75.04.91.19965, Box Firmwaeversion\n\
 Beispiel: $def\n"
-    read sw oem country fw
+    read sw oem country lang fw
+    [ "$sw" == "" ] && sw=01.70
+    [ "$lang" == "" ] && lang=de
+    [ "$country" == "" ] && country=049
+    [ "$oem" == "" ] && oem=avm
 fi
-echo -e "Eingabe war: $sw $oem $country $fw\n\
+echo -e "Eingabe war: $sw,$oem,$country,$lang,$fw\n\
 Firmware wird gesucht ...\n"
 dladr="http://update.avm.de/cgi-bin/cati?hw=${hw}&sw=${sw}&oem=${oem}&lang=${lang}&country=${country}&fw=${fw}&macaddr=${macaddr}"
 #echo $dladr
