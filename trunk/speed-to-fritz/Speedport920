@@ -339,8 +339,8 @@ echo "-- DSL Annex B driver was removed from ${SORCE_PRODUKT}!"
 #save space
 [ "${REMOVE_ANNEX_A_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/vinax_fw_adsl_A.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_adsl_A.bin &&\
 echo "-- DSL Annex A driver was removed from ${SORCE_PRODUKT}!"
-! [ -f ${SRC}/lib/modules/vinax_fw_vdsl.bin ] && echo "VINAX vdsl driver is missing!" && sleep 10 && exit 1
-! [ -f ${SRC}/lib/modules/vinax_fw_adsl_A.bin ] && ! [ -f ${SRC}/lib/modules/vinax_fw_adsl_B.bin ] && echo "VINAX adsl driver is missing!" && sleep 10 && exit 1
+[ ${ATA_ONLY} != "y" ] && ! [ -f ${SRC}/lib/modules/vinax_fw_vdsl.bin ] && echo "VINAX vdsl driver is missing!" && sleep 10 && exit 1
+[ ${ATA_ONLY} != "y" ] && ! [ -f ${SRC}/lib/modules/vinax_fw_adsl_A.bin ] && ! [ -f ${SRC}/lib/modules/vinax_fw_adsl_B.bin ] && echo "VINAX adsl driver is missing!" && sleep 10 && exit 1
 #fix ADSL interface accsess restrictions
 sed -i -e "/ \/etc\/init.d\/rc.conf/a\
 \[ -f \/var\/flash\/ar7.cfg \] \&\& sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg \&\& cat \/var\/flash\/ar7.cfg | grep ifacectl \&\& echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"
