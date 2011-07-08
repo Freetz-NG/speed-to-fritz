@@ -107,7 +107,7 @@ OK\n\
 3x nach oben --> Firmware-Update\n\
 OK\n\
 Display zeigt die Firmware Version an.\n\
-Mit OK besaettigen und das Mobilteil wird Aktualisiert, Mobilteil macht einen Reboot.${ECHO_END}\n\
+Mit OK besaettigen und das Mobilteil wird aktualisiert, Mobilteil macht einen Reboot.${ECHO_END}\n\
 ${ECHO_BOLD}${ECHO_ROT}Wenn die Firmware nicht passt, kann damit das Mobilteil auch unbrauchbar werden!${ECHO_END}"
 sleep 20
 exit 0
