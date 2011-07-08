@@ -190,6 +190,10 @@ config AVM_BETA_7170_19957
 ###------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM 7240 Firmware
 
+config AVM_7240_73_04_80
+    string
+    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207240/FRITZ.Box_Fon_WLAN_7240.73.04.80.image"
+
 config AVM_7240_73_04_87
     string
     default "@AVM/fritz.box/fritzbox.fon_wlan_7240/firmware/deutsch/FRITZ.Box_Fon_WLAN_7240.73.04.87.image"
@@ -197,7 +201,6 @@ config AVM_7240_73_04_87
 config AVM_7240_73_05_05
     string
     default "@AVM/fritz.box/fritzbox.fon_wlan_7240/firmware/deutsch/FRITZ.Box_Fon_WLAN_7240.73.05.05.image"
-
 config AVM_PRE_7240_20170
     string
     default "http://www.avm.de/de/Service/Service-Portale/Labor/7240_vorschau_release_candidate/labor_start_release_candidate.php HW144:fritzbox-labor-7240-20170.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7240.73.05.04-20170.image"
@@ -1056,7 +1059,7 @@ choice
 		bool "AVM 7570 75.04.80.en-de-fr 16087"
 
 	config TYPE_TCOM_7570_17599
-		bool "AVM 7570 17599.en-de-fr (IPv6) 17599"
+		bool "AVM 7570 17599.en-de-fr (IPv6)"
 
 	config TYPE_TCOM_7570_75_04_82
 		bool "AVM 7570 75.04.90.en-de-fr 17057"
@@ -1302,19 +1305,19 @@ choice
 			FRITZ! release: 71
 
 	config TYPE_7170_en_58_04_59
-		bool "AVM 7170 58.04.59 12079 en Annex A (Service)"
+		bool "AVM 7170 58.04.59 12079 en (Annex A, Service)"
 		depends on TYPE_OR_7140_7170 || ( TYPE_SPEEDPORT_W721V && TYPE_LANG_EN && TYPE_ANNEX_A ) || TYPE_OR_500_701_900_AVMX_LOCALTCOM
 		help
-			FRITZ! release: 82 Annex A english
+			FRITZ! release: 82 (Annex A, english)
 
 	config TYPE_7170_en_58_04_84
-		bool "AVM 7170 58.04.84 20124 en Annex A"
+		bool "AVM 7170 58.04.84 20124 en (Annex A)"
 		depends on TYPE_OR_7140_7170 || ( TYPE_SPEEDPORT_W721V && TYPE_LANG_EN && TYPE_ANNEX_A ) || TYPE_OR_500_701_900_AVMX_LOCALTCOM
 		help
 			FRITZ! release: 82 Annex A english
 
 	config TYPE_7170_en_29_04_82
-		bool "AVM 7170 29.04.82 17260 en Annex B"
+		bool "AVM 7170 29.04.82 17260 en (Annex B)"
 		depends on TYPE_OR_7140_7170 || ( TYPE_SPEEDPORT_W721V && TYPE_LANG_EN && ! TYPE_ANNEX_A ) || TYPE_OR_500_701_900_AVMX_LOCALTCOM
 		help
 			FRITZ! release: 82 Annex B english
@@ -1356,16 +1359,28 @@ choice
 			FRITZ! release: 82
 
 	config TYPE_PRE_7240_20170
-		bool "AVM 7240 73.05.01 20170 (PREVIEW)"
+		bool "AVM 7240 73.05.01 20170 (Preview)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
-			FRITZ!Lab (PREVIEW):
+			FRITZ!Lab (Preview):
 
-	config TYPE_PRE_7240_73_05_05
+	config TYPE_7240_73_04_80
+		bool "AVM 7240 73.04.80 20181 (Service)"
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
+		help
+			FRITZ!Lab (Preview):
+
+#	config TYPE_7240_73_04_87
+#		bool "AVM 7240 73.04.87 (final)"
+#		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
+#		help
+#			FRITZ!Lab (Preview):
+
+	config TYPE_7240_73_05_05
 		bool "AVM 7240 73.05.05 20181 (Final)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
-			FRITZ!Lab (PREVIEW):
+			FRITZ!Lab (Preview):
 
 	config TYPE_7272_54_04_58
 		bool "AVM 7270v2 54.04.58 11581 (Zwischenupdate)"
@@ -1381,10 +1396,10 @@ choice
 			FRITZ! release: 59
 
 	config TYPE_PRE_7272_17828
-		bool "AVM 7270v2 17828 (old PREVIEW)"
+		bool "AVM 7270v2 17828 (Preview)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
-			FRITZ!Lab (PREVIEW):
+			FRITZ!Lab (Preview):
 
 	config TYPE_7272_54_04_76
 		bool "AVM 7270v2 54.04.76 14563 (Service)"
@@ -1394,28 +1409,28 @@ choice
 			FRITZ! release: 76
 
 	config TYPE_7272_54_04_80
-		bool "AVM 7270v2 54.04.80 15980"
+		bool "AVM 7270v2 54.04.80 15980 (Final)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 #		depends on EXPERT_MOD 
 		help
 			FRITZ! release: 80
 
 	config TYPE_7271_54_04_88
-		bool "AVM 7270v1 54.04.88 18902"
+		bool "AVM 7270v1 54.04.88 18902 (Final)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 #		depends on EXPERT_MOD 
 		help
 			FRITZ! release: 88
 
 	config TYPE_7272_54_04_88
-		bool "AVM 7270v2 54.04.88 18808"
+		bool "AVM 7270v2 54.04.88 18808 (Final)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 #		depends on EXPERT_MOD 
 		help
 			FRITZ! release: 88
 
 	config TYPE_7273_74_04_88
-		bool "AVM 7270v3 74.04.88 18808"
+		bool "AVM 7270v3 74.04.88 18808 (Final)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 #		depends on EXPERT_MOD 
 		help
@@ -1436,23 +1451,23 @@ choice
 			FRITZ! release
 
 	config TYPE_7273_74_04_89
-		bool "AVM 7270v3 74.04.89 19590"
+		bool "AVM 7270v3 74.04.89 19590 (Final)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 #		depends on EXPERT_MOD 
 		help
 			FRITZ! release: 88
 
 	config TYPE_PRE_7272_20170
-		bool "AVM 7270v2 54.05.04 20170 (PREVIEW)"
+		bool "AVM 7270v2 54.05.04 20170 (Preview)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
-			FRITZ!Lab (PREVIEW): CeBIT-Labor
+			FRITZ!Lab (Preview): CeBIT-Labor
 
 	config TYPE_PRE_7273_20170
-		bool "AVM 7270v3 74.05.04 20170 (PREVIEW)"
+		bool "AVM 7270v3 74.05.04 20170 (Preview)"
 		depends on ( TYPE_OR_7240_7273_7390_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help 
-			FRITZ!Lab (PREVIEW): CeBIT-Labor
+			FRITZ!Lab (Preview): CeBIT-Labor
 
 	config TYPE_IPV6_7272_17599
 		bool "AVM 7270v2 17599.en-de-fr IPv6"
@@ -1477,28 +1492,28 @@ choice
 			FRITZ!Lab Last known funktional.
 
 	config TYPE_DSL_7271_18237
-		bool "AVM 7270v1 18237 Labor-DSL"
+		bool "AVM 7270v1 18237 (Labor DSL)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab DSL: This release optimises the DSL (Digital Subscriber
 			 Line) software and adds related graphs.
 
 	config TYPE_DSL_7272_18582
-		bool "AVM 7270v2 18582 Labor-DSL"
+		bool "AVM 7270v2 18582 (Labor DSL)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab DSL: This release optimises the DSL (Digital Subscriber
 			 Line) software and adds related graphs.
 
 	config TYPE_DSL_7272_18956
-		bool "AVM 7270v2 18956 Labor-DSL"
+		bool "AVM 7270v2 18956 (Labor DSL)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab DSL: This release optimises the DSL (Digital Subscriber
 			 Line) software and adds related graphs.
 
 	config TYPE_DSL_7273_18956
-		bool "AVM 7270v3 18956 Labor-DSL"
+		bool "AVM 7270v3 18956 (Labor DSL)"
 		depends on ( TYPE_7390 || TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab DSL: This release optimises the DSL (Digital Subscriber
@@ -1544,28 +1559,28 @@ choice
 		bool "AVM 7390 84.04.81 15936 (only for testing)"
 		depends on TYPE_OR_7390_722
 		help 
-			FRITZ!Lab (PREVIEW):
+			FRITZ!Lab (Preview):
 
 #	config TYPE_7390_84_04_82
 #		bool "AVM 7390 84.04.82 16165 (only for testing)"
 #		depends on TYPE_OR_7390_722
 #		help 
-#			FRITZ!Lab (PREVIEW):
+#			FRITZ!Lab (Preview):
 
 #	config TYPE_7390_84_04_84
 #		bool "AVM 7390 84.04.84 17370 (only for testing)"
 #		depends on TYPE_OR_7390_722
 #		help 
-#			FRITZ!Lab (PREVIEW):
+#			FRITZ!Lab (Preview):
 
 	config TYPE_PRE_7390_18550
 		bool "AVM 7390 84.04.86 18550 (Service)"
 		depends on TYPE_OR_7390_722
 		help 
-			FRITZ!Lab (PREVIEW): CeBIT-Labor
+			FRITZ!Lab (Preview): CeBIT-Labor
 
 	config TYPE_7390_84_04_87
-		bool "AVM 7390 84.04.87.en-de-es-it-fr 18914 (downgrade)"
+		bool "AVM 7390 84.04.87.en-de-es-it-fr 18914 (Downgrade)"
 		depends on TYPE_OR_7390_722
 		help 
 			FRITZ! : release 88
@@ -1577,7 +1592,7 @@ choice
 			FRITZ! : release 88
 
 	config TYPE_7390_84_04_89
-		bool "AVM 7390 84.04.89 18834 (downgrade)"
+		bool "AVM 7390 84.04.89 18834 (Downgrade)"
 		depends on TYPE_OR_7390_722
 		help 
 			FRITZ! : release 88
@@ -1595,13 +1610,13 @@ choice
 			FRITZ! : release 91
 
 	config TYPE_PRE_7390_19947
-		bool "AVM 7390 84.05.04 19947 (PREVIEW)"
+		bool "AVM 7390 84.05.04 19947 (Preview)"
 		depends on TYPE_OR_7390_722
 		help 
-			FRITZ!Lab (PREVIEW)
+			FRITZ!Lab (Preview)
 
 	config TYPE_DSL_7390_20173
-		bool "AVM 7390 84.05.04 20173 (PREVIEW)"
+		bool "AVM 7390 84.05.04 20173 (Preview)"
 		depends on TYPE_OR_7390_722
 		help 
 			FRITZ!Lab
@@ -1610,7 +1625,7 @@ choice
 		bool "AVM W722 80.04.76 (only for testing)"
 		depends on TYPE_SPEEDPORT_W722V
 		help 
-			FRITZ!Lab (PREVIEW):
+			FRITZ!Lab (Preview):
 #<--
 	config TYPE_LOCAL_AVM
 		bool "CUSTOM AVM LOCAL firmware"
@@ -1671,7 +1686,7 @@ choice
 		FRITZ! : 7570 release multilingual, for used in combination with alice
 
 	config TYPE_AVM_7570_17599
-		bool "AVM 7570 17599.en-de-fr (IPv6) 17599"
+		bool "AVM 7570 17599.en-de-fr (IPv6) "
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
@@ -1738,7 +1753,7 @@ choice
 		bool "AVM 7113 60.04.68"
 
 	config TYPE_SRC3_AVM_7113_90_04_82
-		bool "AVM 7113 90.04.82 de-en-es-it-fr Annex A"
+		bool "AVM 7113 90.04.82 de-en-es-it-fr (Annex A)"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7140 Firmware
 
@@ -1778,10 +1793,10 @@ choice
 		bool "AVM 7170 29.04.76 14789 (Service)"
 
 	config TYPE_SRC3_AVM_7170_29_04_80
-		bool "AVM 7170 29.04.80 16352"
+		bool "AVM 7170 29.04.80 16352 (Final)"
 
 	config TYPE_SRC3_AVM_7170_29_04_87
-		bool "AVM 7170 29.04.87 19985"
+		bool "AVM 7170 29.04.87 19985 (Final)"
 
 	config TYPE_SRC3_AVM_7170_en_58_04_59
 		bool "AVM 7170 58.04.59 en 12079 (english, Annex A, Service)"
@@ -1793,19 +1808,22 @@ choice
 		bool "AVM 7170 29.04.82 17260 en (english, Annex B)"
 
 #	config TYPE_SRC3_AVM_PRE_7170_19817
-#		bool "AVM 7170 19817 (PREVIEW)"
+#		bool "AVM 7170 19817 (Preview)"
 
         config TYPE_SRC3_AVM_PRE_7170_19957
- 	        bool "AVM 7170 19957 (PREVIEW)" 
+ 	        bool "AVM 7170 19957 (Preview)" 
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7240 Firmware
 
-	config TYPE_SRC3_AVM_PRE_7240_20170
-		bool "AVM 7240 73.05.01 20170 (PREVIEW)"
+	config TYPE_SRC3_AVM_7240_73_04_80
+		bool "AVM 7240 73.04.80 (Final)"
 
-	config TYPE_SRC3_AVM_PRE_7240_73_05_05
-		bool "AVM 7240 73.05.01 20181 (Final)"
+#	config TYPE_SRC3_AVM_7240_73_04_87
+#		bool "AVM 7240 73.04.87 (Final)"
+
+	config TYPE_SRC3_AVM_PRE_7240_20170
+		bool "AVM 7240 73.05.01 20170 (Preview)"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7270v2 Firmware
@@ -1820,7 +1838,7 @@ choice
 		bool "AVM 7270v2 54.04.76 14563 (Service)"
 
 	config TYPE_SRC3_AVM_7272_54_04_80
-		bool "AVM 7270v2 54.04.80 15980"
+		bool "AVM 7270v2 54.04.80 15980 (Final)"
 
 	config TYPE_SRC3_AVM_7272_m54_04_81
 		bool "AVM 7270v2 54.04.81.en-de-it-sp-fr 16838"
@@ -1829,16 +1847,16 @@ choice
 		bool "AVM 7270v3 74.04.81.en-de-it-sp-fr 16838"
 
 	config TYPE_SRC3_AVM_7271_54_04_88
-		bool "AVM 7270v1 54.04.88 18834"
+		bool "AVM 7270v1 54.04.88 18834 (Final)"
 
 	config TYPE_SRC3_AVM_7272_54_04_88
-		bool "AVM 7270v2 54.04.88 18808"
+		bool "AVM 7270v2 54.04.88 18808 (Final)"
 
 	config TYPE_SRC3_AVM_7273_74_04_88
-		bool "AVM 7270v3 74.04.88 18808"
+		bool "AVM 7270v3 74.04.88 18808 (Final)"
 
 	config TYPE_SRC3_AVM_7273_74_04_89
-		bool "AVM 7270v3 74.04.89 19590"
+		bool "AVM 7270v3 74.04.89 19590 (Final)"
 
 	config TYPE_SRC3_AVM_7272_54_05_05
 		bool "AVM 7270v2 54.05.05 20181 (Final)"
@@ -1862,25 +1880,25 @@ choice
 		bool "AVM 7270v2 17599.en-de-fr (IPv6)"
 
 	config TYPE_SRC3_AVM_DSL_7271_18237
-		bool "AVM 7270v1 18237 Labor DSL"
+		bool "AVM 7270v1 18237 (Labor DSL)"
 
 	config TYPE_SRC3_AVM_DSL_7272_18956
-		bool "AVM 7270v2 18956 Labor DSL"
+		bool "AVM 7270v2 18956 (Labor DSL)"
 
 	config TYPE_SRC3_AVM_DSL_7273_18956
-		bool "AVM 7270v3 18956 Labor DSL"
+		bool "AVM 7270v3 18956 (Labor DSL)"
 
 	config TYPE_SRC3_AVM_NAS_7272_19759
 		bool "AVM 7270v2 54.05.04 19759 (Labor)"
 
 	config TYPE_SRC3_AVM_PRE_7272_17828
-		bool "AVM 7270v2 17828 (old PREVIEW)"
+		bool "AVM 7270v2 17828 (Preview)"
 
 	config TYPE_SRC3_AVM_PRE_7272_20170
-		bool "AVM 7270v2 54.05.04 20170 (PREVIEW)"
+		bool "AVM 7270v2 54.05.04 20170 (Preview)"
 
 	config TYPE_SRC3_AVM_PRE_7273_20170
-		bool "AVM 7270v3 74.05.04 20170 (PREVIEW)"
+		bool "AVM 7270v3 74.05.04 20170 (Preview)"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7390 Firmware
@@ -1901,22 +1919,22 @@ choice
 		bool "AVM 7390 84.04.86 18550 (Service)"
 
 	config TYPE_SRC3_AVM_7390_84_04_87
-		bool "AVM 7390 84.04.87.en-de-es-it-fr 18914 (downgrade)"
+		bool "AVM 7390 84.04.87.en-de-es-it-fr 18914 (Downgrade)"
 
 	config TYPE_SRC3_AVM_7390_84_04_88
 		bool "AVM 7390 84.04.88.en-de-es-it-fr 18914"
 
 	config TYPE_SRC3_AVM_7390_84_04_89
-		bool "AVM 7390 84.04.89 18834 (downgrade)"
+		bool "AVM 7390 84.04.89 18834 (Downgrade)"
 
 #	config TYPE_SRC3_AVM_7390_84_04_90
-#		bool "AVM 7390 84.04.90 19238"
+#		bool "AVM 7390 84.04.90 19238 (Final)"
 
 	config TYPE_SRC3_AVM_7390_84_04_91
-		bool "AVM 7390 84.04.91 19238"
+		bool "AVM 7390 84.04.91 19238 (Final)"
 
 	config TYPE_SRC3_AVM_PRE_7390_19947
-		bool "AVM 7390 84.05.04 19947 (PREVIEW)"
+		bool "AVM 7390 84.05.04 19947 (Preview)"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 Firmware
@@ -1928,13 +1946,13 @@ choice
 		bool "AVM 7570 75.04.78.en-de-fr 15564"
 
 	config TYPE_SRC3_AVM_7570_16068
-		bool "AVM 7570 75.04.80 16068"
+		bool "AVM 7570 75.04.80 16068 (Final)"
 
 	config TYPE_SRC3_AVM_7570_16087
 		bool "AVM 7570 75.04.80.en-de-fr 16087"
 
 	config TYPE_SRC3_AVM_7570_17599
-		bool "AVM 7570 17599.en-de-fr (IPv6) 17599"
+		bool "AVM 7570 17599.en-de-fr (IPv6)"
 
 	config TYPE_SRC3_AVM_7570_75_04_82
 		bool "AVM 7570 75.04.82.en-de-fr 17057"
@@ -1946,10 +1964,10 @@ choice
 		bool "AVM 7570 75.04.91.en-de-fr 19965"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	config TYPE_SRC3_AVM_HN_7570_16971
-		bool "AVM 7570 81.04.86 (HN alice) 16971"
+		bool "AVM 7570 81.04.86 16971 (HN alice)"
 		
 	config TYPE_SRC3_AVM_HN_7570_19715
-		bool "AVM 7570 75.04.90 (freetz kernel) 19715"
+		bool "AVM 7570 75.04.90 19715 (freetz kernel) "
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	config TYPE_SRC3_TCOM_W500_27
 		bool "TCOM Sinus W500V 27.04.27"
@@ -2106,6 +2124,7 @@ config AVM_IMG
 	default "$AVM_GAMING_7170_11435"			if TYPE_7170_GAMING_11435 && (TYPE_OR_500_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 #	default "$AVM_BETA_7170_19817"				if TYPE_7170_PRE_19817 && (TYPE_OR_500_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_BETA_7170_19957"				if TYPE_7170_PRE_19957 && (TYPE_OR_500_701_721_900 || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7240_73_04_80"				if ( TYPE_7240_73_04_80 )
 	default "$AVM_7240_73_04_87"				if ( TYPE_7240_73_04_87 )
 	default "$AVM_7240_73_05_05"				if ( TYPE_7240_73_05_05 )
 #	default "$AVM_7570_75_04_82"				if ( TYPE_7570 ) && ! TYPE_LABOR && ! TYPE_AVM_7570_XX
@@ -2205,6 +2224,7 @@ config SRC2_IMG
 	default "$AVM_7272_54_04_59" 			if TYPE_SRC3_AVM_7272_54_04_59
 	default "$AVM_7272_54_04_76" 			if TYPE_SRC3_AVM_7272_54_04_76
 	default "$AVM_7272_54_04_80" 			if TYPE_SRC3_AVM_7272_54_04_80
+	default "$AVM_7240_73_04_80" 			if TYPE_SRC3_AVM_7240_73_04_80
 	default "$AVM_7240_73_04_87" 			if TYPE_SRC3_AVM_7240_73_04_87
 	default "$AVM_7240_73_05_05" 			if TYPE_SRC3_AVM_7240_73_05_05
 	default "$AVM_7271_54_04_86" 			if TYPE_SRC3_AVM_7271_54_04_86
@@ -2300,7 +2320,7 @@ config TYPE_7273_TYPE
 config TYPE_V3_OR_7240
 	bool
 	default "y" 		if  TYPE_7273_TYPE || TYPE_PHONE_7240_16376 || TYPE_PRE_7240_20170 || \
-				TYPE_7240_73_04_87 || TYPE_7240_73_05_05
+				TYPE_7240_73_04_80 || TYPE_7240_73_04_87 || TYPE_7240_73_05_05
 
  
 config TYPE_LABOR_TYPE
