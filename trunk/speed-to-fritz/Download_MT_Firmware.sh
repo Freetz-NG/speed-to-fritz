@@ -93,5 +93,21 @@ if [ "NO UPDATE FOUND" != "$URL" ]; then
     mv ./$IMG_REQ ./$with_new_ext
 fi
 rm ./.url
-sleep 10
+export ECHO_ROT="\033[31m"
+export ECHO_GRUEN="\033[32m"
+export ECHO_BOLD="\033[1m"
+export ECHO_END="\033[0m"
+echo -e "${ECHO_GRUEN}Die Firmware ./$with_new_ext muss nun noch\n\
+auf den USB Stick ins root -Verzeichnis kopiert werden.\n\
+Dann Stick in den Router einstecken.\n\
+Und Update am Mobilteil Fritz!Fon ausfhren:\n\
+Ins Hauptmen\n\
+Pfeil nach oben --> Einstellungen\n\
+OK\n\
+3x nach oben --> Firmware-Update\n\
+OK\n\
+Display zeigt die Firmware Version an.\n\
+Mit OK besaettigen und das Mobilteil wird Aktualisiert, Mobilteil macht einen Reboot.${ECHO_END}\n\
+${ECHO_BOLD}${ECHO_ROT}Wenn die Firmware nicht passt, kann damit das Mobilteil auch unbrauchbar werden!${ECHO_END}"
+sleep 20
 exit 0
