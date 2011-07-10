@@ -1,5 +1,4 @@
 #!/bin/bash
-echo "-- removing timezone menue entry ..."
 #new lua type pages on 18577
 DIRI="$(find ${1}/usr/www/ \( -name menu_show.lua  \) -type f -print)"
 for file_n in $DIRI; do
@@ -8,6 +7,8 @@ for file_n in $DIRI; do
     sed -i -e 's/system.timezone.lua.. = box.query..env:status.OEM.. == .avme./system\/timezone\.lua\"\] = false/' "$file_n"
     grep -q 'system.timezone.lua.. = false' "$file_n" && echo2 "    removed timezone page in file: ${file_n##*/}"
 done
+if [ "$FORCE_MULTI_ZONE" = "y" ]; then
+echo "-- removing timezone menue entry ..."
 #old menues add or remove timezone entry
 echo "-- adding timezone pages ..."
 [ "$avm_Lang" = "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_de.patch" )
@@ -19,5 +20,5 @@ for file_n in $DIRI; do
     sed -i -e "/system...timeZone/d" "$file_n"
     grep -q 'system...timeZone' "$file_n" || echo2 "    removed timezone page in file: ${file_n##*/}"
 done
+fi
 exit 0
-
