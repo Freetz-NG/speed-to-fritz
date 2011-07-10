@@ -2311,6 +2311,10 @@ config TYPE_7272_TYPE
 				TYPE_IPV6_7272_17599 || TYPE_NAS_7272_19759 || TYPE_7272_54_04_76 || TYPE_7272_54_04_80 || \
 				TYPE_7272_54_04_86 || TYPE_7272_m54_04_81 || TYPE_7272_m54_04_90 || TYPE_7272_54_05_05 || \
 				TYPE_DSL_7271_18582
+config TYPE_MULTI_TYPE
+	bool
+	default "y"	 	if  TYPE_7272_m54_04_76 || TYPE_7272_m54_04_81 || TYPE_7272_m54_04_90
+				
 config TYPE_7273_TYPE
 	bool
 	default "y"	 	if  TYPE_IPV6_7273_17599 || TYPE_PRE_7273_20170 || \
@@ -2538,9 +2542,10 @@ config EXPORT_FORCE_MULTI_COUNTRY
 	    To make this work you must have a basis or 2nd AVM firmware that supplies the needed feature, some text may be wrong or missing!.
 config EXPORT_FORCE_MULTI_COUNTRY_SRC2
 	bool "Use Multi country from 2nd AVM firmware"
-	depends on ( TYPE_SRC3_AVM_7272_m54_04_76 || TYPE_SRC3_AVM_7570_XX || TYPE_OR_TCOM7570XX_LOCALTCOM_LOCALAVM ) && ( ! TYPE_AVM_7570_XX  || ! TYPE_AVM_7272_m54_04_76 ) && SOURCE2
+#	depends on ( TYPE_SRC3_AVM_7272_m54_04_76 || TYPE_SRC3_AVM_7570_XX || TYPE_OR_TCOM7570XX_LOCALTCOM_LOCALAVM ) && ( ! TYPE_AVM_7570_XX  || ! TYPE_AVM_7272_m54_04_76 ) && SOURCE2
+	depends on SOURCE2
 	depends on EXPERT_MOD 
- 	default n
+	default n
 	help
 	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!
 	    To make this work you must have a basis or 2nd AVM firmware that supplies the needed feature, some text may be wrong or missing!.
