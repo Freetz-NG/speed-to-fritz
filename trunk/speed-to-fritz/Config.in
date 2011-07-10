@@ -2544,6 +2544,13 @@ config EXPORT_FORCE_MULTI_COUNTRY_SRC2
 	help
 	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!
 	    To make this work you must have a basis or 2nd AVM firmware that supplies the needed feature, some text may be wrong or missing!.
+config EXPORT_FORCE_MULTI_ZONE
+	bool "Patch time zone"
+	depends on ( TYPE_SRC3_AVM_7272_m54_04_76 || TYPE_SRC3_AVM_7570_XX || TYPE_OR_TCOM7570XX_LOCALTCOM_LOCALAVM ) && ( ! TYPE_AVM_7570_XX  || ! TYPE_AVM_7272_m54_04_76 )
+ 	default n
+	help
+	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!
+	    To make this work you must have a basis or 2nd AVM firmware that supplies the needed feature, some text may be wrong or missing!.
 
 config FORCE_OEM_AVME
 	bool

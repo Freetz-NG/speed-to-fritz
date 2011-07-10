@@ -857,6 +857,9 @@ function readConfig()
 #			echo "VAR: $VAR"
 			sed -i -e "/export CONFIG_VERSION_MAJOR=.10./d" "$3/rc.conf"
 			VAL=`grep -e "export CONFIG_${VAR}=." "$3/rc.conf" | grep -m 1 -o -e "CONFIG_${VAR}=.*" | awk -F "[= ]" '{print $2}' | sed -e "s/\"//g"`
+			#Zweiter Eintrag unter oem ist der gueltige Wert wenn einer vorhanden ist
+			VAL2=`grep -e "export CONFIG_${VAR}=." "$3/rc.conf" | grep -m 2 -o -e "CONFIG_${VAR}=.*" | awk -F "[= ]" '{print $2}' | sed -e "s/\"//g" | grep -e "n"`
+			[ "$VAL2" = "n" ] && VAL=n
 			eval "export $2=$VAL"
 		elif [ -e "$3/rc.init" ] && `cat "$3/rc.init" | grep -q "$1="` ; then
 			VAR=$(echo $1 | sed -e "s/^_//")
