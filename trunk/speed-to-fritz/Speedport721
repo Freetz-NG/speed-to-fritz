@@ -369,7 +369,6 @@ rm -f "${SRC}"/lib/modules/dect*
 #rm -fd -R ${SRC}/usr/www/html/de/tools
 #rm -fd -R ${SRC}/usr/www/html/tools
 #rm -rf ${SRC}/sbin/finalize_env
-rm -fd -R ${SRC}/usr/www/kids
 rm -rf ${SRC}/bin/usermand
 rm -fd -R ${SRC}/lib/modules/$KernelVersion//kernel/drivers/userman
 
@@ -491,13 +490,13 @@ sed -i -e "s|HWRevision_ATA=0|HWRevision_ATA=1|" "${SRC}/etc/init.d/rc.conf"
 
 
 #remove kids and help
-#[ "${REMOVE_KIDS}" = "y" ] && 
-$sh_DIR/rmv_kids.sh "${SRC}"
-rm -fd -R ${SRC}/usr/www/kids
-rm -rf ${SRC}/bin/usermand
-rm -fd -R ${SRC}/lib/modules/$KernelVersion//kernel/drivers/userman
-#[ "${REMOVE_HELP}" = "y" ] && 
-$sh_DIR/rmv_help.sh "${SRC}"
+if [ "${REMOVE_KIDS}" = "y" ]; then
+    $sh_DIR/rmv_kids.sh "${SRC}"
+    rm -fd -R ${SRC}/usr/www/kids
+    rm -rf ${SRC}/bin/usermand
+    rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/userman
+fi
+[ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
 
 #echo2 "Removing files for further image size reduction:"
 #$sh_DIR/remove_files_721.sh ${SRC}
