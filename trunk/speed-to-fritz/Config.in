@@ -992,7 +992,13 @@ if TYPE_OR_7240_7570_920 || TYPE_OR_503_722_AVMX_LOCALTCOM
     bool
     default y
 endif
-config ORI_FIRMWARE_IS_MULI
+config TYPE_FIRMWARE_1_IS_MULTI
+    bool
+    default n
+config TYPE_FIRMWARE_2_IS_MULTI
+    bool
+    default n
+config TYPE_FIRMWARE_3_IS_MULTI
     bool
     default n
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1051,24 +1057,30 @@ choice
 	
 	config TYPE_TCOM_7570_75_04_78
 		bool "AVM 7570 75.04.78.en-de-fr 15564"
+		select TYPE_FIRMWARE_1_IS_MULTI
 
 	config TYPE_TCOM_7570_16068
 		bool "AVM 7570 75.04.80 16068"
 
 	config TYPE_TCOM_7570_16087
 		bool "AVM 7570 75.04.80.en-de-fr 16087"
+		select TYPE_FIRMWARE_1_IS_MULTI
 
 	config TYPE_TCOM_7570_17599
 		bool "AVM 7570 17599.en-de-fr (IPv6)"
+		select TYPE_FIRMWARE_1_IS_MULTI
 
 	config TYPE_TCOM_7570_75_04_82
-		bool "AVM 7570 75.04.90.en-de-fr 17057"
+		bool "AVM 7570 75.04.82.en-de-fr 17057"
+		select TYPE_FIRMWARE_1_IS_MULTI
 
 	config TYPE_TCOM_7570_75_04_90
 		bool "AVM 7570 75.04.90.en-de-fr 19715"
+		select TYPE_FIRMWARE_1_IS_MULTI
 
 	config TYPE_TCOM_7570_75_04_91
 		bool "AVM 7570 75.04.91.en-de-fr 19965"
+		select TYPE_FIRMWARE_1_IS_MULTI
 
 	config TYPE_TCOM_HN_7570_16971
 		bool "AVM 7570 81.04.86 (HN alice) 16971"
@@ -1078,6 +1090,7 @@ choice
 
 	config TYPE_LOCAL_TCOM_7570
 		bool "CUSTOM 7570 firmware"
+		select TYPE_FIRMWARE_1_IS_MULTI
 endchoice
 config TCOM_7570_LOCAL
     depends on TYPE_LOCAL_TCOM_7570
@@ -1167,8 +1180,8 @@ config EXPORT_FORCE_DSL_MULTI_ANNEX
 	bool "Force Multi annex (optional)"
 	depends on ( ! TYPE_7271_TYPE && ! ORI && ! TYPE_SPEEDPORT_W900V && ! TYPE_7150_to_7170 && ! TYPE_SPEEDPORT_W721V && ! TYPE_SPEEDPORT_W701V && ! TYPE_SPEEDPORT_W503V && ! TYPE_SPEEDPORT_W501V && ! TYPE_SINUS_W500V )
 	default n
-#	default n if ORI_FIRMWARE_IS_MULI || TYPE_7140 || TYPE_7141
-#	default y if ! ORI_FIRMWARE_IS_MULI && ! TYPE_7140 && ! TYPE_7141
+#	default n if TYPE_FIRMWARE_2_IS_MULTI || TYPE_7140 || TYPE_7141
+#	default y if ! TYPE_FIRMWARE_2_IS_MULTI && ! TYPE_7140 && ! TYPE_7141
 	help
 	    To make this work you must have a firmware that supplies the needed feature, firmware with minor version > 70 (7270 like).
 	    In case of 7170 Firmwares, it is usual better to stay without this optin because the drivers are optimized for a special annex type.
@@ -1353,8 +1366,9 @@ choice
 			FRITZ! release: 68
 
 	config TYPE_7113_90_04_82
-		bool "AVM 7113 90.04.82.de-en-es-it-fr Annex A"
+		bool "AVM 7113 90.04.82.en-de-es-it-fr Annex A"
 		depends on ( TYPE_OR_7140_7170 || ! TYPE_SPECIALW721_TCOM && TYPE_OR_500_701_721_900_AVMX_LOCALTCOM ) && ( TYPE_ANNEX_A )
+		select TYPE_FIRMWARE_2_IS_MULTI
 		help
 			FRITZ! release: 82
 
@@ -1471,7 +1485,7 @@ choice
 
 	config TYPE_IPV6_7272_17599
 		bool "AVM 7270v2 17599.en-de-fr IPv6"
-		select ORI_FIRMWARE_IS_MULI
+		select TYPE_FIRMWARE_2_IS_MULTI
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
@@ -1479,7 +1493,7 @@ choice
 
 	config TYPE_IPV6_7273_17599
 		bool "AVM 7270v3 17599.en-de-fr IPv6"
-		select ORI_FIRMWARE_IS_MULI
+		select TYPE_FIRMWARE_2_IS_MULTI
 		depends on ( TYPE_OR_7240_7273_7390_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 		help
 			FRITZ!Lab IPV6: This release adds native IPV6 over PPP
@@ -1521,35 +1535,35 @@ choice
 
 	config TYPE_7272_m54_04_81
 		bool "AVM 7270v2 54.04.81.en-de-es-it-fr 16838"
-		select ORI_FIRMWARE_IS_MULI
+		select TYPE_FIRMWARE_2_IS_MULTI
 		depends on TYPE_OR_7240_7570_920 || TYPE_OR_AVMX_LOCALTCOM
 		help
 			FRITZ! : release 76 multilingual
 
 	config TYPE_7273_m74_04_81
 		bool "AVM 7270v3 74.04.81.en-de-es-it-fr 16838"
-		select ORI_FIRMWARE_IS_MULI
+		select TYPE_FIRMWARE_2_IS_MULTI
 		depends on TYPE_OR_7240_7570_920 || TYPE_OR_AVMX_LOCALTCOM
 		help
 			FRITZ! : release 76 multilingual
 
 	config TYPE_7273_m74_04_89
 		bool "AVM 7270v3 74.04.89.en-de-es-it-fr 19525"
-		select ORI_FIRMWARE_IS_MULI
+		select TYPE_FIRMWARE_2_IS_MULTI
 		depends on TYPE_OR_7240_7570_920 || TYPE_OR_AVMX_LOCALTCOM
 		help
 			FRITZ! : release 89 multilingual
 
 	config TYPE_7272_m54_04_90
 		bool "AVM 7270v2 54.04.90.en-de-es-it-fr 19715"
-		select ORI_FIRMWARE_IS_MULI
+		select TYPE_FIRMWARE_2_IS_MULTI
 		depends on TYPE_OR_7240_7570_920 || TYPE_OR_AVMX_LOCALTCOM
 		help
 			FRITZ! : release 90 multilingual
 
 	config TYPE_7273_m74_04_90
 		bool "AVM 7270v3 74.04.90.en-de-es-it-fr 19715"
-		select ORI_FIRMWARE_IS_MULI
+		select TYPE_FIRMWARE_2_IS_MULTI
 		depends on TYPE_OR_7240_7570_920 || TYPE_OR_AVMX_LOCALTCOM
 		help
 			FRITZ! : release 90 multilingual
@@ -1581,12 +1595,14 @@ choice
 
 	config TYPE_7390_84_04_87
 		bool "AVM 7390 84.04.87.en-de-es-it-fr 18914 (Downgrade)"
+		select TYPE_FIRMWARE_2_IS_MULTI
 		depends on TYPE_OR_7390_722
 		help 
 			FRITZ! : release 88
 
 	config TYPE_7390_84_04_88
 		bool "AVM 7390 84.04.88.en-de-es-it-fr 18914"
+		select TYPE_FIRMWARE_2_IS_MULTI
 		depends on TYPE_OR_7390_722
 		help 
 			FRITZ! : release 88
@@ -1629,6 +1645,7 @@ choice
 #<--
 	config TYPE_LOCAL_AVM
 		bool "CUSTOM AVM LOCAL firmware"
+		select TYPE_FIRMWARE_2_IS_MULTI
 		help
 			FRITZ! : Any AVM firmware
 endchoice
@@ -1660,13 +1677,13 @@ choice
 
 	config TYPE_AVM_7570_75_04_78
 		bool "AVM 7570 75.04.78.en-de"
-		select ORI_FIRMWARE_IS_MULI
+		select TYPE_FIRMWARE_2_IS_MULTI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_16087
 		bool "AVM 7570 75.04.80.en-de-fr 16087"
-		select ORI_FIRMWARE_IS_MULI
+		select TYPE_FIRMWARE_2_IS_MULTI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
@@ -1687,24 +1704,25 @@ choice
 
 	config TYPE_AVM_7570_17599
 		bool "AVM 7570 17599.en-de-fr (IPv6) "
+		select TYPE_FIRMWARE_2_IS_MULTI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_75_04_82
 		bool "AVM 7570 75.04.82.en-de-fr 17057"
-		select ORI_FIRMWARE_IS_MULI
+		select TYPE_FIRMWARE_2_IS_MULTI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_75_04_90
 		bool "AVM 7570 75.04.90.en-de-fr 19715"
-		select ORI_FIRMWARE_IS_MULI
+		select TYPE_FIRMWARE_2_IS_MULTI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_7570_75_04_91
 		bool "AVM 7570 75.04.91.en-de-fr 19965"
-		select ORI_FIRMWARE_IS_MULI
+		select TYPE_FIRMWARE_2_IS_MULTI
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
@@ -1753,7 +1771,8 @@ choice
 		bool "AVM 7113 60.04.68"
 
 	config TYPE_SRC3_AVM_7113_90_04_82
-		bool "AVM 7113 90.04.82 de-en-es-it-fr (Annex A)"
+		bool "AVM 7113 90.04.82.en-de-es-it-fr (Annex A)"
+		select TYPE_FIRMWARE_3_IS_MULTI
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7140 Firmware
 
@@ -1842,9 +1861,11 @@ choice
 
 	config TYPE_SRC3_AVM_7272_m54_04_81
 		bool "AVM 7270v2 54.04.81.en-de-it-sp-fr 16838"
+		select TYPE_FIRMWARE_3_IS_MULTI
 
 	config TYPE_SRC3_AVM_7273_m74_04_81
 		bool "AVM 7270v3 74.04.81.en-de-it-sp-fr 16838"
+		select TYPE_FIRMWARE_3_IS_MULTI
 
 	config TYPE_SRC3_AVM_7271_54_04_88
 		bool "AVM 7270v1 54.04.88 18834 (Final)"
@@ -1866,18 +1887,23 @@ choice
 
 	config TYPE_SRC3_AVM_7273_m74_04_89
 		bool "AVM 7270v3 74.04.89.en-de-it-sp-fr 19525"
+		select TYPE_FIRMWARE_3_IS_MULTI
 
 	config TYPE_SRC3_AVM_7272_m54_04_90
 		bool "AVM 7270v2 54.04.90.en-de-it-sp-fr 19715"
+		select TYPE_FIRMWARE_3_IS_MULTI
 
 	config TYPE_SRC3_AVM_7273_m74_04_90
 		bool "AVM 7270v3 74.04.90.en-de-it-sp-fr 19715"
+		select TYPE_FIRMWARE_3_IS_MULTI
 
 	config TYPE_SRC3_AVM_IPV6_7273_17599
 		bool "AVM 7270v3 17599.en-de-fr (IPv6)"
+		select TYPE_FIRMWARE_3_IS_MULTI
 
 	config TYPE_SRC3_AVM_IPV6_7272_17599
 		bool "AVM 7270v2 17599.en-de-fr (IPv6)"
+		select TYPE_FIRMWARE_3_IS_MULTI
 
 	config TYPE_SRC3_AVM_DSL_7271_18237
 		bool "AVM 7270v1 18237 (Labor DSL)"
@@ -1920,9 +1946,11 @@ choice
 
 	config TYPE_SRC3_AVM_7390_84_04_87
 		bool "AVM 7390 84.04.87.en-de-es-it-fr 18914 (Downgrade)"
+		select TYPE_FIRMWARE_3_IS_MULTI
 
 	config TYPE_SRC3_AVM_7390_84_04_88
 		bool "AVM 7390 84.04.88.en-de-es-it-fr 18914"
+		select TYPE_FIRMWARE_3_IS_MULTI
 
 	config TYPE_SRC3_AVM_7390_84_04_89
 		bool "AVM 7390 84.04.89 18834 (Downgrade)"
@@ -1944,24 +1972,30 @@ choice
 
 	config TYPE_SRC3_AVM_7570_75_04_78
 		bool "AVM 7570 75.04.78.en-de-fr 15564"
+		select TYPE_FIRMWARE_3_IS_MULTI
 
 	config TYPE_SRC3_AVM_7570_16068
 		bool "AVM 7570 75.04.80 16068 (Final)"
 
 	config TYPE_SRC3_AVM_7570_16087
 		bool "AVM 7570 75.04.80.en-de-fr 16087"
+		select TYPE_FIRMWARE_3_IS_MULTI
 
 	config TYPE_SRC3_AVM_7570_17599
 		bool "AVM 7570 17599.en-de-fr (IPv6)"
+		select TYPE_FIRMWARE_3_IS_MULTI
 
 	config TYPE_SRC3_AVM_7570_75_04_82
 		bool "AVM 7570 75.04.82.en-de-fr 17057"
+		select TYPE_FIRMWARE_3_IS_MULTI
 
 	config TYPE_SRC3_AVM_7570_75_04_90
 		bool "AVM 7570 75.04.90.en-de-fr 19715"
+		select TYPE_FIRMWARE_3_IS_MULTI
 
 	config TYPE_SRC3_AVM_7570_75_04_91
 		bool "AVM 7570 75.04.91.en-de-fr 19965"
+		select TYPE_FIRMWARE_3_IS_MULTI
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	config TYPE_SRC3_AVM_HN_7570_16971
 		bool "AVM 7570 81.04.86 16971 (HN alice)"
@@ -2034,6 +2068,7 @@ choice
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	config TYPE_SRC3_LOCAL_IMAGE
 		bool "CUSTOM SRC3 LOCAL FIRMWARE"
+		select TYPE_FIRMWARE_3_IS_MULTI
 
 endchoice
 
@@ -2311,10 +2346,7 @@ config TYPE_7272_TYPE
 				TYPE_IPV6_7272_17599 || TYPE_NAS_7272_19759 || TYPE_7272_54_04_76 || TYPE_7272_54_04_80 || \
 				TYPE_7272_54_04_86 || TYPE_7272_m54_04_81 || TYPE_7272_m54_04_90 || TYPE_7272_54_05_05 || \
 				TYPE_DSL_7271_18582
-config TYPE_MULTI_TYPE
-	bool
-	default "y"	 	if  TYPE_7272_m54_04_76 || TYPE_7272_m54_04_81 || TYPE_7272_m54_04_90
-				
+
 config TYPE_7273_TYPE
 	bool
 	default "y"	 	if  TYPE_IPV6_7273_17599 || TYPE_PRE_7273_20170 || \
@@ -2525,25 +2557,23 @@ comment  "--------------------------------------------------------------------"
 #comment  "---------------- Multisettings and OEM  (optional) -----------------"
 config EXPORT_FORCE_MULTI_LANGUAGE
 	bool "Use Multilingual from 2nd AVM firmware (optional)"
-	depends on ( TYPE_SRC3_AVM_7272_m54_04_76 || TYPE_SRC3_AVM_7570_XX || TYPE_OR_TCOM7570XX_LOCALTCOM_LOCALAVM ) && ( ! TYPE_AVM_7570_XX || ! TYPE_AVM_7272_m54_04_76 ) && SOURCE2
-	depends on EXPERT_MOD 
-	default n 
+	depends on TYPE_FIRMWARE_3_IS_MULTI && ! TYPE_FIRMWARE_2_IS_MULTI
+	depends on EXPERT_MOD
+	default n
 	help
 	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!  
 	    To make this work you must have a basis or 2nd AVM firmware that supplies the needed feature.
 config EXPORT_FORCE_MULTI_COUNTRY
 	bool "Use Multi country from base firmware"
-	depends on ( TYPE_SRC3_AVM_7272_m54_04_76 || TYPE_SRC3_AVM_7570_XX || TYPE_OR_TCOM7570XX_LOCALTCOM_LOCALAVM ) && ( ! TYPE_AVM_7570_XX  || ! TYPE_AVM_7272_m54_04_76 )
-#	depends on EXPERT_MOD 
- 	default n if ! FORCE_OEM_AVME
- 	default y if FORCE_OEM_AVME
+	depends on TYPE_FIRMWARE_1_IS_MULTI && ! TYPE_FIRMWARE_2_IS_MULTI
+	depends on EXPERT_MOD 
+	default n
 	help
 	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!
 	    To make this work you must have a basis or 2nd AVM firmware that supplies the needed feature, some text may be wrong or missing!.
 config EXPORT_FORCE_MULTI_COUNTRY_SRC2
 	bool "Use Multi country from 2nd AVM firmware"
-#	depends on ( TYPE_SRC3_AVM_7272_m54_04_76 || TYPE_SRC3_AVM_7570_XX || TYPE_OR_TCOM7570XX_LOCALTCOM_LOCALAVM ) && ( ! TYPE_AVM_7570_XX  || ! TYPE_AVM_7272_m54_04_76 ) && SOURCE2
-	depends on SOURCE2
+	depends on TYPE_FIRMWARE_3_IS_MULTI && ! TYPE_FIRMWARE_2_IS_MULTI
 	depends on EXPERT_MOD 
 	default n
 	help
@@ -2551,7 +2581,8 @@ config EXPORT_FORCE_MULTI_COUNTRY_SRC2
 	    To make this work you must have a basis or 2nd AVM firmware that supplies the needed feature, some text may be wrong or missing!.
 config EXPORT_FORCE_MULTI_ZONE
 	bool "Patch time zone"
-	depends on ( TYPE_SRC3_AVM_7272_m54_04_76 || TYPE_SRC3_AVM_7570_XX || TYPE_OR_TCOM7570XX_LOCALTCOM_LOCALAVM ) && ( ! TYPE_AVM_7570_XX  || ! TYPE_AVM_7272_m54_04_76 )
+	depends on ! TYPE_FIRMWARE_2_IS_MULTI && ! EXPORT_FORCE_MULTI_COUNTRY_SRC2 && ! EXPORT_FORCE_MULTI_COUNTRY && ! TYPE_AVM_7570_XX
+	depends on EXPERT_MOD 
  	default n
 	help
 	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!
@@ -2559,15 +2590,15 @@ config EXPORT_FORCE_MULTI_ZONE
 
 config FORCE_OEM_AVME
 	bool
-	default y 	if TYPE_ANNEX_A || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_IPV6_7273_17599 || TYPE_IPV6_7272_17599 || TYPE_7272_m54_04_81 || TYPE_7273_m74_04_81 || TYPE_7273_m74_04_89 || TYPE_7272_m54_04_90 || TYPE_7273_m74_04_90
+	default y 	if TYPE_ANNEX_A || EXPORT_FORCE_DSL_MULTI_ANNEX || TYPE_IPV6_7273_17599 || TYPE_IPV6_7272_17599 || TYPE_FIRMWARE_2_IS_MULTI
 
 config EXPORT_OEM
 
 	string
 	#!!! In case of ORI: OEM is set later in sp-to-fritz.sh !!!
 	default "tcom" if ( ORI && ! TYPE_AVM_7570_XX && ! FORCE_OEM_AVME) || TYPE_SPEEDPORT_W722V
-	default "avm" if ( TYPE_LANG_DE && ! TYPE_7272_m54_04_76 && ! TYPE_AVM_7570_XX && ! EXPORT_FORCE_MULTI_LANGUAGE && ! FORCE_OEM_AVME )
-	default "avme" if (( ! TYPE_LANG_DE  || TYPE_7272_m54_04_76 || TYPE_AVM_7570_XX  ) && ! EXPORT_FORCE_MULTI_LANGUAGE ) || FORCE_OEM_AVME
+	default "avm" if ( TYPE_LANG_DE && ! TYPE_FIRMWARE_2_IS_MULTI && ! TYPE_AVM_7570_XX && ! EXPORT_FORCE_MULTI_LANGUAGE && ! FORCE_OEM_AVME )
+	default "avme" if (( ! TYPE_LANG_DE  || TYPE_FIRMWARE_2_IS_MULTI || TYPE_AVM_7570_XX  ) && ! EXPORT_FORCE_MULTI_LANGUAGE ) || FORCE_OEM_AVME
 
 config EXPORT_FORCE_LANGUAGE
 	string
