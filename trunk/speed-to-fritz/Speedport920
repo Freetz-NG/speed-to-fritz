@@ -243,7 +243,6 @@ fi
 #[ -f "${SRC}/bin/update_led_on" ] && sed -i -e 's|/var/led|/dev/led|' "${SRC}/bin/update_led_on"
 #[ -f "${SRC}/bin/update_led_off" ] && sed -i -e 's|/var/led|/dev/led|' "${SRC}/bin/update_led_off"
 # 920 
-$sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 920
 #there is still no option within the menus
 #case $KAPSELUNG in 
 #    "0") 
@@ -311,6 +310,8 @@ if [ ${ATA_ONLY} = "y" ]; then
     rm -fdr "${SRC}"/lib/modules/dsp_ur8
     [ -f "${SRC}/lib/modules/vinax_fw_vdsl.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_vdsl.bin &&\
     echo "-- VDSL driver was removed"
+    [ -f "${SRC}/lib/modules/vinax_fw_adsl.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_adsl.bin &&\
+    echo "-- DSL Annex B driver was removed (old version)"
     [ -f "${SRC}/lib/modules/vinax_fw_adsl_B.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_adsl_B.bin &&\
     echo "-- DSL Annex B driver was removed"
     [ -f "${SRC}/lib/modules/vinax_fw_adsl_A.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_adsl_A.bin &&\
@@ -324,8 +325,9 @@ $sh_DIR/patch_dslinformation_page.sh "${SRC}"
 # replace feedback tab with vdsl profile page
 $sh_DIR/add_vdslprofilepage.sh "${SRC}"
 # add kapselung and annex settings page if missing
-# must be after VLAN settings because oem of authform is altered in some cases
+# must be bevore VLAN settings because oem of authform is altered in some cases
 $sh_DIR/add_multi_settings.sh
+$sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 920
 # patch some VLAN settings, and authform
 $sh_DIR/add_vlan_settings.sh "${SRC}"
 ## patch default dsl route to 169.254.2.1
@@ -340,7 +342,7 @@ echo "-- DSL Annex B driver was removed from ${SORCE_PRODUKT}!"
 [ "${REMOVE_ANNEX_A_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/vinax_fw_adsl_A.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_adsl_A.bin &&\
 echo "-- DSL Annex A driver was removed from ${SORCE_PRODUKT}!"
 [ ${ATA_ONLY} != "y" ] && ! [ -f ${SRC}/lib/modules/vinax_fw_vdsl.bin ] && echo "VINAX vdsl driver is missing!" && sleep 10 && exit 1
-[ ${ATA_ONLY} != "y" ] && ! [ -f ${SRC}/lib/modules/vinax_fw_adsl_A.bin ] && ! [ -f ${SRC}/lib/modules/vinax_fw_adsl_B.bin ] && echo "VINAX adsl driver is missing!" && sleep 10 && exit 1
+[ ${ATA_ONLY} != "y" ] && ! [ -f ${SRC}/lib/modules/vinax_fw_adsl.bin ] && ! [ -f ${SRC}/lib/modules/vinax_fw_adsl_A.bin ] && ! [ -f ${SRC}/lib/modules/vinax_fw_adsl_B.bin ] && echo "VINAX adsl driver is missing!" && sleep 10 && exit 1
 #fix ADSL interface accsess restrictions
 sed -i -e "/ \/etc\/init.d\/rc.conf/a\
 \[ -f \/var\/flash\/ar7.cfg \] \&\& sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg \&\& cat \/var\/flash\/ar7.cfg | grep ifacectl \&\& echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"
