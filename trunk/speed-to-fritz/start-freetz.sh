@@ -22,20 +22,34 @@ FREETZ_DL_LINK="http://svn.freetz.org/trunk"
 #W900 or W701-->
   DO_COPY="y" # n is just for testing - uses the complet addon patch for freetz W722
   if [ "$SPNUM" = "900" ] || [ "$SPNUM" = "701" ] ; then
-   KEY="x"
+    KEY="x"
     while [ "$KEY" != "y" ]; do
      echo
-     echo "Devel or stable branch desition."
+     echo "Devel or Stable Branch desition."
      echo
-     echo -n "   Use freetz-stable-1.1 (y/n)?"; read -n 1 -s YESNO; echo
+     echo -n "   Use Freetz Devel Banch (y/n)?"; read -n 1 -s YESNO; echo
      [ "$YESNO" = "y" ] || [ "$YESNO" = "n" ] &&  KEY="y" || echo "wrong key!"
-       if [ "$YESNO" = "y" ]; then
-         echo -e "\033[32mStabil freetz-stable-1.1 is used for W${SPNUM}V\033[0m"
-         export FREETZ_DIR="freetz-stable-1.1"
-         #patches are at the moment for revision:
-         #FREETZREVISION=""
-         #echo -e "\033[31mRevision  is set to: $FREETZREVISION (current patches do need this revision)\033[0m "
-         FREETZ_DL_LINK="http://svn.freetz.org/branches/freetz-stable-1.1"
+       if [ "$YESNO" = "n" ]; then
+	   KEY1="x"
+	    while [ "$KEY1" != "y" ]; do
+    		echo
+    		echo "freetz-stable-1.2 or freetz-stable-1.1"
+    		echo
+    		echo -n "   Use freetz-stable-1.2 (y/n)?"; read -n 1 -s YESNO; echo
+    		[ "$YESNO" = "y" ] || [ "$YESNO" = "n" ] &&  KEY1="y" || echo "wrong key!"
+    		if [ "$YESNO" = "y" ]; then
+        	    echo -e "\033[32mStabil freetz-stable-1.2 is used for W${SPNUM}V\033[0m"
+        	    export FREETZ_DIR="freetz-stable-1.2"
+        	    #patches are at the moment for revision:
+        	    #FREETZREVISION=""
+        	    #echo -e "\033[31mRevision  is set to: $FREETZREVISION (current patches do need this revision)\033[0m "
+        	    FREETZ_DL_LINK="http://svn.freetz.org/branches/freetz-stable-1.2"
+    		else
+    		    echo -e "\033[32mStabil freetz-stable-1.1 is used for W${SPNUM}V\033[0m"
+        	    export FREETZ_DIR="freetz-stable-1.1"
+        	    FREETZ_DL_LINK="http://svn.freetz.org/branches/freetz-stable-1.1"
+        	fi
+	    done
        fi
     done
   fi 
