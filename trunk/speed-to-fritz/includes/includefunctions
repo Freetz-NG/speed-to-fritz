@@ -47,24 +47,44 @@ if [ "$DOCHECK" == "y" ]; then
   cat "$DLD_DIR/$IMG_REQ" | sed -n "/<div  id=.B_$LOCAL_HWID.>/,/<\/div>/{/diese Hardware-Version der.*/p}" | grep -q 'diese Hardware-Version der' && echo "There is no Labor firmware for this Hardware version $LOCAL_HWID avalabel!" && sleep 20
   IMG_REQ1="$(cat "$DLD_DIR/$IMG_REQ" | sed -n "/<div  id=.B_$LOCAL_HWID.>/,/<\/div>/{/<a href=.*/p}" | sed "s/.*<a href=\"//" | sed "s/\".*//")"
   if [ "$IMG_REQ1" != "" ] && [ "${3:6}" != "${IMG_REQ1}" ]; then
-     sed -i -e "s|\"$1 HW$LOCAL_HWID.*\"|\"$1 HW$LOCAL_HWID:${IMG_REQ1}\"|" "$HOMEDIR/Config.in"
-     sed -i -e "s|\"$1 HW$LOCAL_HWID.*\"|\"$1 HW$LOCAL_HWID:${IMG_REQ1}\"|" "$HOMEDIR/$firmwareconf_file_name"
-    if [ "${3:6}" != "" ]; then
-    REVISON="$(echo "$IMG_REQ1" | sed -e 's/^.*\(.\{5\}\)....$/\1/' | tr -d '[:alpha:]')"
-    OLDREVISON="$(echo "${3:6}" | sed -e 's/^.*\(.\{5\}\)....$/\1/' | tr -d '[:alpha:]')"
-    OLDAVMNUM="7$(echo "${6}" | sed "s/.*_7//" | sed "s/0.v//" | sed "s/\.//" | tr -d '[:alpha:]' | sed -e 's/^\(.\{3\}\).*$/\1/' )"
-    OLDXXVERSION="04$(echo "${6}" | sed "s/.*04//" | sed -e 's/^\(.\{9\}\).*$/\1/' | tr -d '[:alpha:]')"
-    XXVERSION="$(cat "$DLD_DIR/$IMG_REQ" | sed -n "/<div  id=.B_$LOCAL_HWID.>/,/<\/div>/{/xx\.04\.*/p}" | sed "s/.*<td>xx.//" | sed -e 's/^\(.\{11\}\).*$/\1/' | tr -d '[:alpha:]')"
-    AVMNUM="$(cat "$DLD_DIR/$IMG_REQ" | grep "H_$LOCAL_HWID" | sed -e "s/0 v//" | sed -e "s/<\/h3>//" | sed -e 's/^.*\(.\{4\}\).$/\1/' | tr -d '[:alpha:]' )"
-     if ! [ -z "$REVISON" ] && ! [ -z "$AVMNUM" ] && ! [ -z "$OLDREVISON" ] && ! [ -z "$OLDAVMNUM" ]; then
-     sed -i -e "s|${OLDAVMNUM}_${OLDREVISON}|${AVMNUM}_${REVISON}|g" "$HOMEDIR/Config.in"
-     [ "${AVMNUM:3:1}" != "0" ] && [ "${OLDAVMNUM:3:1}" != "0" ] && AVMNUM="${AVMNUM:0:3}0v${AVMNUM:3:1}" && OLDAVMNUM="${OLDAVMNUM:0:3}0v${OLDAVMNUM:3:1}"
-     sed -i -e "s|${OLDAVMNUM} ${OLDREVISON}|${AVMNUM} ${REVISON}|g" "$HOMEDIR/Config.in"
-     eval "export $7=DONTUSE"
-     fi
-    fi
+   sed -i -e "s|\"$1 HW$LOCAL_HWID.*\"|\"$1 HW$LOCAL_HWID:${IMG_REQ1}\"|" "$HOMEDIR/Config.in"
+   sed -i -e "s|\"$1 HW$LOCAL_HWID.*\"|\"$1 HW$LOCAL_HWID:${IMG_REQ1}\"|" "$HOMEDIR/$firmwareconf_file_name"
+   if [ "${3:6}" != "" ]; then
+      REVISON="$(echo "$IMG_REQ1" | sed -e 's/^.*\(.\{5\}\)....$/\1/' | tr -d '[:alpha:]')"
+      OLDREVISON="$(echo "${3:6}" | sed -e 's/^.*\(.\{5\}\)....$/\1/' | tr -d '[:alpha:]')"
+      OLDAVMNUM="7$(echo "${6}" | sed "s/.*_7//" | sed "s/0.v//" | sed "s/\.//" | tr -d '[:alpha:]' | sed -e 's/^\(.\{3\}\).*$/\1/' )"
+      OLDXXVERSION="$(basename "${6}" | sed 's/.image//' | sed -e 's/.*\(.\{14\}\)$/\1/')"
+      #echo "OLDXXVERSION: $OLDXXVERSION"
+      #84.05.04-20227
+      X_version=${OLDXXVERSION:0:2}
+      X_mayorversion=${OLDXXVERSION:3:2}
+      X_minorversion=${OLDXXVERSION:6:2}
+      X_subversion=${OLDXXVERSION:9:5}
+      echo "AVM Type: $OLDAVMNUM, Old Firmware Version: $X_version.$X_mayorversion.$X_minorversion-$X_subversion, Old subversion: $OLDREVISON"
+      XXVERSION="$(cat "$DLD_DIR/$IMG_REQ" | sed -n "/<div  id=.B_$LOCAL_HWID.>/,/Datum/{/$X_version......-.*/p}" | sed "s/.*<td>//" | sed "s/<\/td>//")"
+      #echo "XXVERSION: $XXVERSION"
+      Y_version=${XXVERSION:0:2}
+      Y_mayorversion=${XXVERSION:3:2}
+      Y_minorversion=${XXVERSION:6:2}
+      Y_subversion=${XXVERSION:9:5}
+      AVMNUM="$(cat "$DLD_DIR/$IMG_REQ" | grep "H_$LOCAL_HWID" | sed -e "s/0 v//" | sed -e "s/<\/h3>//" | sed -e 's/^.*\(.\{4\}\).$/\1/' | tr -d '[:alpha:]' )"
+      echo "AVM Type: $AVMNUM, New Firmware Version: $Y_version.$Y_mayorversion.$Y_minorversion-$Y_subversion, New subversion: $REVISON"
+      #bool "AVM 7390 84.05.04 20173 (NAS)"
+      if ! [ -z "$REVISON" ] && ! [ -z "$AVMNUM" ] && ! [ -z "$OLDREVISON" ] && ! [ -z "$OLDAVMNUM" ]; then
+       cp "${HOMEDIR}"/Config.in "${HOMEDIR}"/Config.in.ori
+       sed -i -e "s|$X_version\...\... $X_subversion|$Y_version\.$Y_mayorversion\.$Y_minorversion $Y_subversion|g" "${HOMEDIR}"/Config.in
+       sed -i -e "s|$X_version\.$X_mayorversion\.$X_minorversion|$Y_version\.$Y_mayorversion\.$Y_minorversion|g" "${HOMEDIR}"/Config.in
+       sed -i -e "s|${X_version}_$X_mayorversion_${X_minorversion}|${Y_version}_$Y_mayorversion_${Y_minorversion}|g" "${HOMEDIR}"/Config.in
+       sed -i -e "s|${OLDAVMNUM}_${OLDREVISON}|${AVMNUM}_${REVISON}|g" "$HOMEDIR/Config.in"
+       [ "${AVMNUM:3:1}" != "0" ] && [ "${OLDAVMNUM:3:1}" != "0" ] && AVMNUM="${AVMNUM:0:3}0v${AVMNUM:3:1}" && OLDAVMNUM="${OLDAVMNUM:0:3}0v${OLDAVMNUM:3:1}"
+       sed -i -e "s|${OLDAVMNUM} ${OLDREVISON}|${AVMNUM} ${REVISON}|g" "$HOMEDIR/Config.in"
+       echo "Config.in changed, diff saved to Config.in.diff"
+       diff -Naur "${HOMEDIR}"/Config.in.ori "${HOMEDIR}"/Config.in > "${HOMEDIR}"/Config.in.diff
+       eval "export $7=DONTUSE"
+      fi
    fi
-  eval "export $4=${DLD_PATH}${IMG_REQ1}"
+  fi
+   eval "export $4=${DLD_PATH}${IMG_REQ1}"
  fi
 else
   eval "export $4=${DLD_PATH}${3:6}"
@@ -159,17 +179,19 @@ if [ $? -ne 0 ]; then
     X_version=""
     X_subversion=""
     X_minorversion=""
-    export X_X=`echo $IMG_REQ_OLD | grep '.04.' | sed -e 's|-|\.|' | sed -e 's|_|\.|' | sed -e 's|M||' | sed 's/.*\(...04.*\)/\1/'`
+    export X_X=`echo $IMG_REQ_OLD | grep '.0[45].' | sed -e 's|-|\.|' | sed -e 's|_|\.|' | sed -e 's|M||' | sed 's/.*\(...0[45].*\)/\1/'`
     if `echo "${X_X:15:5}" | grep -q 'image'` || `echo "${X_X:15:3}" | grep -q 'zip'` || `echo "${X_X:15:3}" | grep -q 'ZIP'` ; then
      X_version=${X_X:0:2}
      X_minorversion=${X_X:6:2}
+     X_mayorversion=${X_Y:3:2}
      X_subversion=${X_X:9:5}
-     #echo "Firmware Version: $X_version.04.$X_minorversion-$X_subversion"
-    else 
+     #echo "Firmware Version: $X_version.$X_mayorversion.$X_minorversion-$X_subversion"
+    else
 	if `echo "${X_X:9:5}" | grep -q 'image'` || `echo "${X_X:9:3}" | grep -q 'zip'` || `echo "${X_X:9:3}" | grep -q 'ZIP'` ; then
     	    X_version=${X_X:0:2}
+	    X_mayorversion=${X_Y:3:2}
     	    X_minorversion=${X_X:6:2}
-    	    #echo "Firmware Version: $X_version.04.$X_minorversion"
+    	    #echo "Firmware Version: $X_version.$X_mayorversion.$X_minorversion"
 	fi
     fi
  `  echo $DLD_TPL | grep -q 'ftp://'` && get_fw "$DLD_TPL" "$2" "$3" "$4" "select" "$SECOND_ENTRY" "$FIRST_ENTRY"
@@ -195,24 +217,26 @@ if [ $? -ne 0 ]; then
 	MULTI_T='"'
 	`echo $IMG_REQ_OLD | grep -q 'en-de'` && `echo $IMG_REQ | grep -q 'en-de'` && MULTI="m" && MULTI_T=".en-de"
 	
-	X_Y=`echo $IMG_REQ | grep '.04.' | sed -e 's|-|\.|g' | sed -e 's|_|\.|g' | sed -e 's|M||' | sed 's/.*\(...04.*\)/\1/'`
+	X_Y=`echo $IMG_REQ | grep '.0[45].' | sed -e 's|-|\.|g' | sed -e 's|_|\.|g' | sed -e 's|M||' | sed 's/.*\(...0[45].*\)/\1/'`
 	if [ "X_Y" != "" ] && [ "X_X" != "" ] ; then 
     	    if `echo "${X_Y:15:5}" | grep -q 'image'` || `echo "${X_Y:15:3}" | grep -q 'zip'` || `echo "${X_Y:15:3}" | grep -q 'ZIP'` ; then
 		Y_version=${X_Y:0:2}
+		Y_mayorversion=${X_Y:3:2}
 		Y_minorversion=${X_Y:6:2}
 		Y_subversion=${X_Y:9:5}
-		echo "Version:${MULTI}$Y_version.04.$Y_minorversion-$Y_subversion"
+		echo "Version:${MULTI}$Y_version.$Y_mayorversion.$Y_minorversion-$Y_subversion"
     	    else
     	        if `echo "${X_Y:9:5}" | grep -q 'image'` || `echo "${X_Y:9:3}" | grep -q 'zip'` || `echo "${X_Y:9:3}" | grep -q 'ZIP'` ; then
 		Y_version=${X_Y:0:2}
+		Y_mayorversion=${X_Y:3:2}
 		Y_minorversion=${X_Y:6:2}
-		echo "Version:${MULTI}$Y_version.04.$Y_minorversion"
+		echo "Version:${MULTI}$X_version.$X_mayorversion.$X_minorversion"
 		fi
     	    fi
 	    if [ "$X_version" != "" ] && [ "$Y_version" != "" ] && [ "$X_version$X_minorversion" != "$Y_version$Y_minorversion" ]; then 
 		echo "Config.in changed, diff saved to Config.in.diff"
-		sed -i -e "s|$X_version\.04\.$X_minorversion${MULTI_T}|$Y_version\.04\.$Y_minorversion${MULTI_T}|g" "${HOMEDIR}"/Config.in
-		sed -i -e "s|${MULTI}${X_version}_04_${X_minorversion}|${MULTI}${Y_version}_04_${Y_minorversion}|g" "${HOMEDIR}"/Config.in
+		sed -i -e "s|$X_version\.$X_mayorversion\.$X_minorversion${MULTI_T}|$Y_version\.$Y_mayorversion\.$Y_minorversion${MULTI_T}|g" "${HOMEDIR}"/Config.in
+		sed -i -e "s|${MULTI}${X_version}_$X_mayorversion_${X_minorversion}|${MULTI}${Y_version}_$Y_mayorversion_${Y_minorversion}|g" "${HOMEDIR}"/Config.in
 	    fi
 	    if [ "$X_subversion" != "" ] && [ "$Y_subversion" != "" ] && [ "$X_subversion" != "$Y_subversion" ] ; then 
 		sed -i -e "s|$X_subversion${MULTI_T}|$Y_subversion${MULTI_T}|g" "${HOMEDIR}"/Config.in
