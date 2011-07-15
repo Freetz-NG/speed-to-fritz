@@ -88,8 +88,11 @@ if [ "NO UPDATE FOUND" != "$URL" ]; then
     IMG_REQ="${URL##*/}"
     ! [ -f ./"$IMG_REQ" ] && wget $URL
     with_new_ext=${IMG_REQ%.*}.image
+    new_name=dect-${hw}-${oem}-${lang}-${country}.image
     #echo $IMG_REQ
     #echo $with_new_ext
+    #echo $new_name
+    cp ./$IMG_REQ ./$new_name
     mv ./$IMG_REQ ./$with_new_ext
 fi
 rm ./.url
@@ -97,7 +100,7 @@ export ECHO_ROT="\033[31m"
 export ECHO_GRUEN="\033[32m"
 export ECHO_BOLD="\033[1m"
 export ECHO_END="\033[0m"
-echo -e "${ECHO_GRUEN}Die Firmware ./$with_new_ext muss nun noch\n\
+echo -e "${ECHO_GRUEN}Die Firmware ./$new_name muss nun noch\n\
 auf den USB Stick ins root -Verzeichnis kopiert werden.\n\
 Dann Stick in den Router einstecken.\n\
 Und Update am Mobilteil Fritz!Fon ausfhren:\n\
