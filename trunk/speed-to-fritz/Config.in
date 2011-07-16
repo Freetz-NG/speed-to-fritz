@@ -326,12 +326,10 @@ config AVM_DSL_7273_18956
 config AVM_NAS_7272_19759
    string
    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v2.54.05.04-19759.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237305f76322e35342e30342e38382d31383935362e7a6970.zip"
-###
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 AVM Firmware
 ### 7570 AVM Firmware
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 config AVM_7570_17599
     string
     default "http://www.avm.de/de/Service/Service-Portale/Labor/7570_7270_IPv6_en/fritzbox_lab_17599__7570.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7570_vDSL_LabIPV6.en-de-fr.75.04.82-17599.image"
@@ -414,9 +412,39 @@ config AVM_PRE_7390_19947
 
 config AVM_NAS_7390_20227
    string
-     default "http://www.avm.de/de/Service/Service-Portale/Labor/7390_cebit_labor/labor_start_cebit_labor.php HW156:fritzbox-labor-7390-20227.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7390.AnnexB.84.05.04-20227.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7390_cebit_labor/labor_start_cebit_labor.php HW156:fritzbox-labor-7390-20227.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7390.AnnexB.84.05.04-20227.image"
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+### 7340 AVM Firmware
+### 7340 AVM Firmware
+### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+config AVM_7340_99_04_90
+   string
+      default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7340/firmware/english/FRITZ.Box_Fon_WLAN_7340.en-de-es-it-fr.99.04.90.image"
+### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+### 3170 AVM Firmware
+### 3170 AVM Firmware
+### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+config AVM_3170_49_04_58
+   string
+      default "ftp://ftp.avm.de/fritz.box/fritzbox.wlan_3170/firmware/deutsch/fritz.box_wlan_3170.49.04.58.image"
+### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+### 3270 AVM Firmware
+### 3270 AVM Firmware
+### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+config AVM_3270_67_04_86
+   string
+      default "ftp://ftp.avm.de/fritz.box/fritzbox.wlan_3270/firmware/deutsch/fritz.box_wlan_3270.67.04.86.image"
+config AVM_3273_96_04_87
+    string
+      default "ftp://ftp.avm.de/fritz.box/fritzbox.wlan_3270_v3/firmware/deutsch/fritz.box_wlan_3270_v3.96.04.87.image"
+### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+### 3370 AVM Firmware
+### 3370 AVM Firmware
+### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+config AVM_3370_103_05_06
+   string
+      default "ftp://ftp.avm.de/fritz.box/fritzbox.wlan_3370/firmware/deutsch/fritz.box_wlan_3370.103.05.06.image"
+### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # ( do not remove or edit the following line is used as marker)
 ### FIRMWARE_CONFIG_ENDE ###
@@ -455,7 +483,7 @@ config SET_SP2FR_REVISION
 config  EXPORT_SP2FR_REVISION
 	depends on SET_SP2FR_REVISION
 	        string "--> Set revision number "
-	            default "1338" # dont edit this line is changed via ./start.sh - numner "1234" may differ
+	            default "1362" # dont edit this line is changed via ./start.sh - numner "1234" may differ
 	        help
 	            This is the revision number used with speed-to-fritz
 	            example 1265.
@@ -656,6 +684,21 @@ choice
 	config TYPE_7390
 		bool "AVM 7390 only for testing"
 
+	config TYPE_7340
+		bool "AVM 7340 only for testing"
+
+	config TYPE_3170
+		bool "AVM 3170"
+
+	config TYPE_3270
+		bool "AVM 3270"
+
+	config TYPE_3273
+		bool "AVM 3270v3"
+
+	config TYPE_3370
+		bool "AVM 3370"
+
 	config TYPE_7273
 		bool "AVM 7270v3"
 
@@ -732,15 +775,16 @@ if LOCAL_X_MODEL
 		    In this case only 1st AVM and 2nd AVM firmware is in use, so insert any AVM model type and 
 		    then insert the firmware names for 1st AVM and 2nd AVM firmware.
 endif
+
 #All AVM modells 
-if  TYPE_7390 || TYPE_7273 || TYPE_OR_7240_7270 || TYPE_7170 || TYPE_7150 || TYPE_7113 || TYPE_7141 || TYPE_7140 || TYPE_7050 ||\
+if  TYPE_3370 || TYPE_3270 || TYPE_3273 || TYPE_3170 || TYPE_7340 || TYPE_7390 || TYPE_7273 || TYPE_OR_7240_7270 || TYPE_7170 || TYPE_7150 || TYPE_7113 || TYPE_7141 || TYPE_7140 || TYPE_7050 ||\
     TYPE_5140 || TYPE_5130 || TYPE_5050 || TYPE_5012 || TYPE_5010 || TYPE_FBFW || TYPE_FBFO || LOCAL_X_MODEL
     config EXPORT_TYPE_LOCAL_MODEL
 	bool
 	default y
 endif
 #All AVM modells that dont have extra scripts using SxxxAVM
-if  TYPE_7240 || TYPE_7271 || TYPE_7272 || TYPE_7170 || TYPE_7150 || TYPE_7113 || TYPE_7050 ||\
+if  TYPE_3370 || TYPE_3270 || TYPE_3273 || TYPE_3170 || TYPE_7340 || TYPE_7240 || TYPE_7271 || TYPE_7272 || TYPE_7170 || TYPE_7150 || TYPE_7113 || TYPE_7050 ||\
     TYPE_5140 || TYPE_5130 || TYPE_5050 || TYPE_5012 || TYPE_5010 || TYPE_FBFW || TYPE_FBFO || LOCAL_X_MODEL
     config EXPORT_TYPE_SXXX_MODEL
 	bool
@@ -768,6 +812,11 @@ if ! LOCAL_X_MODEL
 	default "7570"		if TYPE_AVM_7570
 	default "757H"		if TYPE_HN_7570
 	default "500"		if TYPE_SINUS_W500V
+	default "3170"		if TYPE_3170
+	default "3270"		if TYPE_3270
+	default "3273"		if TYPE_3273
+	default "3270"		if TYPE_3370
+	default "7340"		if TYPE_7340
 	default "7390"		if TYPE_7390
 	default "7273"		if TYPE_7273
 	default "7271"		if TYPE_7271
@@ -1643,6 +1692,26 @@ choice
 		help 
 			FRITZ!Lab (Preview):
 #<--
+	config TYPE_7340_99_04_90
+		bool "AVM 7340 99.04.90"
+		depends on TYPE_7340
+
+	config TYPE_3170_49_04_58
+		bool "AVM 3170 49.04.58"
+		depends on TYPE_3170
+
+	config TYPE_3270_67_04_86
+		bool "AVM 3270 65.04.86"
+		depends on TYPE_3270
+
+	config TYPE_3273_96_04_97
+		bool "AVM 3270v3 96.04.97"
+#		depends on TYPE_3273
+
+	config TYPE_3370_103_05_06
+		bool "AVM 3370 103.05.06"
+		depends on TYPE_3370
+
 	config TYPE_LOCAL_AVM
 		bool "CUSTOM AVM LOCAL firmware"
 		select TYPE_FIRMWARE_2_IS_MULTI
@@ -1763,6 +1832,21 @@ choice
 		default TYPE_SRC3_AVM_7273_74_04_86        	if EXPORT_TYPE_LOCAL_MODEL && TYPE_7273
 		default TYPE_SRC3_AVM_7141_40_04_76           	if EXPORT_TYPE_LOCAL_MODEL && TYPE_7141
 		default TYPE_SRC3_TCOM_W920_65_04_78   		if TYPE_OR_7570_920
+
+###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
+### 3XXX Firmware
+
+	config TYPE_SRC3_AVM_3170_49_04_58
+		bool "AVM 3170 49.04.58  (Final)"
+
+	config TYPE_SRC3_AVM_3270_67_04_86
+		bool "AVM 3270 65.04.86 (Final)"
+
+	config TYPE_SRC3_AVM_3273_96_04_97
+		bool "AVM 3270v3 96.04.97 (Final)"
+
+	config TYPE_SRC3_AVM_3370_103_05_06
+		bool "AVM 3370 103.05.06  (Final)"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------		
 ### 7113 Firmware
@@ -1961,11 +2045,18 @@ choice
 	config TYPE_SRC3_AVM_7390_84_04_91
 		bool "AVM 7390 84.04.91 19238 (Final)"
 
+	config TYPE_SRC3_AVM_7340_99_04_90
+		bool "AVM 7340 99.04.90 (Final)"
+
+	config TYPE_SRC3_AVM_7340_99_04_91
+		bool "AVM 7340 99.04.91 19238 (Final)"
+
 	config TYPE_SRC3_AVM_PRE_7390_19947
 		bool "AVM 7390 84.05.04 19947 (Preview)"
 
 	config TYPE_SRC3_AVM_NAS_7390_20227
 		bool "AVM 7390 84.05.04 20227 (NAS)"
+
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7570 Firmware
@@ -2226,16 +2317,27 @@ config AVM_IMG
 	default "$AVM_7390_84_04_88"					if TYPE_7390_84_04_88
 	default "$AVM_7390_84_04_89"					if TYPE_7390_84_04_89
 	default "$AVM_7390_84_04_90"					if TYPE_7390_84_04_90
+	default "$AVM_7340_99_04_90"					if TYPE_7340_99_04_90
+	default "$AVM_7340_99_04_91"					if TYPE_7340_99_04_91
 	default "$AVM_7390_84_04_91"					if TYPE_7390_84_04_91
 	default "$AVM_PRE_7390_18550"					if TYPE_PRE_7390_18550
 	default "$AVM_PRE_7390_19947"					if TYPE_PRE_7390_19947
 	default "$AVM_NAS_7390_20227"					if TYPE_NAS_7390_20227
 	default "$TCOM_W722_80_04_76" 					if TYPE_W722_80_04_76
+	default "$AVM_3170_49_04_58"					if TYPE_3170_49_04_58
+	default "$AVM_3270_67_04_86"					if TYPE_3270_67_04_86
+	default "$AVM_3273_96_04_87"					if TYPE_3273_96_04_87
+	default "$AVM_3370_103_05_06"					if TYPE_3370_103_05_06
 #<--
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config SRC2_IMG
 	depends on ! ORI
 	string
+	
+	default "$AVM_3170_49_04_58" 			if TYPE_SRC3_AVM_3170_49_04_58
+	default "$AVM_3270_67_04_86" 			if TYPE_SRC3_AVM_3270_67_04_86
+	default "$AVM_3273_96_04_87" 			if TYPE_SRC3_AVM_3273_96_04_87
+	default "$AVM_3370_103_05_06" 			if TYPE_SRC3_AVM_3370_103_05_06
 	default "$AVM_7150_38_04_27" 			if TYPE_SRC3_AVM_7150_38_04_27
 	default "$AVM_7150_38_04_32" 			if TYPE_SRC3_AVM_7150_38_04_32
 	default "$AVM_7150_38_04_56" 			if TYPE_SRC3_AVM_7150_38_04_56
@@ -2300,6 +2402,8 @@ config SRC2_IMG
 	default "$AVM_7390_84_04_89"			if TYPE_SRC3_AVM_7390_84_04_89
 	default "$AVM_7390_84_04_90"			if TYPE_SRC3_AVM_7390_84_04_90
 	default "$AVM_7390_84_04_91"			if TYPE_SRC3_AVM_7390_84_04_91
+	default "$AVM_7340_99_04_90"			if TYPE_SRC3_AVM_7340_99_04_90
+	default "$AVM_7340_99_04_91"			if TYPE_SRC3_AVM_7340_99_04_91
 	default "$AVM_PRE_7390_18550"			if TYPE_SRC3_AVM_PRE_7390_18550
 	default "$AVM_PRE_7390_19947"			if TYPE_SRC3_AVM_PRE_7390_19947
 	default "$AVM_NAS_7390_20227"			if TYPE_SRC3_AVM_NAS_7390_20227
@@ -2373,6 +2477,7 @@ config TYPE_LABOR_TYPE
 	default "PREVIEW"	if TYPE_PRE_7240_20170 || TYPE_PRE_7271_17828 || TYPE_PRE_7272_17828 || TYPE_PRE_7273_17828 || \
 				TYPE_PRE_7272_20170 || TYPE_PRE_7273_20170 || TYPE_7170_PRE_19817 || TYPE_7170_PRE_19957 || TYPE_7390_PRE_18550 || TYPE_7390_PRE_19947
 	default "NAS"		if TYPE_NAS_7272_19759 || TYPE_NAS_7390_20227
+
 	default "DSL" 		if TYPE_DSL_7271_18237 || TYPE_DSL_7271_18582 || TYPE_DSL_7272_18956 || TYPE_DSL_7273_18956
 	default "GAMING" 	if TYPE_7272_GAMING || TYPE_7170_GAMING_11435
 	default "PHONE" 	if TYPE_PHONE_7240_16376 || TYPE_7170_PHONE
