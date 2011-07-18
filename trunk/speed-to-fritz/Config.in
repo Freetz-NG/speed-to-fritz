@@ -4711,8 +4711,8 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 #		Set this to "y" if normal 7270 firmwares in combination with multilingual firmwares are used, but usual this is not needed.
 #		WWW "avm" directory is moved to "$OEM"
  config EXPORT_CONFIG_TR069
-	bool "Enable TR069 disable ATA"
-	depends on EXPERT_MOD 
+	bool "Enable WAN TR069 autoconfig, disable ATA"
+	depends on EXPERT_MOD
 	default n
 	help
 		Set this to "y" if you want that autoconfiguration turned on,
@@ -4741,18 +4741,17 @@ endif #ORI && ! TYPE_SPEEDPORT_W722V
  # In use within sp-to-fritz.sh
  config COPY_ADDON_TMP_to_ORI
 	bool "Copy addon/tmp"
-#	depends on EXPERT_MOD 
+ #	depends on EXPERT_MOD 
 	depends on ORI
 	default n
 	help
 		Set this to 'y' if you like to include all files within the directory
 		./addon/tmp/squashfs-root in combination with option restore orignal firmware.
-if ORI
-
 # In use within sp-to-fritz.sh
+if ORI
 config EXPORT_CONFIG_TR064
 	bool "Enable LAN autoconfiguration TR064"
-	depends on EXPERT_MOD 
+	depends on EXPERT_MOD
 	default n
 #	default n if ! TYPE_OR_7570_920
 #	default y if TYPE_OR_7570_920
@@ -4763,8 +4762,8 @@ config EXPORT_CONFIG_TR064
 		Autoconfiguration from within the internal LAN is only 
 		set on if AVM firmware supports this option!.
 config EXPORT_CONFIG_TR069
-	bool "Enable LAN autoconfiguration TR069"
-	depends on EXPERT_MOD 
+	bool "Enable WAN autoconfiguration TR069"
+	depends on EXPERT_MOD
 	default n
 #	default n if ! TYPE_OR_7570_920
 #	default y if TYPE_OR_7570_920
@@ -4772,7 +4771,7 @@ config EXPORT_CONFIG_TR069
 		Set this to "y" if you want TR69 turned on, in most cases
 		your box will function normal again, so do not use this option
 		expect you be aware of this case.
-		Autoconfiguration from within the internal LAN is only 
+		Autoconfiguration from outside.
 		set on if AVM firmware supports this option!.
 config SRC2_KERNEL
 	bool "Take kernel from 2nd AVM source"
