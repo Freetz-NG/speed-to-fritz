@@ -1900,7 +1900,7 @@ Pannex="_annex${ANNEX}"
 [ "$CLASS" != "" ] && CLASS+="_"
 [ "$SPNUM" != "" ] && SPNUM+="_"
 [ "$ATA_ONLY" = "y" ] && Pannex="_ATA-ONLY"
-X2="${FREETZ_REVISION}_sp2fr-${SVN_REVISION}-${act_firmwareconf_size}_${OEM}${Pannex}${Language}.image"
+X2="${FREETZ_REVISION}_sp2fr-${SVN_REVISION}-${act_firmwareconf_size}_OEM_${OEM}${Pannex}${Language}.image"
 [ "$ORI" == "y" ] && export NEWIMG="${SPIMG}_OriginalFirmwareAdjusted${Pannex}${Language}.image"
 [ "$ORI" != "y" ] && export NEWIMG="fw_${CLEAR}${CLASS}${SPNUM}${TCOM_VERSION_MAJOR}.${TCOM_VERSION}-${TCOM_SUBVERSION}_${PR}_${AVM_VERSION_MAJOR}.${AVM_VERSION}-${AVM_SUBVERSION}${X2}"
 #only AVM + 2nd AVM Firmware was in use
