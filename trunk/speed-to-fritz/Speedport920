@@ -10,6 +10,7 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
     rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
+
 #Attention! Vinax uses aditional /dev/vinax device entrys the are generateed via /tools/device_table.txt (makedevice option)
 cp -fdrp "${DST}"/dev --target-directory="${SRC}" #this copy is only usable if run as root
 [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] && cp -fdrp $VERBOSE "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld  | sed "s/.*\//\tuse original '/"
@@ -152,60 +153,69 @@ sed -i -e 's|led-ctrl dect_led_enable|echo "dect_led_enable removed"|' "${SRC}/e
 
 #not 7570 only--->
 if ! [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ]; then 
-#sed -i -e 's|/dsl/dsl_ur8.ko|/vinax/drv_vinax.ko|' "${SRC}"/lib/modules/$KernelVersion/modules.dep
-echo "/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:" >> "${SRC}"/lib/modules/$KernelVersion/modules.dep
-
-#add entrys in modules.sybols
-sed -i -e '/ alias symbol:pcmlink_ul_dspfwversion_pcmrouter pcmlink/a\
+ #sed -i -e 's|/dsl/dsl_ur8.ko|/vinax/drv_vinax.ko|' "${SRC}"/lib/modules/$KernelVersion/modules.dep
+ echo "/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:" >> "${SRC}"/lib/modules/$KernelVersion/modules.dep
+ #add entrys in modules.sybols
+ sed -i -e '/ alias symbol:pcmlink_ul_dspfwversion_pcmrouter pcmlink/a\
 alias symbol:pcmlink_ul_closeslots pcmlink\
 alias symbol:pcmlink_ul_linkhandle_to_handle pcmlink\
 alias symbol:pcmlink_ul_openslots pcmlink' "${SRC}"/lib/modules/$KernelVersion/modules.symbols
-
-## Default: ggfs. notweniger pcmlink-Treiber wird von modprobe automatisch
-## ueber kernel-dependencys ermittelt und vor dem isdn-treiber gestartet
-## sed -i -e '/modprobe ${pcm_link} ${pcm_link_params}/d' "${SRC}/etc/init.d/rc.S" 
-## rm -fdr "${SRC}"/lib/modules/c55fw.hex
-
-#DSL skripts--->
-#copy VDSL Skript
-cp -fdpr  "${DST}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d
-#include vdsl skript
-sed -i -e 's|/etc/init.d/rc.dsl.sh start|\. /etc/init.d/rc.vdsl.sh|' "${SRC}/etc/init.d/rc.S" 
-
-#diffence in rc.dsl.sh  
-sed -i -e 's|dsl_ur8|tiatm|' "${SRC}/etc/init.d/rc.dsl.sh"
-sed -i -e '/modprobe tiatm/a\
-echo "MODE = vdsl" > \/dev\/avm_power' "${SRC}/etc/init.d/rc.dsl.sh"
-
-#dont think it is needed, but for safty
-sed -i -e '/CONFIG_VDSL=/a\
-export CONFIG_VINAX="y"' "${SRC}/etc/init.d/rc.conf" 
-#<---DSL skripts
-#tests 
-sed -i -e '/export ANNEX_TEST/a\
+ ## Default: ggfs. notweniger pcmlink-Treiber wird von modprobe automatisch
+ ## ueber kernel-dependencys ermittelt und vor dem isdn-treiber gestartet
+ ## sed -i -e '/modprobe ${pcm_link} ${pcm_link_params}/d' "${SRC}/etc/init.d/rc.S" 
+ ## rm -fdr "${SRC}"/lib/modules/c55fw.hex
+ #DSL skripts--->
+ #copy VDSL Skript
+ cp -fdpr  "${DST}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d
+ if [ -e "${SRC}/etc/init.d/S11-piglet" ]; then
+  sed -i -e 's|piglet_dectmode=0x100 ||' "${SRC}/etc/init.d/S11-piglet"
+  #Attention! Vinax uses aditional /dev/vinax device entrys the are generateed via /tools/device_table.txt (makedevice option)
+  ## Fritz_Box_7570 - hw920
+  ## DECT-Anlage braucht den 96 MHz Takt NICHT (250E): 'piglet_use_pll3_clk=1' entfällt, da fpga den 96 MHz Takt aus dem DECT Takt selbst erzeugt.
+  ##########################################################################################
+  #sed -i -e 's|piglet_use_pll3_clk=1|piglet_enable_button=3|' "${SRC}/etc/init.d/S11-piglet"
+  sed -i -e 's|piglet_use_pll3_clk=1||' "${SRC}/etc/init.d/S11-piglet"
+  #v3 dect fix
+  sed -i -e 's|_488.hex|.hex|g' "${SRC}/etc/init.d/S11-piglet"
+  ##xilix W920 driver must be for the hardware in use
+  sed -i -e 's|bitfile.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/S11-piglet" 
+  sed -i -e 's|microvoip_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/S11-piglet" 
+ else
+  #include vdsl skript
+  sed -i -e 's|/etc/init.d/rc.dsl.sh start|\. /etc/init.d/rc.vdsl.sh|' "${SRC}/etc/init.d/rc.S" 
+  #diffence in rc.dsl.sh
+  sed -i -e 's|dsl_ur8|tiatm|' "${SRC}/etc/init.d/rc.dsl.sh"
+  sed -i -e '/modprobe tiatm/a\
+  echo "MODE = vdsl" > \/dev\/avm_power' "${SRC}/etc/init.d/rc.dsl.sh"
+  #dont think it is needed, but for safty
+  sed -i -e '/CONFIG_VDSL=/a\
+  export CONFIG_VINAX="y"' "${SRC}/etc/init.d/rc.conf" 
+  #<---DSL skripts
+  #tests 
+  sed -i -e '/export ANNEX_TEST/a\
 if [ "$STATUS_TEST" != "0" ]; then\
 /usr/bin/dsl_info.sh /&\
 fi' "${SRC}/etc/init.d/rc.S" 
-#remove FON3 menus
-[ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
-# add missing gifs
-$sh_DIR/add_vdslscale.sh "${SRC}"
-$sh_DIR/patch_leddef_7270.sh "${SRC}" "${DST}"
-#xilix W920 driver must be for the hardware in use
-rm -f "${SRC}"/lib/modules/microvoip_isdn_top.bit
-rm -f "${SRC}"/lib/modules/bitfile.bit
-sed -i -e 's|bitfile.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
-sed -i -e 's|microvoip_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
-# 7240
-rm -f "${SRC}"/lib/modules/bitfile_pots.bit 
-rm -f "${SRC}"/lib/modules/bitfile_isdn.bit 
-sed -i -e 's|bitfile_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
-[ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules &&\
-echo "-- Xilinx bitfile was taken from the original base firmware"
-[ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
-echo "-- Xilinx bitfile was taken from the original base firmware"
-#patch annex parameter
-$sh_DIR/patch_annex.sh "${SRC}"
+ #xilix W920 driver must be for the hardware in use
+ sed -i -e 's|bitfile.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
+ sed -i -e 's|microvoip_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
+ sed -i -e 's|bitfile_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/rc.S" 
+ fi
+ rm -f "${SRC}"/lib/modules/microvoip_isdn_top.bit
+ rm -f "${SRC}"/lib/modules/bitfile.bit
+ # 7240
+ rm -f "${SRC}"/lib/modules/bitfile_pots.bit 
+ rm -f "${SRC}"/lib/modules/bitfile_isdn.bit 
+ [ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules &&\
+ echo "-- Xilinx bitfile was taken from the original base firmware"
+ [ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\
+ echo "-- Xilinx bitfile was taken from the original base firmware" #patch annex parameter
+ #remove FON3 menus
+ [ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
+ # add missing gifs
+ $sh_DIR/add_vdslscale.sh "${SRC}"
+ $sh_DIR/patch_leddef_7270.sh "${SRC}" "${DST}"
+ $sh_DIR/patch_annex.sh "${SRC}"
 fi
 #not 7570  only <---
 $sh_DIR/add_ppp_setting.sh

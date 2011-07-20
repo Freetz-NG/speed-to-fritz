@@ -253,11 +253,13 @@ config AVM_7271_54_04_88
 
 config AVM_7272_54_04_88
     string
-    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v2.54.04.88.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237305f76322e35342e30342e38382e7a6970.zip"
+    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207270/FRITZ!Box%20Fon%20WLAN%207270%20v2/FRITZ.Box_Fon_WLAN_7270_v2.54.04.88.image"
+#    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v2.54.04.88.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237305f76322e35342e30342e38382e7a6970.zip"
 
 config AVM_7273_74_04_88
     string
-    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3.74.04.88.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237305f76332e37342e30342e38382e7a6970.zip"
+    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207270/FRITZ!Box%20Fon%20WLAN%207270%20v3/FRITZ.Box_Fon_WLAN_7270_v3.74.04.88.image"
+#    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3.74.04.88.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237305f76332e37342e30342e38382e7a6970.zip"
 
 config AVM_7273_74_04_89
     string
@@ -265,11 +267,19 @@ config AVM_7273_74_04_89
 
 config AVM_7272_m54_04_90
     string
-    default "@AVM/fritz.box/fritzbox.fon_wlan_7270_v2/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7270_v2.en-de-es-it-fr.54.04.90.image"
+    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v2.en-de-es-it-fr.54.04.90.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237305f76322e656e2d64652d65732d69742d66722e35342e30342e39302e7a6970.zip"
+
+config AVM_7272_m54_05_04
+    string
+    default "@AVM/fritz.box/fritzbox.fon_wlan_7270_v2/firmware/english/FRITZ.Box_Fon_WLAN_7270_16.en-de-es-it-fr.54.05.04.image"
 
 config AVM_7273_m74_04_90
     string
     default "@AVM/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/english/FRITZ.Box_Fon_WLAN_7270_v3.en-de-es-it-fr.74.04.90.image"
+
+config AVM_7273_m74_05_04
+    string
+    default "@AVM/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/english/FRITZ.Box_Fon_WLAN_7270_v3.en-de-es-it-fr.74.05.04.image"
 #20181
 config AVM_7272_54_05_05
     string
@@ -1617,6 +1627,20 @@ choice
 		help
 			FRITZ! : release 90 multilingual
 
+	config TYPE_7272_m54_05_04
+		bool "AVM 7270v2 54.05.04.en-de-es-it-fr 20260"
+		select TYPE_FIRMWARE_2_IS_MULTI
+		depends on TYPE_OR_7240_7570_920 || TYPE_OR_AVMX_LOCALTCOM
+		help
+			FRITZ! : release 90 multilingual
+
+	config TYPE_7273_m74_05_04
+		bool "AVM 7270v3 74.05.04.en-de-es-it-fr 20260"
+		select TYPE_FIRMWARE_2_IS_MULTI
+		depends on TYPE_OR_7240_7570_920 || TYPE_OR_AVMX_LOCALTCOM
+		help
+			FRITZ! : release 90 multilingual
+
 #-->only for testing
 	config TYPE_7390_84_04_81
 		bool "AVM 7390 84.04.81 15936 (only for testing)"
@@ -1981,6 +2005,14 @@ choice
 		bool "AVM 7270v3 74.04.90.en-de-it-sp-fr 19715"
 		select TYPE_FIRMWARE_3_IS_MULTI
 
+	config TYPE_SRC3_AVM_7272_m54_05_04
+		bool "AVM 7270v2 54.05.04.en-de-it-sp-fr 20260"
+		select TYPE_FIRMWARE_3_IS_MULTI
+
+	config TYPE_SRC3_AVM_7273_m74_05_04
+		bool "AVM 7270v3 74.05.04.en-de-it-sp-fr 20260"
+		select TYPE_FIRMWARE_3_IS_MULTI
+
 	config TYPE_SRC3_AVM_IPV6_7273_17599
 		bool "AVM 7270v3 17599.en-de-fr (IPv6)"
 		select TYPE_FIRMWARE_3_IS_MULTI
@@ -2285,6 +2317,8 @@ config AVM_IMG
 	default "$AVM_7273_m74_04_89" 				if ( TYPE_7273_m74_04_89 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL ) 
 	default "$AVM_7272_m54_04_90" 				if ( TYPE_7272_m54_04_90 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7273_m74_04_90" 				if ( TYPE_7273_m74_04_90 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )  
+	default "$AVM_7272_m54_05_04" 				if ( TYPE_7272_m54_05_04 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
+	default "$AVM_7273_m74_05_04" 				if ( TYPE_7273_m74_05_04 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )  
 	default "$AVM_DSL_7271_18237"				if ( TYPE_DSL_7271_18237 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_DSL_7272_18582"				if ( TYPE_DSL_7272_18582 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_DSL_7272_18956"				if ( TYPE_DSL_7272_18956 ) && ( TYPE_OR_7570_503_722_920 || EXPORT_TYPE_LOCAL_MODEL )
@@ -2381,6 +2415,8 @@ config SRC2_IMG
 	default "$AVM_7273_m74_04_81"	 		if TYPE_SRC3_AVM_7273_m74_04_81
 	default "$AVM_7272_m54_04_90"	 		if TYPE_SRC3_AVM_7272_m54_04_90
 	default "$AVM_7273_m74_04_90"	 		if TYPE_SRC3_AVM_7273_m74_04_90
+	default "$AVM_7272_m54_05_04"	 		if TYPE_SRC3_AVM_7272_m54_05_04
+	default "$AVM_7273_m74_05_04"	 		if TYPE_SRC3_AVM_7273_m74_05_04
 	default "$AVM_7273_m74_04_89"	 		if TYPE_SRC3_AVM_7273_m74_04_89
 	default "$AVM_IPV6_7272_17599"			if TYPE_SRC3_AVM_IPV6_7272_17599
 	default "$AVM_IPV6_7273_17599"			if TYPE_SRC3_AVM_IPV6_7273_17599
@@ -2451,14 +2487,14 @@ config TYPE_7272_TYPE
 	bool
 	default "y"	 	if  TYPE_7272_m54_04_76 || TYPE_DSL_7272_18956 || TYPE_PRE_7272_17828 || TYPE_7272_UMTS_13265 || \
 				TYPE_IPV6_7272_17599 || TYPE_NAS_7272_19759 || TYPE_7272_54_04_76 || TYPE_7272_54_04_80 || \
-				TYPE_7272_54_04_86 || TYPE_7272_m54_04_81 || TYPE_7272_m54_04_90 || TYPE_7272_54_05_05 || \
+				TYPE_7272_54_04_86 || TYPE_7272_m54_04_81 || TYPE_7272_m54_04_90 || TYPE_7272_m54_05_04 || TYPE_7272_54_05_05 || \
 				TYPE_DSL_7271_18582
 
 config TYPE_7273_TYPE
 	bool
 	default "y"	 	if  TYPE_IPV6_7273_17599 || TYPE_PRE_7273_20170 || \
 				TYPE_PRE_7273_17828 || \
-				TYPE_7273_74_04_86 || TYPE_7273_m74_04_81 || TYPE_7273_m74_04_89 || TYPE_7273_m74_04_90 || TYPE_7273_74_05_05
+				TYPE_7273_74_04_86 || TYPE_7273_m74_04_81 || TYPE_7273_m74_04_89 || TYPE_7273_m74_04_90 || TYPE_7273_m74_05_04 || TYPE_7273_74_05_05
 
 config TYPE_V3_OR_7240
 	bool
