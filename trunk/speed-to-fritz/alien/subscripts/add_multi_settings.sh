@@ -49,25 +49,23 @@ readConfig "MULTI_LANGUAGE" "SRC_2_TMP_MULTI_LANGUAGE" "${SRC_2}/etc/init.d"
 [ "$SRC_2_TMP_MULTI_LANGUAGE" = "y" ] && echo "-- 3rd firmware is multilingual"
 
 if [ "$AVM_TMP_MULTI_COUNTRY" != "y" ]; then
+ . $sh_DIR/remove_timezone.sh
  echo "-- 2nd firmware is not multicountry"
  if [ "${FORCE_MULTI_COUNTRY_SRC2}" = "y" ] || [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
   export CONFIG_MULTI_COUNTRY="y"
-  #echo "-- add multicontry"
+  #echo "-- multicontry ?"
   . $sh_DIR/add_multicountry.sh
-  else
-  . $sh_DIR/remove_timezone.sh
  fi
 fi
 if [ "$AVM_TMP_MULTI_ANNEX" != "y" ]; then
- echo "-- add multiannex"
+ #echo "-- multiannex ?"
  . $sh_DIR/add_multiannex.sh
 fi
 if [ "$AVM_TMP_MULTI_LANGUAGE" != "y" ]; then
- echo "-- add multilingual"
+ #echo "-- multilingual ?"
  . $sh_DIR/add_multilingual.sh
 fi
 # include, order of includes may count
-
 if [ "${FORCE_LANGUAGE}" != "de" ]; then
    #[ -f "${SRC}"/etc/htmltext_de.db ] || echo -e "-- \033[1mAttention:\033[0m 1st Firmware is not usabel for force language!" && sleep 7
    [ "${FORCE_LANGUAGE}" != "" ] && [ -f "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db ] && cp -fdrp "${DST}"/etc/htmltext_${FORCE_LANGUAGE}.db --target-directory="${SRC}"/etc && echo2 "    copy: database ${FORCE_LANGUAGE}"
