@@ -53,8 +53,9 @@ if [ "$AVM_TMP_MULTI_COUNTRY" != "y" ]; then
  if [ "${FORCE_MULTI_COUNTRY_SRC2}" = "y" ] || [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
   export CONFIG_MULTI_COUNTRY="y"
   #echo "-- add multicontry"
-  . $sh_DIR/remove_timezone.sh
   . $sh_DIR/add_multicountry.sh
+  else
+  . $sh_DIR/remove_timezone.sh
  fi
 fi
 if [ "$AVM_TMP_MULTI_ANNEX" != "y" ]; then

@@ -25,6 +25,7 @@ if [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
      cp -fdrp "${DST}/usr/www/${OEML}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "    copy from 2nd AVM firmware: $file_n"
     fi
   done
+
  for file_n in basic_first_Country.js basic_first_Country.frm basic_first_Country.html; do
    file_n="/html/de/first/${file_n}"
    [ -f "${DST}/usr/www/${OEML}/$file_n" ] && cp -fdrp "${DST}/usr/www/${OEML}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "    copy from base firmware: $file_n"
@@ -46,10 +47,14 @@ if [ "${FORCE_MULTI_COUNTRY_SRC2}" = "y" ] || [ "${FORCE_MULTI_COUNTRY}" = "y" ]
  if [ "${OEM}" = "avm" ]; then
   rn_files "$(find "${SRC}/etc" -name fx_conf.avme)" "fx_conf.${OEMLINK}"
   rn_files "$(find "${SRC}/etc" -name fx_lcr.avme)" "fx_lcr.${OEMLINK}"
+  rn_files "$(find "${SRC}/etc" -name fx_conf.avme.1)" "fx_conf.${OEMLINK}.1"
+  rn_files "$(find "${SRC}/etc" -name fx_lcr.avme.1)" "fx_lcr.${OEMLINK}.1"
  fi
  if [ "${OEM}" = "avme" ]; then
   rn_files "$(find "${SRC}/etc" -name fx_conf.avm)" "fx_conf.${OEMLINK}"
   rn_files "$(find "${SRC}/etc" -name fx_lcr.avm)" "fx_lcr.${OEMLINK}"
+  rn_files "$(find "${SRC}/etc" -name fx_conf.avm.1)" "fx_conf.${OEMLINK}.1"
+  rn_files "$(find "${SRC}/etc" -name fx_lcr.avm.1)" "fx_lcr.${OEMLINK}.1"
  fi
  # on 7240 Firmware some pages are missing
   `cat "${SRC}/usr/www/${OEMLINK}/html/de/home/sitemap.html" | grep -q 'isMultiCountry' ` ||\
