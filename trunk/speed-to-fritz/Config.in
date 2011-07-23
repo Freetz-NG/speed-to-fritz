@@ -1510,7 +1510,7 @@ choice
 			FRITZ! release: 88
 
 	config TYPE_7272_54_05_05
-		bool "AVM 7270v2 54.04.05 20181 (Final)"
+		bool "AVM 7270v2 54.05.05 20181 (Final)"
 		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
 #		depends on EXPERT_MOD 
 		help

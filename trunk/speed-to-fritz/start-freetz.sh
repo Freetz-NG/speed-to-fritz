@@ -333,7 +333,26 @@ comment "----------------------------------------"' "./Config.in" 2> /dev/null
      [ "$TYPE_LABOR_TYPE" = "PREVIEW" ] && echo "FREETZ_TYPE_PREVIEW=y" >> "./.config" 2> /dev/null
      [ "$TYPE_LABOR_TYPE" != "PREVIEW" ] && [ "$TYPE_LABOR_TYPE" != "" ] && [ "$TYPE_LABOR" = "y" ] && echo "FREETZ_TYPE_LABOR_$TYPE_LABOR_TYPE=y" >> "./.config" 2> /dev/null
     fi
-   fi    
+   fi
+    if [ ${AVM_VERSION:0:2} = "05" ]; then # new kernel
+	echo "FREETZ_TYPE_LANG_DE=y" >> "./.config" 2> /dev/null
+	#   echo "FREETZ_TYPE_LANG_EN=y" >> "./.config" 2> /dev/null
+	echo "FREETZ_SHOW_ADVANCED=y" >> "./.config" 2> /dev/null
+	echo "FREETZ_REPLACE_KERNEL_AVAILABLE=y" >> "./.config" 2> /dev/null
+	echo "FREETZ_REPLACE_KERNEL=y" >> "./.config" 2> /dev/null
+    fi
+    # preset some selections
+   echo "FREETZ_PACKAGE_DROPBEAR=y" >> "./.config" 2> /dev/null
+   echo "FREETZ_PACKAGE_CPMACCFG=y" >> "./.config" 2> /dev/null
+   echo "FREETZ_PACKAGE_MINICOM=y" >> "./.config" 2> /dev/null
+   echo "FREETZ_PACKAGE_MINICOM_PORT_S0=y" >> "./.config" 2> /dev/null
+   echo "FREETZ_PACKAGE_MINICOM_BAUD_38400=y" >> "./.config" 2> /dev/null
+   echo "FREETZ_PACKAGE_AVM_FIREWALL=y" >> "./.config" 2> /dev/null
+   echo "FREETZ_PACKAGE_CPMACCFG_CGI=y" >> "./.config" 2> /dev/null
+   echo "FREETZ_PACKAGE_MC=y" >> "./.config" 2> /dev/null
+   echo "FREETZ_PACKAGE_MC_WITH_NCURSES=y" >> "./.config" 2> /dev/null
+   echo "FREETZ_PACKAGE_MINICOM_BAUD=38400" >> "./.config" 2> /dev/null
+   echo "FREETZ_PACKAGE_MINICOM_PORT="/dev/ttyS0"" >> "./.config" 2> /dev/null
    make menuconfig
    [ -n "$KERNEL_SOURCE" ] && sed -i -e "s/FREETZ_DL_KERNEL_SOURCE=.*$/FREETZ_DL_KERNEL_SOURCE=$KERNEL_SOURCE/" "./.config" 2> /dev/null
    [ -n "$KERNEL_SOURCE" ] && sed -i -e "s/FREETZ_DL_KERNEL_SITE=.*$/FREETZ_DL_KERNEL_SITE=$KERNEL_SITE/" "./.config" 2> /dev/null

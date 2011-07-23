@@ -1,4 +1,5 @@
 #!/bin/bash
+#echo "-- remove or add timezones ..."
 #new lua type pages on 18577
 DIRI="$(find ${1}/usr/www/ \( -name menu_show.lua  \) -type f -print)"
 for file_n in $DIRI; do
@@ -21,4 +22,3 @@ for file_n in $DIRI; do
     grep -q 'system...timeZone' "$file_n" || echo2 "    removed timezone page in file: ${file_n##*/}"
 done
 fi
-exit 0

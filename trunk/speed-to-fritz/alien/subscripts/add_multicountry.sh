@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "-- adding mulicountry pages from source basis or 2nd AVM firmware ..."
 #--> multicountry SRC_2
 if [ "${FORCE_MULTI_COUNTRY_SRC2}" = "y" ]; then
   for file_n in /html/de/first/basic_first.js /html/de/first/basic_first.frm; do
@@ -10,7 +11,7 @@ if [ "${FORCE_MULTI_COUNTRY_SRC2}" = "y" ]; then
    file_n="/html/de/first/${file_n}"
    [ -f "${SRC_2}/usr/www/${OEML2}/$file_n" ] && cp -fdrp "${SRC_2}/usr/www/${OEML2}/$file_n" "${SRC}/usr/www/${OEMLINK}/$file_n" && echo2 "    copy from 2nd AVM firmware: $file_n"
  done
- echo "-- adding mulicountry pages from source basis or 2nd AVM firmware ..."
+ echo "-- adding mulicountry pages from 2nd AVM firmware ..."
  #copy default country
  if [ -n "$FBIMG_2" ]; then
   [ -d "${SRC_2}/etc/default.049" ] && cp -fdrp "${SRC_2}"/etc/default.0* --target-directory=${SRC}/etc
@@ -35,6 +36,7 @@ if [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
 fi #<-- multicountry
 
 if [ "${FORCE_MULTI_COUNTRY_SRC2}" = "y" ] || [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
+ echo "-- fix mulicountry menue entrys ..."
  sed -i -e 's/CONFIG_MULTI_COUNTRY="n"/CONFIG_MULTI_COUNTRY="y"/' "${SRC}"/etc/init.d/rc.conf
  ##file_nLIST="menu2_system.html sitemap.html authform.html vpn.html pppoe.html first_Sip_1.html first_ISP_0.html first_ISP_3.frm"
  if [ "${OEM}" = "avm" ]; then

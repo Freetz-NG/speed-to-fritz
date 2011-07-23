@@ -39,12 +39,13 @@ BOOTLOADER_MAGIC_2="0x00908040"
 SQUASHFS_MAGIC_L="73 71 73 68 00 00 .. .. .. .. .. .."
 BOOTLOADER_MAGIC_L="40 80 90 00"
 BOOTLOADER_MAGIC_L_2="0x40809000"
-FV="0x2E30342E" #= .04.
+FVK="0x2E30342E" #= .04.
+FV="0x2E30352E" #= .05.
 echo "--------------------------------------------------------------------------------"
 echo "Looking for bootloader start kernel start and kernel end ..."
 bootloder_start_at="$(recoversubscripts/ipsr p "$BOOTLOADER_MAGIC_2" "$input_file")" || \
 bootloder_start_at=$(recoversubscripts/ipsr p "$BOOTLOADER_MAGIC_L_2" "$input_file") || ret="1"
-kernel_end_at=$(recoversubscripts/ipsr p "$FV" "$input_file") || ret="2"
+kernel_end_at=$(recoversubscripts/ipsr p "$FVK" "$input_file") || kernel_end_at=$(recoversubscripts/ipsr p "$FV" "$input_file") || ret="2"
 kernel_start_at=$(recoversubscripts/ipsr p "$KERNEL_MAGIC_2" "$input_file") || ret="3"
 [ "$ret" == "1" ] && echo " Bootlader magic number not found in exe file, may be original recover is broken." && exit 1
 [ "$ret" == "2" ] && echo " Kernel end (.04.) not found in exe file, may be original recover is broken." && exit 1

@@ -39,19 +39,23 @@ if [ "${TYPE_AVM_7570_XX}" = "y" ]; then
 else
  # "vinax_fw_adsl.bin" "vinax_fw_vdsl.bin"
  #remove 7270 DSL
- rm -fdr "${SRC}"/lib/modules/dsp_ur8
- rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsl
- # "vinax_driver"
- [ -d "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax ] || mkdir "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
- [ -d "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax ] || mkdir "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
- cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
- cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory="${SRC}"/lib/modules/$KernelVersion
- cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.alias --target-directory="${SRC}"/lib/modules/$KernelVersion
- cp -u "${DST}"/usr/sbin/* --target-directory="${SRC}"/usr/sbin 2> /dev/null
- cp -fdrp "${DST}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
- echo "-- DSL driver was taken from the original base firmware"
- [ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
- [ -f "${SRC}"/usr/share/ctlmgr/libtr064.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libtr064.so --target-directory=${SRC}/usr/share/ctlmgr
+ if ! [ -e "${SRC}/etc/init.d/S11-piglet" ]; then # temp workarou
+    rm -fdr "${SRC}"/lib/modules/dsp_ur8
+    rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsl
+    # "vinax_driver"
+    [ -d "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax ] || mkdir "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
+    [ -d "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax ] || mkdir "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
+    cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
+    cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.symbols --target-directory="${SRC}"/lib/modules/$KernelVersion
+    cp -fdrp "${DST}"/lib/modules/$KernelVersion/modules.alias --target-directory="${SRC}"/lib/modules/$KernelVersion
+    cp -u "${DST}"/usr/sbin/* --target-directory="${SRC}"/usr/sbin 2> /dev/null
+    cp -fdrp "${DST}"/lib/modules/vinax* --target-directory="${SRC}"/lib/modules &&\
+    echo "-- DSL driver was taken from the original base firmware"
+    [ -f "${SRC}"/usr/share/ctlmgr/libvdsl.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libvdsl.so --target-directory="${SRC}"/usr/share/ctlmgr
+    [ -f "${SRC}"/usr/share/ctlmgr/libtr064.so ] || cp -fdrp "${DST}"/usr/share/ctlmgr/libtr064.so --target-directory=${SRC}/usr/share/ctlmgr
+ else
+    echo "-- temporary woarkaround for ATA only"
+ fi
 
  if [ "${SAVE_TCOM_DSL}" = "y" ]; then
     cp -fdrp "${DST}"/lib/modules/vinax* --target-directory=./addon/tmp/W920/squashfs-root/lib/modules &&\
@@ -153,8 +157,6 @@ sed -i -e 's|led-ctrl dect_led_enable|echo "dect_led_enable removed"|' "${SRC}/e
 
 #not 7570 only--->
 if ! [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ]; then 
- #sed -i -e 's|/dsl/dsl_ur8.ko|/vinax/drv_vinax.ko|' "${SRC}"/lib/modules/$KernelVersion/modules.dep
- echo "/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:" >> "${SRC}"/lib/modules/$KernelVersion/modules.dep
  #add entrys in modules.sybols
  sed -i -e '/ alias symbol:pcmlink_ul_dspfwversion_pcmrouter pcmlink/a\
 alias symbol:pcmlink_ul_closeslots pcmlink\
@@ -168,6 +170,9 @@ alias symbol:pcmlink_ul_openslots pcmlink' "${SRC}"/lib/modules/$KernelVersion/m
  #copy VDSL Skript
  cp -fdpr  "${DST}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d
  if [ -e "${SRC}/etc/init.d/S11-piglet" ]; then
+  echo "/kernel/drivers/vinax/drv_vinax.ko:" >> "${SRC}"/lib/modules/$KernelVersion/modules.dep
+  #copy VDSL Skript
+  #cp -fdpr  "${DST}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d
   sed -i -e 's|piglet_dectmode=0x100 ||' "${SRC}/etc/init.d/S11-piglet"
   #Attention! Vinax uses aditional /dev/vinax device entrys the are generateed via /tools/device_table.txt (makedevice option)
   ## Fritz_Box_7570 - hw920
@@ -181,6 +186,7 @@ alias symbol:pcmlink_ul_openslots pcmlink' "${SRC}"/lib/modules/$KernelVersion/m
   sed -i -e 's|bitfile.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/S11-piglet" 
   sed -i -e 's|microvoip_isdn.bit|microvoip_isdn_top.bit|' "${SRC}/etc/init.d/S11-piglet" 
  else
+  echo "/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko:" >> "${SRC}"/lib/modules/$KernelVersion/modules.dep
   #include vdsl skript
   sed -i -e 's|/etc/init.d/rc.dsl.sh start|\. /etc/init.d/rc.vdsl.sh|' "${SRC}/etc/init.d/rc.S" 
   #diffence in rc.dsl.sh
@@ -317,7 +323,9 @@ if [ ${ATA_ONLY} = "y" ]; then
 #remove (V)ADSL
     sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
     sed -i -e 's|. /etc/init.d/rc.vdsl.sh||' "${SRC}/etc/init.d/rc.S" 
-    rm -fdr "${SRC}"/lib/modules/dsp_ur8
+    if ! [ -e "${SRC}/etc/init.d/S11-piglet" ]; then # temp workaround
+	rm -fdr "${SRC}"/lib/modules/dsp_ur8
+    fi
     [ -f "${SRC}/lib/modules/vinax_fw_vdsl.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_vdsl.bin &&\
     echo "-- VDSL driver was removed"
     [ -f "${SRC}/lib/modules/vinax_fw_adsl.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_adsl.bin &&\
@@ -351,8 +359,10 @@ echo "-- DSL Annex B driver was removed from ${SORCE_PRODUKT}!"
 #save space
 [ "${REMOVE_ANNEX_A_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/vinax_fw_adsl_A.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_adsl_A.bin &&\
 echo "-- DSL Annex A driver was removed from ${SORCE_PRODUKT}!"
-[ ${ATA_ONLY} != "y" ] && ! [ -f ${SRC}/lib/modules/vinax_fw_vdsl.bin ] && echo "VINAX vdsl driver is missing!" && sleep 10 && exit 1
-[ ${ATA_ONLY} != "y" ] && ! [ -f ${SRC}/lib/modules/vinax_fw_adsl.bin ] && ! [ -f ${SRC}/lib/modules/vinax_fw_adsl_A.bin ] && ! [ -f ${SRC}/lib/modules/vinax_fw_adsl_B.bin ] && echo "VINAX adsl driver is missing!" && sleep 10 && exit 1
+if ! [ -e "${SRC}/etc/init.d/S11-piglet" ]; then # temp workaround
+    [ ${ATA_ONLY} != "y" ] && ! [ -f ${SRC}/lib/modules/vinax_fw_vdsl.bin ] && echo "VINAX vdsl driver is missing!" && sleep 10 && exit 1
+    [ ${ATA_ONLY} != "y" ] && ! [ -f ${SRC}/lib/modules/vinax_fw_adsl.bin ] && ! [ -f ${SRC}/lib/modules/vinax_fw_adsl_A.bin ] && ! [ -f ${SRC}/lib/modules/vinax_fw_adsl_B.bin ] && echo "VINAX adsl driver is missing!" && sleep 10 && exit 1
+fi
 #fix ADSL interface accsess restrictions
 sed -i -e "/ \/etc\/init.d\/rc.conf/a\
 \[ -f \/var\/flash\/ar7.cfg \] \&\& sed -i -e 's|ifacectl|hprio|' \/var\/flash\/ar7.cfg \&\& cat \/var\/flash\/ar7.cfg | grep ifacectl \&\& echo '---- Not fixed ADSL ---'" "${SRC}/etc/init.d/rc.S"

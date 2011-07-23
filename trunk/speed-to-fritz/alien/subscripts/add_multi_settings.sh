@@ -40,7 +40,7 @@ readConfig "MULTI_LANGUAGE" "SRC_2_TMP_MULTI_LANGUAGE" "${SRC_2}/etc/init.d"
 [ "$TCOM_TMP_MULTI_ANNEX" = "y" ] && echo "-- 1st base firmware is multiannex"
 [ "$TCOM_TMP_MULTI_LANGUAGE" = "y" ] && echo "-- 1st base firmware is multilingual"
 
-[ "$AVM_TMP_MULTI_COUNTRY" = "y" ] && echo "-- 2nd firmware is multicountry"
+[ "$AVM_TMP_MULTI_COUNTRY" = "y" ] &&  echo "-- 2nd firmware is multicountry"
 [ "$AVM_TMP_MULTI_ANNEX" = "y" ] && echo "-- 2nd firmware is multiannex"
 [ "$AVM_TMP_MULTI_LANGUAGE" = "y" ] && echo "-- 2nd firmware is multilingual"
 
@@ -48,12 +48,23 @@ readConfig "MULTI_LANGUAGE" "SRC_2_TMP_MULTI_LANGUAGE" "${SRC_2}/etc/init.d"
 [ "$SRC_2_TMP_MULTI_ANNEX" = "y" ] && echo "-- 3rd firmware is multiannex"
 [ "$SRC_2_TMP_MULTI_LANGUAGE" = "y" ] && echo "-- 3rd firmware is multilingual"
 
-[ "$AVM_TMP_MULTI_COUNTRY" != "y" ] && . $sh_DIR/remove_timezone.sh
-[ "$AVM_TMP_MULTI_COUNTRY" != "y" ] && echo "-- add multicontry" && . $sh_DIR/add_multicountry.sh
-[ "$AVM_TMP_MULTI_ANNEX" != "y" ] && echo "-- add multiannex" && . $sh_DIR/add_multiannex.sh
-[ "$AVM_TMP_MULTI_LANGUAGE" != "y" ] && echo "-- add multilingual" && . $sh_DIR/add_multilingual.sh
-#export CONFIG_MULTI_COUNTRY="y"
-
+if [ "$AVM_TMP_MULTI_COUNTRY" != "y" ]; then
+ echo "-- 2nd firmware is not multicountry"
+ if [ "${FORCE_MULTI_COUNTRY_SRC2}" = "y" ] || [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
+  export CONFIG_MULTI_COUNTRY="y"
+  #echo "-- add multicontry"
+  . $sh_DIR/remove_timezone.sh
+  . $sh_DIR/add_multicountry.sh
+ fi
+fi
+if [ "$AVM_TMP_MULTI_ANNEX" != "y" ]; then
+ echo "-- add multiannex"
+ . $sh_DIR/add_multiannex.sh
+fi
+if [ "$AVM_TMP_MULTI_LANGUAGE" != "y" ]; then
+ echo "-- add multilingual"
+ . $sh_DIR/add_multilingual.sh
+fi
 # include, order of includes may count
 
 if [ "${FORCE_LANGUAGE}" != "de" ]; then
