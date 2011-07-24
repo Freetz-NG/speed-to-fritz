@@ -2725,7 +2725,7 @@ config EXPORT_FORCE_MULTI_COUNTRY_SRC2
 	    To make this work you must have a basis or 2nd AVM firmware that supplies the needed feature, some text may be wrong or missing!.
 config EXPORT_FORCE_MULTI_ZONE
 	bool "Patch time zone"
-	depends on ! TYPE_FIRMWARE_2_IS_MULTI && ! EXPORT_FORCE_MULTI_COUNTRY_SRC2 && ! TYPE_AVM_7570_XX
+	depends on ! TYPE_FIRMWARE_2_IS_MULTI && ! TYPE_AVM_7570_XX
 	depends on EXPERT_MOD
  	default n
 	help
