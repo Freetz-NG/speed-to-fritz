@@ -3,7 +3,7 @@
 #echo USRWWW:${USRWWW} is set in add_multi_settins.sh
 if [ "$FORCE_MULTI_ZONE" = "y" ]; then
  #old menues add or remove timezone entry
- echo "-- adding timezone pages ..."e
+ echo "-- adding timezone pages ..."
  [ "$avm_Lang" = "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_de.patch" )
  [ "$avm_Lang" != "de" ] && ( [ -f "${SRC}"/usr/www/$OEMLINK/html/de/system/timeZone.js ] || modpatch "${SRC}/${USRWWW}" "$P_DIR/add_timezone_en.patch" )
 else
