@@ -98,7 +98,7 @@ cp -fdrp "${DST}"/lib/modules/wlan_eeprom_hw0.bin --target-directory="${SRC}"/li
 echo "-- wlan_eeprom_hw0.bin driver was taken from original 7240 AVM source."
 cp -fdrp "${DST}"/lib/modules/c55fw.hex --target-directory="${SRC}"/lib/modules &&\
 echo "-- c55fw.hex driver was taken from original 7240 AVM source."
-# add kapselung and annex settings page if missing
+# add language timezone country
 $sh_DIR/add_multi_settings.sh
 cp -fdrp "${DST}"/lib/modules/dectfw_firstlevel_488.hex --target-directory="${SRC}"/lib/modules &&\
 cp -fdrp "${DST}"/lib/modules/dectfw_secondlevel_488.hex --target-directory="${SRC}"/lib/modules &&\

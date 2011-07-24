@@ -49,7 +49,7 @@ readConfig "MULTI_LANGUAGE" "SRC_2_TMP_MULTI_LANGUAGE" "${SRC_2}/etc/init.d"
 [ "$SRC_2_TMP_MULTI_LANGUAGE" = "y" ] && echo "-- 3rd firmware is multilingual"
 
 if [ "$AVM_TMP_MULTI_COUNTRY" != "y" ]; then
- . $sh_DIR/remove_timezone.sh
+ . $sh_DIR/remove_timezone.sh #removes or add timezone, dependent menue selection "patch timezone"
  echo "-- 2nd firmware is not multicountry"
  if [ "${FORCE_MULTI_COUNTRY_SRC2}" = "y" ] || [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
   export CONFIG_MULTI_COUNTRY="y"

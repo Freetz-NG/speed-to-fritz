@@ -123,7 +123,7 @@ $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 900
 [ "$ADD_NTFS" = "y" ] && $sh2_DIR/add_ntfs_W900 "${SRC}"
 #patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
-# add kapselung and annex settings page if missing
+# add language timezone country
 $sh_DIR/add_multi_settings.sh
 #remove kids and help
 [ "${REMOVE_KIDS}" = "y" ] && $sh_DIR/rmv_kids.sh "${SRC}"

@@ -1,5 +1,6 @@
 #!/bin/bash
 echo "-- adding mulicountry pages from source basis or 2nd AVM firmware ..."
+sed -i -e "s/CONFIG_MULTI_COUNTRY=.*$/CONFIG_MULTI_COUNTRY=\"n\"/g" "${1}/etc/init.d/rc.conf"
 #--> multicountry SRC_2
 if [ "${FORCE_MULTI_COUNTRY_SRC2}" = "y" ]; then
   for file_n in /html/de/first/basic_first.js /html/de/first/basic_first.frm; do
@@ -35,10 +36,9 @@ if [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
  [ -d "${DST}/etc/default.049" ] &&  cp -fdrp "${DST}"/etc/default.0* --target-directory=${SRC}/etc
  [ -d "${DST}/etc/default.99" ] && cp -fdrp "${DST}"/etc/default.9* --target-directory=${SRC}/etc
 fi #<-- multicountry
-
 if [ "${FORCE_MULTI_COUNTRY_SRC2}" = "y" ] || [ "${FORCE_MULTI_COUNTRY}" = "y" ]; then
  echo "-- fix mulicountry menue entrys ..."
- sed -i -e 's/CONFIG_MULTI_COUNTRY="n"/CONFIG_MULTI_COUNTRY="y"/' "${SRC}"/etc/init.d/rc.conf
+ sed -i -e 's/CONFIG_MULTI_COUNTRY="n"/CONFIG_MULTI_COUNTRY="y"/g' "${SRC}"/etc/init.d/rc.conf
  ##file_nLIST="menu2_system.html sitemap.html authform.html vpn.html pppoe.html first_Sip_1.html first_ISP_0.html first_ISP_3.frm"
  if [ "${OEM}" = "avm" ]; then
   rpl_avme_avm "$(find "${SRC}/usr/www/${OEMLINK}" -name *.html)" 

@@ -76,7 +76,7 @@ echo2 "-- copy complete AVM source to destination directory!"
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 7270
 #patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
-# add kapselung and annex settings page if missing
+# add language timezone country
 $sh_DIR/add_multi_settings.sh
 cp -fdrp "${DST}"/lib/modules/dectfw_firstlevel_488.hex --target-directory="${SRC}"/lib/modules &&\
 cp -fdrp "${DST}"/lib/modules/dectfw_secondlevel_488.hex --target-directory="${SRC}"/lib/modules &&\

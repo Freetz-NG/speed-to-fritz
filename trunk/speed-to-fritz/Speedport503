@@ -308,7 +308,7 @@ $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 503
 [ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
 #patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
-# add kapselung and annex settings page if missing
+# add language timezone country
 $sh_DIR/add_multi_settings.sh
 #remove kids and help
 #[ ${REMOVE_KIDS} = "y" ] && 

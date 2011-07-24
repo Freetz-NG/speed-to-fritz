@@ -1,5 +1,6 @@
 #!/bin/bash
 # --> multilanguage
+sed -i -e "s/CONFIG_MULTI_LANGUAGE=.*$/CONFIG_MULTI_LANGUAGE=\"n\"/g" "${1}/etc/init.d/rc.conf"
 [ "${FORCE_MULTI_LANGUAGE_BASE}" != "y" ] && SORCE_2="$SRC_2"
 [ "${FORCE_MULTI_LANGUAGE_SRC2}" != "y" ] && DEST="$DST"
 if [ "${FORCE_MULTI_LANGUAGE}" = "y" ]; then

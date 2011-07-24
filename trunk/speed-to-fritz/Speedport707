@@ -67,17 +67,14 @@ if [  -e "${DST}/etc/default.${CONFIG_PRODUKT}"/congstar ]; then
 fi
 #remove USB and internal S0
 [ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "7170" 
-
 # patch INI files according to the setting made in the main Skript speed-to-fritz.sh 
 # 701 is used for filename 701.init and for Produkt string.
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 701
-
 # set led definition 
 $sh_DIR/patch_leddefinition.sh "${SRC}" "${DST}"
-
 #patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
-# add kapselung and annex settings page if missing
+# add language timezone country
 $sh_DIR/add_multi_settings.sh
 #patch download url
 sed -i -e "s|hardware=\${HWRevision}|hardware=${FBHWRevision}|" "${SRC}/etc/init.d/rc.conf"

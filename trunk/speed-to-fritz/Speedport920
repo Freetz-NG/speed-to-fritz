@@ -344,8 +344,9 @@ $sh_DIR/patch_dslinformation_page.sh "${SRC}"
 $sh_DIR/add_vdslprofilepage.sh "${SRC}"
 # add kapselung and annex settings page if missing
 # must be bevore VLAN settings because oem of authform is altered in some cases
-$sh_DIR/add_multi_settings.sh
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 920
+#add_multi_settings.sh must be after patch_config_rc.conf.sh
+$sh_DIR/add_multi_settings.sh
 # patch some VLAN settings, and authform
 $sh_DIR/add_vlan_settings.sh "${SRC}"
 ## patch default dsl route to 169.254.2.1
