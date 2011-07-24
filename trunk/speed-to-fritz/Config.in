@@ -2700,13 +2700,32 @@ config EXPORT_FREETZ_TYPE_LANG_EN
 comment  "--------------------------------------------------------------------"
 #comment  "---------------- Multisettings and OEM  (optional) -----------------"
 config EXPORT_FORCE_MULTI_LANGUAGE
-	bool "Use Multilingual from 2nd AVM firmware (optional)"
-	depends on TYPE_FIRMWARE_3_IS_MULTI && ! TYPE_FIRMWARE_2_IS_MULTI
+	bool "Use Multilingual from base or 2nd AVM firmware (optional)"
+	depends on (TYPE_FIRMWARE_1_IS_MULTI || TYPE_FIRMWARE_3_IS_MULTI) && ! TYPE_FIRMWARE_2_IS_MULTI
 	depends on EXPERT_MOD
 	default n
 	help
 	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!  
 	    To make this work you must have a basis or 2nd AVM firmware that supplies the needed feature.
+
+config EXPORT_FORCE_MULTI_LANGUAGE_BASE
+	bool "Force Use Multilingual from base firmware (optional)"
+	depends on EXPORT_FORCE_MULTI_LANGUAGE && TYPE_FIRMWARE_1_IS_MULTI && TYPE_FIRMWARE_3_IS_MULTI && ! TYPE_FIRMWARE_2_IS_MULTI
+	depends on EXPERT_MOD
+	default n
+	help
+	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!  
+	    To make this work you must have a 2nd AVM firmware that supplies the needed feature.
+
+config EXPORT_FORCE_MULTI_LANGUAGE_SRC2
+	bool "Force Use Multilingual from 2nd AVM firmware (optional)"
+	depends on EXPORT_FORCE_MULTI_LANGUAGE && TYPE_FIRMWARE_1_IS_MULTI && TYPE_FIRMWARE_3_IS_MULTI && ! TYPE_FIRMWARE_2_IS_MULTI
+	depends on EXPERT_MOD
+	default n
+	help
+	    Do not use this option if the AVM 1st firmware is a multilingual firmware originally!  
+	    To make this work you must have a basis firmware that supplies the needed feature.
+
 config EXPORT_FORCE_MULTI_COUNTRY
 	bool "Use Multi country from base firmware"
 	depends on TYPE_FIRMWARE_1_IS_MULTI && ! TYPE_FIRMWARE_2_IS_MULTI
