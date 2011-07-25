@@ -629,11 +629,12 @@ while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` =
  sleep 1
 done 
 while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
-[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+ [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
  echo -n "."
 done 
 echo -e "\nInitiating file transfer of 'kernel.image' ...\n"
 echo "Please be patient, it takes about one minute to erase the mtd1 partition ..."
+[ $FORCE_CLEAR_FLASH ] && autoload=no || autoload=yes
 rm -f ${HOMEDIR}/.packed
 ftp -n -p <<EOT 2> ${HOMEDIR}/ftperr.log && touch ${HOMEDIR}/.packed &
 open "${IPADDRESS}"
@@ -646,11 +647,11 @@ $([ $ISALICE ] && echo put ${kernel_mtd5} mtd5 )
 $([ $FORCE_CLEAR_FLASH ] && echo put ${HOMEDIR}/empty mtd3 )
 $([ $FORCE_CLEAR_FLASH ] && echo put ${HOMEDIR}/empty mtd4 )
 quote SETENV firmware_version $OEM
-quote SETENV autoload yes
-quote SETENV my_ipaddress 192.168.178.1
+quote SETENV autoload $autoload
+$([ $FORCE_CLEAR_FLASH ] || echo quote SETENV my_ipaddress 192.168.178.1 )
 quote SETENV ProductID  $CONFIG_PRODUKT
 quote SETENV HWRevision  $HWRevision
-quote SETENV kernel_args $kernel_args
+$([ $kernel_args ] && echo quote SETENV kernel_args $kernel_args || echo quote UNSETENV kernel_args)
 quote SETENV annex $ANNEX
 quote REBOOT
 quit
@@ -658,6 +659,33 @@ EOT
 printprogress
 rm -f ${HOMEDIR}/.packed
 print_ftperror || return 1
+if [ $FORCE_CLEAR_FLASH ]; then
+ echo -e "${ECHO_BOLD}${ECHO_ROT}If no restart on its own, you must reboot your box again.${ECHO_END}\n"
+ echo "Waiting for box to shut down and restart ..."
+ while [ `ping $ping_params 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
+  echo -n "."
+  sleep 1
+ done 
+ while [ `ping $ping_params 192.168.2.1 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+  [ `ping $ping_params 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+  echo -n "."
+ done 
+ ftp -n -p <<EOT
+ open "192.168.2.1"
+ user adam2 adam2
+ debug
+ binary
+ quote SETENV firmware_version $OEM
+ quote SETENV autoload yes
+ quote SETENV my_ipaddress 192.168.178.1
+ quote SETENV ProductID  $CONFIG_PRODUKT
+ quote SETENV HWRevision  $HWRevision
+ $([ $kernel_args ] && echo quote SETENV kernel_args $kernel_args || echo quote UNSETENV kernel_args)
+ quote SETENV annex $ANNEX
+ quote REBOOT
+ quit
+ EOT
+fi
 return 0
 }
 function modunsqfs()
