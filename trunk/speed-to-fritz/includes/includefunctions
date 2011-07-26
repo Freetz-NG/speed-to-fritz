@@ -629,7 +629,7 @@ while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` =
  sleep 1
 done 
 while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
- [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
  echo -n "."
 done 
 echo -e "\nInitiating file transfer of 'kernel.image' ...\n"
@@ -671,20 +671,20 @@ if [ $FORCE_CLEAR_FLASH ]; then
   echo -n "."
  done 
  ftp -n -p <<EOT
- open "192.168.2.1"
- user adam2 adam2
- debug
- binary
- quote SETENV firmware_version $OEM
- quote SETENV autoload yes
- quote SETENV my_ipaddress 192.168.178.1
- quote SETENV ProductID  $CONFIG_PRODUKT
- quote SETENV HWRevision  $HWRevision
- $([ $kernel_args ] && echo quote SETENV kernel_args $kernel_args || echo quote UNSETENV kernel_args)
- quote SETENV annex $ANNEX
- quote REBOOT
- quit
- EOT
+open "192.168.2.1"
+user adam2 adam2
+debug
+binary
+quote SETENV firmware_version $OEM
+quote SETENV autoload yes
+quote SETENV my_ipaddress 192.168.178.1
+quote SETENV ProductID  $CONFIG_PRODUKT
+quote SETENV HWRevision  $HWRevision
+$([ $kernel_args ] && echo quote SETENV kernel_args $kernel_args || echo quote UNSETENV kernel_args)
+quote SETENV annex $ANNEX
+quote REBOOT
+quit
+EOT
 fi
 return 0
 }
