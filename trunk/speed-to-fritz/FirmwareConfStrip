@@ -20,4 +20,9 @@ echo "# Automatically generated and stripped" >> .tmpx
 #sort $FWC_FILE | uniq -u > $FWC_FILE
 cat "$FWC_FILE" >> .tmpx
 mv .tmpx "$FWC_FILE"
+#Write modinfo to /var/sp2fr_info
+echo "# Build Date: $(date +%Y%m%d-%H%M)" > ${FBDIR}/var/.sp2fr_info
+echo "# Script Revision: $(svnversion . | tr ":" "_")" >> ${FBDIR}/var/.sp2fr_info
+cat "$FWC_FILE" | grep  'EXPORT' | sed -e 's/EXPORT_//' | sed -e '/FREETZ_/d' | sed -e '/TYPE_/d' >> ${FBDIR}/var/.sp2fr_info
+
 
