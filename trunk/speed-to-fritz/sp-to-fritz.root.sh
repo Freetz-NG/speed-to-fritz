@@ -1851,7 +1851,7 @@ else
  # set OEM via rc.S not via environment
  [ "$PATCH_OEM" = "y" ] && $sh2_DIR/patch_OEMandMyIP "${DST}"
  # Copy stripped Firmware.conf ...
- FWCT_DIR="$NEWDIR/conf/${SPIMG}_OriginalFirmwareAdjusted${ANNEX}${Language}_Firmware.conf.tar"
+ #FWCT_DIR="$NEWDIR/conf/${SPIMG}_OriginalFirmwareAdjusted${ANNEX}${Language}_Firmware.conf.tar"
  . FirmwareConfArch
  # <-- Only Tcom
 fi
@@ -1939,7 +1939,7 @@ connection, add a static IP 192.168.178.2 and \n\
 mask 255.255.0.0 gateway IP 192.168.178.1 to your PC network settings.\n\
 If a VM machine is in use be sure you did start the VM as administrator.\n\
 In case of problems a windows program can also be used to upload a firmware.\n\
-Link:  http://www.hyperbox.org/jpascher/1/ftp_uploader.exe.exe"$ECHO_END
+Link:  $ECHO_BOLD http://www.hyperbox.org/jpascher/uploader/publish.htm$ECHO_END \n"
 	##########################################################################
 	echo "********************************************************************************"
 	echo "Flashing firmware image $NEWDIR/kernel.image..."
@@ -1964,10 +1964,9 @@ else
  exit 0
 fi
 [ "$RUN_PATCH_DECT" == "y" ] && $HOMEDIR/patch_dect.sh
-	echo "A windows program can also be used to upload a firmware."
-	echo "Link:  http://www.hyperbox.org/jpascher/1/ftp_uploader.exe.exe"
-echo
-echo "All done .... Press 'ENTER' to return to the calling shell."
+	echo -e "A windows program can also be used to upload a firmware\n\
+Link:  $ECHO_BOLD http://www.hyperbox.org/jpascher/uploader/publish.htm$ECHO_END \n\n\
+All done .... Press 'ENTER' to return to the calling shell.\n"
 while !(read -s); do
     sleep 1
 done

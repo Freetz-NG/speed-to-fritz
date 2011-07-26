@@ -1145,7 +1145,7 @@ choice
 		bool "AVM 7570 81.04.86 (HN alice) 16971"
 
 	config TYPE_TCOM_HN_7570_19715
-		bool "AVM 7570 75.04.90 (freetz kernel) 19715"
+		bool "AVM 7570 75.04.90 (freetz kernel) 7093"
 
 	config TYPE_LOCAL_TCOM_7570
 		bool "CUSTOM 7570 firmware"
@@ -1791,7 +1791,7 @@ choice
 		FRITZ! : 7570 release multilingual, for used in combination with W920
 
 	config TYPE_AVM_HN_7570_19715
-		bool "AVM 7570 75.04.90 (freetz kernel) 19715"
+		bool "AVM 7570 75.04.90 (freetz kernel 7093)"
 		help
 		FRITZ! : 7570 release multilingual, for used in combination with alice
 
@@ -2127,7 +2127,7 @@ choice
 		bool "AVM 7570 81.04.86 16971 (HN alice)"
 		
 	config TYPE_SRC3_AVM_HN_7570_19715
-		bool "AVM 7570 75.04.90 19715 (freetz kernel) "
+		bool "AVM 7570 75.04.90 19715 (freetz kernel 7093) "
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	config TYPE_SRC3_TCOM_W500_27
 		bool "TCOM Sinus W500V 27.04.27"
