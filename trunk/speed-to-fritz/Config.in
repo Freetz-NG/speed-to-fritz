@@ -493,7 +493,7 @@ config SET_SP2FR_REVISION
 config  EXPORT_SP2FR_REVISION
 	depends on SET_SP2FR_REVISION
 	        string "--> Set revision number "
-	            default "1362" # dont edit this line is changed via ./start.sh - numner "1234" may differ
+	            default "1381" # dont edit this line is changed via ./start.sh - numner "1234" may differ
 	        help
 	            This is the revision number used with speed-to-fritz
 	            example 1265.
@@ -2929,13 +2929,20 @@ config SET_FBHWRevision
 		HWR 159 = FRITZ!Box Fon WLAN 7112
 		HWR 160 = Speedport W504V
 		HWR 162 = FRITZ!Box Fon WLAN 7113 AnnexA
-		HWR 164 = FRITZ!Box Fon WLAN 504avm
+		HWR 164 = Speedport W504V Typ B/C
 		HWR 165 = FRITZ!Box Fon WLAN 7541 vDSL
 		HWR 167 = FRITZ!Box Fon WLAN 7270 v4
 		HWR 168 = FRITZ!Box 3270 v3
 		HWR 171 = FRITZ!Box Fon WLAN 7340
 		HWR 174 = Alice IAD WLAN 3331
 		HWR 175 = FRITZ!Box WLAN 3370
+		HWR 178 = FRITZ!Box Fon WLAN 7313
+		HWR 179 = FRITZ!Box Fon WLAN 7330
+		HWR 180 = FRITZ!Box 6810 LTE
+		HWR 181 = FRITZ!Box Fon WLAN 7360 SL
+		HWR 182 = FRITZ!Box 6322 Cable
+		HWR 183 = FRITZ!Box Fon WLAN 7360
+		HWR 184 = FRITZ!Box 6841 LTE
 choice
 	prompt "select a target hardware revioson (optional): "
 	depends on SET_FBHWRevision || TYPE_7272_m54_04_76 || ( TYPE_OR_7570_920 && ! TYPE_LANG_DE )
@@ -3124,7 +3131,7 @@ choice
 	config HWR162
 	   bool "FRITZ!Box Fon WLAN 7113 AnnexA"
 	config HWR164
-	   bool "FRITZ!Box Fon WLAN 504avm"
+	   bool "Speedport W504V Typ B/C"
 	config HWR165
 	   bool "FRITZ!Box Fon WLAN 7541 vDSL"
 	config HWR167
@@ -3135,8 +3142,22 @@ choice
 	   bool "FRITZ!Box Fon WLAN 7340"
 	config HWR174
 	   bool "Alice IAD WLAN 3331"
-	config HWR175 
+	config HWR175
 	   bool "FRITZ!Box WLAN 3370"
+	config HWR178
+	   bool "FRITZ!Box Fon WLAN 7313"
+	config HWR179
+	   bool "FRITZ!Box Fon WLAN 7330"
+	config HWR180
+	   bool "FRITZ!Box 6810 LTE"
+	config HWR181
+	   bool "FRITZ!Box Fon WLAN 7360 SL"
+	config HWR182
+	   bool "FRITZ!Box 6322 Cable"
+	config HWR183
+	   bool "FRITZ!Box Fon WLAN 7360"
+	config HWR184
+	   bool "FRITZ!Box 6841 LTE"
 endchoice
 
 config EXPORT_FBHWRevision
@@ -3238,7 +3259,16 @@ config EXPORT_FBHWRevision
 	default "168" if HWR168
 	default "171" if HWR171
 	default "174" if HWR174
-	default "175" if HWR175 
+	default "175" if HWR175
+	default "176" if HWR176
+	default "177" if HWR177
+	default "178" if HWR178
+	default "179" if HWR179
+	default "180" if HWR180
+	default "181" if HWR181
+	default "182" if HWR182
+	default "183" if HWR183
+	default "184" if HWR184
 comment "--------------- Optional settings for Speed-to-fritz ---------------"
 if ! ORI && ! TYPE_SPEEDPORT_W722V
 config EXPORT_ADD_OLD_DECTMENU
