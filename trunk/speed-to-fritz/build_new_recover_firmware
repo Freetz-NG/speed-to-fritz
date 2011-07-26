@@ -119,6 +119,7 @@ Date=$(date +%Y%m%d%H%M)
 [ "7570" == "${TYPE_LABOR_TYPE:0:4}" ] && [ "$TYPE_LOCAL_MODEL" != "y" ] && [ "$SPNUM" == "7570" ] && Xmodel="7570"
 [ "$ORI" == "y" ] && Xmodel="${Xmodel}_R"
 new_recover_file="$kernel_dir/${Xmodel}_$Date.recover.exe"
+echo "Original fliename: $NEWIMG --> $(basename $new_recover_file)" >> $FWNEWDIR/recover_file.lst
 ##cp -f "$output_dir/exe_start" "$output_dir/ori_start"
 ! [ -f "$output_dir/exe_start" ] && echo "missing: $output_dir/exe_start" && sleep 10 && exit 1
 ! [ -f "$RDIR/ipsr" ] && echo "missing: $RDIR/ipsr" && sleep 10 && exit 1
