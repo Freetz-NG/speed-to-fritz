@@ -48,21 +48,28 @@ bootloder_start_at=$(recoversubscripts/ipsr p "$BOOTLOADER_MAGIC_L_2" "$input_fi
 kernel_end_at=$(recoversubscripts/ipsr p "$FVK" "$input_file") || kernel_end_at=$(recoversubscripts/ipsr p "$FV" "$input_file") || ret="2"
 kernel_start_at=$(recoversubscripts/ipsr p "$KERNEL_MAGIC_2" "$input_file") || ret="3"
 [ "$ret" == "1" ] && echo " Bootlader magic number not found in exe file, may be original recover is broken." && exit 1
-[ "$ret" == "2" ] && echo " Kernel end (.04.) not found in exe file, may be original recover is broken." && exit 1
+[ "$ret" == "2" ] && echo " Kernel end (.04.) or (.05.) not found in exe file, may be original recover is broken." && exit 1
 [ "$ret" == "3" ] && echo " Kernel magic number not found in exe file, may be original recover is broken." && exit 1
 bootloder_start_at=$((bootloder_start_at + 1))
 echo "bootloader start at: $bootloder_start_at"
-kernel_end_at=$((kernel_end_at - 1))
+kernel_end_at=$((kernel_end_at - 1 ))
 #echo "kernel end at: $kernel_end_at"
 kernel_start_at=$((kernel_start_at + 1))
 echo "kernel start at: $kernel_start_at"
-
 
 psize=$((bootloder_start_at - kernel_end_at))
 #old way, look for old filenames 
 basename "$input_file" | grep -q 'en-de' && kernel_end_at="1"
 if [ "$kernel_end_at" == "1" ]; then
  psize=53
+ kernel_end_at=$((bootloder_start_at - psize))
+fi
+kernel_end=$kernel_end_at
+
+#new way, 05 versions
+basename "$input_file" | grep -q 'en-de-es-it-fr.05.' && kernel_end_at="1"
+if [ "$kernel_end_at" == "1" ]; then
+ psize=61
  kernel_end_at=$((bootloder_start_at - psize))
 fi
 kernel_end=$kernel_end_at

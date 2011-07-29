@@ -48,9 +48,11 @@ echo " kernel.image, start @ ${kernel_start_at}, length: $dd_count, end @ $kerne
 output_file="$output_dir/exe_mid"
 echo " exe_mid, start @ $kernel_end, length: $psize, end @ $bootloder_start_at "
 ( dd of="/dev/null" ibs=$kernel_end obs=8192 count=1 2> /dev/null && dd of="$output_file" ibs=$psize obs=8192 count=1 2> /dev/null ) < "$input_file"
+#dd if="$output_file" bs=1 count=16  2> /dev/null | tr -d '[:alpha:]' | sed 's/-\.//' | sed 's/-//' 
+OldRversion="$(dd if=$output_dir/exe_mid bs=1 count=32  2> /dev/null)" #get it directly
+OldRversion="$(echo $OldRversion | sed 's/\(.*[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]\).*/\1/')"
 echo -n "Firmware version: "
-dd if="$output_file" bs=1 count=16  2> /dev/null | tr -d '[:alpha:]' | sed 's/-\.//' | sed 's/-//' 
-echo
+echo $OldRversion | sed 's/\(.*[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]\).*/\1/'
 }
 # Extracts kernel.image candidates from input file, based on kernel and
 # SquashFS magic strings.

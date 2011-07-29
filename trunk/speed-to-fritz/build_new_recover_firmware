@@ -95,6 +95,7 @@ fwselect "$R_IMG_PATH" "$FWBASE" "R_IMG" "R_IMG"  "$MIRROR_R_IMG_PATH" "$FILENAM
 input_recover_file="$FWBASE/$(echo $R_IMG | sed -e "s/.*\///")"
 #echo "input_recover_file: $input_recover_file"
 #-------------------------------------------------------------------------------------------------
+output_dir="$(basename "$input_recover_file" | sed -r 's/(.*)\.[^\.]*/\1/')"
 kernel_dir="$NEWDIR"
 mkdir -p "$kernel_dir"
 output_dir="$(basename "$input_recover_file" | sed -r 's/(.*)\.[^\.]*/\1/')"
@@ -191,18 +192,30 @@ if [ $act_size -lt $new_act_size ]; then
     echo "ERROR! New kernel.image does not fit into recover firmware." && checkerror="y"
     [ -n "$kernel_size" ] && [ "$kernel_diff_size" -gt 0 ] && echo  "  space within the recover firmware is smaller as in the flash by: $kernel_diff_size Bytes."
 fi
-
-AVM_New_version="$AVM_VERSION_MAJOR.$AVM_VERSION"
+#R_IMG is filenam of original recover in use
+old_v="$(basename "$R_IMG")"
+#echo "old_v: $old_v"
+old_v="${old_v%recover*}"
+#echo "old_v: $old_v"
+#find .en within filename
+Recover_firmware_version="en${old_v##*.en}  " #filename misses two numbers
+echo "Original Recover Firmware Version: $Recover_firmware_version"
+count=${#Recover_firmware_version}
+OldRversion="$(dd if=$output_dir/exe_mid bs=1 count=${count}  2> /dev/null)" #get it directly
+echo temp:$OldRversion
+OldRversion="$(echo $OldRversion | sed 's/\(.*[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]\).*/\1/')"
+count=${#OldRversion}
+#${X:start:length}
+#${string/substring/replacement}
 #TCOM_New_version="$TCOM_VERSION_MAJOR.$TCOM_VERSION"
 #echo "New recoverversion: $AVM_New_version"
 #echo "New tcom recoverversion: $TCOM_New_version"
-OldRversion="$(dd if=$output_dir/exe_mid bs=1 count=16  2> /dev/null)"
-OldRversion_C="$(dd if=$output_dir/exe_mid bs=1 count=16  2> /dev/null | sed 's/-//' | tr -d '[:alpha:]' | sed 's/-\.//' )"
-New_Rversion=$AVM_New_version$(dd if=$output_dir/exe_mid bs=1 count=16  2> /dev/null | sed 's/-it/   /' | sed 's/-en/   /' | sed 's/-fr/   /' | sed 's/-sp/   /' | sed 's/ \./  /' | sed "s|$OldRversion_C||")
-[ "$ORI" != "y" ] && echo "New recoverversion: .$New_Rversion."
+New_Rversion="$AVM_VERSION_MAJOR.$AVM_VERSION                                                                                   " #fill with space
+#echo "count: ${#OldRversion}"
+New_Rversion="${New_Rversion:0:$count}"
+[ "$ORI" != "y" ] && echo "Old Recover Version : .$OldRversion."
+[ "$ORI" != "y" ] && echo "New Recover Version : .$New_Rversion."
 echo "patch revison ..."
-#echo "Old recoverversion : .$OldRversion."
-#echo "Old recoverversionC: .$OldRversion_C."
 [ "$ORI" != "y" ] && sed -i -e "s|$OldRversion|$New_Rversion|" "$output_dir/exe_mid"
 echo "concat all parts ..."
 dd if=/dev/zero bs=1 count=$act_diff >$output_dir/zerro.image 2> /dev/null
