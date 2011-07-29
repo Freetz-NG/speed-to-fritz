@@ -199,24 +199,23 @@ old_v="${old_v%recover*}"
 #echo "old_v: $old_v"
 #find .en within filename
 Recover_firmware_version="en${old_v##*.en}  " #filename misses two numbers
-echo "Original Recover Firmware Version: $Recover_firmware_version"
+#echo "Original Recover Firmware Version: $Recover_firmware_version"
 count=${#Recover_firmware_version}
 OldRversion="$(dd if=$output_dir/exe_mid bs=1 count=${count}  2> /dev/null)" #get it directly
-echo temp:$OldRversion
+#echo temp:$OldRversion
 OldRversion="$(echo $OldRversion | sed 's/\(.*[0-9][0-9]\.[0-9][0-9]\.[0-9][0-9]\).*/\1/')"
 count=${#OldRversion}
 #${X:start:length}
-#${string/substring/replacement}
-#TCOM_New_version="$TCOM_VERSION_MAJOR.$TCOM_VERSION"
-#echo "New recoverversion: $AVM_New_version"
-#echo "New tcom recoverversion: $TCOM_New_version"
-New_Rversion="$AVM_VERSION_MAJOR.$AVM_VERSION                                                                                   " #fill with space
+#${X/substring/replacement}
+[ "$ORI" = "y" ] && New_Rversion="$TCOM_VERSION_MAJOR.$TCOM_VERSION $TCOM_SUBVERSION original                                                                "
+#echo "New tcom recoverversion: $New_Rversion"
+[ "$ORI" != "y" ] && New_Rversion="$AVM_VERSION_MAJOR.$AVM_VERSION $AVM_SUBVERSION modified                                                                  " #fill with space
 #echo "count: ${#OldRversion}"
 New_Rversion="${New_Rversion:0:$count}"
-[ "$ORI" != "y" ] && echo "Old Recover Version : .$OldRversion."
-[ "$ORI" != "y" ] && echo "New Recover Version : .$New_Rversion."
+echo "Old Recover Version : .$OldRversion."
+echo "New Recover Version : .$New_Rversion."
 echo "patch revison ..."
-[ "$ORI" != "y" ] && sed -i -e "s|$OldRversion|$New_Rversion|" "$output_dir/exe_mid"
+sed -i -e "s|$OldRversion|$New_Rversion|" "$output_dir/exe_mid"
 echo "concat all parts ..."
 dd if=/dev/zero bs=1 count=$act_diff >$output_dir/zerro.image 2> /dev/null
 cat $output_dir/exe_start >$new_recover_file
