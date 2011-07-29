@@ -192,6 +192,7 @@ if [ $act_size -lt $new_act_size ]; then
     echo "ERROR! New kernel.image does not fit into recover firmware." && checkerror="y"
     [ -n "$kernel_size" ] && [ "$kernel_diff_size" -gt 0 ] && echo  "  space within the recover firmware is smaller as in the flash by: $kernel_diff_size Bytes."
 fi
+echo "patch version ..."
 #R_IMG is filenam of original recover in use
 old_v="$(basename "$R_IMG")"
 #echo "old_v: $old_v"
@@ -214,7 +215,6 @@ count=${#OldRversion}
 New_Rversion="${New_Rversion:0:$count}"
 echo "Old Recover Version : .$OldRversion."
 echo "New Recover Version : .$New_Rversion."
-echo "patch revison ..."
 sed -i -e "s|$OldRversion|$New_Rversion|" "$output_dir/exe_mid"
 echo "concat all parts ..."
 dd if=/dev/zero bs=1 count=$act_diff >$output_dir/zerro.image 2> /dev/null

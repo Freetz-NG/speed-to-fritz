@@ -11,7 +11,7 @@ extract_exe_start()
 {
 echo -e "Extracting executabel first part ..."
 exe_length=$kernel_start_at
-echo "exe_length:$exe_length"
+ #echo "exe_length:$exe_length"
 output_file="$output_dir/exe_start"
 echo " exe_start, start @ 0, length: $exe_length"
 dd if="$input_file" of="$output_file" ibs=$exe_length obs=8192 count=1 2> /dev/null
