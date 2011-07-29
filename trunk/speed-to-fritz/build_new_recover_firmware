@@ -209,7 +209,7 @@ count=${#OldRversion}
 #${X/substring/replacement}
 [ "$ORI" = "y" ] && New_Rversion="$TCOM_VERSION_MAJOR.$TCOM_VERSION $TCOM_SUBVERSION original                                                                "
 #echo "New tcom recoverversion: $New_Rversion"
-[ "$ORI" != "y" ] && New_Rversion="$AVM_VERSION_MAJOR.$AVM_VERSION $AVM_SUBVERSION modified                                                                  " #fill with space
+[ "$ORI" != "y" ] && New_Rversion="$AVM_VERSION_MAJOR.$AVM_VERSION $AVM_SUBVERSION $OEM s2f                                                                  " #fill with space
 #echo "count: ${#OldRversion}"
 New_Rversion="${New_Rversion:0:$count}"
 echo "Old Recover Version : .$OldRversion."
