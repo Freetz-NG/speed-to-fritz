@@ -58,36 +58,31 @@ echo "Firmware version: $OldRversion"
 # calculated from assumed length header field is close enough to subsequent
 # SquashFS start offset.
 # firmwares, but currently no other image types.
-## not working correctly
+## did not work correctly, looks like it works again but is 6 byte shorter
 extract_kernel_image()
 {
 echo -e "Extracting kernel.image ..."
 kernel_lines="$(tools/hexgrep "$KERNEL_MAGIC" "$input_file")"
- echo "kernel magic line: $kernel_lines"
+ #echo "kernel magic line: $kernel_lines"
 kernel_offs=($(echo "$kernel_lines" | sed 's/:.*//'))
- echo "kernel offset: $kernel_offs"
- echo -n "kernel length in hex: "
- echo "$kernel_lines" | sed -r 's/^[0-9]+:.{12}(.*).{24}/\1/'
-kernel_length=($(hex2dec "$(echo "$kernel_lines" | sed -r 's/^[0-9]+:.{12}(.*).{24}/\1/')"))
- echo "kernel length in decimal: $kernel_length"
+ #echo "kernel offset: $kernel_offs"
 squashfs_lines="$(tools/hexgrep "$SQUASHFS_MAGIC" "$input_file")"
-#echo "squashfs magic line: $squashfs_lines"
+ #echo "squashfs magic line: $squashfs_lines"
 squashfs_offs=($(echo "$squashfs_lines" | sed 's/:.*//'))
-#echo "squashfs offset: $squashfs_offs"
-#echo -n "squashfs length in hex: "
-#echo "$squashfs_lines" | sed -r 's/^[0-9]+:.{24}(.*)/\1/'
+ #echo "squashfs offset: $squashfs_offs"
+ #echo -n "squashfs length in hex: "
+ #echo "$squashfs_lines" | sed -r 's/^[0-9]+:.{24}(.*)/\1/'
 squashfs_length=($(hex2dec "$(echo "$squashfs_lines" | sed -r 's/^[0-9]+:.{24}(.*)/\1/')"))
-#echo "squashfs length in decimal: $squashfs_length"
-#ls -l "$input_file"
+ #echo "squashfs length in decimal: $squashfs_length"
+ #ls -l "$input_file"
 act_size=`ls -l "$input_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
-#echo "File sizes: $act_size"
+ #echo "File sizes: $act_size"
 dd_count=$((squashfs_offs - kernel_offs + squashfs_length))
-##older firmwaews used to have zerro bytes added
-#dd_count=$((((squashfs_offs - kernel_offs + squashfs_length) | 0xFFF)+1))
-#echo "File sizes: $dd_count"
+ ##older firmwaews used to have zerro bytes added
+ #dd_count=$((((squashfs_offs - kernel_offs + squashfs_length) | 0xFFF)+1))
+ #echo "File sizes: $dd_count"
 output_file="$output_dir/kernel.image"
 echo " kernel.image, start @ ${kernel_offs}, SquashFS @ ${squashfs_offs}, length: $dd_count, end @ $act_size"
-#dd if="$input_file" of="$output_file" ibs=1 obs=8192 skip=${kernel_offs} count=$dd_count 2> /dev/null
 ( dd of="/dev/null" ibs=$kernel_offs obs=8192 count=1 2> /dev/null && dd of="$output_file" ibs=$dd_count obs=8192 count=1 2> /dev/null ) < "$input_file"
 }
 # No exit 0 is used as incudefile
