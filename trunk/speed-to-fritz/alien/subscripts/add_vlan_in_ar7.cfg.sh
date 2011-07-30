@@ -6,6 +6,7 @@ rpl_vlan()
  {
 	for file in $1; do
 	if [ -f "$file" ]; then
+#	sed -i -e '/ppptarget = "internet";/,/}/{s/vdsl_resalearch =.*;/vdsl_resalearch = yes;/}' "$file" 
 	sed -i -e '/ppptarget = "internet";/,/}/{s/pppoevlanauto =.*;/pppoevlanauto = yes;/}' "$file" 
 	sed -i -e '/ppptarget = "internet";/,/}/{s/pppoevlanauto_startwithvlan =.*;/pppoevlanauto_startwithvlan = yes;/}' "$file" 
 	sed -i -e '/dsl_encap = dslencap_mixed;/,/}/{s/vlanencap =.*;/vlanencap = vlanencap_class_prio;/}' "$file" 
@@ -18,6 +19,7 @@ rpl_vlan()
 	grep -q 'vlanencap = vlanencap_class_prio;' "$file" && echo2 "  -- set vlanencap = vlanencap_class_prio;"
 	grep -q 'vlanid = 10' "$file" && echo2 "  -- set vlanid = 10"
 	grep -q 'vlanprio = 1' "$file" && echo2 "  -- set vlanprio = 1"
+	grep -q 'vdsl_resalearch = yes' "$file" && echo2 "  -- found vdsl_resalearch = yes"
 	grep -q 'pppoevlanauto = yes' "$file" && echo2 "  -- set pppoevlanauto = yes"
 	grep -q 'pppoevlanauto_startwithvlan = yes' "$file" && echo2 "  -- set pppoevlanauto_startwithvlan = yes"
 	grep -q 'vlanencap = vlanencap_tcom' "$file" && echo2 "  -- set  vlanencap = vlanencap_tcom"

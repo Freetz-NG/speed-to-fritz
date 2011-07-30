@@ -448,6 +448,7 @@ function check_or_write_md5_to_DB()
 	      if (($act_size>4000000)); then
 	       echo "$filename $MD5SUM" >> $HOMEDIR/md5list
 	       echo "Added "$filename" to ./md5lst"
+		cat $HOMEDIR/md5list | sort > $HOMEDIR/md5list.tmp | mv $HOMEDIR/md5list.tmp $HOMEDIR/md5list
 	      fi
 	     else
 	      mv "$1" "$1.html"
