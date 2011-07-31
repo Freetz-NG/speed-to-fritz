@@ -10,120 +10,15 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
     rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
-#rm -f "${SRC}"/lib/modules/micro*
-rm -f "${SRC}"/lib/modules/dect*
-rm -f "${SRC}"/usr/share/ctlmgr/libdect*
-rm -f "${SRC}"/usr/share/ctlmgr/libusb*
 #remove some unused files
-rm -fd -R ${SRC}/usr/www/html/de/software
-rm -fd -R ${SRC}/usr/www/html/de/usb
-#rm -fd -R ${SRC}/usr/www/html/de/tr69_autoconfig
-rm -fd -R ${SRC}/usr/www/html/de/dect
-rm -rf  ${SRC}/usr/www/html/de/menus/menu2_usb*
-rm -rf  ${SRC}/usr/www/html/de/menus/menu2_usb.inc
-rm -rf  ${SRC}/usr/www/html/de/menus/menu2_software*
-#rm -rf  ${SRC}/usr/www/html/de/menus/menu2_tr69*
-rm -rf  ${SRC}/usr/www/html/de/home/fon1Dect*
-rm -rf  ${SRC}/usr/www/html/de/home/usb*
-rm -rf  ${SRC}/usr/www/html/de/fon/fon1Dect*
-rm -rf  ${SRC}/usr/www/html/de/fon/usb*
-rm -fd -R ${SRC}//usr/www.nas
-#rm -fd -R ${SRC}/usr/www/html/de/first
-rm -rf  ${SRC}/lib/modules/$KernelVersion/modules.usbmap
-rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/scsi
-rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/usb
-rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/cdrom
-rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/avm_dect
-rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/dect_io
-rm -fd -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/vfat
-rm -fd -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/fat
-rm -fd -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/ext2
-#rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/char/flash_update
-#rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/fs
-#rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/char/audio
-#rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/net/nlaudio
-#rm -fdr "${SRC}"/lib/libavm_audio*
-#rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/audio
-#rm -rf ${SRC}/lib/libavcodec*
-#rm -fr ${SRC}/etc/init.d/rc.audiod.sh
-#rm -fr ${SRC}/lib/libnlaudio*
-
-rm -fdr "${SRC}"/lib/acgenusb*
-#rm -fdr "${SRC}"/lib/libavformat*
-rm -fdr "${SRC}"/lib/libmedia*
-#rm -fdr "${SRC}"/lib/libavmid3*
-##rm -fdr "${SRC}"/lib/libacsrpc*
-rm -fdr "${SRC}"/sbin/smb*
-rm -fdr "${SRC}"/sbin/stop_media*
-rm -fdr "${SRC}"/sbin/lsusb
-rm -fdr "${SRC}"/sbin/hotplug
-rm -fdr "${SRC}"/sbin/hd-idle
-rm -fdr "${SRC}"/sbin/printserv
-rm -fdr "${SRC}"/sbin/mediasrv
-rm -rf ${SRC}/sbin/wlan_cal
-rm -rf ${SRC}/sbin/tracking
-rm -rf ${SRC}/etc/usbclass.tab
-rm -rf ${SRC}/etc/usbdevice.tab
-rm -fdr "${SRC}"/etc/hotplug
-rm -fdr "${SRC}"/etc/usb*
-rm -fdr "${SRC}"/etc/samba*
-rm -fdr "${SRC}"/etc/default.049/fx_lcr.1und1
-
-rm -fdr "${SRC}"/etc/init.d/rc.media
-rm -fdr "${SRC}"/etc/init.d/rc.usbhost
-#rm -fdr "${SRC}"/etc/init.d/rc.preaudio.sh
-rm -fd -R ${SRC}/etc/default.Fritz_Box_SpeedportW503V/1und1
-rm -fd -R ${SRC}/etc/default.Fritz_Box_SpeedportW503V/otwo
-#rm -fdr "${SRC}"/bin/aura*
-rm -fdr "${SRC}"/bin/*plugin
-rm -fdr "${SRC}"/bin/playerd_tables
-rm -f "${SRC}"/bin/usb*
-rm -rf ${SRC}/bin/usbhostchange
-rm -f "${SRC}"/usr/bin/dect*
-rm -f "${SRC}"/usr/bin/usb*
-#rm -rf ${SRC}/usr/bin/tr069fwupdate
-rm -rf ${SRC}/usr/share/ctlmgr/libctlusb*
-#rm -rf ${SRC}/usr/share/ctlmgr/libtr069*
-rm -rf ${SRC}/usr/share/ctlmgr/libdect*
-rm -rf ${SRC}/lib/libacgenusb*
-rm -rf ${SRC}/lib/libusb*
-#rm -rf ${SRC}/lib/libupn*
-#rm -rf ${SRC}/sbin/pbupd
-rm -rf ${SRC}/sbin/start_dect_update.sh
-rm -rf ${SRC}/sbin/start_mediasrv
-rm -rf ${SRC}/sbin/umount.davfs
-#rm -rf ${SRC}/sbin/upnpd
-rm -fr ${SRC}/bin/inetdsamba
-rm -fr ${SRC}/bin/supportdata.dect
-#rm -fr ${SRC}/bin/tr069starter
-rm -fr ${SRC}/bin/webdavcfginfo
-rm -fr ${SRC}/etc/webdav_control
-rm -fr ${SRC}/etc/onlinechanged/webdav_net
-rm -fr ${SRC}/sbin/mount.davfs
-#rm -fr ${SRC}/lib/libfuse.so*
-#rm -fr ${SRC}/lib/libikecrypto*
-#rm -fr ${SRC}/lib/libpng.so*
-rm -f "${SRC}"/etc/plugin*
-rm -fr ${SRC}/usr/share/ctlmgr/libctlwebdav*
-#remove mini
-rm -fdr "${SRC}"/bin/mini*
-rm -fdr "${SRC}"/etc/minid
-
-rm -rf ${SRC}/lib/modules/bit*
-rm -f "${SRC}"/lib/modules/dect*
-
-#rm -rf ${SRC}//lib/modules/wlan_eeprom_hw0.bin
-#rm -fd -R ${SRC}/usr/www/html/de/tools
-#rm -fd -R ${SRC}/usr/www/html/tools
-#rm -rf ${SRC}/sbin/finalize_env
-rm -fd -R ${SRC}/usr/www/kids
-rm -rf ${SRC}/bin/usermand
+echo2 "  -- removing files for further image size reduction:"
+$sh_DIR/remove_files_503_721.sh ${SRC}
 
 rm -rf ${SRC}/lib/modules/microvoip_isdn_top.bit
 cp -fdrp "${DST}"/lib/modules/bitfile_pots.bit --target-directory="${SRC}"/lib/modules
 cp -fdrp "${DST}"/lib/modules/bitfile_isdn.bit --target-directory="${SRC}"/lib/modules
 cp -fdrp "${DST}"/lib/modules/wlan_eeprom_hw0.bin --target-directory="${SRC}"/lib/modules
-cp -fdrp "${DST}"/lib/modules/c55.hex --target-directory="${SRC}"/lib/modules # .04.88 braucht das vom tcom firmware
+cp -fdrp "${DST}"/lib/modules/c55.hex --target-directory="${SRC}"/lib/modules # .04.88 braucht das von tcom firmware
 
 if [ ${ATA_ONLY} = "n" ]; then
  #annex B driver
@@ -310,9 +205,14 @@ $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 503
 $sh_DIR/patch_annex.sh "${SRC}"
 # add language timezone country
 $sh_DIR/add_multi_settings.sh
-#remove kids and help
-#[ ${REMOVE_KIDS} = "y" ] && 
-$sh_DIR/rmv_kids.sh "${SRC}"
+#remove kids
+if [ "${REMOVE_KIDS}" = "y" ]; then
+    $sh_DIR/rmv_kids.sh "${SRC}"
+    rm -fd -R ${SRC}/usr/www/kids
+    rm -rf ${SRC}/bin/usermand
+    rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/userman
+fi
+#remove help
 #[ ${REMOVE_HELP} = "y" ] && 
 $sh_DIR/rmv_help.sh "${SRC}"
 echo "********************************************************************************"
