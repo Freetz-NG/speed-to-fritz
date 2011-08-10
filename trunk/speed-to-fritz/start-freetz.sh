@@ -17,6 +17,10 @@ export HOMEDIR="`pwd`"
 echo $FBIMG | grep -q 'freetz' && cp ./incl_var.bac  ./incl_var && . ./incl_var
 cp ./incl_var  ./incl_var.bac
 #
+export ECHO_GELB="\033[33m"
+export ECHO_BOLD="\033[1m"
+export ECHO_END="\033[0m"
+
 export FREETZ_DIR="freetz-trunk"
 FREETZ_DL_LINK="http://svn.freetz.org/trunk"
 #W900 or W701-->
@@ -219,24 +223,22 @@ cd $FREETZ_DIR
 echo "--Image files present in '$DL_DIR_ABS/fw':"
 ls -l $DL_DIR_ABS/fw/*.image 2>&1 | grep -v 'No such file' 
 echo
-echo "Now you can run 'make menuconfig', at the first time a lot of warnings will be displayed!"
-echo "Select '7270', '7170' or other type suitable for your router 'W920, W900, W701 Sinus 500 or other.'"
-echo "As next step run 'make'"
-echo "Firmware has to be copied to '$DL_DIR_ABS' directory first,"
-echo "if it is not present in ./speed-to-fritz/Firmware.orig at the time of starting this script."
-echo "If you did invoke speed-to-fritz before with the same firmwares in use, all should be present in:"
-echo " '$DL_DIR_ABS/fw' directory without copying the files after this script did run!"
-echo
+#echo "Now you can run 'make menuconfig', at the first time a lot of warnings will be displayed!"
+#echo "Select '7270', '7170' or other type suitable for your router 'W920, W900, W701 Sinus 500 or other.'"
+#echo "As next step run 'make'"
+echo "Firmware copied to '$DL_DIR_ABS' directory"
+#echo "if Firmware is not present in ./speed-to-fritz/Firmware.orig at the time of starting this script."
+#echo "If you did invoke speed-to-fritz before with the same firmwares in use, all should be present in:"
+#echo " '$DL_DIR_ABS/fw' directory without copying the files after this script did run!"
+#echo
 KEY="x"
 while [ "$KEY" != "y" ]; do
- echo
- echo "If you terminate with control C or skip all following questions you will be left"
- echo "with a clean freetz installation, and you can use freetz in command line mode,"
- echo "as it is explained on freetz help page. Then type in 'make menuconfig' first." 
- echo 
- echo "If started:" 
- echo "Ignore WARNINGS, especially the first time this tool is started!"
- echo
+ echo -e "\n$ECHO_BOLD${ECHO_GELB}If you terminate with control C or skip all following questions you will be left
+with a clean freetz installation, and you can use freetz in command line mode,
+as it is explained on freetz help page. Change directory to $FREETZ_DIR
+and type in 'make menuconfig' first.$ECHO_END \n
+If started:
+Ignore WARNINGS, especially the first time this tool is started!\n"
  echo -n "   Invoke 'make menuconfig' now? (y/n)? "; read -n 1 -s YESNO; echo
  [ "$YESNO" = "n" ] || [ "$YESNO" = "y" ] &&  KEY="y"
  [ "$KEY" = "x" ] && echo "wrong key!"
