@@ -226,7 +226,7 @@ config AVM_7273_m74_04_81
 config AVM_7273_m74_04_89
     string
     default "http://fritzbox.com.au/firmware/annex_b/FRITZ.Box_Fon_WLAN_7270_v3.AnnexB.en-de-es-it-fr.74.04.89-19525.image"
-
+    
 config AVM_7272_54_04_76
     string
     default "ftp://service.avm.de/xx.04.76/FRITZ!Box%20Fon%20WLAN%207270/FRITZ.Box_Fon_WLAN_7270.AnnexB.54.04.76.image"
@@ -253,7 +253,8 @@ config AVM_7271_54_04_88
 
 config AVM_7272_54_04_88
     string
-    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207270/FRITZ!Box%20Fon%20WLAN%207270%20v2/FRITZ.Box_Fon_WLAN_7270_v2.54.04.88.image"
+#    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207270/FRITZ!Box%20Fon%20WLAN%207270%20v2/FRITZ.Box_Fon_WLAN_7270_v2.54.04.88.image"
+    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207270%20v2/deutsch/FRITZ.Box_Fon_WLAN_7270_v2.54.04.88.image"
 #    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v2.54.04.88.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237305f76322e35342e30342e38382e7a6970.zip"
 
 config AVM_7273_74_04_88
