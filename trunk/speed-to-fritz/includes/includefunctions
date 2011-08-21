@@ -660,19 +660,21 @@ EOT
 printprogress
 rm -f ${HOMEDIR}/.packed
 print_ftperror || return 1
+IP=${IPADDRESS}
+[ $ISALICE ] || IP="192.168.2.1"
 if [ $FORCE_CLEAR_FLASH ]; then
  echo -e "${ECHO_BOLD}${ECHO_ROT}If no restart on its own, you must reboot your box again.${ECHO_END}\n"
  echo "Waiting for box to shut down and restart ..."
- while [ `ping $ping_params 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
+ while [ `ping $ping_params ${IP} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
   echo -n "."
   sleep 1
  done 
- while [ `ping $ping_params 192.168.2.1 2>&1 | grep -c 'nreachable'` != "0" ] ||\
-  [ `ping $ping_params 192.168.2.1 | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+ while [ `ping $ping_params ${IP} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+  [ `ping $ping_params ${IP} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
   echo -n "."
  done 
  ftp -n -p <<EOT
-open "192.168.2.1"
+open "${IP}"
 user adam2 adam2
 debug
 binary
