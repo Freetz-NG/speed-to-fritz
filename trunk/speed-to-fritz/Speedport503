@@ -11,14 +11,87 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
     rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
 #remove some unused files
+# for some reason removing fils with the external script as on W721 
+# it results in a firmware without webinterface. 
+# Comparing the resulting firmwares show exactly the same number of files and file size.
 echo2 "  -- removing files for further image size reduction:"
-$sh_DIR/remove_files_503_721.sh ${SRC}
+rm -f "${SRC}"/lib/modules/dect*
+rm -f "${SRC}"/usr/share/ctlmgr/libdect*
+rm -f "${SRC}"/usr/share/ctlmgr/libusb*
+#remove some unused files
+rm -fd -R ${SRC}/usr/www/html/de/software
+rm -fd -R ${SRC}/usr/www/html/de/usb
+rm -fd -R ${SRC}/usr/www/html/de/dect
+rm -rf  ${SRC}/usr/www/html/de/menus/menu2_usb*
+rm -rf  ${SRC}/usr/www/html/de/menus/menu2_usb.inc
+rm -rf  ${SRC}/usr/www/html/de/menus/menu2_software*
+rm -rf  ${SRC}/usr/www/html/de/home/fon1Dect*
+rm -rf  ${SRC}/usr/www/html/de/home/usb*
+rm -rf  ${SRC}/usr/www/html/de/fon/fon1Dect*
+rm -rf  ${SRC}/usr/www/html/de/fon/usb*
+rm -fd -R ${SRC}//usr/www.nas
+rm -rf  ${SRC}/lib/modules/$KernelVersion/modules.usbmap
+rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/scsi
+rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/usb
+rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/cdrom
+rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/avm_dect
+rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/dect_io
+rm -fd -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/vfat
+rm -fd -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/fat
+rm -fd -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/ext2
+rm -fdr "${SRC}"/lib/acgenusb*
+rm -fdr "${SRC}"/lib/libmedia*
+rm -fdr "${SRC}"/sbin/smb*
+rm -fdr "${SRC}"/sbin/stop_media*
+rm -fdr "${SRC}"/sbin/lsusb
+rm -fdr "${SRC}"/sbin/hotplug
+rm -fdr "${SRC}"/sbin/hd-idle
+rm -fdr "${SRC}"/sbin/printserv
+rm -fdr "${SRC}"/sbin/mediasrv
+rm -rf ${SRC}/sbin/wlan_cal
+rm -rf ${SRC}/sbin/tracking
+rm -rf ${SRC}/etc/usbclass.tab
+rm -rf ${SRC}/etc/usbdevice.tab
+rm -fdr "${SRC}"/etc/hotplug
+rm -fdr "${SRC}"/etc/usb*
+rm -fdr "${SRC}"/etc/samba*
+rm -fdr "${SRC}"/etc/default.049/fx_lcr.1und1
+rm -fdr "${SRC}"/etc/init.d/rc.media
+rm -fdr "${SRC}"/etc/init.d/rc.usbhost
+rm -fd -R ${SRC}/etc/default.Fritz_Box_SpeedportW503V/1und1
+rm -fd -R ${SRC}/etc/default.Fritz_Box_SpeedportW503V/otwo
+rm -fdr "${SRC}"/bin/*plugin
+rm -fdr "${SRC}"/bin/playerd_tables
+rm -f "${SRC}"/bin/usb*
+rm -rf ${SRC}/bin/usbhostchange
+rm -f "${SRC}"/usr/bin/dect*
+rm -f "${SRC}"/usr/bin/usb*
+rm -rf ${SRC}/usr/share/ctlmgr/libctlusb*
+rm -rf ${SRC}/usr/share/ctlmgr/libdect*
+rm -rf ${SRC}/lib/libacgenusb*
+rm -rf ${SRC}/lib/libusb*
+rm -rf ${SRC}/sbin/start_dect_update.sh
+rm -rf ${SRC}/sbin/start_mediasrv
+rm -rf ${SRC}/sbin/umount.davfs
+rm -fr ${SRC}/bin/inetdsamba
+rm -fr ${SRC}/bin/supportdata.dect
+rm -fr ${SRC}/bin/webdavcfginfo
+rm -fr ${SRC}/etc/webdav_control
+rm -fr ${SRC}/etc/onlinechanged/webdav_net
+rm -fr ${SRC}/sbin/mount.davfs
+rm -f "${SRC}"/etc/plugin*
+rm -fr ${SRC}/usr/share/ctlmgr/libctlwebdav*
+rm -fdr "${SRC}"/bin/mini*
+rm -fdr "${SRC}"/etc/minid
+rm -rf ${SRC}/lib/modules/bit*
+rm -f "${SRC}"/lib/modules/dect*
+
 
 rm -rf ${SRC}/lib/modules/microvoip_isdn_top.bit
 cp -fdrp "${DST}"/lib/modules/bitfile_pots.bit --target-directory="${SRC}"/lib/modules
 cp -fdrp "${DST}"/lib/modules/bitfile_isdn.bit --target-directory="${SRC}"/lib/modules
 cp -fdrp "${DST}"/lib/modules/wlan_eeprom_hw0.bin --target-directory="${SRC}"/lib/modules
-cp -fdrp "${DST}"/lib/modules/c55.hex --target-directory="${SRC}"/lib/modules # .04.88 braucht das von tcom firmware
+cp -fdrp "${DST}"/lib/modules/c55.hex --target-directory="${SRC}"/lib/modules # .04.88 braucht das vom tcom firmware
 
 if [ ${ATA_ONLY} = "n" ]; then
  #annex B driver
@@ -203,7 +276,7 @@ $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 503
 [ "${ADD_PHONESEND}" = "y" ] && $sh_DIR/patch_fonbuch.sh "${SRC}"
 #patch annex parameter
 $sh_DIR/patch_annex.sh "${SRC}"
-# add language timezone country
+# add kapselung and annex settings page if missing
 $sh_DIR/add_multi_settings.sh
 #remove kids
 if [ "${REMOVE_KIDS}" = "y" ]; then
@@ -212,8 +285,6 @@ if [ "${REMOVE_KIDS}" = "y" ]; then
     rm -rf ${SRC}/bin/usermand
     rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/userman
 fi
-#remove help
-#[ ${REMOVE_HELP} = "y" ] && 
 $sh_DIR/rmv_help.sh "${SRC}"
 echo "********************************************************************************"
 grep -q "Telekom-Anlagen benoetigen hochtakten" "${SRC}/etc/init.d/rc.S" || sed -i -e '/bin.run_clock -c .dev.tffs -d/i\

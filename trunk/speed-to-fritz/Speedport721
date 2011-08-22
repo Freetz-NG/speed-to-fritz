@@ -276,7 +276,7 @@ fi
 #remove some unused files
 echo2 "  -- removing files for further image size reduction:"
 $sh_DIR/remove_files_503_721.sh ${SRC}
-
+rm -rf $VERBOSE ${SRC}/lib/libacsrpc* | sed "s/.*\//\t'/"
 # pcmlink boot error, da modul nicht kompatibel ist
 rm -f "${SRC}"/lib/modules/c55*
 
