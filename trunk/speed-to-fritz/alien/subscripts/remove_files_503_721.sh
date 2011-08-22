@@ -66,6 +66,7 @@ rm -rf $VERBOSE ${SRC}/usr/www/html/de/home/usb* | sed "s/.*\//\t'/"
 rm -rf $VERBOSE ${SRC}/usr/www/html/de/menus/menu2_usb* | sed "s/.*\//\t'/"
 rm -rf $VERBOSE ${SRC}/usr/www/html/de/usb | sed "s/.*\//\t'/"
 
-rm -rf $VERBOSE ${SRC}/lib/libacsrpc* | sed "s/.*\//\t'/"
-#There is a diffence for 504 or 721 dont remove this filese here
+#W503 neeeds this lib
+#rm -rf $VERBOSE ${SRC}/lib/libacsrpc* | sed "s/.*\//\t'/"
+#There is a diffence for 504 or 721
 #rm -rf $VERBOSE ${SRC}/lib/modules/c55* | sed "s/.*\//\t'/"
