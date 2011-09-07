@@ -494,7 +494,7 @@ config SET_SP2FR_REVISION
 config  EXPORT_SP2FR_REVISION
 	depends on SET_SP2FR_REVISION
 	        string "--> Set revision number "
-	            default "1381" # dont edit this line is changed via ./start.sh - numner "1234" may differ
+	            default "7561" # dont edit this line is changed via ./start.sh - numner "1234" may differ
 	        help
 	            This is the revision number used with speed-to-fritz
 	            example 1265.
@@ -3270,6 +3270,40 @@ config EXPORT_FBHWRevision
 	default "182" if HWR182
 	default "183" if HWR183
 	default "184" if HWR184
+ config SET_NAME
+	bool "Own product name (setup)"
+	depends on EXPERT_MOD
+	default n
+	help
+            Product name should be left as it is, but if needed you may specify your own.
+            Some tools like Fritz!FAX may be not usable if the box product name has been changed!
+            This is not the Host name of your box! This is a string transparent on the net
+            to other programs and on the settings page of the Speedport.
+
+ config  EXPORT_NEWNAME
+	    depends on SET_NAME
+	    string "product name"
+		    default "FRITZ!Box Fon WLAN 7170"
+	    help
+		Fritz!Fax works with the default value set! Default is the name used by the AVM firmware. 
+ config SET_HOSTNAME
+	bool "Box hostname (setup)"
+	#depends on EXPERT_MOD
+	default n
+	help
+	    In most cases Box hostname should not be changed.
+	    If you have more as one Box on the same net this names must be different!
+	    Default name is the name as used by the AVM firmware.
+ 	config  EXPORT_HOSTNAME
+	    depends on SET_HOSTNAME
+	    string "hostname"
+		    default "speed.box"
+	    help
+		This is the name used instead of the IP address,
+		T-Home uses "speedport.ip" but can be anything you like.
+		AVM uses in most cases "fritz.box"
+		If you have more as one Box on the same net this names must be different!
+
 comment "--------------- Optional settings for Speed-to-fritz ---------------"
 if ! ORI && ! TYPE_SPEEDPORT_W722V
 config EXPORT_ADD_OLD_DECTMENU
@@ -4265,35 +4299,6 @@ if ! EXPORT_TYPE_LOCAL_MODEL
 	    use "7270, 7170, ...  but can be any valid ID used in download addresses.
 	    This ID is used to construct the URLs for "Programme" and for plugin download. 
 
- config SET_NAME
-	bool "Own product name (setup)"
-	depends on EXPERT_MOD
-	default n
-	help
-            Product name should be left as it is, but if needed you may specify your own.
-            Some tools like Fritz!FAX may be not usable if the box product name has been changed!
-            This is not the Host name of your box! This is a string transparent on the net
-            to other programs and on the settings page of the Speedport.
-
- config  EXPORT_NEWNAME
-	    depends on SET_NAME
-	    string "product name"
-		    default "FRITZ!Box Fon WLAN 7170"
-	    help
-		Fritz!Fax works with the default value set! Default is the name used by the AVM firmware. 
- config SET_HOSTNAME
-	bool "Box hostname (setup)"
-	depends on EXPERT_MOD 
-	default n
-	help
-	    Box hostname should be left as it is, but if needed you may specify your own! Default is the name used by the AVM firmware.
- 	config  EXPORT_HOSTNAME
-	    depends on SET_HOSTNAME
-	    string "hostname"
-		    default "fritz.box"
-	    help
-		This is the name used instead of the IP address, 
-		T-Home uses "speedport.ip" but can be anything you like.
 
 endif
 ###---> NO AVM Modells 7XXX
