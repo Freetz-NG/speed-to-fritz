@@ -20,7 +20,7 @@ extract_exe_end()
 {
 echo -e "Extracting executabel end part ..."
 act_size=`ls -l "$input_file" | sed -e 's/[^0-9]/#/g' | sed -e 's/#\+[0-9]\+#\+\([0-9]\+\).*/\1/'`
-offs=$((bootloder_start_at + 65536))
+offs=$((bootloder_start_at + bsize))
 esize=$((act_size - offs))
 output_file="$output_dir/exe_end"
 echo " exe_end, start @ $offs, length: $esize, end @ $act_size"
@@ -30,7 +30,6 @@ extract_bootloader()
 {
 echo -e "Extracting bootloader (urlader.image) ..."
 output_file="$output_dir/urlader.image"
-bsize=65536
 act_end=$((bootloder_start_at + bsize))
 echo " urlader.image, start @ $bootloder_start_at, length: $bsize, end @ $act_end"
 ( dd of="/dev/null" ibs=$bootloder_start_at obs=8192 count=1 2> /dev/null && dd of="$output_file" ibs=$bsize obs=8192 count=1 2> /dev/null ) < "$input_file"
