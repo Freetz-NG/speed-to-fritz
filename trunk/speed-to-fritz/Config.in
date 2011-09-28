@@ -268,7 +268,11 @@ config AVM_7273_74_04_89
 
 config AVM_7272_m54_04_90
     string
-    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v2.en-de-es-it-fr.54.04.90.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237305f76322e656e2d64652d65732d69742d66722e35342e30342e39302e7a6970.zip"
+    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207270%20v2/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it-fr.54.04.90.image"
+
+# config AVM_7272_m54_04_90
+#     string
+#     default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v2.en-de-es-it-fr.54.04.90.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237305f76322e656e2d64652d65732d69742d66722e35342e30342e39302e7a6970.zip"
 
 config AVM_7272_m54_05_04
     string
@@ -276,7 +280,7 @@ config AVM_7272_m54_05_04
 
 config AVM_7273_m74_04_90
     string
-    default "@AVM/fritz.box/fritzbox.fon_wlan_7270_v3/firmware/english/FRITZ.Box_Fon_WLAN_7270_v3.en-de-es-it-fr.74.04.90.image"
+    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207270%20v2/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it-fr.54.04.90.image"
 
 config AVM_7273_m74_05_04
     string
@@ -494,7 +498,7 @@ config SET_SP2FR_REVISION
 config  EXPORT_SP2FR_REVISION
 	depends on SET_SP2FR_REVISION
 	        string "--> Set revision number "
-	            default "7561" # dont edit this line is changed via ./start.sh - numner "1234" may differ
+	            default "1411" # dont edit this line is changed via ./start.sh - numner "1234" may differ
 	        help
 	            This is the revision number used with speed-to-fritz
 	            example 1265.
