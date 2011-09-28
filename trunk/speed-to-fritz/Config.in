@@ -280,7 +280,7 @@ config AVM_7272_m54_05_04
 
 config AVM_7273_m74_04_90
     string
-    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207270%20v2/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it-fr.54.04.90.image"
+    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207270%20v3/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7270_v3.AnnexB.en-de-es-it-fr.74.04.90.image"
 
 config AVM_7273_m74_05_04
     string
