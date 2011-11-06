@@ -5,13 +5,20 @@ if [ -e /etc/SuSE-release -a -x /usr/bin/zypper ] ; then
 	sudo zypper --non-interactive up
 	sudo zypper --non-interactive install subversion gcc gcc-c++ binutils autoconf automake libtool make bzip2 ncurses-devel zlib-devel flex bison patch texinfo gettext-tools jam pkg-config jikes fastjar perl ruby gawk python $EXTRAPKG realpath
 else
-	sudo apt-get -y update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade &&\
-	sudo apt-get -y install gcc g++ binutils autoconf automake automake1.9
+#	# Angepasst z.B. auf Ubuntu 9.04 (kein automake 1.8, "ecj" statt "ecj-bootstrap"):
+	sudo apt-get -y install automake1.9 jikes ecj
+#	# Ubuntu 9.10, 10.xx, 11.04
+	sudo apt-get -y install graphicsmagick subversion gcc g++ binutils autoconf automake
 	sudo apt-get -y update && sudo apt-get -y upgrade &&\
 	sudo apt-get -y install libtool make libncurses5-dev zlib1g-dev flex bison patch texinfo
 	sudo apt-get -y update && sudo apt-get -y upgrade &&\
-	sudo apt-get -y install tofrodos gettext jam pkg-config jikes fastjar realpath perl libglib2.0-dev
+	sudo apt-get -y install tofrodos gettext jam pkg-config fastjar realpath perl 
 	sudo apt-get -y update && sudo apt-get -y upgrade &&\
-	sudo apt-get -y install libstring-crc32-perl ruby ruby1.8 gawk python subversion bzip2 $EXTRAPKG lynx
+	sudo apt-get -y install libglib2.0-dev xy-utils git-core patchutils mktemp libusb-dev unzip intltool
+	sudo apt-get -y update && sudo apt-get -y upgrade &&\
+	sudo apt-get -y install libstring-crc32-perl ruby ruby1.8 gawk python bzip2 $EXTRAPKG lynx
+##	# Auf 64-Bit Systemen sind zustzlich folgende Pakete zu installieren:
+##	sudo apt-get -y install libc6-dev-i386 lib32ncurses5-dev gcc-multilib
 fi
 echo "End update <-----"
+
