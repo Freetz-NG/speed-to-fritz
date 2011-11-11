@@ -1,4 +1,5 @@
 #!/bin/bash
+
 echo "-------------------------------------------------------------------------------------------------------------"
 KEY="x"
 #while [ "$KEY" != "y" ]; do
@@ -27,6 +28,7 @@ make toolsdirclean
 #fakeroot.mk uses different paths 
 #included binarys are made with knoppix DVD 5.1
 #svn up
+export K_ONLY=0 # if set to 1 only build kconfig
 make tools
 echo "Installation finished!"
 sleep 10

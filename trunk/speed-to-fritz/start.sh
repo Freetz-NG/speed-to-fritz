@@ -1,8 +1,9 @@
 #!/bin/bash
+export K_ONLY=1 # if set to 1 only build kconfig if set to 0 all tools are rebult first
 echo
 echo
 ! [ -f ./incl_var ] && touch ./incl_var
-! grep -q 'REUSECONF="y"' ./incl_var && [ -f "./Firmware.conf" ] && rm -fdr ./Firmware.conf &&\
+! grep -q 'REUSECONF="y"' ./incl_var && [ -f "./Firmware.conf" ] && rm -fr ./Firmware.conf &&\
 echo "You are starting with clean configuration, all settings made last time are removed!" &&\
 sleep 3
 

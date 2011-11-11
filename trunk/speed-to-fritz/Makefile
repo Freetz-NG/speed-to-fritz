@@ -25,7 +25,7 @@
 # Just run 'make menuconfig', configure stuff, then run 'make'.
 # You shouldn't need to mess with anything beyond this point...
 #--------------------------------------------------------------
-CONFIG=tools/config
+CONFIG=tools/kk/scripts/kconfig
 CONFIG_CONFIG_IN=Config.in
 CONFIG_DEFCONFIG=Firmware.conf
 DATE:=$(shell date +%Y%m%d)
@@ -42,11 +42,9 @@ PACKAGES_DIR:=packages
 SOURCE_DIR:=source
 TOOLS_SOURCE_DIR:=$(HOMEDIR)/source
 TOOLS_DIR:=$(HOMEDIR)/tools
-
 SED:=sed
 PATCH_TOOL:=$(TOOLS_DIR)/freetz_patch
 DL_TOOL:=$(TOOLS_DIR)/freetz_download
-
 include $(TOOLS_DIR)/make/Makefile.in
 
 VERBOSE:=-v
@@ -67,6 +65,9 @@ SEDTOOL_SOURCE:=$(patsubst %,%-source,$(SEDTOOL))
 noconfig_targets:=menuconfig config oldconfig randconfig \
 	defconfig allyesconfig allnoconfig  \
 	help sedtool tools $(TOOLS) $(SEDTOOL)
+
+
+
 
 ifndef KBUILD_VERBOSE
   KBUILD_VERBOSE=0
@@ -144,7 +145,6 @@ all: menuconfig
 
 HOSTCFLAGS=$(CFLAGS_FOR_BUILD)
 export HOSTCFLAGS
-
 $(CONFIG)/conf:
 	@mkdir -p $(CONFIG)/buildroot-config
 	$(MAKE) CC="$(HOSTCC)" -C $(CONFIG) conf
@@ -154,6 +154,7 @@ $(CONFIG)/conf:
 $(CONFIG)/mconf:
 	@mkdir -p $(CONFIG)/buildroot-config
 	$(MAKE) CC="$(HOSTCC)" -C $(CONFIG) conf mconf
+#	$(MAKE) tools
 	-@if [ ! -f .config ]; then \
 		cp $(CONFIG_DEFCONFIG) .config; \
 	fi

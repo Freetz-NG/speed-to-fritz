@@ -18,13 +18,16 @@ TOOLS_DOT_CONFIG:=.defconfig
 else
 TOOLS_DOT_CONFIG:=.config
 endif
-
+ifeq ($(K_ONLY),1)
+    TOOLS+=kconfig
+else
 ##SEDTOOL+=sed
 ##TOOLS+=sed
 TOOLS+=tar
 TOOLS+=busybox-tools
 TOOLS+=find-squashfs
 TOOLS+=lzma
+TOOLS+=kconfig
 ##TOOLS+=lzma2eva
 TOOLS+=squashfs
 TOOLS+=squashfs3
@@ -32,3 +35,4 @@ TOOLS+=squashfs4
 TOOLS+=tichksum
 TOOLS+=fakeroot
 ##TOOLS+=xdelta
+endif

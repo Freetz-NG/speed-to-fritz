@@ -181,16 +181,16 @@ while [ "$KEY" != "y" ]; do
  [ "$YESNO" = "y" ] || [ "$YESNO" = "n" ] &&  KEY="y"
  [ "$KEY" = "x" ] && echo "wrong key!"
  if [ "$YESNO" = "y" ]; then 
-  rm -fdr ./$FREETZ_DIR/.config
-  rm -fdr ./$FREETZ_DIR/Config.in
-  rm -fdr ./$FREETZ_DIR/toolchain/Config.in
-  rm -fdr ./$FREETZ_DIR/patches/196-usbstorage.sh
-  rm -fdr ./$FREETZ_DIR/patches/220-assistant.sh
-  rm -fdr ./$FREETZ_DIR/make/linux/kernel.mk
-  rm -fdr ./$FREETZ_DIR/fwmod
-  rm -fdr ./$FREETZ_DIR/patches/722A
-  rm -fdr ./$FREETZ_DIR/make/linux/patches/2.6.19.2/722A_04.76
-  rm -fdr ./$FREETZ_DIR/make/linux/Config.iks-16mb_26.722A_04.76
+  rm -fr ./$FREETZ_DIR/.config
+  rm -fr ./$FREETZ_DIR/Config.in
+  rm -fr ./$FREETZ_DIR/toolchain/Config.in
+  rm -fr ./$FREETZ_DIR/patches/196-usbstorage.sh
+  rm -fr ./$FREETZ_DIR/patches/220-assistant.sh
+  rm -fr ./$FREETZ_DIR/make/linux/kernel.mk
+  rm -fr ./$FREETZ_DIR/fwmod
+  rm -fr ./$FREETZ_DIR/patches/722A
+  rm -fr ./$FREETZ_DIR/make/linux/patches/2.6.19.2/722A_04.76
+  rm -fr ./$FREETZ_DIR/make/linux/Config.iks-16mb_26.722A_04.76
   echo "Looking for new freetz version, wait ..."
   if [ "$FREETZREVISION" ]; then
 	svn co $FREETZ_DL_LINK $FREETZ_DIR -r $FREETZREVISION
@@ -416,7 +416,7 @@ echo "__________________________________________________________________________
  echo "Then start speed-to-fretz setup (./start) again and select freetz image as AVM LABOR source"
 echo "_______________________________________________________________________________________________________________"
 else
- rm -fdr $HOMEDIR/Firmware.orig/${FREETZ_TYPE_STRING}_freetz.image
+ rm -fr $HOMEDIR/Firmware.orig/${FREETZ_TYPE_STRING}_freetz.image
  cp -fdprv  ./images/${modimage}   --target-directory=$FWBASE
  cp -fdprv "$HOMEDIR/${firmwareconf_file_name}" "$HOMEDIR/conf-${SPNUM}-freetz" 2> /dev/null 
  chmod 777 "$HOMEDIR/conf-${SPNUM}-freetz"
@@ -429,7 +429,7 @@ else
  echo "EXPORT_FREETZ_REVISION=\"$EXPORT_FREETZ_REVISION\"" >> "$HOMEDIR/conf-${SPNUM}-freetz"
  echo "VERBOSE=\"-v\"" >> "$HOMEDIR/conf-${SPNUM}-freetz"
  #restart speed-to-fretz with freetz.image
- rm -fdr $HOMEDIR/start-${SPNUM}
+ rm -fr $HOMEDIR/start-${SPNUM}
  echo "#!/bin/bash" > $HOMEDIR/start-${SPNUM}
  echo $Options | grep -q "${firmwareconf_file_name}" && echo "$cml $Options" | sed -e "s/${firmwareconf_file_name}/conf-${SPNUM}-freetz/"  >> $HOMEDIR/start-${SPNUM}
  echo $Options | grep -q "${firmwareconf_file_name}" || echo "$cml $Options -c conf-${SPNUM}-freetz"  >> $HOMEDIR/start-${SPNUM}
