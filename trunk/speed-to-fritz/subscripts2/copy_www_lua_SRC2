@@ -5,8 +5,8 @@ for DIR in $OEMLIST; do
  if [ -d "${SRC_2}/usr/www/${DIR}" ]; then
     echo2 "  -- copy /FBDIR2 usr/www/${DIR} -> /FBDIR usr/www/${OEM}"
     echo2 "  -- copy /FBDIR2 usr/www.nas/${DIR} -> /FBDIR usr/www.nas/${OEM}"
-    rm -fdr "${SRC}"/usr/www/* #needed 
-    rm -fdr "${SRC}"/usr/www.nas/* #needed
+    rm -fr "${SRC}"/usr/www/* #needed 
+    rm -fr "${SRC}"/usr/www.nas/* #needed
     cp -dfpr "${SRC_2}/usr/www/${DIR}" "${SRC}/usr/www/${OEM}"
     cp -dfpr "${SRC_2}/usr/www.nas/${DIR}" "${SRC}/usr/www.nas/${OEM}"
     break

@@ -9,11 +9,11 @@ if [ ! -e "${SRC}"/etc/default.${CONFIG_PRODUKT} ]; then
  echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
  mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
  "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
- rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
+ rm -fr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
 #remove 7570 VDSL
-rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
-rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko
+rm -fr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
+rm -fr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax/drv_vinax.ko
 #
 [ "${FORCE_TCOM_KDSLDMOD}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsld/kdsldmod.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsld
 [ "${FORCE_TCOM_PCMLINK}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2/pcmlink.ko --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/ubik2

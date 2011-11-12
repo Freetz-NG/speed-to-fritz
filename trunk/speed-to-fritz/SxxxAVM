@@ -61,7 +61,7 @@ else
  #remove ADSL
  #dont start dsl
  sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
- rm -fdr "${SRC}"/lib/modules/dsp_ur8
+ rm -fr "${SRC}"/lib/modules/dsp_ur8
  rm -f "${SRC}"/lib/modules/microvoip-dsl.bin
  rm -f "${SRC}"/lib/modules/ar0700xx.bin
  rm -f "${SRC}"/lib/modules/ar0700aa.bin

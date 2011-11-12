@@ -7,7 +7,7 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
  echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
     mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
-    rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
+    rm -fr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
 
 if [ "${OEM}" == "tcom" ]; then
@@ -241,7 +241,7 @@ if [ "${USE_SRC2_VINAX_ADSLFW}" = "y" ] || [ "${ANNEX}" = "A" ]; then
   sleep 20
   exit 0
  else
-  rm -fdr "${SRC}"/lib/modules/vinax_fw_*.bin
+  rm -fr "${SRC}"/lib/modules/vinax_fw_*.bin
   cp "${SRC_2}"/lib/modules/vinax_fw_adsl_${ANNEX}.bin "${SRC}"/lib/modules/vinax_fw_adsl.bin 
   cp "${SRC_2}"/lib/modules/vinax_fw_vdsl.bin "${SRC}"/lib/modules/vinax_fw_vdsl.bin 
   sed -i -e "s/dsl_pipe lllcs  0 -1 -1 -1 -1 -1 -1 -1 -1 -1 01E0 0 -1 -1 -1 -1 -1 1/dsl_pipe lllcs  0 -1 -1 -1 -1 -1 -1 -1 -1 -1 2 0 -1 -1 -1 -1 -1 1/" "${SRC}/etc/init.d/rc.vdsl.sh"
@@ -304,13 +304,13 @@ echo "-- Matching Versions: $AVM_VERSION-$AVM_SUBVERSION - $TCOM_VERSION-$TCOM_S
 if [ ${FORCE_TCOM_PIGLET} = "y" ]; then
     [ -d "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet_noemf ] && PIGLET="Piglet_noemif"
     [ -d "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet ] && PIGLET="Piglet"
-    rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet
-    rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet_noemif
+    rm -fr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet
+    rm -fr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/Piglet_noemif
     cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char/$PIGLET --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char
 fi
 
 #xilix W721 driver must be for the hardware in use
-rm -fdr "${SRC}"/lib/modules/microvoip_isdn_top.bit1
+rm -fr "${SRC}"/lib/modules/microvoip_isdn_top.bit1
 [ -e "${DST}"/lib/modules/microvoip_isdn_top.bit ] && cp -fdrp "${DST}"/lib/modules/microvoip_isdn_top.bit --target-directory="${SRC}"/lib/modules &&\
 echo "-- Xilinx bitfile was taken from the original base firmware"
 [ -e "${DST}"/lib/modules/bitfile.bit ] && cp -fdrp "${DST}"/lib/modules/bitfile.bit "${SRC}"/lib/modules/microvoip_isdn_top.bit &&\

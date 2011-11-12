@@ -7,7 +7,7 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
  echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
     mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
-    rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
+    rm -fr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
 echo "Replacing hardware related files of AVM firmware images ..."
 echo2 "  -- copy original AVM module:"
@@ -52,7 +52,7 @@ else
  #remove ADSL
  #dont start dsl
  sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
- rm -fdr "${SRC}"/lib/modules/dsp_ur8
+ rm -fr "${SRC}"/lib/modules/dsp_ur8
  rm -f "${SRC}"/lib/modules/microvoip-dsl.bin
 #<-- ATA only
 fi

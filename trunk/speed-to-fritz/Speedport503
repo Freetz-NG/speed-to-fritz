@@ -8,7 +8,7 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
  echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
     mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
-    rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
+    rm -fr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
 #remove some unused files
 # for some reason removing fils with the external script as on W721 
@@ -17,11 +17,11 @@ fi
 echo2 "  -- removing files for further image size reduction:"
 rm -f "${SRC}"/lib/modules/dect*
 rm -f "${SRC}"/usr/share/ctlmgr/libdect*
-rm -f "${SRC}"/usr/share/ctlmgr/libusb*
+rm -f  "${SRC}"/usr/share/ctlmgr/libusb*
 #remove some unused files
-rm -fd -R ${SRC}/usr/www/html/de/software
-rm -fd -R ${SRC}/usr/www/html/de/usb
-rm -fd -R ${SRC}/usr/www/html/de/dect
+rm -fr  ${SRC}/usr/www/html/de/software
+rm -fr  ${SRC}/usr/www/html/de/usb
+rm -fr  ${SRC}/usr/www/html/de/dect
 rm -rf  ${SRC}/usr/www/html/de/menus/menu2_usb*
 rm -rf  ${SRC}/usr/www/html/de/menus/menu2_usb.inc
 rm -rf  ${SRC}/usr/www/html/de/menus/menu2_software*
@@ -29,39 +29,39 @@ rm -rf  ${SRC}/usr/www/html/de/home/fon1Dect*
 rm -rf  ${SRC}/usr/www/html/de/home/usb*
 rm -rf  ${SRC}/usr/www/html/de/fon/fon1Dect*
 rm -rf  ${SRC}/usr/www/html/de/fon/usb*
-rm -fd -R ${SRC}//usr/www.nas
+rm -fr  ${SRC}//usr/www.nas
 rm -rf  ${SRC}/lib/modules/$KernelVersion/modules.usbmap
-rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/scsi
-rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/usb
-rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/cdrom
-rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/avm_dect
-rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/dect_io
-rm -fd -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/vfat
-rm -fd -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/fat
-rm -fd -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/ext2
-rm -fdr "${SRC}"/lib/acgenusb*
-rm -fdr "${SRC}"/lib/libmedia*
-rm -fdr "${SRC}"/sbin/smb*
-rm -fdr "${SRC}"/sbin/stop_media*
-rm -fdr "${SRC}"/sbin/lsusb
-rm -fdr "${SRC}"/sbin/hotplug
-rm -fdr "${SRC}"/sbin/hd-idle
-rm -fdr "${SRC}"/sbin/printserv
-rm -fdr "${SRC}"/sbin/mediasrv
+rm -fr  ${SRC}/lib/modules/$KernelVersion/kernel/drivers/scsi
+rm -fr  ${SRC}/lib/modules/$KernelVersion/kernel/drivers/usb
+rm -fr  ${SRC}/lib/modules/$KernelVersion/kernel/drivers/cdrom
+rm -fr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/isdn/avm_dect
+rm -fr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/char/dect_io
+rm -f -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/vfat
+rm -f -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/fat
+rm -f -R "${SRC}"/lib/modules/$KernelVersion//kernel/fs/ext2
+rm -fr "${SRC}"/lib/acgenusb*
+rm -fr "${SRC}"/lib/libmedia*
+rm -fr "${SRC}"/sbin/smb*
+rm -fr "${SRC}"/sbin/stop_media*
+rm -fr "${SRC}"/sbin/lsusb
+rm -fr "${SRC}"/sbin/hotplug
+rm -fr "${SRC}"/sbin/hd-idle
+rm -fr "${SRC}"/sbin/printserv
+rm -fr "${SRC}"/sbin/mediasrv
 rm -rf ${SRC}/sbin/wlan_cal
 rm -rf ${SRC}/sbin/tracking
 rm -rf ${SRC}/etc/usbclass.tab
 rm -rf ${SRC}/etc/usbdevice.tab
-rm -fdr "${SRC}"/etc/hotplug
-rm -fdr "${SRC}"/etc/usb*
-rm -fdr "${SRC}"/etc/samba*
-rm -fdr "${SRC}"/etc/default.049/fx_lcr.1und1
-rm -fdr "${SRC}"/etc/init.d/rc.media
-rm -fdr "${SRC}"/etc/init.d/rc.usbhost
-rm -fd -R ${SRC}/etc/default.Fritz_Box_SpeedportW503V/1und1
-rm -fd -R ${SRC}/etc/default.Fritz_Box_SpeedportW503V/otwo
-rm -fdr "${SRC}"/bin/*plugin
-rm -fdr "${SRC}"/bin/playerd_tables
+rm -fr "${SRC}"/etc/hotplug
+rm -fr "${SRC}"/etc/usb*
+rm -fr "${SRC}"/etc/samba*
+rm -fr "${SRC}"/etc/default.049/fx_lcr.1und1
+rm -fr "${SRC}"/etc/init.d/rc.media
+rm -fr "${SRC}"/etc/init.d/rc.usbhost
+rm -f -R ${SRC}/etc/default.Fritz_Box_SpeedportW503V/1und1
+rm -f -R ${SRC}/etc/default.Fritz_Box_SpeedportW503V/otwo
+rm -fr "${SRC}"/bin/*plugin
+rm -fr "${SRC}"/bin/playerd_tables
 rm -f "${SRC}"/bin/usb*
 rm -rf ${SRC}/bin/usbhostchange
 rm -f "${SRC}"/usr/bin/dect*
@@ -81,8 +81,8 @@ rm -fr ${SRC}/etc/onlinechanged/webdav_net
 rm -fr ${SRC}/sbin/mount.davfs
 rm -f "${SRC}"/etc/plugin*
 rm -fr ${SRC}/usr/share/ctlmgr/libctlwebdav*
-rm -fdr "${SRC}"/bin/mini*
-rm -fdr "${SRC}"/etc/minid
+rm -fr "${SRC}"/bin/mini*
+rm -fr "${SRC}"/etc/minid
 rm -rf ${SRC}/lib/modules/bit*
 rm -f "${SRC}"/lib/modules/dect*
 
@@ -127,7 +127,7 @@ else
 #remove ADSL
 #dont start dsl
 sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
-rm -fdr "${SRC}"/lib/modules/dsp_ur8
+rm -fr "${SRC}"/lib/modules/dsp_ur8
 #<-- ATA only
 fi
 

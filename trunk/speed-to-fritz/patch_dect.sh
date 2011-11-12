@@ -51,7 +51,7 @@ if [ ! -d "$NEWDIR" ]; then
 	sleep 20; exit 1
 fi
 # Removing privias sources if still in existant
-rm -fdr ${DECTDIR}
+rm -fr ${DECTDIR}
 # Create temporary directories 
 mkdir  ${DECTDIR}
 if [ ! -d "$DECTDIR" ]; then
@@ -79,7 +79,7 @@ if [ "$IMG2" ]; then
 	sleep 20; exit 1
  fi
  # Removing privias sources if still exist
- rm -fdr ${DECTDIR2}
+ rm -fr ${DECTDIR2}
  # Create temporary directories 
  mkdir  ${DECTDIR2}
  if [ ! -d "$DECTDIR2" ]; then

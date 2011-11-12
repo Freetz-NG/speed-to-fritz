@@ -8,7 +8,7 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
  echo2 "      move /etc/default.${SORCE_PRODUKT} --> /etc/default.${CONFIG_PRODUKT}"
     mkdir -m 755 "${SRC}/etc/default.${CONFIG_PRODUKT}"
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
-    rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
+    rm -fr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
 
 #Attention! Vinax uses aditional /dev/vinax device entrys the are generateed via /tools/device_table.txt (makedevice option)
@@ -40,8 +40,8 @@ else
  # "vinax_fw_adsl.bin" "vinax_fw_vdsl.bin"
  #remove 7270 DSL
  if ! [ -e "${SRC}/etc/init.d/S11-piglet" ]; then # temp workarou
-    rm -fdr "${SRC}"/lib/modules/dsp_ur8
-    rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsl
+    rm -fr "${SRC}"/lib/modules/dsp_ur8
+    rm -fr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/dsl
     # "vinax_driver"
     [ -d "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax ] || mkdir "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
     [ -d "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax ] || mkdir "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
@@ -165,7 +165,7 @@ alias symbol:pcmlink_ul_openslots pcmlink' "${SRC}"/lib/modules/$KernelVersion/m
  ## Default: ggfs. notweniger pcmlink-Treiber wird von modprobe automatisch
  ## ueber kernel-dependencys ermittelt und vor dem isdn-treiber gestartet
  ## sed -i -e '/modprobe ${pcm_link} ${pcm_link_params}/d' "${SRC}/etc/init.d/rc.S" 
- ## rm -fdr "${SRC}"/lib/modules/c55fw.hex
+ ## rm -fr "${SRC}"/lib/modules/c55fw.hex
  #DSL skripts--->
  #copy VDSL Skript
  cp -fdpr  "${DST}"/etc/init.d/rc.vdsl.sh  --target-directory="${SRC}"/etc/init.d
@@ -324,7 +324,7 @@ if [ ${ATA_ONLY} = "y" ]; then
     sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
     sed -i -e 's|. /etc/init.d/rc.vdsl.sh||' "${SRC}/etc/init.d/rc.S" 
     if ! [ -e "${SRC}/etc/init.d/S11-piglet" ]; then # temp workaround
-	rm -fdr "${SRC}"/lib/modules/dsp_ur8
+	rm -fr "${SRC}"/lib/modules/dsp_ur8
     fi
     [ -f "${SRC}/lib/modules/vinax_fw_vdsl.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_vdsl.bin &&\
     echo "-- VDSL driver was removed"
@@ -334,7 +334,7 @@ if [ ${ATA_ONLY} = "y" ]; then
     echo "-- DSL Annex B driver was removed"
     [ -f "${SRC}/lib/modules/vinax_fw_adsl_A.bin" ] && rm -f "${SRC}"/lib/modules/vinax_fw_adsl_A.bin &&\
     echo "-- DSL Annex A driver was removed"
-    rm -fdr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
+    rm -fr "${SRC}"/lib/modules/$KernelVersion/kernel/drivers/vinax
 fi
 #wrap dsld and ar7cfg.lib
 [ "${WRAP_DSLD}" = "y" ] && . $sh_DIR/wrap_dsld.sh

@@ -33,7 +33,7 @@ sleep 1
 # without parameter set parameters localy 
 [ $# -lt 1 ] &&	set_local
 
-rm -fdr ${log}
+rm -fr ${log}
 mkdir  ${log}
 echo "Compare of Firmwares, difference is logged to: ${log}"
 echo
@@ -189,7 +189,7 @@ sleep 5
 exit 0
 
 SORCE="./tmp"
-rm -fdr "${SORCE}"
+rm -fr "${SORCE}"
 mkdir -p "${SORCE}"
 
 DEST="./FBDIR"

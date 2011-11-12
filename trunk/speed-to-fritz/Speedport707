@@ -29,7 +29,7 @@ else
 #remove ADSL
 #dont start dsl
 sed -i -e 's|/etc/init.d/rc.dsl.sh start||' "${SRC}/etc/init.d/rc.S" 
-rm -fdr "${SRC}"/lib/modules/dsp_ur8
+rm -fr "${SRC}"/lib/modules/dsp_ur8
 rm -f "${SRC}"/lib/modules/microvoip-dsl.bin
 #<-- ATA only
 fi
@@ -55,7 +55,7 @@ echo -e "\033[1m${SORCE_PRODUKT}  --->   ${CONFIG_PRODUKT}\033[0m "
    "$TAR" -c -C "${SRC}/etc/default.${SORCE_PRODUKT}" . | "$TAR" -x -C "${SRC}/etc/default.${CONFIG_PRODUKT}"
 #   mv "${SRC}/etc/default.${SORCE_PRODUKT}" "${SRC}/etc/default.${CONFIG_PRODUKT}"
 
-    rm -fdr "${SRC}"/etc/default.${SORCE_PRODUKT}
+    rm -fr "${SRC}"/etc/default.${SORCE_PRODUKT}
 fi
 
 #keep tcom or congstar oem dir

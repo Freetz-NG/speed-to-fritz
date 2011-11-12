@@ -7,7 +7,7 @@ echo "   ------------------WEBGUI from source 3 is in use!--------------------"
  #second sorce for webgeui is used
  if [ -d "${2}/usr/www/${DIR}" ]; then
  echo2 "  -- copy /FBDIR2/usr/www/${DIR} -> /FBDIR/usr/www/${DIR}"
-#     rm -fdr "${1}"/usr/www/*
+#     rm -fr "${1}"/usr/www/*
      cp -dpr "${2}"/usr/www/${DIR}    --target-directory="${1}"/usr/www
 #     cp -fpr  "${2}"/etc/htmltext*  --target-directory="${1}"/etc
 #     cp -fdrp "${2}"/usr/bin/ctlmgr --target-directory="${1}"/usr/bin
