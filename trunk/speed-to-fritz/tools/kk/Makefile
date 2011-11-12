@@ -13,8 +13,9 @@ endif
 ifndef KBUILD_VERBOSE
   KBUILD_VERBOSE = 0
 endif
-
+#CURDIR:=$(shell pwd)
 srctree		:= $(if $(KBUILD_SRC),$(KBUILD_SRC),$(CURDIR))
+#srctree		:= $(CURDIR)
 objtree		:= $(CURDIR)
 
 export srctree objtree

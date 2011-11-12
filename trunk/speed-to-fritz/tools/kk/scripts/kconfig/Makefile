@@ -1,8 +1,3 @@
-obj := .
-#####src := .
-#top_srcdir=../../
-#top_builddir=../../
-#srctree := .
 # ===========================================================================
 # Kernel configuration targets
 # These targets are used from top-level makefile
@@ -10,22 +5,16 @@ obj := .
 PHONY += oldconfig xconfig gconfig menuconfig config silentoldconfig update-po-config
 
 xconfig: $(obj)/qconf
-#	$< arch/$(ARCH)/Kconfig
 
 gconfig: $(obj)/gconf
-#	$< arch/$(ARCH)/Kconfig
 
 menuconfig: $(obj)/mconf
-#	$< arch/$(ARCH)/Kconfig
 
 config: $(obj)/conf
-#	$< arch/$(ARCH)/Kconfig
 
 oldconfig: $(obj)/conf
-#	$< -o arch/$(ARCH)/Kconfig
 
 silentoldconfig: $(obj)/conf
-#	$< -s arch/$(ARCH)/Kconfig
 
 update-po-config: $(obj)/kxgettext
 	xgettext --default-domain=linux \
@@ -49,28 +38,19 @@ update-po-config: $(obj)/kxgettext
 PHONY += randconfig allyesconfig allnoconfig allmodconfig defconfig
 
 randconfig: $(obj)/conf
-#	$< -r arch/$(ARCH)/Kconfig
 
 allyesconfig: $(obj)/conf
-#	$< -y arch/$(ARCH)/Kconfig
 
 allnoconfig: $(obj)/conf
-#	$< -n arch/$(ARCH)/Kconfig
 
 allmodconfig: $(obj)/conf
-#	$< -m arch/$(ARCH)/Kconfig
 
 defconfig: $(obj)/conf
-ifeq ($(KBUILD_DEFCONFIG),)
-#@echo *** checklxdialog '$(srctree)'
-#	$< -d arch/$(ARCH)/Kconfig
-else
-#@echo *** checklxdialog '$(srctree)'
+ifneq ($(KBUILD_DEFCONFIG),)
 	@echo *** Default configuration is based on '$(KBUILD_DEFCONFIG)'
 endif
 
 %_defconfig: $(obj)/conf
-#	$(Q)$< -D arch/$(ARCH)/configs/$@ arch/$(ARCH)/Kconfig
 
 # Help text used by make help
 help:
@@ -87,44 +67,10 @@ help:
 	@echo  '  allnoconfig	  - New config where all options are answered with no'
 
 # lxdialog stuff
-#check-lxdialog  := ././lxdialog/check-lxdialog.sh
+check-lxdialog  := $(srctree)/scripts/kconfig/lxdialog/check-lxdialog.sh
 
-#check-lxdialog  := $(srctree)/scripts/kconfig/lxdialog/check-lxdialog.sh
-#check-lxdialog  :=
-
-# Use reursively expanded variables so we do not call gcc unless
-# we really need to do so. (Do not call gcc as part of make mrproper)
-
-# Select the compiler needed to build binaries for your development system
-HOSTCFLAGS= -w -Wstrict-prototypes -O2 -fomit-frame-pointer
-ifeq (/usr/include/ncurses/ncurses.h, $(wildcard /usr/include/ncurses/ncurses.h))
-	HOSTNCURSES += -I/usr/include/ncurses -DCURSES_LOC="<ncurses.h>"
-else
-ifeq (/usr/include/ncurses/curses.h, $(wildcard /usr/include/ncurses/curses.h))
-	HOSTNCURSES += -I/usr/include/ncurses -DCURSES_LOC="<ncurses/curses.h>"
-else
-ifeq (/usr/local/include/ncurses/ncurses.h, $(wildcard /usr/local/include/ncurses/ncurses.h))
-	HOSTCFLAGS += -I/usr/local/include/ncurses -DCURSES_LOC="<ncurses.h>"
-else
-ifeq (/usr/local/include/ncurses/curses.h, $(wildcard /usr/local/include/ncurses/curses.h))
-	HOSTCFLAGS += -I/usr/local/include/ncurses -DCURSES_LOC="<ncurses/curses.h>"
-else
-ifeq (/usr/include/ncurses.h, $(wildcard /usr/include/ncurses.h))
-	HOSTNCURSES += -DCURSES_LOC="<ncurses.h>"
-else
-	HOSTNCURSES += -DCURSES_LOC="<curses.h>"
-endif
-endif
-endif
-endif
-endif
-
-HOST_EXTRACFLAGS = $(HOSTNCURSES)
-HOST_LOADLIBES   = -lncurses
-
-
-#HOST_EXTRACFLAGS = $(shell $(CONFIG_SHELL) $(check-lxdialog) -ccflags)
-#HOST_LOADLIBES   = $(shell $(CONFIG_SHELL) $(check-lxdialog) -ldflags $(HOSTCC))
+HOST_EXTRACFLAGS = $(shell $(CONFIG_SHELL) $(check-lxdialog) -ccflags)
+HOST_LOADLIBES   = $(shell $(CONFIG_SHELL) $(check-lxdialog) -ldflags $(HOSTCC))
 
 HOST_EXTRACFLAGS += -DLOCALE
 
@@ -133,8 +79,6 @@ $(obj)/dochecklxdialog:
 	$(Q)$(CONFIG_SHELL) $(check-lxdialog) -check $(HOSTCC) $(HOST_LOADLIBES)
 
 always := dochecklxdialog
-
-
 # ===========================================================================
 # Shared Makefile for the various kconfig executables:
 # conf:	  Used for defconfig, oldconfig and related targets
@@ -193,11 +137,11 @@ HOSTCFLAGS	+= -DKBUILD_NO_NLS
 endif
 
 # generated files seem to need this to find local include files
-#HOSTCFLAGS_lex.zconf.o	:= -I$(src)
-#HOSTCFLAGS_zconf.tab.o	:= -I$(src)
+HOSTCFLAGS_lex.zconf.o	:= -I$(src)
+HOSTCFLAGS_zconf.tab.o	:= -I$(src)
 
-HOSTCFLAGS_lex.zconf.o	:= -I .
-HOSTCFLAGS_zconf.tab.o	:= -I .
+#HOSTCFLAGS_lex.zconf.o	:= -I .
+#HOSTCFLAGS_zconf.tab.o	:= -I .
 
 HOSTLOADLIBES_qconf	= $(KC_QT_LIBS) -ldl
 HOSTCXXFLAGS_qconf.o	= $(KC_QT_CFLAGS) -D LKC_DIRECT_LINK
@@ -322,8 +266,6 @@ lex.%.c: %.l
 
 endif
 
-#include Makefile.kconfig
-#HOSTCFLAGS+=-Dinline="" -include foo.h
 -include .depend
 .depend: $(wildcard *.h *.c)
 	$(HOSTCC) $(HOST_EXTRACFLAGS) $(HOSTCFLAGS) -MM *.c > .depend 2>/dev/null || :
@@ -343,6 +285,4 @@ $(host-cmulti): %: $(host-cobjs) $(host-cshlib)
 $(host-cobjs): %.o: %.c
 	$(HOSTCC) $(HOST_EXTRACFLAGS) $(HOSTCFLAGS) $(HOSTCFLAGS_$@) -c $< -o $@
 
-###$(obj)/%:: $(src)/%_shipped
-###	$(Q)cat $< > $@
 
