@@ -47,12 +47,12 @@ sed -i -e "/STATUS_TEST. = .0. /,/sleep 2/d" "${SRC}/etc/init.d/rc.S"
 #sed -i -e "/mknod .var.flash.tr069.cfg c/d" "${SRC}/etc/init.d/rc.S"
 rm -f "${SRC}"/lib/modules/microvoip-dsl.bin
 #the following drivers depend on tiatm therfore the are not usable if microvoip-dsl.bin is not loaded 
-rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn 
-rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn/capi_codec
-rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn/capi
+rm -fr ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn 
+rm -fr ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn/capi_codec
+rm -fr ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn/capi
 
-rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/char/ubik2
-rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/atm
+rm -fr ${SRC}/lib/modules/$KernelVersion/kernel/drivers/char/ubik2
+rm -fr ${SRC}/lib/modules/$KernelVersion/kernel/drivers/atm
 echo "ATTENTION: Fon is not useable because DSL driver was removed by option! "
 echo "With this option there are still some unused files within the firmware. "
 

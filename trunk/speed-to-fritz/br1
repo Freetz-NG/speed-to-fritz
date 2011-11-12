@@ -93,7 +93,7 @@ input_recover_file="$FWBASE/$(echo $R_IMG | sed -e "s/.*\///")"
 kernel_dir="$NEWDIR"
 mkdir -p "$kernel_dir"
 output_dir="$(basename "$input_recover_file" | sed -r 's/(.*)\.[^\.]*/\1/')"
-rm -fdR "$output_dir"
+rm -fr "$output_dir"
 mkdir -p "$output_dir"
 [ "$BUILDRECOVER" != "y" ] && [ -f $NEWDIR/$NEWIMG ] && $RDIR/extract_kernel.image $HOMEDIR $NEWIMG $kernel_dir
 if ! [ -f "$kernel_dir/kernel.image" ];then

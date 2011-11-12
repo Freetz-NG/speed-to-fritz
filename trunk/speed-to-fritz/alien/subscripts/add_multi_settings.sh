@@ -80,9 +80,9 @@ if [ "${REMOVE_SOME_LANGUAGE}" = "y" ]; then
     [ "${REMOVE_FR}" = "y" ] && LanguageList+="fr "
    for DIR in $LanguageList; do
     if [ "${DIR}" != "$FORCE_LANGUAGE" ]; then
-     rm -fdR "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEM}/$DIR" && echo2 "    removed language directory: $DIR"
+     rm -fr "${SRC}/etc/default.${CONFIG_PRODUKT}/${OEM}/$DIR" && echo2 "    removed language directory: $DIR"
      rm -fr "${SRC}/etc/htmltext_$DIR.db" && echo -e "    language database $DIR removed."
-     rm -fdR "${SRC}/usr/share/tam/msg/default/$DIR" && echo2 "    removed TAM language directory: $DIR"
+     rm -fr "${SRC}/usr/share/tam/msg/default/$DIR" && echo2 "    removed TAM language directory: $DIR"
      FileList="/usr/share/telefon/tam-$DIR.html /usr/share/telefon/fax-$DIR.html /usr/share/telefon/tam-$DIR.txt /usr/share/telefon/fax-$DIR.txt"
      for Langufile in $FileList; do
        rm -f "${SRC}/$Langufile" && echo2 "    removed: $Langufile"
@@ -92,7 +92,7 @@ if [ "${REMOVE_SOME_LANGUAGE}" = "y" ]; then
 fi
 #set default database link if de is not avalabel
 if ! [ -f "${SRC}/etc/htmltext_de.db" ] ; then
-    [ -L "${SRC}/etc/htmltext.db" ] && rm -fd -R "${SRC}/etc/htmltext.db"
+    [ -L "${SRC}/etc/htmltext.db" ] && rm -fr "${SRC}/etc/htmltext.db"
     ln -s /etc/htmltext_$FORCE_LANGUAGE.db  "${SRC}/etc/htmltext.db"
 fi
 exit 0

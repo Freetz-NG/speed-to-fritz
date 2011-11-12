@@ -396,9 +396,9 @@ sed -i -e "s|HWRevision_ATA=0|HWRevision_ATA=1|" "${SRC}/etc/init.d/rc.conf"
 #remove kids and help
 if [ "${REMOVE_KIDS}" = "y" ]; then
     $sh_DIR/rmv_kids.sh "${SRC}"
-    rm -fd -R ${SRC}/usr/www/kids
+    rm -fr ${SRC}/usr/www/kids
     rm -rf ${SRC}/bin/usermand
-    rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/userman
+    rm -fr ${SRC}/lib/modules/$KernelVersion/kernel/drivers/userman
 fi
 [ "${REMOVE_HELP}" = "y" ] && $sh_DIR/rmv_help.sh "${SRC}"
 

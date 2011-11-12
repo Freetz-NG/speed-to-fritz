@@ -353,7 +353,7 @@ if  [ -f "$DLD_DIR/$IMG_REQ" ]; then
     if [ "$EXT" = "zip" ] || [ "$EXT" = "ZIP" ]; then
 	IMG_REQ1="${IMG_REQ%.*}"
 	echo "-- extracting $IMG_REQ1 from archive "$IMG_REQ" ..."
-	rm -fdR "$DLD_DIR/$IMG_REQ1"
+	rm -fr "$DLD_DIR/$IMG_REQ1"
 	mkdir "$DLD_DIR/$IMG_REQ1"
 	check_or_write_md5_to_DB "$DLD_DIR/$IMG_REQ"
 	unzip -qoj "$DLD_DIR/$IMG_REQ" -d "$DLD_DIR/$IMG_REQ1" 	#option j added because AVM added path inside zipfile with fritz_box-labor-7270-13362.zip 
@@ -751,7 +751,7 @@ function fw_unpack()
 		    abs_split_recover="`find -name split_recover`"
 		    echo $abs_split_recover
 		    output_dir="$(basename "$ARCHIVE" | sed -r 's/(.*)\.[^\.]*/\1/')"
-		    rm -fdR "$output_dir"
+		    rm -fr "$output_dir"
 		    mkdir -p "$output_dir"
 		    $abs_split_recover $HOMEDIR $ARCHIVE $output_dir
 		    cp "$output_dir/kernel.image" "$DESTDIR"/kernel.image
@@ -838,7 +838,7 @@ fw_pack1()
     [ ! -x "$MKSQUASHFS" ] && echo "cannot find $MKSQUASHFS_TOOL" && return 1
     [ ! -x "$TAR" ] && echo  "cannot find the tool $TAR_TOOL" && return 1
     chmod -R +xr "${DIR}"
-    [ -d "$MOD_DIR" ] && rm -fd -R "$MOD_DIR"
+    [ -d "$MOD_DIR" ] && rm -fr "$MOD_DIR"
     mkdir "$MOD_DIR"
     if [ ! -d "$KERNEL_MOD_DIR" ]; then 
 	mkdir "$KERNEL_MOD_DIR"
@@ -901,7 +901,7 @@ fw_pack1()
     [ -r "${modimage}" ] && chown -R --reference=$0 "$NEWDIR"
     mv "$FIRMWARE_MOD_DIR/var/tmp/kernel.image" "$NEWDIR/kernel.image"
     #cleanup tempdir
-    rm -fd -R  "$MOD_DIR"
+    rm -fr  "$MOD_DIR"
     return 0
 }
 function readConfig()

@@ -196,7 +196,7 @@ sed -i -e "/modprobe dect_io/d" "${SRC}/etc/init.d/rc.S"
 [ "${XCHANGE_KERNEL}" = "y" ] || [ "${DISABLE_PCMLINK}" = "y" ] &&\
 sed -i -e "/pcm_link/d" "${SRC}/etc/init.d/rc.S" && echo "-- pcmlink removed, phone capi not useable!" &&\
 rm -f "${SRC}"/lib/modules/c55fw.hex &&\
-rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn/capi_codec &&\
+rm -fr ${SRC}/lib/modules/$KernelVersion/kernel/drivers/isdn/capi_codec &&\
 echo "-- Capi removed because it is not usabel with base kernel" && sleep 5 
 
 #grep -q 'grep .pcmlink..ko' "${SRC}/etc/init.d/rc.S" && sed -i -e "s|.pcmlink..ko.|'\^pcmlink.ko'|" "${SRC}/etc/init.d/rc.S"
@@ -281,9 +281,9 @@ $sh_DIR/add_multi_settings.sh
 #remove kids
 if [ "${REMOVE_KIDS}" = "y" ]; then
     $sh_DIR/rmv_kids.sh "${SRC}"
-    rm -fd -R ${SRC}/usr/www/kids
+    rm -fr ${SRC}/usr/www/kids
     rm -rf ${SRC}/bin/usermand
-    rm -fd -R ${SRC}/lib/modules/$KernelVersion/kernel/drivers/userman
+    rm -fr ${SRC}/lib/modules/$KernelVersion/kernel/drivers/userman
 fi
 $sh_DIR/rmv_help.sh "${SRC}"
 echo "********************************************************************************"
