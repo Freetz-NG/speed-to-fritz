@@ -1,0 +1,140 @@
+#!/bin/bash
+echo " * mount ..."
+#sleep 3
+#exit 0
+rm -f /dev/disk/by-uuid/*
+#fstab bug -- do it here
+mount -t cofs 31 /mnt/and
+#get firstboot settings
+for i in $(cat /mnt/and/firstboot.1.txt  | sed 's| |_|g' | sed 's|\\|\/|g' | sed "s/\r//") ; do
+case $i in
+mountpath*)
+mountpath=${i#*=}
+;;
+login*)
+username=${i#*=}
+User_uid=$(id ${username})
+#User_uid:4:4 works only with bash
+User_uid="${User_uid:4:4}"
+;;
+mountshare*)
+mountshare=${i#*=}
+;;
+mountuser*)
+mountuser=${i#*=}
+;;
+passwd*)
+userpasswd=${i#*=}
+;;
+mountpassword*)
+mountpassword=${i#*=}
+;;
+mounttype*)
+mounttype=${i#*=}
+;;
+launcher*)
+launcher=${i#*=}
+;;
+pulseaudio*)
+pulseaudio=${i#*=}
+;;
+installdir*)
+INSTALLDIR=${i#*=}
+;;
+*)
+;;
+esac
+done
+if [ "$mounttype" = "samba" ]; then
+    ! [ -e /mnt/samba ] && mkdir -p /mnt/samba
+    chmod 777 /mnt/samba
+    echo  * Added mount samba /$mountshare on /mnt/win
+    mount -t cifs -o credentials=/etc/smbpasswd,iocharset=iso8859-15,uid=$User_uid,gid=$User_uid,dir_mode=0022,file_mode=0133 //$DISPLAY/$mountshare /mnt/samba
+fi
+# Set setings via settings.txt
+! [ -f /mnt/and/settings.txt ] && echo "------- Local install directory not mounted! ------\n ($INSTALLDIR/settings.txt)"
+! [ -f /mnt/and/Xming/X0.hosts ] && echo "------- Local install directory not mounted! ------\n $INSTALLDIR/Xming/X0.hosts)"
+#! [ -e /mnt/and/settings.txt ] && exit 0
+mount_cofs()
+{
+! [ -e $3 ] && mkdir -p $3
+chmod 777 $3
+#echo User_uid:${User_uid}
+mount -t cofs $4 $1 $3
+echo " * Added mount $2 on '$3'"
+}
+mount_co()
+{
+if [ -e /mnt/and/$2 ]; then
+    ! [ -e $3 ] && mkdir -p $3
+    chmod 777 $3
+    mount -t ext3 $4 /dev/$1 $3 ||\
+    mount -t ext4 $4 /dev/$1 $3 &&\
+    echo " * Added mount $2 on '$3'"
+fi
+}
+x=$(cat /mnt/and/settings.txt  | grep -E 'cobd|cofs' | sed '/^\#/d' | sed 's|\\|\/|g' | sed "s/\r//" | sed '/ .*/d')
+#echo "settings.txt:$x"
+for i in $x; do
+case $i in
+cobd2*)
+#--------Options------------------------ v
+#--------mountdirecrory--V
+#name----V
+mount_co "cobd2" ${i#*=} "/mnt/cobd2" "-o rw,suid,dev,exec,auto,user,async"
+;;
+cobd3*)
+mount_co "cobd3" ${i#*=} "/mnt/cobd3" "-o rw,suid,dev,exec,auto,user,async"
+;;
+cobd4*)
+mount_co "cobd4" ${i#*=} "/mnt/cobd4" "-o rw,suid,dev,exec,auto,user,async"
+;;
+cobd5*)
+mount_co "cobd5" ${i#*=} "/mnt/cobd5" "-o rw,suid,dev,exec,auto,user,async"
+;;
+cobd6*)
+mount_co "cobd6" ${i#*=} "/mnt/cobd6" "-o rw,suid,dev,exec,auto,user,async"
+;;
+cobd7*)
+mount_co "cobd7" ${i#*=} "/mnt/cobd7" "-o rw,suid,dev,exec,auto,user,async"
+;;
+cobd8*)
+mount_co "cobd8" ${i#*=} "/mnt/cobd8" "-o rw,suid,dev,exec,auto,user,async"
+;;
+cobd9*)
+mount_co "cobd9" ${i#*=} "/mnt/cobd9" "-o rw,suid,dev,exec,auto,user,async"
+;;
+cofs0*)
+mount_cofs "cofs0" ${i#*=} "/mnt/win" "-o uid=${User_uid},gid=${User_uid}"
+;;
+cofs1*)
+mount_cofs "cofs1" ${i#*=} "/mnt/cofs1" "-o dmask=0022,fmask=0133,uid=${User_uid},gid=${User_uid}"
+;;
+cofs2*)
+mount_cofs "cofs2" ${i#*=} "/mnt/cofs2" "-o dmask=0022,fmask=0133,uid=${User_uid},gid=${User_uid}"
+;;
+cofs3*)
+mount_cofs "cofs3" ${i#*=} "/mnt/cofs3" "-o dmask=0022,fmask=0133,uid=${User_uid},gid=${User_uid}"
+;;
+cofs4*)
+mount_cofs "cofs4" ${i#*=} "/mnt/cofs4" "-o dmask=0022,fmask=0133,uid=${User_uid},gid=${User_uid}"
+;;
+cofs5*)
+mount_cofs "cofs5" ${i#*=} "/mnt/cofs5" "-o dmask=0022,fmask=0133,uid=${User_uid},gid=${User_uid}"
+;;
+cofs6*)
+mount_cofs "cofs6" ${i#*=} "/mnt/cofs6" "-o dmask=0022,fmask=0133,uid=${User_uid},gid=${User_uid}"
+;;
+cofs7*)
+mount_cofs "cofs7" ${i#*=} "/mnt/cofs7" "-o dmask=0022,fmask=0133,uid=${User_uid},gid=${User_uid}"
+;;
+cofs8*)
+mount_cofs "cofs8" ${i#*=} "/mnt/cofs8" "-o dmask=0022,fmask=0133,uid=${User_uid},gid=${User_uid}"
+;;
+cofs9*)
+mount_cofs "cofs9" ${i#*=} "/mnt/cofs9" "-o dmask=0022,fmask=0133,uid=${User_uid},gid=${User_uid}"
+;;
+*)
+;;
+esac
+done

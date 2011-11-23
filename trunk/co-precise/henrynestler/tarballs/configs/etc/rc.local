@@ -1,0 +1,148 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+# Adaptions for coLinux (speedlinux).
+# Remove interfaces 
+if [ -e /etc/udev/rules.d/75-persistent-net-generator.rules ]; then 
+ sed -i -e 's/eth..//' "/etc/udev/rules.d/75-persistent-net-generator.rules"
+fi
+if [ -e /etc/udev/rules.d/70-persistent-net.rules ]; then
+    rm -f "/etc/udev/rules.d/70-persistent-net.rules"
+fi
+DISPLAY=
+ETH0_ADR=
+ETH0_MASK=
+ETH0_GW=
+ETH0_DHCP=
+ETH1_ADR=
+ETH1_MASK=
+ETH1_GW=
+ETH1_DHCP=
+ETH2_ADR=
+ETH2_MASK=
+ETH2_GW=
+ETH2_DHCP=
+SHOW_IF=
+for i in `cat /proc/cmdline` ; do
+case $i in
+DISPLAY*)
+DISPLAY="${i#*=}"
+;;
+ETH0_ADR*)
+ETH0_ADR="address ${i#*=}"
+;;
+ETH0_MASK*)
+ETH0_MASK="netmask ${i#*=}"
+;;
+ETH0_GW*)
+ETH0_GW="gateway ${i#*=}"
+;;
+ETH0_DHCP*)
+ETH0_DHCP="${i#*=}"
+;;
+ETH1_ADR*)
+ETH1_ADR="address ${i#*=}"
+;;
+ETH1_MASK*)
+ETH1_MASK="netmask ${i#*=}"
+;;
+ETH1_GW*)
+ETH1_GW="gateway ${i#*=}"
+;;
+ETH1_DHCP*)
+ETH1_DHCP="${i#*=}"
+;;
+ETH2_ADR*)
+ETH2_ADR="address ${i#*=}"
+;;
+ETH2_MASK*)
+ETH2_MASK="netmask ${i#*=}"
+;;
+ETH2_GW*)
+ETH2_GW="gateway ${i#*=}"
+;;
+ETH2_DHCP*)
+ETH2_DHCP="${i#*=}"
+;;
+SHOW_IF*)
+SHOW_IF="${i#*=}"
+;;
+*)
+;;
+esac
+done
+cat <<EOF > /etc/network/interfaces
+# Used by ifup(8) and ifdown(8). See the interfaces(5) manpage or
+# /usr/share/doc/ifupdown/examples for more information.
+#------------------------------------------------------
+# Dont edit - edit [wininstalldir]/settings.txt instead
+#------------------------------------------------------
+auto lo
+iface lo inet loopback
+EOF
+! [ -z "$ETH0_DHCP" ] && cat <<EOF >> /etc/network/interfaces
+auto eth0
+iface eth0 inet dhcp
+EOF
+! [ -z "$ETH1_DHCP" ] && cat <<EOF >> /etc/network/interfaces
+auto eth1
+iface eth1 inet dhcp
+EOF
+! [ -z "$ETH2_DHCP" ] && cat <<EOF >> /etc/network/interfaces
+auto eth2
+iface eth2 inet dhcp
+EOF
+! [ -z "$ETH0_ADR" ] && cat <<EOF >> /etc/network/interfaces
+auto eth0
+iface eth0 inet static
+     ${ETH0_ADR}
+     ${ETH0_MASK}
+     ${ETH0_GW}
+EOF
+! [ -z "$ETH1_ADR" ] && cat <<EOF >> /etc/network/interfaces
+auto eth1
+iface eth1 inet static
+     ${ETH1_ADR}
+     ${ETH1_MASK}
+     ${ETH1_GW}
+EOF
+! [ -z "$ETH2_ADR" ] && cat <<EOF >> /etc/network/interfaces
+auto eth2
+iface eth2 inet static
+     ${ETH2_ADR}
+     ${ETH2_MASK}
+     ${ETH2_GW}
+EOF
+#ifdown -a
+#ifup -a
+if ! [ -z "$SHOW_IF" ]; then
+    echo " * interfaces:"
+    cat /etc/network/interfaces | sed '/#/d' | sed '/lo /d' | sed '/auto /d'
+    route
+fi
+/etc/mount_all
+cat <<EOF > /mnt/and/Xming/X0.hosts
+#------------------------------------------------------
+# Dont edit - edit [wininstalldir]/settings.txt instead
+#------------------------------------------------------
+localhost
+${ETH0_ADR}
+${ETH1_ADR}
+${ETH2_ADR}
+${DISPLAY}
+EOF
+if [ -f /mnt/and/firstboot.txt ] ; then
+    rm -f /mnt/and/firstboot.txt
+    /sbin/reboot
+fi
+! [ -x /usr/bin/fping ] && (apt-get install fping)
+exit 0

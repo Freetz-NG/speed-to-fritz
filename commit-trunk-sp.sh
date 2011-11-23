@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="  * Remove date use revision in script headers and filname only."
+comment="  * Add speedlinux installer for ubuntu 12.4" 
 
 echo "-------------------------------------------------------------------------------------------------------------"
 if [ `id -u` -eq 0 ]; then
@@ -68,7 +68,7 @@ cd trunk
 #svn delete --force ./speed-to-fritz/tools/make/patches/110-allow-symlinks.squashfs4.patch
 
 #svn delete --force ./speed-to-fritz/tools/usr/lib/libfakeroot.la
-#svn delete --force ./speed-to-fritz/tools/conf
+#svn delete --force ./speed-to-fritz/tools/config
 #svn delete --force ./speed-to-fritz/tools/mconf
 #svn delete --force ./speed-to-fritz/alien/subscripts/add_freetz_type_patches.sh
 #svn delete --force ./speed-to-fritz/alien/add_dect_7150.inc
@@ -98,7 +98,7 @@ cd trunk
 #svn delete --force ./speed-to-fritz/freetz
 #svn delete --force ./speed-to-fritz/freetz/7390-freetz.tar.gz
 #svn delete --force ./speed-to-fritz/freetz/log
-
+svn delete --force ./co-precise
 #svn revert 
 svn status
 ##svn add * --force #adds also files beein within the ignore list.
