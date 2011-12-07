@@ -11,6 +11,7 @@ cp -f ./colinux.nsi ../bfin-colinux/trunk/patches/colinux.nsi
 cp -f ./iDl.ini ../bfin-colinux/trunk/patches/iDl.ini
 cp ./install.txt ../bfin-colinux/trunk/and/install.txt
 cp ./install.bat ../bfin-colinux/trunk/and/install.bat
+cp ./menu.bat ../bfin-colinux/trunk/and/menu.bat
 cp ./run.bat ../bfin-colinux/trunk/and/run.bat
 cp ./7za.exe ../bfin-colinux/trunk/and/7za.exe
 cp ./runonce.bat ../bfin-colinux/trunk/and/runonce.bat

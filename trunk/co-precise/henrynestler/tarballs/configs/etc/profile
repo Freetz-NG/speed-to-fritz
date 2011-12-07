@@ -46,7 +46,11 @@ case $i in
 DISPLAY*)
 DISPLAY="${i#*=}"
 #echo DISPLAY: $DISPLAY
-DISPLAY=$(echo $DISPLAY | sed 's|,| |g' | fping -a)
+if [ -x /usr/bin/fping ]; then
+    DISPLAY=$(echo $DISPLAY | sed 's|,| |g' | fping -a)
+else
+    DISPLAY=
+fi
 ;;
 *)
 ;;
@@ -56,8 +60,9 @@ done
 [ -z "$DISPLAY" ] && echo -e "Kernelparameter DISPLAY is missing (set it via $INSTALLDIR/startup.bat).
 or Login with SSH and check the ip of host with command 'set | grep SSH_CLIENT'
 Use the shown ip address from above in the DISPLAY
-Call for example 'DISPLAY=192.168.11.1:0.0 && terminal"
+Call for example 'DISPLAY=192.168.11.1:0.0 && terminal" && DISPLAY=192.168.11.1
 
+export ESPEAKER=${DISPLAY}:16001
 export ESPEAKER=${DISPLAY}:16001
 export PULSE_SERVER=${DISPLAY}
 export DISPLAY=${DISPLAY}:0.0

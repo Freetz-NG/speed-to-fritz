@@ -1,5 +1,4 @@
 #!/bin/sh -e
-#
 # rc.local
 #
 # This script is executed at the end of each multiuser runlevel.
@@ -19,7 +18,7 @@ if [ -e /etc/udev/rules.d/70-persistent-net.rules ]; then
     rm -f "/etc/udev/rules.d/70-persistent-net.rules"
 fi
 DISPLAY=
-ETH0_ADR=
+ADR=
 ETH0_MASK=
 ETH0_GW=
 ETH0_DHCP=
@@ -135,14 +134,14 @@ cat <<EOF > /mnt/and/Xming/X0.hosts
 # Dont edit - edit [wininstalldir]/settings.txt instead
 #------------------------------------------------------
 localhost
-${ETH0_ADR}
-${ETH1_ADR}
-${ETH2_ADR}
+${ETH0_ADR#* }
+${ETH1_ADR#* }
+${ETH2_ADR#* }
 ${DISPLAY}
 EOF
-if [ -f /mnt/and/firstboot.txt ] ; then
-    rm -f /mnt/and/firstboot.txt
-    /sbin/reboot
-fi
+. /usr/local/sbin/firstboot.sh
 ! [ -x /usr/bin/fping ] && (apt-get install fping)
+if ! [ -d /var/run/network ]; then mkdir -p /var/run/network/ && /etc/init.d/networking restart;fi
+[ -f /etc/inittab ] && grep -q 'startwindowsterminalsession' "/etc/inittab" && sed -i -e "/startwindowsterminalsession/d" "/etc/inittab"
+/usr/bin/X11/startwindowsterminalsession &
 exit 0

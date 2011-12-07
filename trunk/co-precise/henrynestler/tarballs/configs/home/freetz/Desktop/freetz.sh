@@ -61,9 +61,9 @@ fi
  [ "$YESNO" = "y" ] || [ "$YESNO" = "n" ] &&  KEY="y"
  [ "$KEY" = "x" ] && echo "wrong key!"
  if [ "$YESNO" = "y" ]; then 
-  rm -fdr $HOMEDIR/$FREETZ_DIR/.config
-  rm -fdr $HOMEDIR/$FREETZ_DIR/Config.in
-  rm -fdr $HOMEDIR/$FREETZ_DIR/fwmod
+  rm -fr $HOMEDIR/$FREETZ_DIR/.config
+  rm -fr $HOMEDIR/$FREETZ_DIR/Config.in
+  rm -fr $HOMEDIR/$FREETZ_DIR/fwmod
   echo "Looking for new freetz version, wait ..."
     if [ "$FREETZREVISION" ]; then
 	svn co http://svn.freetz.org/trunk $HOMEDIR/$FREETZ_DIR -r $FREETZREVISION

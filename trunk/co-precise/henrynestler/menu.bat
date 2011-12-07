@@ -1,0 +1,1 @@
+start /B "" /DLauncher menu.exe
