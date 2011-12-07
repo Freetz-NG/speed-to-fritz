@@ -48,7 +48,8 @@ fi
 #err#RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/english/FRITZ.Box_Fon_WLAN_7390.en-de-es-it-fr.04.87.recover-image.exe"
 #err#RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7390/x_misc/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7390.en-de-es-it-fr.04.88.recover-image.exe"
 #ok#RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7270_v3/x_misc/english/FRITZ.Box_Fon_WLAN_7270_v3.en-de-es-it-fr.04.90.recover-image.exe"
-RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7270_v3/x_misc/english/FRITZ.Box_Fon_WLAN_7270_v3.en-de-es-it-fr.05.05.recover-image.exe"
+#ok#RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7270_v3/x_misc/english/FRITZ.Box_Fon_WLAN_7270_v3.en-de-es-it-fr.05.05.recover-image.exe"
+RECOVERIMG7270="@AVM/fritz.box/fritzbox.fon_wlan_7270_v3/x_misc/english/FRITZ.Box_Fon_WLAN_7270_v3.en-de-es-it-fr.05.06.recover-image.exe"
 RECOVERIMG7170="$RECOVERIMG7270"
 #-------------------------------------------------------------------------------------------------
 R_IMG="$RECOVERIMG7270"

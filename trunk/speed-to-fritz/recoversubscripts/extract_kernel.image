@@ -27,7 +27,7 @@ kernel_dir="$output_dir1"
 echo -e "\nExtracting root kernel (kernel.image) from:\n $input_file ..."
 	tar -xf "$kernel_dir/$input_file" -C .
 	mv -f "$mod_base/var/tmp/kernel.image" "$kernel_dir/kernel.image"
-	rm -fd $mod_base/var
+	rm -fr $mod_base/var
 	if [ ! -r "$kernel_dir/kernel.image" ]; then
 		echo "Cannot find kernel.image"
 		sleep 20
