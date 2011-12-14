@@ -35,7 +35,7 @@ date=$(date +%Y%m%d-%H%M)
 #svn propedit svn:ignore .
 
 #svn revert 
-svn add * --force
+#svn add * --force
 
 svn status
 svn diff > ../patch.diff

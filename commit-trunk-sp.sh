@@ -98,13 +98,13 @@ cd trunk
 #svn delete --force ./speed-to-fritz/freetz
 #svn delete --force ./speed-to-fritz/freetz/7390-freetz.tar.gz
 #svn delete --force ./speed-to-fritz/freetz/log
-svn delete --force ./co-precise
+#svn delete --force ./co-precise
 #svn revert 
 svn status
 ##svn add * --force #adds also files beein within the ignore list.
 #this should work better
 #svn status | grep -v "^.[ \t]*\..*" | grep "^?" | awk '{print $2}' | xargs svn add
-#svn add * --force
+svn add * --force
 
 svn diff > ../patch.diff
 cat ../patch.diff
