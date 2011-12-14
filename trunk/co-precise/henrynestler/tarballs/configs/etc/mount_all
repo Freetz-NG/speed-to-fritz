@@ -72,16 +72,15 @@ if [ "$mountuser" != "" ]; then
     #umount /mnt/samba
     #echo "mountshare: $mountshare"
     [ -e /home/$username/Desktop/windows ] && unlink /home/$username/Desktop/windows
-    #[ -e /mnt/samba ] && rmdir -f /mnt/samba
     ! [ -e /mnt/samba ] && mkdir -p /mnt/samba
     chmod 777 /mnt/samba
-    if mount -t cifs -o credentials=/etc/smbpasswd,iocharset=iso8859-15,uid=$User_uid,gid=$User_uid,dir_mode=0022,file_mode=0133 //$WINDOS_IP/$mountshare /mnt/samba/; then
+    if mount -t cifs -o credentials=/etc/smbpasswd,iocharset=iso8859-15,uid=$User_uid,gid=$User_uid,dir_mode=0777,file_mode=0777 //$WINDOS_IP/$mountshare /mnt/samba/; then
      echo  " * Added mount samba //$WINDOS_IP/$mountshare on /mnt/samba"
      (cd /home/$username/Desktop; ln -s /mnt/samba/ windows)
     fi
   fi
 else
-    [ -e /mnt/samba ] && rmdir -f /mnt/samba
+    [ -e /mnt/samba ] && rmdir /mnt/samba
     [ -e /home/$username/Desktop/windows ] && unlink /home/$username/Desktop/windows
      (cd /home/$username/Desktop; ln -s /mnt/win/ windows)
 fi
