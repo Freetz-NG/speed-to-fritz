@@ -10,15 +10,11 @@
 #
 # By default this script does nothing.
 # Adaptions for coLinux (speedlinux).
-# Remove interfaces 
-if [ -e /etc/udev/rules.d/75-persistent-net-generator.rules ]; then 
- sed -i -e 's/eth..//' "/etc/udev/rules.d/75-persistent-net-generator.rules"
-fi
-if [ -e /etc/udev/rules.d/70-persistent-net.rules ]; then
-    rm -f "/etc/udev/rules.d/70-persistent-net.rules"
-fi
+[ -e /etc/udev/rules.d/75-persistent-net-generator.rules ] && sed -i -e 's/eth..//' "/etc/udev/rules.d/75-persistent-net-generator.rules"
+[ -e /etc/udev/rules.d/70-persistent-net.rules ] && rm -f "/etc/udev/rules.d/70-persistent-net.rules"
 DISPLAY=
 ADR=
+ETH0_ADR=
 ETH0_MASK=
 ETH0_GW=
 ETH0_DHCP=
@@ -33,46 +29,46 @@ ETH2_DHCP=
 SHOW_IF=
 for i in `cat /proc/cmdline` ; do
 case $i in
-DISPLAY*)
+DISPLAY=*)
 DISPLAY="${i#*=}"
 ;;
-ETH0_ADR*)
+ETH0_ADR=*)
 ETH0_ADR="address ${i#*=}"
 ;;
-ETH0_MASK*)
+ETH0_MASK=*)
 ETH0_MASK="netmask ${i#*=}"
 ;;
-ETH0_GW*)
+ETH0_GW=*)
 ETH0_GW="gateway ${i#*=}"
 ;;
-ETH0_DHCP*)
+ETH0_DHCP=*)
 ETH0_DHCP="${i#*=}"
 ;;
-ETH1_ADR*)
+ETH1_ADR=*)
 ETH1_ADR="address ${i#*=}"
 ;;
-ETH1_MASK*)
+ETH1_MASK=*)
 ETH1_MASK="netmask ${i#*=}"
 ;;
-ETH1_GW*)
+ETH1_GW=*)
 ETH1_GW="gateway ${i#*=}"
 ;;
-ETH1_DHCP*)
+ETH1_DHCP=*)
 ETH1_DHCP="${i#*=}"
 ;;
-ETH2_ADR*)
+ETH2_ADR=*)
 ETH2_ADR="address ${i#*=}"
 ;;
-ETH2_MASK*)
+ETH2_MASK=*)
 ETH2_MASK="netmask ${i#*=}"
 ;;
-ETH2_GW*)
+ETH2_GW=*)
 ETH2_GW="gateway ${i#*=}"
 ;;
-ETH2_DHCP*)
+ETH2_DHCP=*)
 ETH2_DHCP="${i#*=}"
 ;;
-SHOW_IF*)
+SHOW_IF=*)
 SHOW_IF="${i#*=}"
 ;;
 *)
@@ -140,8 +136,7 @@ ${ETH2_ADR#* }
 ${DISPLAY}
 EOF
 . /usr/local/sbin/firstboot.sh
-! [ -x /usr/bin/fping ] && (apt-get install fping)
 if ! [ -d /var/run/network ]; then mkdir -p /var/run/network/ && /etc/init.d/networking restart;fi
 [ -f /etc/inittab ] && grep -q 'startwindowsterminalsession' "/etc/inittab" && sed -i -e "/startwindowsterminalsession/d" "/etc/inittab"
-/usr/bin/X11/startwindowsterminalsession &
+[ -x /usr/bin/sux ] && /usr/bin/X11/startwindowsterminalsession &
 exit 0

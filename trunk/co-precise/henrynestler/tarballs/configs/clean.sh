@@ -1,21 +1,30 @@
 #!/bin/bash
-echo 	"- Clean files in /var/log (don't remove files! Set the size to zero.)"
+echo 	"- Clean *.log files (don't remove files! Set the size to zero.)"
 DIRS="$(ls -d */ | grep -v 'mnt')"
-echo "Directorys: $DIRS"
-DIRI="$(find $DIRS \( -name *.log  -o -name dmesg* -o -name messages \) -type f -print)"
+#echo "Directorys: $DIRS"
+find $DIRS -name \*.log  -type f -print
+echo "---------------------"
+DIRI="$(find $DIRS  -name \*.log  -type f -print)"
 for FILE in $DIRI; do
  echo "" > $FILE
  echo "${FILE}"
 done
 echo "---------------------"
-DIRI="$(find home root \( -name history -o -name messages \) -type f -print)"
+DIRI="$(find /home /root  \( -name \*history\* -o -name \*messages\* \) -type f -print)"
 for FILE in $DIRI; do
  echo "" > $FILE
  echo "${FILE}"
 done
-rm -rd /lib/modules/*-co-*
-rm -rd /boot
-rm -f /var/log/*.gz
+echo "---------------------"
+DIRI="$(ls /var/log/ )"
+for FILE in $DIRI; do
+ [ -f /var/log/$FILE ] && echo "" > /var/log/$FILE && echo "${FILE}"
+done
+echo "---------------------"
+rm -r /lib/modules/*-co-*
+[ -d /mnt/boot ] && rm -r /boot/*
+rm -f /var/log/*.gz.*
+rm -f /*.log
 rm -f /var/run/*.pid
 rm -f  /var/log/wtmp
 rm -fr /tmp/*
@@ -26,6 +35,8 @@ mkdir -p /var/cache/apt/archives/partial
 sudo apt-get autoremove -y
 sudo apt-get autoclean -y
 sudo apt-get clean -y
+echo "zero space - be patient ..."
 dd if=/dev/zero of=file.z
 #cat /dev/zero > file.z
 rm -v file.z
+sleep 10

@@ -1,24 +1,30 @@
 We changed the naming from freetzlinux to speedlinux.
 
-This Version is adjusted for the use with speed-to-fritz and freetz.
+All Version are useabel for speed-to-fritz and freetz.
 
-X Applications:
+Get started:
 
-1. Click start icon (speedlinux pinguin) on desktop, menu, ...   
+1. Click start icon (speedlinux pinguine) on desktop, menu, quick lounch   
 	or use startup.bat found in your installation directory.
 2. Wait until LINUX boot process is finished. 
 		Console-NT (Donald-Duck icon), 
 		Console-FTLK (Ying-Yung icon),
-		watch the boot process and wait a bit.
+		watch the boot process.
 	*	Console-NT: paste with WinKey+V
-	*	Console-FTLK: Comes now with more options,
+	*	Console-FTLK: Comes with more options,
 		use pulldown to see shortcuts
 
-3. 	(Xming window server is stated after startup.bat via settings.txt)
+3. 	(Xming window server and pulseaudio sound server 
+	is automaticaly stated (see: settings.txt).
 
 4.	Login as normal user.
 	Type in: 'p' followed by Enter key in Console(NT) or Console (FTLK) 
-	to bring up a X kde menue up and start a terminal session.
+	to bring up a XFCE4 menu and start a terminal session.
+	Depending on the image in uses this may vary. Read README.XXX on 
+	sourceforge.net to the image in use. The installer presents a page where
+	one can select the image for download, there is also a link to each 
+	Image that brings up the README.XXX within the internet explorer. 
+	'termianl' or 'konsole' shuld always be usabel.
 
 Type in: 'cd Desktop'
 

@@ -1,4 +1,5 @@
 #!/bin/sh
+[ -d /mnt/win ] && ! [ -e /mnt/win/Firmware.new ] && mkdir -p /mnt/win/Firmware.new
 echo "-------------------------------------------------------------------------------------------------------------"
 echo
 if [ `id -u` -eq 0 ]; then

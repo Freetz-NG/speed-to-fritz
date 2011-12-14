@@ -8,35 +8,36 @@ mount -t cofs 31 /mnt/and
 #get firstboot settings
 for i in $(cat /mnt/and/firstboot.1.txt  | sed 's| |_|g' | sed 's|\\|\/|g' | sed "s/\r//") ; do
 case $i in
-mountpath*)
+mountpath=*)
 mountpath=${i#*=}
 ;;
-login*)
+login=*)
 username=${i#*=}
 User_uid=$(id ${username})
 #User_uid:4:4 works only with bash
 User_uid="${User_uid:4:4}"
 ;;
-mountshare*)
-#mountshare=${i#*=}
+mountshare=*)
 mountshare=${i#*:/}
+sambashare=${mountshare#*=}
+[ "$mountshare" = "$sambashare" ] && sambashare=
 ;;
-mountuser*)
+mountuser=*)
 mountuser=${i#*=}
 ;;
-passwd*)
+passwd=*)
 userpasswd=${i#*=}
 ;;
-mountpassword*)
+mountpassword=*)
 mountpassword=${i#*=}
 ;;
-launcher*)
+launcher=*)
 launcher=${i#*=}
 ;;
-pulseaudio*)
+pulseaudio=*)
 pulseaudio=${i#*=}
 ;;
-installdir*)
+installdir=*)
 INSTALLDIR=${i#*=}
 ;;
 *)
@@ -44,20 +45,28 @@ INSTALLDIR=${i#*=}
 esac
 done
 if [ "$mountuser" != "" ]; then
+  if [ "$sambashare" = "" ]; then
     for i in $(cat /proc/cmdline) ; do
     case $i in
     DISPLAY*)
     DISPLAY="${i#*=}"
     #echo DISPLAY: $DISPLAY
     [ -x /usr/bin/fping ] && WINDOS_IP=$(echo $DISPLAY | sed 's|,| |g' | fping -a)
+    if ! [ -z "$WINDOS_IP" ]; then
+     sambashare=//$WINDOS_IP/$mountshare
+    else
+     echo "Windows IP is not responding!"
+    fi
     ;;
     *)
     ;;
     esac
     done
-   if [ -z "$WINDOS_IP" ]; 
-	then echo "Could not mount samba becaus Windows IP is not responding!"
-   else
+  fi    
+    if [ -z "$sambashare" ]; then 
+	echo "Could not mount samba! Edit /win/and/firstboot.1.txt" 
+	echo "Examle: mountshare=//192.168.178.1/shared_folder"
+    else
     echo " * mount samba ..."
     # Setup user accounts
     if [ -e /lib/security/pam_smbpass.so ] && [ -e /etc/pam.d/common-password ] && 
@@ -70,12 +79,18 @@ if [ "$mountuser" != "" ]; then
     echo "password=$mountpassword" >> /etc/smbpasswd
     chmod 600 /etc/smbpasswd
     #umount /mnt/samba
-    #echo "mountshare: $mountshare"
+#    echo "Samba username=$mountuser"
+#    echo "Samba password=$mountpassword"
+#    echo "mountshare: $mountshare"
+#    echo "sambashare: $sambashare"
+#    echo "username: $username"
+#    echo "User_uid: $User_uid"
     [ -e /home/$username/Desktop/windows ] && unlink /home/$username/Desktop/windows
     ! [ -e /mnt/samba ] && mkdir -p /mnt/samba
     chmod 777 /mnt/samba
-    if mount -t cifs -o credentials=/etc/smbpasswd,iocharset=iso8859-15,uid=$User_uid,gid=$User_uid,dir_mode=0777,file_mode=0777 //$WINDOS_IP/$mountshare /mnt/samba/; then
-     echo  " * Added mount samba //$WINDOS_IP/$mountshare on /mnt/samba"
+    #Info at: http://wiki.ubuntuusers.de/samba_client_cifs
+    if mount -t cifs -o credentials=/etc/smbpasswd,iocharset=iso8859-15,username=$mountuser,password=$mountpassword,uid=$User_uid,gid=$User_uid,dir_mode=0777,file_mode=0777 $sambashare /mnt/samba/; then
+     echo  " * Added mount samba $sambashare on /mnt/samba"
      (cd /home/$username/Desktop; ln -s /mnt/samba/ windows)
     fi
   fi

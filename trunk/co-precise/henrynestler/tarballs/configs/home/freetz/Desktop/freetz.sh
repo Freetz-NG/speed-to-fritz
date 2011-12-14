@@ -1,4 +1,5 @@
 #!/bin/bash
+[ -d /mnt/win ] && ! [ -e /mnt/win/dl ] && mkdir -p /mnt/win/dl
 ##enable this if if you want to use the stabil freetz version
 #FREETZ_DIR="freetz-1.1"
 ##enable this if if you want to use the latest version

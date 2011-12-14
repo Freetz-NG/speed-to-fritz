@@ -204,6 +204,7 @@ Function .onInit
 
   !insertmacro MUI_INSTALLOPTIONS_EXTRACT "iDl.ini"
   !insertmacro MUI_INSTALLOPTIONS_EXTRACT "WinpcapRedir.ini"
+  CreateDirectory "$INSTDIR\Drives"
 ;--------------------------------------------------------------------------------------------
     DetailPrint "Read settings.txt shared directory"
     Push $0 # dir
@@ -300,6 +301,7 @@ remove_linux_sys:
 no_old_linux_sys:
   nsExec::ExecToLog '"taskkill" /F /IM xming.exe'
   nsExec::ExecToLog '"taskkill" /F /IM menu.exe'
+  nsExec::ExecToLog '"taskkill" /F /IM pulseaudio.exe'
 
   IfFileExists "$INSTDIR\unins000.exe" uninstall_and procide
 uninstall_and:
@@ -403,7 +405,6 @@ Section "Cross-platform Linux Console (FLTK)" SecFLTKConsole
 SectionEnd
 
 Section "Install Pulseaudio dirctory" SecPulseaudio
-#  StrCpy $LAUNCHER_Value "no"
   StrCpy $PULSEAUDIO_Value "yes"
   SetOutPath "$INSTDIR\pulseaudio"
   File "premaid\pulseaudio\channelmap-test.exe"
@@ -480,9 +481,89 @@ Section "Install Pulseaudio dirctory" SecPulseaudio
   FileWrite $0 'use-pid-file=0\n'
   FileWrite $0 'dl-search-path=$INSTDIR\pulseaudio\n'
   FileClose $0
-
 SectionEnd
 
+Section "Install Launcher dirctory" SecLauncher
+  SetOutPath "$INSTDIR\Launcher"
+   File "premaid\Launcher\andCmd.exe"
+   File "premaid\Launcher\andKChart.exe"
+   File "premaid\Launcher\andKControl.exe"
+   File "premaid\Launcher\andKDVI.exe"
+   File "premaid\Launcher\andKFormula.exe"
+   File "premaid\Launcher\andKGhostView.exe"
+   File "premaid\Launcher\andKHomeFolder.exe"
+   File "premaid\Launcher\andKMail.exe"
+   File "premaid\Launcher\andKOrganizer.exe"
+   File "premaid\Launcher\andKPDF.exe"
+   File "premaid\Launcher\andKPlato.exe"
+   File "premaid\Launcher\andKPresenter.exe"
+   File "premaid\Launcher\andKSpread.exe"
+   File "premaid\Launcher\andKWord.exe"
+   File "premaid\Launcher\andKarbon.exe"
+   File "premaid\Launcher\andKate.exe"
+   File "premaid\Launcher\andKexi.exe"
+   File "premaid\Launcher\andKile.exe"
+   File "premaid\Launcher\andKivio.exe"
+   File "premaid\Launcher\andKonqueror.exe"
+   File "premaid\Launcher\andKonsole.exe"
+   File "premaid\Launcher\andKontact.exe"
+   File "premaid\Launcher\andKrita.exe"
+   File "premaid\Launcher\andKugar.exe"
+   File "premaid\Launcher\karbon.ico"
+   File "premaid\Launcher\kate.ico"
+   File "premaid\Launcher\kchart.ico"
+   File "premaid\Launcher\kcontrol.ico"
+   File "premaid\Launcher\kdvi.ico"
+   File "premaid\Launcher\kexi.ico"
+   File "premaid\Launcher\kformula.ico"
+   File "premaid\Launcher\kghostview.ico"
+   File "premaid\Launcher\khomefolder.ico"
+   File "premaid\Launcher\kile.ico"
+   File "premaid\Launcher\kivio.ico"
+   File "premaid\Launcher\kmail.ico"
+   File "premaid\Launcher\konqueror.ico"
+   File "premaid\Launcher\konsole.ico"
+   File "premaid\Launcher\kontact.ico"
+   File "premaid\Launcher\korganizer.ico"
+   File "premaid\Launcher\kpdf.ico"
+   File "premaid\Launcher\kplato.ico"
+   File "premaid\Launcher\kpresenter.ico"
+   File "premaid\Launcher\krita.ico"
+   File "premaid\Launcher\kspread.ico"
+   File "premaid\Launcher\kugar.ico"
+   File "premaid\Launcher\kword.ico"
+   File "premaid\Launcher\menu.exe"
+   File "premaid\Launcher\menu.txt"
+   File "premaid\Launcher\synaptic.ico"
+   File "premaid\Launcher\volume.ico"
+   File "premaid\Launcher\andApp.exe"
+   File "premaid\Launcher\andDolphin.exe"
+   File "premaid\Launcher\andGwenView.exe"
+   File "premaid\Launcher\andKPlato.exe"
+   File "premaid\Launcher\andKSysGuard.exe"
+   File "premaid\Launcher\andKate.exe"
+   File "premaid\Launcher\andKile.exe"
+   File "premaid\Launcher\andKonsole.exe"
+   File "premaid\Launcher\andKugar.exe"
+   File "premaid\Launcher\andMousepad.exe"
+   File "premaid\Launcher\andOkular.exe"
+   File "premaid\Launcher\andSystemSettings.exe"
+   File "premaid\Launcher\andTerminal.exe"
+   File "premaid\Launcher\andThunar.exe"
+   File "premaid\Launcher\dolphin.ico"
+   File "premaid\Launcher\gwenview.ico"
+   File "premaid\Launcher\kate.ico"
+   File "premaid\Launcher\kile.ico"
+   File "premaid\Launcher\konsole.ico"
+   File "premaid\Launcher\kplato.ico"
+   File "premaid\Launcher\ksysguard.ico"
+   File "premaid\Launcher\kugar.ico"
+   File "premaid\Launcher\mousepad.ico"
+   File "premaid\Launcher\okular.ico"
+   File "premaid\Launcher\systemsettings.ico"
+   File "premaid\Launcher\thunar.ico"
+   File "premaid\Launcher\xfce4_terminal.ico"
+SectionEnd
 
 Section "Virtual Ethernet Driver (coLinux TAP-Win32)" SeccoLinuxNet
 
@@ -829,6 +910,8 @@ Section -CreateConfigFile
   FileWrite $0 "cobd0=Drives\base.vdi$\r$\n"
   FileWrite $0 "cobd1=Drives\swap.vdi$\r$\n"
   FileWrite $0 "#------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "# Samba mounts are done in [installdir]firstboot.1.txt or in \etc\mount_all$\r$\n"
+  FileWrite $0 "#------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 "#Filenames can be changed, only existing *.vdi's files will be mounted. $\r$\n"
   FileWrite $0 "#cobd2 .. cobd9 may be used. $\r$\n"
   FileWrite $0 "#------------------------------------------------------------------------------------$\r$\n"
@@ -845,15 +928,15 @@ Section -CreateConfigFile
   FileWrite $0 "#cofs1 .. cofs9 may be as used read only, with new files addabel.$\r$\n"
   FileWrite $0 "#------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 "cofs0=$NW_COFSPFAD_Value$\r$\n" #mounterd as wiritabel!
-  FileWrite $0 "cofs1=C:$\r$\n"
-  FileWrite $0 "cofs2=D:$\r$\n"
-  FileWrite $0 "cofs3=E:$\r$\n"
-  FileWrite $0 "cofs4=F:$\r$\n"
-  FileWrite $0 "cofs5=G:$\r$\n"
-  FileWrite $0 "cofs6=H:$\r$\n"
-  FileWrite $0 "cofs7=I:$\r$\n"
-  FileWrite $0 "cofs8=J:$\r$\n"
-  FileWrite $0 "cofs9=K:$\r$\n"
+  FileWrite $0 "cofs1=C:\$\r$\n"
+  FileWrite $0 "cofs2=D:\$\r$\n"
+  FileWrite $0 "cofs3=E:\$\r$\n"
+  FileWrite $0 "cofs4=F:\$\r$\n"
+  FileWrite $0 "cofs5=G:\$\r$\n"
+  FileWrite $0 "cofs6=H:\$\r$\n"
+  FileWrite $0 "cofs7=I:\$\r$\n"
+  FileWrite $0 "cofs8=J:\$\r$\n"
+  FileWrite $0 "cofs9=K:\$\r$\n"
   FileWrite $0 "#------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 "#All static settings my be removed or changed, no extra settings inside Linux needed.$\r$\n"
   FileWrite $0 "#You must set Windows NICs extra in advance. LAN1 is used as name of the NIC in use. $\r$\n"
@@ -908,7 +991,7 @@ SectionGroup "Shortcuts" Shortcuts
 #  CreateShortCut "$SMPROGRAMS\speedLinux\Start speedLinux.lnk" "$INSTDIR\colinux-daemon.exe" "--install-service speedLinux @settings.txt" "$INSTDIR\start.ico"
 #  CreateShortCut "$SMPROGRAMS\speedLinux\Stop speedLinux.lnk" "$INSTDIR\colinux-daemon.exe" "--remove-service speedLinux" "$INSTDIR\stop.ico"
 #  CreateShortCut "$SMPROGRAMS\speedLinux\Autostart\PulseAudio.lnk" "$INSTDIR\pulseaudio.exe" "$INSTDIR\pulseaudio.ico"
-#  CreateShortCut "$SMPROGRAMS\speedLinux\Autostart\Menu.lnk" "$INSTDIR\Launcher\Menu.exe" "$INSTDIR\Launcher\Menu.ico"
+#  CreateShortCut "$SMPROGRAMS\speedLinux\Autostart\menu.lnk" "$INSTDIR\Launcher\menu.exe" "$INSTDIR\Launcher\menu.ico"
 #---
   CreateDirectory "$SMPROGRAMS\speedLinux"
   CreateShortCut "$SMPROGRAMS\speedLinux\speedLinux.lnk" "$INSTDIR\startup.bat" "" "$INSTDIR\andlinux.ico"
@@ -953,97 +1036,13 @@ Section /o "Desktop KDE Launcher Menue Shortcuts" DescMenueShortcuts
   CreateShortCut "$DESKTOP\Konsole.lnk" "$INSTDIR\Launcher\andKonsole.exe" "" "$INSTDIR\Launcher\konsole.ico"
   # CreateShortCut "$DESKTOP\Thunar.lnk" "$INSTDIR\Launcher\Thunar.exe" "" "$INSTDIR\Launcher\Thunar.ico"
   
-#  CreateShortCut "$DESKTOP\menu.lnk" "$INSTDIR\Launcher\menu.exe" "" "$INSTDIR\Launcher"
-#  CreateShortCut "$QUICKLAUNCH\menu.lnk" "$INSTDIR\Launcher\menu.exe" "" "$INSTDIR\Launcher"
-  CreateShortCut "$DESKTOP\menue.lnk" "$INSTDIR\menu.bat" "" "$INSTDIR\Launcher\menu.exe"
-  CreateShortCut "$QUICKLAUNCH\menue.lnk" "$INSTDIR\menu.bat" "" "$INSTDIR\Launcher\menu.exe"
+  CreateShortCut "$DESKTOP\menu.lnk" "$INSTDIR\menu.bat" "" "$INSTDIR\Launcher\menu.exe"
+  CreateShortCut "$QUICKLAUNCH\menu.lnk" "$INSTDIR\menu.bat" "" "$INSTDIR\Launcher\menu.exe"
 
-#  CreateShortCut "$DESKTOP\menue.lnk" "$INSTDIR\Launcher\menue.exe" "" "$INSTDIR\Launcher\Thunar.ico"
   CreateShortCut "$DESKTOP\Terminal.lnk" "$INSTDIR\Launcher\andTerminal.exe" "" "$INSTDIR\Launcher\xfce4_terminal.ico"
   CreateShortCut "$QUICKLAUNCH\Konsole.lnk" "$INSTDIR\Launcher\andKonsole.exe" "" "$INSTDIR\Launcher\konsole.ico"
   # CreateShortCut "$QUICKLAUNCH\Thunar.lnk" "$INSTDIR\Launcher\Thunar.exe" "" "$INSTDIR\Launcher\Thunar.ico"
   CreateShortCut "$QUICKLAUNCH\Terminal.lnk" "$INSTDIR\Launcher\andTerminal.exe" "" "$INSTDIR\Launcher\xfce4_terminal.ico"
-  SetOutPath "$INSTDIR\Launcher"
-   File "premaid\Launcher\andCmd.exe"
-   File "premaid\Launcher\andKChart.exe"
-   File "premaid\Launcher\andKControl.exe"
-   File "premaid\Launcher\andKDVI.exe"
-   File "premaid\Launcher\andKFormula.exe"
-   File "premaid\Launcher\andKGhostView.exe"
-   File "premaid\Launcher\andKHomeFolder.exe"
-   File "premaid\Launcher\andKMail.exe"
-   File "premaid\Launcher\andKOrganizer.exe"
-   File "premaid\Launcher\andKPDF.exe"
-   File "premaid\Launcher\andKPlato.exe"
-   File "premaid\Launcher\andKPresenter.exe"
-   File "premaid\Launcher\andKSpread.exe"
-   File "premaid\Launcher\andKWord.exe"
-   File "premaid\Launcher\andKarbon.exe"
-   File "premaid\Launcher\andKate.exe"
-   File "premaid\Launcher\andKexi.exe"
-   File "premaid\Launcher\andKile.exe"
-   File "premaid\Launcher\andKivio.exe"
-   File "premaid\Launcher\andKonqueror.exe"
-   File "premaid\Launcher\andKonsole.exe"
-   File "premaid\Launcher\andKontact.exe"
-   File "premaid\Launcher\andKrita.exe"
-   File "premaid\Launcher\andKugar.exe"
-   File "premaid\Launcher\karbon.ico"
-   File "premaid\Launcher\kate.ico"
-   File "premaid\Launcher\kchart.ico"
-   File "premaid\Launcher\kcontrol.ico"
-   File "premaid\Launcher\kdvi.ico"
-   File "premaid\Launcher\kexi.ico"
-   File "premaid\Launcher\kformula.ico"
-   File "premaid\Launcher\kghostview.ico"
-   File "premaid\Launcher\khomefolder.ico"
-   File "premaid\Launcher\kile.ico"
-   File "premaid\Launcher\kivio.ico"
-   File "premaid\Launcher\kmail.ico"
-   File "premaid\Launcher\konqueror.ico"
-   File "premaid\Launcher\konsole.ico"
-   File "premaid\Launcher\kontact.ico"
-   File "premaid\Launcher\korganizer.ico"
-   File "premaid\Launcher\kpdf.ico"
-   File "premaid\Launcher\kplato.ico"
-   File "premaid\Launcher\kpresenter.ico"
-   File "premaid\Launcher\krita.ico"
-   File "premaid\Launcher\kspread.ico"
-   File "premaid\Launcher\kugar.ico"
-   File "premaid\Launcher\kword.ico"
-   File "premaid\Launcher\menu.exe"
-   File "premaid\Launcher\menu.txt"
-   File "premaid\Launcher\synaptic.ico"
-   File "premaid\Launcher\volume.ico"
-   File "premaid\Launcher\andApp.exe"
-   File "premaid\Launcher\andDolphin.exe"
-   File "premaid\Launcher\andGwenView.exe"
-   File "premaid\Launcher\andKPlato.exe"
-   File "premaid\Launcher\andKSysGuard.exe"
-   File "premaid\Launcher\andKate.exe"
-   File "premaid\Launcher\andKile.exe"
-   File "premaid\Launcher\andKonsole.exe"
-   File "premaid\Launcher\andKugar.exe"
-   File "premaid\Launcher\andMousepad.exe"
-   File "premaid\Launcher\andOkular.exe"
-   File "premaid\Launcher\andSystemSettings.exe"
-   File "premaid\Launcher\andTerminal.exe"
-   File "premaid\Launcher\andThunar.exe"
-   File "premaid\Launcher\dolphin.ico"
-   File "premaid\Launcher\gwenview.ico"
-   File "premaid\Launcher\kate.ico"
-   File "premaid\Launcher\kile.ico"
-   File "premaid\Launcher\konsole.ico"
-   File "premaid\Launcher\kplato.ico"
-   File "premaid\Launcher\ksysguard.ico"
-   File "premaid\Launcher\kugar.ico"
-   File "premaid\Launcher\menu.txt"
-   File "premaid\Launcher\mousepad.ico"
-   File "premaid\Launcher\okular.ico"
-   File "premaid\Launcher\systemsettings.ico"
-   File "premaid\Launcher\thunar.ico"
-   File "premaid\Launcher\xfce4_terminal.ico"
-#SectionEnd
 
 
 SectionEnd
@@ -1094,16 +1093,16 @@ Section "-Root Filesystem image Download" SeccoLinuxImage
     StrCmp $R1 "1" tryDownload
 
     !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field ${IDL_FEDORA}" "State"
-    StrCpy $R0 "base-500-9-04-111206.7z"
+    StrCpy $R0 "base-100-11.10-111214.7z"
     StrCmp $R1 "1" tryDownload
 
     !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field ${IDL_GENTOO}" "State"
-    StrCpy $R0 "base-900-ubuntu-9.04-111201.7z"
+    StrCpy $R0 "base-500-9-04-111206.7z"
     StrCmp $R1 "1" tryDownload
 
-#    !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field ${IDL_UBUNTU}" "State"
-#    StrCpy $R0 "Ubuntu-6.06.1.ext3.1gb.bz2"
-#    StrCmp $R1 "1" tryDownload
+    !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field ${IDL_UBUNTU}" "State"
+    StrCpy $R0 "base-900-ubuntu-9.04-111201.7z"
+    StrCmp $R1 "1" tryDownload
     GoTo End
 
     tryDownload:
@@ -1185,13 +1184,13 @@ Section "-Root Filesystem image Download" SeccoLinuxImage
     ex_7zip:
 	DetailPrint "7zip filename: $Zipfile_name"
 	DetailPrint "If there is a old base.vdi present this will be renamed first."
-	DetailPrint "Time cosumtion depends on the imagege size and processorspeed."
-	DetailPrint "No progessindication is shown while extracting it may take 10 minuts and more, be patient ... !"
+	DetailPrint "Time consumption depends on the image size and processor-speed."
+	DetailPrint "No progress indication is shown while extracting it may take 10 minutes and more, be patient ... !"
 	nxs::Show /NOUNLOAD `Extract` /top \
 	`Setup is extracting base.vdi...$\r$\nIt may take 10 minuts and more, be patient...` \
 	/sub `$\r$\n$\r$\n Extracting...` /h 0 /pos 0 /marquee 50\
 	/can 0 /end
-	nsExec::ExecToLog '"$INSTDIR\7za.exe" x $Zipfile_name -o.\Drives -aot'
+	nsExec::ExecToLog '"$INSTDIR\7za.exe" "x" "$Zipfile_name" "-o.\Drives" "-aot"'
 	; http://nsis.sourceforge.net/Nxs_plug-in
 	nxs::Destroy
     End:
@@ -1343,7 +1342,6 @@ Section -post
     StrCpy $FS_FORMATIEREN_Value "n"
 
   File scripts\mkFile.exe
-  CreateDirectory "$INSTDIR\Drives"
 
   IfFileExists "$INSTDIR\Drives\base.vdi" 0 do_initbase
   MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 "You already have a root file.  Do you wish to resize and backup it?$\r$\n$\r$\nRoot file: $INSTDIR\Drives\base.vdi$\r$\n$\r$\n (This will take a lot of time depending on the new size.)" /SD IDNO IDNO root_made
@@ -1397,31 +1395,35 @@ swap_made:
   FileWrite $0 "CL_KERNEL_VERSION=${KERNEL_VERSION}$\n"
   FileClose $0
 
+
+  FileOpen $0 ".reboot" w
+  FileWrite $0 'If existant system will do a reeboot first.$\n'
+  FileClose $0
+
   DetailPrint "Passing install settings to speedLinux"
   FileOpen $0 "firstboot.txt" w
-  FileWrite $0 'Renane this file to firstboot.txt if you want that the following seetings are made with the next boot. $\n'
-  FileWrite $0 'mountpath=$NW_COFSPFAD_Value$\n'
-  FileWrite $0 'mountshare=$NW_COFSPFAD_Value$\n'
-  FileWrite $0 'login=$NW_USER_Value$\n'
-  FileWrite $0 'mountuser=$NW_SAMBAUSER_Value$\n'
-  FileWrite $0 'passwd=$NW_USERPW_Value$\n'
-  FileWrite $0 'mountpassword=$NW_SAMBAUSERPW_Value$\n'
-  FileWrite $0 'launcher=$LAUNCHER_Value$\n'
-  FileWrite $0 'pulseaudio=$PULSEAUDIO_Value$\n'
-  FileWrite $0 'installdir=$INSTDIR$\n'
+  FileWrite $0 'If existant system will do a reeboot first.$\n'
   FileClose $0
   DetailPrint "Passing install settings to speedLinux"
   FileOpen $0 "firstboot.1.txt" w
-  FileWrite $0 'Renane this file to firstboot.txt if you want that the following seetings are made with the next boot. $\n'
+  FileWrite $0 '# If /mnt/and/.reboot exists a reboot after setting this values will be done on the next boot.$\n'
+  FileWrite $0 "# Most changes don't need a reboot, just edit the values and the are set on the next boot.$\n"
+  FileWrite $0 '# mountpath is the (cofs mont on /mnt/win)$\n'
   FileWrite $0 'mountpath=$NW_COFSPFAD_Value$\n'
-  FileWrite $0 'mountshare=$NW_COFSPFAD_Value$\n'
+  FileWrite $0 '# User and password, are only added if /mnt/and/.reboot is present.$\n'
   FileWrite $0 'login=$NW_USER_Value$\n'
-  FileWrite $0 'mountuser=$NW_SAMBAUSER_Value$\n'
   FileWrite $0 'passwd=$NW_USERPW_Value$\n'
-  FileWrite $0 'mountpassword=$NW_SAMBAUSERPW_Value$\n'
   FileWrite $0 'launcher=$LAUNCHER_Value$\n'
   FileWrite $0 'pulseaudio=$PULSEAUDIO_Value$\n'
   FileWrite $0 'installdir=$INSTDIR$\n'
+  FileWrite $0 '# --This is for samba, my be changed.--$\n'
+  FileWrite $0 '# mountuser and mountpassword is the samba user and password on the samba server.$\n'
+  FileWrite $0 '# mountshare is the shared directory on the samba server.$\n'
+  FileWrite $0 '# Example for mountshare: C:\shared_folder, //192.168.178.1/shared_folder $\n'
+  FileWrite $0 '# Be aware that the folder must be set up correctly. See: http://opensuse.swerdna.org/susesambavista.html$\n'
+  FileWrite $0 'mountuser=$NW_SAMBAUSER_Value$\n'
+  FileWrite $0 'mountpassword=$NW_SAMBAUSERPW_Value$\n'
+  FileWrite $0 'mountshare=$NW_COFSPFAD_Value$\n'
   FileClose $0
 
   File tarballs\init.tar
@@ -1539,6 +1541,7 @@ Section "Uninstall"
 
   nsExec::ExecToLog '"taskkill" /F /IM xming.exe'
   nsExec::ExecToLog '"taskkill" /F /IM menu.exe'
+  nsExec::ExecToLog '"taskkill" /F /IM pulseaudio.exe'
 no_old_linux:
 
 
@@ -1614,6 +1617,7 @@ no_old_linux:
   Delete "$INSTDIR\install.txt"
   Delete "$INSTDIR\runonce.bat"
   Delete "$INSTDIR\run.bat"
+  Delete "$INSTDIR\menu.bat"
   Delete "$INSTDIR\srvstop.bat"
   Delete "$INSTDIR\settapip.bat"
   Delete "$INSTDIR\andlinux.ico"
@@ -1623,6 +1627,7 @@ no_old_linux:
   Delete "$INSTDIR\getlanid.vbs"
   Delete "$INSTDIR\get-activ-ip-adr.vbs"
   Delete "$INSTDIR\colinux-daemon.txt"
+  Delete "$INSTDIR\Xming\X0.hosts"
 
   Delete "NetCfgInstance1Id.txt"
   Delete "connection1Name.txt"
@@ -1707,7 +1712,6 @@ no_old_linux:
   Delete "$INSTDIR\Launcher\kplato.ico"
   Delete "$INSTDIR\Launcher\ksysguard.ico"
   Delete "$INSTDIR\Launcher\kugar.ico"
-  Delete "$INSTDIR\Launcher\menu.txt"
   Delete "$INSTDIR\Launcher\mousepad.ico"
   Delete "$INSTDIR\Launcher\okular.ico"
   Delete "$INSTDIR\Launcher\systemsettings.ico"
@@ -1796,7 +1800,7 @@ no_old_linux:
   Delete "$DESKTOP\srvstart.lnk"
   Delete "$DESKTOP\svrstop.lnk"
   Delete "$DESKTOP\startup.lnk"
-  Delete "$SMPROGRAMS\speedLinux\Autostart\Menu.lnk"
+  Delete "$SMPROGRAMS\speedLinux\Autostart\menu.lnk"
 
 
   Delete "$QUICKLAUNCH\startup.lnk"
@@ -1844,7 +1848,8 @@ no_old_linux:
     "Do you wish to delete your file system images and configuration files as well?" \
     /SD IDNO IDNO no_delete
   RMDir /r "$INSTDIR\Drives"
-  no_delete:
+  Delete "$INSTDIR\settings.txt"
+ no_delete:
 
 
   MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 \

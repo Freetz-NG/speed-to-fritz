@@ -37,7 +37,7 @@ while(my $client = $sock->accept())
 
 		# apply all mappings
 		foreach my $linuxPathPrefix ( keys %pathPrefixes ) {
-		    my $windowsPathPrefix = "C:\\shared";
+		    my $windowsPathPrefix = $pathPrefixes{$linuxPathPrefix};
 		    $windowsPathPrefix =~ s/\\/\\\\/g;
 		    $file =~ s/$windowsPathPrefix/$linuxPathPrefix/gi;
 		}

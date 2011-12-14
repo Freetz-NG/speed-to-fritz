@@ -33,7 +33,7 @@ export PATH PS1
 #get instlalldir
 for i in $(cat /mnt/and/firstboot.1.txt  | sed 's| |_|g' | sed 's|\\|\/|g' | sed "s/\r//") ; do
 case $i in
-installdir*)
+installdir=*)
 INSTALLDIR=${i#*=}
 ;;
 *)
@@ -43,7 +43,7 @@ done
 #cat /proc/cmdline
 for i in $(cat /proc/cmdline) ; do
 case $i in
-DISPLAY*)
+DISPLAY=*)
 DISPLAY="${i#*=}"
 #echo DISPLAY: $DISPLAY
 if [ -x /usr/bin/fping ]; then

@@ -105,6 +105,7 @@ chmod 440 /etc/sudoers
 #on newer Linux systems
 rm -f /etc/init/plymouth*
 rm -f /etc/init/udev-fallback*
+rm -f /etc/init/rsyslog*
 chmod -R 777 /home
 cat <<SETEOF >/setpw
 #!/bin/sh

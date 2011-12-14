@@ -1,8 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* update kernel 2.6.32 files, download trunk and use restart for preset sttings.
- Firmware only starts on a W920 if 'go' is entered on a serial console.
- It looks like TTFS systemdriver reads environment bevore rc.S is executed."
+comment="* Update speedlinux installer"
 
 
 
