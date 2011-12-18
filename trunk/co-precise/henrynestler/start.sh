@@ -209,7 +209,7 @@ cd and
 COLINUX_PATCHVER="0.7.3"
 [ -e ../patches/colinux-$COLINUX_PATCHVER-initrd-hook.patch ] && cp ../patches/colinux-$COLINUX_PATCHVER-initrd-hook.patch ../patches/colinux-$COLINUX_VER-initrd-hook.patch
 [ -e ../patches/colinux-$COLINUX_PATCHVER-initrd-hook.patch ] && rm ../patches/colinux-$COLINUX_PATCHVER-initrd-hook.patch
-[ -e ../patches/colinux-$COLINUX_PATCHVER-installer.patch ] &&rm ../patches/colinux-$COLINUX_PATCHVER-installer.patch
+[ -e ../patches/colinux-$COLINUX_PATCHVER-installer.patch ] && rm ../patches/colinux-$COLINUX_PATCHVER-installer.patch
 # get new versions
 echo "====================================================================================================="
 if [ "$USE_SNAP" != "y" ]; then
@@ -239,7 +239,7 @@ cd $home
 # In use for generating modul dependencyes, this must be the path within modules-*.tgz
 tar zxf ../bfin-colinux/trunk/and/vmlinux-modules.tar.gz
 export LONG_VER=$(ls lib/modules)
-rm -fdR lib
+rm -fR lib
 #export LONG_VER="$LINUX_VERSION-co-0.7.10$REVISION"
 echo "Modulversion in use: $LONG_VER"
 ./build-and-installer.sh
@@ -253,3 +253,4 @@ echo "Info:"
 echo "For transfering images bigger as usual one must do it this way:"
 echo "ssh -t jpascher,speedlinux@shell.sourceforge.net create"
 echo "sf-help aufrufen und Port und Adressen nachsehen die dann in WinSCP fuer die Verbindung verwendet werden."
+sleep 5

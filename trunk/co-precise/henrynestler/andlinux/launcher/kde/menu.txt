@@ -1,0 +1,27 @@
+Konsole;konsole.ico;konsole
+Dolphin;dolphin.ico;dolphin
+Kate;kate.ico;kate
+-
+Konqueror;konqueror.ico;konqueror
+KMail;kmail.ico;kmail
+KOrganizer;korganizer.ico;korganizer
+Kontact;kontact.ico;kontact
+-
+KWord;kword.ico;kword
+KSpread;kspread.ico;kspread
+KPresenter;kpresenter.ico;kpresenter
+Kexi;kexi.ico;kexi
+Kivio;kivio.ico;kivio
+Karbon;karbon.ico;karbon
+Krita;krita.ico;krita
+KPlato;kplato.ico;kplato
+KChart;kchart.ico;kchart
+Kugar;kugar.ico;kugar
+-
+Kile;kile.ico;kile
+-
+PulseAudio Mixer;volume.ico;pavucontrol
+KSysGuard;ksysguard.ico;ksysguard
+System Settings;systemsettings.ico;systemsettings
+Synaptic;synaptic.ico;kdesudo synaptic
+Root-Shell;konsole.ico;kdesudo konsole

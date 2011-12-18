@@ -14,8 +14,8 @@
   !define ALL_USERS
   !include WriteEnvStr.nsh
   !define REGKEY "SOFTWARE\$(^Name)"
-;  SetCompressor /SOLID lzma
-;#getcolinux versio
+  SetCompressor /SOLID lzma
+  ;getcolinux versio
   !include "coLinux_def.inc"
   !define PUBLISHER "freetzlinux.sourceforge.net"
   !define DOCU "http://wiki.ip-phone-forum.de/skript:installing_freetzlinux"
@@ -553,7 +553,11 @@ Section "Install Launcher dirctory" SecLauncher
    File "premaid\Launcher\dolphin.ico"
    File "premaid\Launcher\gwenview.ico"
    File "premaid\Launcher\kate.ico"
+   File "premaid\Launcher\sublime.ico"
+   File "premaid\Launcher\scite.ico"
+   File "premaid\Launcher\firefox.ico"
    File "premaid\Launcher\kile.ico"
+   File "premaid\Launcher\xfce4.ico"
    File "premaid\Launcher\konsole.ico"
    File "premaid\Launcher\kplato.ico"
    File "premaid\Launcher\ksysguard.ico"
@@ -638,7 +642,7 @@ Function PageFileSystem
 
   Pop $R0
 
-  !insertmacro MUI_HEADER_TEXT "Setup RAM and File System options" "(setup default 'settings.txt')"
+  !insertmacro MUI_HEADER_TEXT "Setup RAM and File System options" "(setup default)"
   nsDialogs::Create /NOUNLOAD 1018
   Pop $FS_Dialog
   ${If} $FS_Dialog == error
@@ -736,7 +740,7 @@ Function PageShares
     Abort
   ${EndIf}
 
-  ${NSD_CreateLabel} 0 0% 100% 24u "Please fill in the following fields, passwords are needed! Enter Windows username and password only if, SAMBA will be used. (SAMBA needs more, reed help)"
+  ${NSD_CreateLabel} 0 0% 100% 24u "Please fill in the following fields, passwords are needed! Enter Windows username and password only if, Samba mount on /mnt/win should be used. (Samba is usabel with konquerer or other GUI tools without this values set here.)"
   Pop $NW_Label
 
 ;  ${NSD_CreateLabel} 0 20% 50% 12u "Shared Folder (DOS8.3 names, eg: C:\)"
@@ -1028,7 +1032,8 @@ SectionGroup "Shortcuts" Shortcuts
 SectionGroupEnd
 
 
-Section /o "Desktop KDE Launcher Menue Shortcuts" DescMenueShortcuts
+;Section /o "Desktop Launcher Menue Shortcuts" LauncherShortcuts
+Section  "Desktop Launcher Menu Shortcuts" LauncherShortcuts
   SetOutPath -
   StrCpy $LAUNCHER_Value "yes"
   File scripts\andlinux.ico
@@ -1066,14 +1071,7 @@ Section "XMing" XMing
   FileClose $0
 SectionEnd
 
-# Defines must sync with entries in file iDl.ini
-!define IDL_NOTHING 1
-!define IDL_ARCHLINUX 2
-!define IDL_DEBIAN 3
-!define IDL_FEDORA 4
-!define IDL_GENTOO 5
-!define IDL_UBUNTU 6
-!define IDL_LOCATION 7
+# Feld X parameter must sync with entries in file iDl.ini
 Var Zipfile_name
 
 Section "-Root Filesystem image Download" SeccoLinuxImage
@@ -1081,27 +1079,31 @@ Section "-Root Filesystem image Download" SeccoLinuxImage
    ; Random sourceforge download
     ;Read a value from an InstallOptions INI file and set the filenames
 
-    !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field ${IDL_NOTHING}" "State"
+    !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field 2" "State"
     StrCmp $R1 "1" End
 
-    !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field ${IDL_ARCHLINUX}" "State"
-    StrCpy $R0 "base-200-10-11-11.7z"
+    !insertmacro MUI_INSTALLOPTIONS_READ $R0 "iDl.ini" "Field 3" "Name"
+    !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field 3" "State"
     StrCmp $R1 "1" tryDownload
 
-    !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field ${IDL_DEBIAN}" "State"
-    StrCpy $R0 "base-800-28-11-2011.7z"
+    !insertmacro MUI_INSTALLOPTIONS_READ $R0 "iDl.ini" "Field 5" "Name"
+    !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field 5" "State"
     StrCmp $R1 "1" tryDownload
 
-    !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field ${IDL_FEDORA}" "State"
-    StrCpy $R0 "base-100-11.10-111214.7z"
+    !insertmacro MUI_INSTALLOPTIONS_READ $R0 "iDl.ini" "Field 7" "Name"
+    !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field 7" "State"
     StrCmp $R1 "1" tryDownload
 
-    !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field ${IDL_GENTOO}" "State"
-    StrCpy $R0 "base-500-9-04-111206.7z"
+    !insertmacro MUI_INSTALLOPTIONS_READ $R0 "iDl.ini" "Field 9" "Name"
+    !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field 9" "State"
     StrCmp $R1 "1" tryDownload
 
-    !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field ${IDL_UBUNTU}" "State"
-    StrCpy $R0 "base-900-ubuntu-9.04-111201.7z"
+    !insertmacro MUI_INSTALLOPTIONS_READ $R0 "iDl.ini" "Field 11" "Name"
+    !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field 11" "State"
+    StrCmp $R1 "1" tryDownload
+
+    !insertmacro MUI_INSTALLOPTIONS_READ $R0 "iDl.ini" "Field 13" "Name"
+    !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field 13" "State"
     StrCmp $R1 "1" tryDownload
     GoTo End
 
@@ -1110,7 +1112,7 @@ Section "-Root Filesystem image Download" SeccoLinuxImage
     ;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     StrCpy $R1 "speedlinux" ; project name on sorceforge net
 
-    !insertmacro MUI_INSTALLOPTIONS_READ $LOCATION "iDl.ini" "Field ${IDL_LOCATION}" "State"
+    !insertmacro MUI_INSTALLOPTIONS_READ $LOCATION "iDl.ini" "Field 16" "State"
     StrCmp $LOCATION "SourceForge defaults" SFdefault  ;This is the preferred way and counts the stats
     StrCmp $LOCATION "Asia" Asia
     StrCmp $LOCATION "Australia" Australia
@@ -1202,7 +1204,7 @@ Function StartDlImageFunc
   IntOp $R0 $R0 & ${SF_SELECTED}
   IntCmp $R0 ${SF_SELECTED} "" ImageEnd ImageEnd
 
-  !insertmacro MUI_HEADER_TEXT "Obtain a speedLinux root file system image" "Choose a location"
+  !insertmacro MUI_HEADER_TEXT "Obtain a speedLinux root file system image" "Choose a Ubuntu version."
   !insertmacro MUI_INSTALLOPTIONS_DISPLAY "iDl.ini"
 
   ImageEnd:
@@ -1490,6 +1492,7 @@ SectionEnd
   LangString DESC_SeccoLinuxDebug ${LANG_ENGLISH} "Debugging allows to create extensive debug log for troubleshooting problems"
   LangString DESC_SecImage ${LANG_ENGLISH} "Download an image from sourceforge. Also provide useful links on how to use it"
   LangString DESC_Shortcuts ${LANG_ENGLISH} "Standard useful start menu shortcuts.  They're useful."
+  LangString DESC_LauncherShortcuts ${LANG_ENGLISH} "Not all shortcuts may be functional, you may install progam's on linux or edit /Launcher/menu.txt"
   LangString DESC_Putty ${LANG_ENGLISH} "Free implementation of Telnet and SSH to work with coLinux."
   LangString DESC_WinPcap ${LANG_ENGLISH} "Allow coLinux to access the network."
   LangString DESC_XMing ${LANG_ENGLISH} "Display graphical programs under coLinux in your Windows environment."
@@ -1509,6 +1512,7 @@ SectionEnd
     !insertmacro MUI_DESCRIPTION_TEXT ${SeccoLinuxDebug} $(DESC_SeccoLinuxDebug)
     !insertmacro MUI_DESCRIPTION_TEXT ${SeccoLinuxImage} $(DESC_SecImage)
     !insertmacro MUI_DESCRIPTION_TEXT ${Shortcuts} $(DESC_Shortcuts)
+    !insertmacro MUI_DESCRIPTION_TEXT ${LauncherShortcuts} $(DESC_LauncherShortcuts)
     !insertmacro MUI_DESCRIPTION_TEXT ${Putty} $(DESC_Putty)
     !insertmacro MUI_DESCRIPTION_TEXT ${WinPcap} $(DESC_WinPcap)
     !insertmacro MUI_DESCRIPTION_TEXT ${XMing} $(DESC_XMing)
@@ -1708,6 +1712,9 @@ no_old_linux:
   Delete "$INSTDIR\Launcher\gwenview.ico"
   Delete "$INSTDIR\Launcher\kate.ico"
   Delete "$INSTDIR\Launcher\kile.ico"
+  Delete "$INSTDIR\Launcher\sublime.ico"
+  Delete "$INSTDIR\Launcher\scite.ico"
+  Delete "$INSTDIR\Launcher\firefox.ico"
   Delete "$INSTDIR\Launcher\konsole.ico"
   Delete "$INSTDIR\Launcher\kplato.ico"
   Delete "$INSTDIR\Launcher\ksysguard.ico"
@@ -1717,6 +1724,7 @@ no_old_linux:
   Delete "$INSTDIR\Launcher\systemsettings.ico"
   Delete "$INSTDIR\Launcher\thunar.ico"
   Delete "$INSTDIR\Launcher\xfce4_terminal.ico"
+  Delete "$INSTDIR\Launcher\xfce4.ico"
 
   RMDir /r "$INSTDIR\tuntap"
   RMDir /r "$INSTDIR\Launcher"

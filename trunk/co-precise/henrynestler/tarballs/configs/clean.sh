@@ -1,5 +1,9 @@
 #!/bin/bash
 echo 	"- Clean *.log files (don't remove files! Set the size to zero.)"
+rm -vr /home/*/.cache/*
+rm -vr /root/.cache/*
+chmod 777 /home
+chmod 777 /root
 DIRS="$(ls -d */ | grep -v 'mnt')"
 #echo "Directorys: $DIRS"
 find $DIRS -name \*.log  -type f -print
@@ -39,4 +43,4 @@ echo "zero space - be patient ..."
 dd if=/dev/zero of=file.z
 #cat /dev/zero > file.z
 rm -v file.z
-sleep 10
+sleep 5

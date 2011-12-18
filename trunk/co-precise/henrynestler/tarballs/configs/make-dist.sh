@@ -6,8 +6,8 @@ echo "Make Distribution ----->"
 VER="karmic" # this works
 VER="jaunty"
 VER="lucid" # problems with udev
-VER="precise"
 VER="oneiric"
+VER="precise"
 apt-get update
 apt-get upgrade
 apt-get install debootstrap
@@ -27,7 +27,6 @@ cp /etc/rc.local /image/etc/rc.local
 cp /etc/profile /image/etc/profile
 cp /etc/mount_all /image/etc/mount_all
 #bug -- rsyslog blocks cpu
-rm -f /image/etc/init/rsyslog.conf
 rm -f /image/etc/init/plymouth*
 rm -f /image/etc/init/udev-fallback*
 rm -f /image/etc/init/rsyslog*
@@ -59,12 +58,13 @@ EOF
 cat <<EOSF >/image/setup-minimal.sh
 #!/bin/bash
 mkdir /mnt/and
+chmod 777 /root
+chmod 777 /home
 #upstart jobs verhindern
 ##dpkg-divert --local --rename --add /sbin/initctl
 ##ln -s /bin/true /sbin/initctl
 #https://help.ubuntu.com/community/DebootstrapChroot
 #[ you may use aptitude, install mc and vim ... ]
-
 apt-get install ubuntu-minimal
 apt-get update
 #apt-get upgrade
@@ -73,12 +73,27 @@ apt-get install pump
 apt-get install synaptic
 apt-get install mc
 apt-get install sux
+apt-get install ssh
+apt-get install scite
 apt-get install sudo
+
+apt-get install xfce4-panel
+apt-get install xfce4-terminal
+apt-get install xfce4-taskmanager
+apt-get install xfce4-utils
+apt-get install xfce4-settings
+apt-get install thunar
+apt-get install xfce4-notes
+apt-get install xfce4-volumed
+apt-get install xfce4-appfinder
+apt-get install xfce4-artwork
+
+#sleep 10
 #apt-get install konsole
 # make dev if not existant
 for i in 0 1 2 3 4 5 6 7 8 9
 do
-      mknod /image/dev/cobd\$i b 117 \$i
+      mknod /dev/cobd$i b 117 $i
 done
 EOSF
 chmod 777 /image/setup-minimal.sh

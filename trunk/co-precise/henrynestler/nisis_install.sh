@@ -6,15 +6,17 @@
 echo "----------------------------------------------------"
 echo "Installs: nsis, zlib, scons, python, and g++"
 echo "----------------------------------------------------"
-
-wget --output-document="nsis-2.42.zip" "http://kent.dl.sourceforge.net/sourceforge/nsis/nsis-2.42.zip"
-wget --output-document="nsis-2.42-src.tar.bz2" "http://kent.dl.sourceforge.net/sourceforge/nsis/nsis-2.42-src.tar.bz2"
+VERSION=2.42
+VERSION=2.46
+wget --output-document="nsis-${VERSION}.zip" "http://kent.dl.sourceforge.net/sourceforge/nsis/nsis-${VERSION}.zip"
+wget --output-document="nsis-${VERSION}-src.tar.bz2" "http://kent.dl.sourceforge.net/sourceforge/nsis/nsis-${VERSION}-src.tar.bz2"
 mkdir -p /usr/local/nsis
-mv nsis-2.42-src.tar.bz2 /usr/local/nsis/
-mv nsis-2.42.zip /usr/local/nsis/
+mv nsis-${VERSION}-src.tar.bz2 /usr/local/nsis/
+mv nsis-${VERSION}.zip /usr/local/nsis/
 cd /usr/local/nsis
-tar -jxvf nsis-2.42-src.tar.bz2
-unzip nsis-2.42.zip
+tar -jxvf nsis-${VERSION}-src.tar.bz2
+sudo apt-get install unzip
+unzip nsis-${VERSION}.zip
 sudo apt-get install p7zip-full
 sudo apt-get install build-essential g++
 ##sudo apt-get install libcompress-zlib-perl
@@ -29,19 +31,18 @@ cd ..
 #####apt-get install scons 
 #####apt-get remove --purge scons
 
-cd /usr/local/nsis/nsis-2.42-src
-scons SKIPSTUBS=all SKIPPLUGINS=all SKIPUTILS=all SKIPMISC=all NSIS_CONFIG_CONST_DATA=no PREFIX=/usr/local/nsis/nsis-2.42 install-compiler
-cp /usr/local/nsis/nsis-2.42/bin/* /usr/bin
+cd /usr/local/nsis/nsis-${VERSION}-src
+scons SKIPSTUBS=all SKIPPLUGINS=all SKIPUTILS=all SKIPMISC=all NSIS_CONFIG_CONST_DATA=no PREFIX=/usr/local/nsis/nsis-${VERSION} install-compiler
+cp /usr/local/nsis/nsis-${VERSION}/bin/* /usr/bin
 
-#
-mkdir -p /usr/local/nsis/nsis-2.42/share
-cd /usr/local/nsis/nsis-2.42/share
-ln -s /usr/local/nsis/nsis-2.42 nsis
+mkdir -p /usr/local/nsis/nsis-${VERSION}/share
+cd /usr/local/nsis/nsis-${VERSION}/share
+ln -s /usr/local/nsis/nsis-${VERSION} nsis
 #remove source
-rm /usr/local/nsis/nsis-2.42-src.tar.bz2
-rm /usr/local/nsis/nsis-2.42.zip 
-rm scons-1.2.0.tar.gz
-rm -dr scons-1.2.0
+sudo rm /usr/local/nsis/nsis-${VERSION}-src.tar.bz2
+sudo rm /usr/local/nsis/nsis-${VERSION}.zip
+sudo rm -rf /usr/local/nsis/nsis-${VERSION}-src
+sudo rm -f /usr/local/nsis/*.gz
 exit
 
 

@@ -1,0 +1,195 @@
+
+
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int nCmdShow)
+{
+	char buffer[256], *cmd_ptr;
+	int res, tmp;
+	DWORD dwSize, dwType;
+	HKEY hKey;
+
+	if(RegOpenKeyEx(HKEY_LOCAL_MACHINE, "SOFTWARE\\andLinux\\Launcher", 0, KEY_READ, &hKey) == ERROR_SUCCESS)
+	{
+		dwSize = sizeof(buffer);
+		if(RegQueryValueEx(hKey, "IP", NULL, &dwType, (LPBYTE)buffer, &dwSize) == ERROR_SUCCESS && dwType == REG_SZ && dwSize < 20)
+		{
+			buffer[dwSize] = '\0'; // not automatically appended by RegQueryValueEx if missing
+			strcpy(g_andLinuxIP, buffer);
+		}
+		else
+			strcpy(g_andLinuxIP, "192.168.11.150");
+
+		dwSize = sizeof(int);
+		if(RegQueryValueEx(hKey, "Port", NULL, &dwType, (LPBYTE)&tmp, &dwSize) == ERROR_SUCCESS && dwType == REG_DWORD)
+			g_andLinuxPort = tmp;
+		else
+			g_andLinuxPort = 2081;
+
+		RegCloseKey(hKey);
+	}
+	else
+	{
+		strcpy(g_andLinuxIP, "192.168.11.150");
+		g_andLinuxPort = 2081;
+	}
+
+#ifdef COMMAND_AS_ARG
+	res = launch(lpszCmdLine, "");
+#else
+#ifdef USERDEF_APP
+	// first arg = command, remaining args = new command line
+	cmd_ptr = lpszCmdLine;
+	if(cmd_ptr[0] == '"')
+	{
+		// first arg ends at first non-escaped quote followed by blank (or string end)
+		while((cmd_ptr[0] != '"' || (((char*)(cmd_ptr-sizeof(char)))[0] == '\\' || ((char*)(cmd_ptr+sizeof(char)))[0] != ' ')) && cmd_ptr[0] != '\0')
+			cmd_ptr += sizeof(char);
+		if(cmd_ptr[0] == '\0')
+			res = launch((char*)(lpszCmdLine+sizeof(char)), "");
+		else
+		{
+			cmd_ptr[0] = '\0';
+			cmd_ptr += sizeof(char);
+			cmd_ptr += sizeof(char); // skip over space
+			res = launch((char*)(lpszCmdLine+sizeof(char)), cmd_ptr);
+		}
+	}
+	else
+	{
+		// no quotes => first arg ends at first space or string end
+		while(cmd_ptr[0] != ' ' && cmd_ptr[0] != '\0')
+			cmd_ptr += sizeof(char);
+		if(cmd_ptr[0] == '\0')
+			res = launch(lpszCmdLine, "");
+		else
+		{
+			cmd_ptr[0] = '\0';
+			cmd_ptr += sizeof(char);
+			res = launch(lpszCmdLine, cmd_ptr);
+		}
+	}
+#else
+	res = launch(g_command, lpszCmdLine);
+#endif
+#endif
+	if(res != 0)
+	{
+		if(res == 7)
+			snprintf(buffer, 256, "%s%s%s%s:%d", STR_ERROR_LAUNCH_PART1, g_progName, STR_ERROR_LAUNCH_PART2b, g_andLinuxIP, g_andLinuxPort);
+		else
+			snprintf(buffer, 256, "%s%s%s%d", STR_ERROR_LAUNCH_PART1, g_progName, STR_ERROR_LAUNCH_PART2a, res);
+		MessageBox(NULL, buffer, g_progName, MB_ICONERROR | MB_TASKMODAL | MB_TOPMOST);
+		exit(1);
+	}
+
+	return 0;
+}
+
+void sockCleanup(SOCKET sock)
+{
+	if(sock != INVALID_SOCKET)
+		closesocket(sock);
+	
+	WSACleanup();
+}
+
+int launch(char *cmd, char *file)
+{
+	char buffer[1024], request[1024], response[256];
+	int bytesRead, offset, retVal, timeOut;
+	struct sockaddr_in dst;
+	SOCKET sock;
+	WSADATA wsaData;
+
+	// Initialize WinSock 2.0
+	retVal = WSAStartup(MAKEWORD(2, 0), &wsaData);
+	if(retVal != 0)
+		return 1;
+	if(LOBYTE(wsaData.wVersion) != 2)
+		return 2;
+	if(HIBYTE(wsaData.wVersion) != 0)
+		return 3;
+
+	// Set up destination address
+	dst.sin_family = AF_INET;
+	dst.sin_addr.s_addr = inet_addr(g_andLinuxIP);
+	dst.sin_port = htons(g_andLinuxPort);
+
+	// Set up socket
+	sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if(sock == INVALID_SOCKET)
+	{
+		sockCleanup(sock);
+		return 4;
+	}
+
+	// Set socket options
+	timeOut = 10000; // 130s
+	retVal = setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (char*)&timeOut, sizeof(int));
+	if(retVal != 0)
+	{
+		sockCleanup(sock);
+		return 5;
+	}
+
+	timeOut = 10000; // 10s
+	retVal = setsockopt(sock, SOL_SOCKET, SO_SNDTIMEO, (char*)&timeOut, sizeof(int));
+	if(retVal != 0)
+	{
+		sockCleanup(sock);
+		return 6;
+	}
+
+	// Connect the socket
+	retVal = connect(sock, (struct sockaddr*)&dst, sizeof(struct sockaddr_in));
+	if(retVal != 0)
+	{
+		sockCleanup(sock);
+		return 7;
+	}
+
+	// Send request
+	snprintf(request, 1024, "cmd=%s&file=%s\n", cmd, file);
+	retVal = send(sock, request, strlen(request), 0);
+	if(retVal < 0 || (unsigned int)retVal != strlen(request))
+	{
+		sockCleanup(sock);
+		return 8;
+	}
+	
+	// Receive response
+	offset = 0;
+	memset(response, 0, 256);
+	do
+	{
+		bytesRead = recv(sock, buffer, 1024, 0);
+		if(bytesRead < 0) // 0 if connection gracefully closed
+		{
+			sockCleanup(sock);
+			return 9;
+		}
+
+		if(offset < 256)
+		{
+			if(256 - offset < bytesRead)
+			{
+				memcpy(response+offset, buffer, 256-offset);
+				offset = 256;
+			}
+			else
+			{
+				memcpy(response+offset, buffer, bytesRead);
+				offset += bytesRead;
+			}
+		}
+	} while(bytesRead > 0); // leaves the loop when connection gracefully closed
+	response[(offset >= 256 ? 255 : offset)] = '\0';
+
+	if(strncmp(response, "ok", 2) != 0)
+	{
+		sockCleanup(sock);
+		return 10;
+	}
+
+	sockCleanup(sock);
+	return 0;
+}
