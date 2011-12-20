@@ -1,6 +1,0 @@
-Terminal;xfce4_terminal.ico;xfce4-terminal
-Thunar;thunar.ico;thunar
-Mousepad;mousepad.ico;mousepad
--
-PulseAudio Mixer;volume.ico;pavucontrol
-Synaptic;synaptic.ico;xfce4-terminal -e "sudo synaptic"

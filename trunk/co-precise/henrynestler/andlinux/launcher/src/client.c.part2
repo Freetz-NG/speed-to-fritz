@@ -1,9 +1,0 @@
-
-
-void sockCleanup(SOCKET);
-int launch(char*, char*);
-
-
-char g_andLinuxIP[20];
-int g_andLinuxPort;
-
