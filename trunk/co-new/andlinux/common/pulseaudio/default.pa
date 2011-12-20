@@ -1,0 +1,5 @@
+load-module module-esound-protocol-tcp auth-anonymous=1
+load-module module-native-protocol-tcp auth-anonymous=1
+load-module module-cli
+load-module module-waveout record=0
+.nofail

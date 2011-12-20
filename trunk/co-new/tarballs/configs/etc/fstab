@@ -1,0 +1,7 @@
+# /etc/fstab: static file system information.
+#
+# <file system>	<mount point>	<type>	<options>			<dump>	<pass>
+proc		/proc		proc	defaults			0	0
+#/dev/cobd0	/		ext3	defaults			1	1
+/dev/cobd1	none		swap	sw 				0	0
+#dont add here use settings.txt, witch is processed by /etc/mount_all

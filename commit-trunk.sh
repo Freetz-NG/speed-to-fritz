@@ -25,15 +25,15 @@ date=$(date +%Y%m%d-%H%M)
 #svn delete --force ./getversion.patch
 #svn delete --force ./getprodukt.patch
 #svn delete --force ./includefunctions.patch
-svn delete --force ./patch.diff
-svn delete --force ./trunk/patch.diff
-svn delete --force ./trunk/co-precise
+#svn delete --force ./patch.diff
+#svn delete --force ./trunk/patch.diff
+#svn delete --force ./trunk/co-precise
 #svn add * --force
 #svn propedit svn:ignore trunk
 #svn propedit svn:ignore .
 
 #svn revert
-#svn add * --force
+svn add * --force
 
 svn status
 svn diff > ../patch.diff
