@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* Update speedlinux installer"
+comment="* Delete obsolete parts"
 
 
 
@@ -25,7 +25,11 @@ date=$(date +%Y%m%d-%H%M)
 #svn delete --force ./getversion.patch
 #svn delete --force ./getprodukt.patch
 #svn delete --force ./includefunctions.patch
-#svn delete --force ./patch.diff
+svn delete --force ./trunk/backup
+svn delete --force ./trunk/co
+svn delete --force ./trunk/Kernel-2.6.32
+svn delete --force ./trunk/patch_recover
+
 #svn delete --force ./trunk/patch.diff
 #svn delete --force ./trunk/co_new/tarballs/configs/etc/failsave.conf
 #svn add * --force
@@ -33,7 +37,7 @@ date=$(date +%Y%m%d-%H%M)
 #svn propedit svn:ignore .
 
 #svn revert
-svn add * --force
+#svn add * --force
 
 svn status
 svn diff > ../patch.diff

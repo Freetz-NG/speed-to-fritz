@@ -1,6 +1,0 @@
-#! /bin/sh
-maxblocks=50 				# 50 blocks ~ 50 k
-rm -rf /var/tmp/tmps2ftmp.tar
-tar cf /var/tmp/tmps2ftmp.tar -C /var/tmp/s2f/ . 
-blocksize=`ls -s /var/tmp/tmps2ftmp.tar | tr -d ' ' | sed 's%/var/tmp/tmps2ftmp.tar%%'`
-[ $blocksize -le $maxblocks ] && cat /var/tmp/tmps2ftmp.tar > /var/flash/s2f || echo "Sorry, /var/tmp/tmps2ftmp.tar exeeds $maxblocks blocks. Saving failed!!"
