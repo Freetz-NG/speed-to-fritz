@@ -26,10 +26,6 @@ cp /etc/network/interfaces /image/etc/network/interfaces
 cp /etc/rc.local /image/etc/rc.local
 cp /etc/profile /image/etc/profile
 cp /etc/mount_all /image/etc/mount_all
-#bug -- rsyslog blocks cpu
-rm -f /image/etc/init/plymouth*
-rm -f /image/etc/init/udev-fallback*
-rm -f /image/etc/init/rsyslog*
 
 cat <<EOF >> /image/etc/apt/sources.list
 # Ubuntu supported packages (packages, GPG key: 437D05B5)
@@ -88,13 +84,13 @@ apt-get install xfce4-volumed
 apt-get install xfce4-appfinder
 apt-get install xfce4-artwork
 
-#sleep 10
-#apt-get install konsole
-# make dev if not existant
-for i in 0 1 2 3 4 5 6 7 8 9
-do
-      mknod /dev/cobd$i b 117 $i
-done
+#bug -- rsyslog blocks cpu
+rm -f /etc/init/plymouth*
+rm -f /etc/init/udev-fallback*
+rm -f /etc/init/rsyslog*
+#disable presistant entrys for net
+rm -f /etc/udev/rules.d/*.rules
+sed -i "s/write_rule /#write_rule /g" /lib/udev/write_net_rules
 EOSF
 chmod 777 /image/setup-minimal.sh
 echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
@@ -113,7 +109,10 @@ users=freetz
 EOSF
 #----
 schroot -c ${VER}_i386 -u root -- /setup-minimal.sh
+sync
+
 schroot -c ${VER}_i386 -u root -- /clean.sh
+sync
 
 schroot -c ${VER}_i386 -u root
 sync

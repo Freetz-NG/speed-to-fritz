@@ -1,4 +1,14 @@
 #!/bin/bash -x
+if ! [ `id -u` -eq 0 ]; then
+ clear
+  echo
+  echo "This script needs to be executed with 'su' privileges."
+  echo 
+  echo "Use ./m.sh instead!"
+  sleep 10
+  exit 0
+fi
+
 set -e
 cd ${0%/*}
 echo

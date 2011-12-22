@@ -39,6 +39,15 @@ mkdir -p /var/cache/apt/archives/partial
 sudo apt-get autoremove -y
 sudo apt-get autoclean -y
 sudo apt-get clean -y
+
+#bug -- rsyslog blocks cpu
+rm -f /etc/init/plymouth*
+rm -f /etc/init/udev-fallback*
+rm -f /etc/init/rsyslog*
+#disable presistant entrys for net
+rm -f /etc/udev/rules.d/*.rules
+sed -i "s/write_rule /#write_rule /g" /lib/udev/write_net_rules
+
 echo "zero space - be patient ..."
 dd if=/dev/zero of=file.z
 #cat /dev/zero > file.z
