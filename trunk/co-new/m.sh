@@ -11,5 +11,5 @@ if [ `id -u` -eq 0 ]; then
 fi
 echo "-------------------------------------------------------------------------------------------------------------"
 #sudo sh -c './nisis_install.sh'
-sudo sh -c './make_release.sh'
+sudo sh -c './make-release.sh'
 sleep 20

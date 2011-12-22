@@ -128,7 +128,7 @@ Var FS_FORMATIEREN_Value
 AllowRootDirInstall true
 
 !define MUI_PAGE_HEADER_TEXT "Setup shared Folder"
-!define MUI_PAGE_HEADER_SUBTEXT "Sets entry in settings.txt for cofs if no windows user was spacified."
+!define MUI_PAGE_HEADER_SUBTEXT "Sets entry in settings.txt and firstboot.1.txt"
 !define MUI_DIRECTORYPAGE_TEXT_DESTINATION "Shared folder selection, this selection is used for cofs or samba."
 !define MUI_DIRECTORYPAGE_TEXT_TOP "Please select a shared folder 'Freigabe' within windows, you must setup a windows user with password for this folder first!"
 !define MUI_DIRECTORYPAGE_VARIABLE      $NW_COFSPFAD_Value
@@ -686,7 +686,7 @@ Function PageNetworking
     StrCpy $NW_COM_Value "COM1"
   ${EndIf}
 
-  !insertmacro MUI_HEADER_TEXT "Setup Networking and Serial options" "(setup default 'settings.txt')"
+  !insertmacro MUI_HEADER_TEXT "Setup Networking and Serial options" "(setup options are stored in 'settings.txt')"
   nsDialogs::Create /NOUNLOAD 1018
   Pop $NW_Dialog
   ${If} $NW_Dialog == error
@@ -733,14 +733,14 @@ Function PageShares
     StrCpy $NW_SAMBAUSERPW_Value ""
   ${EndIf}
 
-  !insertmacro MUI_HEADER_TEXT "LINUX and Windows acount" " (Windows 'Freigabe' (Shared) User acount)"
+  !insertmacro MUI_HEADER_TEXT "LINUX and Windows acount" " (Windows 'Freigabe' is a shared folder with user acount)"
   nsDialogs::Create /NOUNLOAD 1018
   Pop $NW_Dialog
   ${If} $NW_Dialog == error
     Abort
   ${EndIf}
 
-  ${NSD_CreateLabel} 0 0% 100% 24u "Please fill in the following fields, passwords are needed! Enter Windows username and password only if, Samba mount on /mnt/win should be used. (Samba is usabel with konquerer or other GUI tools without this values set here.)"
+  ${NSD_CreateLabel} 0 0% 100% 24u "Please fill in the following fields, passwords are needed! Enter Windows username and password only, if SAMBA mount on /mnt/win should be used. (SAMBA is usabel with konqueror or other GUI tools without values entered here.)"
   Pop $NW_Label
 
 ;  ${NSD_CreateLabel} 0 20% 50% 12u "Shared Folder (DOS8.3 names, eg: C:\)"
