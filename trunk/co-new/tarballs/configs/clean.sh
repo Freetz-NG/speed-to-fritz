@@ -47,6 +47,14 @@ rm -f /etc/init/rsyslog*
 #disable presistant entrys for net
 rm -f /etc/udev/rules.d/*.rules
 sed -i "s/write_rule /#write_rule /g" /lib/udev/write_net_rules
+echo " * Initializing swap file: /dev/1"
+for i in 0 1 2 3 4 5 6 7 8 9
+do
+ mknod /dev/cobd$i b 117 $i 2> /dev/null
+done
+swapoff /dev/1
+mkswap /dev/1
+swapon /dev/1
 
 echo "zero space - be patient ..."
 dd if=/dev/zero of=file.z

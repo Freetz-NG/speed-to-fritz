@@ -60,7 +60,7 @@ done
 [ -z "$DISPLAY" ] && echo -e "Kernelparameter DISPLAY is missing (set it via $INSTALLDIR/startup.bat).
 or Login with SSH and check the ip of host with command 'set | grep SSH_CLIENT'
 Use the shown ip address from above in the DISPLAY
-Call for example 'DISPLAY=192.168.11.1:0.0 && terminal" && DISPLAY=192.168.11.1
+Call for example 'DISPLAY=192.168.0.1:0.0 && terminal" && DISPLAY=192.168.0.1
 
 export ESPEAKER=${DISPLAY}:16001
 export ESPEAKER=${DISPLAY}:16001

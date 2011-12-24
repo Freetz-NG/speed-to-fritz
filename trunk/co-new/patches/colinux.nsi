@@ -5,7 +5,7 @@
 ;Modified 4/20/2008 by Henry Nestler
 
 ;-------------------------------------
-;Modified 12/06/2008, 4/1/2010, 19/11/20011 by Johann Pascher
+;Modified 12/06/2008, 4/1/2010, 19/11/20011  by Johann Pascher
 
   !include "MUI.nsh"
   !include "MUI2.nsh"
@@ -21,7 +21,8 @@
   !define DOCU "http://wiki.ip-phone-forum.de/skript:installing_freetzlinux"
 
   ;General
-  Name "Cooperative Linux ${VERSION}"
+;  Name "Cooperative Linux ${VERSION}"
+  Name "SpeedLinux ${SPEEDLINUX_VER}"
   OutFile "speedLinux.exe"
 
   ;ShowInstDetails show
@@ -37,8 +38,10 @@
 
   VIAddVersionKey ProductName "speedLinux"
   VIAddVersionKey CompanyName "${PUBLISHER}"
-  VIAddVersionKey ProductVersion "${VERSION}"
-  VIAddVersionKey FileVersion "${VERSION}"
+;  VIAddVersionKey ProductVersion "${VERSION}"
+;  VIAddVersionKey FileVersion "${VERSION}"
+  VIAddVersionKey ProductVersion "${SPEEDLINUX_VER}"
+  VIAddVersionKey FileVersion "${SPEEDLINUX_VER}"
   VIAddVersionKey FileDescription "An optimized virtual Linux system for Windows"
   VIAddVersionKey LegalCopyright "Copyright @ 2004-2012 ${PUBLISHER}"
   VIProductVersion "${LONGVERSION}"
@@ -97,16 +100,18 @@ Var FS_FORMATIEREN_Value
 
   !define MUI_HEADERIMAGE
   !define MUI_HEADERIMAGE_BITMAP "header.bmp"
+  !define MUI_WELCOMEFINISHPAGE_BITMAP "Bild.bmp"
   !define MUI_SPECIALBITMAP "startlogo.bmp"
 
   !define MUI_COMPONENTSPAGE_SMALLDESC
 
-  !define MUI_WELCOMEPAGE_TITLE "Welcome to the speedLinux ${VERSION} Setup Wizard"
-  !define MUI_WELCOMEPAGE_TEXT "This wizard will guide you through the update to speedLinux, \
-  Linux image must be special ubuntu pricise, is not included with this installation! \r\n\r\n \
-  This installation is basically a Cooperative Linux ${VERSION}. \r\n\r\n \
-  $_CLICK"
+  !define MUI_WELCOMEPAGE_TITLE "Welcome to the speedLinux ${SPEEDLINUX_VER} Setup Wizard"
 
+  !define MUI_WELCOMEPAGE_TEXT "This wizard will guide you through the update or installation of speedLinux \
+Update or installation is the same process, just re-invoke installation for a update, user data on image is not effected by the update process. \r\n\r\n \
+Linux image can be downloaded with this installation as well! \r\n\r\n \
+This installation is basically a Cooperative Linux ${VERSION}, plus Xming and PuTTY. \r\n\r\n \
+  $_CLICK"
   !insertmacro MUI_PAGE_WELCOME
 
   !insertmacro MUI_PAGE_LICENSE "..\..\..\..\..\..\COPYING"
@@ -330,7 +335,7 @@ procide:
   DeleteRegKey HKLM "SOFTWARE\andLinux\Launcher"
   DeleteRegKey HKLM "SOFTWARE\speedLinux\Launcher"
 
-  WriteRegStr HKLM ${REGUNINSTAL} "DisplayName" "speedLinux ${VERSION}"
+  WriteRegStr HKLM ${REGUNINSTAL} "DisplayName" "speedLinux ${SPEEDLINUX_VER}"
   WriteRegStr HKLM ${REGUNINSTAL} "UninstallString" '"$INSTDIR\Uninstall.exe"'
 #  WriteRegStr HKLM ${REGUNINSTAL} "DisplayIcon" "$INSTDIR\colinux-daemon.exe,0"
   WriteRegStr HKLM ${REGUNINSTAL} "DisplayIcon" "$INSTDIR\andlinux.ico"
@@ -654,8 +659,6 @@ Function PageFileSystem
   ${NSD_CreateText} 60% 2% 25% 12u $FS_RAM_Value
   Pop $FS_RAM_Text
 
-!ifndef BFIN_BASE
-
   ${NSD_CreateLabel} 0 25% 60% 24u "How much swap should speedlinux use? (in MB)$\r$\n  (recommend: min = RAM, optimal = 1.5xRAM)"
   Pop $FS_SWAP_Label
   ${NSD_CreateText} 60% 27% 25% 12u $FS_SWAP_Value
@@ -666,8 +669,6 @@ Function PageFileSystem
   ${NSD_CreateText} 60% 52% 25% 12u $FS_ROOT_Value
   Pop $FS_ROOT_Text
 
-!endif
-
   nsDialogs::Show
 FunctionEnd
 Function PageFileSystemLeave
@@ -676,13 +677,12 @@ Function PageFileSystemLeave
   ${NSD_GetText} $FS_ROOT_Text $FS_ROOT_Value
 FunctionEnd
 
-
 Function PageNetworking
 
   ${If} $NW_init == ""
     StrCpy $NW_init "yes"
-    StrCpy $NW_WinIP_Value "192.168.11.1"
-    StrCpy $NW_LinIP_Value "192.168.11.150"
+    StrCpy $NW_WinIP_Value "192.168.0.1"
+    StrCpy $NW_LinIP_Value "192.168.0.150"
     StrCpy $NW_COM_Value "COM1"
   ${EndIf}
 
@@ -693,27 +693,35 @@ Function PageNetworking
     Abort
   ${EndIf}
 
-  ${NSD_CreateLabel} 0 0% 100% 24u "Configure the network settings of the private TAP network tunnel for communication between Windows and speedLinux.  The default values are fine."
-  Pop $NW_Label
+  ${NSD_CreateLabel} 0 0% 100% 24u "Configure the network settings of the private TAP network tunnel for communication between Windows and speedLinux."
 
-  ${NSD_CreateLabel} 0 20% 50% 12u "Windows IP Address"
+  ${NSD_CreateLabel} 0 35% 50% 12u "Windows IP Address"
   Pop $NW_WinIP_Label
-  ${NSD_CreateText} 50% 20% 40% 12u $NW_WinIP_Value
+  ${NSD_CreateText} 50% 35% 40% 12u $NW_WinIP_Value
   Pop $NW_WinIP_Text
 
-  ${NSD_CreateLabel} 0 35% 50% 12u "Linux IP Address"
+  ${NSD_CreateLabel} 0 50% 50% 12u "Linux IP Address"
   Pop $NW_LinIP_Label
-  ${NSD_CreateText} 50% 35% 40% 12u $NW_LinIP_Value
+  ${NSD_CreateText} 50% 50% 40% 12u $NW_LinIP_Value
   Pop $NW_LinIP_Text
-
 
   ${NSD_CreateLabel} 0 80% 50% 12u "Serial Port Settings (Optional)"
   Pop $NW_COM_Label
   ${NSD_CreateText} 50% 80% 40% 12u $NW_COM_Value
   Pop $NW_COM_Text
 
+  ${NSD_CreateLink} 0 20% 100% 24u "Click here for Info on using WLAN for Internet. The default values are fine if LAN is in use."
+  Var /GLOBAL LINK
+  Pop $LINK
+  ${NSD_OnClick} $LINK onClickMyLink
+
   nsDialogs::Show
 
+FunctionEnd
+
+Function onClickMyLink
+ Pop $0
+  ExecShell "open" "http://wiki.ip-phone-forum.de/freetzlinux:network/#using_wlan_for_internet_connectivity"
 FunctionEnd
 
 Function PageNetworkingLeave
@@ -913,12 +921,12 @@ Section -CreateConfigFile
   FileWrite $0 "$\r$\n"
   FileWrite $0 "cobd0=Drives\base.vdi$\r$\n"
   FileWrite $0 "cobd1=Drives\swap.vdi$\r$\n"
-  FileWrite $0 "#------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 "# Samba mounts are done in [installdir]firstboot.1.txt or in \etc\mount_all$\r$\n"
-  FileWrite $0 "#------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 "#Filenames can be changed, only existing *.vdi's files will be mounted. $\r$\n"
-  FileWrite $0 "#cobd2 .. cobd9 may be used. $\r$\n"
-  FileWrite $0 "#------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "# Filenames can be changed, only existing *.vdi's files will be mounted. $\r$\n"
+  FileWrite $0 "# cobd2 .. cobd9 may be used. $\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 "cobd2=Drives\baseOri.vdi$\r$\n"
   FileWrite $0 "cobd3=Drives\baseOld.vdi$\r$\n"
   FileWrite $0 "cobd4=Drives\base910.vdi$\r$\n"
@@ -927,10 +935,10 @@ Section -CreateConfigFile
   FileWrite $0 "cobd7=Drives\base_3.vdi$\r$\n"
   FileWrite $0 "cobd8=Drives\base_4.vdi$\r$\n"
   FileWrite $0 "cobd9=Drives\base_5.vdi$\r$\n"
-  FileWrite $0 "#------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 "#cofs0 is mounterd as writeabel! $\r$\n"
-  FileWrite $0 "#cofs1 .. cofs9 may be as used read only, with new files addabel.$\r$\n"
-  FileWrite $0 "#------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "# cofs0 is mounterd as writeabel! $\r$\n"
+  FileWrite $0 "# cofs1 .. cofs9 may be as used read only, with new files addabel.$\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 "cofs0=$NW_COFSPFAD_Value$\r$\n" #mounterd as wiritabel!
   FileWrite $0 "cofs1=C:\$\r$\n"
   FileWrite $0 "cofs2=D:\$\r$\n"
@@ -941,10 +949,10 @@ Section -CreateConfigFile
   FileWrite $0 "cofs7=I:\$\r$\n"
   FileWrite $0 "cofs8=J:\$\r$\n"
   FileWrite $0 "cofs9=K:\$\r$\n"
-  FileWrite $0 "#------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 "#All static settings my be removed or changed, no extra settings inside Linux needed.$\r$\n"
-  FileWrite $0 "#You must set Windows NICs extra in advance. LAN1 is used as name of the NIC in use. $\r$\n"
-  FileWrite $0 "#------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "# All static settings my be removed or changed, no extra settings inside Linux needed,$\r$\n"
+  FileWrite $0 "# but if laucher is in use run installer again to change eth1 IP there. $\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 "eth0=slirp$\r$\n"
   FileWrite $0 "ETH0_DHCP=yes$\r$\n"
   FileWrite $0 "$\r$\n"
@@ -952,6 +960,11 @@ Section -CreateConfigFile
   FileWrite $0 "ETH1_ADR=$NW_LinIP_Value$\r$\n"
   FileWrite $0 "ETH1_MASK=255.255.255.0$\r$\n"
   FileWrite $0 "$\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "# If WLAN instead of LAN interface on the PC should be used, remove the following lines $\r$\n"
+  FileWrite $0 "# and set Windows WLAN interface 'Freigabe' to be enabeld, to be able to use it.$\r$\n"
+  FileWrite $0 "# You must set Windows NIC names. LAN1 is used as name of the LAN NIC in use. $\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 'eth2=ndis-bridge,"LAN1",$\r$\n'
   FileWrite $0 "ETH2_ADR=192.168.178.15$\r$\n"
   FileWrite $0 "ETH2_MASK=255.255.255.0$\r$\n"
@@ -1337,7 +1350,6 @@ base_exists:
     Pop $R0 # return value/error/timeout
 SectionEnd
 
-!ifndef BFIN_BASE
 Section -post
   SetOutPath -
   ; Much faster to run mkFile than to use `dd` in coLinux
@@ -1474,7 +1486,6 @@ swap_made:
 
 #  done_init:
 SectionEnd
-!endif
 
 ;--------------------------------
 ;Descriptions
@@ -2182,3 +2193,5 @@ RndEnd:
 	Exch
 	Exch $R0
 FunctionEnd
+
+ 

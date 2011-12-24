@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* Installer some tying fixed"
+comment="* Installer IP settings changed, style chnages."
 
 
 

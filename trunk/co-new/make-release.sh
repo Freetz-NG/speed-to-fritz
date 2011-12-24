@@ -54,6 +54,8 @@ mv colinux-${DATE_SRC} src
 rm ./src/src/colinux/os/winnt/user/install/colinux.nsi
 cp -f ${ALL_BASE}/patches/colinux.nsi ./src/src/colinux/os/winnt/user/install/colinux.nsi
 cp -f ${ALL_BASE}/patches/iDl.ini ./src/src/colinux/os/winnt/user/install/iDl.ini
+cp -f ${ALL_BASE}/patches/Bild.bmp ./src/src/colinux/os/winnt/user/install/Bild.bmp
+cp -f ${ALL_BASE}/patches/header.bmp ./src/src/colinux/os/winnt/user/install/header.bmp
 cd src
 . bin/build-common.sh --get-vars
 cd ..
@@ -118,7 +120,7 @@ COLINUX_INSTALL=${BASE}/coLinux/src/src/colinux/os/winnt/user/install
 sed -i -e "s/!define KERNEL_VERSION.*$/!define KERNEL_VERSION \"$LONG_VER\"/" ${COLINUX_INSTALL}/colinux_def.sh
 sed -i -e "s/!define VERSION.*$/!define VERSION \"$COLINUX_SHORT_VER\"/" ${COLINUX_INSTALL}/colinux_def.sh
 sed -i -e "s/!define LONGVERSION.*$/!define LONGVERSION \"$COLINUX_LONG_VER\"/" ${COLINUX_INSTALL}/colinux_def.sh
-sed -i -e "/!define PRE_VERSION/d" ${COLINUX_INSTALL}/colinux_def.sh
+sed -i -e "s/!define PRE_VERSION.*$/!define SPEEDLINUX_VER \"$SPEEDLINUX_VER\"/" ${COLINUX_INSTALL}/colinux_def.sh
 
 cd ${BASE}/coLinux/src
 sh ${COLINUX_INSTALL}/colinux_def.sh
@@ -128,7 +130,9 @@ ln -s ${ALL_BASE}/tarballs ${COLINUX_INSTALL}/
 ln -s ${ALL_BASE}/upstream ${COLINUX_INSTALL}/
 cd ${COLINUX_INSTALL}
 
-makensis -DBFIN_LITE colinux.nsi
+makensis colinux.nsi
 rm -f ${ALL_BASE}/tarballs/*.tar
-
 mv speedLinux.exe /mnt/win/upstream/speedLinux-${SPEEDLINUX_VER}.exe
+
+#rm -fr ${ALL_BASE}/$SPEEDLINUX_VER
+sleep 5

@@ -67,4 +67,9 @@ coLinux kernel version must not be the same as the kernelversion
 used on the system installed.
 
 18.11.11
-Ubuntu presice is now in use.
+Ubuntu presice is now in use.
+
+23.12.11
+Default NET for eth1 changed to 192.168.0.0, because if WLAN is in use,
+Windows Vista sets the virtual adapter to 192.168.0.1.
+Read info on http://wiki.ip-phone-forum.de/freetzlinux:network

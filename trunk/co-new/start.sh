@@ -202,17 +202,16 @@ echo $COLINUX_SRC_VER > COLINUX_SRC_VER
 echo $COLINUX_EXE_VER > COLINUX_EXE_VER
 echo $COLINUX_SHORT_VER > COLINUX_SHORT_VER
 echo $USE_SNAP > USE_SNAP
-echo "Please wait ...... see logfile: ./log"
-$home/make-release.sh  > $home/log
+echo "Please wait ..."
+$home/make-release.sh  > $home/make-release.log
 echo 
 echo
 echo
-echo "Results are in directory: ./$version"
-echo "Logfile: ./log"
+echo "Logfile: $home/make-release.log"
 echo
-cat $home/log | grep "warning:" | grep -vs "DetailPrint" | grep -vs "MessageBox" | grep -vs "check_error" | more
-cat $home/log | grep "Error " | grep -vs "DetailPrint" | grep -vs "MessageBox" | grep -vs "check_error" | more
-#./pack.sh
+cat $home/make-release.log | grep "warning:" | grep -vs "DetailPrint" | grep -vs "MessageBox" | grep -vs "check_error" | more
+cat $home/make-release.log | grep "Error " | grep -vs "DetailPrint" | grep -vs "MessageBox" | grep -vs "check_error" | more
+
 if  [ "$TESTING" == "y" ]; then
  cp -f version version_test
 else
