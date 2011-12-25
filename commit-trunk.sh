@@ -28,9 +28,9 @@ date=$(date +%Y%m%d-%H%M)
 #svn delete --force ./trunk/backup
 #svn delete --force ./trunk/co-new/replace/start.ico
 #svn delete --force ./trunk/co-new/replace/stop.ico
-svn delete --force ./trunk/co-new/replace/andlinux.ico
-svn delete --force ./trunk/co-new/patches/Bild.bmp
-svn delete --force ./trunk/co-new/patches/header.bmp
+#svn delete --force ./trunk/co-new/replace/andlinux.ico
+#svn delete --force ./trunk/co-new/patches/Bild.bmp
+#svn delete --force ./trunk/co-new/patches/header.bmp
 #svn delete --force ./trunk/Kernel-2.6.32
 #svn delete --force ./trunk/patch_recover
 
@@ -41,7 +41,7 @@ svn delete --force ./trunk/co-new/patches/header.bmp
 #svn propedit svn:ignore .
 
 #svn revert
-#svn add * --force
+svn add * --force
 
 svn status
 svn diff > ../patch.diff
