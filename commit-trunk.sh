@@ -26,7 +26,8 @@ date=$(date +%Y%m%d-%H%M)
 #svn delete --force ./getprodukt.patch
 #svn delete --force ./includefunctions.patch
 #svn delete --force ./trunk/backup
-#svn delete --force ./trunk/co
+svn delete --force ./trunk/co-new/replace/start.ico
+svn delete --force ./trunk/co-new/replace/stop.ico
 #svn delete --force ./trunk/Kernel-2.6.32
 #svn delete --force ./trunk/patch_recover
 
@@ -37,7 +38,7 @@ date=$(date +%Y%m%d-%H%M)
 #svn propedit svn:ignore .
 
 #svn revert
-svn add * --force
+#svn add * --force
 
 svn status
 svn diff > ../patch.diff
