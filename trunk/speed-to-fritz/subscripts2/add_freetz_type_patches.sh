@@ -16,7 +16,11 @@ export FILESYSTEM_MOD_DIR="$1"
 export FIRMWARE_MOD_DIR="$FBDIR"
 export PATCHES_DIR="$FREETZPATCH_DIR"
 #echo "PATCHES_DIR: $PATCHES_DIR"
-[ "$FREETZ_SCRIPTS" == "y" ] && ! [ -d $PATCHES_DIR/cond ] && echo "-- looking for new freetz scripts..." && rm -rf R  $PATCHES_DIR && svn co http://svn.freetz.org/trunk/patches $PATCHES_DIR
+if [ "$FREETZREVISION" ]; then
+    [ "$FREETZ_SCRIPTS" == "y" ] && ! [ -d $PATCHES_DIR/cond ] && echo "-- looking for new freetz scripts..." && rm -rf R  $PATCHES_DIR && svn co http://svn.freetz.org/trunk/patches -r $FREETZREVISION $PATCHES_DIR
+else
+    [ "$FREETZ_SCRIPTS" == "y" ] && ! [ -d $PATCHES_DIR/cond ] && echo "-- looking for new freetz scripts..." && rm -rf R  $PATCHES_DIR && svn co http://svn.freetz.org/trunk/patches $PATCHES_DIR
+fi
 #--> remove some patches only usabel with Freetz
 #if there are some more unconditional paches my be the have to be added here as well
 rm -rf $PATCHES_DIR/110-system_status.patch
