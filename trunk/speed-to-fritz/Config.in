@@ -498,7 +498,7 @@ config SET_SP2FR_REVISION
 config  EXPORT_SP2FR_REVISION
 	depends on SET_SP2FR_REVISION
 	        string "--> Set revision number "
-	            default "1441" # dont edit this line is changed via ./start.sh - numner "1234" may differ
+	            default "2600" # dont edit this line is changed via ./start.sh - numner "1234" may differ
 	        help
 	            This is the revision number used with speed-to-fritz
 	            example 1265.
@@ -3386,7 +3386,7 @@ config REMOVE_ANNEX_A_DSL_DRIVER
 if EXPERT_MOD
 ### -->
  config EXPORT_FREETZ_SCRIPTS
-	bool "Show more options with scripts donloaded from freetz"
+	bool "Show more options with scripts downloaded from freetz"
 	default n
 	help
 		This are scripts taken from freetz - not all are funtional now!
