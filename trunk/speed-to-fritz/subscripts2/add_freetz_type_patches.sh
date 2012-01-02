@@ -21,6 +21,8 @@ if [ "$FREETZREVISION" ]; then
 else
     [ "$FREETZ_SCRIPTS" == "y" ] && ! [ -d $PATCHES_DIR/cond ] && echo "-- looking for new freetz scripts..." && rm -rf R  $PATCHES_DIR && svn co http://svn.freetz.org/trunk/patches $PATCHES_DIR
 fi
+# Remove left over Subversion directories
+find "$PATCHES_DIR" -type d -name .svn | xargs rm -rf
 #--> remove some patches only usabel with Freetz
 #if there are some more unconditional paches my be the have to be added here as well
 rm -rf $PATCHES_DIR/110-system_status.patch
