@@ -498,7 +498,7 @@ config SET_SP2FR_REVISION
 config  EXPORT_SP2FR_REVISION
 	depends on SET_SP2FR_REVISION
 	        string "--> Set revision number "
-	            default "2600" # dont edit this line is changed via ./start.sh - numner "1234" may differ
+	            default "1444" # dont edit this line is changed via ./start.sh - numner "1234" may differ
 	        help
 	            This is the revision number used with speed-to-fritz
 	            example 1265.
@@ -582,7 +582,7 @@ config SET_FREETZ_REVISION
 	    depends on SET_FREETZ_REVISION
 	    string "revision number"
 		    default "2636" if ! TYPE_OR_7570_920
-		    default "2600" if TYPE_OR_7570_920
+		    default "6689" if TYPE_OR_7570_920
 		    #2750 vor freetz 1.1
 	    help
 		This is the revision number used if freetz is started via

@@ -94,6 +94,9 @@ cp -fdrp "${DST}"/lib/modules/wlan_eeprom_hw0.bin --target-directory="${SRC}"/li
 cp -fdrp "${DST}"/lib/modules/c55.hex --target-directory="${SRC}"/lib/modules # .04.88 braucht das vom tcom firmware
 
 if [ ${ATA_ONLY} = "n" ]; then
+ [ "${FORCE_TCOM_DSL}" = "y" ] && cp -fdrp "${DST}"/lib/modules/dsp_ur8/ur8-B-dsl.bin --target-directory="${SRC}"/lib/modules/dsp_ur8 &&\
+ echo "-- DSL driver was taken from the original base firmware!"
+
  #annex B driver
  mkdir -p ./addon/tmp/modules/dsp_ur8
  if [ -d "${SRC}/lib/modules/dsp_ur8"  ]; then
