@@ -219,9 +219,9 @@ DL_DIR_ABS=./$FREETZ_DIR/$DL_DIR
 [ -d "$DL_DIR_ABS" ] || mkdir  "$DL_DIR_ABS"
 [ -d "$DL_DIR_ABS/fw" ] || mkdir  "$DL_DIR_ABS/fw"
 echo
-cd $FREETZ_DIR
 echo "--Image files present in '$DL_DIR_ABS/fw':"
 ls -l $DL_DIR_ABS/fw/*.image 2>&1 | grep -v 'No such file' 
+cd $FREETZ_DIR
 echo
 #echo "Now you can run 'make menuconfig', at the first time a lot of warnings will be displayed!"
 #echo "Select '7270', '7170' or other type suitable for your router 'W920, W900, W701 Sinus 500 or other.'"
