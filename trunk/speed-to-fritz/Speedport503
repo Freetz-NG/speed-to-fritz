@@ -125,7 +125,7 @@ if [ ${ATA_ONLY} = "n" ]; then
  [ "${REMOVE_ANNEX_A_DSL_DRIVER}" = "y" ] && [ -f "${SRC}/lib/modules/dsp_ur8/ur8-A-dsl.bin" ] && rm -f "${SRC}"/lib/modules/dsp_ur8/ur8-A-dsl.bin &&\
  echo "-- DSL Annex A driver was removed from ${SORCE_PRODUKT}!"
  [ ${ANNEX} == "A" ] && ! [ -f "${SRC}/lib/modules/dsp_ur8/ur8-A-dsl.bin" ] && echo "-- You must provid a 2nd AVM source to supply the missing Annex A DSL driver!" && sleep 10 && exit 0
- [ ${ANNEX} =! "A" ] && ! [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin" ] && echo "-- You must provid a 2nd AVM source to supply the missing Annex B DSL driver!" && sleep 10 && exit 0
+ [ ${ANNEX} != "A" ] && ! [ -f "${SRC}/lib/modules/dsp_ur8/ur8-B-dsl.bin" ] && echo "-- You must provid a 2nd AVM source to supply the missing Annex B DSL driver!" && sleep 10 && exit 0
 else
 #remove ADSL
 #dont start dsl
