@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "-- adding mulicountry pages from source basis or 2nd AVM firmware ..."
-sed -i -e "s/CONFIG_MULTI_COUNTRY=.*$/CONFIG_MULTI_COUNTRY=\"n\"/g" "${1}/etc/init.d/rc.conf"
+sed -i -e "s/CONFIG_MULTI_COUNTRY=.*$/CONFIG_MULTI_COUNTRY=\"n\"/g" "${SRC}/etc/init.d/rc.conf"
 #--> multicountry SRC_2
 if [ "${FORCE_MULTI_COUNTRY_SRC2}" = "y" ]; then
   for file_n in /html/de/first/basic_first.js /html/de/first/basic_first.frm; do
