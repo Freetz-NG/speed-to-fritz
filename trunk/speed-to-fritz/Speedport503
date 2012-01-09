@@ -158,10 +158,17 @@ echo "-- WLAN driver was taken from base firmware!"
 #adapt parameters for Piglet bitfile to be
 
 sed -i -e 's/Fritz_Box_7270/Fritz_Box_W503/' "${SRC}/etc/init.d/rc.S"
+sed -i -e "/DECT-Anlage/d" "${SRC}/etc/init.d/rc.S"
+sed -i -e '/Fritz_Box_W503/a \
+## Produktionsbitfile muss mit POTS-Frequenz geladen werden \
+## Anlage braucht den 96 MHz Takt (100E): 'piglet_use_pll3_clk=1' wird hier benoetigt, \
+## da es keinen DECT-Takt gibt, aus dem der fpga die 96 MHz Takt erzeugen koennte.' "${SRC}/etc/init.d/rc.S"
+
 sed -i -e 's/microvoip_isdn_top.bit${HWRevision_BitFileCount}/bitfile_isdn.bit/' "${SRC}/etc/init.d/rc.S"
 sed -i -e "/piglet_load_params=\"/,/dect_secondlevelfile/d" "${SRC}/etc/init.d/rc.S"
 sed -i -e "/dectfw_firstlevel.hex/,/dectfw_secondlevel.hex/d" "${SRC}/etc/init.d/rc.S"
 sed -i -e 's/piglet_bitfile=$piglet_bitfile/piglet_bitfile=$piglet_bitfile piglet_potsbitfile=$piglet_potsbitfile /' "${SRC}/etc/init.d/rc.S"
+sed -i -e "/\$piglet_load_params/d" "${SRC}/etc/init.d/rc.S"
 
 sed -i -e '/piglet_bitfile=/a \
 piglet_potsbitfile=/lib/modules/bitfile_pots.bit\
@@ -169,12 +176,13 @@ piglet_bitfilemode=\`/bin/testvalue /var/flash/telefon_misc 4 2638\`\
 if [ -z $piglet_bitfilemode ] ; then piglet_bitfilemode=0 ; fi\
 echo PigletMode: $piglet_bitfilemode\
 piglet_load_params="\\\
+piglet_enable_button=3 \\\
 piglet_bitfilemode=$piglet_bitfilemode \\\
 piglet_use_pll3_clk=1 \\\
 "\
 modprobe Piglet_noemif piglet_bitfile=$piglet_bitfile piglet_potsbitfile=$piglet_potsbitfile $piglet_load_params' "${SRC}/etc/init.d/rc.S"
 
-# macht Fehlermeldung 
+# macht Fehlermeldung moglicherweise nicht mehr siehe Revision 1451
 ##piglet_enable_button=3 \\\
 
 ## remove HTTPS-Fernzugang und TR-064-SSL

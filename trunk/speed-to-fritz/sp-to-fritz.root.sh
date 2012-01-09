@@ -858,7 +858,7 @@ export CONFIG_ETH_COUNT="4"
 #	FBMOD variable is read later from 2nd Firmware
 	[ "$FBMOD" == "" ] && export FBMOD="7270"
 	export HWID="136"
-	export HWRevision="${HWID}.1.1.0"
+	export HWRevision="${HWID}.1.0.6"
 	export CONFIG_INSTALL_TYPE="ur8_8MB_xilinx_4eth_2ab_isdn_pots_wlan_25488"
 	export CONFIG_XILINX="y"
 	export CONFIG_BOX_FEEDBACK="n"
