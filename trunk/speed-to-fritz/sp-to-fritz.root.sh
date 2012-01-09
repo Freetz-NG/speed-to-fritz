@@ -1648,7 +1648,7 @@ fi
 #print some Hardware setting found in the two firmwares in use
 $sh2_DIR/dedect_HW
 # make sure all is set to correct rights
-#[ ${FAKEROOT_ON} = "n" ] && chmod -R 777 . #&& echo "Scrit is executed as root, 777 set to all files."
+#[ ${FAKEROOT_ON} = "n" ] && chmod -R 777 . #&& echo "Script is executed as root, 777 set to all files."
 # Flashing original firmware image ...
 if [ "$ORI" != "y" ]; then
  #add patches taken from freetz without adaptions
@@ -1659,7 +1659,7 @@ if [ "$ORI" != "y" ]; then
  [ "$MOVE_ALL_to_OEM" = "y" ] && $sh_DIR/move_all_to_OEM.sh "${SRC}" || $sh_DIR/remake_link_avm.sh "${SRC}"
  [ -d "${SRC}"/usr/www/$OEM ] && export OEMLINK=$OEM
  # looks like there is no need for using device-table.txt if the complete sp-fritz.sh is wraped with fake root
- cp -fdrp "${DST}/dev" "${SRC}/dev" && export MAKE_DEV="n" && echo "-- merged source and destination /dev directory"
+ cp -fdrp "${DST}/dev" "${SRC}/" && export MAKE_DEV="n" && echo "-- merged source and destination /dev directory"
  #enable ext2
  [ "$ENABLE_EXT2" = "y" ] && $sh2_DIR/patch_ext2 "${SRC}" "${DST}"
  echo "********************************************************************************"
