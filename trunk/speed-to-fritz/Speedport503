@@ -279,8 +279,6 @@ if [ -f "${SRC_2}"/lib/modules/$KernelVersion/kernel/drivers/char/led_module.ko 
     cp -fr "${SRC_2}"/bin/update_led_off ${SRC}/bin/update_led_off
     echo "-- LED driver was taken from AVM source 2 firmware"
 fi
-# 503 
-$sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 503
 #remove FON3 menus
 [ ${REMOVE_MENU_ITEM} = "y" ] && $sh_DIR/rmv_menus.sh "${SRC}" "${FBMOD}"
 #Add buchsend button to fon bookpage
@@ -293,10 +291,14 @@ $sh_DIR/add_multi_settings.sh
 if [ "${REMOVE_KIDS}" = "y" ]; then
     $sh_DIR/rmv_kids.sh "${SRC}"
     rm -fr ${SRC}/usr/www/kids
-    rm -rf ${SRC}/bin/usermand
+    rm -rf ${SRC}/bin/usermand*
     rm -fr ${SRC}/lib/modules/$KernelVersion/kernel/drivers/userman
+else export CONFIG_KIDS="y"
 fi
 $sh_DIR/rmv_help.sh "${SRC}"
+
+# 503  At this point changing the CONFIG_XXX vars has no effect
+$sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 503
 echo "********************************************************************************"
 grep -q "Telekom-Anlagen benoetigen hochtakten" "${SRC}/etc/init.d/rc.S" || sed -i -e '/bin.run_clock -c .dev.tffs -d/i\
 ## Telekom-Anlagen benoetigen hochtakten (unabhaengig von ECO) !\
