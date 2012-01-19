@@ -1,4 +1,3 @@
-;Cooperative Linux installer
 ;Written by NEBOR Regis
 ;Modified by Dan Aloni (c) 2004
 ;Modified 8/20/2004,2/4/2004 by George P Boutwell
@@ -24,15 +23,15 @@
 ;  Name "Cooperative Linux ${VERSION}"
   Name "SpeedLinux ${SPEEDLINUX_VER}"
   OutFile "speedLinux.exe"
-
+  RequestExecutionLevel admin
   ;ShowInstDetails show
   ;ShowUninstDetails show
 
   ;Folder selection page
-  InstallDir "$PROGRAMFILES\speedLinux"
-
+  InstallDir $PROGRAMFILES\speedLinux
   ;Get install folder from registry if available
-  InstallDirRegKey HKCU "Software\speedLinux" ""
+  InstallDirRegKey HKLM Software\speedLinux ""
+
 
   BrandingText "${PUBLISHER}"
 
@@ -135,7 +134,7 @@ AllowRootDirInstall true
 !define MUI_PAGE_HEADER_TEXT "Setup shared Folder"
 !define MUI_PAGE_HEADER_SUBTEXT "Sets entry in settings.txt and firstboot.1.txt"
 !define MUI_DIRECTORYPAGE_TEXT_DESTINATION "Shared folder selection, this selection is used for cofs or samba."
-!define MUI_DIRECTORYPAGE_TEXT_TOP "Please select a shared folder 'Freigabe' within windows, you must setup a windows user with password for this folder first!"
+!define MUI_DIRECTORYPAGE_TEXT_TOP "Please select a shared folder within windows, you must setup a windows user with password for this folder first!"
 !define MUI_DIRECTORYPAGE_VARIABLE      $NW_COFSPFAD_Value
 !insertmacro MUI_PAGE_DIRECTORY
 ;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -173,6 +172,7 @@ AllowRootDirInstall true
 ;Variables used to track user choice
   Var LAUNCHER_Value
   Var PULSEAUDIO_Value
+  Var Key_int
 ;------------------------------------------------------------------------
 ;Custom Setup for image download
   Var LOCATION
@@ -188,11 +188,11 @@ FunctionEnd
 ;FunctionEnd
 
 Var MYFOLDER
+Var XMING_instdir
 
-Function "GetMyDocs"
+Function GetMyDocs
 !define SHELLFOLDERS \
   "Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders"
-   
    ReadRegStr $0 HKCU "${SHELLFOLDERS}" AppData
    StrCmp $0 "" 0 +2
      ReadRegStr $0 HKLM "${SHELLFOLDERS}" "Common AppData"
@@ -200,38 +200,109 @@ Function "GetMyDocs"
        StrCpy $0 "$WINDIR\Application Data"
 FunctionEnd
 
-Function .onInit
+Function DelShortcut
+  Delete "$DESKTOP\startup.lnk"
+  Delete "$DESKTOP\Console (NT).lnk"
+  Delete "$DESKTOP\Console (FLTK).lnk"
+  Delete "$DESKTOP\Konsole.lnk"
+  Delete "$DESKTOP\menu.lnk"
+  Delete "$DESKTOP\Thunar.lnk"
+  Delete "$DESKTOP\Terminal.lnk"
+  Delete "$DESKTOP\srvstart.lnk"
+  Delete "$DESKTOP\svrstop.lnk"
+  Delete "$DESKTOP\startup.lnk"
 
-    Call "GetMyDocs"
+  Delete "$QUICKLAUNCH\startup.lnk"
+  Delete "$QUICKLAUNCH\Console (NT).lnk"
+  Delete "$QUICKLAUNCH\Console (FLTK).lnk"
+  Delete "$QUICKLAUNCH\Konsole.lnk"
+  Delete "$QUICKLAUNCH\Thunar.lnk"
+  Delete "$QUICKLAUNCH\menu.lnk"
+  Delete "$QUICKLAUNCH\Terminal.lnk"
+  Delete "$QUICKLAUNCH\svrstart.lnk"
+  Delete "$QUICKLAUNCH\svrstop.lnk"
+
+  Delete   "$SMPROGRAMS\speedLinux\Service\XmingStart.lnk"
+  Delete   "$SMPROGRAMS\speedLinux\Service\XmingStartRootless.lnk"
+  RMDir /r "$SMPROGRAMS\speedLinux\Service"
+  Delete   "$SMPROGRAMS\speedLinux\PuTTY root@speedLinux.lnk"
+  Delete   "$SMPROGRAMS\speedLinux\PuTTY freetz@speedLinux.lnk"
+  Delete   "$SMPROGRAMS\speedLinux\speedLinux.lnk"
+  Delete   "$SMPROGRAMS\speedLinux\Console (NT).lnk"
+  Delete   "$SMPROGRAMS\speedLinux\Console (FLTK).lnk"
+  Delete   "$SMPROGRAMS\speedLinux\Documentation.lnk"
+  Delete   "$SMPROGRAMS\speedLinux\Uninstall.lnk"
+  RMDir /r "$SMPROGRAMS\speedLinux"
+FunctionEnd
+
+Function un.DelShortcut
+  Delete "$DESKTOP\startup.lnk"
+  Delete "$DESKTOP\Console (NT).lnk"
+  Delete "$DESKTOP\Console (FLTK).lnk"
+  Delete "$DESKTOP\Konsole.lnk"
+  Delete "$DESKTOP\menu.lnk"
+  Delete "$DESKTOP\Thunar.lnk"
+  Delete "$DESKTOP\Terminal.lnk"
+  Delete "$DESKTOP\srvstart.lnk"
+  Delete "$DESKTOP\svrstop.lnk"
+  Delete "$DESKTOP\startup.lnk"
+
+  Delete "$QUICKLAUNCH\startup.lnk"
+  Delete "$QUICKLAUNCH\Console (NT).lnk"
+  Delete "$QUICKLAUNCH\Console (FLTK).lnk"
+  Delete "$QUICKLAUNCH\Konsole.lnk"
+  Delete "$QUICKLAUNCH\Thunar.lnk"
+  Delete "$QUICKLAUNCH\menu.lnk"
+  Delete "$QUICKLAUNCH\Terminal.lnk"
+  Delete "$QUICKLAUNCH\svrstart.lnk"
+  Delete "$QUICKLAUNCH\svrstop.lnk"
+
+  Delete   "$SMPROGRAMS\speedLinux\Service\XmingStart.lnk"
+  Delete   "$SMPROGRAMS\speedLinux\Service\XmingStartRootless.lnk"
+  RMDir /r "$SMPROGRAMS\speedLinux\Service"
+  Delete   "$SMPROGRAMS\speedLinux\PuTTY root@speedLinux.lnk"
+  Delete   "$SMPROGRAMS\speedLinux\PuTTY freetz@speedLinux.lnk"
+  Delete   "$SMPROGRAMS\speedLinux\speedLinux.lnk"
+  Delete   "$SMPROGRAMS\speedLinux\Console (NT).lnk"
+  Delete   "$SMPROGRAMS\speedLinux\Console (FLTK).lnk"
+  Delete   "$SMPROGRAMS\speedLinux\Documentation.lnk"
+  Delete   "$SMPROGRAMS\speedLinux\Uninstall.lnk"
+  RMDir /r "$SMPROGRAMS\speedLinux"
+FunctionEnd
+
+Function .onInit
+    Call GetMyDocs
     StrCpy $MYFOLDER $0
+  ;get the old install folder
+  ReadRegStr $R2 HKCU "Software\speedLinux" ""
+  StrCmp $R2 "" no_folder
+  ;path without ""
+  StrCpy $R1 $R2 1
+  StrCmp $R1 '"' 0 +2
+  StrCpy $R2 $R2 -1 1
+  StrCpy $INSTDIR $R2
+no_folder:
+
+  StrCpy $XMING_instdir "$INSTDIR\Xming"
+  IfFileExists "$PROGRAMFILES\Xming\Xming.exe" 0 no_xming
+  StrCpy $XMING_instdir "$PROGRAMFILES\Xming"
+
+no_xming:
+  ;get the old xming folder
+  ReadRegStr $R2 HKLM SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Xming_is1 InstallLocation
+  StrCmp $R2 "" no_xmingfolder
+  Push "$R2"
+  Call Trim ;trim one char on the right
+  Pop "$XMING_instdir"
+; MessageBox MB_OK "XMING_instdir: $XMING_instdir"
+
+no_xmingfolder:
+
 ;  !insertmacro SELECT_UNSECTION "WinPcap" "WinPcap"
 ;   !insertmacro UnselectSection "WinPcap"
 
   !insertmacro MUI_INSTALLOPTIONS_EXTRACT "iDl.ini"
   !insertmacro MUI_INSTALLOPTIONS_EXTRACT "WinpcapRedir.ini"
-  CreateDirectory "$INSTDIR\Drives"
-;--------------------------------------------------------------------------------------------
-    DetailPrint "Read settings.txt shared directory"
-    Push $0 # dir
-    Push $1 #  
-    ClearErrors
-    FileOpen $0 "$INSTDIR\settings.txt" r
-    IfErrors s_fail
-    s_line:
-    FileRead $0 $R0
-    IfErrors s_done
-      StrCpy $1 $R0 6
-      ${IF} $1 == "cofs0="
-      StrCpy $NW_COFSPFAD_Value $R0 -1 6
-     ${ELSE}
-    ${ENDIF}
-    GoTo s_line
-    s_done:
-    FileClose $0
-    s_fail:
-    Pop $1
-    Pop $0
-;--------------------------------------------------------------------------------------------
 FunctionEnd
 ;--------------------------------------------------------------------------------------------
 ;--------------------------------------------------------------------------------------------
@@ -254,9 +325,11 @@ Section
     Abort
   ${EndIf}
 
+  SetShellVarContext all
+  Call DelShortcut
+
   ;-------------------------------------------Uninstall with old driver--
   ;----------------------------------------------------------------------
-
   ;get the old install folder
   ReadRegStr $R2 HKCU "Software\speedLinux" ""
   StrCmp $R2 "" no_old_linux_sys
@@ -264,7 +337,7 @@ Section
   ;path without ""
   StrCpy $R1 $R2 1
   StrCmp $R1 '"' 0 +2
-    StrCpy $R2 $R2 -1 1
+  StrCpy $R2 $R2 -1 1
 
   ;Check old daemon for removing driver
   IfFileExists "$R2\colinux-daemon.exe" 0 no_old_linux_sys
@@ -293,9 +366,9 @@ check_running_monitors:
   IntCmp $R0 -1 remove_linux_sys
 
   MessageBox MB_RETRYCANCEL|MB_ICONEXCLAMATION \
-             "Any coLinux is running.$\nPlease stop it, before continue" \
+             "colinux-daemon.exe is running.$\nPlease stop it, before continue" \
              IDRETRY check_running_monitors
-  DetailPrint "Abort"
+;  DetailPrint "Abort"
   Abort
 
 remove_linux_sys:
@@ -304,20 +377,19 @@ remove_linux_sys:
   Pop $R0 # return value/error/timeout
 
 no_old_linux_sys:
-  nsExec::ExecToLog '"taskkill" /F /IM xming.exe'
-  nsExec::ExecToLog '"taskkill" /F /IM menu.exe'
-  nsExec::ExecToLog '"taskkill" /F /IM pulseaudio.exe'
-
+  CreateDirectory "$INSTDIR\Drives"
+  nsExec::ExecToStack '"taskkill" /F /IM menu.exe'
+  Pop $R0 # return value/error/timeout
+  nsExec::ExecToStack '"taskkill" /F /IM pulseaudio.exe'
+  Pop $R0 # return value/error/timeout
   IfFileExists "$INSTDIR\unins000.exe" uninstall_and procide
 uninstall_and:
     Rename $INSTDIR\Drives\base.vdi $INSTDIR\Drives\base.bak
     Rename $INSTDIR\Xming $INSTDIR\Xming1
-
-  DetailPrint "andlinux REMOVE"
-  nsExec::ExecToLog '"$INSTDIR\unins000.exe" /SP- /NORESTART /VERYSILENT /SUPPRESSMSGBOXES'
-  Pop $R0 # return value/error/timeout
-  DetailPrint "Andlinux remove returned: $R0"
-
+    DetailPrint "andlinux REMOVE"
+    nsExec::ExecToLog '"$INSTDIR\unins000.exe" /SP- /NORESTART /VERYSILENT /SUPPRESSMSGBOXES'
+    Pop $R0 # return value/error/timeout
+    DetailPrint "Andlinux remove returned: $R0"
     Rename $INSTDIR\Xming1 $INSTDIR\Xming
     Rename $INSTDIR\Drives\base.bak $INSTDIR\Drives\base.vdi
 procide:
@@ -360,7 +432,7 @@ procide:
   File "premaid\README.txt"
 #  File "premaid\news.txt"
 #  File "premaid\srvstart.bat"
-  File "premaid\startup.bat"
+#  File "premaid\startup.bat"
 #  File "premaid\install.bat"
 #  File "premaid\install.txt"
   File "premaid\menu.bat"
@@ -394,8 +466,7 @@ procide:
   ;----------------------------------------------------------------------
 
   ;Store install folder
-  WriteRegStr HKCU "Software\andLinux" "" "$INSTDIR"
-
+  WriteRegStr HKCU "Software\speedLinux" "" "$INSTDIR"
   ;Create uninstaller
   WriteUninstaller "$INSTDIR\Uninstall.exe"
 
@@ -488,96 +559,10 @@ Section "Install Pulseaudio dirctory" SecPulseaudio
   FileClose $0
 SectionEnd
 
-Section "Install Launcher dirctory" SecLauncher
-  SetOutPath "$INSTDIR\Launcher"
-   File "premaid\Launcher\andCmd.exe"
-   File "premaid\Launcher\andKChart.exe"
-   File "premaid\Launcher\andKControl.exe"
-   File "premaid\Launcher\andKDVI.exe"
-   File "premaid\Launcher\andKFormula.exe"
-   File "premaid\Launcher\andKGhostView.exe"
-   File "premaid\Launcher\andKHomeFolder.exe"
-   File "premaid\Launcher\andKMail.exe"
-   File "premaid\Launcher\andKOrganizer.exe"
-   File "premaid\Launcher\andKPDF.exe"
-   File "premaid\Launcher\andKPlato.exe"
-   File "premaid\Launcher\andKPresenter.exe"
-   File "premaid\Launcher\andKSpread.exe"
-   File "premaid\Launcher\andKWord.exe"
-   File "premaid\Launcher\andKarbon.exe"
-   File "premaid\Launcher\andKate.exe"
-   File "premaid\Launcher\andKexi.exe"
-   File "premaid\Launcher\andKile.exe"
-   File "premaid\Launcher\andKivio.exe"
-   File "premaid\Launcher\andKonqueror.exe"
-   File "premaid\Launcher\andKonsole.exe"
-   File "premaid\Launcher\andKontact.exe"
-   File "premaid\Launcher\andKrita.exe"
-   File "premaid\Launcher\andKugar.exe"
-   File "premaid\Launcher\karbon.ico"
-   File "premaid\Launcher\kate.ico"
-   File "premaid\Launcher\kchart.ico"
-   File "premaid\Launcher\kcontrol.ico"
-   File "premaid\Launcher\kdvi.ico"
-   File "premaid\Launcher\kexi.ico"
-   File "premaid\Launcher\kformula.ico"
-   File "premaid\Launcher\kghostview.ico"
-   File "premaid\Launcher\khomefolder.ico"
-   File "premaid\Launcher\kile.ico"
-   File "premaid\Launcher\kivio.ico"
-   File "premaid\Launcher\kmail.ico"
-   File "premaid\Launcher\konqueror.ico"
-   File "premaid\Launcher\konsole.ico"
-   File "premaid\Launcher\kontact.ico"
-   File "premaid\Launcher\korganizer.ico"
-   File "premaid\Launcher\kpdf.ico"
-   File "premaid\Launcher\kplato.ico"
-   File "premaid\Launcher\kpresenter.ico"
-   File "premaid\Launcher\krita.ico"
-   File "premaid\Launcher\kspread.ico"
-   File "premaid\Launcher\kugar.ico"
-   File "premaid\Launcher\kword.ico"
-   File "premaid\Launcher\menu.exe"
-   File "premaid\Launcher\menu.txt"
-   File "premaid\Launcher\synaptic.ico"
-   File "premaid\Launcher\volume.ico"
-   File "premaid\Launcher\andApp.exe"
-   File "premaid\Launcher\andDolphin.exe"
-   File "premaid\Launcher\andGwenView.exe"
-   File "premaid\Launcher\andKPlato.exe"
-   File "premaid\Launcher\andKSysGuard.exe"
-   File "premaid\Launcher\andKate.exe"
-   File "premaid\Launcher\andKile.exe"
-   File "premaid\Launcher\andKonsole.exe"
-   File "premaid\Launcher\andKugar.exe"
-   File "premaid\Launcher\andMousepad.exe"
-   File "premaid\Launcher\andOkular.exe"
-   File "premaid\Launcher\andSystemSettings.exe"
-   File "premaid\Launcher\andTerminal.exe"
-   File "premaid\Launcher\andThunar.exe"
-   File "premaid\Launcher\dolphin.ico"
-   File "premaid\Launcher\gwenview.ico"
-   File "premaid\Launcher\kate.ico"
-   File "premaid\Launcher\sublime.ico"
-   File "premaid\Launcher\scite.ico"
-   File "premaid\Launcher\firefox.ico"
-   File "premaid\Launcher\kile.ico"
-   File "premaid\Launcher\xfce4.ico"
-   File "premaid\Launcher\konsole.ico"
-   File "premaid\Launcher\kplato.ico"
-   File "premaid\Launcher\ksysguard.ico"
-   File "premaid\Launcher\kugar.ico"
-   File "premaid\Launcher\mousepad.ico"
-   File "premaid\Launcher\okular.ico"
-   File "premaid\Launcher\systemsettings.ico"
-   File "premaid\Launcher\thunar.ico"
-   File "premaid\Launcher\xfce4_terminal.ico"
-SectionEnd
-
 Section "Virtual Ethernet Driver (coLinux TAP-Win32)" SeccoLinuxNet
 
   SetOutPath "$INSTDIR\tuntap"
-  
+
   File "premaid\tuntap\addtap.bat"
   File "premaid\tuntap\deltapall.bat"
   File "premaid\tuntap\tap0901.cat"
@@ -730,9 +715,38 @@ Function PageNetworkingLeave
   ${NSD_GetText} $NW_COM_Text $NW_COM_Value
 FunctionEnd
 
+Var Checkbox
+Var Checkbox_State
 
 Function PageShares
-
+   StrCpy $NW_COFSPFAD_Value "C:\sharedFolder"
+;--------------------------------------------------------------------------------------------
+    DetailPrint "Read settings.txt shared directory"
+    Push $0 # dir
+    Push $1 #
+    ClearErrors
+    FileOpen $0 "$INSTDIR\settings.txt" r
+    IfErrors s_fail
+    s_line:
+    FileRead $0 $R0
+    IfErrors s_done
+      StrCpy $1 $R0 6
+      ${IF} $1 == "cofs0="
+      StrCpy $NW_COFSPFAD_Value $R0 -1 6
+     ${ELSE}
+    ${ENDIF}
+    GoTo s_line
+    s_done:
+    FileClose $0
+    s_fail:
+    Pop $1
+    Pop $0
+;--------------------------------------------------------------------------------------------
+   DetailPrint "Read shared directory"
+   ReadRegStr $R0 HKLM SOFTWARE\speedLinux\share path
+   ${If} $R0 != ""
+    StrCpy $NW_COFSPFAD_Value $R0
+   ${EndIf}
   ${If} $NW_init1 == ""
     StrCpy $NW_init1 "yes"
     StrCpy $NW_USER_Value "freetz"
@@ -741,7 +755,7 @@ Function PageShares
     StrCpy $NW_SAMBAUSERPW_Value ""
   ${EndIf}
 
-  !insertmacro MUI_HEADER_TEXT "LINUX and Windows acount" " (Windows 'Freigabe' is a shared folder with user acount)"
+  !insertmacro MUI_HEADER_TEXT "LINUX and Windows acount" " (On Windows user acount for a shared folder, in German this is called 'Freigabe')"
   nsDialogs::Create /NOUNLOAD 1018
   Pop $NW_Dialog
   ${If} $NW_Dialog == error
@@ -756,40 +770,52 @@ Function PageShares
 ;  ${NSD_CreateDirRequest} 50% 20% 40% 12u $NW_COFSPFAD_Value
 ;  Pop $NW_COFSPFAD_Text
 
-  ;; Only looking inside a folder
-;  ${NSD_CreateBrowseButton} 90% 20% 25 12u "..."
-;  Pop $INST_SDAT_BTN1
-;  nsDialogs::SetUserData /NOUNLOAD $INST_SDAT_BTN1 $NW_COFSPFAD_Value
-
+   
 ;  GetFunctionAddress $0 FolderBrowseButton
 ;  nsDialogs::OnClick /NOUNLOAD $INST_SDAT_BTN1 $0
   #DirRequest
-;  ${NSD_CreateText} 50% 20% 40% 12u $NW_COFSPFAD_Value
-;  Pop $NW_COFSPFAD_Value
+;   ${NSD_CreateText} 50% 20% 40% 12u $NW_COFSPFAD_Value
+;   Pop $NW_COFSPFAD_Value
+   StrCpy $Key_int "n"
+  ${NSD_CreateRadioButton} 0% 20% 50% 12u "English key layout for console"
+  Pop $Checkbox
+;  ${NSD_AddStyle} $Checkbox ${WS_GROUP}
+;  ${NSD_OnClick} $$Checkbox onClickMyCLink
 
-  ${NSD_CreateLabel} 0 35% 50% 12u "New Linux username:"
+ ${NSD_CreateLink} 50% 23% 60% 12u "Click here for info on settings"
+  Var /GLOBAL CLINK
+  Pop $CLINK
+  ${NSD_OnClick} $CLINK onClickMyCLink
+
+  ${NSD_CreateLabel} 0 35% 50% 12u "Linux username:"
   Pop $NW_USER_Label
   ${NSD_CreateText} 50% 35% 40% 12u $NW_USER_Value
   Pop $NW_USER_Text
 
-  ${NSD_CreateLabel} 0 50% 50% 12u "New Linux user password:"
+  ${NSD_CreateLabel} 0 50% 50% 12u "Linux password:"
   Pop $NW_USERPW_Label
   ${NSD_CreateText} 50% 50% 40% 12u $NW_USERPW_Value
   Pop $NW_USERPW_Text
 
-  ${NSD_CreateLabel} 0 65% 50% 12u "Windows 'Freigabe' username:"
+  ${NSD_CreateLabel} 0 65% 50% 12u "Windows username:"
   Pop $NW_SAMBAUSER_Label
   ${NSD_CreateText} 50% 65% 40% 12u $NW_SAMBAUSER_Value
   Pop $NW_SAMBAUSER_Text
 
-  ${NSD_CreateLabel} 0 80% 50% 12u "Windows 'Freigabe' user password:"
+  ${NSD_CreateLabel} 0 80% 50% 12u "Windows password:"
   Pop $NW_SAMBAUSERPW_Label
   ${NSD_CreateText} 50% 80% 40% 12u $NW_SAMBAUSERPW_Value
   Pop $NW_SAMBAUSERPW_Text
 
   nsDialogs::Show
-
 FunctionEnd
+
+Function onClickMyCLink
+ Pop $0
+  ExecShell "open" "http://wiki.ip-phone-forum.de/freetzlinux:language"
+FunctionEnd
+
+
 
 ;Var UsernameTxt
 ;Var Password1Txt
@@ -800,6 +826,7 @@ FunctionEnd
 ;Var Label
 ;Var Dialog
 ;Var W_init
+
 
 
 #Function nsDialogsCreateAccountPage
@@ -896,196 +923,17 @@ Function PageSharesLeave
   ${NSD_GetText} $NW_USERPW_Text $NW_USERPW_Value
   ${NSD_GetText} $NW_SAMBAUSER_Text $NW_SAMBAUSER_Value
   ${NSD_GetText} $NW_SAMBAUSERPW_Text $NW_SAMBAUSERPW_Value
+  ${NSD_GetState} $Checkbox $Checkbox_State
+  ${If} $Checkbox_State == ${BST_CHECKED}
+   StrCpy $Key_int "y"
+  ${EndIf}
+;  MessageBox MB_OK "Key_int: $Key_int"
 FunctionEnd
 
 
-Section -CreateConfigFile
-  SetOutPath -
-  #IfFileExists "settings.txt" check_config write_config
-  #check_config:
-  #MessageBox MB_YESNO|MB_DEFBUTTON2|MB_ICONQUESTION "You already have a configuration file.  Do you wish to replace it with your new settings?$\r$\n$\r$\nExisting file: $INSTDIR\settings.txt" /SD IDNO IDNO skip_config
-  #write_config:
-
-  FileOpen $0 "settings.txt" w
-  FileWrite $0 "# Default config generated by speedLinux installer.$\r$\n"
-  FileWrite $0 'exec0="colinux-console-fltk.exe"$\r$\n'
-  FileWrite $0 'exec1="Xming\Xming.exe",":0 -dpi 85 -ac -clipboard -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log"$\r$\n'
-  FileWrite $0 'exec2="pulseaudio/pulseaudio.exe --daemonize"$\r$\n'
-  FileWrite $0 "cocon=80x40x500$\r$\n"
-  FileWrite $0 "kernel=vmlinux$\r$\n"
-  FileWrite $0 "root=/dev/cobd0$\r$\n"
-#  FileWrite $0 "#ro$\r$\n"
-  FileWrite $0 "initrd=initrd.gz$\r$\n"
-  FileWrite $0 "$\r$\n"
-  FileWrite $0 "mem=$FS_RAM_Value$\r$\n"
-  FileWrite $0 "$\r$\n"
-  FileWrite $0 "cobd0=Drives\base.vdi$\r$\n"
-  FileWrite $0 "cobd1=Drives\swap.vdi$\r$\n"
-  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 "# Samba mounts are done in [installdir]firstboot.1.txt or in \etc\mount_all$\r$\n"
-  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 "# Filenames can be changed, only existing *.vdi's files will be mounted. $\r$\n"
-  FileWrite $0 "# cobd2 .. cobd9 may be used. $\r$\n"
-  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 "cobd2=Drives\baseOri.vdi$\r$\n"
-  FileWrite $0 "cobd3=Drives\baseOld.vdi$\r$\n"
-  FileWrite $0 "cobd4=Drives\base910.vdi$\r$\n"
-  FileWrite $0 "cobd5=Drives\base_1.vdi$\r$\n"
-  FileWrite $0 "cobd6=Drives\base_2.vdi$\r$\n"
-  FileWrite $0 "cobd7=Drives\base_3.vdi$\r$\n"
-  FileWrite $0 "cobd8=Drives\base_4.vdi$\r$\n"
-  FileWrite $0 "cobd9=Drives\base_5.vdi$\r$\n"
-  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 "# cofs0 is mounterd as writeabel! $\r$\n"
-  FileWrite $0 "# cofs1 .. cofs9 may be as used read only, with new files addabel.$\r$\n"
-  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 "cofs0=$NW_COFSPFAD_Value$\r$\n" #mounterd as wiritabel!
-  FileWrite $0 "cofs1=C:\$\r$\n"
-  FileWrite $0 "cofs2=D:\$\r$\n"
-  FileWrite $0 "cofs3=E:\$\r$\n"
-  FileWrite $0 "cofs4=F:\$\r$\n"
-  FileWrite $0 "cofs5=G:\$\r$\n"
-  FileWrite $0 "cofs6=H:\$\r$\n"
-  FileWrite $0 "cofs7=I:\$\r$\n"
-  FileWrite $0 "cofs8=J:\$\r$\n"
-  FileWrite $0 "cofs9=K:\$\r$\n"
-  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 "# All static settings my be removed or changed, no extra settings inside Linux needed,$\r$\n"
-  FileWrite $0 "# but if laucher is in use run installer again to change eth1 IP there. $\r$\n"
-  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 "eth0=slirp$\r$\n"
-  FileWrite $0 "ETH0_DHCP=yes$\r$\n"
-  FileWrite $0 "$\r$\n"
-  FileWrite $0 'eth1=tuntap,"XmingTAPBridge",$\r$\n'
-  FileWrite $0 "ETH1_ADR=$NW_LinIP_Value$\r$\n"
-  FileWrite $0 "ETH1_MASK=255.255.255.0$\r$\n"
-  FileWrite $0 "$\r$\n"
-  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 "# If WLAN instead of LAN interface on the PC should be used, remove the following lines $\r$\n"
-  FileWrite $0 "# and set Windows WLAN interface 'Freigabe' to be enabeld, to be able to use it.$\r$\n"
-  FileWrite $0 "# You must set Windows NIC names. LAN1 is used as name of the LAN NIC in use. $\r$\n"
-  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 'eth2=ndis-bridge,"LAN1",$\r$\n'
-  FileWrite $0 "ETH2_ADR=192.168.178.15$\r$\n"
-  FileWrite $0 "ETH2_MASK=255.255.255.0$\r$\n"
-  FileWrite $0 "ETH2_GW=192.168.178.1$\r$\n"
-  FileWrite $0 "$\r$\n"
-  FileWrite $0 "#SHOW_IF=yes$\r$\n"
-  FileWrite $0 "$\r$\n"
-  FileClose $0
-
-
-  #skip_config:
-; Launcher Menue exe has this key hard encoded
-   WriteRegStr HKLM SOFTWARE\andLinux\Launcher "IP" "$NW_LinIP_Value" 
-   WriteRegDWORD HKLM SOFTWARE\andLinux\Launcher "Port" "2081" 
-   WriteRegStr HKLM SYSTEM\CurrentControlSet\Control\BackupRestore\FilesNotToBackup "speedLinux" "$INSTDIR\Drives\*" 
-
-
-SectionEnd
-
-SectionGroup "Shortcuts" Shortcuts
-
- Section "Desktop Shortcuts" DescShortcuts
-  SetOutPath -
-  File scripts\andlinux.ico
-  File scripts\colinux.ico
-  CreateShortCut "$DESKTOP\startup.lnk" "$INSTDIR\startup.bat" "" "$INSTDIR\andlinux.ico"
-  CreateShortCut "$DESKTOP\Console (NT).lnk" "$INSTDIR\colinux-console-nt.exe" "" "$INSTDIR\colinux.ico"
-  CreateShortCut "$DESKTOP\Console (FLTK).lnk" "$INSTDIR\colinux-console-fltk.exe" ""
- SectionEnd
-
- Section "Internet Explorer Quick Launch" InternetExplorer 
-  CreateShortCut "$QUICKLAUNCH\startup.lnk" "$INSTDIR\startup.bat" "" "$INSTDIR\andlinux.ico"
-  CreateShortCut "$QUICKLAUNCH\Console (NT).lnk" "$INSTDIR\colinux-console-nt.exe" "" "$INSTDIR\colinux.ico"
-  CreateShortCut "$QUICKLAUNCH\Console (FLTK).lnk" "$INSTDIR\colinux-console-fltk.exe" ""
-#  CreateShortCut "$QUICKLAUNCH\svrstart.lnk" "$INSTDIR\svrstart.bat" "" "$INSTDIR\start.ico"
-#  CreateShortCut "$QUICKLAUNCH\svrstop.lnk" "$INSTDIR\srvstop.bat" "" "$INSTDIR\stop.ico"
- SectionEnd
-
- Section "Programs Shortcuts" ProgramsShortcuts
- ;  MessageBox MB_OK|MB_ICONINFORMATION $MYFOLDER
-#  CreateShortCut "$SMPROGRAMS\speedLinux\Start speedLinux.lnk" "$INSTDIR\colinux-daemon.exe" "--install-service speedLinux @settings.txt" "$INSTDIR\start.ico"
-#  CreateShortCut "$SMPROGRAMS\speedLinux\Stop speedLinux.lnk" "$INSTDIR\colinux-daemon.exe" "--remove-service speedLinux" "$INSTDIR\stop.ico"
-#  CreateShortCut "$SMPROGRAMS\speedLinux\Autostart\PulseAudio.lnk" "$INSTDIR\pulseaudio.exe" "$INSTDIR\pulseaudio.ico"
-#  CreateShortCut "$SMPROGRAMS\speedLinux\Autostart\menu.lnk" "$INSTDIR\Launcher\menu.exe" "$INSTDIR\Launcher\menu.ico"
-#---
-  CreateDirectory "$SMPROGRAMS\speedLinux"
-  CreateShortCut "$SMPROGRAMS\speedLinux\speedLinux.lnk" "$INSTDIR\startup.bat" "" "$INSTDIR\andlinux.ico"
-  CreateShortCut "$SMPROGRAMS\speedLinux\Console (nt).lnk" "$INSTDIR\colinux-console-nt.exe" "" "$INSTDIR\colinux.ico"
-  CreateShortCut "$SMPROGRAMS\speedLinux\Console (fltk).lnk" "$INSTDIR\colinux-console-fltk.exe" ""
-  CreateShortCut "$SMPROGRAMS\speedLinux\Documentation.lnk" "http://wiki.ip-phone-forum.de/skript:andlinux" "" "$INSTDIR\andlinux.ico"
-  CreateShortCut "$SMPROGRAMS\speedLinux\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
-#  CreateDirectory "$SMPROGRAMS\speedLinux\Non-Service"
-  CreateDirectory "$SMPROGRAMS\speedLinux\Service"
-  CreateShortCut "$SMPROGRAMS\speedLinux\Service\XmingStart.lnk" "$INSTDIR\Xming\Xming.exe" ":0 -dpi 85 -ac -clipboard -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log" ""
-  CreateShortCut "$SMPROGRAMS\speedLinux\Service\XmingStartRootless.lnk" "$INSTDIR\Xming\Xming.exe" ":0 -dpi 85 -ac -clipboard -rootless -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log" ""
-#  CreateShortCut "$SMPROGRAMS\speedLinux\Service\demon start.lnk" "$INSTDIR\colinux-daemon.exe" "--install-service speedLinux @settings.txt"
-#  CreateShortCut "$SMPROGRAMS\speedLinux\Service\demon stop.lnk" "$INSTDIR\colinux-daemon.exe" "--remove-service speedLinux"
-#  CreateShortCut "$SMPROGRAMS\speedLinux\Service\svr Start.lnk" "net" "start speedLinux"
-#  CreateShortCut "$SMPROGRAMS\speedLinux\Service\svr Stop.lnk" "net" "stop speedLinux"
-  ; we tell it to use explorer as a direct path link makes the system try
-  ; to see if the path exists in the first place
-#  CreateShortCut "$SMPROGRAMS\speedLinux\uclinux home (Samba).lnk" "explorer" "\\$NW_LinIP_Value\$NW_USER_Value"
-
-  Push $R0
-  ClearErrors
-  ReadRegStr $R0 HKLM SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PuTTY_is1 InstallLocation
-  IfErrors 0 have_putty
-  IfFileExists "C:\Program Files\PuTTY\putty.exe" 0 have_putty
-  StrCpy $R0 "C:\Program Files\PuTTY\"
-  have_putty:
-  DetailPrint "Found PuTTY installed at $R0"
-  CreateShortCut "$SMPROGRAMS\speedLinux\PuTTY root@speedLinux.lnk" "$R0putty.exe" "-X root@$NW_LinIP_Value"
-  CreateShortCut "$SMPROGRAMS\speedLinux\PuTTY freetz@speedLinux.lnk" "$R0putty.exe" "-X $NW_USER_Value@$NW_LinIP_Value"
-  Pop $R0
- SectionEnd
-
-
-SectionGroupEnd
-
-
-;Section /o "Desktop Launcher Menue Shortcuts" LauncherShortcuts
-Section  "Desktop Launcher Menu Shortcuts" LauncherShortcuts
-  SetOutPath -
-  StrCpy $LAUNCHER_Value "yes"
-  File scripts\andlinux.ico
-  File scripts\colinux.ico
-  CreateShortCut "$DESKTOP\Konsole.lnk" "$INSTDIR\Launcher\andKonsole.exe" "" "$INSTDIR\Launcher\konsole.ico"
-  # CreateShortCut "$DESKTOP\Thunar.lnk" "$INSTDIR\Launcher\Thunar.exe" "" "$INSTDIR\Launcher\Thunar.ico"
-  
-  CreateShortCut "$DESKTOP\menu.lnk" "$INSTDIR\menu.bat" "" "$INSTDIR\Launcher\menu.exe"
-  CreateShortCut "$QUICKLAUNCH\menu.lnk" "$INSTDIR\menu.bat" "" "$INSTDIR\Launcher\menu.exe"
-
-  CreateShortCut "$DESKTOP\Terminal.lnk" "$INSTDIR\Launcher\andTerminal.exe" "" "$INSTDIR\Launcher\xfce4_terminal.ico"
-  CreateShortCut "$QUICKLAUNCH\Konsole.lnk" "$INSTDIR\Launcher\andKonsole.exe" "" "$INSTDIR\Launcher\konsole.ico"
-  # CreateShortCut "$QUICKLAUNCH\Thunar.lnk" "$INSTDIR\Launcher\Thunar.exe" "" "$INSTDIR\Launcher\Thunar.ico"
-  CreateShortCut "$QUICKLAUNCH\Terminal.lnk" "$INSTDIR\Launcher\andTerminal.exe" "" "$INSTDIR\Launcher\xfce4_terminal.ico"
-
-
-SectionEnd
-
-
-Section "Putty" Putty
-  File /oname=putty-installer.exe upstream\putty-*-installer.exe
-  ExecWait '"putty-installer.exe" "/SILENT"'
-  Delete putty-installer.exe
-SectionEnd
-
-Section "XMing" XMing
-  File /oname=Xming-setup.exe upstream\Xming-mesa-6*-setup.exe
-  ExecWait '"Xming-setup.exe" "/DIR=$INSTDIR\Xming" "/SILENT"'
-  Delete Xming-setup.exe
-  DetailPrint "writing Xming hosts file"
-  FileOpen $0 "$INSTDIR\Xming\X0.hosts" w
-  FileWrite $0 'localhost$\n'
-  FileWrite $0 '$NW_LinIP_Value$\n'
-  FileWrite $0 '$NW_WinIP_Value$\n'
-  FileClose $0
-SectionEnd
-
 # Feld X parameter must sync with entries in file iDl.ini
 Var Zipfile_name
+Var Image_type
 
 Section "-Root Filesystem image Download" SeccoLinuxImage
 ;----------------------------------------------------------
@@ -1097,26 +945,32 @@ Section "-Root Filesystem image Download" SeccoLinuxImage
 
     !insertmacro MUI_INSTALLOPTIONS_READ $R0 "iDl.ini" "Field 3" "Name"
     !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field 3" "State"
+    !insertmacro MUI_INSTALLOPTIONS_READ $Image_type "iDl.ini" "Field 3" "Top"
     StrCmp $R1 "1" tryDownload
 
     !insertmacro MUI_INSTALLOPTIONS_READ $R0 "iDl.ini" "Field 5" "Name"
     !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field 5" "State"
+    !insertmacro MUI_INSTALLOPTIONS_READ $Image_type "iDl.ini" "Field 5" "Top"
     StrCmp $R1 "1" tryDownload
 
     !insertmacro MUI_INSTALLOPTIONS_READ $R0 "iDl.ini" "Field 7" "Name"
     !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field 7" "State"
+    !insertmacro MUI_INSTALLOPTIONS_READ $Image_type "iDl.ini" "Field 7" "Top"
     StrCmp $R1 "1" tryDownload
 
     !insertmacro MUI_INSTALLOPTIONS_READ $R0 "iDl.ini" "Field 9" "Name"
     !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field 9" "State"
+    !insertmacro MUI_INSTALLOPTIONS_READ $Image_type "iDl.ini" "Field 9" "Top"
     StrCmp $R1 "1" tryDownload
 
     !insertmacro MUI_INSTALLOPTIONS_READ $R0 "iDl.ini" "Field 11" "Name"
     !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field 11" "State"
+    !insertmacro MUI_INSTALLOPTIONS_READ $Image_type "iDl.ini" "Field 11" "Top"
     StrCmp $R1 "1" tryDownload
 
     !insertmacro MUI_INSTALLOPTIONS_READ $R0 "iDl.ini" "Field 13" "Name"
     !insertmacro MUI_INSTALLOPTIONS_READ $R1 "iDl.ini" "Field 13" "State"
+    !insertmacro MUI_INSTALLOPTIONS_READ $Image_type "iDl.ini" "Field 13" "Top"
     StrCmp $R1 "1" tryDownload
     GoTo End
 
@@ -1206,22 +1060,326 @@ Section "-Root Filesystem image Download" SeccoLinuxImage
 	/sub `$\r$\n$\r$\n Extracting...` /h 0 /pos 0 /marquee 50\
 	/can 0 /end
 	nsExec::ExecToLog '"$INSTDIR\7za.exe" "x" "$Zipfile_name" "-o.\Drives" "-aot"'
+        Pop $R0 # return value/error/timeout
 	; http://nsis.sourceforge.net/Nxs_plug-in
 	nxs::Destroy
     End:
 SectionEnd
 
 Function StartDlImageFunc
-
-  SectionGetFlags ${SeccoLinuxImage} $R0
-  IntOp $R0 $R0 & ${SF_SELECTED}
-  IntCmp $R0 ${SF_SELECTED} "" ImageEnd ImageEnd
-
-  !insertmacro MUI_HEADER_TEXT "Obtain a speedLinux root file system image" "Choose a Ubuntu version."
-  !insertmacro MUI_INSTALLOPTIONS_DISPLAY "iDl.ini"
-
+   SectionGetFlags ${SeccoLinuxImage} $R0
+   IntOp $R0 $R0 & ${SF_SELECTED}
+   IntCmp $R0 ${SF_SELECTED} "" ImageEnd ImageEnd
+   !insertmacro MUI_HEADER_TEXT "Obtain a speedLinux root file system image" "Choose a Ubuntu version."
+   !insertmacro MUI_INSTALLOPTIONS_DISPLAY "iDl.ini"
   ImageEnd:
 FunctionEnd
+
+SectionGroup "Shortcuts" Shortcuts
+ Section "Desktop Shortcuts" DescShortcuts
+  SetOutPath -
+  File scripts\andlinux.ico
+  File scripts\colinux.ico
+  CreateShortCut "$DESKTOP\startup.lnk" "$INSTDIR\startup.bat" "" "$INSTDIR\andlinux.ico"
+  CreateShortCut "$DESKTOP\Console (NT).lnk" "$INSTDIR\colinux-console-nt.exe" "" "$INSTDIR\colinux.ico"
+  CreateShortCut "$DESKTOP\Console (FLTK).lnk" "$INSTDIR\colinux-console-fltk.exe" ""
+ SectionEnd
+
+ Section "Quick Launch Shortcuts" QuickLaunchShortcuts
+  CreateShortCut "$QUICKLAUNCH\startup.lnk" "$INSTDIR\startup.bat" "" "$INSTDIR\andlinux.ico"
+  CreateShortCut "$QUICKLAUNCH\Console (NT).lnk" "$INSTDIR\colinux-console-nt.exe" "" "$INSTDIR\colinux.ico"
+  CreateShortCut "$QUICKLAUNCH\Console (FLTK).lnk" "$INSTDIR\colinux-console-fltk.exe" ""
+ SectionEnd
+
+ Section "Start Menu Shortcuts" StartMenuShortcuts
+  SetShellVarContext all
+  CreateDirectory "$SMPROGRAMS\speedLinux"
+  CreateShortCut "$SMPROGRAMS\speedLinux\speedLinux.lnk" "$INSTDIR\startup.bat" "" "$INSTDIR\andlinux.ico"
+  CreateShortCut "$SMPROGRAMS\speedLinux\Console (NT).lnk" "$INSTDIR\colinux-console-nt.exe" "" "$INSTDIR\colinux.ico"
+  CreateShortCut "$SMPROGRAMS\speedLinux\Console (FLTK).lnk" "$INSTDIR\colinux-console-fltk.exe" ""
+  CreateShortCut "$SMPROGRAMS\speedLinux\Documentation.lnk" "http://wiki.ip-phone-forum.de/skript:andlinux" "" "$INSTDIR\andlinux.ico"
+  CreateShortCut "$SMPROGRAMS\speedLinux\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
+  IfFileExists "$XMING_instdir\Xming.exe" 0 no_xming_link_0
+    CreateDirectory "$SMPROGRAMS\speedLinux\Service"
+    CreateShortCut "$SMPROGRAMS\speedLinux\Service\XmingStart.lnk" "$XMING_instdir\Xming.exe" ":0 -dpi 85 -ac -clipboard -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log" ""
+    CreateShortCut "$SMPROGRAMS\speedLinux\Service\XmingStartRootless.lnk" "$XMING_instdir\Xming.exe" ":0 -dpi 85 -ac -clipboard -rootless -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log" ""
+  no_xming_link_0:
+
+  Push $R0
+  ClearErrors
+  ReadRegStr $R0 HKLM SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PuTTY_is1 InstallLocation
+  IfErrors 0 have_putty
+   IfFileExists "$PROGRAMFILES\PuTTY\putty.exe" 0 have_putty
+   StrCpy $R0 "$PROGRAMFILES\PuTTY\"
+  have_putty:
+  DetailPrint "Found PuTTY installed at $R0"
+  CreateShortCut "$SMPROGRAMS\speedLinux\PuTTY root@speedLinux.lnk" "$R0putty.exe" "-X root@$NW_LinIP_Value"
+  CreateShortCut "$SMPROGRAMS\speedLinux\PuTTY freetz@speedLinux.lnk" "$R0putty.exe" "-X $NW_USER_Value@$NW_LinIP_Value"
+  Pop $R0
+ SectionEnd
+
+
+ Section  "Desktop KDE Launcher Menu Shortcuts" LauncherShortcuts
+  SetOutPath -
+  StrCpy $LAUNCHER_Value "yes"
+  File scripts\andlinux.ico
+  File scripts\colinux.ico
+  ;24 36 and 60 are the line number top in iDl.ini
+  ${If} $Image_type == "24"
+   StrCpy $Image_type "60"
+  ${EndIf}
+  ${If} $Image_type == "36"
+   StrCpy $Image_type "60"
+  ${EndIf}
+  ${If} $Image_type != "60"
+   CreateShortCut "$DESKTOP\Konsole.lnk" "$INSTDIR\Launcher\andKonsole.exe" "" "$INSTDIR\Launcher\konsole.ico"
+   CreateShortCut "$DESKTOP\menu.lnk" "$INSTDIR\menu.bat" "" "$INSTDIR\Launcher\menu.exe"
+  # CreateShortCut "$DESKTOP\Thunar.lnk" "$INSTDIR\Launcher\Thunar.exe" "" "$INSTDIR\Launcher\Thunar.ico"
+  ${EndIf}
+  CreateShortCut "$DESKTOP\Terminal.lnk" "$INSTDIR\Launcher\andTerminal.exe" "" "$INSTDIR\Launcher\xfce4_terminal.ico"
+ SectionEnd
+
+ Section  "Quick Launch KDE Launcher Menu Shortcuts" QuickLauncherShortcuts
+  SetOutPath -
+  StrCpy $LAUNCHER_Value "yes"
+  File scripts\andlinux.ico
+  File scripts\colinux.ico
+  ;24 36 and 60 are the line number top in iDl.ini
+  ${If} $Image_type == "24"
+   StrCpy $Image_type "60"
+  ${EndIf}
+  ${If} $Image_type == "36"
+   StrCpy $Image_type "60"
+  ${EndIf}
+  ${If} $Image_type != "60"
+   CreateShortCut "$QUICKLAUNCH\Konsole.lnk" "$INSTDIR\Launcher\andKonsole.exe" "" "$INSTDIR\Launcher\konsole.ico"
+   CreateShortCut "$QUICKLAUNCH\menu.lnk" "$INSTDIR\menu.bat" "" "$INSTDIR\Launcher\menu.exe"
+  # CreateShortCut "$QUICKLAUNCH\Thunar.lnk" "$INSTDIR\Launcher\Thunar.exe" "" "$INSTDIR\Launcher\Thunar.ico"
+  ${EndIf}
+  CreateShortCut "$QUICKLAUNCH\Terminal.lnk" "$INSTDIR\Launcher\andTerminal.exe" "" "$INSTDIR\Launcher\xfce4_terminal.ico"
+ SectionEnd
+# ${EndIf}
+SectionGroupEnd
+
+Section "Putty" Putty
+  File /oname=putty-installer.exe upstream\putty-*-installer.exe
+  ExecWait '"putty-installer.exe" "/SILENT"'
+  Delete putty-installer.exe
+SectionEnd
+
+Var Xming
+
+Section "XMing" XMing
+  StrCpy $Xming "y"
+  nsExec::ExecToStack '"taskkill" /F /IM xming.exe'
+  Pop $R0 # return value/error/timeout
+  File /oname=Xming-setup.exe upstream\Xming-mesa-6*-setup.exe
+  ExecWait '"Xming-setup.exe" "/DIR=$XMING_instdir" "/SILENT"'
+  Delete Xming-setup.exe
+  DetailPrint "writing Xming hosts file"
+  FileOpen $0 "'$XMING_instdir\X0.hosts" w
+  FileWrite $0 'localhost$\n'
+  FileWrite $0 '$NW_LinIP_Value$\n'
+  FileWrite $0 '$NW_WinIP_Value$\n'
+  FileClose $0
+
+SectionEnd
+
+Section -CreateConfigFile
+  ${If} $LAUNCHER_Value == "yes"
+#Function InstallLauncherDirctory
+  SetOutPath "$INSTDIR\Launcher"
+   File "premaid\Launcher\andCmd.exe"
+   File "premaid\Launcher\andKChart.exe"
+   File "premaid\Launcher\andKControl.exe"
+   File "premaid\Launcher\andKDVI.exe"
+   File "premaid\Launcher\andKFormula.exe"
+   File "premaid\Launcher\andKGhostView.exe"
+   File "premaid\Launcher\andKHomeFolder.exe"
+   File "premaid\Launcher\andKMail.exe"
+   File "premaid\Launcher\andKOrganizer.exe"
+   File "premaid\Launcher\andKPDF.exe"
+   File "premaid\Launcher\andKPlato.exe"
+   File "premaid\Launcher\andKPresenter.exe"
+   File "premaid\Launcher\andKSpread.exe"
+   File "premaid\Launcher\andKWord.exe"
+   File "premaid\Launcher\andKarbon.exe"
+   File "premaid\Launcher\andKate.exe"
+   File "premaid\Launcher\andKexi.exe"
+   File "premaid\Launcher\andKile.exe"
+   File "premaid\Launcher\andKivio.exe"
+   File "premaid\Launcher\andKonqueror.exe"
+   File "premaid\Launcher\andKonsole.exe"
+   File "premaid\Launcher\andKontact.exe"
+   File "premaid\Launcher\andKrita.exe"
+   File "premaid\Launcher\andKugar.exe"
+   File "premaid\Launcher\karbon.ico"
+   File "premaid\Launcher\kate.ico"
+   File "premaid\Launcher\kchart.ico"
+   File "premaid\Launcher\kcontrol.ico"
+   File "premaid\Launcher\kdvi.ico"
+   File "premaid\Launcher\kexi.ico"
+   File "premaid\Launcher\kformula.ico"
+   File "premaid\Launcher\kghostview.ico"
+   File "premaid\Launcher\khomefolder.ico"
+   File "premaid\Launcher\kile.ico"
+   File "premaid\Launcher\kivio.ico"
+   File "premaid\Launcher\kmail.ico"
+   File "premaid\Launcher\konqueror.ico"
+   File "premaid\Launcher\konsole.ico"
+   File "premaid\Launcher\kontact.ico"
+   File "premaid\Launcher\korganizer.ico"
+   File "premaid\Launcher\kpdf.ico"
+   File "premaid\Launcher\kplato.ico"
+   File "premaid\Launcher\kpresenter.ico"
+   File "premaid\Launcher\krita.ico"
+   File "premaid\Launcher\kspread.ico"
+   File "premaid\Launcher\kugar.ico"
+   File "premaid\Launcher\kword.ico"
+   File "premaid\Launcher\menu.exe"
+   File "premaid\Launcher\menu.txt"
+   File "premaid\Launcher\synaptic.ico"
+   File "premaid\Launcher\volume.ico"
+   File "premaid\Launcher\andApp.exe"
+   File "premaid\Launcher\andDolphin.exe"
+   File "premaid\Launcher\andGwenView.exe"
+   File "premaid\Launcher\andKPlato.exe"
+   File "premaid\Launcher\andKSysGuard.exe"
+   File "premaid\Launcher\andKate.exe"
+   File "premaid\Launcher\andKile.exe"
+   File "premaid\Launcher\andKonsole.exe"
+   File "premaid\Launcher\andKugar.exe"
+   File "premaid\Launcher\andMousepad.exe"
+   File "premaid\Launcher\andOkular.exe"
+   File "premaid\Launcher\andSystemSettings.exe"
+   File "premaid\Launcher\andTerminal.exe"
+   File "premaid\Launcher\andThunar.exe"
+   File "premaid\Launcher\dolphin.ico"
+   File "premaid\Launcher\gwenview.ico"
+   File "premaid\Launcher\kate.ico"
+   File "premaid\Launcher\sublime.ico"
+   File "premaid\Launcher\scite.ico"
+   File "premaid\Launcher\firefox.ico"
+   File "premaid\Launcher\kile.ico"
+   File "premaid\Launcher\xfce4.ico"
+   File "premaid\Launcher\konsole.ico"
+   File "premaid\Launcher\kplato.ico"
+   File "premaid\Launcher\ksysguard.ico"
+   File "premaid\Launcher\kugar.ico"
+   File "premaid\Launcher\mousepad.ico"
+   File "premaid\Launcher\okular.ico"
+   File "premaid\Launcher\systemsettings.ico"
+   File "premaid\Launcher\thunar.ico"
+   File "premaid\Launcher\xfce4_terminal.ico"
+#FunctionEnd
+#  Call InstallLauncherDirctory
+  ${EndIf}
+  SetShellVarContext all
+  SetOutPath -
+  #IfFileExists "settings.txt" check_config write_config
+  #check_config:
+  #MessageBox MB_YESNO|MB_DEFBUTTON2|MB_ICONQUESTION "You already have a configuration file.  Do you wish to replace it with your new settings?$\r$\n$\r$\nExisting file: $INSTDIR\settings.txt" /SD IDNO IDNO skip_config
+  #write_config:
+
+  FileOpen $0 "settings.txt" w
+  FileWrite $0 "# Default config generated by speedLinux installer.$\r$\n"
+  FileWrite $0 'exec0="colinux-console-fltk.exe"$\r$\n'
+; MessageBox MB_OK "XMING_instdir: $XMING_instdir"
+ IfFileExists "$XMING_instdir\Xming.exe" 0 no_xming_link_1
+    FileWrite $0 'exec1="$XMING_instdir\Xming.exe",":0 -dpi 85 -ac -clipboard -notrayicon -c -multiwindow -reset -terminate -unixkill -logfile Xming.log"$\r$\n'
+no_xming_link_1:
+  FileWrite $0 'exec2="pulseaudio\pulseaudio.exe --daemonize"$\r$\n'
+  FileWrite $0 "cocon=80x40x500$\r$\n"
+  FileWrite $0 "kernel=vmlinux$\r$\n"
+  FileWrite $0 "root=/dev/cobd0$\r$\n"
+#  FileWrite $0 "#ro$\r$\n"
+  FileWrite $0 "initrd=initrd.gz$\r$\n"
+  FileWrite $0 "$\r$\n"
+  FileWrite $0 "mem=$FS_RAM_Value$\r$\n"
+  FileWrite $0 "$\r$\n"
+  FileWrite $0 "cobd0=Drives\base.vdi$\r$\n"
+  FileWrite $0 "cobd1=Drives\swap.vdi$\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "# Samba mounts are done in [installdir]firstboot.1.txt or in \etc\mount_all$\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "# Filenames can be changed, only existing *.vdi's files will be mounted. $\r$\n"
+  FileWrite $0 "# cobd2 .. cobd9 may be used. $\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "cobd2=Drives\baseOri.vdi$\r$\n"
+  FileWrite $0 "cobd3=Drives\baseOld.vdi$\r$\n"
+  FileWrite $0 "cobd4=Drives\base910.vdi$\r$\n"
+  FileWrite $0 "cobd5=Drives\base_1.vdi$\r$\n"
+  FileWrite $0 "cobd6=Drives\base_2.vdi$\r$\n"
+  FileWrite $0 "cobd7=Drives\base_3.vdi$\r$\n"
+  FileWrite $0 "cobd8=Drives\base_4.vdi$\r$\n"
+  FileWrite $0 "cobd9=Drives\base_5.vdi$\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "# cofs0 is mounted as writeable! $\r$\n"
+  FileWrite $0 "# cofs1 .. cofs9 may be as used read only, with new files addable.$\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "cofs0=$NW_COFSPFAD_Value$\r$\n" #mounterd as wiritabel!
+  FileWrite $0 "cofs1=C:\$\r$\n"
+  FileWrite $0 "cofs2=D:\$\r$\n"
+  FileWrite $0 "cofs3=E:\$\r$\n"
+  FileWrite $0 "cofs4=F:\$\r$\n"
+  FileWrite $0 "cofs5=G:\$\r$\n"
+  FileWrite $0 "cofs6=H:\$\r$\n"
+  FileWrite $0 "cofs7=I:\$\r$\n"
+  FileWrite $0 "cofs8=J:\$\r$\n"
+  FileWrite $0 "cofs9=K:\$\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "# All static settings my be removed or changed, no extra settings inside Linux needed,$\r$\n"
+  FileWrite $0 "# but if laucher is in use run installer again to change eth1 IP there. $\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "eth0=slirp$\r$\n"
+  FileWrite $0 "ETH0_DHCP=yes$\r$\n"
+  FileWrite $0 "$\r$\n"
+  FileWrite $0 'eth1=tuntap,"Xtunnel",$\r$\n'
+  FileWrite $0 "ETH1_ADR=$NW_LinIP_Value$\r$\n"
+  FileWrite $0 "ETH1_MASK=255.255.255.0$\r$\n"
+  FileWrite $0 "$\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "# If WLAN instead of LAN interface on the PC should be used for uplink, $\r$\n"
+  FileWrite $0 "# remove all lines starting with 'eth2' and enable Windows uplink interface forwarding,$\r$\n"
+  FileWrite $0 "# go to the Windows network interface tab report 'Advanced' in German 'Freigabe'.$\r$\n"
+  FileWrite $0 "# Any LAN interface on the PC my be used for uplink, not only WLAN.$\r$\n"
+  FileWrite $0 "# If the following eth2 is in not removed, You must set Windows NIC name to LAN1.$\r$\n"
+  FileWrite $0 "# More info on: http://wiki.ip-phone-forum.de/freetzlinux:network$\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 'eth2=ndis-bridge,"LAN1",$\r$\n'
+  FileWrite $0 "ETH2_ADR=192.168.178.15$\r$\n"
+  FileWrite $0 "ETH2_MASK=255.255.255.0$\r$\n"
+  FileWrite $0 "ETH2_GW=192.168.178.1$\r$\n"
+  FileWrite $0 "$\r$\n"
+  FileWrite $0 "#SHOW_IF=yes$\r$\n"
+  FileWrite $0 "$\r$\n"
+  FileClose $0
+
+  FileOpen $0 "startup.bat" w
+  FileWrite $0 "@echo off$\n"
+  FileWrite $0 "set COLINUX_CONSOLE_FONT=Lucida Console:12$\n"
+  FileWrite $0 "set COLINUX_CONSOLE_EXIT_ON_DETACH=1$\n"
+  FileWrite $0 ':: Enable the following line by removing the "::" if you want to use all core 2 of the CPU.$\n'
+  FileWrite $0 "set COLINUX_NO_CPU0_WORKAROUND=Y$\n"
+  FileWrite $0 ":: Temporary copy settings.txt$\n"
+  FileWrite $0 'set coParameter="%TEMP%\coParameter.txt"$\n'
+  FileWrite $0 'copy settings.txt %coParameter%$\n'
+  FileWrite $0 "::Get local active IPs$\n"
+  FileWrite $0 "cscript.exe get-activ-ip-adr.vbs %coParameter%$\n"
+  FileWrite $0 'start "speedServer (coLinux)" /min colinux-daemon.exe -d -k @%coParameter%$\n'
+  FileClose $0
+
+
+   WriteRegStr HKLM SOFTWARE\speedLinux\share "path" "$NW_COFSPFAD_Value" 
+
+; Launcher Menue exe has this key hard encoded
+   WriteRegStr HKLM SOFTWARE\andLinux\Launcher "IP" "$NW_LinIP_Value" 
+   WriteRegDWORD HKLM SOFTWARE\andLinux\Launcher "Port" "2081" 
+   WriteRegStr HKLM SYSTEM\CurrentControlSet\Control\BackupRestore\FilesNotToBackup "speedLinux" "$INSTDIR\Drives\*" 
+
+
+SectionEnd
+
 
 ;Function WinpcapRedir
 ;  SectionGetFlags ${SeccoLinuxBridgedNet} $R0
@@ -1298,8 +1456,8 @@ base_exists:
     ; netsh deals in "adapters".  devcon (tapcontrol) deals in "hwids".  neither
     ; displays the other info, so there is no easy way to translate between the
     ; two.
-    DetailPrint "Setting up network for coLinux TAP (XmingTAPBridge)"
-    DetailPrint "Look for last name added and rename to XmingTAPBridge"
+    DetailPrint "Setting up network for coLinux TAP (Xtunnel)"
+    DetailPrint "Look for last name added and rename to Xtunnel"
     DetailPrint "If errors did show up X-windows want be able to start up!"
     nsExec::ExecToLog '"settapip.bat" "$NW_WinIP_Value" "255.255.255.0"'
     Pop $R0 # return value/error/timeout
@@ -1311,12 +1469,12 @@ base_exists:
     FileRead $0 $R0
     IfErrors ip_done
      StrCpy $1 $R0 -2
-     DetailPrint "Rename TAP Interface to XmingTAPBridge"
-     nsExec::ExecToLog 'netsh interface set interface name="$1" newname="XmingTAPBridge"'
+     DetailPrint "Rename TAP Interface to Xtunnel"
+     nsExec::ExecToLog 'netsh interface set interface name="$1" newname="Xtunnel"'
      ;This is done twice it also was set in settapip.bat, would need to make shure it works without douing it two ways.
      ;May be behaveiar is a bit different with XP, doing it twice makes no harm but gives more rilability at present time.
-     DetailPrint "Set static IP for XmingTAPBridge"
-     nsExec::ExecToLog 'netsh.exe interface ip set address "XmingTAPBridge" static "$NW_WinIP_Value" "255.255.255.0"'
+     DetailPrint "Set static IP for Xtunnel"
+     nsExec::ExecToLog 'netsh.exe interface ip set address "Xtunnel" static "$NW_WinIP_Value" "255.255.255.0"'
      Pop $R0 # return value/error/timeout
      FileClose $0
      GoTo ip_ok
@@ -1407,6 +1565,7 @@ swap_made:
   FileWrite $0 "CL_NEWUSERPW=$NW_USERPW_Value$\n"
   FileWrite $0 "CL_SAMBAUSERPW=$NW_SAMBAUSERPW_Value$\n"
   FileWrite $0 "CL_KERNEL_VERSION=${KERNEL_VERSION}$\n"
+  FileWrite $0 "CL_KEY=$Key_int$\n"
   FileClose $0
 
 
@@ -1493,6 +1652,7 @@ SectionEnd
   LangString DESC_SecGrpcoLinux ${LANG_ENGLISH} "Install or upgrade coLinux. Install coLinux basics, driver, Linux kernel, Linux modules and docs"
   LangString DESC_SecNTConsole ${LANG_ENGLISH} "Native Windows (NT) coLinux console views Linux console in an NT DOS Command-line console"
   LangString DESC_SecFLTKConsole ${LANG_ENGLISH} "FLTK Cross-platform coLinux console to view Linux console and manage coLinux from a GUI program"
+;  LangString DESC_SecKeyConsole ${LANG_ENGLISH} "Default key layout for console is set to Germann in /etc/init/console-setup.conf"
 ;  LangString DESC_SecLauncher ${LANG_ENGLISH} "Adds Launcher menu Cross-platform coLinux console to view Linux console and manage coLinux from a GUI program"
   LangString DESC_SecPulseaudio ${LANG_ENGLISH} "Adds Pulseaudio soundserver binarys to the installdirectory"
   LangString DESC_SeccoLinuxNet ${LANG_ENGLISH} "TAP Virtual Ethernet Driver as private network link between Linux and Windows"
@@ -1513,6 +1673,7 @@ SectionEnd
     !insertmacro MUI_DESCRIPTION_TEXT ${SecGrpcoLinux} $(DESC_SecGrpcoLinux)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecNTConsole} $(DESC_SecNTConsole)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecFLTKConsole} $(DESC_SecFLTKConsole)
+;    !insertmacro MUI_DESCRIPTION_TEXT ${SecKeyConsole} $(DESC_SecKeyConsole)
 ;    !insertmacro MUI_DESCRIPTION_TEXT ${SecLauncher} $(DESC_SecLauncher)
     !insertmacro MUI_DESCRIPTION_TEXT ${SecPulseaudio} $(DESC_SecPulseaudio)
     !insertmacro MUI_DESCRIPTION_TEXT ${SeccoLinuxNet} $(DESC_SeccoLinuxNet)
@@ -1534,7 +1695,7 @@ SectionEnd
 ;--------------------------------
 
 Section "Uninstall"
-
+  SetShellVarContext all
   ;-------------------------------------------Uninstall with old driver--
   ;----------------------------------------------------------------------
 
@@ -1554,19 +1715,49 @@ Section "Uninstall"
   nsExec::ExecToLog '"$R2\colinux-daemon.exe" --remove-driver'
   Pop $R0 # return value/error/timeout
 
-  nsExec::ExecToLog '"taskkill" /F /IM xming.exe'
-  nsExec::ExecToLog '"taskkill" /F /IM menu.exe'
-  nsExec::ExecToLog '"taskkill" /F /IM pulseaudio.exe'
+  ;Is any monitor running?
+check_M_running:
+  nsExec::ExecToStack '"$R2\colinux-daemon.exe" --status-driver'
+  Pop $R0 # return value/error/timeout
+  Pop $R1 # Log
+  ;Remove, if no monitor is running
+  Push $R1
+  Push "current number of monitors: 0"
+  Call un.StrStr
+  Pop $R0
+  Pop $R1
+  IntCmp $R0 -1 0 remove_linuxSys remove_linuxSys
+
+  ;remove anyway, if no can detect running status
+  Push $R1
+  Push "current number of monitors:"
+  Call un.StrStr
+  Pop $R0
+  Pop $R1
+  IntCmp $R0 -1 remove_linuxSys
+
+  MessageBox MB_RETRYCANCEL|MB_ICONEXCLAMATION \
+             "colinux-daemon.exe is running.$\nPlease stop it, before continue" \
+             IDRETRY check_M_running
+  Abort
+remove_linuxSys:
+
+
 no_old_linux:
-
-
-
-  DetailPrint "andlinux REMOVE"
+  nsExec::ExecToLog '"taskkill" /F /IM menu.exe'
+  Pop $R0 # return value/error/timeout
+  nsExec::ExecToLog '"taskkill" /F /IM pulseaudio.exe'
+  Pop $R0 # return value/error/timeout
+  IfFileExists "$INSTDIR\unins000.exe" 0 no_old_andlinux
+  DetailPrint "andLinux REMOVE"
   nsExec::ExecToLog '"$INSTDIR\unins000.exe" /SP- /NORESTART'
   Pop $R0 # return value/error/timeout
   DetailPrint "Andlinux remove returned: $R0"
+;  MessageBox MB_OK|MB_ICONSTOP "First Uninstall done, go on with the next part!"
 
-  #MessageBox MB_OK|MB_ICONSTOP "First Uninstall done, go on with the next part!"
+no_old_andlinux:
+
+
 
 
 
@@ -1590,7 +1781,8 @@ no_old_linux:
   Delete "$INSTDIR\netz.txt"
   Delete "$INSTDIR\7za.exe"
   Delete "$INSTDIR\README.txt"
-#  Delete "$INSTDIR\settings.txt"
+  Delete "$INSTDIR\settings.txt"
+  Delete "$INSTDIR\.reboot"
   Delete "$INSTDIR\colinux-console-fltk.exe"
   Delete "$INSTDIR\colinux-console-nt.exe"
   Delete "$INSTDIR\colinux-debug-daemon.exe"
@@ -1807,76 +1999,77 @@ no_old_linux:
   Delete "$INSTDIR\pulseaudio\parec-simple.exe"
   Delete "$INSTDIR\pulseaudio\pulseaudio.exe"
   Delete "$INSTDIR\pulseaudio\sync-playback.exe"
+  
+  Call un.DelShortcut
 
-
-  Delete "$DESKTOP\startup.lnk"
-  Delete "$DESKTOP\Console (NT).lnk"
-  Delete "$DESKTOP\Console (FLTK).lnk"
-  Delete "$DESKTOP\Konsole.lnk"
-  Delete "$DESKTOP\menu.lnk"
-  Delete "$DESKTOP\Thunar.lnk"
-  Delete "$DESKTOP\Terminal.lnk"
-  Delete "$DESKTOP\srvstart.lnk"
-  Delete "$DESKTOP\svrstop.lnk"
-  Delete "$DESKTOP\startup.lnk"
-  Delete "$SMPROGRAMS\speedLinux\Autostart\menu.lnk"
-
-
-  Delete "$QUICKLAUNCH\startup.lnk"
-  Delete "$QUICKLAUNCH\Console (NT).lnk"
-  Delete "$QUICKLAUNCH\Console (FLTK).lnk"
-  Delete "$QUICKLAUNCH\Konsole.lnk"
-  Delete "$QUICKLAUNCH\Thunar.lnk"
-  Delete "$QUICKLAUNCH\menu.lnk"
-  Delete "$QUICKLAUNCH\Terminal.lnk"
-  Delete "$QUICKLAUNCH\svrstart.lnk"
-  Delete "$QUICKLAUNCH\svrstop.lnk"
-
-  Delete   "$SMPROGRAMS\speedLinux\PuTTY root@speedLinux.lnk"
-  Delete   "$SMPROGRAMS\speedLinux\PuTTY freetz@speedLinux.lnk"
-  Delete   "$SMPROGRAMS\speedLinux\speedLinux.lnk"
-  Delete   "$SMPROGRAMS\speedLinux\Console (nt).lnk"
-  Delete   "$SMPROGRAMS\speedLinux\Console (fltk).lnk"
-  Delete   "$SMPROGRAMS\speedLinux\Documentation.lnk"
-  Delete   "$SMPROGRAMS\speedLinux\Uninstall.lnk"
-  Delete   "$SMPROGRAMS\speedLinux\Service\XmingStart.lnk"
-  Delete   "$SMPROGRAMS\speedLinux\Service\XmingStartRootless.lnk"
-#  Delete   "$SMPROGRAMS\speedLinux\Service\demon start.lnk"
-#  Delete   "$SMPROGRAMS\speedLinux\Service\demon stop.lnk"
-#  Delete   "$SMPROGRAMS\speedLinux\Service\svr Start.lnk"
-#  Delete   "$SMPROGRAMS\speedLinux\Service\svr Stop.lnk"
-
-#   RMDir /r "$SMPROGRAMS\speedLinux\Non-Service"
-    RMDir /r "$SMPROGRAMS\speedLinux\Service"
-  RMDir /r "$SMPROGRAMS\speedLinux"
 
   RMDir /r "$SMPROGRAMS\Launcher"
   RMDir /r "$SMPROGRAMS\pulseaudio"
-  RMDir /r "$SMPROGRAMS\andLinux"
 
   DeleteRegKey HKLM ${REGUNINSTAL}
   DeleteRegKey HKLM ${REGEVENTS}
   DeleteRegKey HKCU "Software\andLinux"
 #  DeleteRegKey HKCU "Software\speedLinux"
   DeleteRegKey HKCU "Software\coLinux"
+  DeleteRegKey HKLM "SOFTWARE\speedLinux\share"
   DeleteRegKey HKLM "SOFTWARE\andLinux\Launcher"
   DeleteRegKey HKLM "SOFTWARE\speedLinux\Launcher"
 
 
   MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 \
-    "Do you wish to delete your file system images and configuration files as well?" \
+    "Do you wish to delete your file system images files as well?" \
     /SD IDNO IDNO no_delete
   RMDir /r "$INSTDIR\Drives"
   Delete "$INSTDIR\settings.txt"
  no_delete:
 
-
+  Push $R0
+  Push $R1
+  ClearErrors
+  ReadRegStr $R1 HKLM SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Xming_is1 UninstallString
+  ReadRegStr $R0 HKLM SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Xming_is1 InstallLocation
+  IfErrors 0 we_have_xming
+   StrCpy $R1 "$XMING_instdir\unins000.exe"
+   IfFileExists $R1 0 no_del_xming
+  we_have_xming:
   MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 \
-    "Do you wish to delete Xming? Xming and some other second souce should be removed on its own! If removed here registry is not cleaned!" \
+    "Do you wish to unistall Xming?" \
     /SD IDNO IDNO no_del_xming
-    RMDir /r "$SMPROGRAMS\Xming"
-    RMDir /r "$INSTDIR\Xming"
+  DetailPrint "Found Xming installed at $R0"
+ ;DetailPrint "REMOVE Xming"
+  nsExec::ExecToStack '"taskkill" /F /IM xming.exe'
+  Pop $R0 # return value/error/timeout
+  nsExec::ExecToLog '$R1 /SILENT'
+  Pop $R0 # return value/error/timeout
+  DetailPrint "Xming remove returned: $R0"
+ ;RMDir /r "$INSTDIR\Xming"
+ ;RMDir /r "$SMPROGRAMS\Xming"
   no_del_xming:
+  Pop $R1
+  Pop $R0
+
+
+  Push $R0
+  Push $R1
+  ClearErrors
+  ReadRegStr $R1 HKLM SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PuTTY_is1 UninstallString
+  ReadRegStr $R0 HKLM SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\PuTTY_is1 InstallLocation
+  IfErrors 0 we_have_putty
+   StrCpy $R1 "$PROGRAMFILES\PuTTY\unins000.exe"
+   IfFileExists $R1 0 no_del_putty
+  we_have_putty:
+;  MessageBox MB_YESNO|MB_ICONQUESTION|MB_DEFBUTTON2 \
+;    "Do you wish to unistall PuTTY?" \
+;    /SD IDNO IDNO no_del_putty
+  DetailPrint "Found PuTTY installed at $R0"
+  DetailPrint "REMOVE PuTTY"
+  nsExec::ExecToLog $R1
+  Pop $R0 # return value/error/timeout
+  DetailPrint "PuTTY remove returned: $R0"
+  no_del_putty:
+  Pop $R1
+  Pop $R0
+
 
   ;--------------------------------------------------------------/FILES--
   ;----------------------------------------------------------------------
@@ -1895,6 +2088,7 @@ no_old_linux:
   DeleteRegKey HKCU "Software\andLinux"
   DeleteRegKey HKCU "Software\speedLinux"
   DeleteRegKey HKCU "Software\coLinux"
+  DeleteRegKey HKLM "SOFTWARE\speedLinux\share"
   DeleteRegKey HKLM "SOFTWARE\andLinux\Launcher"
   DeleteRegKey HKLM "SOFTWARE\speedLinux\Launcher"
   ;DeleteRegKey HKLM "SYSTEM\CurrentControlSet\Control\BackupRestore\FilesNotToBackup"
@@ -1909,6 +2103,50 @@ SectionEnd
 ;   Output: head of the stack
 ;====================================================
 Function StrStr
+  Push $0
+  Exch
+  Pop $0 ; $0 now have the string to find
+  Push $1
+  Exch 2
+  Pop $1 ; $1 now have the string to find in
+  Exch
+  Push $2
+  Push $3
+  Push $4
+  Push $5
+
+  StrCpy $2 -1
+  StrLen $3 $0
+  StrLen $4 $1
+  IntOp $4 $4 - $3
+
+  StrStr_loop:
+    IntOp $2 $2 + 1
+    IntCmp $2 $4 0 0 StrStrReturn_notFound
+    StrCpy $5 $1 $3 $2
+    StrCmp $5 $0 StrStr_done StrStr_loop
+
+  StrStrReturn_notFound:
+    StrCpy $2 -1
+
+  StrStr_done:
+    Pop $5
+    Pop $4
+    Pop $3
+    Exch $2
+    Exch 2
+    Pop $0
+    Pop $1
+FunctionEnd
+
+;====================================================
+; StrStr - Finds a given string in another given string.
+;          Returns -1 if not found and the pos if found.
+;   Input: head of the stack - string to find
+;          second in the stack - string to find in
+;   Output: head of the stack
+;====================================================
+Function un.StrStr
   Push $0
   Exch
   Pop $0 ; $0 now have the string to find
@@ -2194,4 +2432,42 @@ RndEnd:
 	Exch $R0
 FunctionEnd
 
+; Trim
+;   Removes leading & trailing whitespace from a string
+; Usage:
+;   Push 
+;   Call Trim
+;   Pop 
+Function Trim
+	Exch $R1 ; Original string
+	Push $R2
  
+Loop:
+	StrCpy $R2 "$R1" 1
+	StrCmp "$R2" " " TrimLeft
+	StrCmp "$R2" "$\r" TrimLeft
+	StrCmp "$R2" "$\n" TrimLeft
+	StrCmp "$R2" "$\t" TrimLeft
+	GoTo Loop2
+TrimLeft:	
+	StrCpy $R1 "$R1" "" 1
+	Goto Loop
+ 
+Loop2:
+	StrCpy $R2 "$R1" 1 -1
+	StrCmp "$R2" " " TrimRight
+	StrCmp "$R2" "$\r" TrimRight
+	StrCmp "$R2" "$\n" TrimRight
+	StrCmp "$R2" "$\t" TrimRight
+	StrCmp "$R2" "\" TrimRight
+	StrCmp "$R2" "/" TrimRight
+	GoTo Done
+TrimRight:	
+	StrCpy $R1 "$R1" -1
+	Goto Loop2
+ 
+Done:
+	Pop $R2
+	Exch $R1
+FunctionEnd
+

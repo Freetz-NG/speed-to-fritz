@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* Installer IP settings changed, style chnages."
+comment="* Installer fix uninstall."
 
 
 
@@ -35,13 +35,13 @@ date=$(date +%Y%m%d-%H%M)
 #svn delete --force ./trunk/patch_recover
 
 #svn delete --force ./trunk/patch.diff
-#svn delete --force ./trunk/co_new/tarballs/configs/etc/failsave.conf
+svn delete --force ./trunk/co_new/tarballs/configs/etc/failsave.conf
 #svn add * --force
 #svn propedit svn:ignore trunk
 #svn propedit svn:ignore .
 
 #svn revert
-svn add * --force
+#svn add * --force
 
 svn status
 svn diff > ../patch.diff

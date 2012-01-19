@@ -203,6 +203,11 @@ echo $COLINUX_EXE_VER > COLINUX_EXE_VER
 echo $COLINUX_SHORT_VER > COLINUX_SHORT_VER
 echo $USE_SNAP > USE_SNAP
 echo "Please wait ..."
+
+#-----------------------------------------------------
+echo "3119" >./version
+#-----------------------------------------------------
+
 $home/make-release.sh  > $home/make-release.log
 echo 
 echo

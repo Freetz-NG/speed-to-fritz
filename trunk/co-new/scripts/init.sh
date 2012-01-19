@@ -104,6 +104,15 @@ chmod 440 /etc/sudoers
 rm -f /etc/init/plymouth*
 rm -f /etc/init/udev-fallback*
 rm -f /etc/init/rsyslog*
+if [ -e /etc/init/console-setup.conf ]; then
+if [ "$CL_KEY" = "y" ]; then
+    sed -i -e 's/^exec loadkeys/#exec loadkeys/' "/etc/init/console-setup.conf"
+else
+    sed -i -e 's/#exec loadkeys/exec loadkeys/' "/etc/init/console-setup.conf"
+fi
+    grep -qs '#exec loadkeys' "/etc/init/console-setup.conf" &&\
+    echo "---------- loadkeys is disabled /etc/init/console-setup.conf" && sleep 1
+fi
 chmod -R 777 /home
 cat <<SETEOF >/setpw
 #!/bin/sh

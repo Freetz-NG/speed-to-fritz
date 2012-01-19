@@ -72,4 +72,9 @@ Ubuntu presice is now in use.
 23.12.11
 Default NET for eth1 changed to 192.168.0.0, because if WLAN is in use,
 Windows Vista sets the virtual adapter to 192.168.0.1.
-Read info on http://wiki.ip-phone-forum.de/freetzlinux:network
+Read info on http://wiki.ip-phone-forum.de/freetzlinux:network
+
+15.01.12 Version 3118
+Fixed Xming related bugs, allredy instlled Xming my now be used.
+German console key layout my now be disabled, follow link on install page for more details.
+

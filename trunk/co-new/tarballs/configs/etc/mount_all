@@ -100,8 +100,8 @@ else
      (cd /home/$username/Desktop; ln -s /mnt/win/ windows)
 fi
 # Set setings via settings.txt
-! [ -f /mnt/and/settings.txt ] && echo "------- Local install directory not mounted! ------\n ($INSTALLDIR/settings.txt)"
-! [ -f /mnt/and/Xming/X0.hosts ] && echo "------- Local install directory not mounted! ------\n $INSTALLDIR/Xming/X0.hosts)"
+! [ -f /mnt/and/settings.txt ] && echo "Local install directory $INSTALLDIR not mounted!"
+! [ -f /mnt/and/Xming/X0.hosts ] && echo "Local directory $INSTALLDIR/Xming/ not mounted!"
 #! [ -e /mnt/and/settings.txt ] && exit 0
 mount_cofs()
 {

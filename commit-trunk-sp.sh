@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="  * Add speedlinux installer for ubuntu 12.4" 
+comment="  * more fixes for W503, belongs to last commit" 
 
 echo "-------------------------------------------------------------------------------------------------------------"
 if [ `id -u` -eq 0 ]; then

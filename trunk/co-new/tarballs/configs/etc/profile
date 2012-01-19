@@ -44,12 +44,12 @@ done
 for i in $(cat /proc/cmdline) ; do
 case $i in
 DISPLAY=*)
-DISPLAY="${i#*=}"
+DISPLAY_TMP="${i#*=}"
 #echo DISPLAY: $DISPLAY
 if [ -x /usr/bin/fping ]; then
-    DISPLAY=$(echo $DISPLAY | sed 's|,| |g' | fping -a)
+    DISPLAY_TMP=$(echo $DISPLAY_TMP | sed 's|,| |g' | fping -a)
 else
-    DISPLAY=
+    DISPLAY_TMP=
 fi
 ;;
 *)
@@ -57,13 +57,12 @@ fi
 esac
 done
 #echo Installdir: $INSTALLDIR
-[ -z "$DISPLAY" ] && echo -e "Kernelparameter DISPLAY is missing (set it via $INSTALLDIR/startup.bat).
-or Login with SSH and check the ip of host with command 'set | grep SSH_CLIENT'
-Use the shown ip address from above in the DISPLAY
-Call for example 'DISPLAY=192.168.0.1:0.0 && terminal" && DISPLAY=192.168.0.1
-
-export ESPEAKER=${DISPLAY}:16001
-export ESPEAKER=${DISPLAY}:16001
-export PULSE_SERVER=${DISPLAY}
-export DISPLAY=${DISPLAY}:0.0
+if [ -z "$DISPLAY_TMP" ]; then
+ echo "Kernelparameter DISPLAY is missing! Set it via $INSTALLDIR/startup.bat or login with SSH and check the ip of host with command: 'set | grep SSH_CLIENT' Use the shown ip address and execute for example: 'DISPLAY=192.168.0.1:0.0 && terminal"
+ DISPLAY_TMP=192.168.0.1
+fi
+export ESPEAKER=${DISPLAY_TMP}:16001
+export ESPEAKER=${DISPLAY_TMP}:16001
+export PULSE_SERVER=${DISPLAY_TMP}
+export DISPLAY=${DISPLAY_TMP}:0.0
 umask 022

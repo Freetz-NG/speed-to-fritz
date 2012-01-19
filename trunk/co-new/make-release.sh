@@ -134,5 +134,5 @@ makensis colinux.nsi
 rm -f ${ALL_BASE}/tarballs/*.tar
 mv speedLinux.exe /mnt/win/upstream/speedLinux-${SPEEDLINUX_VER}.exe
 
-#rm -fr ${ALL_BASE}/$SPEEDLINUX_VER
-sleep 5
+rm -fr ${ALL_BASE}/$SPEEDLINUX_VER
+sleep 1
