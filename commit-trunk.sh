@@ -35,7 +35,7 @@ date=$(date +%Y%m%d-%H%M)
 #svn delete --force ./trunk/patch_recover
 
 #svn delete --force ./trunk/patch.diff
-svn delete --force ./trunk/co_new/logo
+svn delete --force ./trunk/co-new/logo
 #svn add * --force
 #svn propedit svn:ignore trunk
 #svn propedit svn:ignore .
