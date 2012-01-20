@@ -62,6 +62,13 @@ chmod 777 /home
 #https://help.ubuntu.com/community/DebootstrapChroot
 #[ you may use aptitude, install mc and vim ... ]
 apt-get install ubuntu-minimal
+apt-get remove ubuntu-minimal
+#bug -- rsyslog blocks cpu
+#rm -f /etc/init/rsyslog*
+apt-get remove rsyslog
+apt-get autoremove
+apt-get clean
+
 apt-get update
 #apt-get upgrade
 apt-get install fping sudo
@@ -84,10 +91,8 @@ apt-get install xfce4-volumed
 apt-get install xfce4-appfinder
 apt-get install xfce4-artwork
 
-#bug -- rsyslog blocks cpu
 rm -f /etc/init/plymouth*
 rm -f /etc/init/udev-fallback*
-rm -f /etc/init/rsyslog*
 #disable presistant entrys for net
 rm -f /etc/udev/rules.d/*.rules
 sed -i "s/write_rule /#write_rule /g" /lib/udev/write_net_rules

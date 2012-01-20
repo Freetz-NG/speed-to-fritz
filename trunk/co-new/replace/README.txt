@@ -4,7 +4,7 @@ All Version are useabel for speed-to-fritz and freetz.
 
 Get started:
 
-1. Click start icon (speedlinux pinguine) on desktop, menu, quick lounch   
+1. Click icon (speedlinux) on desktop, menu, quick lounch   
 	or use startup.bat found in your installation directory.
 2. Wait until LINUX boot process is finished. 
 		Console-NT (Donald-Duck icon), 
@@ -15,15 +15,21 @@ Get started:
 		use pulldown to see shortcuts
 
 3. 	(Xming window server and pulseaudio sound server 
-	is automaticaly stated (see: settings.txt).
+	is automaticaly stated via settings.txt.
 
 4.	Login as normal user.
 	Type in: 'p' followed by Enter key in Console(NT) or Console (FTLK) 
 	to bring up a XFCE4 menu and start a terminal session.
-	Depending on the image in uses this may vary. Read README.XXX on 
-	sourceforge.net to the image in use. The installer presents a page where
+
+	Depending on the image in uses this may vary.
+	Read the README.XXX on sourceforge.net to the image in use.
+	The installer presents a page where
 	one can select the image for download, there is also a link to each 
 	Image that brings up the README.XXX within the internet explorer. 
+	Or on:
+	http://sourceforge.net/projects/speedlinux/files/[subfolder named like the image]
+	You also finnd the corresponding README.XXX file.
+
 	'termianl' or 'konsole' shuld always be usabel.
 
 Type in: 'cd Desktop'
@@ -46,10 +52,12 @@ If your Windows physical LAN connection to the internet is not named 'LAN1'
 then you must rename your Windows physical connection 'LAN1'
 or you may change the name in settings.txt.
 You can disable the bridge connection to the Internet if you add a 
-leading hash sign to the following line within settings.txt
+leading hash sign to the following line within [Installdir]\settings.txt
 eth2=ndis-bridge,"LAN1", -> #eth2=ndis-bridge,"LAN1",
 (pcap-bridge needs Win-Pcap installed, ndis-bridge is about the same but does not 
 need Win-Pcap, and is much faster.)
+Read documetation for mor info on the subject.
+http://wiki.ip-phone-forum.de/skript:technische_beschreibug_von_freetzlinux
 
 * If you dont want to use 2nd CPU core,
 disable the following line in startup.bat by adding the "::"

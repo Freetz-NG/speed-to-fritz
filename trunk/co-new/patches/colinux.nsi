@@ -304,6 +304,7 @@ no_xmingfolder:
   !insertmacro MUI_INSTALLOPTIONS_EXTRACT "iDl.ini"
   !insertmacro MUI_INSTALLOPTIONS_EXTRACT "WinpcapRedir.ini"
 FunctionEnd
+
 ;--------------------------------------------------------------------------------------------
 ;--------------------------------------------------------------------------------------------
 ;Installer Sections
@@ -2300,8 +2301,9 @@ MirrorsStart:
 MirrorsEnd:
 	IntOp $R6 $R3 + "1"
 	DetailPrint "Downloading from mirror $R6: $R2"
-
-	NSISdl::download "$R2" "$R1"
+        ;MessageBox MB_OK "$R2 :  $R1"
+	inetc::get "$R2" "$R1" /END
+#	NSISdl::download "$R2" "$R1"
 	Pop $R4
 	StrCmp $R4 "success" Success
 	StrCmp $R4 "cancel" DownloadCanceled

@@ -25,8 +25,15 @@ for FILE in $DIRI; do
  [ -f /var/log/$FILE ] && echo "" > /var/log/$FILE && echo "${FILE}"
 done
 echo "---------------------"
-rm -r /lib/modules/*-co-*
-[ -d /mnt/boot ] && rm -r /boot/*
+apt-get remove ubuntu-minimal -y
+#bug -- rsyslog blocks cpu
+apt-get remove rsyslog -y
+rm -f /etc/init/rsyslog*
+rm -f /etc/init/plymouth*
+rm -f /etc/init/udev-fallback*
+
+rm -r /lib/modules/*-co-* 2> /dev/null
+[ -d /mnt/boot ] && rm -r /boot/* 2> /dev/null
 rm -f /var/log/*.gz.*
 rm -f /*.log
 rm -f /var/run/*.pid
@@ -40,24 +47,20 @@ sudo apt-get autoremove -y
 sudo apt-get autoclean -y
 sudo apt-get clean -y
 
-#bug -- rsyslog blocks cpu
-rm -f /etc/init/plymouth*
-rm -f /etc/init/udev-fallback*
-rm -f /etc/init/rsyslog*
 #disable presistant entrys for net
 rm -f /etc/udev/rules.d/*.rules
 sed -i "s/write_rule /#write_rule /g" /lib/udev/write_net_rules
-echo " * Initializing swap file: /dev/1"
 for i in 0 1 2 3 4 5 6 7 8 9
 do
  mknod /dev/cobd$i b 117 $i 2> /dev/null
 done
-swapoff /dev/1
-mkswap /dev/1
-swapon /dev/1
+echo " * Initializing ..."
+swapoff /dev/1 2> /dev/null
+mkswap /dev/1 2> /dev/null
+swapon /dev/1 2> /dev/null
 
 echo "zero space - be patient ..."
 dd if=/dev/zero of=file.z
-#cat /dev/zero > file.z
+cat /dev/zero > file.z
+echo "remove temp file patient ..."
 rm -v file.z
-sleep 5

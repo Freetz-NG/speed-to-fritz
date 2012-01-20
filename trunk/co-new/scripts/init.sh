@@ -77,7 +77,7 @@ if [ -e /etc/ssh/sshd_config ]; then
     echo "---------- added setup sshd_config"
     sleep 1
 fi
-#This is only on older andLinux versions in ues, we start via rc.local
+#This is only on older andLinux versions in ues, we edit /etc/inittab and start via rc.local
 #if [ -e /etc/inittab ]; then
 #    sed -i -e 's|C0::respawn:.usr.bin.X11.startwindowsterminalsession|#C0::respawn:/usr/bin/X11/startwindowsterminalsession|' "/etc/inittab" 
 #    echo "---------- removed respawn startwindowsterminalsession!"
@@ -103,6 +103,10 @@ chmod 440 /etc/sudoers
 #on newer Linux systems
 rm -f /etc/init/plymouth*
 rm -f /etc/init/udev-fallback*
+#apt-get remove ubuntu-minimal -y 2> /dev/null
+#apt-get remove rsyslog -y 2> /dev/null
+#apt-get autoremove
+#apt-get clean
 rm -f /etc/init/rsyslog*
 if [ -e /etc/init/console-setup.conf ]; then
 if [ "$CL_KEY" = "y" ]; then

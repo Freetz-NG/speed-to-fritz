@@ -1,4 +1,6 @@
 #!/bin/bash
+# Remove left over Subversion directories
+find  -type d -name .svn | xargs rm -rf
 export home=$(pwd)
 cd $home/dl
 #svn checkout svn+ssh://anonymous@blackfin.uclinux.org/svnroot/bfin-colinux ../bfin-colinux-ori 
@@ -205,7 +207,7 @@ echo $USE_SNAP > USE_SNAP
 echo "Please wait ..."
 
 #-----------------------------------------------------
-echo "3119" >./version
+echo "3120" >./version
 #-----------------------------------------------------
 
 $home/make-release.sh  > $home/make-release.log

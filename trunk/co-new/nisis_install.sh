@@ -35,6 +35,9 @@ cd /usr/local/nsis/nsis-${VERSION}-src
 scons SKIPSTUBS=all SKIPPLUGINS=all SKIPUTILS=all SKIPMISC=all NSIS_CONFIG_CONST_DATA=no PREFIX=/usr/local/nsis/nsis-${VERSION} install-compiler
 cp /usr/local/nsis/nsis-${VERSION}/bin/* /usr/bin
 
+# aditional dll's
+cp /dl/*.dll /usr/local/nsis/nsis-${VERSION}/Plugins
+
 mkdir -p /usr/local/nsis/nsis-${VERSION}/share
 cd /usr/local/nsis/nsis-${VERSION}/share
 ln -s /usr/local/nsis/nsis-${VERSION} nsis
