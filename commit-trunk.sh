@@ -1,6 +1,7 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* Fix last commit"
+comment="* Fix some problems if speelinux ubuntu 12.04 is used.
+	* Add a tool to set bootloader ip via UDP"
 
 
 
@@ -35,13 +36,13 @@ date=$(date +%Y%m%d-%H%M)
 #svn delete --force ./trunk/patch_recover
 
 #svn delete --force ./trunk/patch.diff
-svn delete --force ./trunk/co-new/logo
+#svn delete --force ./trunk/co-new/logo
 #svn add * --force
 #svn propedit svn:ignore trunk
 #svn propedit svn:ignore .
 
 #svn revert
-#svn add * --force
+svn add * --force
 
 svn status
 svn diff > ../patch.diff

@@ -502,6 +502,8 @@ function cleanup() {
 #########################################################################
 function pushconfig()
 {
+echo "kk"
+
 IMAGEDIR="$1"
 OEM="$2"
 CONFIG_PRODUKT="$3"
@@ -515,32 +517,38 @@ ECHO_ROT="\033[31m"
 ECHO_GELB="\033[33m"
 ECHO_BOLD="\033[1m"
 ECHO_END="\033[0m"
+echo "kkk"
+
+! ftp -h > /dev/null  2>&1 && echo  "cannot find the tool 'ftp'" && return 1
+echo "kkk"
 arg="${IMAGEDIR}/kernel.image"
 ! tmpimg=$(mktemp -t speedXXX) && echo "Error creating temporary file." && return 1; 
 cp $arg $tmpimg
 arg=$tmpimg
 trap cleanup EXIT SIGTERM SIGINT
-while [ -z "$img" ]; do
-	if [ "$(uname -s)" == "Darwin" ]; then
-	    hexdump -n4 "$arg" | grep -iq "81 12 ed fe" && img="$arg"
-	else
-	    hexdump -n4 "$arg" | grep -iq "1281 feed" && img="$arg"
-	fi
-	if [ -z "$img" ]; then
-		if tar tf "$arg" ./var/tmp/kernel.image > /dev/null  2>&1; then
-		    echo >&2
-		    echo "Hint: file seems to be a full firmware image archive in 'tar' format" >&2
-		    echo "containing the 'kernel.image'. Now trying to unpack and use that image." >&2
-		    tar -Oxf "$arg" ./var/tmp/kernel.image > $tmpimg
-		    arg=$tmpimg
-		else
-		    echo >&2
-		    echo "Error: file is not a valid image to be written to mtd1. Please use a" >&2
-		    echo "hidden root 'kernel.image' containing both Linux kernel and file system." >&2
-		    return 1
-		fi
-	fi
-done
+#while [ -z "$img" ]; do
+#hexdump is missing on some systems
+#	if [ "$(uname -s)" == "Darwin" ]; then
+#	    hexdump -n4 "$arg" | grep -iq "81 12 ed fe" && img="$arg"
+#	else
+#	    hexdump -n4 "$arg" | grep -iq "1281 feed" && img="$arg"
+img="$arg"
+#	fi
+#	if [ -z "$img" ]; then
+#		if tar tf "$arg" ./var/tmp/kernel.image > /dev/null  2>&1; then
+#		    echo >&2
+#		    echo "Hint: file seems to be a full firmware image archive in 'tar' format" >&2
+#		    echo "containing the 'kernel.image'. Now trying to unpack and use that image." >&2
+#		    tar -Oxf "$arg" ./var/tmp/kernel.image > $tmpimg
+#		    arg=$tmpimg
+#		else
+#		    echo >&2
+#		    echo "Error: file is not a valid image to be written to mtd1. Please use a" >&2
+#		    echo "hidden root 'kernel.image' containing both Linux kernel and file system." >&2
+#		    return 1
+#		fi
+#	fi
+#done
 CNET=${IPADDRESS%.*}
 NET=${CNET%.*}
 ETHLIST=" eth0 eth1 eth2 eth3 eth4 eth5"
@@ -552,13 +560,6 @@ for ETH_IF in ${ETHLIST} ; do
    break
   fi
 done
-PTEST=" finalize=1 subnet=2.18"
-for i in ${PTEST} ; do
-	case $i in
-		subnet=*)
- PTEST_SERVER=${NET}.${i##subnet=}
-    esac
-done
 echo2 "Parameter in use:"
 echo2 "             Eth ${ETH_IF}"
 echo2 "              IP ${IPADDRESS}"
@@ -568,10 +569,11 @@ echo2 "      HWResvison ${HWRevision}"
 echo2 "     kernel_args ${kernel_args}"
 echo2 "  Imagedirectory ${IMAGEDIR}"
 echo
-ifconfig $ETH_IF ${CNET}.10 &> /dev/null
-ifconfig $ETH_IF | grep 'inet .d' | sed -e "s/inet .d/PC Netcard Ad/g"
+# removed ubuntu 12.04
+#ifconfig $ETH_IF ${CNET}.4 &> /dev/null
+#ifconfig $ETH_IF | grep 'inet .d' | sed -e "s/inet .d/PC Netcard Ad/g"
 echo
-WR_MDT1=y
+#WR_MDT1=y
 [ "$SPMOD" == "757H" ] && ISALICE=y
 if [ $FORCE_CLEAR_FLASH ]; then
 echo "-----------------------------------------------------------------------"
@@ -583,12 +585,14 @@ while !(read -s); do
     sleep 1
 done
 fi
+WR_MDT1=""
 [ -e ${HOMEDIR}/.env.log ] && rm ${HOMEDIR}/.env.log
 ping_params="-c1 -w1"
 echo
 if [ $ISALICE ] || [ $PRINTENV ]; then
 echo -e "You must ${ECHO_BOLD}${ECHO_GELB}reboot${ECHO_END} your box now. Waiting for box to shut down for restart ...\n"
-while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
+while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
  echo -n "."
  sleep 1
 done 
@@ -621,11 +625,14 @@ MTD=$(echo "$VALUES" | sed -n '/^mtd/ s/mtd.[^0]*// p')
 	[ $ISALICE ] && kernel_mtd5=$(mktemp -t mtd5_XXX) && dd if=${arg} of=${kernel_mtd5} bs=1k skip=7808 2> ${ddlog} &&\
 	grep -q '0 bytes (0 B) copied' ${ddlog} && echo "--> Firmware size < 8MB." && unset ISALICE
     fi
-echo -e "${ECHO_BOLD}${ECHO_ROT}If no restart on its own, you must reboot your box again.${ECHO_END}\n"
+    echo -e "${ECHO_BOLD}${ECHO_ROT}If no restart on its own, you must reboot your box again.${ECHO_END}\n"
+else
+    echo -e "${ECHO_BOLD}${ECHO_ROT}You must reboot your box.${ECHO_END}\n"
 fi
 [ $ISALICE ] || kernel_mtd1="${arg}"
-echo "Waiting for box to shut down and restart ..."
-while [ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
+echo "Waiting for box to restart ..."
+while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
  echo -n "."
  sleep 1
 done 
@@ -660,12 +667,15 @@ EOT
 printprogress
 rm -f ${HOMEDIR}/.packed
 print_ftperror || return 1
-IP=${IPADDRESS}
-[ $ISALICE ] || IP="192.168.2.1"
-if [ $FORCE_CLEAR_FLASH ]; then
+if [ "$FORCE_CLEAR_FLASH" ] && [ "$PATCH_OEM" != "y" ]; then
+ IP=${IPADDRESS}
+ [ $ISALICE ] || IP="192.168.2.1"
+ echo "IP: $IP, "
+ ifconfig $ETH_IF netmask 255.255.0.0 &> /dev/null
  echo -e "${ECHO_BOLD}${ECHO_ROT}If no restart on its own, you must reboot your box again.${ECHO_END}\n"
  echo "Waiting for box to shut down and restart ..."
- while [ `ping $ping_params ${IP} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
+ while [ `ping $ping_params ${IP} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+  [ `ping $ping_params ${IP} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
   echo -n "."
   sleep 1
  done 

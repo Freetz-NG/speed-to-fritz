@@ -75,6 +75,7 @@ SHOW_IF="${i#*=}"
 ;;
 esac
 done
+ifdown -a
 cat <<EOF > /etc/network/interfaces
 # Used by ifup(8) and ifdown(8). See the interfaces(5) manpage or
 # /usr/share/doc/ifupdown/examples for more information.
@@ -117,8 +118,8 @@ iface eth2 inet static
      ${ETH2_MASK}
      ${ETH2_GW}
 EOF
-#ifdown -a
-#ifup -a
+echo " * Restarting networking ..."
+ifup -a 2>&1 | grep -q Failed && ifup -a && sleep 10
 if ! [ -z "$SHOW_IF" ]; then
     echo " * interfaces:"
     cat /etc/network/interfaces | sed '/#/d' | sed '/lo /d' | sed '/auto /d'

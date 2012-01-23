@@ -1,0 +1,187 @@
+#! /usr/bin/perl
+#
+#   simple fbox recovery tool
+#
+#
+#   Copyright (C) 2004,2005 Enrik Berkhan <enrik.berkhan@inka.de>
+#   Copyright (C) 2006 Daniel Eiband <eiband@online.de>
+#   Copyright (C) 2012 Johann Pascher <johann.pascher at gmail.com>
+#   (Most of the original code removed beause only one option is needed)
+#
+#   This program is free software; you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation; either version 2 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program; if not, write to the Free Software
+#   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+use IO::Socket::INET;
+use IO::Select;
+use Socket;
+use Getopt::Std;
+use Errno qw(EEXIST);
+use Net::FTP;
+use Fcntl qw(SEEK_END SEEK_SET);
+
+
+use warnings;
+
+$| = 1;
+
+
+my $ipaddr;
+my $setip = unpack("N", inet_aton("192.168.178.1"));
+my $probe = IO::Socket::INET->new(Proto => 'udp',
+									Broadcast => 1,
+									LocalAddr => "0.0.0.0",
+									LocalPort => 5035) or die "socket: $!";
+my $sel = IO::Select->new($probe);
+my $packet = pack("vCCVNV", 0, 18, 1, 1, 0, 0);
+my $broadcast = sockaddr_in(5035, INADDR_BROADCAST);
+
+$probe->send($packet, 0, $broadcast);
+
+scan_again:
+print "You must reboot your box now. Waiting for box to shut down for restart ...\n";
+@boxes = ();
+$scanning = 100000;
+print ".";
+while($scanning) {
+	my $reply;
+	my @ready;
+
+	if (@ready = $sel->can_read(0.2)) {
+		$peer = $probe->recv($reply, 16);
+		next if (length($reply) < 16);
+		my ($port, $addr) = sockaddr_in($peer);
+		my ($major, $minor1, $minor2, $code, $addr2) = unpack("vCCVV", $reply);
+		$addr2 = pack("N", $addr2);
+		if ($code == 2) {
+			print ".";
+			push @boxes, [$major, $minor1, $minor2, $addr, $addr2];
+			$scanning = 2 if ($scanning > 2);
+		}
+	} else {
+		$scanning--;
+		if (scalar @boxes == 0) {
+			$probe->send($packet, 0, $broadcast);
+			print ".";
+		} else {
+			print "  ";
+		}
+	}
+}
+
+if (scalar @boxes == 0) {
+	print " none found, giving up.\n";
+	exit 1;
+} else {
+	print " found!\n";
+}
+
+foreach $box (@boxes) {
+	my ($major, $minor1, $minor2, $addr, $addr2) = @$box;
+	printf "ADAM2 version $major.$minor1.$minor2 at %s (%s)\n",
+				 inet_ntoa($addr), inet_ntoa($addr2);
+}
+
+if (scalar @boxes > 1) {
+	print "more than one boxes: no work\n";
+	exit 1;
+}
+
+$ipaddr = (@{$boxes[0]})[4];
+if (!$ipaddr && !$setip) {
+	print "box has no ip, giving up\n";
+	exit 1;
+}
+
+if ($setip) {
+	if ($setip != unpack('N', $ipaddr)) {
+		print "setting ip address\n";
+		my $setpacket = pack("vCCVNV", 0, 18, 1, 1, $setip, 0);
+		$probe->send($setpacket, 0, $broadcast);
+		goto scan_again;
+	} else {
+		print "ip already ok\n";
+	}
+}
+
+{
+	package ADAM2FTP;
+	use base qw(Net::FTP);
+	# ADAM2 requires upper case commands, some brain dead firewall doesn't ;-)
+	sub _USER { shift->command("USER",@_)->response() }
+	sub _PASV { shift->command("P\@SW")->response() == Net::FTP::CMD_OK }
+	sub _GETENV {
+		my $ftp = shift;
+		my ($ok, $name, $value);
+		$ftp->command("GETENV",@_);
+		while(length($ok = $ftp->response()) < 1) {
+			my $line = $ftp->getline();
+			unless (defined($value)) {
+				chomp($line);
+				($name, $value) = split(/\s+/, $line, 2);
+			}
+		}
+		$ftp->debug_print(0, "getenv: $value\n")
+			if $ftp->debug();
+		return $value;
+	}
+	sub getenv {
+		my $ftp = shift;
+		my $name = shift;
+		return $ftp->_GETENV($name);
+	}
+	sub _REBOOT { shift->command("REBOOT")->response() == Net::FTP::CMD_OK }
+	sub reboot {
+		my $ftp = shift;
+		$ftp->_REBOOT;
+		$ftp->close;
+	}
+	sub check {
+		my $ftp = shift;
+
+		delete ${*$ftp}{'net_ftp_port'};
+		delete ${*$ftp}{'net_ftp_pasv'};
+
+		my $data = $ftp->_data_cmd('CHECK' ,@_) or return undef;
+		my $sum;
+		if (${${*$ftp}{'net_cmd_resp'}}[0] =~ /^Flash check 0x([0-9A-F]{8})/) {
+			$sum = hex($1);
+		}
+		$data->_close();
+		return $sum;
+	}
+}
+
+# passive mode geht mit Net::FTP nicht, connected zu spaet fuer ADAM2!
+$ftp = ADAM2FTP->new(inet_ntoa($ipaddr), Passive => 0, Debug => 0, Timeout => 600)
+	or die "can't FTP ADAM2";
+$ftp->login("adam2", "adam2") or die "can't login adam2";
+$ftp->binary();
+my $pid   = $ftp->getenv('ProductID');
+my $hwrev = $ftp->getenv('HWRevision');
+my $fwrev = $ftp->getenv('firmware_info');
+my $ulrev = $ftp->getenv('urlader-version');
+
+print "Product ID: $pid\n";
+print "Hardware Revision: $hwrev\n";
+print "Urlader  Revision: $ulrev\n";
+print "Firmware Revision: $fwrev\n";
+
+$ftp->hash(\*STDOUT, 64 * 1024);
+
+print "Rebooting...\n";
+$ftp->reboot();
+
+
+

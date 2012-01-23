@@ -667,8 +667,8 @@ Function PageNetworking
 
   ${If} $NW_init == ""
     StrCpy $NW_init "yes"
-    StrCpy $NW_WinIP_Value "192.168.0.1"
-    StrCpy $NW_LinIP_Value "192.168.0.150"
+    StrCpy $NW_WinIP_Value "10.10.0.1"
+    StrCpy $NW_LinIP_Value "10.10.0.150"
     StrCpy $NW_COM_Value "COM1"
   ${EndIf}
 
@@ -1344,13 +1344,15 @@ no_xming_link_1:
   FileWrite $0 "# remove all lines starting with 'eth2' and enable Windows uplink interface forwarding,$\r$\n"
   FileWrite $0 "# go to the Windows network interface tab report 'Advanced' in German 'Freigabe'.$\r$\n"
   FileWrite $0 "# Any LAN interface on the PC my be used for uplink, not only WLAN.$\r$\n"
-  FileWrite $0 "# If the following eth2 is in not removed, You must set Windows NIC name to LAN1.$\r$\n"
+  FileWrite $0 "# If the following eth2 is enabled, You must set Windows NIC name to LAN1.$\r$\n"
+  FileWrite $0 "# If the above eth0 is disabled then you my use eth0 with the following settings.$\r$\n"
+  FileWrite $0 "# eth2 with eth0 or/and eth1 disabled is not usabel for some unkown reason.$\r$\n"
   FileWrite $0 "# More info on: http://wiki.ip-phone-forum.de/freetzlinux:network$\r$\n"
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 'eth2=ndis-bridge,"LAN1",$\r$\n'
-  FileWrite $0 "ETH2_ADR=192.168.178.15$\r$\n"
-  FileWrite $0 "ETH2_MASK=255.255.255.0$\r$\n"
-  FileWrite $0 "ETH2_GW=192.168.178.1$\r$\n"
+  FileWrite $0 '#eth2=ndis-bridge,"LAN1",$\r$\n'
+  FileWrite $0 "#ETH2_ADR=192.168.178.15$\r$\n"
+  FileWrite $0 "#ETH2_MASK=255.255.0.0$\r$\n"
+  FileWrite $0 "##ETH2_GW=192.168.178.1$\r$\n"
   FileWrite $0 "$\r$\n"
   FileWrite $0 "#SHOW_IF=yes$\r$\n"
   FileWrite $0 "$\r$\n"
@@ -2302,8 +2304,11 @@ MirrorsEnd:
 	IntOp $R6 $R3 + "1"
 	DetailPrint "Downloading from mirror $R6: $R2"
         ;MessageBox MB_OK "$R2 :  $R1"
-	inetc::get "$R2" "$R1" /END
-#	NSISdl::download "$R2" "$R1"
+# can load via proxy
+#	inetc::get "$R2" "$R1" /END
+##################################################################################################################
+	NSISdl::download "$R2" "$R1"
+
 	Pop $R4
 	StrCmp $R4 "success" Success
 	StrCmp $R4 "cancel" DownloadCanceled
