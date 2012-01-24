@@ -631,15 +631,17 @@ else
 fi
 [ $ISALICE ] || kernel_mtd1="${arg}"
 echo "Waiting for box to restart ..."
-while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
-[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
- echo -n "."
- sleep 1
-done 
-while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
-[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
- echo -n "."
-done 
+ping -i0.2 ${IPADDRESS}| while read line; do echo $line | grep -Fq "bytes" && break; done
+ping -i0.2 ${IPADDRESS}| while read line; do echo $line | grep -Fq "bytes" && break; done
+#while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+#[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
+# echo -n "."
+# sleep 1
+#done 
+#while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+#[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+# echo -n "."
+#done 
 echo -e "\nInitiating file transfer of 'kernel.image' ...\n"
 echo "Please be patient, it takes about one minute to erase the mtd1 partition ..."
 [ $FORCE_CLEAR_FLASH ] && autoload=no || autoload=yes
@@ -674,15 +676,17 @@ if [ "$FORCE_CLEAR_FLASH" ] && [ "$PATCH_OEM" != "y" ]; then
  ifconfig $ETH_IF netmask 255.255.0.0 &> /dev/null
  echo -e "${ECHO_BOLD}${ECHO_ROT}If no restart on its own, you must reboot your box again.${ECHO_END}\n"
  echo "Waiting for box to shut down and restart ..."
- while [ `ping $ping_params ${IP} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
-  [ `ping $ping_params ${IP} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
-  echo -n "."
-  sleep 1
- done 
- while [ `ping $ping_params ${IP} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
-  [ `ping $ping_params ${IP} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
-  echo -n "."
- done 
+ ping -i0.2 ${IPADDRESS}| while read line; do echo $line | grep -Fq "bytes" && break; done
+ ping -i0.2 ${IPADDRESS}| while read line; do echo $line | grep -Fq "bytes" && break; done
+# while [ `ping $ping_params ${IP} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+#  [ `ping $ping_params ${IP} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
+#  echo -n "."
+#  sleep 1
+# done 
+# while [ `ping $ping_params ${IP} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+#  [ `ping $ping_params ${IP} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+#  echo -n "."
+# done 
  ftp -n -p <<EOT
 open "${IP}"
 user adam2 adam2

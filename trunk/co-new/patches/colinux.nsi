@@ -1352,7 +1352,7 @@ no_xming_link_1:
   FileWrite $0 '#eth2=ndis-bridge,"LAN1",$\r$\n'
   FileWrite $0 "#ETH2_ADR=192.168.178.15$\r$\n"
   FileWrite $0 "#ETH2_MASK=255.255.0.0$\r$\n"
-  FileWrite $0 "##ETH2_GW=192.168.178.1$\r$\n"
+  FileWrite $0 "#ETH2_GW=192.168.178.1$\r$\n"
   FileWrite $0 "$\r$\n"
   FileWrite $0 "#SHOW_IF=yes$\r$\n"
   FileWrite $0 "$\r$\n"
@@ -1600,6 +1600,8 @@ swap_made:
   FileWrite $0 'mountuser=$NW_SAMBAUSER_Value$\n'
   FileWrite $0 'mountpassword=$NW_SAMBAUSERPW_Value$\n'
   FileWrite $0 'mountshare=$NW_COFSPFAD_Value$\n'
+  FileWrite $0 "# Fallback DISPLAY IP used for Xming. This Ip is in uses if IP's passed via commdline arn't reachabel.$\n"
+  FileWrite $0 "displayip=$NW_WinIP_Value$\r$\n"
   FileClose $0
 
   File tarballs\init.tar
@@ -2305,9 +2307,9 @@ MirrorsEnd:
 	DetailPrint "Downloading from mirror $R6: $R2"
         ;MessageBox MB_OK "$R2 :  $R1"
 # can load via proxy
-#	inetc::get "$R2" "$R1" /END
+	inetc::get "$R2" "$R1" /END
 ##################################################################################################################
-	NSISdl::download "$R2" "$R1"
+#	NSISdl::download "$R2" "$R1"
 
 	Pop $R4
 	StrCmp $R4 "success" Success

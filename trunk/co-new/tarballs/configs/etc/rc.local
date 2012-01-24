@@ -30,7 +30,7 @@ SHOW_IF=
 for i in `cat /proc/cmdline` ; do
 case $i in
 DISPLAY=*)
-export DISPLAY="${i#*=}"
+DISPLAY_TMP="${i#*=}"
 ;;
 ETH0_ADR=*)
 ETH0_ADR="address ${i#*=}"
@@ -118,13 +118,6 @@ iface eth2 inet static
      ${ETH2_MASK}
      ${ETH2_GW}
 EOF
-echo " * Restarting networking ..."
-ifup -a 2>&1 | grep -q Failed && ifup -a && sleep 10
-if ! [ -z "$SHOW_IF" ]; then
-    echo " * interfaces:"
-    cat /etc/network/interfaces | sed '/#/d' | sed '/lo /d' | sed '/auto /d'
-    route
-fi
 /etc/mount_all
 [ -f /mnt/and/Xming/X0.hosts ] && cat <<EOF > /mnt/and/Xming/X0.hosts
 #------------------------------------------------------
@@ -137,7 +130,57 @@ ${ETH2_ADR#* }
 ${DISPLAY}
 EOF
 . /usr/local/sbin/firstboot.sh
+echo " * Restarting networking ..."
+ifup -a 2> /var/log/if.log >> /var/log/if.log
+cat /var/log/if.log | grep -q eth && iferror="y"
+[ $iferror ] && echo "-----------------------------------------------------"
+if ! [ -z "$SHOW_IF" ] || [ $iferror ]; then
+    echo " * interfaces:"
+    cat /etc/network/interfaces | sed '/#/d' | sed '/lo /d' | sed '/auto /d'
+    route
+    if [ $iferror ]; then
+	echo
+	echo "-----------------------------------------------------"
+	cat /var/log/if.log | grep eth
+	echo
+	echo "fix network settings on PC or/and within settings.txt"
+    fi
+    echo -n "   Use 'Enter key' to continue!"
+    read YESNO
+fi
 if ! [ -d /var/run/network ]; then mkdir -p /var/run/network/ && /etc/init.d/networking restart;fi
+#get instlalldir and displayip
+for i in `cat /mnt/and/firstboot.1.txt | sed 's| |_|g'`
+do
+case $i in
+installdir=*)
+INSTALLDIR=${i#*=}
+;;
+displayip=*)
+D_IP=${i#*=}
+;;
+*)
+;;
+esac
+done
+echo " * Checking DISPLAY IP ..."
+#echo "$DISPLAY_TMP $DISPLAY_IP"
+if [ -x /usr/bin/fping ]; then
+    exec 2> /var/log/if.log
+    DISPLAY_TMP=`echo "$D_IP $DISPLAY_IP" | sed 's|,| |g' | fping -a`
+fi
+if [ -z "$DISPLAY_TMP" ]; then
+ echo "Kernelparameter DISPLAY is missing! Set it via $INSTALLDIR/startup.bat or login with SSH and check the ip of host with command: 'set | grep SSH_CLIENT' Use the shown ip address and execute for example: 'DISPLAY=10.10.0.1:0.0 && terminal"
+ DISPLAY_TMP=$DISPLAY_IP
+fi
+#echo Installdir: $INSTALLDIR
+#echo DISPLAY_IP: $DISPLAY_IP
+#echo DISPLAY_TMP: $DISPLAY_TMP
+sed -i -e "/ESPEAKER/d" -e "/PULSE_SERVER/d" -e "/DISPLAY/d" -e "/umask 022/d" /etc/profile
+echo "export ESPEAKER=${DISPLAY_TMP}:16001" >> /etc/profile
+echo "export PULSE_SERVER=${DISPLAY_TMP}" >> /etc/profile
+echo "export DISPLAY=${DISPLAY_TMP}:0.0" >> /etc/profile
+echo "umask 022" >> /etc/profile
 [ -f /etc/inittab ] && grep -q 'startwindowsterminalsession' "/etc/inittab" && sed -i -e "/startwindowsterminalsession/d" "/etc/inittab"
 [ -x /usr/bin/sux ] && /usr/bin/X11/startwindowsterminalsession &
 exit 0

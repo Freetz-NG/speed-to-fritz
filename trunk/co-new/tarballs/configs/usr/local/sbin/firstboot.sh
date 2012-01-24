@@ -1,8 +1,9 @@
 #include in rc.local
 [ -f /mnt/and/.reboot ] && rm -f /mnt/and/.reboot && /setpw &&\
 echo "We need a working internet connection on first boot!\n We do a reboot in 10 seconds!" && sleep 10 && /sbin/reboot
-! [ -x /usr/bin/fping ] && (apt-get install fping)
-! [ -x /usr/bin/sux ] && (apt-get install sux)
+! [ -x /usr/bin/ftp ] && (ifup -a; apt-get install ftp)
+! [ -x /usr/bin/fping ] && (ifup -a; apt-get install fping)
+! [ -x /usr/bin/sux ] && (ifup -a; apt-get install sux)
 ! [ -x /usr/bin/fping ] && echo "fping not installed!\n  We do again a reboot in 10 seconds!" && sleep 10 && /sbin/reboot
 ! [ -x /usr/bin/sux ] && echo "sux not installed!\n  We do again a reboot in 10 seconds!" && sleep 10 && /sbin/reboot
 if [ -f /mnt/and/firstboot.txt ]; then

@@ -1,7 +1,9 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* Fix some problems if speelinux ubuntu 12.04 is used.
-	* Add a tool to set bootloader ip via UDP"
+comment="* Speedlinux installer changed downlaoder to suppoert proxy.
+	  Changed defaut IP for tunnel.
+	* Speed-to-fritz: Changed way of pinging see: 
+	  http://www.ip-phone-forum.de/showthread.php?t=244343&goto=newpost"
 
 
 
