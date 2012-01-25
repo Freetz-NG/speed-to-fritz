@@ -502,8 +502,6 @@ function cleanup() {
 #########################################################################
 function pushconfig()
 {
-echo "kk"
-
 IMAGEDIR="$1"
 OEM="$2"
 CONFIG_PRODUKT="$3"
@@ -517,10 +515,7 @@ ECHO_ROT="\033[31m"
 ECHO_GELB="\033[33m"
 ECHO_BOLD="\033[1m"
 ECHO_END="\033[0m"
-echo "kkk"
-
 ! ftp -h > /dev/null  2>&1 && echo  "cannot find the tool 'ftp'" && return 1
-echo "kkk"
 arg="${IMAGEDIR}/kernel.image"
 ! tmpimg=$(mktemp -t speedXXX) && echo "Error creating temporary file." && return 1; 
 cp $arg $tmpimg
@@ -573,7 +568,7 @@ echo
 #ifconfig $ETH_IF ${CNET}.4 &> /dev/null
 #ifconfig $ETH_IF | grep 'inet .d' | sed -e "s/inet .d/PC Netcard Ad/g"
 echo
-#WR_MDT1=y
+WR_MDT1=y
 [ "$SPMOD" == "757H" ] && ISALICE=y
 if [ $FORCE_CLEAR_FLASH ]; then
 echo "-----------------------------------------------------------------------"
@@ -585,7 +580,6 @@ while !(read -s); do
     sleep 1
 done
 fi
-WR_MDT1=""
 [ -e ${HOMEDIR}/.env.log ] && rm ${HOMEDIR}/.env.log
 ping_params="-c1 -w1"
 echo
@@ -593,15 +587,16 @@ if [ $ISALICE ] || [ $PRINTENV ]; then
 echo -e "You must ${ECHO_BOLD}${ECHO_GELB}reboot${ECHO_END} your box now. Waiting for box to shut down for restart ...\n"
 #ping -i0.2 ${IPADDRESS}| while read line; do echo $line | grep -Fq "bytes" && break; done
 #ping -i0.2 ${IPADDRESS}| while read line; do echo $line | grep -Fq "bytes" && break; done
-while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
-[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
- echo -n "."
- sleep 1
-done 
-while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
-[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
- echo -n "."
-done 
+${HOMEDIR}/setBootloaderIP-to-192_168_178_1
+#while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+#[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
+# echo -n "."
+# sleep 1
+#done 
+#while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+#[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+# echo -n "."
+#done 
 echo -e "\nInitiating read box settings ...\n"
 ftp -n -v -p <<EOOT >>${HOMEDIR}/.env.log
 open "${IPADDRESS}"
@@ -635,15 +630,16 @@ fi
 echo "Waiting for box to restart ..."
 #ping -i0.2 ${IPADDRESS}| while read line; do echo $line | grep -Fq "bytes" && break; done
 #ping -i0.2 ${IPADDRESS}| while read line; do echo $line | grep -Fq "bytes" && break; done
-while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
-[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
- echo -n "."
- sleep 1
-done 
-while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
-[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
- echo -n "."
-done 
+${HOMEDIR}/setBootloaderIP-to-192_168_178_1
+#while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+#[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
+# echo -n "."
+# sleep 1
+#done 
+#while [ `ping $ping_params ${IPADDRESS} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+#[ `ping $ping_params ${IPADDRESS} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+# echo -n "."
+#done 
 echo -e "\nInitiating file transfer of 'kernel.image' ...\n"
 echo "Please be patient, it takes about one minute to erase the mtd1 partition ..."
 [ $FORCE_CLEAR_FLASH ] && autoload=no || autoload=yes
@@ -680,15 +676,16 @@ if [ "$FORCE_CLEAR_FLASH" ] && [ "$PATCH_OEM" != "y" ]; then
  echo "Waiting for box to shut down and restart ..."
 # ping -i0.2 ${IPADDRESS}| while read line; do echo $line | grep -Fq "bytes" && break; done
 # ping -i0.2 ${IPADDRESS}| while read line; do echo $line | grep -Fq "bytes" && break; done
- while [ `ping $ping_params ${IP} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
-  [ `ping $ping_params ${IP} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
-  echo -n "."
-  sleep 1
- done 
- while [ `ping $ping_params ${IP} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
-  [ `ping $ping_params ${IP} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
-  echo -n "."
- done 
+${HOMEDIR}/setBootloaderIP-to-192_168_178_1
+# while [ `ping $ping_params ${IP} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+#  [ `ping $ping_params ${IP} | grep 'receive' | awk '{ print $4 }'` == "1" ]; do
+#  echo -n "."
+#  sleep 1
+# done 
+# while [ `ping $ping_params ${IP} 2>&1 | grep -c 'nreachable'` != "0" ] ||\
+#  [ `ping $ping_params ${IP} | grep 'receive' | awk '{ print $4 }'` == "0" ]; do
+#  echo -n "."
+# done 
  ftp -n -p <<EOT
 open "${IP}"
 user adam2 adam2

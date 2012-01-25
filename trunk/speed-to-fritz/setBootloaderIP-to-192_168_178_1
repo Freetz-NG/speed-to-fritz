@@ -180,8 +180,10 @@ print "Firmware Revision: $fwrev\n";
 
 $ftp->hash(\*STDOUT, 64 * 1024);
 
-print "Rebooting...\n";
-$ftp->reboot();
+# print "Rebooting...\n";
+# $ftp->reboot();
+print "Box is in ADAM FTP mode now\n";
+$ftp->quit();
 
 
 

@@ -30,7 +30,7 @@ SHOW_IF=
 for i in `cat /proc/cmdline` ; do
 case $i in
 DISPLAY=*)
-DISPLAY_TMP="${i#*=}"
+DISPLAY_IP_ARRAY="${i#*=}"
 ;;
 ETH0_ADR=*)
 ETH0_ADR="address ${i#*=}"
@@ -164,15 +164,17 @@ D_IP=${i#*=}
 esac
 done
 echo " * Checking DISPLAY IP ..."
-#echo "$DISPLAY_TMP $DISPLAY_IP"
 if [ -x /usr/bin/fping ]; then
     exec 2> /var/log/if.log
-    DISPLAY_TMP=`echo "$D_IP $DISPLAY_IP" | sed 's|,| |g' | fping -a`
+    [ -z "$D_IP" ] || DISPLAY_TMP=`echo "$D_IP" | fping -a`
+    [ -z "$DISPLAY_TMP" ] && DISPLAY_TMP=`echo "$DISPLAY_IP_ARRAY" | sed 's|,| |g' | fping -a`
 fi
 if [ -z "$DISPLAY_TMP" ]; then
  echo "Kernelparameter DISPLAY is missing! Set it via $INSTALLDIR/startup.bat or login with SSH and check the ip of host with command: 'set | grep SSH_CLIENT' Use the shown ip address and execute for example: 'DISPLAY=10.10.0.1:0.0 && terminal"
- DISPLAY_TMP=$DISPLAY_IP
+ DISPLAY_TMP=$D_IP
 fi
+echo " * Add DISPLAY to /etc/profile ..."
+sleep 5
 #echo Installdir: $INSTALLDIR
 #echo DISPLAY_IP: $DISPLAY_IP
 #echo DISPLAY_TMP: $DISPLAY_TMP
@@ -182,5 +184,7 @@ echo "export PULSE_SERVER=${DISPLAY_TMP}" >> /etc/profile
 echo "export DISPLAY=${DISPLAY_TMP}:0.0" >> /etc/profile
 echo "umask 022" >> /etc/profile
 [ -f /etc/inittab ] && grep -q 'startwindowsterminalsession' "/etc/inittab" && sed -i -e "/startwindowsterminalsession/d" "/etc/inittab"
+echo " * Start background termial session ..."
 [ -x /usr/bin/sux ] && /usr/bin/X11/startwindowsterminalsession &
+sleep 5
 exit 0
