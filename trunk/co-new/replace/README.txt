@@ -1,7 +1,3 @@
-We changed the naming from freetzlinux to speedlinux.
-
-All Version are useabel for speed-to-fritz and freetz.
-
 Get started:
 
 1. Click icon (speedlinux) on desktop, menu, quick lounch   
@@ -69,6 +65,10 @@ Changes since 05.05.2009:
 base.drv is now called base.vdi
 This was done to be compatible to andLinux beta2 final
 
+We changed the naming from freetzlinux to speedlinux.
+
+All Version are useabel for speed-to-fritz and freetz.
+
 Changes 06.06.2011
 coLinux kernelversion is now 2.7.10, but dont worry
 coLinux kernel version must not be the same as the kernelversion 
@@ -83,6 +83,10 @@ Windows Vista sets the virtual adapter to 192.168.0.1.
 Read info on http://wiki.ip-phone-forum.de/freetzlinux:network
 
 15.01.12 Version 3118
-Fixed Xming related bugs, allredy instlled Xming my now be used.
+Fixed Xming related bugs, allready installed Xming my now be used.
 German console key layout my now be disabled, follow link on install page for more details.
 
+23.01.12
+Disable NET for eth2, because if WLAN is in used, we can't have a 3rd eth.
+On Ubuntu 9.04 a 3rd bridged interface was usable.
+We check now for conflicts at boot time, be patient!

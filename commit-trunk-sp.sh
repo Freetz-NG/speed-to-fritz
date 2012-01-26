@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="  * more fixes for W503, belongs to last commit" 
+comment="  * Different way of connecting to FTP if push option is now in use." 
 
 echo "-------------------------------------------------------------------------------------------------------------"
 if [ `id -u` -eq 0 ]; then

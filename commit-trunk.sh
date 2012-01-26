@@ -1,9 +1,8 @@
 #!/bin/bash
 #place your comment for this uptade here:
 comment="* Speedlinux installer changed downlaoder to suppoert proxy.
-	  Changed defaut IP for tunnel.
-	* Speed-to-fritz: Changed way of pinging see: 
-	  http://www.ip-phone-forum.de/showthread.php?t=244343&goto=newpost"
+	  Changed defaut IP for tunnel back to 192.168.0.1.
+	  Add  cklick box to select between static or dynamic on eth0."
 
 
 

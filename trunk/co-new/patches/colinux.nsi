@@ -663,12 +663,15 @@ Function PageFileSystemLeave
   ${NSD_GetText} $FS_ROOT_Text $FS_ROOT_Value
 FunctionEnd
 
+Var Checkbox2_State
+Var Key_static
+
 Function PageNetworking
 
   ${If} $NW_init == ""
     StrCpy $NW_init "yes"
-    StrCpy $NW_WinIP_Value "10.10.0.1"
-    StrCpy $NW_LinIP_Value "10.10.0.150"
+    StrCpy $NW_WinIP_Value "192.168.0.1"
+    StrCpy $NW_LinIP_Value "192.168.0.150"
     StrCpy $NW_COM_Value "COM1"
   ${EndIf}
 
@@ -681,15 +684,24 @@ Function PageNetworking
 
   ${NSD_CreateLabel} 0 0% 100% 24u "Configure the network settings of the private TAP network tunnel for communication between Windows and speedLinux."
 
-  ${NSD_CreateLabel} 0 35% 50% 12u "Windows IP Address"
+  ${NSD_CreateLabel} 0 35% 50% 12u "Windows X-tunnel IP Address"
   Pop $NW_WinIP_Label
   ${NSD_CreateText} 50% 35% 40% 12u $NW_WinIP_Value
   Pop $NW_WinIP_Text
 
-  ${NSD_CreateLabel} 0 50% 50% 12u "Linux IP Address"
+  ${NSD_CreateLabel} 0 50% 50% 12u "Linux X-tunnel IP Address"
   Pop $NW_LinIP_Label
   ${NSD_CreateText} 50% 50% 40% 12u $NW_LinIP_Value
   Pop $NW_LinIP_Text
+
+  ${NSD_CreateRadioButton} 0% 65% 50% 12u "Alternate eth0 settings"
+  Var /GLOBAL NW_STATIC
+  Pop $NW_STATIC
+
+ ${NSD_CreateLink} 50% 68% 60% 12u " * Note (enable for Speed-to-fritz)"
+  Var /GLOBAL CLINK2
+  Pop $CLINK2
+  ${NSD_OnClick} $CLINK2 onClickMyLink2
 
   ${NSD_CreateLabel} 0 80% 50% 12u "Serial Port Settings (Optional)"
   Pop $NW_COM_Label
@@ -710,10 +722,22 @@ Function onClickMyLink
   ExecShell "open" "http://wiki.ip-phone-forum.de/freetzlinux:network/#using_wlan_for_internet_connectivity"
 FunctionEnd
 
+Function onClickMyLink2
+ Pop $0
+  ExecShell "open" "http://wiki.ip-phone-forum.de/freetzlinux:network#debian_config"
+FunctionEnd
+
 Function PageNetworkingLeave
   ${NSD_GetText} $NW_WinIP_Text $NW_WinIP_Value
   ${NSD_GetText} $NW_LinIP_Text $NW_LinIP_Value
   ${NSD_GetText} $NW_COM_Text $NW_COM_Value
+  ${NSD_GetState} $NW_STATIC $Checkbox2_State
+  StrCpy $Key_static "n"
+  ${If} $Checkbox2_State == ${BST_CHECKED}
+   StrCpy $Key_static "y"
+  ${EndIf}
+  ;MessageBox MB_OK "Key_static: $Key_static"
+
 FunctionEnd
 
 Var Checkbox
@@ -771,7 +795,7 @@ Function PageShares
 ;  ${NSD_CreateDirRequest} 50% 20% 40% 12u $NW_COFSPFAD_Value
 ;  Pop $NW_COFSPFAD_Text
 
-   
+;-------------------------------------------------------------------------------------------------------   
 ;  GetFunctionAddress $0 FolderBrowseButton
 ;  nsDialogs::OnClick /NOUNLOAD $INST_SDAT_BTN1 $0
   #DirRequest
@@ -1328,23 +1352,47 @@ no_xming_link_1:
   FileWrite $0 "cofs7=I:\$\r$\n"
   FileWrite $0 "cofs8=J:\$\r$\n"
   FileWrite $0 "cofs9=K:\$\r$\n"
+
+  ${If} $Key_static != "y"
+
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 "# All static settings my be removed or changed, no extra settings inside Linux needed,$\r$\n"
-  FileWrite $0 "# but if laucher is in use run installer again to change eth1 IP there. $\r$\n"
+  FileWrite $0 "# All static settings my be removed or changed, no extra settings inside Linux needed.$\r$\n"
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 "eth0=slirp$\r$\n"
   FileWrite $0 "ETH0_DHCP=yes$\r$\n"
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 "# If the above eth0 is disabled then you my use eth0 with the following settings.$\r$\n"
   FileWrite $0 "# If the following eth0 is enabled, You must set Windows NIC name to LAN1.$\r$\n"
+  FileWrite $0 "# --- Push option of speed-to-fritz needs this static setiing! ---$\r$\n"
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 '#eth0=ndis-bridge,"LAN1",$\r$\n'
   FileWrite $0 "#ETH0_ADR=192.168.178.15$\r$\n"
-  FileWrite $0 "#ETH0_MASK=255.255.0.0$\r$\n"
+  FileWrite $0 "#ETH0_MASK=255.255.255.0$\r$\n"
   FileWrite $0 "#ETH0_GW=192.168.178.1$\r$\n"
   FileWrite $0 "$\r$\n"
+  
+  ${Else}
+
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 "# If laucher is in use run installer again to change eth1 IP there. $\r$\n"
+  FileWrite $0 "# Alternate settings. No extra settings inside Linux needed.$\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "#eth0=slirp$\r$\n"
+  FileWrite $0 "#ETH0_DHCP=yes$\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "# Above eth0 is disabled we use eth0 with the following settings.$\r$\n"
+  FileWrite $0 "# You must set Windows NIC name to LAN1, or edit the name uesed here.$\r$\n"
+  FileWrite $0 "# --- Push option of speed-to-fritz needs this static setiing! ---$\r$\n"
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 'eth0=ndis-bridge,"LAN1",$\r$\n'
+  FileWrite $0 "ETH0_ADR=192.168.178.15$\r$\n"
+  FileWrite $0 "ETH0_MASK=255.255.255.0$\r$\n"
+  FileWrite $0 "ETH0_GW=192.168.178.1$\r$\n"
+  FileWrite $0 "$\r$\n"
+
+  ${EndIf}
+
+  FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
+  FileWrite $0 "# Don't edit, if KDE laucher menu is in use run installer again to change eth1 IP. $\r$\n"
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 'eth1=tuntap,"Xtunnel",$\r$\n'
   FileWrite $0 "ETH1_ADR=$NW_LinIP_Value$\r$\n"
@@ -1357,7 +1405,7 @@ no_xming_link_1:
   FileWrite $0 "# Any LAN interface on the PC my be used for uplink, not only WLAN.$\r$\n"
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 "# If the following eth2 is enabled, You must set Windows NIC name to LAN1.$\r$\n"
-  FileWrite $0 "# eth2 with eth0 or/and eth1 disabled is not usabel for some unkown reason.$\r$\n"
+  FileWrite $0 "# eth2 in combination with eth0 or/and eth1 is only useable on Ubuntu 9.04.$\r$\n"
   FileWrite $0 "# More info on: http://wiki.ip-phone-forum.de/freetzlinux:network$\r$\n"
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 '#eth2=ndis-bridge,"LAN1",$\r$\n'
