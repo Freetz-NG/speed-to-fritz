@@ -1,8 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* Speedlinux installer changed downlaoder to suppoert proxy.
-	  Changed defaut IP for tunnel back to 192.168.0.1.
-	  Add  cklick box to select between static or dynamic on eth0."
+comment="* "
 
 
 
@@ -28,7 +26,7 @@ date=$(date +%Y%m%d-%H%M)
 #svn delete --force ./getprodukt.patch
 #svn delete --force ./includefunctions.patch
 #svn delete --force ./trunk/backup
-#svn delete --force ./trunk/co-new/replace/start.ico
+#svn delete --force ./trunk/co-new/dll/inetc.dll
 #svn delete --force ./trunk/co-new/replace/stop.ico
 #svn delete --force ./trunk/co-new/replace/andlinux.ico
 #svn delete --force ./trunk/co-new/patches/Bild.bmp

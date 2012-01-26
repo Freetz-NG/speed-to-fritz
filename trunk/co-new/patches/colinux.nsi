@@ -1327,7 +1327,7 @@ no_xming_link_1:
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 "# Samba mounts are done in [installdir]firstboot.1.txt or in \etc\mount_all$\r$\n"
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 "# Filenames can be changed, only existing *.vdi's files will be mounted. $\r$\n"
+  FileWrite $0 "# File names can be changed, only existing *.vdi's files will be mounted. $\r$\n"
   FileWrite $0 "# cobd2 .. cobd9 may be used. $\r$\n"
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 "cobd2=Drives\baseOri.vdi$\r$\n"
@@ -1363,7 +1363,7 @@ no_xming_link_1:
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 "# If the above eth0 is disabled then you my use eth0 with the following settings.$\r$\n"
   FileWrite $0 "# If the following eth0 is enabled, You must set Windows NIC name to LAN1.$\r$\n"
-  FileWrite $0 "# --- Push option of speed-to-fritz needs this static setiing! ---$\r$\n"
+  FileWrite $0 "# --- Push option of speed-to-fritz needs this static setting! ---$\r$\n"
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 '#eth0=ndis-bridge,"LAN1",$\r$\n'
   FileWrite $0 "#ETH0_ADR=192.168.178.15$\r$\n"
@@ -1381,7 +1381,7 @@ no_xming_link_1:
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 "# Above eth0 is disabled we use eth0 with the following settings.$\r$\n"
   FileWrite $0 "# You must set Windows NIC name to LAN1, or edit the name uesed here.$\r$\n"
-  FileWrite $0 "# --- Push option of speed-to-fritz needs this static setiing! ---$\r$\n"
+  FileWrite $0 "# --- Push option of speed-to-fritz needs this static setting! ---$\r$\n"
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 'eth0=ndis-bridge,"LAN1",$\r$\n'
   FileWrite $0 "ETH0_ADR=192.168.178.15$\r$\n"
@@ -1392,7 +1392,7 @@ no_xming_link_1:
   ${EndIf}
 
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
-  FileWrite $0 "# Don't edit, if KDE laucher menu is in use run installer again to change eth1 IP. $\r$\n"
+  FileWrite $0 "# Don't edit, if KDE launcher menu is in use, run installer again to change eth1 IP. $\r$\n"
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 'eth1=tuntap,"Xtunnel",$\r$\n'
   FileWrite $0 "ETH1_ADR=$NW_LinIP_Value$\r$\n"
@@ -1405,7 +1405,7 @@ no_xming_link_1:
   FileWrite $0 "# Any LAN interface on the PC my be used for uplink, not only WLAN.$\r$\n"
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 "# If the following eth2 is enabled, You must set Windows NIC name to LAN1.$\r$\n"
-  FileWrite $0 "# eth2 in combination with eth0 or/and eth1 is only useable on Ubuntu 9.04.$\r$\n"
+  FileWrite $0 "# eth2 in combination with eth0 or/and eth1 is only usable on Ubuntu 9.04.$\r$\n"
   FileWrite $0 "# More info on: http://wiki.ip-phone-forum.de/freetzlinux:network$\r$\n"
   FileWrite $0 "#-------------------------------------------------------------------------------------$\r$\n"
   FileWrite $0 '#eth2=ndis-bridge,"LAN1",$\r$\n'
@@ -2365,9 +2365,10 @@ MirrorsEnd:
 	DetailPrint "Downloading from mirror $R6: $R2"
         ;MessageBox MB_OK "$R2 :  $R1"
 # can load via proxy
-	inetc::get "$R2" "$R1" /END
+#	inetc::get "$R2" "$R1" /END
+#	NSISdlp::get "$R2" "$R1" /END
 ##################################################################################################################
-#	NSISdl::download "$R2" "$R1"
+	NSISdl::download "$R2" "$R1"
 
 	Pop $R4
 	StrCmp $R4 "success" Success
