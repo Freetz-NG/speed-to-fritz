@@ -101,7 +101,6 @@ else
 fi
 # Set setings via settings.txt
 ! [ -f /mnt/and/settings.txt ] && echo "Local install directory $INSTALLDIR not mounted!"
-! [ -f /mnt/and/Xming/X0.hosts ] && echo "Local directory $INSTALLDIR/Xming/ not mounted!"
 #! [ -e /mnt/and/settings.txt ] && exit 0
 mount_cofs()
 {

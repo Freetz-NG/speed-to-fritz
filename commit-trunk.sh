@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* "
+comment="* Speedlinux installer, minor cleanup"
 
 
 

@@ -118,17 +118,10 @@ iface eth2 inet static
      ${ETH2_MASK}
      ${ETH2_GW}
 EOF
+#-------------------------------------------------------------------------------------------------
+# mounts 
 /etc/mount_all
-[ -f /mnt/and/Xming/X0.hosts ] && cat <<EOF > /mnt/and/Xming/X0.hosts
-#------------------------------------------------------
-# Dont edit - edit [wininstalldir]/settings.txt instead
-#------------------------------------------------------
-localhost
-${ETH0_ADR#* }
-${ETH1_ADR#* }
-${ETH2_ADR#* }
-${DISPLAY}
-EOF
+#-------------------------------------------------------------------------------------------------
 . /usr/local/sbin/firstboot.sh
 echo " * Restarting networking ..."
 ifup -a 2> /var/log/if.log >> /var/log/if.log
@@ -173,16 +166,21 @@ if [ -z "$DISPLAY_TMP" ]; then
  echo "Kernelparameter DISPLAY is missing! Set it via $INSTALLDIR/startup.bat or login with SSH and check the ip of host with command: 'set | grep SSH_CLIENT' Use the shown ip address and execute for example: 'DISPLAY=10.10.0.1:0.0 && terminal"
  DISPLAY_TMP=$D_IP
 fi
-echo " * Add DISPLAY to /etc/profile ..."
+echo " * Add set DISPLAY IP: $DISPLAY_TMP to /etc/profile ..."
 sleep 5
 #echo Installdir: $INSTALLDIR
 #echo DISPLAY_IP: $DISPLAY_IP
 #echo DISPLAY_TMP: $DISPLAY_TMP
-sed -i -e "/ESPEAKER/d" -e "/PULSE_SERVER/d" -e "/DISPLAY/d" -e "/umask 022/d" /etc/profile
-echo "export ESPEAKER=${DISPLAY_TMP}:16001" >> /etc/profile
-echo "export PULSE_SERVER=${DISPLAY_TMP}" >> /etc/profile
-echo "export DISPLAY=${DISPLAY_TMP}:0.0" >> /etc/profile
-echo "umask 022" >> /etc/profile
+sed -i -e "/ESPEAKER/d" -e "/PULSE_SERVER/d" -e "/DISPLAY/d" -e "/umask 022/d" -e "/# Don't/d" -e "/#-------/d" /etc/profile
+[ -f /etc/profile ] && cat <<EOF >> /etc/profile
+#------------------------------------------------------------------------------
+# Don't edit - edit $INSTALLDIR/fisrboot.1.txt instead
+#------------------------------------------------------------------------------
+export ESPEAKER=${DISPLAY_TMP}:16001
+export PULSE_SERVER=${DISPLAY_TMP}
+export DISPLAY=${DISPLAY_TMP}:0.0
+umask 022
+EOF
 [ -f /etc/inittab ] && grep -q 'startwindowsterminalsession' "/etc/inittab" && sed -i -e "/startwindowsterminalsession/d" "/etc/inittab"
 echo " * Start background termial session ..."
 [ -x /usr/bin/sux ] && /usr/bin/X11/startwindowsterminalsession &

@@ -2364,12 +2364,15 @@ MirrorsEnd:
 	IntOp $R6 $R3 + "1"
 	DetailPrint "Downloading from mirror $R6: $R2"
         ;MessageBox MB_OK "$R2 :  $R1"
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # can load via proxy
 #	inetc::get "$R2" "$R1" /END
-#	NSISdlp::get "$R2" "$R1" /END
-##################################################################################################################
-	NSISdl::download "$R2" "$R1"
-
+# http://www.microsoft.com/security/portal/Threat/Encyclopedia/Entry.aspx?Name=TrojanDownloader%3AWin32%2FMurlo.S
+# NSISdlp is the same as inetc only name of dll is different
+	NSISdlp::get "$R2" "$R1" /END
+# without proxy support
+#	NSISdl::download "$R2" "$R1"
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	Pop $R4
 	StrCmp $R4 "success" Success
 	StrCmp $R4 "cancel" DownloadCanceled
