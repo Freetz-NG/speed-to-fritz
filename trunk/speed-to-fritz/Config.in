@@ -259,7 +259,7 @@ config AVM_7272_54_04_88
 
 config AVM_7273_74_04_88
     string
-    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207270/FRITZ!Box%20Fon%20WLAN%207270%20v3/FRITZ.Box_Fon_WLAN_7270_v3.74.04.88.image"
+    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207270%20v3/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.88.image"
 #    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3.74.04.88.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237305f76332e37342e30342e38382e7a6970.zip"
 
 config AVM_7273_74_04_89
@@ -1494,6 +1494,13 @@ choice
 #		depends on EXPERT_MOD 
 		help
 			FRITZ! release: 80
+
+	config TYPE_7271_54_04_86
+		bool "AVM 7270v1 54.04.86 18306"
+		depends on ( TYPE_OR_7240_7570_503_722_920_AVMX_LOCALTCOM ) && ( TYPE_OR_7570XX_DE )
+		help
+			FRITZ! release 86: This is the last known image which supports TAM without
+			external USB-Disk
 
 	config TYPE_7271_54_04_88
 		bool "AVM 7270v1 54.04.88 18902 (Final)"
@@ -5121,6 +5128,7 @@ config EXPORT_ADD_USBROOT
 config EXPORT_ADD_S2F_CONF
         bool "Add flash-node (to store configurations), like the approach on ds-mod/freetz (experimental)."
 	depends on EXPERT_MOD 
+        default y if EXPORT_ADD_PKG_DROPBEAR
         default n
         help
                 Select this if you want to add a special node to /var/flash making storage of own configuration possible.
@@ -5134,7 +5142,7 @@ config EXPORT_ADD_S2F_CONF
 
 config EXPORT_ADD_PKG_DROPBEAR
         bool "Add dropbear package to image (very experimental yet)"
-	depends on EXPERT_MOD 
+	depends on EXPERT_MOD && ! EXPORT_RUNFREETZ 
         default n
         help
                 Select this if you want to add dropbear files (a statically precompiled binary) to the resulting image.
