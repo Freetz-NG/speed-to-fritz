@@ -181,6 +181,7 @@ export PULSE_SERVER=${DISPLAY_TMP}
 export DISPLAY=${DISPLAY_TMP}:0.0
 umask 022
 EOF
+# This is for andLinux KDE menu launcher
 [ -f /etc/inittab ] && grep -q 'startwindowsterminalsession' "/etc/inittab" && sed -i -e "/startwindowsterminalsession/d" "/etc/inittab"
 echo " * Start background termial session ..."
 [ -x /usr/bin/sux ] && /usr/bin/X11/startwindowsterminalsession &

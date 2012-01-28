@@ -10,7 +10,5 @@ done
 
 . /etc/profile
 
-/usr/local/sbin/firstboot.sh
-
 cmd=`cat /etc/andlinux/xsession_cmd`
 $cmd
