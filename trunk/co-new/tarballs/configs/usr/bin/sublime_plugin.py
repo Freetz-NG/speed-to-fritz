@@ -1,5 +1,7 @@
 import os
 import sys
+import time
+import sublime
 
 application_command_classes = []
 window_command_classes = []
@@ -114,66 +116,133 @@ def create_text_commands(view):
         cmds.append(class_(view))
     return cmds
 
+EVENT_TIMEOUT = 0.2
+FAST_EVENT_TIMEOUT = 1 / 60.0
+
+first_time_msgs = set()
+msgs = set()
+
+def show_timeout(plugin_name, elapsed, callback):
+    global first_time_msgs
+    global msgs
+
+    key = plugin_name + callback
+    msg = ("A plugin (%s) may be making Sublime Text unresponsive by taking too " +
+        "long (%fs) in its %s callback.\n\nThis message can be disabled via the " +
+        "detect_slow_plugins global setting") % (plugin_name, elapsed, callback)
+
+    # Give plugins one chance to respond slowly, to handle any initialisation issues etc.
+    # This allowance may be removed in the future due to startup time concerns
+    if not key in first_time_msgs:
+        first_time_msgs.add(key)
+        return
+
+    if not key in msgs:
+        msgs.add(key)
+        if sublime.load_settings('Global.sublime-settings').get('detect_slow_plugins', True):
+            sublime.error_message(msg)
+
+blocking_api_call_count = 0
+def on_blocking_api_call():
+    global blocking_api_call_count
+    blocking_api_call_count += 1
+
+def run_timed_function(f, name, event_name, timeout):
+    global blocking_api_call_count
+
+    t0 = time.time()
+    blocking_count = blocking_api_call_count
+    ret = f()
+    elapsed = time.time() - t0
+
+    if elapsed > timeout and blocking_api_call_count == blocking_count:
+        show_timeout(name, elapsed, event_name)
+
+    return ret
+
 def on_new(v):
     for callback in all_callbacks['on_new']:
-        callback.on_new(v)
+        run_timed_function(lambda: callback.on_new(v),
+            callback.__module__, "on_new", EVENT_TIMEOUT)
 
 def on_clone(v):
     for callback in all_callbacks['on_clone']:
-        callback.on_clone(v)
+        run_timed_function(lambda: callback.on_clone(v),
+            callback.__module__, "on_clone", EVENT_TIMEOUT)
 
 def on_load(v):
     for callback in all_callbacks['on_load']:
-        callback.on_load(v)
+        run_timed_function(lambda: callback.on_load(v),
+            callback.__module__, "on_load", EVENT_TIMEOUT)
 
 def on_close(v):
     for callback in all_callbacks['on_close']:
-        callback.on_close(v)
+        run_timed_function(lambda: callback.on_close(v),
+            callback.__module__, "on_close", EVENT_TIMEOUT)
 
 def on_pre_save(v):
     for callback in all_callbacks['on_pre_save']:
-        callback.on_pre_save(v)
+        run_timed_function(lambda: callback.on_pre_save(v),
+            callback.__module__, "on_pre_save", EVENT_TIMEOUT)
 
 def on_post_save(v):
     for callback in all_callbacks['on_post_save']:
-        callback.on_post_save(v)
+        run_timed_function(lambda: callback.on_post_save(v),
+            callback.__module__, "on_post_save", EVENT_TIMEOUT)
 
 def on_modified(v):
     for callback in all_callbacks['on_modified']:
-        callback.on_modified(v)
+        run_timed_function(lambda: callback.on_modified(v),
+            callback.__module__, "on_modified", FAST_EVENT_TIMEOUT)
 
 def on_selection_modified(v):
     for callback in all_callbacks['on_selection_modified']:
-        callback.on_selection_modified(v)
+        run_timed_function(lambda: callback.on_selection_modified(v),
+            callback.__module__, "on_selection_modified", FAST_EVENT_TIMEOUT)
 
 def on_activated(v):
     for callback in all_callbacks['on_activated']:
-        callback.on_activated(v)
+        run_timed_function(lambda: callback.on_activated(v),
+            callback.__module__, "on_activated", EVENT_TIMEOUT)
 
 def on_deactivated(v):
     for callback in all_callbacks['on_deactivated']:
-        callback.on_deactivated(v)
+        run_timed_function(lambda: callback.on_deactivated(v),
+            callback.__module__, "on_deactivated", EVENT_TIMEOUT)
 
-def on_project_load(w):
+def on_project_load(v):
     for callback in all_callbacks['on_project_load']:
-        callback.on_project_load(w)
+        run_timed_function(lambda: callback.on_project_load(v),
+            callback.__module__, "on_project_load", EVENT_TIMEOUT)
 
-def on_project_close(w):
+def on_project_close(v):
     for callback in all_callbacks['on_project_close']:
-        callback.on_project_close(w)
+        run_timed_function(lambda: callback.on_project_close(v),
+            callback.__module__, "on_project_close", EVENT_TIMEOUT)
 
 def on_query_context(v, key, operator, operand, match_all):
     for callback in all_callbacks['on_query_context']:
-        v = callback.on_query_context(v, key, operator, operand, match_all)
-        if v:
+        val = run_timed_function(lambda: callback.on_query_context(v, key, operator, operand, match_all),
+            callback.__module__, "on_query_context", FAST_EVENT_TIMEOUT)
+
+        if val:
             return True
+
     return False
 
 def on_query_completions(v, prefix, locations):
     completions = []
+    flags = 0
     for callback in all_callbacks['on_query_completions']:
-        completions += callback.on_query_completions(v, prefix, locations)
-    return completions
+        res = callback.on_query_completions(v, prefix, locations)
+
+        if isinstance(res, tuple):
+            completions += res[0]
+            flags |= res[1]
+        elif isinstance(res, list):
+            completions += res
+
+    return (completions,flags)
 
 class Command(object):
     def name(self):

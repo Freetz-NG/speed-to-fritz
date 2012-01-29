@@ -28,7 +28,11 @@ def upgradeArchive(src, dst, pkgdir, backupdir, inhibitOverwrite):
 	mkdirs(pkgdir)
 	mkdirs(os.path.dirname(dst))
 
-	newar = zipfile.ZipFile(src)
+	try:
+		newar = zipfile.ZipFile(src)
+	except (zipfile.BadZipfile):
+		print 'PackageSetup: bad zip file at %s' % src
+		return
 	newfiles = set(filter(isFileEntry, newar.namelist()))
 
 	oldar = None
@@ -61,7 +65,13 @@ def upgradeArchive(src, dst, pkgdir, backupdir, inhibitOverwrite):
 
 	# extract any new files
 	for f in newfiles - oldfiles:
-		fname = os.path.join(pkgdir, f)
+		try:
+			if not isinstance(f, unicode):
+				f = unicode(f, 'utf-8')
+			fname = os.path.join(pkgdir, f)
+		except (UnicodeDecodeError):
+			fname = os.path.join(pkgdir, unicode(f, 'cp1252', 'replace'))
+
 		mkdirs(os.path.dirname(fname))
 
 		try:

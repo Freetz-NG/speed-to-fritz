@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* Speedlinux installer, minor cleanup"
+comment="* Speedlinux installer, update sublime version."
 
 
 
@@ -26,7 +26,7 @@ date=$(date +%Y%m%d-%H%M)
 #svn delete --force ./getprodukt.patch
 #svn delete --force ./includefunctions.patch
 #svn delete --force ./trunk/backup
-#svn delete --force ./trunk/co-new/log
+#svn delete --force ./trunk/co-new/tarballs/configs/usr/bin
 #svn delete --force ./trunk/co-new/replace/stop.ico
 #svn delete --force ./trunk/co-new/replace/andlinux.ico
 #svn delete --force ./trunk/co-new/patches/Bild.bmp
