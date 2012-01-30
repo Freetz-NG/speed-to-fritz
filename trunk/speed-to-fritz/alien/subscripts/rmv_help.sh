@@ -9,6 +9,12 @@ for DIR in ${OEMLIST}; do
   export HTML="$DIR/html"
 # fi
     DSTI="${1}"/usr/www/$HTML/de
+    DSTX="${1}"/usr/www/$DIR/help
+    if [ -d ${DSTX} ] ; then
+	echo "removing files $DSTX/hilfe* $DSTX/rechtliche*"
+	rm -f $DSTX/hilfe* $DSTX/rechtliche*
+	[ -f ${DSTX}/home.html ] && sed -i -e 's/local g_txt/local g_txt_removed/' ${DSTX}/home.html
+    else
     if [ -d ${DSTI} ] ; then
 #------------------------------------------------------------------------------
 for DIR in first fon fon_config home internet menus system tools wlan; do
@@ -34,13 +40,14 @@ done
 #echo2 "  -- emptying directory:"
 for FILE in `ls ${DSTI}/help`; do
 	if [ ${FILE} != modinfo.html ] && [ ${FILE} != popup.html ] && [ ${FILE} != rback.html ]; then
-		echo2 "  -- delite: /usr/www/$HTML/de/help/${FILE}"
+		echo2 "  -- delete: /usr/www/$HTML/de/help/${FILE}"
 		rm -f ${DSTI}/help/${FILE}
 	fi
 done
 
 sed -i -e "/.*jslGoTo('help','home').*/d" ${DSTI}/help/rback.html
 #------------------------------------------------------------------------------
+    fi
     fi
 done
 

@@ -152,7 +152,7 @@ echo "-- fon driver was taken from base firmware!"
 #cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/dsl --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
 [ "${XCHANGE_KERNEL}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/char --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
 [ "${XCHANGE_KERNEL}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/isdn --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers
-# wlan bracht t-com kernel mit .04.88 Firmware nicht mehr 
+# wlan braucht t-com kernel mit .04.88 Firmware nicht mehr 
 [ "${XCHANGE_KERNEL}" = "y" ] && cp -fdrp "${DST}"/lib/modules/$KernelVersion/kernel/drivers/net --target-directory="${SRC}"/lib/modules/$KernelVersion/kernel/drivers &&\
 echo "-- WLAN driver was taken from base firmware!"
 #adapt parameters for Piglet bitfile to be
@@ -295,9 +295,10 @@ if [ "${REMOVE_KIDS}" = "y" ]; then
     rm -fr ${SRC}/lib/modules/$KernelVersion/kernel/drivers/userman
 else export CONFIG_KIDS="y"
 fi
-$sh_DIR/rmv_help.sh "${SRC}"
+# This is done in sp-to-fritz.root.sh
+#$sh_DIR/rmv_help.sh "${SRC}"
 
-# 503  At this point changing the CONFIG_XXX vars has no effect
+# 503  changing the CONFIG_XXX vars beyond this point has no effect
 $sh_DIR/patch_config_rc.conf.sh "${SRC}" "${DST}" 503
 echo "********************************************************************************"
 grep -q "Telekom-Anlagen benoetigen hochtakten" "${SRC}/etc/init.d/rc.S" || sed -i -e '/bin.run_clock -c .dev.tffs -d/i\
