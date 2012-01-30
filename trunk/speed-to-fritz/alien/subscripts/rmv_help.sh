@@ -11,7 +11,8 @@ for DIR in ${OEMLIST}; do
     DSTI="${1}"/usr/www/$HTML/de
     DSTX="${1}"/usr/www/$DIR/help
     if [ -d ${DSTX} ] ; then
-	echo "removing files $DSTX/hilfe* $DSTX/rechtliche*"
+	echo2 "  -- removing files /usr/www/$DIR/help/hilfe* "
+	echo2 "  -- removing files /usr/www/$DIR/help/rechtliche*"
 	rm -f $DSTX/hilfe* $DSTX/rechtliche*
 	[ -f ${DSTX}/home.html ] && sed -i -e 's/local g_txt/local g_txt_removed/' ${DSTX}/home.html
     else

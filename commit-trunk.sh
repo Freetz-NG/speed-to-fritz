@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* Speedlinux installer, update sublime version."
+comment="* Minor style corrections on last commit."
 
 
 
