@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* W501 Changed preconfigured Annex A to OEM avm"
+comment="* Speedlinux update colinux version"
 
 
 

@@ -95,7 +95,8 @@ LONG_VER=$(ls lib/modules)
 echo $LONG_VER > LONG_VER
 rm -fR lib
 echo "Modulversion in use: $LONG_VER"
-7z x -y $ALL_BASE/dl/devel-coLinux-${COLINUX_EXE_VER}.exe
+##no need to use exe if all files are present
+#7z x -y $ALL_BASE/dl/devel-coLinux-${COLINUX_EXE_VER}.exe
 cp $ALL_BASE/replace/* .
 ln -s ${ALL_BASE}/Launcher ./
 ln -s ${ALL_BASE}/pulseaudio ./
