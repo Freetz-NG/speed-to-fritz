@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* Minor style corrections on last commit."
+comment="* W501 Changed preconfigured Annex A to OEM avm"
 
 
 
