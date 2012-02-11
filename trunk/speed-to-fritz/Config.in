@@ -103,7 +103,7 @@ config AVM_7113_60_04_68
 
 config AVM_7113_90_04_82
     string
-    default "@AVM/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch_a-ch/annex_a/FRITZ.Box_Fon_WLAN_7113.AnnexA.de-en-es-it-fr.90.04.82.image"
+    default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7113/firmware/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7113.AnnexA.de-en-es-it-fr.90.04.82.image"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM 7140 Firmware
 config AVM_7140_30_04_33
@@ -129,7 +129,7 @@ config AVM_7141_40_04_76
     default "@AVM/fritz.box/fritzbox.fon_wlan_7141/firmware/deutsch/FRITZ.Box_Fon_WLAN_7141.40.04.76.image"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM 7150 Firmware
-
+#def
 config AVM_7150_38_04_27
     string
     default "ftp://ftp.freenet.de/pub/hardware/Firmware/AVM/fritz.fon.7150/archiv/FRITZ.Fon_7150.38.04.27.image"
@@ -140,7 +140,7 @@ config AVM_7150_38_04_32
 
 config AVM_7150_38_04_56
     string
-    default "ftp://service.avm.de/38.04.56/FRITZ.Fon_7150.AnnexB.38.04.56.image"
+    default "ftp://service.avm.de/../38.04.56/FRITZ.Fon_7150.AnnexB.38.04.56.image"
 
 config AVM_7150_38_04_71
     string
@@ -192,7 +192,7 @@ config AVM_BETA_7170_19957
 
 config AVM_7240_73_04_80
     string
-    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207240/FRITZ.Box_Fon_WLAN_7240.73.04.80.image"
+    default "ftp://service.avm.de/../Downgrade/FRITZ!Box%20Fon%20WLAN%207240/FRITZ.Box_Fon_WLAN_7240.73.04.80.image"
 
 config AVM_7240_73_04_87
     string
@@ -208,7 +208,7 @@ config AVM_PRE_7240_20170
 #11581
 config AVM_7272_54_04_58
     string
-    default "ftp://service.avm.de/Zwischenupdate/FRITZ!Box%20Fon%20WLAN%207270%20(54.04.58)/FRITZ.Box_Fon_WLAN_7270.AnnexB.54.04.58.image"
+    default "ftp://service.avm.de/../Zwischenupdate/FRITZ!Box%20Fon%20WLAN%207270%20(54.04.58)/FRITZ.Box_Fon_WLAN_7270.AnnexB.54.04.58.image"
 #    default "@AVM/fritz.box/fritzbox.fon_wlan_7270/firmware/deutsch/Release_FRITZ.Box_Fon_WLAN_7270.54.04.58.zip mirror http://www.upload.crunkbass.de/?a=show&file=52656c656173655f465249545a2e426f785f466f6e5f574c414e5f373237302e35342e30342e35382e7a6970&big=1"
 #12315
 config AVM_7272_54_04_59
@@ -229,7 +229,7 @@ config AVM_7273_m74_04_89
     
 config AVM_7272_54_04_76
     string
-    default "ftp://service.avm.de/xx.04.76/FRITZ!Box%20Fon%20WLAN%207270/FRITZ.Box_Fon_WLAN_7270.AnnexB.54.04.76.image"
+    default "ftp://service.avm.de/../xx.04.76/FRITZ!Box%20Fon%20WLAN%207270/FRITZ.Box_Fon_WLAN_7270.AnnexB.54.04.76.image"
 
 config AVM_7272_54_04_80
     string
@@ -253,34 +253,34 @@ config AVM_7271_54_04_88
 
 config AVM_7272_54_04_88
     string
-#    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207270/FRITZ!Box%20Fon%20WLAN%207270%20v2/FRITZ.Box_Fon_WLAN_7270_v2.54.04.88.image"
-    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207270%20v2/deutsch/FRITZ.Box_Fon_WLAN_7270_v2.54.04.88.image"
+#    default "ftp://service.avm.de/../Downgrade/FRITZ!Box%20Fon%20WLAN%207270/FRITZ!Box%20Fon%20WLAN%207270%20v2/FRITZ.Box_Fon_WLAN_7270_v2.54.04.88.image"
+    default "ftp://service.avm.de/../Downgrade/FRITZ!Box%20Fon%20WLAN%207270%20v2/deutsch/FRITZ.Box_Fon_WLAN_7270_v2.54.04.88.image"
 #    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v2.54.04.88.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237305f76322e35342e30342e38382e7a6970.zip"
 
 config AVM_7273_74_04_88
     string
-    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207270%20v3/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.88.image"
+    default "ftp://service.avm.de/../Downgrade/FRITZ!Box%20Fon%20WLAN%207270%20v3/deutsch/FRITZ.Box_Fon_WLAN_7270_v3.74.04.88.image"
 #    default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3.74.04.88.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237305f76332e37342e30342e38382e7a6970.zip"
 
 config AVM_7273_74_04_89
     string
-    default "ftp://service.avm.de/7270_v3/FRITZ.Box_Fon_WLAN_7270_v3.AnnexB.74.04.89.image"
+    default "ftp://service.avm.de/../7270_v3/FRITZ.Box_Fon_WLAN_7270_v3.AnnexB.74.04.89.image"
 
 #config AVM_7272_m54_04_90
 #    string
-#    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207270%20v2/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it-fr.54.04.90.image"
+#    default "ftp://service.avm.de/../Downgrade/FRITZ!Box%20Fon%20WLAN%207270%20v2/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7270_16.AnnexB.en-de-es-it-fr.54.04.90.image"
 
 config AVM_7272_m54_04_90
      string
      default "./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v2.en-de-es-it-fr.54.04.90.zip mirror http://upload.crunkbass.de/big465249545a2e426f785f466f6e5f574c414e5f373237305f76322e656e2d64652d65732d69742d66722e35342e30342e39302e7a6970.zip"
-
+#defect
 config AVM_7272_m54_05_04
     string
     default "@AVM/fritz.box/fritzbox.fon_wlan_7270_v2/firmware/english/FRITZ.Box_Fon_WLAN_7270_16.en-de-es-it-fr.54.05.04.image"
 
 config AVM_7273_m74_04_90
     string
-    default "ftp://service.avm.de/Downgrade/FRITZ!Box%20Fon%20WLAN%207270%20v3/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7270_v3.AnnexB.en-de-es-it-fr.74.04.90.image"
+    default "ftp://service.avm.de/../Downgrade/FRITZ!Box%20Fon%20WLAN%207270%20v3/deutsch_a-ch/FRITZ.Box_Fon_WLAN_7270_v3.en-de-es-it-fr.74.05.04.image"
 
 config AVM_7273_m74_05_04
     string
@@ -307,7 +307,7 @@ config AVM_IPV6_7273_17599
 # 7272 is used instead of 7270v2
 config AVM_PRE_7272_20170
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate_labor.php   HW139:fritzbox-labor-7270v2-20170.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v2.54.05.04-20170.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate_labor.php   HW139:"
 #   Muster eines Links zur php Seite, HW ID muss zusaetzlich angegeben werden damit der richtige Link vom Skript auf der Seite gefunden werden kann. Die Zeile wird automatisch beim Skriptdurchlauf vervollstaendigt.   
 #   default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate.php HW139:"
 #    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_cebit_labor/labor_start_cebit_labor.php HWXXX:" #HW139:
@@ -318,7 +318,7 @@ config AVM_PRE_7272_17828
 
 config AVM_PRE_7273_20170
    string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate_labor.php  HW145:fritzbox-labor-7270v3-20170.zip ./Firmware.orig/Labor_FRITZ.Box_Fon_WLAN_7270_v3.74.05.04-20170.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate_labor.php  HW145"
 #   default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_cebit_labor/labor_start_cebit_labor.php HWXXX:" #HW145
 
 config AVM_DSL_7271_18237
@@ -328,15 +328,15 @@ config AVM_DSL_7271_18237
 
 config AVM_DSL_7272_18582
     string
-    default "ftp://service.avm.de/Labor/FRITZ.Box_Fon_WLAN_7270.AnnexB.54.04.86-18582.image"
+    default "ftp://service.avm.de/../Labor/FRITZ.Box_Fon_WLAN_7270.AnnexB.54.04.86-18582.image"
 
 config AVM_DSL_7272_18956
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_dsl/labor_start_dsl.php HW139:fritz_box-labor-7270v2-18956.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v2.54.04.88-18956.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_dsl/labor_start_dsl.php HW139:"
 
 config AVM_DSL_7273_18956
     string
-    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_dsl/labor_start_dsl.php HW145:fritz_box-labor-7270v3-18956.zip ./Firmware.orig/FRITZ.Box_Fon_WLAN_7270_v3.74.04.88-18956.image"
+    default "http://www.avm.de/de/Service/Service-Portale/Labor/7270_dsl/labor_start_dsl.php HW145:"
 
 config AVM_NAS_7272_19759
    string
@@ -434,7 +434,7 @@ config AVM_NAS_7390_20227
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config AVM_7340_99_04_90
    string
-      default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7340/firmware/english/FRITZ.Box_Fon_WLAN_7340.en-de-es-it-fr.99.04.90.image"
+      default "ftp://ftp.avm.de/fritz.box/fritzbox.fon_wlan_7340/firmware/english/FRITZ.Box_Fon_WLAN_7340.en-de-es-it-fr.99.05.05.image"
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 3170 AVM Firmware
 ### 3170 AVM Firmware
@@ -458,7 +458,8 @@ config AVM_3273_96_04_87
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 config AVM_3370_103_05_06
    string
-      default "ftp://ftp.avm.de/fritz.box/fritzbox.wlan_3370/firmware/deutsch/fritz.box_wlan_3370.103.05.06.image"
+#      default "ftp://service.avm.de/../Downgrade/FRITZ!Box%20WLAN%203370/fritz.box_wlan_3370.103.05.07.image"
+      default "ftp://ftp.avm.de/fritz.box/fritzbox.wlan_3370/firmware/deutsch/fritz.box_wlan_3370.103.05.08.image"
 ### -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # ( do not remove or edit the following line is used as marker)
@@ -498,7 +499,7 @@ config SET_SP2FR_REVISION
 config  EXPORT_SP2FR_REVISION
 	depends on SET_SP2FR_REVISION
 	        string "--> Set revision number "
-	            default "1444" # dont edit this line is changed via ./start.sh - numner "1234" may differ
+	            default "1456" # dont edit this line is changed via ./start.sh - numner "1234" may differ
 	        help
 	            This is the revision number used with speed-to-fritz
 	            example 1265.

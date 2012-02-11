@@ -1,7 +1,7 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* Added script for generating firmware link list
-	Fix: AVM changed php download of labor firmware."
+comment="* Update some firmware links within Config.in
+	be aware that some links still dont work any more."
 
 
 
