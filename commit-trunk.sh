@@ -1,6 +1,7 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* Speedlinux update colinux version"
+comment="* Added script for generating firmware link list
+	Fix: AVM changed php download of labor firmware."
 
 
 

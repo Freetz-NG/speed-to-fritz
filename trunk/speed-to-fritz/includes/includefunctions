@@ -61,7 +61,8 @@ if [ "$DOCHECK" == "y" ]; then
       X_minorversion=${OLDXXVERSION:6:2}
       X_subversion=${OLDXXVERSION:9:5}
       echo "AVM Type: $OLDAVMNUM, Old Firmware Version: $X_version.$X_mayorversion.$X_minorversion-$X_subversion, Old subversion: $OLDREVISON"
-      XXVERSION="$(cat "$DLD_DIR/$IMG_REQ" | sed -n "/<div  id=.B_$LOCAL_HWID.>/,/Datum/{/$X_version......-.*/p}" | sed "s/.*<td>//" | sed "s/<\/td>//")"
+#      XXVERSION="$(cat "$DLD_DIR/$IMG_REQ" | sed -n "/<div  id=.B_$LOCAL_HWID.>/,/Datum/{/$X_version......-.*/p}" | sed "s/.*<td>//" | sed "s/<\/td>//")"
+      XXVERSION="$(cat "$DLD_DIR/$IMG_REQ" | sed -n "/<div  id=.B_$LOCAL_HWID.>/,/Datum/{/Version/{n;p}}" | sed "s/.*<td>//" | sed "s/<\/td>//")"
       #echo "XXVERSION: $XXVERSION"
       Y_version=${XXVERSION:0:2}
       Y_mayorversion=${XXVERSION:3:2}
