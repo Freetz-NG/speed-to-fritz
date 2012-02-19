@@ -109,22 +109,32 @@ get_php "$info_l" "./0" "HW156:" "ftpline" "Version" "Build" "name"
 
 info_l="http://www.avm.de/de/Service/Service-Portale/Labor/7390_vorschau_release_candidate_at_ch/labor_start_vorschau_release_candidate.php"
 get_php "$info_l" "./0" "HW156:" "ftpline" "Version" "Build" "name"
-! [ -z "$name" ] && echo "$name n=$name v=$Version d=$ftpline t="Labor Beta" l="Deutsch_at_ch" b=$Build i=$info_l " >> "./0/log_s"
+! [ -z "$name" ] && echo "$name n=$name v=$Version d=$ftpline t="Labor_Beta" l="Deutsch_at_ch" b=$Build i=$info_l " >> "./0/log_s"
 [ -z "$name" ] && echo "Labor firmware link not found!" && sleep 5
 
 info_l="http://www.avm.de/de/Service/Service-Portale/Labor/7390_vorschau_release_candidate/labor_start_7390.php"
 get_php "$info_l" "./0" "HW156:" "ftpline" "Version" "Build" "name"
-! [ -z "$name" ] && echo "$name n=$name v=$Version d=$ftpline t="Labor Beta" l="-" b=$Build i=$info_l " >> "./0/log_s"
+! [ -z "$name" ] && echo "$name n=$name v=$Version d=$ftpline t="Labor_Beta" l="-" b=$Build i=$info_l " >> "./0/log_s"
+[ -z "$name" ] && echo "Labor firmware link not found!" && sleep 5
+#7270v2
+info_l="http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate_labor.php"
+get_php "$info_l" "./0" "HW145:" "ftpline" "Version" "Build" "name"
+! [ -z "$name" ] && echo "$name n=$name v=$Version d=$ftpline t="Labor_Beta" l="-" b=$Build i=$info_l " >> "./0/log_s"
+[ -z "$name" ] && echo "Labor firmware link not found!" && sleep 5
+#7270v3
+info_l="http://www.avm.de/de/Service/Service-Portale/Labor/7270_vorschau_release_candidate/labor_start_vorschau_release_candidate_labor.php"
+get_php "$info_l" "./0" "HW139:" "ftpline" "Version" "Build" "name"
+! [ -z "$name" ] && echo "$name n=$name v=$Version d=$ftpline t="Labor_Beta" l="-" b=$Build i=$info_l " >> "./0/log_s"
 [ -z "$name" ] && echo "Labor firmware link not found!" && sleep 5
 #7270v2
 info_l="http://www.avm.de/de/Service/Service-Portale/Labor/7270_dsl/labor_start_dsl.php"
 get_php "$info_l" "./0" "HW145:" "ftpline" "Version" "Build" "name"
-! [ -z "$name" ] && echo "$name n=$name v=$Version d=$ftpline t="Labor DSL" l="-" b=$Build i=$info_l " >> "./0/log_s"
+! [ -z "$name" ] && echo "$name n=$name v=$Version d=$ftpline t="Labor_DSL" l="-" b=$Build i=$info_l " >> "./0/log_s"
 [ -z "$name" ] && echo "Labor firmware link not found!" && sleep 5
 #7270v3
 info_l="http://www.avm.de/de/Service/Service-Portale/Labor/7270_dsl/labor_start_dsl.php"
 get_php "$info_l" "./0" "HW139:" "ftpline" "Version" "Build" "name"
-! [ -z "$name" ] && echo "$name n=$name v=$Version d=$ftpline t="Labor DSL" l="-" b=$Build i=$info_l " >> "./0/log_s"
+! [ -z "$name" ] && echo "$name n=$name v=$Version d=$ftpline t="Labor_DSL" l="-" b=$Build i=$info_l " >> "./0/log_s"
 [ -z "$name" ] && echo "Labor firmware link not found!" && sleep 5
 echo " -- More to look for ..."
 get_fw_all

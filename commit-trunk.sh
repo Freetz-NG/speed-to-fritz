@@ -1,7 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* Update some firmware links within Config.in
-	be aware that some links still dont work any more."
+comment="* Update write link list."
 
 
 
