@@ -30,7 +30,7 @@ if [ -e /etc/SuSE-release -a -x /usr/bin/zypper ] ; then
 		make gcc-c++ glibc-devel ncurses-devel automake patch \
 		subversion lukemftp kdiff3  $ARCHPKG lynx
 else
-    sudo apt-get -y install \
+    sudo apt-get -y --fix-missing install \
 	fakeroot \
 	make \
 	build-essential \
@@ -39,10 +39,16 @@ else
 	patch \
 	subversion \
 	ftp \
-	kdiff3 \
 	apt-xapian-index \
 	$ARCHPKG \
 	lynx
+    # kdiff3-qt also avalable with Ubuntu does not need KDE 
+    if lsb_release -a | grep -q Ubuntu; then
+	echo ------------
+	sudo apt-get -y --fix-missing install kdiff3-qt
+    else 
+	sudo apt-get -y install kdiff3
+    fi
 fi
 echo "----------------------------------------------------------------------------------------------"
 . ./start
