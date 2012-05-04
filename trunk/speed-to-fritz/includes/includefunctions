@@ -516,7 +516,8 @@ ECHO_ROT="\033[31m"
 ECHO_GELB="\033[33m"
 ECHO_BOLD="\033[1m"
 ECHO_END="\033[0m"
-! ftp -h > /dev/null  2>&1 && echo  "cannot find the tool 'ftp'" && return 1
+#! ftp -h > /dev/null  2>&1 && echo  "cannot find the tool 'ftp'" && return 1
+command -v ftp >/dev/null || { echo "cannot find the tool 'ftp'";return 1; }
 arg="${IMAGEDIR}/kernel.image"
 ! tmpimg=$(mktemp -t speedXXX) && echo "Error creating temporary file." && return 1; 
 cp $arg $tmpimg
