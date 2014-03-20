@@ -142,10 +142,9 @@ config AVM_7150_38_04_56
     string
     default "ftp://service.avm.de/../38.04.56/FRITZ.Fon_7150.AnnexB.38.04.56.image"
 
-config AVM_7150_38_04_71
+config AVM_7150_38_04_72
     string
-    default "@AVM/fritz.box/fritzfon.7150/firmware/fritz.fon_7150.annexb.38.04.71.image"
-
+    default "@AVM/fritz.box/fritzfon.7150/firmware/FRITZ.Fon_7150.AnnexB.38.04.72.image"
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### AVM 7170 Firmware
 
@@ -1387,8 +1386,8 @@ choice
 		help
 			FRITZ! release: 32
 
-	config TYPE_7150_38_04_71
-		bool "AVM 7150 38.04.71"
+	config TYPE_7150_38_04_72
+		bool "AVM 7150 38.04.72"
 		depends on ( TYPE_OR_7150_500_AVMX_LOCALTCOM ) && TYPE_LANG_DE
 		help
 			FRITZ! release: 71
@@ -1944,8 +1943,8 @@ choice
 	config TYPE_SRC3_AVM_7150_38_04_56
 		bool "AVM 7150 38.04.56"
 
-	config TYPE_SRC3_AVM_7150_38_04_71
-		bool "AVM 7150 38.04.71"
+	config TYPE_SRC3_AVM_7150_38_04_72
+		bool "AVM 7150 38.04.72"
 
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ### 7170 Firmware
@@ -2019,7 +2018,7 @@ choice
 		bool "AVM 7270v1 54.04.88 18834"
 
 	config TYPE_SRC3_AVM_7271_54_04_89
-		bool "AVM 7270v1 54.04.89  27422 (Final)"
+		bool "AVM 7270v1 54.04.89  27244 (Final)"
 
 	config TYPE_SRC3_AVM_7272_54_04_88
 		bool "AVM 7270v2 54.04.88 18808 (Final)"
@@ -2163,7 +2162,7 @@ choice
 		select TYPE_FIRMWARE_3_IS_MULTI
 
 	config TYPE_SRC3_AVM_7570_75_04_92
-		bool "AVM 7570 75.04.92.en-de-fr 27492"
+		bool "AVM 7570 75.04.92.en-de-fr 27423"
 		select TYPE_FIRMWARE_3_IS_MULTI
 ###-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 	config TYPE_SRC3_AVM_HN_7570_16971
@@ -2258,7 +2257,7 @@ config TCOM_IMG
 	default "$TCOM_LOCAL"	 		if TYPE_7570_to_7270
 #	default "$AVM_7272_54_04_88"	        if TYPE_7570_to_7270
 #	default "$AVM_7272_54_05_05"	        if TYPE_7570_to_7270
-	default "$AVM_7150_38_04_71"	        if TYPE_7150_to_7170
+	default "$AVM_7150_38_04_72"	        if TYPE_7150_to_7170
 	default "$TCOM_SINUS_27_04_27" 		if TYPE_SINUS_W500V
 	default "$TCOM_W501_28_04_38" 		if TYPE_SPEEDPORT_W501V
 	default "$TCOM_W701_33_04_57" 		if ( ! TYPE_SPECIALCONGSTAR ) && ( TYPE_SPEEDPORT_W701V )
@@ -2309,7 +2308,7 @@ config AVM_IMG
 	default "$AVM_7150_38_04_27" 				if TYPE_7150_38_04_27 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7150_38_04_32" 				if TYPE_7150_38_04_32 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL )
 	default "$AVM_7150_38_04_56" 				if TYPE_7150_38_04_56 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL )
-	default "$AVM_7150_38_04_71" 				if TYPE_7150_38_04_71 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL ) || ( TYPE_SINUS_W500V && ! TYPE_LABOR ) 
+	default "$AVM_7150_38_04_72" 				if TYPE_7150_38_04_72 && ( TYPE_SINUS_W500V || EXPORT_TYPE_LOCAL_MODEL ) || ( TYPE_SINUS_W500V && ! TYPE_LABOR ) 
 	default "$AVM_7170_en_58_04_84" 			if ! TYPE_LANG_DE && TYPE_ANNEX_A && (TYPE_OR_500_701_721_900 )
 	default "$AVM_7170_en_29_04_82" 			if ! TYPE_LANG_DE && ! TYPE_ANNEX_A && (TYPE_OR_500_701_721_900 )
 	default "$AVM_7170_29_04_88" 				if TYPE_LANG_DE && (TYPE_OR_500_701_721_900 )  && ! TYPE_LABOR
@@ -2420,7 +2419,7 @@ config SRC2_IMG
 	default "$AVM_7150_38_04_27" 			if TYPE_SRC3_AVM_7150_38_04_27
 	default "$AVM_7150_38_04_32" 			if TYPE_SRC3_AVM_7150_38_04_32
 	default "$AVM_7150_38_04_56" 			if TYPE_SRC3_AVM_7150_38_04_56
-	default "$AVM_7150_38_04_71" 			if TYPE_SRC3_AVM_7150_38_04_71
+	default "$AVM_7150_38_04_72" 			if TYPE_SRC3_AVM_7150_38_04_72
 	default "$AVM_7170_58_04_50" 			if TYPE_SRC3_AVM_7170_58_04_50
 	default "$AVM_7170_en_58_04_59" 		if TYPE_SRC3_AVM_7170_en_58_04_59
 	default "$AVM_7170_en_58_04_84" 		if TYPE_SRC3_AVM_7170_en_58_04_84
@@ -4744,7 +4743,7 @@ config FORCE_DST_DECTDRIVER
 	default n if ! TYPE_V3_OR_7240 || EXPORT_TYPE_LOCAL_MODEL
 	help
 		Use DECT driver from 1st basis source.
-		V3 firmware DECT driver canït be used with W920 
+		V3 firmware DECT driver can\EFt be used with W920 
 
 config FORCE_SRC2_DECTDRIVER
 	bool "Use DECT driver from 2nd AVM firmware"
@@ -4753,7 +4752,7 @@ config FORCE_SRC2_DECTDRIVER
 	default n
 	help
 		Use DECT driver from 2nd AVM source.
-		V3 firmware DECT driver canït be used with W920 
+		V3 firmware DECT driver can\EFt be used with W920 
 
 config FORCE_OWN_DECTDRIVER
 	bool "Use own DECT driver from ./addon/tmp/XXXX/"
@@ -4762,7 +4761,7 @@ config FORCE_OWN_DECTDRIVER
 	default n
 	help
 		Use DECT driver from local directory ./addon/tmp/WXXX/...
-		V3 firmware DECT driver canït be used with W920, ...
+		V3 firmware DECT driver can\EFt be used with W920, ...
 config SAVE_SRC2_DECTDRIVER
 	bool "Save 2nd AVM source DECT driver to ./addon/tmp/XXXX/"
 	depends on EXPERT_MOD 
@@ -4770,7 +4769,7 @@ config SAVE_SRC2_DECTDRIVER
 	default n
 	help
 		Save DECT driver to local directory ./addon/tmp/XXXX/...
-		V3 firmware DECT driver canït be used with W920, ...
+		V3 firmware DECT driver can\EFt be used with W920, ...
 ### NO AVM Modells 7XXX--->
 if ! EXPORT_TYPE_LOCAL_MODEL
 
