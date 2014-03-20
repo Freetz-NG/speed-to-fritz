@@ -31,7 +31,7 @@ else
 fi
 echo "Looking for new speed-to-fritz version, wait ..."
 set -e
-svn co https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk/speed-to-fritz speed-to-fritz
+svn co https://svn.code.sf.net/p/freetzlinux/code/trunk/speed-to-fritz speed-to-fritz
 
 if [ -d speed-to-fritz ]; then
 	cd speed-to-fritz

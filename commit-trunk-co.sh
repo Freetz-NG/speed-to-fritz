@@ -14,7 +14,7 @@ if [ `id -u` -eq 0 ]; then
 fi
 echo "-------------------------------------------------------------------------------------------------------------"
 echo "Looking for new trunk version, wait ..."
-svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
+svn update https://svn.code.sf.net/p/freetzlinux/code/trunk trunk
 cd trunk
 svn delete --force ./co-new/replace/startup.bat
 

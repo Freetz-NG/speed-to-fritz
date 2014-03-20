@@ -12,7 +12,7 @@ if [ `id -u` -eq 0 ]; then
   exit 0
 fi
 echo "Looking for new speed-to-fritz version, wait ..."
-svn update https://freetzlinux.svn.sourceforge.net/svnroot/freetzlinux/trunk trunk
+svn update https://svn.code.sf.net/p/freetzlinux/code/trunk trunk
 echo "-------------------------------------------------------------------------------------------------------------"
 sleep 2
 #exit
