@@ -1,6 +1,6 @@
 #!/bin/bash
 #place your comment for this uptade here:
-comment="* Update Config.in 'fritz.fon_7150.annexb.38.04.72.image'"
+comment="* Update Config.in and build recover"
 
 
 
